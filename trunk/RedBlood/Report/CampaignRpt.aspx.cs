@@ -39,8 +39,8 @@ public partial class Report_CampaignRpt : System.Web.UI.Page
                     LabelTitle2.Text = "Dương tính (Không bao gồm HIV)";
                     foreach (DataControlField item in GridView1.Columns)
                     {
-                        if (item.HeaderText == "HIV")
-                        { item.Visible = false; }
+                        //if (item.HeaderText == "HIV")
+                        //{ item.Visible = false; }
                     }
 
                     break;
