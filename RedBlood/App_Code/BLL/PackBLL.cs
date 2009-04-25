@@ -127,6 +127,7 @@ public class PackBLL
             p.Status = Pack.StatusX.Assign;
             p.CollectedDate = DateTime.Now;
             p.CampaignID = campaignID;
+            p.ComponentID = (int)TestDef.Component.Full;
 
             db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, p.Status, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString()));
 
@@ -441,19 +442,19 @@ public class PackBLL
         if (e == null || e.HIVID == null || e.HBsAgID == null || e.HCVID == null || e.SyphilisID == null || e.MalariaID == null)
             throw new Exception("Chưa nhập kết quả túi máu.");
 
-        if (e.HIVID.Value == (int)TestDef.HIV.Pos)
+        if (e.HIVID.Value == (int)TestDef.HIV.Pos || e.HIVID.Value == (int)TestDef.HIV.NA)
             r.Add(e.HIV);
 
-        if (e.HBsAgID.Value == (int)TestDef.HBsAg.Pos)
+        if (e.HBsAgID.Value == (int)TestDef.HBsAg.Pos || e.HBsAgID.Value == (int)TestDef.HBsAg.NA)
             r.Add(e.HBsAg);
 
-        if (e.HCVID.Value == (int)TestDef.HCV.Pos)
+        if (e.HCVID.Value == (int)TestDef.HCV.Pos || e.HCVID.Value == (int)TestDef.HCV.NA)
             r.Add(e.HCV);
 
-        if (e.SyphilisID.Value == (int)TestDef.Syphilis.Pos)
+        if (e.SyphilisID.Value == (int)TestDef.Syphilis.Pos || e.SyphilisID.Value == (int)TestDef.Syphilis.NA)
             r.Add(e.Syphilis);
 
-        if (e.MalariaID.Value == (int)TestDef.Malaria.Pos)
+        if (e.MalariaID.Value == (int)TestDef.Malaria.Pos || e.MalariaID.Value == (int)TestDef.Malaria.NA)
             r.Add(e.Malaria);
 
         return r.ToArray();
@@ -559,12 +560,14 @@ public class PackBLL
 
         if (rptType == ReportType.FourPosInCam)
         {
-            return v.ToList().Where(r => ValidateTestResult(r.TestResult2).Where(tdef => tdef.ID != (int)TestDef.HIV.Pos).Count() != 0).ToList();
+            return v.ToList().Where(r => 
+                ValidateTestResult(r.TestResult2).Count() > 0 &&
+                ValidateTestResult(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 0).ToList();
         }
 
         if (rptType == ReportType.HIVInCam)
         {
-            return v.ToList().Where(r => PackBLL.ValidateTestResult(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos).Count() == 1).ToList();
+            return v.ToList().Where(r => PackBLL.ValidateTestResult(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 1).ToList();
         }
         
         return null;

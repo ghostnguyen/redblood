@@ -61,7 +61,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
             if (e != null)
             {
                 Autonum = e.Autonum;
-                ImageCodabar.ImageUrl = "~/Codabar/Image.aspx?hasText=true&code=" + codabarBLL.GenStringCode(Resources.Codabar.packSSC, e.Autonum.ToString());
+                ImageCodabar.ImageUrl = "~/Codabar/Image.aspx?hasText=true&code=" + CodabarBLL.GenStringCode(Resources.Codabar.packSSC, e.Autonum.ToString());
 
                 if (e.ComponentID != null)
                     DropDownListComponent.SelectedValue = e.ComponentID.ToString();

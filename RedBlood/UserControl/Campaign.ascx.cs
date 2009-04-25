@@ -105,7 +105,7 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
         else
         {
             imgCodabar.ImageUrl = "../Codabar/Image.aspx?hasText=true&code="
-                + codabarBLL.GenStringCode(Resources.Codabar.campaignSSC, e.ID.ToString());
+                + CodabarBLL.GenStringCode(Resources.Codabar.campaignSSC, e.ID.ToString());
             txtName.Text = e.Name;
 
             if (e.Est != null)

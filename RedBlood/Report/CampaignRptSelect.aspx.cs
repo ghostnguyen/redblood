@@ -41,11 +41,12 @@ public partial class Report_CampaignRptSelect : System.Web.UI.Page
 
             HyperLinkNegThankLetter.NavigateUrl = "../Report/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
             HyperLinkPosThankLetter.NavigateUrl = "../Report/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            HyperLinkHIVThankLetter.NavigateUrl = "../Report/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
             HyperLinkNegEnvolope.NavigateUrl = "../Report/Envelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
             HyperLinkPosEnvelope.NavigateUrl = "../Report/Envelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
             HyperLinkHIVEnvelope.NavigateUrl = "../Report/Envelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+
+            HyperLinkHIVInvitationLetter.NavigateUrl = "../Report/InvitationLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
         }
     }
 }

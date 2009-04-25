@@ -36,7 +36,7 @@ public partial class Report_CampaignRpt : System.Web.UI.Page
             {
                 case ReportType.FourPosInCam:
                     LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
-                    LabelTitle2.Text = "Dương tính (Không bao gồm HIV)";
+                    //LabelTitle2.Text = "Dương tính (Không bao gồm HIV)";
                     foreach (DataControlField item in GridView1.Columns)
                     {
                         //if (item.HeaderText == "HIV")
@@ -46,12 +46,12 @@ public partial class Report_CampaignRpt : System.Web.UI.Page
                     break;
                 case ReportType.NegInCam:
                     LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
-                    LabelTitle2.Text = "Âm tính";
+                    //LabelTitle2.Text = "Âm tính";
 
                     break;
                 case ReportType.HIVInCam:
                     LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
-                    LabelTitle2.Text = "Dương tính (Bao gồm HIV)";
+                    //LabelTitle2.Text = "Dương tính (Bao gồm HIV)";
 
                     break;
                 default:

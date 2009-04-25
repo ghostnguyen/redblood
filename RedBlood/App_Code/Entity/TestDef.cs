@@ -50,6 +50,11 @@ public partial class TestDef
         NA = 45
     }
 
+    public enum Component : int
+    {
+        Full = 25
+    }
+
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
         if (action == System.Data.Linq.ChangeAction.Insert

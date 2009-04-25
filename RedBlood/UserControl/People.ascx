@@ -8,7 +8,7 @@
     });
 </script>
 
-<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">    
+<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <asp:Panel runat="server" ID="Panel1">
             <table>
@@ -43,7 +43,10 @@
                         Ngày sinh
                     </td>
                     <td>
-                        <asp:TextBox ID="txtDOB" runat="server" CssClass="people_cellvalue" />
+                        <asp:TextBox ID="txtDOB" runat="server" />
+                        <asp:TextBox ID="txtDOB_Day" runat="server" MaxLength="2" /> - 
+                        <asp:TextBox ID="txtDOB_Month" runat="server" MaxLength="2" /> - 
+                        <asp:TextBox ID="txtDOB_Year" runat="server" MaxLength="4" />
                         <div id="divErrDOB" runat="server" class="hidden">
                         </div>
                     </td>

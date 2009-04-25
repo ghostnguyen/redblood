@@ -55,6 +55,13 @@ public partial class People
             throw new Exception("Nhập họ và tên.");
     }
 
+    public void SetDOBFromVNFormat(string dd,string mm,string yyyy)
+    {
+        dd = dd.Trim();
+        mm = mm.Trim();
+        yyyy = yyyy.Trim();
+    }
+
     public void SetDOBFromVNFormat(string value)
     {
         value = value.Trim();

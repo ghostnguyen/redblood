@@ -92,12 +92,12 @@ public partial class Pack
         }
     }
 
-    public TestResult TestResult2 
+    public TestResult TestResult2
     {
         get
         {
             return TestResults.Where(r => r.Times == 2).First();
-        } 
+        }
     }
 
     public BloodType BloodType2
@@ -108,5 +108,9 @@ public partial class Pack
         }
     }
 
+    public string Code
+    {
+        get { return CodabarBLL.GenPackCode(Autonum); }
+    }
 
 }

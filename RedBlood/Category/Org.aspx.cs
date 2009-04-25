@@ -75,7 +75,7 @@ public partial class Category_Org : System.Web.UI.Page
         else
         {
             imgCodabar.ImageUrl = "../Codabar/Image.aspx?hasText=true&code="
-                + codabarBLL.GenStringCode(Resources.Codabar.orgSSC, e.ID.ToString());
+                + CodabarBLL.GenStringCode(Resources.Codabar.orgSSC, e.ID.ToString());
             txtName.Text = e.Name;
 
             txtAddress.Text = e.Address;
