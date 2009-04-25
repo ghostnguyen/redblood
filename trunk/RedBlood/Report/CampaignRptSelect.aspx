@@ -28,7 +28,7 @@
                 <br />
                 <asp:HyperLink runat="server" Text="DS Dương tính HIV" ID="HyperLinkHIV">                                
                 </asp:HyperLink>
-                <asp:HyperLink runat="server" Text="Thư cảm ơn" ID="HyperLinkHIVThankLetter">                
+                <asp:HyperLink runat="server" Text="Thư mời" ID="HyperLinkHIVInvitationLetter">                
                 </asp:HyperLink>
                 <asp:HyperLink runat="server" Text="In bìa thư" ID="HyperLinkHIVEnvelope">                
                 </asp:HyperLink>

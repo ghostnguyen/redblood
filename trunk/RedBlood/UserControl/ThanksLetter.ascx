@@ -38,8 +38,8 @@
         <br />
         Năm sinh:
         <asp:Label ID="LabelDOB" runat="server"></asp:Label>
-        <span style="margin-left: 150px;">CMND: </span>
-        <asp:Label ID="LabelCMND" runat="server"></asp:Label>
+        <span style="margin-left: 150px;">Mã túi máu: </span>
+        <asp:Label ID="LabelPackCode" runat="server"></asp:Label>
         <br />
         Địa chỉ:
         <asp:Label ID="LabelAddress" runat="server"></asp:Label>

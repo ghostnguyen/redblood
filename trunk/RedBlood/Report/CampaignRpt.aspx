@@ -141,7 +141,7 @@
                                 <br />
                                 Khoa Huyết học - Truyền máu
                                 <br />
-                                Phó trưởng khoa
+                                Trưởng khoa
                             </div>
                         </td>
                     </tr>

@@ -100,7 +100,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
         else
         {
             imgCodabar.Attributes.Add("src", "./Codabar/Image.aspx?code="
-                + codabarBLL.GenStringCode(Resources.Codabar.peopleSSC, e.ID.ToString()));
+                + CodabarBLL.GenStringCode(Resources.Codabar.peopleSSC, e.ID.ToString()));
 
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;

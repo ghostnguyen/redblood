@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EnterPack.ascx.cs" Inherits="UserControl_EnterPack" %>
 <%@ Register Src="~/UserControl/CampaignDetail.ascx" TagPrefix="uc" TagName="CamDetail" %>
-
 <div class="part">
     <div class="partHeader">
         Thu máu
@@ -15,8 +14,8 @@
         <br />
         <asp:Label ID="lblPackMsg" runat="server" ForeColor="red"></asp:Label>
     </div>
-    <div class="partLink" style="visibility:collapse;">
-        <table width="100%" >
+    <div class="partLink">
+        <table width="100%">
             <tr>
                 <td>
                     Thành phần<br />
@@ -29,7 +28,7 @@
                         TableName="TestDefs" Where="ID == 25 || ID == 30">
                     </asp:LinqDataSource>
                 </td>
-                <td>
+                <td style="visibility:collapse;">
                     Thể tích (ml)<br />
                     <asp:DropDownList ID="DropDownListVolume" runat="server" DataSourceID="LinqDataSourceVolume"
                         DataTextField="Name" DataValueField="ID" AppendDataBoundItems="true" CssClass="packProperty"
@@ -41,7 +40,7 @@
                     </asp:LinqDataSource>
                 </td>
             </tr>
-            <tr>
+            <tr style="visibility:collapse;">
                 <td colspan="2" style="border-bottom: dotted 1px; padding: 0px 0px 8px 0px;">
                     <asp:Button ID="btnCommitWithout" runat="server" OnClientClick="return confirm('Xác nhận thu máu (không ABO test)?');"
                         Visible="false" Text="Xác nhận (không ABO test)" OnClick="btnCommitWithout_Click">
@@ -50,7 +49,7 @@
                     <asp:Label ID="Label1" runat="server" ForeColor="red"></asp:Label>
                 </td>
             </tr>
-            <tr>
+            <tr style="visibility:collapse;">
                 <td>
                     ABO<br />
                     <asp:DropDownList ID="DropDownListABO" runat="server" DataSourceID="LinqDataSource1"
@@ -93,8 +92,7 @@
             Túi máu thu trong đợt
         </div>
         <div class="partLinkLast">
-        <uc:CamDetail runat="server" ID="ucCampaign" />
-        
+            <uc:CamDetail runat="server" ID="ucCampaign" />
         </div>
     </div>
 </div>

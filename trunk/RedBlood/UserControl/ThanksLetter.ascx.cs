@@ -26,15 +26,13 @@ public partial class UserControl_ThanksLetter : System.Web.UI.UserControl
 
     }
 
-    public void Fill_Letter()
-    {
-        Fill_Letter(TestResultBLL.GetByID(TestResultID));
-    }
+    
     public void Fill_Letter(TestResult e)
     {
         LabelName.Text = e.Pack.People.Name;
         LabelDOB.Text = e.Pack.People.DOB.ToStringVN();
-        LabelCMND.Text = e.Pack.People.CMND;
+
+        LabelPackCode.Text = e.Pack.Code;
         LabelAddress.Text = e.Pack.People.FullResidentalAddress;
 
         if (e.HIVID == null)

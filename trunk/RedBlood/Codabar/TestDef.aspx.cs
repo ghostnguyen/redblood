@@ -25,7 +25,7 @@ public partial class Codabar_TestDef : System.Web.UI.Page
                      ParentName = r.Parent.Name,
                      r.Note,
                      r.Level,
-                     Codabar = ("Image.aspx?code=" + bll.GenStringCode(Resources.Codabar.testResultSSC, r.ID.ToString()))
+                     Codabar = ("Image.aspx?code=" + CodabarBLL.GenStringCode(Resources.Codabar.testResultSSC, r.ID.ToString()))
                  });
 
         e.Result = v.OrderBy(p => p.ParentName);
@@ -42,7 +42,7 @@ public partial class Codabar_TestDef : System.Web.UI.Page
                      r.Name,
                      r.Note,
                      r.Level,
-                     Codabar = ("Image.aspx?code=" + bll.GenStringCode(Resources.Codabar.testResultSSC, r.ID.ToString()))
+                     Codabar = ("Image.aspx?code=" + CodabarBLL.GenStringCode(Resources.Codabar.testResultSSC, r.ID.ToString()))
                  });
 
         e.Result = v.OrderBy(p => p.Name);

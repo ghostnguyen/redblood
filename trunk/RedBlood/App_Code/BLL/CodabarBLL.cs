@@ -10,7 +10,7 @@ using System.Web;
 /// </summary>
 public class CodabarBLL
 {
-    string hospitalCode;
+    static string hospitalCode;
     public CodabarBLL()
     {
         HospitalBLL hospitalBLL = new HospitalBLL();
@@ -18,7 +18,12 @@ public class CodabarBLL
         hospitalCode = h.Code;
     }
 
-    public string GenStringCode(string ssc, string code)
+    public static string GenPackCode(int autonum)
+    {
+        return GenStringCode(Resources.Codabar.packSSC, autonum.ToString());
+    }
+
+    public static string GenStringCode(string ssc, string code)
     {
         if (code.Length > 0)
         {

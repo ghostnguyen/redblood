@@ -48,7 +48,7 @@ public partial class UserControl_CampaignDetail : System.Web.UI.UserControl
         else
         {
             ImageCodabar.ImageUrl = "../Codabar/Image.aspx?hasText=true&code="
-                + codabarBLL.GenStringCode(Resources.Codabar.campaignSSC, e.ID.ToString());
+                + CodabarBLL.GenStringCode(Resources.Codabar.campaignSSC, e.ID.ToString());
             lblName.Text = e.Name;
 
             if (e.Date != null)

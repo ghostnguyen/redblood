@@ -32,8 +32,8 @@ public static class dotNetExt
     }
 
     public static int ToInt(this string s)
-    {        
-        if (string.IsNullOrEmpty(s) ||string.IsNullOrEmpty(s.Trim())) return 0;
+    {
+        if (string.IsNullOrEmpty(s) || string.IsNullOrEmpty(s.Trim())) return 0;
 
         int i;
 
@@ -175,6 +175,11 @@ public static class dotNetExt
         return null;
     }
 
+    public static string ToStringVN(this DateTime dt)
+    {
+        return dt.ToString("dd/MM/yyyy");
+    }
+
     public static string ToStringVN(this DateTime? dt)
     {
         if (dt.HasValue)
@@ -191,6 +196,19 @@ public static class dotNetExt
             return dt.Value.ToString("dd/MM/yyyy hh:mm");
         }
         return "";
+    }
+
+    public static DateTime AddMonthsAvoidWeekend(this DateTime dt, int months)
+    {
+        DateTime temp = dt.AddMonths(months);
+
+        if (temp.DayOfWeek == DayOfWeek.Saturday)
+            temp = temp.AddDays(2);
+
+        if (temp.DayOfWeek == DayOfWeek.Sunday)
+            temp = temp.AddDays(1);
+
+        return temp;
     }
 
     public static void SelectByText(this DropDownList ddl, string text)
