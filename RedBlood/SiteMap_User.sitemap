@@ -1,21 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-	<siteMapNode >
+  <siteMapNode >
 
-		<siteMapNode url="ReceiveBlood.aspx" title="Thu máu"  description="" />
-		<siteMapNode url="Campaign.aspx" title="Đợt thu máu"  description="" />
-		<siteMapNode url="" title="Danh mục"  description="">
-			<siteMapNode url="Category/Geo.aspx" title="Địa chính"  description="" />
-			<siteMapNode url="Category/Sex.aspx" title="Giới tính"  description="" />
-			<siteMapNode url="Category/TestDef.aspx" title="Kết quả xét nghiệm"  description="" />
-			<siteMapNode url="Category/Org.aspx" title="Đơn vị"  description="" />
-		</siteMapNode>
-		<siteMapNode url="PackManually.aspx" title="Nhập kết quả"  description="" />
-		<siteMapNode url="" title="Thống kê"  description="">
-			<siteMapNode url="Report/CampaignRptSelect.aspx" title="Đợt thu"  description="" />
-		</siteMapNode>
-		<siteMapNode url="Codabar/Pack.aspx" title="Tạo mã túi máu"  description="" />
-		<siteMapNode url="Admin.aspx" title="Trang quản trị"  description="" />
+    <siteMapNode url="" title="Danh mục"  description="">
+      <siteMapNode url="Category/Geo.aspx" title="Địa chính"  description="" />
+      <siteMapNode url="Category/Sex.aspx" title="Giới tính"  description="" />
+      <siteMapNode url="Category/TestDef.aspx" title="Kết quả xét nghiệm"  description="" />
+      <siteMapNode url="Category/Org.aspx" title="Đơn vị"  description="" />
+      <siteMapNode url="Codabar/Pack.aspx" title="Tạo mã túi máu"  description="" />
+    </siteMapNode>
+    <siteMapNode url="Campaign.aspx" title="Đợt thu máu"  description="" />
+    <siteMapNode url="ReceiveBlood.aspx" title="Thu máu"  description="" />
+    <siteMapNode url="PackManually.aspx" title="Nhập kết quả"  description="" />
+    <siteMapNode url="" title="In danh sách"  description="">
+      <siteMapNode url="Report/CampaignRptSelect.aspx" title="Đợt thu"  description="" />
+    </siteMapNode>
+    <siteMapNode url="" title="Thống kê"  description="">
+    </siteMapNode>
+    
+    <siteMapNode url="Admin.aspx" title="Trang quản trị"  description="" />
 
-	</siteMapNode>
+  </siteMapNode>
 </siteMap>
