@@ -1,0 +1,83 @@
+﻿<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+--%>
+
+
+<asp:GridView runat="server" CellPadding="4" ForeColor="#333333"  
+                    GridLines="None" >
+                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <EditRowStyle BackColor="#999999" />
+                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+</asp:GridView>
+                
+
+<asp:GridView runat="server" GridLines="Both" SkinID="GridViewRpt" runat="server" CellPadding="4">
+
+</asp:GridView>      
+
+<asp:GridView runat="server" SkinID="GridViewBlank" runat="server" CellPadding="2" GridLines="None" Width="100%" >
+
+    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                    
+</asp:GridView>
+
+<asp:DetailsView runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <CommandRowStyle BackColor="#E2DED6" Font-Bold="True" />
+                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                    <FieldHeaderStyle BackColor="#E9ECF1" Font-Bold="True" />
+                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <EditRowStyle BackColor="#999999" />
+                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                </asp:DetailsView>
+                
+<asp:DetailsView runat="server" SkinID="DetailViewBlank" GridLines="None" >
+                    
+</asp:DetailsView>
+                
+<asp:LinkButton ForeColor="#333333" runat="server" SkinID="InGrid"/>
+
+<asp:Menu SkinID="menuTab" runat="server" BackColor="#FFFBD6" 
+                DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="0.8em" 
+                ForeColor="#990000" StaticSubMenuIndent="10px">
+                <StaticSelectedStyle BackColor="#FFCC66" />
+                <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                <DynamicHoverStyle BackColor="#990000" ForeColor="White" />
+                <DynamicMenuStyle BackColor="#FFFBD6" />
+                <DynamicSelectedStyle BackColor="#FFCC66" />
+                <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                <StaticHoverStyle BackColor="#990000" ForeColor="White" />
+            </asp:Menu>
+            
+<asp:ImageButton SkinID="ImageButtonDelete" runat="server" ImageUrl="~/Image/Icon/Delete.png" />
+
+
+<asp:TreeView ImageSet="Simple" runat="server"  >
+    <ParentNodeStyle Font-Bold="False" />
+    <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
+    <SelectedNodeStyle ForeColor="White" 
+        HorizontalPadding="0px" VerticalPadding="0px" BackColor="ActiveCaption"  />
+    <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" 
+        HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
+</asp:TreeView>
+
+
+
+

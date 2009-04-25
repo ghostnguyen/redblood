@@ -1,0 +1,188 @@
+﻿.main_window
+{
+	width: 960px;
+	border: solid 1px #999999;
+}
+
+.main_window_rpt
+{
+	width: 960px;	
+}
+
+.Banner
+{
+	width: 100%;
+	margin: 5px 0px 5px 0px;
+}
+
+.Important
+{
+	font-size: large;
+	color: Red;
+}
+
+.Title
+{
+	font: bold x-large Arial;
+}
+
+.main_menu
+{
+	width: 100%;
+	border-top: solid 1px #999999;
+	border-bottom: solid 1px #999999;
+}
+
+.searchBarcodePanel
+{
+	text-align: center;
+	background: #fff url(../../Image/searchBarBG.gif) repeat-x bottom left;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 0 10px 0px;
+}
+
+.content
+{
+	padding: 3px;
+}
+
+
+
+.part
+{
+	margin-bottom: 15px;
+	background-color: #f8fafb;
+	border: #4fa4c3 solid 1px;
+}
+
+.partHeader
+{
+	background: url(../../Image/PartHeaderBar.gif) repeat-x;
+	height: 28px;
+	font: Arial;
+	font-weight: bold;
+	color: #282828;
+	border-bottom: #bedbe6 solid 1px;
+	line-height: 195.5%;
+	padding: 0px 5px;
+}
+
+.partLink
+{
+	margin: 0px 7px;
+	padding: 7px 0px;
+	background: url(../../Image/dottedLine.gif) bottom repeat-x;
+}
+
+.partLinkLast
+{
+	margin: 0px 7px;
+	padding: 7px 0px;
+}
+
+.partLink a:link, .partLinkLast a:link
+{
+	color: #1e5b7e;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.partLink a:hover, .partLinkLast a:hover
+{
+	text-decoration: underline;
+}
+
+.people_cellheader
+{
+	text-align: right;
+	width: 80px;
+	padding-right: 8px;
+	vertical-align: top;
+}
+
+.people_cellvalue
+{
+	width: 280px;
+}
+
+.campaign_cellheader
+{
+	text-align: right;
+	width: 100%;
+	padding-right: 8px;
+	vertical-align: top;
+}
+.campaign_cellvalue
+{
+	width: 250px;
+}
+
+.org_cellvalue
+{
+	width: 280px;
+}
+
+.img_codabar
+{
+	background: url(../../Image/dottedLine.gif) top repeat-x;
+	height: 55px;
+}
+
+.dotLineBottom
+{
+	height: 15px;
+	background: url(../../Image/dottedLine.gif) center repeat-x;
+}
+
+/*Textbox Watermark*/
+.unwatermarked
+{
+}
+
+.watermarked
+{
+	border: solid 2px;
+	background-color: #F0F8FF;
+	color: gray;
+	width: 280px;
+}
+
+
+.tabPanel
+{
+	border: solid 5px #FFCC66;
+	padding: 5px 5px 5px 5px;
+}
+
+
+.propertyHeaderCell
+{
+	width: 150px;
+}
+
+.propertyContent
+{
+}
+.txtPoint
+{
+	width: 50px;
+}
+
+.packProperty
+{
+	text-align: center;
+	font-size: larger;
+	width: 100%;
+}
+
+.hidden
+{
+	visibility: hidden;
+	height: 0px;
+	width: 0px;
+}
+
+.err
+{
+	color:Red;
+}

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode >
+
+    <siteMapNode url="" title="Quản lý người dùng"  description="">
+      
+      <siteMapNode url="Membership/CreatingUserAccount.aspx" title="Tạo mới"  description="" />
+      <siteMapNode url="Membership/ManageUser.aspx" title="Thay đổi thông tin"  description="" />
+      <siteMapNode url="Membership/ResetPassword.aspx" title="Khôi phục mật khẩu"  description="" />
+
+      <siteMapNode url="" title="-------------"  description="" />
+      
+      <siteMapNode url="Membership/UserAndRole.aspx" title="Gán quyền"  description="" />
+
+    </siteMapNode>
+
+    <siteMapNode url="Default.aspx" title="Trang chủ"  description="" />
+
+  </siteMapNode>
+</siteMap>
