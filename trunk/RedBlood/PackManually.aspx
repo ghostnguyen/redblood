@@ -17,7 +17,7 @@
                     DataKeyNames="Autonum" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating"
                     OnRowUpdated="GridView1_RowUpdated">
                     <Columns>
-                        <asp:CommandField ShowEditButton="True" EditText="Nhập KQXN" UpdateText="Lưu" CancelText="Ko lưu" />
+                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu" />
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="Label3" runat="server" Text="Túi máu" />
@@ -179,6 +179,7 @@
                                 </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
+                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
