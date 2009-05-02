@@ -10983,6 +10983,8 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<bool> _EnableMailingAddress;
 	
+	private string _NameNoDiacritics;
+	
 	private EntitySet<PeopleStayIn> _PeopleStayIns;
 	
 	private EntitySet<Pack> _Packs;
@@ -11051,6 +11053,8 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnMailingGeoID3Changed();
     partial void OnEnableMailingAddressChanging(System.Nullable<bool> value);
     partial void OnEnableMailingAddressChanged();
+    partial void OnNameNoDiacriticsChanging(string value);
+    partial void OnNameNoDiacriticsChanged();
     #endregion
 	
 	public People()
@@ -11536,6 +11540,26 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 				this._EnableMailingAddress = value;
 				this.SendPropertyChanged("EnableMailingAddress");
 				this.OnEnableMailingAddressChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_NameNoDiacritics", DbType="NVarChar(MAX)")]
+	public string NameNoDiacritics
+	{
+		get
+		{
+			return this._NameNoDiacritics;
+		}
+		set
+		{
+			if ((this._NameNoDiacritics != value))
+			{
+				this.OnNameNoDiacriticsChanging(value);
+				this.SendPropertyChanging();
+				this._NameNoDiacritics = value;
+				this.SendPropertyChanged("NameNoDiacritics");
+				this.OnNameNoDiacriticsChanged();
 			}
 		}
 	}

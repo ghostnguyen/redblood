@@ -54,9 +54,9 @@ public partial class UserControl_People : System.Web.UI.UserControl
             }
             else if (codabarBLL.IsValidTestResultCode(Code))
             { }
-            else if (codabarBLL.IsValidPeopleCode(Code))
+            else if (CodabarBLL.IsValidPeopleCode(Code))
             {
-                People r = bll.GetByCode(Code);
+                People r = PeopleBLL.GetByCode(Code);
                 if (r != null)
                 {
                     PeopleID = r.ID;
@@ -92,7 +92,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
     public void LoadPeople()
     {
-        People e = bll.GetByID(PeopleID);
+        People e = PeopleBLL.GetByID(PeopleID);
 
         if (e == null)
         {

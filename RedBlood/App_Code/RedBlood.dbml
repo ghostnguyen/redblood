@@ -487,6 +487,7 @@
       <Column Name="MailingGeoID2" Storage="_MailingGeo2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="MailingGeoID3" Storage="_MailingGeo3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="EnableMailingAddress" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="People_PeopleStayIn" Member="PeopleStayIns" ThisKey="ID" OtherKey="PeopleID" Type="PeopleStayIn" />
       <Association Name="People_Pack" Member="Packs" ThisKey="ID" OtherKey="PeopleID" Type="Pack" />
       <Association Name="Hospital_People" Member="Hospital" ThisKey="HopistalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />

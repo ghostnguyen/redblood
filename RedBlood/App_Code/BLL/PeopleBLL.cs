@@ -30,7 +30,7 @@ public class PeopleBLL
 
     }
 
-    public People GetByID(Guid ID)
+    public static People GetByID(Guid ID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -43,9 +43,9 @@ public class PeopleBLL
         else return e.First();
     }
 
-    public People GetByCode(string code)
+    public static People GetByCode(string code)
     {
-        Guid ID = codabarBLL.ParsePeopleCode(code);
+        Guid ID = CodabarBLL.ParsePeopleCode(code);
         return GetByID(ID);
     }
 
