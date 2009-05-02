@@ -55,6 +55,11 @@ public partial class People
             throw new Exception("Nhập họ và tên.");
     }
 
+    partial void OnNameChanged()
+    {
+        NameNoDiacritics = Name.RemoveDiacritics();
+    }
+
     public void SetDOBFromVNFormat(string dd,string mm,string yyyy)
     {
         dd = dd.Trim();

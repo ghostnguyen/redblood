@@ -54,7 +54,7 @@ public class CodabarBLL
         return "";
     }
 
-    public bool IsValidPeopleCode(string code)
+    public static bool IsValidPeopleCode(string code)
     {
         if (code.Length == Resources.Codabar.peopleLength.ToInt()
             && code[0].ToString() == Resources.Codabar.peopleStarCode
@@ -88,7 +88,7 @@ public class CodabarBLL
         return regx.IsMatch(code);
     }
 
-    public Guid ParsePeopleCode(string code)
+    public static Guid ParsePeopleCode(string code)
     {
         if (IsValidPeopleCode(code))
             return code.Substring(1, Resources.Codabar.peopleLength.ToInt() - 1).ToGuid();
