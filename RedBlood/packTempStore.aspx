@@ -183,7 +183,7 @@
                                 <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BT.ABO.Name") %>' />
                                 <br />
                                 <asp:Label ID="lblRH" runat="server" Text='<%# Eval("BT.RH.Name") %>' />
-                            </ItemTemplate>
+                            </ItemTemplate>  
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Ghi chú">
                             <ItemTemplate>

@@ -65,7 +65,7 @@ public partial class PackTempStore : System.Web.UI.Page
             //e.Result = campaignBLL.GetByID(CampaignDetail1.CampaignID).Packs;
             e.Result = PackBLL.GetByCampaingID4Manually(
                 CampaignDetail1.CampaignID, new Pack.StatusX[] { Pack.StatusX.Delete });
-        }
+        }  
     }
 
 
