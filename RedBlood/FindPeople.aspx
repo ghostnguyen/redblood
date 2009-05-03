@@ -12,7 +12,7 @@
                     </div>
                     <div class="partLinkLast">
                         <asp:BulletedList ID="BulletedListFilter" runat="server" DisplayMode="LinkButton"
-                            CssClass="noindent">
+                            CssClass="noindent" OnClick="BulletedListFilter_Click">
                         </asp:BulletedList>
                     </div>
                 </div>

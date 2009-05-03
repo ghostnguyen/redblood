@@ -120,8 +120,9 @@ public partial class FindPeople : System.Web.UI.Page
 
         LoadFilter(r.ToList());
 
-
-        e.Result = r.ToList().Where(g => (g.Sex.Name == SexName || string.IsNullOrEmpty(SexName)));
+        e.Result = r.ToList().Where(g => (g.Sex.Name == SexName || string.IsNullOrEmpty(SexName))
+            && (g.ResidentGeo1.Name == Geo1Name || string.IsNullOrEmpty(Geo1Name))
+            && (g.DOB.Value.Decade() == DOBYear.ToInt() || string.IsNullOrEmpty(DOBYear)));
     }
 
 
@@ -144,7 +145,8 @@ public partial class FindPeople : System.Web.UI.Page
         //DOB
         BulletedListDOB.Items.Clear();
         BulletedListDOB.DataSource = rs.Where(e => e.DOB != null)
-            .GroupBy(e => (e.DOB.Value.Year - (e.DOB.Value.Year % 10)))
+            //.GroupBy(e => (e.DOB.Value.Year - (e.DOB.Value.Year % 10)))
+            .GroupBy(e => e.DOB.Value.Decade())
             //.Select(g => new { ID = g.Key, Name = g.Key.ToString() + " - " + (g.Key + 9).ToString() + " (" + g.Count().ToString() + ")" })
             .Select(g => new { ID = g.Key, Name = g.Key.ToString() + "s" + " (" + g.Count().ToString() + ")" })
             .OrderBy(j => j.Name);
@@ -171,9 +173,38 @@ public partial class FindPeople : System.Web.UI.Page
         FilterChange();
     }
 
+    protected void BulletedListFilter_Click(object sender, BulletedListEventArgs e)
+    {
+        if (BulletedListFilter.Items[e.Index].Value == "SexName")
+            SexName = "";
+
+        if (BulletedListFilter.Items[e.Index].Value == "DOBYear")
+            DOBYear = "";
+
+        if (BulletedListFilter.Items[e.Index].Value == "Geo1Name")
+            Geo1Name = "";
+
+        FilterChange();
+    }
+
     void FilterChange()
     {
         BulletedListFilter.Items.Clear();
+
+        if (!string.IsNullOrEmpty(SexName))
+        {
+            BulletedListFilter.Items.Add(new ListItem("(x) " + SexName, "SexName"));
+        }
+
+        if (!string.IsNullOrEmpty(DOBYear))
+        {
+            BulletedListFilter.Items.Add(new ListItem("(x) " + DOBYear, "DOBYear"));
+        }
+
+        if (!string.IsNullOrEmpty(Geo1Name))
+        {
+            BulletedListFilter.Items.Add(new ListItem("(x) " + Geo1Name, "Geo1Name"));
+        }
 
         GridView1.DataBind();
     }
