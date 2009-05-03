@@ -14,14 +14,6 @@ public class PackBLL
     {
     }
 
-    public static DateTime LowerLimDate()
-    {
-        //CollectDate + (ExpireCount - 1) >= Now
-        //CollectDate >= Now + 1 - ExpireCount
-        //CollectDate >= LowerLimDate
-        return DateTime.Now.Date.AddDays(1 - Resources.Setting.EnterPackExpire.ToInt());
-    }
-
     /// <summary>
     /// Return the list of pack status which pack had entered test result
     /// </summary>
@@ -30,6 +22,25 @@ public class PackBLL
     {
         return new Pack.StatusX[] { Pack.StatusX.CommitTestResult };
     }
+
+    /// <summary>
+    /// Return the list of pack status which pack had entered test result
+    /// </summary>
+    /// <returns></returns>
+    public static Pack.StatusX[] StatusListEnteringTestResult()
+    {
+        return new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
+    }
+
+    public static DateTime LowerLimDate()
+    {
+        //CollectDate + (ExpireCount - 1) >= Now
+        //CollectDate >= Now + 1 - ExpireCount
+        //CollectDate >= LowerLimDate
+        return DateTime.Now.Date.AddDays(1 - Resources.Setting.EnterPackExpire.ToInt());
+    }
+
+
 
     public static Pack GetByAutonum(int autonum)
     {
@@ -560,7 +571,7 @@ public class PackBLL
 
         if (rptType == ReportType.FourPosInCam)
         {
-            return v.ToList().Where(r => 
+            return v.ToList().Where(r =>
                 ValidateTestResult(r.TestResult2).Count() > 0 &&
                 ValidateTestResult(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 0).ToList();
         }
@@ -569,18 +580,47 @@ public class PackBLL
         {
             return v.ToList().Where(r => PackBLL.ValidateTestResult(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 1).ToList();
         }
-        
+
         return null;
     }
+
+    public static PackErr Update4TempStore(int autonum, int? volume, int? aboID, int? rhID, string actor, string note)
+    {
+        RedBloodDataContext db;
+
+        Pack p = GetByAutonum(autonum, out db, StatusListEnteringTestResult(), true);
+
+        if (p == null) return PackErrList.NonExist;
+
+        p.Volume = volume;
+
+        BloodTypeBLL.Update(p, 2, aboID, rhID, db, actor, note);
+
+        if (volume != null && aboID != null && rhID != null)
+        {
+            Pack.StatusX from = p.Status;
+            p.Status = Pack.StatusX.CommitTestResult;
+            db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.CommitTestResult, actor, "Manually Enter"));
+        }
+        else
+        {
+            Pack.StatusX from = p.Status;
+            p.Status = Pack.StatusX.EnterTestResult;
+            db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
+        }
+
+        db.SubmitChanges();
+
+        return PackErrList.Non;
+    }
+
     public static PackErr Update4Manually(int autonum, int? componentID, int? volume, int? aboID, int? rhID,
         int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID,
         string actor, string note)
     {
         RedBloodDataContext db;
 
-        Pack p = GetByAutonum(autonum, out db,
-            new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult }, true);
-
+        Pack p = GetByAutonum(autonum, out db, StatusListEnteringTestResult(), true);
 
         if (p == null) return PackErrList.NonExist;
 
