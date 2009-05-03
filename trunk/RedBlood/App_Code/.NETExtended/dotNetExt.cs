@@ -211,6 +211,11 @@ public static class dotNetExt
         return temp;
     }
 
+    public static int Decade(this DateTime dt)
+    {
+        return dt.Year - dt.Year % 10;
+    }
+
     public static void SelectByText(this DropDownList ddl, string text)
     {
         ListItem li = ddl.Items.FindByText(text);
