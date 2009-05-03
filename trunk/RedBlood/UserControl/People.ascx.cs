@@ -111,9 +111,9 @@ public partial class UserControl_People : System.Web.UI.UserControl
             ddlSex.SelectedValue = e.SexID.ToString();
 
             txtResidentAddress.Text = e.ResidentAddress;
-            if (e.ResidentGeo1 != null)                
+            if (e.ResidentGeo1 != null)
                 txtResidentGeo.Text = e.FullResidentalGeo;
-            
+
 
             if (e.EnableMailingAddress == null)
                 chkEnableMaillingAddress.Checked = false;
@@ -136,8 +136,8 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
     public void Clear()
     {
-        ViewState["PeopleID"] = Guid.Empty;        
-        imgCodabar.Attributes.Add("src", "none");        
+        ViewState["PeopleID"] = Guid.Empty;
+        imgCodabar.Attributes.Add("src", "none");
         txtName.Text = "";
         txtCMND.Text = "";
         txtDOB.Text = "";
@@ -248,9 +248,17 @@ public partial class UserControl_People : System.Web.UI.UserControl
         }
 
         if (ddlSex.SelectedValue.ToGuid() == Guid.Empty)
-            p.SexID = null;
+        {
+            //p.SexID = null;
+            divErrSex.Attributes["class"] = "err";
+            divErrSex.InnerText = "Chọn giới tính";
+            isDone = false;
+        }
         else
+        {
             p.SexID = ddlSex.SelectedValue.ToGuid();
+            divErrSex.Attributes["class"] = "hidden";
+        }
 
         p.ResidentAddress = txtResidentAddress.Text.Trim();
 

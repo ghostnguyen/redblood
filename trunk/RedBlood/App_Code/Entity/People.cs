@@ -60,7 +60,7 @@ public partial class People
         NameNoDiacritics = Name.RemoveDiacritics();
     }
 
-    public void SetDOBFromVNFormat(string dd,string mm,string yyyy)
+    public void SetDOBFromVNFormat(string dd, string mm, string yyyy)
     {
         dd = dd.Trim();
         mm = mm.Trim();
@@ -73,7 +73,8 @@ public partial class People
 
         if (String.IsNullOrEmpty(value))
         {
-            DOB = null;
+            //DOB = null;
+            throw new Exception("Nhập ngày tháng năm (dd/mm/yyyy)");
         }
         else
         {
@@ -114,9 +115,10 @@ public partial class People
         value = value.Trim();
         if (String.IsNullOrEmpty(value))
         {
-            ResidentGeoID1 = null;
-            ResidentGeoID2 = null;
-            ResidentGeoID3 = null;
+            //ResidentGeoID1 = null;
+            //ResidentGeoID2 = null;
+            //ResidentGeoID3 = null;
+            throw new Exception("Nhập đơn vị hành chính.");
         }
         else
         {
@@ -218,7 +220,8 @@ public partial class People
     {
         get
         {
-            return ResidentAddress + ", " + FullResidentalGeo;
+            string r = ResidentAddress + ", " + FullResidentalGeo;
+            return r.Trim(',', ' ');
         }
     }
 
@@ -243,7 +246,8 @@ public partial class People
     {
         get
         {
-            return MailingAddress + ", " + FullMaillingGeo;
+            string r = MailingAddress + ", " + FullMaillingGeo;
+            return r.Trim(',', ' ');
         }
     }
 }
