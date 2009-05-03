@@ -43,10 +43,7 @@
                         Ngày sinh
                     </td>
                     <td>
-                        <asp:TextBox ID="txtDOB" runat="server" />
-                        <asp:TextBox ID="txtDOB_Day" runat="server" MaxLength="2" /> - 
-                        <asp:TextBox ID="txtDOB_Month" runat="server" MaxLength="2" /> - 
-                        <asp:TextBox ID="txtDOB_Year" runat="server" MaxLength="4" />
+                        <asp:TextBox ID="txtDOB" runat="server" />                        
                         <div id="divErrDOB" runat="server" class="hidden">
                         </div>
                     </td>
@@ -63,6 +60,8 @@
                         <asp:LinqDataSource ID="LinqDataSourceSex" runat="server" ContextTypeName="RedBloodDataContext"
                             TableName="Sexes">
                         </asp:LinqDataSource>
+                        <div id="divErrSex" runat="server" class="hidden">
+                        </div>
                     </td>
                 </tr>
                 <tr>
