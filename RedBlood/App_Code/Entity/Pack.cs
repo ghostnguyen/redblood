@@ -94,23 +94,28 @@ public partial class Pack
 
     public TestResult TestResult2
     {
-        get
-        {
-            return TestResults.Where(r => r.Times == 2).First();
-        }
+        get { return TestResults.Where(r => r.Times == 2).FirstOrDefault(); }
     }
 
     public BloodType BloodType2
     {
         get
         {
-            return BloodTypes.Where(r => r.Times == 2).First();
+            return BloodTypes.Where(r => r.Times == 2).FirstOrDefault();
         }
     }
 
     public string Code
     {
         get { return CodabarBLL.GenPackCode(Autonum); }
+    }
+
+    public string DeleteNote
+    {
+        get
+        {
+            return PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).FirstOrDefault().Note;
+        }
     }
 
 }

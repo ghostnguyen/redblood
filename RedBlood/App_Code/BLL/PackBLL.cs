@@ -112,6 +112,12 @@ public class PackBLL
         return rs.ToArray();
     }
 
+    public static List<Pack> Get(int campaignID,Pack.StatusX[] status)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
+    }
+
     public PackErr Assign(int autonum, Guid peopleID, string actor, int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -522,7 +528,8 @@ public class PackBLL
 
     public static object GetByCampaingID4Manually(int campaignID)
     {
-        Pack.StatusX[] s = new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
+        //Pack.StatusX[] s = new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
+        Pack.StatusX[] s = StatusListEnteringTestResult();
         return GetByCampaingID4Manually(campaignID, s);
     }
 
@@ -582,36 +589,6 @@ public class PackBLL
         }
 
         return null;
-    }
-
-    public static PackErr Update4TempStore(int autonum, int? volume, int? aboID, int? rhID, string actor, string note)
-    {
-        RedBloodDataContext db;
-
-        Pack p = GetByAutonum(autonum, out db, StatusListEnteringTestResult(), true);
-
-        if (p == null) return PackErrList.NonExist;
-
-        p.Volume = volume;
-
-        BloodTypeBLL.Update(p, 2, aboID, rhID, db, actor, note);
-
-        if (volume != null && aboID != null && rhID != null)
-        {
-            Pack.StatusX from = p.Status;
-            p.Status = Pack.StatusX.CommitTestResult;
-            db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.CommitTestResult, actor, "Manually Enter"));
-        }
-        else
-        {
-            Pack.StatusX from = p.Status;
-            p.Status = Pack.StatusX.EnterTestResult;
-            db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
-        }
-
-        db.SubmitChanges();
-
-        return PackErrList.Non;
     }
 
     public static PackErr Update4Manually(int autonum, int? componentID, int? volume, int? aboID, int? rhID,
