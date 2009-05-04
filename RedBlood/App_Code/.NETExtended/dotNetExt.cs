@@ -19,16 +19,22 @@ public static class dotNetExt
 {
     #region String
 
+    public static int? ToIntNullable4Zero(this string s)
+    {
+        if (string.IsNullOrEmpty(s.Trim())) return null;
+
+        int i;
+
+        return int.TryParse(s, out i) && i != 0 ? i : new Nullable<int>();
+    }
+
     public static int? ToIntNullable(this string s)
     {
         if (string.IsNullOrEmpty(s.Trim())) return null;
 
         int i;
 
-        if (int.TryParse(s, out i))
-            return i;
-        else
-            return null;
+        return int.TryParse(s, out i) ? i : new Nullable<int>();
     }
 
     public static int ToInt(this string s)
@@ -37,10 +43,7 @@ public static class dotNetExt
 
         int i;
 
-        if (int.TryParse(s, out i))
-            return i;
-        else
-            return 0;
+        return int.TryParse(s, out i) ? i : 0;
     }
 
     public static string AddNumber(this string s, int num)
