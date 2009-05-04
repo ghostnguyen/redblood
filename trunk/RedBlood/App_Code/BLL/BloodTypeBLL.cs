@@ -15,7 +15,7 @@ public class BloodTypeBLL
         //
     }
 
-    public static void Update(Pack p, int times, int? aboID, int? rhID, RedBloodDataContext db, string actor, string note)
+    public static void Update(RedBloodDataContext db, Pack p, int times, int? aboID, int? rhID, string actor, string note)
     {
         if (p.BloodTypes.Count == 0)
         {
@@ -54,8 +54,4 @@ public class BloodTypeBLL
 
         }
     }
-
-
-
-
 }

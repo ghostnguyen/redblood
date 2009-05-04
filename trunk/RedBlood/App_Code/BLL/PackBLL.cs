@@ -48,6 +48,11 @@ public class PackBLL
         return GetByAutonum(autonum, out db, Pack.StatusX.All);
     }
 
+    public static Pack GetByAutonum(int autonum, out RedBloodDataContext db)
+    {
+        return GetByAutonum(autonum, out db, Pack.StatusX.All, false);
+    }
+
     public static Pack GetByAutonum(int autonum, out RedBloodDataContext db, Pack.StatusX status)
     {
         return GetByAutonum(autonum, out db, status, false);
@@ -112,7 +117,7 @@ public class PackBLL
         return rs.ToArray();
     }
 
-    public static List<Pack> Get(int campaignID,Pack.StatusX[] status)
+    public static List<Pack> Get(int campaignID, Pack.StatusX[] status)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
@@ -224,120 +229,6 @@ public class PackBLL
                 select c;
 
         return e.ToArray();
-    }
-
-    public Pack UpdateComponent(int autonum, int componentID)
-    {
-        RedBloodDataContext db;
-        Pack e = GetByAutonum(autonum, out db, Pack.StatusX.Assign);
-
-        if (e != null)
-        {
-            if (componentID == 0)
-                e.ComponentID = null;
-            else
-                e.ComponentID = componentID;
-
-            db.SubmitChanges();
-        }
-
-        return e;
-    }
-
-    public Pack UpdateVolume(int autonum, int volume)
-    {
-        RedBloodDataContext db;
-        Pack e = GetByAutonum(autonum, out db, Pack.StatusX.Assign);
-
-        if (e != null)
-        {
-            if (volume == 0)
-                e.Volume = null;
-            else
-                e.Volume = volume;
-
-            db.SubmitChanges();
-        }
-
-        return e;
-    }
-
-    public Pack UpdateABO(int autonum, int aboID, int times)
-    {
-        RedBloodDataContext db;
-        Pack e = GetByAutonum(autonum, out db, Pack.StatusX.Assign);
-
-        if (e == null) return e;
-
-        if (times == 1)
-        {
-            if (e.BloodTypes.Count == 0 && aboID != 0)
-            {
-                BloodType bt = new BloodType();
-                bt.PackID = e.ID;
-                bt.aboID = aboID;
-                bt.Times = times;
-
-                db.BloodTypes.InsertOnSubmit(bt);
-                db.SubmitChanges();
-            }
-            else if (e.BloodTypes.Count == 1)
-            {
-                BloodType bt = e.BloodTypes[0];
-
-                if (aboID == 0)
-                    bt.aboID = null;
-                else
-                    bt.aboID = aboID;
-
-                bt.Times = times;
-
-                db.SubmitChanges();
-            }
-        }
-        if (times == 2)
-        { }
-
-        return e;
-    }
-
-    public Pack UpdateRH(int autonum, int rhID, int times)
-    {
-        RedBloodDataContext db;
-        Pack e = GetByAutonum(autonum, out db, Pack.StatusX.Assign);
-
-        if (e == null) return e;
-
-        if (times == 1)
-        {
-            if (e.BloodTypes.Count == 0 && rhID != 0)
-            {
-                BloodType bt = new BloodType();
-                bt.PackID = e.ID;
-                bt.rhID = rhID;
-                bt.Times = times;
-
-                db.BloodTypes.InsertOnSubmit(bt);
-                db.SubmitChanges();
-            }
-            else if (e.BloodTypes.Count == 1)
-            {
-                BloodType bt = e.BloodTypes[0];
-
-                if (rhID == 0)
-                    bt.rhID = null;
-                else
-                    bt.rhID = rhID;
-
-                bt.Times = times;
-
-                db.SubmitChanges();
-            }
-        }
-        if (times == 2)
-        { }
-
-        return e;
     }
 
     public Pack CommitEnterPack(int autonum, bool withABO, string actor)
@@ -591,6 +482,18 @@ public class PackBLL
         return null;
     }
 
+    public static PackErr Update(Pack p, int? componentID, int? volume)
+    {
+        if (p == null) return PackErrList.NonExist;
+
+        if (p.ComponentID != componentID) p.ComponentID = componentID;
+        if (p.Volume != volume) p.Volume = volume;
+
+        return PackErrList.Non;
+    }
+
+
+
     public static PackErr Update4Manually(int autonum, int? componentID, int? volume, int? aboID, int? rhID,
         int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID,
         string actor, string note)
@@ -601,15 +504,22 @@ public class PackBLL
 
         if (p == null) return PackErrList.NonExist;
 
-        p.ComponentID = componentID;
-        p.Volume = volume;
-
-        BloodTypeBLL.Update(p, 2, aboID, rhID, db, actor, note);
+        Update(p, componentID, volume);
+        BloodTypeBLL.Update(db, p, 2, aboID, rhID, actor, note);
         TestResultBLL.Update(p, 2, hivID, hcvID, HBsAgID, syphilisID, malariaID, db, actor, note);
 
-        if (componentID != null && volume != null
-            && aboID != null && rhID != null
-            && hivID != null && hcvID != null && HBsAgID != null && syphilisID != null && malariaID != null)
+        VerifyCommitTestResult(db, p, actor);
+
+        db.SubmitChanges();
+
+        return PackErrList.Non;
+    }
+
+    public static void VerifyCommitTestResult(RedBloodDataContext db, Pack p, string actor)
+    {
+        if (p.ComponentID != null && p.Volume != null
+            && p.BloodType2.aboID != null && p.BloodType2.rhID != null
+            && p.TestResult2.HIVID != null && p.TestResult2.HCVID != null && p.TestResult2.HBsAgID != null && p.TestResult2.SyphilisID != null && p.TestResult2.MalariaID != null)
         {
             Pack.StatusX from = p.Status;
             p.Status = Pack.StatusX.CommitTestResult;
@@ -621,10 +531,6 @@ public class PackBLL
             p.Status = Pack.StatusX.EnterTestResult;
             db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
         }
-
-        db.SubmitChanges();
-
-        return PackErrList.Non;
     }
 }
 

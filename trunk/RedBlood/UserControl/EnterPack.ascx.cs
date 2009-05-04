@@ -193,37 +193,53 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
         }
     }
 
+    void Update()
+    {
+        RedBloodDataContext db;
+        Pack p = PackBLL.GetByAutonum(Autonum, out db, Pack.StatusX.Assign);
 
+        if (p != null)
+        {
+            PackBLL.Update(p, DropDownListComponent.SelectedValue.ToIntNullable4Zero(), 
+                DropDownListVolume.SelectedValue.ToIntNullable4Zero());
 
+            BloodTypeBLL.Update(db, p, 1
+                , DropDownListABO.SelectedValue.ToIntNullable4Zero()
+                , DropDownListRH.SelectedValue.ToIntNullable4Zero()
+                , Page.User.Identity.Name, "");
+
+            db.SubmitChanges();
+
+            Load_EnterPack();
+        } 
+    }
 
     protected void DropDownListComponent_SelectedIndexChanged(object sender, EventArgs e)
     {
-        bll.UpdateComponent(Autonum, DropDownListComponent.SelectedValue.ToInt());
-        Load_EnterPack();
-
+        Update();
     }
+    
     protected void DropDownListVolume_SelectedIndexChanged(object sender, EventArgs e)
     {
-        bll.UpdateVolume(Autonum, DropDownListVolume.SelectedItem.Text.ToInt());
-        Load_EnterPack();
+        Update();
     }
+    
     protected void DropDownListABO_SelectedIndexChanged(object sender, EventArgs e)
     {
-        bll.UpdateABO(Autonum, DropDownListABO.SelectedValue.ToInt(), 1);
-        Load_EnterPack();
+        Update();
     }
+    
     protected void DropDownListRH_SelectedIndexChanged(object sender, EventArgs e)
     {
-        bll.UpdateRH(Autonum, DropDownListRH.SelectedValue.ToInt(), 1);
-        Load_EnterPack();
+        Update();
     }
-
 
     protected void btnCommitWithout_Click(object sender, EventArgs e)
     {
         bll.CommitEnterPack(Autonum, false, Page.User.Identity.Name);
         Load_EnterPack();
     }
+
     protected void btnCommit_Click(object sender, EventArgs e)
     {
         bll.CommitEnterPack(Autonum, true, Page.User.Identity.Name);
@@ -231,7 +247,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     }
     protected void btnDelete_Click(object sender, EventArgs e)
     {
-        PackBLL.DeletePack(null,Autonum, "DeleteEnterPack", Page.User.Identity.Name);
+        PackBLL.DeletePack(null, Autonum, "DeleteEnterPack", Page.User.Identity.Name);
         Load_EnterPack();
     }
     protected void btnRemove_Click(object sender, EventArgs e)
