@@ -22,8 +22,8 @@ public class TestResultBLL
                         where r.ID == ID
                         select r).First();
     }
-    public static void Update(Pack p, int times,
-       int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID, RedBloodDataContext db, string actor, string note)
+    public static void Update(RedBloodDataContext db, Pack p, int times,
+       int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID, string actor, string note)
     {
         if (p.TestResults.Count == 0)
         {

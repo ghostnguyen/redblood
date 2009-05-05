@@ -57,7 +57,7 @@
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListComponent" runat="server" DataSourceID="LinqDataSourceComponent"
                                     DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("ComponentID") %>'
-                                    AppendDataBoundItems="true">
+                                    AppendDataBoundItems="true" Enabled="false">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
                                 <asp:LinqDataSource ID="LinqDataSourceComponent" runat="server" ContextTypeName="RedBloodDataContext"

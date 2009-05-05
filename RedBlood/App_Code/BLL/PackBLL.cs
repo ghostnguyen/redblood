@@ -417,41 +417,41 @@ public class PackBLL
         return PackErrList.Non;
     }
 
-    public static object GetByCampaingID4Manually(int campaignID)
-    {
-        //Pack.StatusX[] s = new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
-        Pack.StatusX[] s = StatusListEnteringTestResult();
-        return GetByCampaingID4Manually(campaignID, s);
-    }
+    //public static object GetByCampaingID4Manually(int campaignID)
+    //{
+    //    //Pack.StatusX[] s = new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
+    //    Pack.StatusX[] s = StatusListEnteringTestResult();
+    //    return GetByCampaingID4Manually(campaignID, s);
+    //}
 
-    public static object GetByCampaingID4Manually(int campaignID, Pack.StatusX[] status)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
+    //public static object GetByCampaingID4Manually(int campaignID, Pack.StatusX[] status)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        var v = from r in db.Packs
-                where r.CampaignID == campaignID && status.Contains(r.Status)
-                select new
-                {
-                    BT = (from r1 in r.BloodTypes
-                          where r1.Times == 2
-                          select r1).First(),
-                    TR = (from r1 in r.TestResults
-                          where r1.Times == 2
-                          select r1).First(),
-                    r.ID,
-                    r.Autonum,
-                    PeopleName = r.People.Name,
-                    r.CollectedDate,
-                    r.Status,
-                    ComponentName = r.Component.Name,
-                    r.ComponentID,
-                    r.Volume,
-                    r.Note,
-                    DeleteNote = r.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note
-                };
+    //    var v = from r in db.Packs
+    //            where r.CampaignID == campaignID && status.Contains(r.Status)
+    //            select new
+    //            {
+    //                BT = (from r1 in r.BloodTypes
+    //                      where r1.Times == 2
+    //                      select r1).First(),
+    //                TR = (from r1 in r.TestResults
+    //                      where r1.Times == 2
+    //                      select r1).First(),
+    //                r.ID,
+    //                r.Autonum,
+    //                PeopleName = r.People.Name,
+    //                r.CollectedDate,
+    //                r.Status,
+    //                ComponentName = r.Component.Name,
+    //                r.ComponentID,
+    //                r.Volume,
+    //                r.Note,
+    //                DeleteNote = r.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note
+    //            };
 
-        return v;
-    }
+    //    return v;
+    //}
 
     public static List<Pack> Get4Rpt(int campaignID, ReportType rptType)
     {
@@ -493,32 +493,33 @@ public class PackBLL
     }
 
 
+    //public static PackErr Update4Manually(int autonum, int? componentID, int? volume, int? aboID, int? rhID,
+    //    int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID,
+    //    string actor, string note)
+    //{
+    //    RedBloodDataContext db;
 
-    public static PackErr Update4Manually(int autonum, int? componentID, int? volume, int? aboID, int? rhID,
-        int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID,
-        string actor, string note)
-    {
-        RedBloodDataContext db;
+    //    Pack p = GetByAutonum(autonum, out db, StatusListEnteringTestResult(), true);
 
-        Pack p = GetByAutonum(autonum, out db, StatusListEnteringTestResult(), true);
+    //    if (p == null) return PackErrList.NonExist;
 
-        if (p == null) return PackErrList.NonExist;
+    //    Update(p, componentID, volume);
+    //    BloodTypeBLL.Update(db, p, 2, aboID, rhID, actor, note);
+    //    TestResultBLL.Update(p, 2, hivID, hcvID, HBsAgID, syphilisID, malariaID, db, actor, note);
 
-        Update(p, componentID, volume);
-        BloodTypeBLL.Update(db, p, 2, aboID, rhID, actor, note);
-        TestResultBLL.Update(p, 2, hivID, hcvID, HBsAgID, syphilisID, malariaID, db, actor, note);
+    //    VerifyCommitTestResult(db, p, actor);
 
-        VerifyCommitTestResult(db, p, actor);
+    //    db.SubmitChanges();
 
-        db.SubmitChanges();
-
-        return PackErrList.Non;
-    }
+    //    return PackErrList.Non;
+    //}
 
     public static void VerifyCommitTestResult(RedBloodDataContext db, Pack p, string actor)
     {
         if (p.ComponentID != null && p.Volume != null
+            && p.BloodType2 != null 
             && p.BloodType2.aboID != null && p.BloodType2.rhID != null
+            && p.TestResult2 != null 
             && p.TestResult2.HIVID != null && p.TestResult2.HCVID != null && p.TestResult2.HBsAgID != null && p.TestResult2.SyphilisID != null && p.TestResult2.MalariaID != null)
         {
             Pack.StatusX from = p.Status;
