@@ -56,10 +56,28 @@ public partial class PackTempStore : System.Web.UI.Page
 
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        PackBLL.Update4Manually((int)e.Keys[0],
-            null, e.NewValues["Volume"].ToIntNullable(), e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(),
-            null, null, null, null, null,
-            Page.User.Identity.Name, "");
+        //PackBLL.Update4Manually((int)e.Keys[0],
+        //    null, e.NewValues["Volume"].ToIntNullable(), e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(),
+        //    null, null, null, null, null,
+        //    Page.User.Identity.Name, "");
+
+        RedBloodDataContext db;
+
+        Pack p = PackBLL.GetByAutonum((int)e.Keys[0], out db, PackBLL.StatusListEnteringTestResult(), true);
+
+        if (p != null)
+        {
+            PackBLL.Update(p, e.NewValues["ComponentID"].ToIntNullable(), e.NewValues["Volume"].ToIntNullable());
+            BloodTypeBLL.Update(db, p, 2, 
+                e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(), 
+                Page.User.Identity.Name, "");
+            //TestResultBLL.Update(p, 2, hivID, hcvID, HBsAgID, syphilisID, malariaID, db, actor, note);
+
+            PackBLL.VerifyCommitTestResult(db, p, "");
+
+            db.SubmitChanges();
+        }
+
 
         e.Cancel = true;
         GridView1.EditIndex = -1;
