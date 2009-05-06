@@ -12,6 +12,7 @@
 		<siteMapNode url="Campaign.aspx" title="Đợt thu máu"  description="" />
 		<siteMapNode url="ReceiveBlood.aspx" title="Thu máu"  description="" />
 		<siteMapNode url="PackTempStore.aspx" title="Kho tạm"  description="" />
+		<siteMapNode url="PackTestResult.aspx" title="KQXN"  description="" />
 		<siteMapNode url="PackManually.aspx" title="Nhập kết quả"  description="" />
 		<siteMapNode url="" title="In danh sách"  description="">
 			<siteMapNode url="Report/CampaignRptSelect.aspx" title="Đợt thu"  description="" />
