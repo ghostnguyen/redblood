@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 
 public partial class UserControl_DeletePack : System.Web.UI.UserControl
 {
+    public event EventHandler PackDeleted;
+
     public int CampaignID
     {
         get
@@ -63,6 +65,7 @@ public partial class UserControl_DeletePack : System.Web.UI.UserControl
             divErr.Attributes["class"] = "hidden";
 
             GridViewDeletePack.DataBind();
+            if (PackDeleted != null) PackDeleted(null, null);
         }
         else
         {

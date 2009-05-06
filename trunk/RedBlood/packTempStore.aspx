@@ -18,7 +18,7 @@
                     DataKeyNames="Autonum" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating"
                     OnRowUpdated="GridView1_RowUpdated">
                     <Columns>
-                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu" />
+                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu" HeaderStyle-Width="80" />
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="Label3" runat="server" Text="Túi máu" />
@@ -43,7 +43,7 @@
                                 <asp:Label ID="lblDate" runat="server" Text='<%# Eval("CollectedDate","{0:dd/MM/yyyy HH:mm}") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField>
+                        <asp:TemplateField HeaderStyle-Width="100">
                             <HeaderTemplate>
                                 <asp:Label ID="Label5" runat="server" Text="Thành phần" />
                                 <br />
@@ -74,7 +74,7 @@
                                 </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="ABO">
+                        <asp:TemplateField HeaderText="ABO" HeaderStyle-Width="60">
                             <HeaderTemplate>
                                 <asp:Label ID="Label1" runat="server" Text="ABO" />
                                 <br />
@@ -105,7 +105,7 @@
                                 </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu" />
+                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu" HeaderStyle-Width="80" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"

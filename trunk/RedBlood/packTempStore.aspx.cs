@@ -12,6 +12,8 @@ public partial class PackTempStore : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        DeletePack1.PackDeleted += new EventHandler(DeletePack1_PackDeleted);
+
         Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
 
         if (Master.TextBoxCode.Text.Length == 0) return;
@@ -32,6 +34,11 @@ public partial class PackTempStore : System.Web.UI.Page
         Master.TextBoxCode.Text = "";
     }
 
+    void DeletePack1_PackDeleted(object sender, EventArgs e)
+    {
+        GridView1.DataBind();
+    }
+
     private void CampaignEnter(string code)
     {
         CampaignDetail1.CampaignID = CodabarBLL.ParseCampaignID(code);
@@ -49,18 +56,12 @@ public partial class PackTempStore : System.Web.UI.Page
         }
         else
         {
-            //e.Result = PackBLL.GetByCampaingID4Manually(CampaignDetail1.CampaignID);
             e.Result = PackBLL.Get(CampaignDetail1.CampaignID, PackBLL.StatusListEnteringTestResult());
         }
     }
 
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        //PackBLL.Update4Manually((int)e.Keys[0],
-        //    null, e.NewValues["Volume"].ToIntNullable(), e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(),
-        //    null, null, null, null, null,
-        //    Page.User.Identity.Name, "");
-
         RedBloodDataContext db;
 
         Pack p = PackBLL.GetByAutonum((int)e.Keys[0], out db, PackBLL.StatusListEnteringTestResult(), true);
@@ -71,7 +72,6 @@ public partial class PackTempStore : System.Web.UI.Page
             BloodTypeBLL.Update(db, p, 2, 
                 e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(), 
                 Page.User.Identity.Name, "");
-            //TestResultBLL.Update(p, 2, hivID, hcvID, HBsAgID, syphilisID, malariaID, db, actor, note);
 
             PackBLL.VerifyCommitTestResult(db, p, "");
 
