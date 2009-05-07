@@ -52,7 +52,11 @@ public partial class TestDef
 
     public enum Component : int
     {
-        Full = 25
+        Full = 25,
+        RBC = 26, //red blood cell
+        Plasma = 27, // Huyết tương
+        Platelet = 29 // Tiểu cầu
+
     }
 
     partial void OnValidate(System.Data.Linq.ChangeAction action)

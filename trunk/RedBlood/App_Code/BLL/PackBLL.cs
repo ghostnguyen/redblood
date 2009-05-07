@@ -516,22 +516,38 @@ public class PackBLL
 
     public static void VerifyCommitTestResult(RedBloodDataContext db, Pack p, string actor)
     {
-        if (p.ComponentID != null && p.Volume != null
-            && p.BloodType2 != null 
-            && p.BloodType2.aboID != null && p.BloodType2.rhID != null
-            && p.TestResult2 != null 
-            && p.TestResult2.HIVID != null && p.TestResult2.HCVID != null && p.TestResult2.HBsAgID != null && p.TestResult2.SyphilisID != null && p.TestResult2.MalariaID != null)
+        if (p != null
+            && StatusListEnteringTestResult().Contains(p.Status))
         {
-            Pack.StatusX from = p.Status;
-            p.Status = Pack.StatusX.CommitTestResult;
-            db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.CommitTestResult, actor, "Manually Enter"));
+            if (
+                (p.ComponentID != null
+                && p.ComponentID.Value == (int)TestDef.Component.Platelet)
+
+                ||
+
+                (p.ComponentID != null && p.Volume != null 
+                && p.BloodType2 != null
+                && p.BloodType2.aboID != null && p.BloodType2.rhID != null
+                && p.TestResult2 != null
+                && p.TestResult2.HIVID != null && p.TestResult2.HCVID != null && p.TestResult2.HBsAgID != null && p.TestResult2.SyphilisID != null && p.TestResult2.MalariaID != null)
+                )
+            {
+                Pack.StatusX from = p.Status;
+                p.Status = Pack.StatusX.CommitTestResult;
+                db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.CommitTestResult, actor, "Manually Enter"));
+            }
+            else
+            {
+                Pack.StatusX from = p.Status;
+                p.Status = Pack.StatusX.EnterTestResult;
+                db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
+            }
+
         }
-        else
-        {
-            Pack.StatusX from = p.Status;
-            p.Status = Pack.StatusX.EnterTestResult;
-            db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
-        }
+
+
+
+
     }
 }
 

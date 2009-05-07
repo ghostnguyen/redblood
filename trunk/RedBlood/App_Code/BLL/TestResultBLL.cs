@@ -25,6 +25,13 @@ public class TestResultBLL
     public static void Update(RedBloodDataContext db, Pack p, int times,
        int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID, string actor, string note)
     {
+        if (p != null && PackBLL.StatusListEnteringTestResult().Contains(p.Status))
+        { }
+        else
+        {
+            return;
+        }
+
         if (p.TestResults.Count == 0)
         {
             TestResult e = new TestResult();
