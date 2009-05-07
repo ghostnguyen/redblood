@@ -3,10 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RedBlood", ".", "{1B7B99C7-8C74-4CBD-9701-9B98BA8F231D}"
 	ProjectSection(WebsiteProperties) = preProject
-		SccProjectName = "Svn"
-		SccAuxPath = "Svn"
-		SccLocalPath = "Svn"
-		SccProvider = "SubversionScc"
+		SccProjectName = ""
+		SccAuxPath = ""
+		SccLocalPath = ""
+		SccProvider = ""
 		TargetFramework = "3.5"
 		Debug.AspNetCompiler.VirtualPath = "/RedBlood"
 		Debug.AspNetCompiler.PhysicalPath = "..\RedBlood\"
@@ -26,10 +26,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RedBlood", ".", "{1B7B99C7-
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
 	EndGlobalSection
@@ -39,5 +35,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal

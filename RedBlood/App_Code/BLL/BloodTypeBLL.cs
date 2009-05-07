@@ -17,6 +17,13 @@ public class BloodTypeBLL
 
     public static void Update(RedBloodDataContext db, Pack p, int times, int? aboID, int? rhID, string actor, string note)
     {
+        if (p != null && PackBLL.StatusListEnteringTestResult().Contains(p.Status))
+        { }
+        else
+        {
+            return;
+        }
+
         if (p.BloodTypes.Count == 0)
         {
             BloodType bt = new BloodType();
