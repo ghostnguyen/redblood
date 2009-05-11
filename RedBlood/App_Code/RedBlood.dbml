@@ -490,6 +490,7 @@
       <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="People_PeopleStayIn" Member="PeopleStayIns" ThisKey="ID" OtherKey="PeopleID" Type="PeopleStayIn" />
       <Association Name="People_Pack" Member="Packs" ThisKey="ID" OtherKey="PeopleID" Type="Pack" />
+      <Association Name="People_Order" Member="Orders" ThisKey="ID" OtherKey="PeopleID" Type="Order" />
       <Association Name="Hospital_People" Member="Hospital" ThisKey="HopistalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="Geo_People" Member="MailingGeo1" Storage="_Geo" ThisKey="MailingGeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
       <Association Name="Geo_People1" Member="MailingGeo2" Storage="_Geo1" ThisKey="MailingGeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
@@ -519,6 +520,7 @@
       <Association Name="Pack_BloodType" Member="BloodTypes" ThisKey="ID" OtherKey="PackID" Type="BloodType" />
       <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
       <Association Name="Pack_PackResultHistory" Member="PackResultHistories" ThisKey="ID" OtherKey="PackID" Type="PackResultHistory" />
+      <Association Name="Pack_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="PackID" Type="PackOrder" />
       <Association Name="Hospital_Pack" Member="Hospital" ThisKey="HospitalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="People_Pack" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
       <Association Name="TestDef_Pack" Member="Component" ThisKey="ComponentID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
@@ -585,6 +587,7 @@
       <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Org_Campaign" Member="CampaignsByCoopOrg" ThisKey="ID" OtherKey="CoopOrgID" Type="Campaign" />
       <Association Name="Org_Campaign1" Member="CampaignsByHostOrg" ThisKey="ID" OtherKey="HostOrgID" Type="Campaign" />
+      <Association Name="Org_Order" Member="Orders" ThisKey="ID" OtherKey="OrgID" Type="Order" />
       <Association Name="Geo_Org" Member="Geo1" ThisKey="GeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
       <Association Name="Geo_Org1" Member="Geo2" ThisKey="GeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
       <Association Name="Geo_Org2" Member="Geo3" ThisKey="GeoID3" OtherKey="ID" Type="Geo" IsForeignKey="true" />
@@ -645,6 +648,30 @@
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Pack_PackResultHistory" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
       <Association Name="TestDef_PackResultHistory" Member="TestDef" ThisKey="TestDefID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Order_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="OrderID" Type="PackOrder" />
+      <Association Name="Org_Order" Member="Org" ThisKey="OrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
+      <Association Name="People_Order" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackOrder" Member="PackOrders">
+    <Type Name="PackOrder">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
+      <Association Name="Pack_PackOrder" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
