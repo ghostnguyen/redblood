@@ -7,7 +7,7 @@
             Orientation="Horizontal" BackColor="#F0F4F5" ForeColor="#33335E">
             <StaticSelectedStyle BackColor="#FFFFFF" />
             <StaticHoverStyle Font-Underline="true" />
-            <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" Width="100" />
+            <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
             <DynamicHoverStyle Font-Underline="true" />
             <DynamicMenuStyle BackColor="#F0F4F5" ForeColor="#33335E" />
             <DynamicSelectedStyle BackColor="#FFFFFF" />

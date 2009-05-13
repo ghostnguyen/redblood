@@ -25,9 +25,8 @@
                                 Tạo mới
                             </div>
                             <div class="partLinkLast">
-                                <%--<asp:LinkButton ID="btnNew" runat="server" Text="Thêm người cho máu" OnClick="btnNew_Click" />--%>
-                                <asp:Button ID="btnNew" runat="server" Text="Thêm người cho máu" OnClick="btnNew_Click" ToolTip="Ctrl+M" />
-                                <%--<asp:ImageButton ID="btnNew" runat="server" Text="Thêm người cho máu" OnClick="btnNew_Click"  />--%>
+                                <asp:Button ID="btnNew" runat="server" Text="Thêm người cho máu" OnClick="btnNew_Click"
+                                    ToolTip="Ctrl+M" />
                             </div>
                         </div>
                         <div class="part">

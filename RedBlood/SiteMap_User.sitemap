@@ -17,6 +17,7 @@
 		<siteMapNode url="" title="In danh sách"  description="">
 			<siteMapNode url="Report/CampaignRptSelect.aspx" title="Đợt thu"  description="" />
 		</siteMapNode>
+		<siteMapNode url="Order/Order.aspx" title="Cấp phát"  description="" />
 		<siteMapNode url="FindPeople.aspx" title="Tìm kiếm"  description="" />
 		<siteMapNode url="" title="Thống kê"  description="">
 		</siteMapNode>
