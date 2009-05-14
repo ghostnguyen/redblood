@@ -149,12 +149,12 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackResultHistory(PackResultHistory instance);
   partial void UpdatePackResultHistory(PackResultHistory instance);
   partial void DeletePackResultHistory(PackResultHistory instance);
-  partial void InsertOrder(Order instance);
-  partial void UpdateOrder(Order instance);
-  partial void DeleteOrder(Order instance);
   partial void InsertPackOrder(PackOrder instance);
   partial void UpdatePackOrder(PackOrder instance);
   partial void DeletePackOrder(PackOrder instance);
+  partial void InsertOrder(Order instance);
+  partial void UpdateOrder(Order instance);
+  partial void DeleteOrder(Order instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -507,19 +507,19 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<Order> Orders
-	{
-		get
-		{
-			return this.GetTable<Order>();
-		}
-	}
-	
 	public System.Data.Linq.Table<PackOrder> PackOrders
 	{
 		get
 		{
 			return this.GetTable<PackOrder>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Order> Orders
+	{
+		get
+		{
+			return this.GetTable<Order>();
 		}
 	}
 }
@@ -11301,7 +11301,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -15459,6 +15459,198 @@ public partial class PackResultHistory : INotifyPropertyChanging, INotifyPropert
 	}
 }
 
+[Table(Name="dbo.PackOrder")]
+public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private System.Nullable<System.Guid> _PackID;
+	
+	private System.Nullable<int> _OrderID;
+	
+	private EntityRef<Pack> _Pack;
+	
+	private EntityRef<Order> _Order;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
+    partial void OnPackIDChanged();
+    partial void OnOrderIDChanging(System.Nullable<int> value);
+    partial void OnOrderIDChanged();
+    #endregion
+	
+	public PackOrder()
+	{
+		this._Pack = default(EntityRef<Pack>);
+		this._Order = default(EntityRef<Order>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> PackID
+	{
+		get
+		{
+			return this._PackID;
+		}
+		set
+		{
+			if ((this._PackID != value))
+			{
+				if (this._Pack.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnPackIDChanging(value);
+				this.SendPropertyChanging();
+				this._PackID = value;
+				this.SendPropertyChanged("PackID");
+				this.OnPackIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_OrderID", DbType="Int")]
+	public System.Nullable<int> OrderID
+	{
+		get
+		{
+			return this._OrderID;
+		}
+		set
+		{
+			if ((this._OrderID != value))
+			{
+				if (this._Order.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnOrderIDChanging(value);
+				this.SendPropertyChanging();
+				this._OrderID = value;
+				this.SendPropertyChanged("OrderID");
+				this.OnOrderIDChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackOrder", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.PackOrders.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.PackOrders.Add(this);
+					this._PackID = value.ID;
+				}
+				else
+				{
+					this._PackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
+			}
+		}
+	}
+	
+	[Association(Name="Order_PackOrder", Storage="_Order", ThisKey="OrderID", OtherKey="ID", IsForeignKey=true)]
+	public Order Order
+	{
+		get
+		{
+			return this._Order.Entity;
+		}
+		set
+		{
+			Order previousValue = this._Order.Entity;
+			if (((previousValue != value) 
+						|| (this._Order.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Order.Entity = null;
+					previousValue.PackOrders.Remove(this);
+				}
+				this._Order.Entity = value;
+				if ((value != null))
+				{
+					value.PackOrders.Add(this);
+					this._OrderID = value.ID;
+				}
+				else
+				{
+					this._OrderID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Order");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
 [Table(Name="dbo.[Order]")]
 public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -15479,7 +15671,9 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<System.DateTime> _Date;
 	
-	private System.Nullable<int> _Type;
+	private Order.Typex _Type;
+	
+	private System.Nullable<int> _Status;
 	
 	private EntitySet<PackOrder> _PackOrders;
 	
@@ -15505,8 +15699,10 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnActorChanged();
     partial void OnDateChanging(System.Nullable<System.DateTime> value);
     partial void OnDateChanged();
-    partial void OnTypeChanging(System.Nullable<int> value);
+    partial void OnTypeChanging(Order.Typex value);
     partial void OnTypeChanged();
+    partial void OnStatusChanging(System.Nullable<int> value);
+    partial void OnStatusChanged();
     #endregion
 	
 	public Order()
@@ -15665,8 +15861,8 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Type", DbType="Int")]
-	public System.Nullable<int> Type
+	[Column(Storage="_Type", DbType="Int", CanBeNull=true)]
+	public Order.Typex Type
 	{
 		get
 		{
@@ -15681,6 +15877,26 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 				this._Type = value;
 				this.SendPropertyChanged("Type");
 				this.OnTypeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int")]
+	public System.Nullable<int> Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
 			}
 		}
 	}
@@ -15796,198 +16012,6 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Order = null;
-	}
-}
-
-[Table(Name="dbo.PackOrder")]
-public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _ID;
-	
-	private System.Nullable<System.Guid> _PackID;
-	
-	private System.Nullable<int> _OrderID;
-	
-	private EntityRef<Order> _Order;
-	
-	private EntityRef<Pack> _Pack;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
-    partial void OnPackIDChanged();
-    partial void OnOrderIDChanging(System.Nullable<int> value);
-    partial void OnOrderIDChanged();
-    #endregion
-	
-	public PackOrder()
-	{
-		this._Order = default(EntityRef<Order>);
-		this._Pack = default(EntityRef<Pack>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> PackID
-	{
-		get
-		{
-			return this._PackID;
-		}
-		set
-		{
-			if ((this._PackID != value))
-			{
-				if (this._Pack.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnPackIDChanging(value);
-				this.SendPropertyChanging();
-				this._PackID = value;
-				this.SendPropertyChanged("PackID");
-				this.OnPackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_OrderID", DbType="Int")]
-	public System.Nullable<int> OrderID
-	{
-		get
-		{
-			return this._OrderID;
-		}
-		set
-		{
-			if ((this._OrderID != value))
-			{
-				if (this._Order.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnOrderIDChanging(value);
-				this.SendPropertyChanging();
-				this._OrderID = value;
-				this.SendPropertyChanged("OrderID");
-				this.OnOrderIDChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Order_PackOrder", Storage="_Order", ThisKey="OrderID", OtherKey="ID", IsForeignKey=true)]
-	public Order Order
-	{
-		get
-		{
-			return this._Order.Entity;
-		}
-		set
-		{
-			Order previousValue = this._Order.Entity;
-			if (((previousValue != value) 
-						|| (this._Order.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Order.Entity = null;
-					previousValue.PackOrders.Remove(this);
-				}
-				this._Order.Entity = value;
-				if ((value != null))
-				{
-					value.PackOrders.Add(this);
-					this._OrderID = value.ID;
-				}
-				else
-				{
-					this._OrderID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Order");
-			}
-		}
-	}
-	
-	[Association(Name="Pack_PackOrder", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack Pack
-	{
-		get
-		{
-			return this._Pack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._Pack.Entity;
-			if (((previousValue != value) 
-						|| (this._Pack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Pack.Entity = null;
-					previousValue.PackOrders.Remove(this);
-				}
-				this._Pack.Entity = value;
-				if ((value != null))
-				{
-					value.PackOrders.Add(this);
-					this._PackID = value.ID;
-				}
-				else
-				{
-					this._PackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Pack");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
 	}
 }
 #pragma warning restore 1591

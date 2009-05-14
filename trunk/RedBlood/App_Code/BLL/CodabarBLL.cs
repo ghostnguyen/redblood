@@ -47,6 +47,10 @@ public class CodabarBLL
             {
                 code = code.ToInt().ToString("D" + Resources.Codabar.campaignLength.AddNumber(-2));
             }
+            if (ssc == Resources.Codabar.orderSSC)
+            {
+                code = code.ToInt().ToString("D" + Resources.Codabar.orderLength.AddNumber(-2));
+            }
 
             return ssc[0].ToString() + code + ssc[1].ToString();
         }
@@ -88,6 +92,13 @@ public class CodabarBLL
         return regx.IsMatch(code);
     }
 
+    public static bool IsValidOrderCode(string code)
+    {
+        string pattern = Resources.Codabar.orderStartCode + "[0-9]{" + Resources.Codabar.orderLength.AddNumber(-2) + "}" + Resources.Codabar.orderStopCode;
+        Regex regx = new Regex(pattern);
+        return regx.IsMatch(code);
+    }
+
     public static Guid ParsePeopleCode(string code)
     {
         if (IsValidPeopleCode(code))
@@ -110,6 +121,15 @@ public class CodabarBLL
         if (IsValidCampaignCode(code))
             //a0001c
             return code.Substring(1, Resources.Codabar.campaignLength.ToInt() - 2).ToInt();
+        else
+            return 0;
+    }
+
+    public static int ParseOrderID(string code)
+    {
+        if (IsValidOrderCode(code))
+            //a123456789d
+            return code.Substring(1, Resources.Codabar.orderLength.ToInt() - 2).ToInt();
         else
             return 0;
     }
