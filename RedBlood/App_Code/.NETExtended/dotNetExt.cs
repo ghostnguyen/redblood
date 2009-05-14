@@ -196,7 +196,7 @@ public static class dotNetExt
     {
         if (dt.HasValue)
         {
-            return dt.Value.ToString("dd/MM/yyyy hh:mm");
+            return dt.Value.ToString("dd/MM/yyyy HH:mm");
         }
         return "";
     }

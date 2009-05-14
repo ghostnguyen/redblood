@@ -180,4 +180,16 @@
   <data name="testResultStopCode" xml:space="preserve">
     <value>t</value>
   </data>
+  <data name="orderLength" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="orderSSC" xml:space="preserve">
+    <value>ad</value>
+  </data>
+  <data name="orderStartCode" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="orderStopCode" xml:space="preserve">
+    <value>d</value>
+  </data>
 </root>

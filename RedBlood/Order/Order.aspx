@@ -24,19 +24,11 @@
                             ToolTip="Ctrl+M" />
                     </div>
                 </div>
+                <uc:Order runat="server" ID="Order1" />
             </td>
             <td align="center">
-            <uc:Order runat="server" ID="Order1" />
             </td>
-            <td style="width: 300px;">
-                <div class="part">
-                    <div class="partHeader">
-                        Tiểu sử cho máu
-                    </div>
-                    <div class="partLinkLast">
-                    </div>
-                </div>
-            </td>
+            
         </tr>
     </table>
 </asp:Content>
