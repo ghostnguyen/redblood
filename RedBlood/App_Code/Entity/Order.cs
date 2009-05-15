@@ -13,4 +13,10 @@ public partial class Order
         ToOrg = 1,
         ToPeople = 2
     }
+
+    partial void OnNameChanging(string value)
+    {
+        if (string.IsNullOrEmpty(value.Trim()))
+            throw new Exception("Nhập tên.");
+    }
 }

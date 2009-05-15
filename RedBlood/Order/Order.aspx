@@ -24,9 +24,9 @@
                             ToolTip="Ctrl+M" />
                     </div>
                 </div>
-                <uc:Order runat="server" ID="Order1" />
             </td>
-            <td align="center">
+            <td align="left">
+                <uc:Order runat="server" ID="Order1" />
             </td>
             
         </tr>
