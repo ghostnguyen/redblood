@@ -118,11 +118,13 @@ public partial class FindPeople : System.Web.UI.Page
                  where SqlMethods.Like(rs.Name, search) || SqlMethods.Like(rs.NameNoDiacritics, search)
                  select rs);
 
-        LoadFilter(r.ToList());
+        //LoadFilter(r.ToList());
 
-        e.Result = r.ToList().Where(g => (g.Sex.Name == SexName || string.IsNullOrEmpty(SexName))
+        List<People> filter = r.ToList().Where(g => (g.Sex.Name == SexName || string.IsNullOrEmpty(SexName))
             && (g.ResidentGeo1.Name == Geo1Name || string.IsNullOrEmpty(Geo1Name))
-            && (g.DOB.Value.Decade() == DOBYear.ToInt() || string.IsNullOrEmpty(DOBYear)));
+            && (g.DOB.Value.Decade() == DOBYear.ToInt() || string.IsNullOrEmpty(DOBYear))).ToList();
+        e.Result = filter;
+        LoadFilter(filter);
     }
 
 

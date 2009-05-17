@@ -1,10 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Order.ascx.cs" Inherits="UserControl_Order" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
+<%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <asp:Panel runat="server" ID="Panel1">
     <table>
         <tr valign="top">
             <td>
-                <div class="img_codabar">
+                <div class="img_codabar" style="width: 120px;">
                     <asp:Image ID="imgCodabar" runat="server" ImageUrl="none" />
                 </div>
             </td>
@@ -49,28 +50,37 @@
             <td class="dotLineBottom" colspan="2">
             </td>
         </tr>
-        <tr>
-            <asp:Panel runat="server" ID="PanelOrg">
-                <td>
-                    Đơn vị nhận
-                </td>
-                <td>
-                    <ajk:ModalPopupExtender ID="MPE1" runat="server" TargetControlID="LinkButton1" PopupControlID="Panel12"
-                        CancelControlID="Button12" OkControlID="Button14" DropShadow="true">
-                    </ajk:ModalPopupExtender>
-                    <asp:LinkButton ID="LinkButton1" Text="Popup" runat="server"></asp:LinkButton>
-                    <asp:Panel runat="server" ID="Panel12" style="display:none;">
-                        <asp:TextBox ID="txtOrgName" runat="server" CssClass="campaign_cellvalue" autocomplete="off" />
-                        <ajk:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtOrgName"
-                            ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListOrg" MinimumPrefixLength="3"
-                            CompletionSetCount="15" EnableCaching="true">
-                        </ajk:AutoCompleteExtender>
-                        <div id="divErrOrgName" runat="server" class="hidden" />
-                        <asp:Button runat="server" ID="Button12" Text="Cancel" />
-                        <asp:Button runat="server" ID="Button14" Text="Ok" />
-                    </asp:Panel>
-                </td>
-            </asp:Panel>
+        <tr runat="server" id="rowOrg">
+            <td>
+                Đơn vị nhận
+            </td>
+            <td>
+                <asp:TextBox ID="txtOrgName" runat="server" CssClass="campaign_cellvalue" autocomplete="off" />
+                <ajk:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtOrgName"
+                    ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListOrg" MinimumPrefixLength="3"
+                    CompletionSetCount="15" EnableCaching="true">
+                </ajk:AutoCompleteExtender>
+                <div id="divErrOrgName" runat="server" class="hidden" />
+            </td>
+        </tr>
+        <tr runat="server" id="rowPeople">
+            <td>
+                Người nhận
+            </td>
+            <td>
+                <ajk:ModalPopupExtender ID="MPE1" runat="server" TargetControlID="LinkButtonAppPeople"
+                    PopupControlID="PanelPeople" CancelControlID="btnClose" OkControlID="btnSelect"
+                    BackgroundCssClass="modalBackground">
+                </ajk:ModalPopupExtender>
+                <asp:LinkButton ID="LinkButtonAppPeople" Text="Thêm người mới" runat="server"></asp:LinkButton>
+                <asp:Panel runat="server" ID="PanelPeople" Style="display: none;" CssClass="modalPopup">
+                    <uc:People runat="server" ID="People1" />
+                    <div class="dotLineBottom" style="width: 100%;">
+                    </div>
+                    <asp:Button runat="server" ID="btnSelect" Text='<%$ Resources:Resource,Select %>' />
+                    <asp:Button runat="server" ID="btnClose" Text='<%$ Resources:Resource,Close %>' />
+                </asp:Panel>
+            </td>
         </tr>
         <tr>
             <td class="dotLineBottom" colspan="2">
