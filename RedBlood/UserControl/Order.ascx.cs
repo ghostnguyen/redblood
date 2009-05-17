@@ -9,7 +9,6 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 {
     public event EventHandler OrderChanged;
 
-
     public Order.Typex OrderType { get; set; }
     public int OrderID
     {
@@ -95,6 +94,18 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         p.Type = OrderType;
         p.Note = txtNote.Text;
 
+        //try
+        //{
+        //    p.SetCoopOrgID(txtCoopOrgName.Text.Trim());
+        //    divErrCoopOrgName.Attributes["class"] = "hidden";
+        //}
+        //catch (Exception ex)
+        //{
+        //    divErrCoopOrgName.Attributes["class"] = "err";
+        //    divErrCoopOrgName.InnerText = ex.Message;
+        //    isDone = false;
+        //}
+
         return isDone;
     }
 
@@ -126,11 +137,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         OrderType = type;
         txtName.Focus();
 
-        if (OrderType == Order.Typex.ToOrg)
-            rowPeople.Attributes.Add("style", "visibility:collapse;");
-
-        if (OrderType == Order.Typex.ToPeople)
-            rowOrg.Attributes.Add("style", "visibility:collapse;");
+        SwitchGUI();
     }
     public void Clear()
     {
@@ -139,6 +146,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         txtName.Text = "";
         txtDate.Text = "";
         txtNote.Text = "";
+        txtOrgName.Text = "";
+        PeopleOrder1.PeopleID = Guid.Empty;
+        People1.PeopleID = Guid.Empty;
 
         divErrName.Attributes["class"] = "hidden";
         rowOrg.Attributes.Remove("style");
@@ -147,8 +157,6 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
     public void LoadOrder()
     {
-
-
         Order e = OrderBLL.Get(OrderID);
 
         if (e == null)
@@ -166,6 +174,27 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
             if (e.Date != null)
                 txtDate.Text = e.Date.ToStringVN_Hour();
+
+            if (OrderType == Order.Typex.ToOrg)
+            {
+                txtOrgName.Text = e.Org.Name;
+            }
+
+            if (OrderType == Order.Typex.ToPeople)
+            {
+                PeopleOrder1.PeopleID = e.PeopleID.GetValueOrDefault();
+                People1.PeopleID = e.PeopleID.GetValueOrDefault();
+            }
+            SwitchGUI();
         }
+    }
+
+    void SwitchGUI()
+    {
+        if (OrderType == Order.Typex.ToOrg)
+            rowPeople.Attributes.Add("style", "visibility:collapse;");
+
+        if (OrderType == Order.Typex.ToPeople)
+            rowOrg.Attributes.Add("style", "visibility:collapse;");
     }
 }

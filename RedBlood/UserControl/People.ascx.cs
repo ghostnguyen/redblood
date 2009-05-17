@@ -64,7 +64,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             }
             else if (Code.Length >= 9)
             {
-                People r = bll.GetByCMND(Code);
+                People r = PeopleBLL.GetByCMND(Code);
                 if (r != null)
                 {
                     PeopleID = r.ID;

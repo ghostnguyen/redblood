@@ -16,18 +16,19 @@ public class PeopleBLL
         //
     }
 
-    public People GetByCMND(string CMND)
+    public static People GetByCMND(string CMND)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        var e = from c in db.Peoples
-                where c.CMND == CMND.Trim()
-                select c;
+        return db.Peoples.Where(r => r.CMND == CMND.Trim()).FirstOrDefault();
+        
+        //var e = from c in db.Peoples
+        //        where c.CMND == CMND.Trim()
+        //        select c;
 
 
-        if (e.Count() != 1) return null;
-        else return e.First();
-
+        //if (e.Count() != 1) return null;
+        //else return e.First();
     }
 
     public static People GetByID(Guid ID)

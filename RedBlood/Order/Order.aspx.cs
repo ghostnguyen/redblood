@@ -7,24 +7,67 @@ using System.Web.UI.WebControls;
 
 public partial class Order_Order : System.Web.UI.Page
 {
+    public Guid PeopleID
+    {
+        get
+        {
+            if (ViewState["PeopleID"] == null)
+                return Guid.Empty;
+            return (Guid)ViewState["PeopleID"];
+        }
+        set
+        {
+            //Clear();
+
+            ViewState["PeopleID"] = value;
+            if (value == null)
+            { }
+            else
+            {
+                //LoadPeople();
+            }
+            //if (PeopleChanged != null)
+            //    PeopleChanged(value, null);
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
+        string code = Master.TextBoxCode.Text.Trim();
+        //Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
 
-        if (Master.TextBoxCode.Text.Length == 0) return;
+        if (code.Length == 0) return;
 
-        if (CodabarBLL.IsValidPackCode(Master.TextBoxCode.Text))
+        if (CodabarBLL.IsValidPackCode(code))
         {
             //PackCodeEnter(Master.TextBoxCode.Text);
         }
-        else if (CodabarBLL.IsValidOrderCode(Master.TextBoxCode.Text))
+        else if (CodabarBLL.IsValidOrderCode(code))
         {
-            Order1.OrderID = CodabarBLL.ParseOrderID(Master.TextBoxCode.Text);
+            Order1.OrderID = CodabarBLL.ParseOrderID(code);
+        }
+        else if (CodabarBLL.IsValidPeopleCode(code))
+        {
+            People r = PeopleBLL.GetByCode(code);
+            if (r != null)
+            {
+                //PeopleID = r.ID;
+            }
+        }
+        else if (Master.TextBoxCode.Text.Length >= 9)
+        {
+            //People r = PeopleBLL.GetByCMND(Master.TextBoxCode.Text);
+            //if (r != null)
+            //{
+            //    PeopleID = r.ID;
+            //}
+            //else
+            //{
+            //    New(Code);
+            //}
         }
         else
-        {
-            //ucPeople.Code = Master.TextBoxCode.Text;
-        }
+        { }
 
         Master.TextBoxCode.Text = "";
 
