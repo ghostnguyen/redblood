@@ -17,10 +17,12 @@
             <td style="width: 180px;">
                 <div class="part">
                     <div class="partHeader">
-                        Tạo mới
+                        Tạo mới cấp phát
                     </div>
                     <div class="partLinkLast">
-                        <asp:Button ID="btnNew" runat="server" Text="Thêm cấp phát" OnClick="btnNew_Click"
+                        <asp:Button ID="btnNew4Peple" runat="server" Text="Cho bệnh nhân" OnClick="btnNew4People_Click"
+                            ToolTip="Ctrl+M" />
+                        <asp:Button ID="btnNew4Org" runat="server" Text="Cho TCYT" OnClick="btnNew4Org_Click"
                             ToolTip="Ctrl+M" />
                     </div>
                 </div>
@@ -28,7 +30,6 @@
             <td align="left">
                 <uc:Order runat="server" ID="Order1" />
             </td>
-            
         </tr>
     </table>
 </asp:Content>

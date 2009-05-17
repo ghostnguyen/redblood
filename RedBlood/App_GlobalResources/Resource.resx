@@ -126,6 +126,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Tiếp tục</value>
   </data>

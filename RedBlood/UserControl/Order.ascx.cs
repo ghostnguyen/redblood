@@ -122,9 +122,15 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     public void New(Order.Typex type)
     {
         Clear();
-        
+
         OrderType = type;
         txtName.Focus();
+
+        if (OrderType == Order.Typex.ToOrg)
+            rowPeople.Attributes.Add("style", "visibility:collapse;");
+
+        if (OrderType == Order.Typex.ToPeople)
+            rowOrg.Attributes.Add("style", "visibility:collapse;");
     }
     public void Clear()
     {
@@ -135,10 +141,14 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         txtNote.Text = "";
 
         divErrName.Attributes["class"] = "hidden";
+        rowOrg.Attributes.Remove("style");
+        rowPeople.Attributes.Remove("style");
     }
 
     public void LoadOrder()
     {
+
+
         Order e = OrderBLL.Get(OrderID);
 
         if (e == null)
