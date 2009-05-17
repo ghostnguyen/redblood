@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Order.ascx.cs" Inherits="UserControl_Order" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
+<%@ Register Src="~/UserControl/PeopleOrder.ascx" TagPrefix="uc" TagName="PeopleOrder" %>
 <asp:Panel runat="server" ID="Panel1">
     <table>
         <tr valign="top">
@@ -68,6 +69,7 @@
                 Người nhận
             </td>
             <td>
+                <uc:PeopleOrder runat="server" ID="PeopleOrder1" />
                 <ajk:ModalPopupExtender ID="MPE1" runat="server" TargetControlID="LinkButtonAppPeople"
                     PopupControlID="PanelPeople" CancelControlID="btnClose" OkControlID="btnSelect"
                     BackgroundCssClass="modalBackground">

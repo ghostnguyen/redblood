@@ -86,17 +86,7 @@ public static class dotNetExt
         return s.Replace("+", "%2B");
     }
 
-    public static string[] ParseCodabar(this string s)
-    {
-        string[] r = new string[2];
 
-        s = s.Trim().ToLower();
-
-        r[0] = s[0].ToString() + s[s.Length - 1].ToString();
-        r[1] = s.Substring(1, s.Length - 2);
-
-        return r;
-    }
 
     public static string RemoveDiacritics(this string s)
     {
