@@ -79,6 +79,14 @@ public partial class UserControl_People : System.Web.UI.UserControl
         }
     }
 
+    public bool HideMoreDetail
+    {
+        set 
+        {
+            divMoreDetail.Visible = !value;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -99,7 +107,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
         }
         else
         {
-            imgCodabar.Attributes.Add("src", "./Codabar/Image.aspx?code="
+            imgCodabar.Attributes.Add("src", "../Codabar/Image.aspx?code="
                 + CodabarBLL.GenStringCode(Resources.Codabar.peopleSSC, e.ID.ToString()));
 
             txtName.Text = e.Name;

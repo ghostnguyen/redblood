@@ -64,7 +64,33 @@
                 <div id="divErrOrgName" runat="server" class="hidden" />
             </td>
         </tr>
-        <tr runat="server" id="rowPeople">
+        <div runat="server" id="rowPeople">
+            <tr>
+                <td>
+                    Người nhận
+                </td>
+                <td>
+                    <uc:People runat="server" ID="People1" HideMoreDetail="true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="dotLineBottom" colspan="2">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nằm viện
+                </td>
+                <td>
+                    Khoa:&nbsp;<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                    <br />
+                    Phòng:&nbsp;<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                    <br />
+                    Giường:&nbsp;<asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+        </div>
+        <%--<tr runat="server" id="rowPeople">
             <td>
                 Người nhận
             </td>
@@ -83,7 +109,7 @@
                     <asp:Button runat="server" ID="btnClose" Text='<%$ Resources:Resource,Close %>' />
                 </asp:Panel>
             </td>
-        </tr>
+        </tr>--%>
         <tr>
             <td class="dotLineBottom" colspan="2">
             </td>

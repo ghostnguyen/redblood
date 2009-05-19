@@ -43,7 +43,7 @@
                         Ngày sinh
                     </td>
                     <td>
-                        <asp:TextBox ID="txtDOB" runat="server" />                        
+                        <asp:TextBox ID="txtDOB" runat="server" />
                         <div id="divErrDOB" runat="server" class="hidden">
                         </div>
                     </td>
@@ -88,87 +88,89 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="dotLineBottom">
-                    </td>
-                    <td class="dotLineBottom">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <asp:CheckBox ID="chkEnableMaillingAddress" runat="server" Text="Thêm địa chỉ liên lạc."
-                            OnCheckedChanged="chkEnableMaillingAddress_CheckedChanged" AutoPostBack="true" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="dotLineBottom">
-                    </td>
-                    <td class="dotLineBottom">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="people_cellheader">
-                        Địa chỉ
-                        <br />
-                        liên lạc
-                    </td>
-                    <td>
-                        <asp:Panel runat="server" ID="panelMaillingAddress">
-                            <asp:TextBox ID="txtMailingAddress" runat="server" CssClass="people_cellvalue" Enabled="false" />
+                <div runat="server" id="divMoreDetail">
+                    <tr>
+                        <td class="dotLineBottom">
+                        </td>
+                        <td class="dotLineBottom">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <asp:CheckBox ID="chkEnableMaillingAddress" runat="server" Text="Thêm địa chỉ liên lạc."
+                                OnCheckedChanged="chkEnableMaillingAddress_CheckedChanged" AutoPostBack="true" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dotLineBottom">
+                        </td>
+                        <td class="dotLineBottom">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="people_cellheader">
+                            Địa chỉ
                             <br />
-                            P./Xã, Q./Huyện, Tỉnh/Tp
-                            <br />
-                            <asp:TextBox ID="txtMailingGeo" runat="server" autocomplete="off" CssClass="people_cellvalue"
-                                Enabled="false"></asp:TextBox>
-                            <ajk:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtMailingGeo"
-                                ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListGeo" MinimumPrefixLength="3"
-                                CompletionSetCount="15" EnableCaching="true">
-                            </ajk:AutoCompleteExtender>
-                            <div id="divErrMailingGeo" runat="server" class="hidden">
-                            </div>
-                        </asp:Panel>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="dotLineBottom">
-                    </td>
-                    <td class="dotLineBottom">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="people_cellheader">
-                        Nghề nghiệp
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtJob" runat="server" CssClass="people_cellvalue" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="people_cellheader">
-                        Email
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="people_cellvalue" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="people_cellheader">
-                        Điện thoại
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtPhone" runat="server" CssClass="people_cellvalue" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="people_cellheader">
-                        Ghi chú
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtNote" runat="server" CssClass="people_cellvalue" TextMode="MultiLine" />
-                    </td>
-                </tr>
+                            liên lạc
+                        </td>
+                        <td>
+                            <asp:Panel runat="server" ID="panelMaillingAddress">
+                                <asp:TextBox ID="txtMailingAddress" runat="server" CssClass="people_cellvalue" Enabled="false" />
+                                <br />
+                                P./Xã, Q./Huyện, Tỉnh/Tp
+                                <br />
+                                <asp:TextBox ID="txtMailingGeo" runat="server" autocomplete="off" CssClass="people_cellvalue"
+                                    Enabled="false"></asp:TextBox>
+                                <ajk:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtMailingGeo"
+                                    ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListGeo" MinimumPrefixLength="3"
+                                    CompletionSetCount="15" EnableCaching="true">
+                                </ajk:AutoCompleteExtender>
+                                <div id="divErrMailingGeo" runat="server" class="hidden">
+                                </div>
+                            </asp:Panel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dotLineBottom">
+                        </td>
+                        <td class="dotLineBottom">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="people_cellheader">
+                            Nghề nghiệp
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtJob" runat="server" CssClass="people_cellvalue" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="people_cellheader">
+                            Email
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="people_cellvalue" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="people_cellheader">
+                            Điện thoại
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtPhone" runat="server" CssClass="people_cellvalue" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="people_cellheader">
+                            Ghi chú
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtNote" runat="server" CssClass="people_cellvalue" TextMode="MultiLine" />
+                        </td>
+                    </tr>
+                </div>
                 <tr>
                     <td class="dotLineBottom">
                     </td>

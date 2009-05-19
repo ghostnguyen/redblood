@@ -34,8 +34,21 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         }
     }
 
+    public string Code
+    {
+        set
+        {
+            People1.Code = value;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            rowPeople.Attributes.Add("style", "visibility:collapse;");
+            rowOrg.Attributes.Add("style", "visibility:collapse;");
+        }
 
     }
 
@@ -147,7 +160,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         txtDate.Text = "";
         txtNote.Text = "";
         txtOrgName.Text = "";
-        PeopleOrder1.PeopleID = Guid.Empty;
+        //PeopleOrder1.PeopleID = Guid.Empty;
         People1.PeopleID = Guid.Empty;
 
         divErrName.Attributes["class"] = "hidden";
@@ -175,14 +188,14 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             if (e.Date != null)
                 txtDate.Text = e.Date.ToStringVN_Hour();
 
-            if (OrderType == Order.Typex.ToOrg)
+            if (OrderType == Order.Typex.ToOrg && e.Org != null)
             {
                 txtOrgName.Text = e.Org.Name;
             }
 
-            if (OrderType == Order.Typex.ToPeople)
+            if (OrderType == Order.Typex.ToPeople && e.People != null)
             {
-                PeopleOrder1.PeopleID = e.PeopleID.GetValueOrDefault();
+                //PeopleOrder1.PeopleID = e.PeopleID.GetValueOrDefault();
                 People1.PeopleID = e.PeopleID.GetValueOrDefault();
             }
             SwitchGUI();
