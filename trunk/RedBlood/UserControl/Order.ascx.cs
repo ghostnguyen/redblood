@@ -46,7 +46,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         if (!IsPostBack)
         {
-            rowPeople.Attributes.Add("style", "visibility:collapse;");
+            //rowPeople.Attributes.Add("style", "visibility:collapse;");
+            rowPeople.Visible = false;
+
             rowOrg.Attributes.Add("style", "visibility:collapse;");
         }
 
@@ -165,7 +167,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
         divErrName.Attributes["class"] = "hidden";
         rowOrg.Attributes.Remove("style");
-        rowPeople.Attributes.Remove("style");
+        //rowPeople.Attributes.Remove("style");
+        rowPeople.Visible = true;
     }
 
     public void LoadOrder()
@@ -205,7 +208,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     void SwitchGUI()
     {
         if (OrderType == Order.Typex.ToOrg)
-            rowPeople.Attributes.Add("style", "visibility:collapse;");
+            //rowPeople.Attributes.Add("style", "visibility:collapse;");
+            rowPeople.Visible = false;
 
         if (OrderType == Order.Typex.ToPeople)
             rowOrg.Attributes.Add("style", "visibility:collapse;");
