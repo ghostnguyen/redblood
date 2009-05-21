@@ -78,15 +78,10 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    Nằm viện
-                </td>
-                <td>
-                    Khoa:&nbsp;<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                    <br />
-                    Phòng:&nbsp;<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-                    <br />
-                    Giường:&nbsp;<asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                <td colspan="2">
+                    Khoa:&nbsp;<asp:TextBox ID="txtDept" Width="199" runat="server"></asp:TextBox>
+                    Phòng:&nbsp;<asp:TextBox ID="txtRoom" Width="30" runat="server"></asp:TextBox>
+                    Giường:&nbsp;<asp:TextBox ID="txtBed" Width="30" runat="server"></asp:TextBox>
                 </td>
             </tr>
         </div>
