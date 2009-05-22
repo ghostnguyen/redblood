@@ -92,7 +92,7 @@ public partial class Campaign
         }
         else
         {
-            Org g = orgBLL.GetByName(value);
+            Org g = OrgBLL.GetByName(value);
             if (g == null)
             {
                 throw new Exception("Nhập sai tên đơn vị phối hợp.");
@@ -113,7 +113,7 @@ public partial class Campaign
         }
         else
         {
-            Org g = orgBLL.GetByName(value);
+            Org g = OrgBLL.GetByName(value);
             if (g == null)
             {
                 throw new Exception("Nhập sai tên địa điểm thu máu.");

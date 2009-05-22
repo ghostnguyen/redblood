@@ -9,7 +9,19 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 {
     public event EventHandler OrderChanged;
 
-    public Order.Typex OrderType { get; set; }
+    public Order.Typex OrderType
+    {
+        get
+        {
+            if (ViewState["OrderType"] == null)
+                return 0;
+            return (Order.Typex)ViewState["OrderType"];
+        }
+        set
+        {
+            ViewState["OrderType"] = value;
+        }
+    }
     public int OrderID
     {
         get
@@ -107,19 +119,30 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         if (p.Date == null) p.Date = DateTime.Now;
 
         p.Type = OrderType;
-        p.Note = txtNote.Text;
+        p.Note = txtNote.Text.Trim();
 
-        //try
-        //{
-        //    p.SetCoopOrgID(txtCoopOrgName.Text.Trim());
-        //    divErrCoopOrgName.Attributes["class"] = "hidden";
-        //}
-        //catch (Exception ex)
-        //{
-        //    divErrCoopOrgName.Attributes["class"] = "err";
-        //    divErrCoopOrgName.InnerText = ex.Message;
-        //    isDone = false;
-        //}
+        if (OrderType == Order.Typex.ToOrg)
+        {
+            try
+            {
+                p.SetOrgID(txtOrgName.Text.Trim());
+                divErrOrgName.Attributes["class"] = "hidden";
+            }
+            catch (Exception ex)
+            {
+                divErrOrgName.Attributes["class"] = "err";
+                divErrOrgName.InnerText = ex.Message;
+                isDone = false;
+            }
+        }
+
+        if (OrderType == Order.Typex.ToPeople)
+        {
+            p.PeopleID = People1.PeopleID;
+            p.Dept = txtDept.Text.Trim();
+            p.Room = txtRoom.Text.Trim();
+            p.Bed = txtBed.Text.Trim();
+        }
 
         return isDone;
     }
@@ -198,8 +221,10 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
             if (OrderType == Order.Typex.ToPeople && e.People != null)
             {
-                //PeopleOrder1.PeopleID = e.PeopleID.GetValueOrDefault();
                 People1.PeopleID = e.PeopleID.GetValueOrDefault();
+                txtDept.Text = e.Dept;
+                txtRoom.Text = e.Room;
+                txtBed.Text = e.Bed;
             }
             SwitchGUI();
         }

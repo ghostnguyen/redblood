@@ -19,4 +19,25 @@ public partial class Order
         if (string.IsNullOrEmpty(value.Trim()))
             throw new Exception("Nhập tên.");
     }
+
+    public void SetOrgID(string value)
+    {
+        value = value.Trim();
+        if (String.IsNullOrEmpty(value))
+        {
+            OrgID = null;
+        }
+        else
+        {
+            Org g = OrgBLL.GetByName(value);
+            if (g == null)
+            {
+                throw new Exception("Nhập sai tên đơn vị.");
+            }
+            else
+            {
+                OrgID = g.ID;
+            }
+        }
+    }
 }
