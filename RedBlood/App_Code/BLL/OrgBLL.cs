@@ -66,7 +66,7 @@ public class OrgBLL
         else return true;
     }
 
-    public Org GetByName(string name)
+    public static Org GetByName(string name)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -75,7 +75,7 @@ public class OrgBLL
 
         return (from c in db.Orgs
                 where c.Name == name
-                select c).First();
+                select c).FirstOrDefault();
     }
 
     public string Delete(int ID)

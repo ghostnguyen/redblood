@@ -36,14 +36,6 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <asp:Button ID="btnUpdate" runat="server" Text="<%$ Resources:Resource,Update %>"
-                                OnClick="btnUpdate_Click" />
-                            <asp:Button ID="btnDelete" runat="server" Text="<%$ Resources:Resource,Delete %>"
-                                OnClick="btnDelete_Click" OnClientClick="return confirm('Xóa đợt hiến máu này.');" />
-                        </td>
-                    </tr>
                 </table>
             </td>
         </tr>
@@ -107,6 +99,14 @@
         </tr>--%>
         <tr>
             <td class="dotLineBottom" colspan="2">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Button ID="btnUpdate" runat="server" Text="<%$ Resources:Resource,Update %>"
+                    OnClick="btnUpdate_Click" />
+                <asp:Button ID="btnDelete" runat="server" Text="<%$ Resources:Resource,Delete %>"
+                    OnClick="btnDelete_Click" OnClientClick="return confirm('Xóa đợt hiến máu này.');" />
             </td>
         </tr>
         <%--        <tr>

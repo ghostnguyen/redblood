@@ -15675,6 +15675,12 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<int> _Status;
 	
+	private string _Dept;
+	
+	private string _Room;
+	
+	private string _Bed;
+	
 	private EntitySet<PackOrder> _PackOrders;
 	
 	private EntityRef<Org> _Org;
@@ -15703,6 +15709,12 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnTypeChanged();
     partial void OnStatusChanging(System.Nullable<int> value);
     partial void OnStatusChanged();
+    partial void OnDeptChanging(string value);
+    partial void OnDeptChanged();
+    partial void OnRoomChanging(string value);
+    partial void OnRoomChanged();
+    partial void OnBedChanging(string value);
+    partial void OnBedChanged();
     #endregion
 	
 	public Order()
@@ -15897,6 +15909,66 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 				this._Status = value;
 				this.SendPropertyChanged("Status");
 				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Dept", DbType="NVarChar(MAX)")]
+	public string Dept
+	{
+		get
+		{
+			return this._Dept;
+		}
+		set
+		{
+			if ((this._Dept != value))
+			{
+				this.OnDeptChanging(value);
+				this.SendPropertyChanging();
+				this._Dept = value;
+				this.SendPropertyChanged("Dept");
+				this.OnDeptChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Room", DbType="NVarChar(MAX)")]
+	public string Room
+	{
+		get
+		{
+			return this._Room;
+		}
+		set
+		{
+			if ((this._Room != value))
+			{
+				this.OnRoomChanging(value);
+				this.SendPropertyChanging();
+				this._Room = value;
+				this.SendPropertyChanged("Room");
+				this.OnRoomChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Bed", DbType="NVarChar(MAX)")]
+	public string Bed
+	{
+		get
+		{
+			return this._Bed;
+		}
+		set
+		{
+			if ((this._Bed != value))
+			{
+				this.OnBedChanging(value);
+				this.SendPropertyChanging();
+				this._Bed = value;
+				this.SendPropertyChanged("Bed");
+				this.OnBedChanged();
 			}
 		}
 	}
