@@ -32,4 +32,10 @@ public class PackErrList
     public static PackErr DataErr = new PackErr("Lỗi dữ liệu.", Pack.StatusX.DataErr);
     public static PackErr EnterPackMulti = new PackErr("Lỗi dữ liệu. Túi máu đã nhập nhiều hơn 1.", Pack.StatusX.DataErr);
     public static PackErr EnterPackExp = new PackErr("Có túi máu đã nhập nhưng chưa xử lý.", Pack.StatusX.ExpireEnter);
+    public static PackErr Expired = new PackErr("Túi máu quá hạn sử dụng.");
+
+    public static PackErr CanNotOrder = new PackErr("Không thể cấp phát. Túi máu chưa nhập kết quả xét nghiệm.");
+    public static PackErr Ordering = new PackErr("Đang cấp phát.");
+    public static PackErr Dilivered = new PackErr("Đã cấp phát");
+    public static PackErr NonExistOrder = new PackErr("Sai đợt cấp phát.");
 }

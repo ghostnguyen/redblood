@@ -29,12 +29,14 @@ public class SystemBLL
 
             foreach (Pack r in rs)
             {
-                PackErr err = PackBLL.Validate(r);
-                if (!err.Equals(PackErrList.Non))
-                {
-                    PackStatusHistory h = PackBLL.ChangeStatus(r, err.ToStatusX, SystemActor.SOD, err.Message);
-                    db.PackStatusHistories.InsertOnSubmit(h);
-                }
+                PackBLL.ValidateAndChangeStatus(db, r, SystemActor.SOD);                
+                
+                //PackErr err = PackBLL.Validate(r);                
+                //if (!err.Equals(PackErrList.Non))
+                //{
+                //    PackStatusHistory h = PackBLL.ChangeStatus(r, err.ToStatusX, SystemActor.SOD, err.Message);
+                //    db.PackStatusHistories.InsertOnSubmit(h);
+                //}
             }
 
             //db.SubmitChanges();
