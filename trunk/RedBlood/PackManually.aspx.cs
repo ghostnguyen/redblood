@@ -62,9 +62,9 @@ public partial class PackManually : System.Web.UI.Page
 
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        RedBloodDataContext db;
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.GetByAutonum((int)e.Keys[0], out db, PackBLL.StatusListEnteringTestResult(), true);
+        Pack p = PackBLL.Get((int)e.Keys[0],  db, PackBLL.StatusListEnteringTestResult(), true);
 
         if (p != null)
         {

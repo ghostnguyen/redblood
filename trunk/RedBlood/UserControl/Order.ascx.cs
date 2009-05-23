@@ -50,7 +50,25 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         set
         {
-            People1.Code = value;
+            string code = value.Trim();
+            if (CodabarBLL.IsValidPackCode(code))
+            {
+                //PackCodeEnter(Master.TextBoxCode.Text);
+            }
+            else if (CodabarBLL.IsValidOrderCode(code))
+            {
+                OrderID = CodabarBLL.ParseOrderID(code);
+            }
+            else if (CodabarBLL.IsValidPeopleCode(code))
+            {
+                People1.Code = code;
+            }
+            else if (code.Length >= 9)
+            {
+                People1.Code = code;
+            }
+            else
+            { }
         }
     }
 
@@ -58,7 +76,6 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         if (!IsPostBack)
         {
-            //rowPeople.Attributes.Add("style", "visibility:collapse;");
             rowPeople.Visible = false;
 
             rowOrg.Attributes.Add("style", "visibility:collapse;");
@@ -238,5 +255,18 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
         if (OrderType == Order.Typex.ToPeople)
             rowOrg.Attributes.Add("style", "visibility:collapse;");
+    }
+
+    void AddPack(int autonum)
+    {
+        PackErr err = OrderBLL.Order(OrderID, autonum);
+
+        if (err == null || err == PackErrList.Non)
+        { }
+        else
+        {
+            ScriptManager.RegisterStartupScript(btnUpdate, btnUpdate.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
+        }
+
     }
 }

@@ -42,30 +42,28 @@ public class PackBLL
 
 
 
-    public static Pack GetByAutonum(int autonum)
+    public static Pack Get(int autonum)
     {
-        RedBloodDataContext db;
-        return GetByAutonum(autonum, out db, Pack.StatusX.All);
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get(autonum, db, Pack.StatusX.All);
     }
 
-    public static Pack GetByAutonum(int autonum, out RedBloodDataContext db)
+    public static Pack Get(int autonum, RedBloodDataContext db)
     {
-        return GetByAutonum(autonum, out db, Pack.StatusX.All, false);
+        return Get(autonum, db, Pack.StatusX.All, false);
     }
 
-    public static Pack GetByAutonum(int autonum, out RedBloodDataContext db, Pack.StatusX status)
+    public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX status)
     {
-        return GetByAutonum(autonum, out db, status, false);
+        return Get(autonum, db, status, false);
     }
 
-    public static Pack GetByAutonum(int autonum, out RedBloodDataContext db, Pack.StatusX status, bool allowPackErr)
+    public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX status, bool allowPackErr)
     {
-        return GetByAutonum(autonum, out db, new Pack.StatusX[] { status }, allowPackErr);
+        return Get(autonum, db, new Pack.StatusX[] { status }, allowPackErr);
     }
-    public static Pack GetByAutonum(int autonum, out RedBloodDataContext db, Pack.StatusX[] status, bool allowPackErr)
+    public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX[] status, bool allowPackErr)
     {
-        db = new RedBloodDataContext();
-
         if (autonum == 0) return null;
 
         if (status.Count() == 1 && status[0] == Pack.StatusX.All)
@@ -103,7 +101,7 @@ public class PackBLL
 
     public static Pack GetByCode(string code)
     {
-        return GetByAutonum(CodabarBLL.ParsePackAutoNum(code));
+        return Get(CodabarBLL.ParsePackAutoNum(code));
     }
 
     public static Pack[] GetByStatus(Pack.StatusX[] status, out RedBloodDataContext db)
@@ -235,9 +233,9 @@ public class PackBLL
     {
         if (autonum == 0) return null;
 
-        RedBloodDataContext db;
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = GetByAutonum(autonum, out db, Pack.StatusX.Assign);
+        Pack p = Get(autonum, db, Pack.StatusX.Assign);
 
         if (p == null
             || p.ComponentID == null || p.Volume == null) return p;
@@ -285,9 +283,9 @@ public class PackBLL
     {
         if (autonum == 0) return null;
 
-        RedBloodDataContext db;
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = GetByAutonum(autonum, out db, Pack.StatusX.All, true);
+        Pack p = Get(autonum, db, Pack.StatusX.All, true);
 
         if (p == null) return PackErrList.NonExist;
 
@@ -321,9 +319,9 @@ public class PackBLL
     {
         if (autonum == 0) return null;
 
-        RedBloodDataContext db;
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = GetByAutonum(autonum, out db, Pack.StatusX.Assign);
+        Pack p = Get(autonum, db, Pack.StatusX.Assign);
 
         if (p == null && p.PeopleID != null) return p;
 
@@ -367,6 +365,21 @@ public class PackBLL
 
         return r.ToArray();
     }
+
+    public static PackErr ValidateAndChangeStatus(RedBloodDataContext db, Pack p, string actor)
+    {
+        PackErr err = Validate(p);
+
+        if (!err.Equals(PackErrList.Non))
+        {
+            PackStatusHistory h = PackBLL.ChangeStatus(p, err.ToStatusX, actor, err.Message);
+            db.PackStatusHistories.InsertOnSubmit(h);
+        }
+
+        return err;
+    }
+
+
 
     public static PackErr Validate(Pack p)
     {
@@ -525,7 +538,7 @@ public class PackBLL
 
                 ||
 
-                (p.ComponentID != null && p.Volume != null 
+                (p.ComponentID != null && p.Volume != null
                 && p.BloodType2 != null
                 && p.BloodType2.aboID != null && p.BloodType2.rhID != null
                 && p.TestResult2 != null
@@ -542,12 +555,7 @@ public class PackBLL
                 p.Status = Pack.StatusX.EnterTestResult;
                 db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
             }
-
         }
-
-
-
-
     }
 }
 

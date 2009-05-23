@@ -195,12 +195,12 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
     void Update()
     {
-        RedBloodDataContext db;
-        Pack p = PackBLL.GetByAutonum(Autonum, out db, Pack.StatusX.Assign);
+        RedBloodDataContext db = new RedBloodDataContext();
+        Pack p = PackBLL.Get(Autonum, db, Pack.StatusX.Assign);
 
         if (p != null)
         {
-            PackBLL.Update(p, DropDownListComponent.SelectedValue.ToIntNullable4Zero(), 
+            PackBLL.Update(p, DropDownListComponent.SelectedValue.ToIntNullable4Zero(),
                 DropDownListVolume.SelectedValue.ToIntNullable4Zero());
 
             BloodTypeBLL.Update(db, p, 1
@@ -211,24 +211,24 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
             db.SubmitChanges();
 
             Load_EnterPack();
-        } 
+        }
     }
 
     protected void DropDownListComponent_SelectedIndexChanged(object sender, EventArgs e)
     {
         Update();
     }
-    
+
     protected void DropDownListVolume_SelectedIndexChanged(object sender, EventArgs e)
     {
         Update();
     }
-    
+
     protected void DropDownListABO_SelectedIndexChanged(object sender, EventArgs e)
     {
         Update();
     }
-    
+
     protected void DropDownListRH_SelectedIndexChanged(object sender, EventArgs e)
     {
         Update();

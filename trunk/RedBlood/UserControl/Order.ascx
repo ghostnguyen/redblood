@@ -103,6 +103,32 @@
         </tr>
         <tr>
             <td>
+            </td>
+            <td>
+                Danh sách túi máu
+                <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
+                    DataSourceID="LinqDataSourcePack">
+                    <Columns>
+                        <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True"
+                            SortExpression="ID" />
+                        <asp:BoundField DataField="PackID" HeaderText="PackID" SortExpression="PackID" />
+                        <asp:BoundField DataField="OrderID" HeaderText="OrderID" SortExpression="OrderID" />
+                    </Columns>
+                </asp:GridView>
+                <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
+                    TableName="PackOrders" Where="OrderID == @OrderID">
+                    <WhereParameters>
+                        <asp:FormParameter FormField="OrderID" Name="OrderID" Type="Int32" />
+                    </WhereParameters>
+                </asp:LinqDataSource>
+            </td>
+        </tr>
+        <tr>
+            <td class="dotLineBottom" colspan="2">
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <asp:Button ID="btnUpdate" runat="server" Text="<%$ Resources:Resource,Update %>"
                     OnClick="btnUpdate_Click" />
                 <asp:Button ID="btnDelete" runat="server" Text="<%$ Resources:Resource,Delete %>"
@@ -128,24 +154,6 @@
                 <div id="divErrOrgName" runat="server" class="hidden" />
             </td>
         </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-                Danh sách túi máu
-                <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSourcePack">
-                    <Columns>
-                        <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True"
-                            SortExpression="ID" />
-                        <asp:BoundField DataField="PackID" HeaderText="PackID" SortExpression="PackID" />
-                        <asp:BoundField DataField="OrderID" HeaderText="OrderID" SortExpression="OrderID" />
-                    </Columns>
-                </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
-                    TableName="PackOrders">
-                </asp:LinqDataSource>
-            </td>
-        </tr>--%>
+        --%>
     </table>
 </asp:Panel>
