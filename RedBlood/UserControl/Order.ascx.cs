@@ -269,4 +269,10 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         }
 
     }
+    protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID);
+    }
 }

@@ -116,10 +116,7 @@
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
-                    TableName="PackOrders" Where="OrderID == @OrderID">
-                    <WhereParameters>
-                        <asp:FormParameter FormField="OrderID" Name="OrderID" Type="Int32" />
-                    </WhereParameters>
+                    TableName="PackOrders" OnSelecting="LinqDataSourcePack_Selecting">
                 </asp:LinqDataSource>
             </td>
         </tr>
