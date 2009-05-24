@@ -107,16 +107,19 @@
             <td>
                 Danh sách túi máu
                 <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSourcePack">
+                    DataSourceID="LinqDataSourcePack" OnRowCommand="GridViewPack_RowCommand">
                     <Columns>
+                        
                         <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True"
                             SortExpression="ID" />
                         <asp:BoundField DataField="PackID" HeaderText="PackID" SortExpression="PackID" />
                         <asp:BoundField DataField="OrderID" HeaderText="OrderID" SortExpression="OrderID" />
+                        <asp:CommandField ShowDeleteButton="True" DeleteText='<%$ Resources:Resource,Delete %>'/>
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
-                    TableName="PackOrders" OnSelecting="LinqDataSourcePack_Selecting">
+                    TableName="PackOrders" OnSelecting="LinqDataSourcePack_Selecting" EnableDelete="True"
+                    EnableUpdate="True">
                 </asp:LinqDataSource>
             </td>
         </tr>
