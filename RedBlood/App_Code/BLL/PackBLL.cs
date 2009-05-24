@@ -382,7 +382,7 @@ public class PackBLL
 
 
     public static PackErr Validate(Pack p)
-    {
+     {
         if (p == null) return PackErrList.Non;
 
         if (p.Status == Pack.StatusX.Init)
@@ -402,11 +402,13 @@ public class PackBLL
         }
 
         //Check exists entered pack 
-        if (p.Status == Pack.StatusX.Assign || p.Status == Pack.StatusX.CommitReceived)
+        //if (p.Status == Pack.StatusX.Assign || p.Status == Pack.StatusX.CommitReceived)
+
+        if (StatusListEnteringTestResult().Contains(p.Status))
         {
             //is expired
             if (!(p.CollectedDate.Value.Date >= LowerLimDate()))
-                return PackErrList.EnterPackExp;
+                return PackErrList.Expired;
 
             //Data error
             if (p.BloodTypes.Count > 1)

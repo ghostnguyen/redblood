@@ -53,6 +53,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             string code = value.Trim();
             if (CodabarBLL.IsValidPackCode(code))
             {
+                AddPack(CodabarBLL.ParsePackAutoNum(code));
                 //PackCodeEnter(Master.TextBoxCode.Text);
             }
             else if (CodabarBLL.IsValidOrderCode(code))
@@ -76,9 +77,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         if (!IsPostBack)
         {
-            rowPeople.Visible = false;
-
             rowOrg.Attributes.Add("style", "visibility:collapse;");
+            
+            OrderType = Order.Typex.ToPeople;
         }
 
     }
@@ -202,13 +203,17 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         txtDate.Text = "";
         txtNote.Text = "";
         txtOrgName.Text = "";
-        //PeopleOrder1.PeopleID = Guid.Empty;
+        txtDept.Text = "";
+        txtRoom.Text = "";
+        txtBed.Text = "";
         People1.PeopleID = Guid.Empty;
 
         divErrName.Attributes["class"] = "hidden";
-        rowOrg.Attributes.Remove("style");
-        //rowPeople.Attributes.Remove("style");
+        
+        rowOrg.Attributes.Remove("style");        
         rowPeople.Visible = true;
+
+        GridViewPack.DataBind();
     }
 
     public void LoadOrder()
@@ -243,7 +248,11 @@ public partial class UserControl_Order : System.Web.UI.UserControl
                 txtRoom.Text = e.Room;
                 txtBed.Text = e.Bed;
             }
+
+            GridViewPack.DataBind();
             SwitchGUI();
+
+
         }
     }
 
@@ -267,12 +276,19 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         {
             ScriptManager.RegisterStartupScript(btnUpdate, btnUpdate.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
         }
-
     }
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID);
+    }
+
+    protected void GridViewPack_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "Delete")
+        {
+ 
+        }
     }
 }

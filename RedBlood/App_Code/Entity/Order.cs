@@ -14,6 +14,12 @@ public partial class Order
         ToPeople = 2
     }
 
+    public enum StatusX : int
+    {
+        Init = 1,
+        Done = 2
+    }
+
     partial void OnNameChanging(string value)
     {
         if (string.IsNullOrEmpty(value.Trim()))

@@ -50,13 +50,18 @@ public class OrderBLL
                 return PackErrList.Non;
         }
 
+        PackErr err = PackErrList.Non;
         if (i == 0)
         {
-            PackErr err = PackBLL.ValidateAndChangeStatus(db,p,"Order");
+            err = PackBLL.ValidateAndChangeStatus(db,p,"Order");
 
-            if (p.Status == Pack.StatusX.EnterTestResult)
+            if (p.Status == Pack.StatusX.Delete)
             {
-                return PackErrList.CanNotOrder; 
+                return PackErrList.Deleted;
+            }
+            else if (p.Status == Pack.StatusX.EnterTestResult)
+            {
+                return PackErrList.CanNotOrder;
             }
             else if (p.Status == Pack.StatusX.CommitTestResult)
             {
@@ -66,11 +71,10 @@ public class OrderBLL
 
                 db.PackOrders.InsertOnSubmit(po);
             }
-            else return err;
         }
 
         db.SubmitChanges();
 
-        return PackErrList.Non;
+        return err;
     }
 }
