@@ -102,19 +102,20 @@
             </td>
         </tr>
         <tr>
-            <td>
-            </td>
-            <td>
+            <td colspan="2">
                 Danh sách túi máu
                 <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
                     DataSourceID="LinqDataSourcePack" OnRowCommand="GridViewPack_RowCommand">
                     <Columns>
-                        
-                        <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True"
-                            SortExpression="ID" />
+                        <asp:TemplateField HeaderText="Túi máu">
+                            <ItemTemplate>
+                                <%--<asp:Image ID="ImageCodabar" runat="server" ImageUrl=' ~/Codabar/Image.aspx?hasText=true&ssc=" + <%$ Resources:Codabar,packSSC %> + "&autonum=" + <% Eval("Pack.Autonum") %> ' />--%>
+                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='image.aspx + <%$ Resources:Codabar,packSSC %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="PackID" HeaderText="PackID" SortExpression="PackID" />
                         <asp:BoundField DataField="OrderID" HeaderText="OrderID" SortExpression="OrderID" />
-                        <asp:CommandField ShowDeleteButton="True" DeleteText='<%$ Resources:Resource,Delete %>'/>
+                        <asp:CommandField ShowDeleteButton="True" DeleteText='<%$ Resources:Resource,Delete %>' />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"

@@ -23,7 +23,7 @@ public partial class Pack
         Init = 0,
         Đã_thu = 1,
         Assign = 1,
-        CommitReceived = 2,
+        //CommitReceived = 2,
         Hủy = 4,
         Delete = 4,
         Đang_nhập_KQ = 7,

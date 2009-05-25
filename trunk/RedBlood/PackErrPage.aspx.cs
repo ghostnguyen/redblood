@@ -14,11 +14,11 @@ public partial class PackErrPage : System.Web.UI.Page
     }
     protected void LinqDataSourceEnterPackErr_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        e.Result = PackBLL.GetEnterPackErr();        
+        //e.Result = PackBLL.GetEnterPackErr();        
     }
     protected void btnDelete_Click(object sender, EventArgs e)
     {
-        PackBLL.Delete_EnterPackErr(Page.User.Identity.Name);
+        //PackBLL.Delete_EnterPackErr(Page.User.Identity.Name);
         GridViewEnterPackErr.DataBind();
     }
 }

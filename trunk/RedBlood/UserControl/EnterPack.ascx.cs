@@ -61,7 +61,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
             if (e != null)
             {
                 Autonum = e.Autonum;
-                ImageCodabar.ImageUrl = "~/Codabar/Image.aspx?hasText=true&code=" + CodabarBLL.GenStringCode(Resources.Codabar.packSSC, e.Autonum.ToString());
+                ImageCodabar.ImageUrl = "~/Codabar/Image.aspx?hasText=true&code=" + CodabarBLL.GenPackCode(e.Autonum);
 
                 if (e.ComponentID != null)
                     DropDownListComponent.SelectedValue = e.ComponentID.ToString();
@@ -78,17 +78,18 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
                         DropDownListRH.SelectedValue = e.BloodTypes[0].rhID.ToString();
                 }
 
-                if (e.Status == Pack.StatusX.CommitReceived)  //ABO test 1 Commited
-                {
-                    if (e.BloodTypes.Count == 1)
-                        lblPackMsg.Text = "Xác nhận thu máu ngày: " + e.CollectedDate.ToStringVN() + " - " + e.Actor;
+                //if (e.Status == Pack.StatusX.CommitReceived)  //ABO test 1 Commited
+                //{
+                //    if (e.BloodTypes.Count == 1)
+                //        lblPackMsg.Text = "Xác nhận thu máu ngày: " + e.CollectedDate.ToStringVN() + " - " + e.Actor;
 
-                    if (e.BloodTypes.Count == 0)
-                        lblPackMsg.Text = "Xác nhận thu máu (không có ABO test) ngày: " + e.CollectedDate.ToStringVN() + " - " + e.Actor;
-                }
-                else
-                {
-                }
+                //    if (e.BloodTypes.Count == 0)
+                //        lblPackMsg.Text = "Xác nhận thu máu (không có ABO test) ngày: " + e.CollectedDate.ToStringVN() + " - " + e.Actor;
+                //}
+                //else
+                //{
+                //}
+
                 ucCampaign.CampaignID = e.CampaignID.Value;
 
             }
@@ -187,7 +188,8 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
             }
             else btnCommitWithout.Visible = false;
         }
-        else if (e.Status == Pack.StatusX.CommitReceived)
+        else if (e.Status == Pack.StatusX.EnterTestResult
+            || e.Status == Pack.StatusX.CommitTestResult)
         {
             btnDelete.Visible = true;
         }
@@ -236,13 +238,13 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
     protected void btnCommitWithout_Click(object sender, EventArgs e)
     {
-        bll.CommitEnterPack(Autonum, false, Page.User.Identity.Name);
+        //bll.CommitEnterPack(Autonum, false, Page.User.Identity.Name);
         Load_EnterPack();
     }
 
     protected void btnCommit_Click(object sender, EventArgs e)
     {
-        bll.CommitEnterPack(Autonum, true, Page.User.Identity.Name);
+        //bll.CommitEnterPack(Autonum, true, Page.User.Identity.Name);
         Load_EnterPack();
     }
     protected void btnDelete_Click(object sender, EventArgs e)
