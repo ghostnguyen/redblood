@@ -53,13 +53,14 @@ public class OrderBLL
         PackErr err = PackErrList.Non;
         if (i == 0)
         {
-            err = PackBLL.ValidateAndChangeStatus(db,p,"Order");
+            err = PackBLL.ValidateAndChangeStatus(db, p, "Order");
 
             if (p.Status == Pack.StatusX.Delete)
             {
                 return PackErrList.Deleted;
             }
-            else if (p.Status == Pack.StatusX.EnterTestResult)
+            else if (p.Status == Pack.StatusX.EnterTestResult
+                || p.Status == Pack.StatusX.Assign)
             {
                 return PackErrList.CanNotOrder;
             }

@@ -54,7 +54,6 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             if (CodabarBLL.IsValidPackCode(code))
             {
                 AddPack(CodabarBLL.ParsePackAutoNum(code));
-                //PackCodeEnter(Master.TextBoxCode.Text);
             }
             else if (CodabarBLL.IsValidOrderCode(code))
             {

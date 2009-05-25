@@ -66,27 +66,27 @@ public class CampaignBLL
         return "Không tìm thấy.";
     }
 
-    public object GetTSIn(bool isLongRun)
-   { 
-        RedBloodDataContext db = new RedBloodDataContext();
+    //public object GetTSIn(bool isLongRun)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        if (isLongRun)
-        {
-            var rs = from r in db.Campaigns
-                     let total = (r.Packs.Count(p => p.Status == Pack.StatusX.CommitReceived))
-                     where total > 0 && r.Type == Campaign.TypeX.Long_run
-                     select new { r.ID, r.Name, SourceName = r.Source.Name, r.Note, total };
-            return rs;
-        }
-        else
-        {
-            var rs = from r in db.Campaigns
-                     let total = (r.Packs.Count(p => p.Status == Pack.StatusX.CommitReceived))
-                     where r.Type == Campaign.TypeX.Short_run && r.Status == Campaign.StatusX.Assign
-                     select new { r.ID, r.Name, SourceName = r.Source.Name, r.Date, r.Note, total };
-            return rs;
-        }
-    }
+    //    if (isLongRun)
+    //    {
+    //        var rs = from r in db.Campaigns
+    //                 let total = (r.Packs.Count(p => p.Status == Pack.StatusX.CommitReceived))
+    //                 where total > 0 && r.Type == Campaign.TypeX.Long_run
+    //                 select new { r.ID, r.Name, SourceName = r.Source.Name, r.Note, total };
+    //        return rs;
+    //    }
+    //    else
+    //    {
+    //        var rs = from r in db.Campaigns
+    //                 let total = (r.Packs.Count(p => p.Status == Pack.StatusX.CommitReceived))
+    //                 where r.Type == Campaign.TypeX.Short_run && r.Status == Campaign.StatusX.Assign
+    //                 select new { r.ID, r.Name, SourceName = r.Source.Name, r.Date, r.Note, total };
+    //        return rs;
+    //    }
+    //}
 
     public void New(Campaign e)
     {

@@ -193,7 +193,7 @@ public class PackBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         var e = from c in db.Packs
-                where c.PeopleID == peopleID && (c.Status == Pack.StatusX.Assign || c.Status == Pack.StatusX.CommitReceived)
+                where c.PeopleID == peopleID && (c.Status == Pack.StatusX.Assign || c.Status == Pack.StatusX.EnterTestResult)
                 orderby c.Status descending, c.CollectedDate descending
                 select c;
 
@@ -215,59 +215,59 @@ public class PackBLL
         return null;
     }
 
-    public static Pack[] GetEnterPackErr()
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-        DateTime expDate = DateTime.Now.Date.AddDays(1 - Resources.Setting.EnterPackExpire.ToInt());
+    //public static Pack[] GetEnterPackErr()
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
+    //    DateTime expDate = DateTime.Now.Date.AddDays(1 - Resources.Setting.EnterPackExpire.ToInt());
 
-        DateTime lim = LowerLimDate();
-        var e = from c in db.Packs
-                where (c.Status == Pack.StatusX.Assign || c.Status == Pack.StatusX.CommitReceived) && (c.CollectedDate < lim || c.CollectedDate >= DateTime.Now)
-                orderby c.Status descending, c.CollectedDate descending
-                select c;
+    //    DateTime lim = LowerLimDate();
+    //    var e = from c in db.Packs
+    //            where (c.Status == Pack.StatusX.Assign || c.Status == Pack.StatusX.CommitReceived) && (c.CollectedDate < lim || c.CollectedDate >= DateTime.Now)
+    //            orderby c.Status descending, c.CollectedDate descending
+    //            select c;
 
-        return e.ToArray();
-    }
+    //    return e.ToArray();
+    //}
 
-    public Pack CommitEnterPack(int autonum, bool withABO, string actor)
-    {
-        if (autonum == 0) return null;
+    //public Pack CommitEnterPack(int autonum, bool withABO, string actor)
+    //{
+    //    if (autonum == 0) return null;
 
-        RedBloodDataContext db = new RedBloodDataContext();
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get(autonum, db, Pack.StatusX.Assign);
+    //    Pack p = Get(autonum, db, Pack.StatusX.Assign);
 
-        if (p == null
-            || p.ComponentID == null || p.Volume == null) return p;
+    //    if (p == null
+    //        || p.ComponentID == null || p.Volume == null) return p;
 
-        if (withABO)
-        {
-            if (p.BloodTypes.Count != 1) return p;
+    //    if (withABO)
+    //    {
+    //        if (p.BloodTypes.Count != 1) return p;
 
-            BloodType bt = p.BloodTypes[0];
+    //        BloodType bt = p.BloodTypes[0];
 
-            if (bt.aboID == null || bt.rhID == null) return p;
+    //        if (bt.aboID == null || bt.rhID == null) return p;
 
-            bt.Actor = actor;
-            bt.CommitDate = DateTime.Now;
-        }
-        else
-        {
+    //        bt.Actor = actor;
+    //        bt.CommitDate = DateTime.Now;
+    //    }
+    //    else
+    //    {
 
-        }
+    //    }
 
-        Pack.StatusX from = p.Status;
+    //    Pack.StatusX from = p.Status;
 
-        p.CollectedDate = DateTime.Now;
-        p.Status = Pack.StatusX.CommitReceived;
-        p.Actor = actor;
+    //    p.CollectedDate = DateTime.Now;
+    //    p.Status = Pack.StatusX.CommitReceived;
+    //    p.Actor = actor;
 
-        db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, p.Status, actor, "Commit Received"));
+    //    db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, p.Status, actor, "Commit Received"));
 
-        db.SubmitChanges();
+    //    db.SubmitChanges();
 
-        return p;
-    }
+    //    return p;
+    //}
 
     public static PackStatusHistory ChangeStatus(Pack p, Pack.StatusX to, string actor, string note)
     {
@@ -305,14 +305,14 @@ public class PackBLL
         return null;
     }
 
-    public static void Delete_EnterPackErr(string actor)
-    {
-        Pack[] l = GetEnterPackErr();
-        foreach (Pack e in l)
-        {
-            DeletePack(null, e.Autonum, "Hủy túi máu bị lỗi khi thu.", actor);
-        }
-    }
+    //public static void Delete_EnterPackErr(string actor)
+    //{
+    //    Pack[] l = GetEnterPackErr();
+    //    foreach (Pack e in l)
+    //    {
+    //        DeletePack(null, e.Autonum, "Hủy túi máu bị lỗi khi thu.", actor);
+    //    }
+    //}
 
     //Only pack has status 0 can be remove, to re-assign to another people.
     public Pack RemovePeople(int autonum, string actor)
