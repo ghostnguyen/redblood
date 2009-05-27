@@ -107,6 +107,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
             if (p == null) return;
 
+
             if (LoadFromGUI(p))
             {
                 db.SubmitChanges();
@@ -267,7 +268,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
     void AddPack(int autonum)
     {
-        PackErr err = OrderBLL.Order(OrderID, autonum);
+        PackErr err = OrderBLL.Order(OrderID, autonum,Page.User.Identity.Name);
 
         if (err == null || err == PackErrList.Non)
         { }
@@ -289,5 +290,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         {
  
         }
+    }
+    protected void GridViewPack_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        OrderBLL        
     }
 }

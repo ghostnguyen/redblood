@@ -25,7 +25,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
             if (node != null)
                 lblTitle.Text = node.Title;
             else
-                lblTitle.Text = Request.Path;
+            {
+                if (Request.Path.Contains("Default.aspx"))
+                    lblTitle.Text = "RedBlood";
+                else
+                    lblTitle.Text = Request.Path;
+            }
         }
 
     }

@@ -77,9 +77,10 @@ public partial class PackTestResult : System.Web.UI.Page
                e.NewValues["TestResult2.Malaria.ID"].ToIntNullable(),
                Page.User.Identity.Name, "");
 
-            PackBLL.VerifyCommitTestResult(db, p, "");
-
             db.SubmitChanges();
+
+            PackBLL.VerifyCommitTestResult(p.Autonum, Page.User.Identity.Name);
+
         }
 
         e.Cancel = true;

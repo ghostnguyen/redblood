@@ -27,7 +27,7 @@ public class OrderBLL
         return db.Orders.Where(r => r.ID == ID).FirstOrDefault();
     }
 
-    public static PackErr Order(int ID, int autonum)
+    public static PackErr Order(int ID, int autonum, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -55,6 +55,10 @@ public class OrderBLL
         {
             err = PackBLL.ValidateAndChangeStatus(db, p, "Order");
 
+            if (p.Status == Pack.StatusX.Expire)
+            {
+                return PackErrList.Expired;
+            }
             if (p.Status == Pack.StatusX.Delete)
             {
                 return PackErrList.Deleted;
@@ -66,16 +70,31 @@ public class OrderBLL
             }
             else if (p.Status == Pack.StatusX.CommitTestResult)
             {
+                if (PackBLL.ValidateTestResult(p.TestResult2).Count() != 0)
+                    return PackErrList.Positive;
+
                 PackOrder po = new PackOrder();
                 po.OrderID = r.ID;
                 po.PackID = p.ID;
 
                 db.PackOrders.InsertOnSubmit(po);
+
+                PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Dilivered, actor, "Add Order");
+                db.PackStatusHistories.InsertOnSubmit(h);
             }
         }
 
         db.SubmitChanges();
 
         return err;
+    }
+
+    public static void Remove(int packOrderID)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        PackOrder po = db.PackOrders.Where(r => r.ID == packOrderID).FirstOrDefault();
+
+        if (po == null) return;
     }
 }
