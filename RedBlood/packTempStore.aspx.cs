@@ -73,9 +73,9 @@ public partial class PackTempStore : System.Web.UI.Page
                 e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(), 
                 Page.User.Identity.Name, "");
 
-            PackBLL.VerifyCommitTestResult(db, p, "");
-
             db.SubmitChanges();
+
+            PackBLL.VerifyCommitTestResult(p.Autonum, Page.User.Identity.Name);
         }
 
 

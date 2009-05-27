@@ -529,14 +529,17 @@ public class PackBLL
     //    return PackErrList.Non;
     //}
 
-    public static void VerifyCommitTestResult(RedBloodDataContext db, Pack p, string actor)
+    public static void VerifyCommitTestResult(int autonum, string actor)
     {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Pack p = PackBLL.Get(autonum, db);
+
         if (p != null
             && StatusListEnteringTestResult().Contains(p.Status))
         {
             if (
                 (p.ComponentID != null
-                && p.ComponentID.Value == (int)TestDef.Component.Platelet)
+                && p.ComponentID.Value == (int)TestDef.Component.PlateletKit)
 
                 ||
 
@@ -558,6 +561,8 @@ public class PackBLL
                 db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
             }
         }
+        
+        db.SubmitChanges();
     }
 }
 

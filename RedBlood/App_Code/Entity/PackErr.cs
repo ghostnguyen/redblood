@@ -36,6 +36,7 @@ public class PackErrList
     public static PackErr Deleted = new PackErr("Túi máu đã hủy.");
 
     public static PackErr CanNotOrder = new PackErr("Không thể cấp phát. Túi máu chưa nhập kết quả xét nghiệm.");
+    public static PackErr Positive = new PackErr("Không thể cấp phát. Có kết quả dương tính.");
     public static PackErr Ordering = new PackErr("Đang cấp phát.");
     public static PackErr Dilivered = new PackErr("Đã cấp phát");
     public static PackErr NonExistOrder = new PackErr("Sai đợt cấp phát.");

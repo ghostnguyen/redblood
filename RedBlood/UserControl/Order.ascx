@@ -105,7 +105,8 @@
             <td colspan="2">
                 Danh sách túi máu
                 <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSourcePack" OnRowCommand="GridViewPack_RowCommand">
+                    DataSourceID="LinqDataSourcePack" OnRowCommand="GridViewPack_RowCommand" 
+                    onrowdeleting="GridViewPack_RowDeleting">
                     <Columns>
                         <asp:TemplateField HeaderText="Túi máu">
                             <ItemTemplate>

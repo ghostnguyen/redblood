@@ -80,14 +80,13 @@ public partial class PackManually : System.Web.UI.Page
                 e.NewValues["TestResult2.Malaria.ID"].ToIntNullable(),
                 Page.User.Identity.Name, "");
 
-            PackBLL.VerifyCommitTestResult(db, p, "");
-
             db.SubmitChanges();
+
+            PackBLL.VerifyCommitTestResult(p.Autonum, Page.User.Identity.Name);
         }
 
         e.Cancel = true;
         GridView1.EditIndex = -1;
-
     }
     protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
     {
