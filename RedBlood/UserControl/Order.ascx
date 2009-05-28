@@ -105,8 +105,7 @@
             <td colspan="2">
                 Danh sách túi máu
                 <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSourcePack" OnRowCommand="GridViewPack_RowCommand" 
-                    onrowdeleting="GridViewPack_RowDeleting">
+                    DataSourceID="LinqDataSourcePack" OnRowCommand="GridViewPack_RowCommand" OnRowDeleting="GridViewPack_RowDeleting">
                     <Columns>
                         <asp:TemplateField HeaderText="Túi máu">
                             <ItemTemplate>
@@ -114,8 +113,18 @@
                                 <asp:Image ID="ImageCodabar" runat="server" ImageUrl='image.aspx + <%$ Resources:Codabar,packSSC %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="PackID" HeaderText="PackID" SortExpression="PackID" />
+                        <asp:TemplateField HeaderText="Túi máu">
+                            <ItemTemplate>
+                                <asp:Label runat="server" Text='<%# Eval("Pack.Autonum") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="OrderID" HeaderText="OrderID" SortExpression="OrderID" />
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:LinkButton runat="server" CommandName="Delete" CommandArgument='<%# Eval("ID") %>'
+                                    Text='<%$ Resources:Resource,Delete %>' OnClientClick='return confirm("Hủy cấp phát túi máu này?");'></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:CommandField ShowDeleteButton="True" DeleteText='<%$ Resources:Resource,Delete %>' />
                     </Columns>
                 </asp:GridView>

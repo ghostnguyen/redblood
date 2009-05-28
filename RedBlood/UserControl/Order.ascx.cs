@@ -252,15 +252,12 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
             GridViewPack.DataBind();
             SwitchGUI();
-
-
         }
     }
 
     void SwitchGUI()
     {
         if (OrderType == Order.TypeX.ToOrg)
-            //rowPeople.Attributes.Add("style", "visibility:collapse;");
             rowPeople.Visible = false;
 
         if (OrderType == Order.TypeX.ToPeople)
@@ -272,7 +269,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         PackErr err = OrderBLL.Add(OrderID, autonum, Page.User.Identity.Name);
 
         if (err == null || err == PackErrList.Non)
-        { }
+        {
+            GridViewPack.DataBind();
+        }
         else
         {
             ScriptManager.RegisterStartupScript(btnUpdate, btnUpdate.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
@@ -289,12 +288,12 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         if (e.CommandName == "Delete")
         {
-
+            OrderBLL.Remove(e.CommandArgument.ToString().ToInt(), Page.User.Identity.Name);
         }
     }
     protected void GridViewPack_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        OrderBLL.Remove((int)e.Keys[0], Page.User.Identity.Name);
-        e.Cancel = true;
+        //OrderBLL.Remove((int)e.Keys[0], Page.User.Identity.Name);
+        //e.Cancel = true;
     }
 }
