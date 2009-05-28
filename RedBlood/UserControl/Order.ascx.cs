@@ -9,13 +9,13 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 {
     public event EventHandler OrderChanged;
 
-    public Order.Typex OrderType
+    public Order.TypeX OrderType
     {
         get
         {
             if (ViewState["OrderType"] == null)
                 return 0;
-            return (Order.Typex)ViewState["OrderType"];
+            return (Order.TypeX)ViewState["OrderType"];
         }
         set
         {
@@ -77,8 +77,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         if (!IsPostBack)
         {
             rowOrg.Attributes.Add("style", "visibility:collapse;");
-            
-            OrderType = Order.Typex.ToPeople;
+
+            OrderType = Order.TypeX.ToPeople;
         }
 
     }
@@ -89,6 +89,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         {
             RedBloodDataContext db = new RedBloodDataContext();
             Order p = new Order();
+            p.Status = Order.StatusX.Init;
 
             if (LoadFromGUI(p))
             {
@@ -139,7 +140,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         p.Type = OrderType;
         p.Note = txtNote.Text.Trim();
 
-        if (OrderType == Order.Typex.ToOrg)
+        if (OrderType == Order.TypeX.ToOrg)
         {
             try
             {
@@ -154,7 +155,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             }
         }
 
-        if (OrderType == Order.Typex.ToPeople)
+        if (OrderType == Order.TypeX.ToPeople)
         {
             p.PeopleID = People1.PeopleID;
             p.Dept = txtDept.Text.Trim();
@@ -186,7 +187,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         //    }
         //}
     }
-    public void New(Order.Typex type)
+    public void New(Order.TypeX type)
     {
         Clear();
 
@@ -209,8 +210,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         People1.PeopleID = Guid.Empty;
 
         divErrName.Attributes["class"] = "hidden";
-        
-        rowOrg.Attributes.Remove("style");        
+
+        rowOrg.Attributes.Remove("style");
         rowPeople.Visible = true;
 
         GridViewPack.DataBind();
@@ -236,12 +237,12 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             if (e.Date != null)
                 txtDate.Text = e.Date.ToStringVN_Hour();
 
-            if (OrderType == Order.Typex.ToOrg && e.Org != null)
+            if (OrderType == Order.TypeX.ToOrg && e.Org != null)
             {
                 txtOrgName.Text = e.Org.Name;
             }
 
-            if (OrderType == Order.Typex.ToPeople && e.People != null)
+            if (OrderType == Order.TypeX.ToPeople && e.People != null)
             {
                 People1.PeopleID = e.PeopleID.GetValueOrDefault();
                 txtDept.Text = e.Dept;
@@ -258,17 +259,17 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
     void SwitchGUI()
     {
-        if (OrderType == Order.Typex.ToOrg)
+        if (OrderType == Order.TypeX.ToOrg)
             //rowPeople.Attributes.Add("style", "visibility:collapse;");
             rowPeople.Visible = false;
 
-        if (OrderType == Order.Typex.ToPeople)
+        if (OrderType == Order.TypeX.ToPeople)
             rowOrg.Attributes.Add("style", "visibility:collapse;");
     }
 
     void AddPack(int autonum)
     {
-        PackErr err = OrderBLL.Order(OrderID, autonum,Page.User.Identity.Name);
+        PackErr err = OrderBLL.Add(OrderID, autonum, Page.User.Identity.Name);
 
         if (err == null || err == PackErrList.Non)
         { }
@@ -288,11 +289,12 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         if (e.CommandName == "Delete")
         {
- 
+
         }
     }
     protected void GridViewPack_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        OrderBLL        
+        OrderBLL.Remove((int)e.Keys[0], Page.User.Identity.Name);
+        e.Cancel = true;
     }
 }

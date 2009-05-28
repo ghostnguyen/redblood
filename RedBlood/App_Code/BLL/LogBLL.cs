@@ -15,16 +15,36 @@ public class LogBLL
         //
     }
 
-    public static bool IsScanEpxDone()
+    public static bool IsLog(Task.TaskX task)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         var e = (from r in db.Logs
-                 where r.TaskID == Task.TaskX.ScanExp
-                 && r.Date == DateTime.Now.Date
+                 where r.TaskID == task
+                 && r.Date.Value.Date == DateTime.Now.Date
                  && r.Actor == SystemActor.SOD
-                 select r).Take(1);
+                 select r);
 
         return e.Count() != 0;
+    }
+
+    public static void Add(Task.TaskX task)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Add(db, task);
+        db.SubmitChanges();
+    }
+
+    public static void Add(RedBloodDataContext db, Task.TaskX task)
+    {
+        if (!IsLog(task))
+        {
+            Log e = new Log();
+            e.TaskID = task;
+            e.Date = DateTime.Now;
+            e.Actor = SystemActor.SOD;
+
+            db.Logs.InsertOnSubmit(e);
+        }
     }
 }

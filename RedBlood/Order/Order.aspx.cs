@@ -21,11 +21,11 @@ public partial class Order_Order : System.Web.UI.Page
 
     protected void btnNew4People_Click(object sender, EventArgs e)
     {
-        Order1.New(Order.Typex.ToPeople);
+        Order1.New(Order.TypeX.ToPeople);
     }
 
     protected void btnNew4Org_Click(object sender, EventArgs e)
     {
-        Order1.New(Order.Typex.ToOrg);
+        Order1.New(Order.TypeX.ToOrg);
     }
 }

@@ -10,7 +10,8 @@ public class Task
 {
     public enum TaskX
     {
-        ScanExp = 1
+        ScanExp = 1,
+        CloseOrder = 2
     }
 
     public Task()

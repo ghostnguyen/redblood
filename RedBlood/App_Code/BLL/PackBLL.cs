@@ -104,15 +104,13 @@ public class PackBLL
         return Get(CodabarBLL.ParsePackAutoNum(code));
     }
 
-    public static Pack[] GetByStatus(Pack.StatusX[] status, out RedBloodDataContext db)
+    public static List<Pack> Get(RedBloodDataContext db,Pack.StatusX[] status)
     {
-        db = new RedBloodDataContext();
-
         var rs = from c in db.Packs
                  where status.Contains(c.Status)
                  select c;
 
-        return rs.ToArray();
+        return rs.ToList();
     }
 
     public static List<Pack> Get(int campaignID, Pack.StatusX[] status)
