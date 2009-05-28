@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public partial class Order
 {
-    public enum Typex : int    
+    public enum TypeX : int    
     { 
         ToOrg = 1,
         ToPeople = 2

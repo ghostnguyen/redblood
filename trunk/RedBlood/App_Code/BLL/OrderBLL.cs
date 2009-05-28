@@ -21,13 +21,15 @@ public class OrderBLL
         return Get(ID, db);
     }
 
+  
+
     public static Order Get(int ID, RedBloodDataContext db)
     {
         if (db == null) return null;
         return db.Orders.Where(r => r.ID == ID).FirstOrDefault();
     }
 
-    public static PackErr Order(int ID, int autonum, string actor)
+    public static PackErr Add(int ID, int autonum, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -89,12 +91,34 @@ public class OrderBLL
         return err;
     }
 
-    public static void Remove(int packOrderID)
+    public static void Remove(int packOrderID, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         PackOrder po = db.PackOrders.Where(r => r.ID == packOrderID).FirstOrDefault();
 
-        if (po == null) return;
+        if (po == null
+            || po.Pack == null
+            || po.Order == null
+            || po.Order.Status == Order.StatusX.Done) return;
+
+        PackStatusHistory h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.CommitTestResult, actor, "Remove Order");
+        db.PackStatusHistories.InsertOnSubmit(h);
+
+        db.PackOrders.DeleteOnSubmit(po);
+
+        db.SubmitChanges();
+    }
+
+    public static void CloseOrder(RedBloodDataContext db)
+    {
+        List<Order> r = db.Orders.Where(e => e.Status == Order.StatusX.Init).ToList();
+
+        foreach (Order item in r)
+        {
+            TimeSpan tsp = DateTime.Now.Date - item.Date.Value.Date;
+            if (tsp.Days > 0)
+                item.Status = Order.StatusX.Done;
+        }
     }
 }

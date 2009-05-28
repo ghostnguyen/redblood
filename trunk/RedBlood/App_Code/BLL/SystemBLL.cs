@@ -15,29 +15,45 @@ public class SystemBLL
         //
     }
 
+    public static void SOD()
+    {
+        ScanExp(true);
+        CloseOrder(true);
+    }
+
     //isSOD: isStartOfDate
     public static void ScanExp(bool isSOD)
     {
-        if (isSOD && !LogBLL.IsScanEpxDone())
+        if (!isSOD || !LogBLL.IsLog(Task.TaskX.ScanExp))
         {
-            RedBloodDataContext db;
+            RedBloodDataContext db = new RedBloodDataContext();
 
             Pack.StatusX[] statusList = new Pack.StatusX[] { 
                 Pack.StatusX.Init, Pack.StatusX.Assign, Pack.StatusX.EnterTestResult,Pack.StatusX.CommitTestResult};
 
-            Pack[] rs = PackBLL.GetByStatus(statusList, out db);
-
+            List<Pack> rs = PackBLL.Get(db,statusList);
+            
             foreach (Pack r in rs)
             {
                 PackBLL.ValidateAndChangeStatus(db, r, SystemActor.SOD);                
-                
-                //PackErr err = PackBLL.Validate(r);                
-                //if (!err.Equals(PackErrList.Non))
-                //{
-                //    PackStatusHistory h = PackBLL.ChangeStatus(r, err.ToStatusX, SystemActor.SOD, err.Message);
-                //    db.PackStatusHistories.InsertOnSubmit(h);
-                //}
             }
+
+            LogBLL.Add(db, Task.TaskX.ScanExp);
+
+            //db.SubmitChanges();
+        }
+    }
+
+    //isSOD: isStartOfDate
+    public static void CloseOrder(bool isSOD)
+    {
+        if (!isSOD || !LogBLL.IsLog(Task.TaskX.CloseOrder))
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+
+            OrderBLL.CloseOrder(db);
+
+            LogBLL.Add(db, Task.TaskX.CloseOrder);
 
             //db.SubmitChanges();
         }

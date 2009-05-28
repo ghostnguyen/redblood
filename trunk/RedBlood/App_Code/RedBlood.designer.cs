@@ -15671,9 +15671,9 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<System.DateTime> _Date;
 	
-	private Order.Typex _Type;
+	private Order.TypeX _Type;
 	
-	private System.Nullable<int> _Status;
+	private Order.StatusX _Status;
 	
 	private string _Dept;
 	
@@ -15705,9 +15705,9 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnActorChanged();
     partial void OnDateChanging(System.Nullable<System.DateTime> value);
     partial void OnDateChanged();
-    partial void OnTypeChanging(Order.Typex value);
+    partial void OnTypeChanging(Order.TypeX value);
     partial void OnTypeChanged();
-    partial void OnStatusChanging(System.Nullable<int> value);
+    partial void OnStatusChanging(Order.StatusX value);
     partial void OnStatusChanged();
     partial void OnDeptChanging(string value);
     partial void OnDeptChanged();
@@ -15874,7 +15874,7 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	[Column(Storage="_Type", DbType="Int", CanBeNull=true)]
-	public Order.Typex Type
+	public Order.TypeX Type
 	{
 		get
 		{
@@ -15893,8 +15893,8 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Status", DbType="Int")]
-	public System.Nullable<int> Status
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public Order.StatusX Status
 	{
 		get
 		{
