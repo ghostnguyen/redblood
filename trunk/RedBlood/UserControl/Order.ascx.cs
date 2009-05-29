@@ -296,4 +296,10 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         //OrderBLL.Remove((int)e.Keys[0], Page.User.Identity.Name);
         //e.Cancel = true;
     }
+
+    public string GetItemUrl(int? autonum)
+    {
+        return "~/Codabar/Image.aspx?hasText=true&code=" + CodabarBLL.GenPackCode(autonum.Value);
+    }
+
 }

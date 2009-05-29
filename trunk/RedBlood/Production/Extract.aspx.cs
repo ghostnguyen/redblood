@@ -48,6 +48,8 @@ public partial class Production_Extract : System.Web.UI.Page
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         Pack p = PackBLL.Get(Autonum,PackBLL.StatusList4Extract());
+
+        if (p.ComponentID != (int)TestDef.Component.Full) return;
         
         if (p == null) e.Cancel = true;
         e.Result = p;
@@ -63,4 +65,8 @@ public partial class Production_Extract : System.Web.UI.Page
         //if (p.PeopleID == null && p.CampaignID == null)
     }
 
+    protected void btnProduct_Click(object sender, EventArgs e)
+    {
+
+    }
 }
