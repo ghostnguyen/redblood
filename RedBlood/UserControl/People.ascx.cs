@@ -52,7 +52,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             {
 
             }
-            else if (codabarBLL.IsValidTestResultCode(Code))
+            else if (CodabarBLL.IsValidTestResultCode(Code))
             { }
             else if (CodabarBLL.IsValidPeopleCode(Code))
             {

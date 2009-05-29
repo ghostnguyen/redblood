@@ -11,31 +11,29 @@ public partial class Enter : System.Web.UI.Page
     PackBLL packBLL = new PackBLL();
     protected void Page_Load(object sender, EventArgs e)
     {
-
         ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
 
-        Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
+        string code = Master.TextBoxCode.Text.Trim();
+        Master.TextBoxCode.Text = "";
 
-        if (Master.TextBoxCode.Text.Length == 0) return;
+        if (code.Length == 0) return;
 
-        if (CodabarBLL.IsValidPackCode(Master.TextBoxCode.Text))
+        if (CodabarBLL.IsValidPackCode(code))
         {
-            PackCodeEnter(Master.TextBoxCode.Text);
+            PackCodeEnter(code);
         }
-        else if (codabarBLL.IsValidTestResultCode(Master.TextBoxCode.Text))
+        else if (CodabarBLL.IsValidTestResultCode(code))
         {
-            TestResultEnter(Master.TextBoxCode.Text);
+            TestResultEnter(code);
         }
-        else if (CodabarBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+        else if (CodabarBLL.IsValidCampaignCode(code))
         {
-            CampaignEnter(Master.TextBoxCode.Text);
+            CampaignEnter(code);
         }
         else
         {
-            ucPeople.Code = Master.TextBoxCode.Text;
+            ucPeople.Code = code;
         }
-
-        Master.TextBoxCode.Text = "";
     }
 
     void ucPeople_PeopleChanged(object sender, EventArgs e)
@@ -47,7 +45,7 @@ public partial class Enter : System.Web.UI.Page
     protected void btnNew_Click(object sender, EventArgs e)
     {
         ucPeople.New("");
-        ucEnterPack.PeopleID = Guid.Empty;        
+        ucEnterPack.PeopleID = Guid.Empty;
     }
 
     private void PackCodeEnter(string code)
@@ -74,9 +72,9 @@ public partial class Enter : System.Web.UI.Page
         {
             if (p.Status == Pack.StatusX.Delete)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", 
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
                     "alert ('Túi máu đã hủy.');", true);
-                return; 
+                return;
             }
             ucPeople.PeopleID = p.PeopleID.Value;
         }
@@ -89,7 +87,7 @@ public partial class Enter : System.Web.UI.Page
 
     private void CampaignEnter(string code)
     {
-        CamDetailLeft.CampaignID = CodabarBLL.ParseCampaignID(code); 
+        CamDetailLeft.CampaignID = CodabarBLL.ParseCampaignID(code);
     }
 
 }

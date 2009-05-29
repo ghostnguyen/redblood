@@ -56,7 +56,7 @@ public partial class PackTempStore : System.Web.UI.Page
         }
         else
         {
-            e.Result = PackBLL.Get(CampaignDetail1.CampaignID, PackBLL.StatusListEnteringTestResult());
+            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID, PackBLL.StatusListEnteringTestResult());
         }
     }
 
@@ -77,7 +77,6 @@ public partial class PackTempStore : System.Web.UI.Page
 
             PackBLL.VerifyCommitTestResult(p.Autonum, Page.User.Identity.Name);
         }
-
 
         e.Cancel = true;
         GridView1.EditIndex = -1;

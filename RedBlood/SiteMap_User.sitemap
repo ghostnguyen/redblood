@@ -14,6 +14,10 @@
 		<siteMapNode url="PackTempStore.aspx" title="Kho tạm"  description="" />
 		<siteMapNode url="PackTestResult.aspx" title="KQXN"  description="" />
 		<siteMapNode url="PackManually.aspx" title="Nhập kết quả"  description="" />
+		<siteMapNode url="" title="Sản xuất"  description="">
+			<siteMapNode url="Production/Extract.aspx" title="HC/Huyết tương"  description="" />
+			<siteMapNode url="Production/Combine.aspx" title="Tiểu cầu"  description="" />
+		</siteMapNode>
 		<siteMapNode url="" title="In danh sách"  description="">
 			<siteMapNode url="Report/CampaignRptSelect.aspx" title="Đợt thu"  description="" />
 		</siteMapNode>
