@@ -7,49 +7,80 @@
     <table>
         <tr>
             <td>
-                <asp:DetailsView runat="server" ID="DetailsViewPack" AutoGenerateRows="False" 
-                    DataKeyNames="ID" DataSourceID="LinqDataSource1">
+                <asp:DetailsView runat="server" ID="DetailsViewPack" AutoGenerateRows="False" DataKeyNames="ID"
+                    DataSourceID="LinqDataSource1">
                     <Fields>
-                        <asp:BoundField DataField="Code" HeaderText="Code" ReadOnly="True" 
-                            SortExpression="Code" />
-                        <asp:BoundField DataField="DeleteNote" HeaderText="DeleteNote" ReadOnly="True" 
-                            SortExpression="DeleteNote" />
-                        <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 
-                            ReadOnly="True" SortExpression="ID" />
-                        <asp:BoundField DataField="Codabar" HeaderText="Codabar" 
-                            SortExpression="Codabar" />
-                        <asp:BoundField DataField="PeopleID" HeaderText="PeopleID" 
-                            SortExpression="PeopleID" />
-                        <asp:BoundField DataField="CollectedDate" HeaderText="CollectedDate" 
-                            SortExpression="CollectedDate" />
-                        <asp:BoundField DataField="Volume" HeaderText="Volume" 
-                            SortExpression="Volume" />
-                        <asp:BoundField DataField="HospitalID" HeaderText="HospitalID" 
-                            SortExpression="HospitalID" />
-                        <asp:BoundField DataField="CampaignID" HeaderText="CampaignID" 
-                            SortExpression="CampaignID" />
-                        <asp:BoundField DataField="Note" HeaderText="Note" SortExpression="Note" />
-                        <asp:BoundField DataField="Autonum" HeaderText="Autonum" InsertVisible="False" 
-                            SortExpression="Autonum" />
-                        <asp:BoundField DataField="SourceID" HeaderText="SourceID" 
-                            SortExpression="SourceID" />
-                        <asp:BoundField DataField="ComponentID" HeaderText="ComponentID" 
-                            SortExpression="ComponentID" />
-                        <asp:BoundField DataField="Actor" HeaderText="Actor" SortExpression="Actor" />
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl="none" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="Status" HeaderText="Tình trạng" />
+                        <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
+                        <asp:BoundField DataField="Volume" HeaderText="(ml)" SortExpression="Volume" />
+                        <asp:TemplateField HeaderText="Thành phần">
+                            <ItemTemplate>
+                                <asp:Label runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="ABO">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("BloodType2.ABO.Name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="RH">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("BloodType2.RH.Name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="HBsAg">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("TestResult2.HBsAg.Name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="HIV">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("TestResult2.HIV.Name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="HCV">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("TestResult2.HCV.Name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Syphilis">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("TestResult2.Syphilis.Name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Malaria">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("TestResult2.Malaria.Name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
                     </Fields>
                 </asp:DetailsView>
-                <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
-                    ContextTypeName="RedBloodDataContext" onselecting="LinqDataSource1_Selecting" 
-                    TableName="Packs">
+                <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+                    OnSelecting="LinqDataSource1_Selecting" TableName="Packs">
                 </asp:LinqDataSource>
             </td>
-            <td>
+            <td valign="top">
                 <div class="part">
                     <div class="partHeader">
-                        Hồng cầu
+                        Sản xuất chế phẩm:
                     </div>
                     <div class="partLinkLast">
-                        <asp:Button ID="btnRBCPrint" runat="server" Text="In nhãn" />
+                        <br />
+                        Hồng Cầu và Huyết Tương
+                        <br />
+                        <br />
+                        <asp:Button ID="btnProduct" runat="server" Text="Xác nhận sản xuất" 
+                            onclick="btnProduct_Click" />
+                        <br />
+                        <asp:Image ID="ImageRBC" runat="server" ImageUrl="none" />
+                        <br />
+                        <asp:Image ID="ImagePlasma" runat="server" ImageUrl="none" />
                     </div>
                 </div>
                 <div class="part">

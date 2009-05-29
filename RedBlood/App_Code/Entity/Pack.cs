@@ -27,8 +27,8 @@ public partial class Pack
         Delete = 4,
         Hủy = 4,
         
-        Đang_nhập_KQ = 7,
         EnterTestResult = 7,
+        Đang_nhập_KQ = 7,
         Đã_nhập = 8,
         CommitTestResult = 8,
         Cấp_phát = 9,
@@ -117,7 +117,9 @@ public partial class Pack
     {
         get
         {
-            return PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).FirstOrDefault().Note;
+            PackStatusHistory e = PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).FirstOrDefault();
+            if (e == null) return "";
+            else return e.Note;
         }
     }
 
