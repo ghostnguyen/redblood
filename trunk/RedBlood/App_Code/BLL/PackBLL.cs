@@ -23,6 +23,11 @@ public class PackBLL
         return new Pack.StatusX[] { Pack.StatusX.CommitTestResult };
     }
 
+    public static Pack.StatusX[] StatusList4Extract()
+    {
+        return new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
+    }
+
     /// <summary>
     /// Return the list of pack status which pack had entered test result
     /// </summary>
@@ -62,6 +67,13 @@ public class PackBLL
     {
         return Get(autonum, db, new Pack.StatusX[] { status }, allowPackErr);
     }
+
+    public static Pack Get(int autonum, Pack.StatusX[] status)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get(autonum, db, status , false);
+    }
+
     public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX[] status, bool allowPackErr)
     {
         if (autonum == 0) return null;
@@ -104,7 +116,7 @@ public class PackBLL
         return Get(CodabarBLL.ParsePackAutoNum(code));
     }
 
-    public static List<Pack> Get(RedBloodDataContext db,Pack.StatusX[] status)
+    public static List<Pack> Get(RedBloodDataContext db, Pack.StatusX[] status)
     {
         var rs = from c in db.Packs
                  where status.Contains(c.Status)
@@ -113,7 +125,7 @@ public class PackBLL
         return rs.ToList();
     }
 
-    public static List<Pack> Get(int campaignID, Pack.StatusX[] status)
+    public static List<Pack> GetByCampaign(int campaignID, Pack.StatusX[] status)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
@@ -380,7 +392,7 @@ public class PackBLL
 
 
     public static PackErr Validate(Pack p)
-     {
+    {
         if (p == null) return PackErrList.Non;
 
         if (p.Status == Pack.StatusX.Init)
@@ -559,7 +571,7 @@ public class PackBLL
                 db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
             }
         }
-        
+
         db.SubmitChanges();
     }
 }

@@ -78,7 +78,7 @@ public class CodabarBLL
         return regx.IsMatch(code);
     }
 
-    public bool IsValidTestResultCode(string code)
+    public static bool IsValidTestResultCode(string code)
     {
         string pattern = Resources.Codabar.testResultStartCode + "[0-9]{" + Resources.Codabar.packLength.AddNumber(-2) + "}" + Resources.Codabar.testResultStopCode;
         Regex regx = new Regex(pattern);
