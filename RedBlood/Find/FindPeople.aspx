@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUserMenuWithBarcode.master"
-    AutoEventWireup="true" CodeFile="FindPeople.aspx.cs" Inherits="FindPeople" %>
+    AutoEventWireup="true" CodeFile="FindPeople.aspx.cs" Inherits="Find_FindPeople" %>
 
 <%@ MasterType VirtualPath="~/MasterPageUserMenuWithBarcode.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">

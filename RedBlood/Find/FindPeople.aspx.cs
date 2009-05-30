@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Linq.SqlClient;
 
-public partial class FindPeople : System.Web.UI.Page
+public partial class Find_FindPeople : System.Web.UI.Page
 {
     public string Keyword
     {
