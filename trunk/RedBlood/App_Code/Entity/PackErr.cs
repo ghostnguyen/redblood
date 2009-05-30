@@ -40,4 +40,6 @@ public class PackErrList
     public static PackErr Ordering = new PackErr("Đang cấp phát.");
     public static PackErr Dilivered = new PackErr("Đã cấp phát");
     public static PackErr NonExistOrder = new PackErr("Sai đợt cấp phát.");
+
+    public static PackErr Extracted = new PackErr("Túi máu đã sản xuất.");
 }

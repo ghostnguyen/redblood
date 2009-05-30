@@ -81,7 +81,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
     public bool HideMoreDetail
     {
-        set 
+        set
         {
             divMoreDetail.Visible = !value;
         }
@@ -107,9 +107,8 @@ public partial class UserControl_People : System.Web.UI.UserControl
         }
         else
         {
-            imgCodabar.Attributes.Add("src", "../Codabar/Image.aspx?code="
-                + CodabarBLL.GenStringCode(Resources.Codabar.peopleSSC, e.ID.ToString()));
-
+            imgCodabar.ImageUrl = CodabarBLL.Url4People(e.ID);
+            
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;
 
@@ -145,7 +144,9 @@ public partial class UserControl_People : System.Web.UI.UserControl
     public void Clear()
     {
         ViewState["PeopleID"] = Guid.Empty;
-        imgCodabar.Attributes.Add("src", "none");
+
+        imgCodabar.ImageUrl = "none";
+
         txtName.Text = "";
         txtCMND.Text = "";
         txtDOB.Text = "";

@@ -109,7 +109,6 @@
                     <Columns>
                         <asp:TemplateField HeaderText="Túi máu">
                             <ItemTemplate>
-                                <%--<asp:Image ID="ImageCodabar" runat="server" ImageUrl=' ~/Codabar/Image.aspx?hasText=true&ssc=" + <%$ Resources:Codabar,packSSC %> + "&autonum=" + <% Eval("Pack.Autonum") %> ' />--%>
                                 <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# this.GetItemUrl( Eval("Pack.Autonum") as int?) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>

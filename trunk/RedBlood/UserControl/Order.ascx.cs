@@ -228,8 +228,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         {
             OrderType = e.Type;
 
-            imgCodabar.Attributes.Add("src", "../Codabar/Image.aspx?hasText=true&code="
-                + CodabarBLL.GenStringCode(Resources.Codabar.orderSSC, e.ID.ToString()));
+            imgCodabar.ImageUrl = CodabarBLL.Url4Order(e.ID);
 
             txtName.Text = e.Name;
             txtNote.Text = e.Note;
@@ -299,7 +298,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
     public string GetItemUrl(int? autonum)
     {
-        return "~/Codabar/Image.aspx?hasText=true&code=" + CodabarBLL.GenPackCode(autonum.Value);
+        return CodabarBLL.Url4Pack(autonum.Value);
     }
 
 }

@@ -16,13 +16,26 @@ public partial class Production_Extract : System.Web.UI.Page
         }
         set
         {
-            ViewState["AutoNum"] = value;
-            LoadPack();
+            Pack p = PackBLL.Get4Extract(value);
+            if (p == null)
+            {
+                ViewState["AutoNum"] = 0;
+            }
+            else
+            {
+                ViewState["AutoNum"] = value;
+                LoadPack();
+            }
         }
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            btnProduct.Enabled = false;
+        }
+        
         string code = Master.TextBoxCode.Text.Trim();
         Master.TextBoxCode.Text = "";
 
@@ -47,26 +60,57 @@ public partial class Production_Extract : System.Web.UI.Page
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        Pack p = PackBLL.Get(Autonum,PackBLL.StatusList4Extract());
+        if (Autonum == 0) e.Cancel = true;
 
-        if (p.ComponentID != (int)TestDef.Component.Full) return;
-        
-        if (p == null) e.Cancel = true;
+        Pack p = PackBLL.Get4Extract(Autonum);
         e.Result = p;
     }
 
+    protected void LinqDataSourceExtract_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        if (Autonum == 0) e.Cancel = true;
+
+        Pack p = PackBLL.Get4Extract(Autonum);
+
+        if (p != null && p.PackExtractsBySource.Count > 0)
+        {
+            e.Result = p.PackExtractsBySource;
+            btnProduct.Enabled = false;
+        }
+        else
+        {
+            e.Cancel = true;
+            btnProduct.Enabled = true;
+        }
+
+    }
+
+
+
     void LoadPack()
     {
-        DetailsViewPack.DataBind();
+        Pack p = PackBLL.Get4Extract(Autonum);
 
-        Pack p = PackBLL.Get(Autonum);
-        if (p == null) return;
-
-        //if (p.PeopleID == null && p.CampaignID == null)
+        if (p != null)
+        {
+            DetailsViewPack.DataBind();
+            GridViewExtract.DataBind();
+        }
     }
 
     protected void btnProduct_Click(object sender, EventArgs e)
     {
+        PackErr err = PackBLL.Extract(Autonum, Page.User.Identity.Name);
+
+        if (err == null || err == PackErrList.Non)
+        {
+            //GridViewPack.DataBind();
+            LoadPack();
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(btnProduct, btnProduct.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
+        }
 
     }
 }
