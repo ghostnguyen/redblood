@@ -86,7 +86,7 @@ public class CodabarImg
         graphic.FillRectangle(brush, rect);
     }
 
-    public Bitmap Draw(string code, int width, int height, bool isDrawCode)
+    public Bitmap Draw(string code, int width, int height, bool isDrawCode, string topleft, string topright)
     {
         // Multiply the lenght of the code by 40 (just to have enough width)
         int w = CountWidth(code) * width;
@@ -95,8 +95,12 @@ public class CodabarImg
         Bitmap oBitmap = new Bitmap(w, height, PixelFormat.Format32bppArgb);
 
         if (isDrawCode)
-            oBitmap = new Bitmap(w, height + 16, PixelFormat.Format32bppArgb);
+            oBitmap = new Bitmap(w, oBitmap.Height + 16, PixelFormat.Format32bppArgb);
 
+        if (!string.IsNullOrEmpty(topleft) || !string.IsNullOrEmpty(topright))
+        {
+            oBitmap = new Bitmap(w, oBitmap.Height + 16 + 16, PixelFormat.Format32bppArgb);
+        }
 
         // then create a Graphic object for the bitmap we just created.
         Graphics oGraphics = Graphics.FromImage(oBitmap);
@@ -122,20 +126,27 @@ public class CodabarImg
         //oGraphics.DrawString("*" + Code + "*", oFont, oBrushWrite, oPoint);
 
         //oGraphics.DrawString(Code, oFont, Brushes.Black, oPoint);
-        PointF oPoint = new PointF(0, 0);
+        //PointF oPoint = new PointF(0, 0);
 
         Font oFontNum = new Font("Courier New", 12);
-
-
+        //Font oFontNum = new Font("Times New Roman", 12);
 
         Point start = new Point(0, 0);
+
+        if (!string.IsNullOrEmpty(topleft) || !string.IsNullOrEmpty(topright))
+        {
+            oGraphics.DrawString(topleft, oFontNum, oBrush, 0, 0);
+            oGraphics.DrawString(topright, oFontNum, oBrush, 0, 16);
+            start.Y += 16 + 16;
+        }
+
         foreach (char ch in code)
         {
             DrawChar(oGraphics, ch, start, width, height);
             start.X += CountWidth(ch) * width;
         }
         if (isDrawCode)
-            oGraphics.DrawString(code, oFontNum, oBrush, 0, height);
+            oGraphics.DrawString(code, oFontNum, oBrush, 0, start.Y + height);
 
         return oBitmap;
     }

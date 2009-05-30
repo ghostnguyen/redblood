@@ -521,6 +521,8 @@
       <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
       <Association Name="Pack_PackResultHistory" Member="PackResultHistories" ThisKey="ID" OtherKey="PackID" Type="PackResultHistory" />
       <Association Name="Pack_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="PackID" Type="PackOrder" />
+      <Association Name="Pack_PackExtract" Member="PackExtractsBySource" ThisKey="ID" OtherKey="SourcePackID" Type="PackExtract" />
+      <Association Name="Pack_PackExtract1" Member="PackExtractsByExtract" ThisKey="ID" OtherKey="ExtractPackID" Type="PackExtract" />
       <Association Name="Hospital_Pack" Member="Hospital" ThisKey="HospitalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="People_Pack" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
       <Association Name="TestDef_Pack" Member="Component" ThisKey="ComponentID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
@@ -676,6 +678,16 @@
       <Association Name="Order_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="OrderID" Type="PackOrder" />
       <Association Name="Org_Order" Member="Org" ThisKey="OrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
       <Association Name="People_Order" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackExtract" Member="PackExtracts">
+    <Type Name="PackExtract">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SourcePackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ExtractPackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Pack_PackExtract" Member="SourcePack" ThisKey="SourcePackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+      <Association Name="Pack_PackExtract1" Member="ExtractPack" ThisKey="ExtractPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

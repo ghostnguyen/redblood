@@ -12,7 +12,7 @@
                     <Fields>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl="none" />
+                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="Status" HeaderText="Tình trạng" />
@@ -71,24 +71,31 @@
                         Sản xuất chế phẩm:
                     </div>
                     <div class="partLinkLast">
+                        <asp:GridView runat="server" ID="GridViewExtract" AutoGenerateRows="False" DataKeyNames="ID"
+                            DataSourceID="LinqDataSourceExtract" AutoGenerateColumns="false">
+                            <Columns>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("ExtractPack.Autonum") as int?) %>' />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Ngày thu">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("ExtractPack.CollectedDate","{0:dd/MM/yyyy HH:mm}") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Thành phần">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("ExtractPack.Component.Name") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                        <asp:LinqDataSource ID="LinqDataSourceExtract" runat="server" ContextTypeName="RedBloodDataContext"
+                            OnSelecting="LinqDataSourceExtract_Selecting" TableName="PackExtracts">
+                        </asp:LinqDataSource>
                         <br />
-                        Hồng Cầu và Huyết Tương
-                        <br />
-                        <br />
-                        <asp:Button ID="btnProduct" runat="server" Text="Xác nhận sản xuất" 
-                            onclick="btnProduct_Click" />
-                        <br />
-                        <asp:Image ID="ImageRBC" runat="server" ImageUrl="none" />
-                        <br />
-                        <asp:Image ID="ImagePlasma" runat="server" ImageUrl="none" />
-                    </div>
-                </div>
-                <div class="part">
-                    <div class="partHeader">
-                        Huyết tương
-                    </div>
-                    <div class="partLinkLast">
-                        <asp:Button ID="btnPlasmaPrint" runat="server" Text="In nhãn" />
+                        <asp:Button ID="btnProduct" runat="server" Text="Xác nhận sản xuất" OnClick="btnProduct_Click" />
                     </div>
                 </div>
             </td>

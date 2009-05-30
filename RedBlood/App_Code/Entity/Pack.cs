@@ -33,6 +33,9 @@ public partial class Pack
         CommitTestResult = 8,
         Cấp_phát = 9,
         Dilivered = 9,
+        Sản_xuất = 10,
+        Production = 10,
+
         Expire = 40,
         ExpireEnter = 41,
         ExpireCommitReceived = 42,

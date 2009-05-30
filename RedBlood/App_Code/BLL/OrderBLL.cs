@@ -21,7 +21,7 @@ public class OrderBLL
         return Get(ID, db);
     }
 
-  
+
 
     public static Order Get(int ID, RedBloodDataContext db)
     {
@@ -39,6 +39,13 @@ public class OrderBLL
         Pack p = PackBLL.Get(autonum, db);
 
         if (p == null) return PackErrList.NonExist;
+
+        if (!PackBLL.StatusList4Order().Contains(p.Status))
+            return PackErrList.CanNotOrder;
+
+        if (p.ComponentID == (int)TestDef.Component.Full
+            && p.PackExtractsBySource.Count > 0)
+            return PackErrList.Extracted;
 
         int i = p.PackOrders.Count;
 
@@ -70,7 +77,8 @@ public class OrderBLL
             {
                 return PackErrList.CanNotOrder;
             }
-            else if (p.Status == Pack.StatusX.CommitTestResult)
+            else if (p.Status == Pack.StatusX.CommitTestResult
+                || p.Status == Pack.StatusX.Production)
             {
                 if (PackBLL.ValidateTestResult(p.TestResult2).Count() != 0)
                     return PackErrList.Positive;
@@ -101,8 +109,18 @@ public class OrderBLL
             || po.Pack == null
             || po.Order == null
             || po.Order.Status == Order.StatusX.Done) return;
+        
+        PackStatusHistory h;
 
-        PackStatusHistory h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.CommitTestResult, actor, "Remove Order");
+        if (po.Pack.ComponentID == (int)TestDef.Component.Full)
+        {
+            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.CommitTestResult, actor, "Remove Order");
+        }
+        else
+        {
+            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Production, actor, "Remove Order");
+        }
+
         db.PackStatusHistories.InsertOnSubmit(h);
 
         db.PackOrders.DeleteOnSubmit(po);

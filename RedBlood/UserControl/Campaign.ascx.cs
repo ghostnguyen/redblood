@@ -104,8 +104,8 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
         }
         else
         {
-            imgCodabar.ImageUrl = "../Codabar/Image.aspx?hasText=true&code="
-                + CodabarBLL.GenStringCode(Resources.Codabar.campaignSSC, e.ID.ToString());
+            imgCodabar.ImageUrl = CodabarBLL.Url4Campaign(e.ID);
+
             txtName.Text = e.Name;
 
             if (e.Est != null)

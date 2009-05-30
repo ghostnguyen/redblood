@@ -17,7 +17,9 @@ public partial class GenCodabar : System.Web.UI.Page
 
         string code = "";
         bool hasText = false;
-        
+
+        string topleft = "";
+        string topright = "";
 
         try
         {
@@ -56,6 +58,26 @@ public partial class GenCodabar : System.Web.UI.Page
 
         }
 
+        try
+        {
+            topleft = Request["topleft"];
+        }
+        catch (Exception)
+        {
+
+        }
+
+        try
+        {
+            topright = Request["topright"];
+        }
+        catch (Exception)
+        {
+
+        }
+
+
+
         if (ssc.ToLower() == Resources.Codabar.packSSC.ToLower()
             && autonum.ToInt() != 0)
         {
@@ -64,7 +86,7 @@ public partial class GenCodabar : System.Web.UI.Page
 
         CodabarImg gen = new CodabarImg();
 
-        Bitmap b = gen.Draw(code, 1, 40, hasText);
+        Bitmap b = gen.Draw(code, 1, 40, hasText,topleft,topright);
 
         MemoryStream m = new MemoryStream();
 

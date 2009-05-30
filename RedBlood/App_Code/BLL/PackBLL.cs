@@ -28,6 +28,11 @@ public class PackBLL
         return new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
     }
 
+    public static Pack.StatusX[] StatusList4Order()
+    {
+        return new Pack.StatusX[] { Pack.StatusX.CommitTestResult, Pack.StatusX.Production};
+    }
+
     /// <summary>
     /// Return the list of pack status which pack had entered test result
     /// </summary>
@@ -71,7 +76,7 @@ public class PackBLL
     public static Pack Get(int autonum, Pack.StatusX[] status)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get(autonum, db, status , false);
+        return Get(autonum, db, status, false);
     }
 
     public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX[] status, bool allowPackErr)
@@ -110,6 +115,26 @@ public class PackBLL
         }
         return null;
     }
+
+    public static Pack Get4Extract(int autonum)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get4Extract(db, autonum);
+    }
+
+    public static Pack Get4Extract(RedBloodDataContext db, int autonum)
+    {
+        Pack p = Get(autonum, db);
+
+        if (p != null
+            && p.ComponentID == (int)TestDef.Component.Full
+            && StatusList4Extract().Contains(p.Status))
+        {
+            return p;
+        }
+        else return null;
+    }
+
 
     public static Pack GetByCode(string code)
     {
@@ -380,7 +405,7 @@ public class PackBLL
     {
         PackErr err = Validate(p);
 
-        if (!err.Equals(PackErrList.Non))
+        if (err != PackErrList.Non)
         {
             PackStatusHistory h = PackBLL.ChangeStatus(p, err.ToStatusX, actor, err.Message);
             db.PackStatusHistories.InsertOnSubmit(h);
@@ -411,72 +436,34 @@ public class PackBLL
                 return PackErrList.DataErr;
         }
 
-        //Check exists entered pack 
-        //if (p.Status == Pack.StatusX.Assign || p.Status == Pack.StatusX.CommitReceived)
+        //is expired
+        if (p.CollectedDate != null
+            && !(p.CollectedDate.Value.Date >= LowerLimDate()))
+            return PackErrList.Expired;
 
         if (StatusListEnteringTestResult().Contains(p.Status))
         {
-            //is expired
-            if (!(p.CollectedDate.Value.Date >= LowerLimDate()))
-                return PackErrList.Expired;
+            //Data error
+            //if (p.BloodTypes.Count > 1)
+            //    return PackErrList.DataErr;
 
             //Data error
-            if (p.BloodTypes.Count > 1)
-                return PackErrList.DataErr;
-
-            //Data error
-            if (p.BloodTypes.Count == 1)
-            {
-                try
-                {
-                    //Validate BloodType
-                    BloodType e = p.BloodTypes[0];
-                }
-                catch (Exception ex)
-                {
-                    return new PackErr(ex.Message, Pack.StatusX.Delete);
-                }
-            }
+            //if (p.BloodTypes.Count == 1)
+            //{
+            //    try
+            //    {
+            //        //Validate BloodType
+            //        BloodType e = p.BloodTypes[0];
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        return new PackErr(ex.Message, Pack.StatusX.Delete);
+            //    }
+            //}
         }
 
         return PackErrList.Non;
     }
-
-    //public static object GetByCampaingID4Manually(int campaignID)
-    //{
-    //    //Pack.StatusX[] s = new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
-    //    Pack.StatusX[] s = StatusListEnteringTestResult();
-    //    return GetByCampaingID4Manually(campaignID, s);
-    //}
-
-    //public static object GetByCampaingID4Manually(int campaignID, Pack.StatusX[] status)
-    //{
-    //    RedBloodDataContext db = new RedBloodDataContext();
-
-    //    var v = from r in db.Packs
-    //            where r.CampaignID == campaignID && status.Contains(r.Status)
-    //            select new
-    //            {
-    //                BT = (from r1 in r.BloodTypes
-    //                      where r1.Times == 2
-    //                      select r1).First(),
-    //                TR = (from r1 in r.TestResults
-    //                      where r1.Times == 2
-    //                      select r1).First(),
-    //                r.ID,
-    //                r.Autonum,
-    //                PeopleName = r.People.Name,
-    //                r.CollectedDate,
-    //                r.Status,
-    //                ComponentName = r.Component.Name,
-    //                r.ComponentID,
-    //                r.Volume,
-    //                r.Note,
-    //                DeleteNote = r.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note
-    //            };
-
-    //    return v;
-    //}
 
     public static List<Pack> Get4Rpt(int campaignID, ReportType rptType)
     {
@@ -573,6 +560,58 @@ public class PackBLL
         }
 
         db.SubmitChanges();
+    }
+
+    public static PackErr Extract(int autonum, string actor)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Pack p = Get4Extract(db, autonum);
+
+        if (p == null) return PackErrList.NonExist;
+
+        PackErr err = ValidateAndChangeStatus(db, p, actor);
+
+        if (err != PackErrList.Non)
+        {
+            db.SubmitChanges();
+            return err;
+        }
+
+        if (p.PackExtractsBySource.Count > 0)
+            return PackErrList.Extracted;
+
+        //Extract
+        //PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Production, actor, "Production");
+        //db.PackStatusHistories.InsertOnSubmit(h);
+
+        Pack packRBC = new Pack();
+        packRBC.ComponentID = (int)TestDef.Component.RBC;
+        packRBC.CollectedDate = DateTime.Now;
+        packRBC.Status = Pack.StatusX.Production;
+        db.Packs.InsertOnSubmit(packRBC);
+
+
+        Pack packPlasma = new Pack();
+        packPlasma.ComponentID = (int)TestDef.Component.Plasma;
+        packPlasma.CollectedDate = DateTime.Now;
+        packPlasma.Status = Pack.StatusX.Production;
+        db.Packs.InsertOnSubmit(packPlasma);
+
+        db.SubmitChanges();
+
+        PackExtract peRBC = new PackExtract();
+        peRBC.SourcePackID = p.ID;
+        peRBC.ExtractPackID = packRBC.ID;
+        db.PackExtracts.InsertOnSubmit(peRBC);
+
+        PackExtract pePlasma = new PackExtract();
+        pePlasma.SourcePackID = p.ID;
+        pePlasma.ExtractPackID = packPlasma.ID;
+        db.PackExtracts.InsertOnSubmit(pePlasma);
+
+        db.SubmitChanges();
+
+        return err;
     }
 }
 
