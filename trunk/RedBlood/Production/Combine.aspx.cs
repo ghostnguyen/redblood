@@ -39,8 +39,7 @@ public partial class Production_Combine : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //PackInAutonumList.Add(301);
-            //PackInAutonumList.Add(302);
+
         }
 
         string code = Master.TextBoxCode.Text.Trim();
@@ -59,7 +58,7 @@ public partial class Production_Combine : System.Web.UI.Page
                 GridViewPackIn.DataBind();
             }
 
-            if (PackBLL.Get(autonum,new Pack.StatusX[]{Pack.StatusX.Init}) != null)
+            if (PackBLL.Get4Combine(autonum) != null)
             {
                 PackOutAutonum = autonum;
                 GridViewPackOut.DataBind();
@@ -91,12 +90,35 @@ public partial class Production_Combine : System.Web.UI.Page
     }
     protected void LinqDataSourcePackOut_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        Pack p = PackBLL.Get(PackOutAutonum, new Pack.StatusX[] { Pack.StatusX.Init });
-        if()
-        e.Cancel = true;
+        Pack p = PackBLL.Get4Combine(PackOutAutonum);
+        if (p != null)
+        {
+            e.Result = p;
+        }
+        else
+        {
+            e.Result = null;
+            e.Cancel = true;
+        }
     }
+
+    protected void GridViewPackIn_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        PackInAutonumList.Remove((int)e.Keys[0]);
+        GridViewPackIn.DataBind();
+        e.Cancel = true;
+
+    }
+
     protected void btnOk_Click(object sender, EventArgs e)
     {
+        if (PackInAutonumList.Count == 0
+            || PackOutAutonum == 0)
+        {
+            ScriptManager.RegisterStartupScript(btnOk, btnOk.GetType(), "Thông tin", "alert ('Không thể tạo tiểu cầu. Thiếu thông tin túi máu.');", true);
+            return;
+        }
+
 
     }
 }

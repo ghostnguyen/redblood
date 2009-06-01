@@ -110,7 +110,7 @@ public class PackBLL
             PackErr err = Validate(pList);
             if (err == PackErrList.Non) return pList;
         }
-        
+
         return new List<Pack>();
     }
 
@@ -138,6 +138,17 @@ public class PackBLL
         List<Pack> l = Get(autonumList, db, StatusList4Production(), false);
 
         return l.Where(p => p.ComponentID.Value == (int)TestDef.Component.Full).ToList();
+    }
+
+    public static Pack Get4Combine(int autonum)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get4Combine(db, autonum);
+    }
+
+    public static Pack Get4Combine(RedBloodDataContext db, int autonum)
+    {
+        return PackBLL.Get(autonum, db, new Pack.StatusX[] { Pack.StatusX.Init }, false);
     }
 
 
@@ -519,28 +530,6 @@ public class PackBLL
         return PackErrList.Non;
     }
 
-
-    //public static PackErr Update4Manually(int autonum, int? componentID, int? volume, int? aboID, int? rhID,
-    //    int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID,
-    //    string actor, string note)
-    //{
-    //    RedBloodDataContext db;
-
-    //    Pack p = GetByAutonum(autonum, out db, StatusListEnteringTestResult(), true);
-
-    //    if (p == null) return PackErrList.NonExist;
-
-    //    Update(p, componentID, volume);
-    //    BloodTypeBLL.Update(db, p, 2, aboID, rhID, actor, note);
-    //    TestResultBLL.Update(p, 2, hivID, hcvID, HBsAgID, syphilisID, malariaID, db, actor, note);
-
-    //    VerifyCommitTestResult(db, p, actor);
-
-    //    db.SubmitChanges();
-
-    //    return PackErrList.Non;
-    //}
-
     public static void VerifyCommitTestResult(int autonum, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -627,6 +616,36 @@ public class PackBLL
         db.SubmitChanges();
 
         return err;
+    }
+
+    public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        List<Pack> pList = Get4Production(autonumListIn);
+        Pack pOut = Get4Combine(db,autonumOut);
+
+        if (autonumListIn.Count != pList.Count
+            || pOut == null)
+        {
+            return PackErrList.CombinePackInInvalid; 
+        }
+
+        pOut.ComponentID = (int)TestDef.Component.Platelet;
+        pOut.CollectedDate = DateTime.Now;
+        pOut.Status = Pack.StatusX.Production;
+
+        foreach (Pack item in pList)
+        {
+            PackExtract pe = new PackExtract();
+            pe.SourcePackID = item.ID;
+            pe.ExtractPackID = pOut.ID;
+            db.PackExtracts.InsertOnSubmit(pe);
+        }
+
+        db.SubmitChanges();
+        
+        return PackErrList.Non;
     }
 }
 

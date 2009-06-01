@@ -1,4 +1,5 @@
 ﻿<%@ MasterType VirtualPath="~/MasterPageUserMenuWithBarcode.master" %>
+
 <%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUserMenuWithBarcode.master"
     AutoEventWireup="true" CodeFile="Combine.aspx.cs" Inherits="Production_Combine" %>
 
@@ -6,8 +7,8 @@
     <table>
         <tr>
             <td>
-                <asp:GridView runat="server" ID="GridViewPackIn" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSourcePackIn">
+                <asp:GridView runat="server" ID="GridViewPackIn" AutoGenerateColumns="False" DataKeyNames="Autonum"
+                    DataSourceID="LinqDataSourcePackIn" OnRowDeleting="GridViewPackIn_RowDeleting">
                     <Columns>
                         <asp:TemplateField>
                             <ItemTemplate>
@@ -21,7 +22,7 @@
                                 <asp:Label ID="Label1" runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Note" HeaderText="Note" SortExpression="Note" />
+                        <asp:CommandField DeleteText='<%$ Resources:Resource,Delete %>' ShowDeleteButton="true" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePackIn" runat="server" ContextTypeName="RedBloodDataContext"
@@ -44,19 +45,24 @@
                                 <asp:Label ID="Label1" runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Note" HeaderText="Note" SortExpression="Note" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePackOut" runat="server" ContextTypeName="RedBloodDataContext"
                     OnSelecting="LinqDataSourcePackOut_Selecting" TableName="Packs">
                 </asp:LinqDataSource>
+                Ghi chú:
+                <asp:TextBox runat="server" ID="txtNote"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td colspan="2" align="center">
+            <td colspan="2" align="center" style="border-top: solid 1px black">
+                <br />
                 Sản xuất tiểu cầu
                 <br />
+                <br />
                 <asp:Button runat="server" ID="btnOk" Text="Xác nhận" OnClick="btnOk_Click" />
+                <br />
+                <br />
             </td>
         </tr>
     </table>

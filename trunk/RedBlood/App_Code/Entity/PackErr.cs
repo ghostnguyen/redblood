@@ -42,4 +42,6 @@ public class PackErrList
     public static PackErr NonExistOrder = new PackErr("Sai đợt cấp phát.");
 
     public static PackErr Extracted = new PackErr("Túi máu đã sản xuất.");
+
+    public static PackErr CombinePackInInvalid = new PackErr("Dữ liệu vào sai.");
 }
