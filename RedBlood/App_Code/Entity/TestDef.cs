@@ -58,8 +58,6 @@ public partial class TestDef
         RBC = 26, //red blood cell
         Plasma = 27, // Huyết tương
         Platelet = 30 // Tiểu cầu
-        
-
     }
 
     partial void OnValidate(System.Data.Linq.ChangeAction action)
