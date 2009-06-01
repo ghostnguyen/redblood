@@ -23,14 +23,14 @@ public class PackBLL
         return new Pack.StatusX[] { Pack.StatusX.CommitTestResult };
     }
 
-    public static Pack.StatusX[] StatusList4Extract()
+    public static Pack.StatusX[] StatusList4Production()
     {
         return new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
     }
 
     public static Pack.StatusX[] StatusList4Order()
     {
-        return new Pack.StatusX[] { Pack.StatusX.CommitTestResult, Pack.StatusX.Production};
+        return new Pack.StatusX[] { Pack.StatusX.CommitTestResult, Pack.StatusX.Production };
     }
 
     /// <summary>
@@ -81,58 +81,63 @@ public class PackBLL
 
     public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX[] status, bool allowPackErr)
     {
-        if (autonum == 0) return null;
+        List<int> a = new List<int>();
+        a.Add(autonum);
+
+        List<Pack> l = Get(a, db, status, allowPackErr);
+
+        return l.FirstOrDefault();
+    }
+
+    public static List<Pack> Get(List<int> autonumList, RedBloodDataContext db, Pack.StatusX[] status, bool allowPackErr)
+    {
+        if (autonumList.Count == 0) return new List<Pack>();
+
+        List<Pack> pList;
 
         if (status.Count() == 1 && status[0] == Pack.StatusX.All)
         {
-            var v = (from c in db.Packs
-                     where c.Autonum == autonum
-                     select c);
-
-            if (v.Count() == 0) return null;
-
-            Pack p = v.First();
-
-            if (allowPackErr) return p;
-
-            if (Validate(p) != null)
-                return p;
+            pList = db.Packs.Where(e => autonumList.Contains(e.Autonum)).ToList();
         }
         else
         {
-            var v = from c in db.Packs
-                    where c.Autonum == autonum && status.Contains(c.Status)
-                    select c;
-
-            if (v.Count() == 0) return null;
-
-            Pack p = v.First();
-
-            if (allowPackErr) return p;
-
-            if (Validate(p) != null)
-                return p;
+            pList = db.Packs.Where(e => autonumList.Contains(e.Autonum) && status.Contains(e.Status)).ToList();
         }
-        return null;
+
+        if (allowPackErr) return pList;
+        else
+        {
+            PackErr err = Validate(pList);
+            if (err == PackErrList.Non) return pList;
+        }
+        
+        return new List<Pack>();
     }
 
-    public static Pack Get4Extract(int autonum)
+    public static List<Pack> Get4Production(List<int> autonumList)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get4Extract(db, autonum);
+        return Get4Production(db, autonumList);
     }
 
-    public static Pack Get4Extract(RedBloodDataContext db, int autonum)
+    public static Pack Get4Production(int autonum)
     {
-        Pack p = Get(autonum, db);
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get4Production(db, autonum);
+    }
+    public static Pack Get4Production(RedBloodDataContext db, int autonum)
+    {
+        List<int> l = new List<int>();
+        l.Add(autonum);
 
-        if (p != null
-            && p.ComponentID == (int)TestDef.Component.Full
-            && StatusList4Extract().Contains(p.Status))
-        {
-            return p;
-        }
-        else return null;
+        return Get4Production(db, l).FirstOrDefault();
+    }
+
+    public static List<Pack> Get4Production(RedBloodDataContext db, List<int> autonumList)
+    {
+        List<Pack> l = Get(autonumList, db, StatusList4Production(), false);
+
+        return l.Where(p => p.ComponentID.Value == (int)TestDef.Component.Full).ToList();
     }
 
 
@@ -415,6 +420,16 @@ public class PackBLL
     }
 
 
+    public static PackErr Validate(List<Pack> pList)
+    {
+        foreach (Pack p in pList)
+        {
+            PackErr err = Validate(p);
+            if (err != PackErrList.Non)
+                return err;
+        }
+        return PackErrList.Non;
+    }
 
     public static PackErr Validate(Pack p)
     {
@@ -565,7 +580,7 @@ public class PackBLL
     public static PackErr Extract(int autonum, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = Get4Extract(db, autonum);
+        Pack p = Get4Production(db, autonum);
 
         if (p == null) return PackErrList.NonExist;
 

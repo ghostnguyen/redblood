@@ -16,7 +16,7 @@ public partial class Production_Extract : System.Web.UI.Page
         }
         set
         {
-            Pack p = PackBLL.Get4Extract(value);
+            Pack p = PackBLL.Get4Production(value);
             if (p == null)
             {
                 ViewState["AutoNum"] = 0;
@@ -35,7 +35,7 @@ public partial class Production_Extract : System.Web.UI.Page
         {
             btnProduct.Enabled = false;
         }
-        
+
         string code = Master.TextBoxCode.Text.Trim();
         Master.TextBoxCode.Text = "";
 
@@ -60,17 +60,29 @@ public partial class Production_Extract : System.Web.UI.Page
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (Autonum == 0) e.Cancel = true;
+        if (Autonum == 0)
+        {
+            e.Result = null;
+            e.Cancel = true;
+        }
+        else
+        {
 
-        Pack p = PackBLL.Get4Extract(Autonum);
-        e.Result = p;
+            Pack p = PackBLL.Get4Production(Autonum);
+            e.Result = p;
+        }
     }
 
     protected void LinqDataSourceExtract_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (Autonum == 0) e.Cancel = true;
+        if (Autonum == 0)
+        {
+            e.Result = null;
+            e.Cancel = true;
+            return;
+        }
 
-        Pack p = PackBLL.Get4Extract(Autonum);
+        Pack p = PackBLL.Get4Production(Autonum);
 
         if (p != null && p.PackExtractsBySource.Count > 0)
         {
@@ -89,7 +101,7 @@ public partial class Production_Extract : System.Web.UI.Page
 
     void LoadPack()
     {
-        Pack p = PackBLL.Get4Extract(Autonum);
+        Pack p = PackBLL.Get4Production(Autonum);
 
         if (p != null)
         {
