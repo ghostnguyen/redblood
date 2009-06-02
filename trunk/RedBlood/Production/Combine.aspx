@@ -7,12 +7,15 @@
 
     <script type="text/javascript">
         // Your code goes here
-        function doLoad() {
-            if (confirm("Load thông tin?")) {
+        function doLoadPackCombined() {
+            if (confirm("Load thông tin?")) 
+            {
+                alert("hello11");
                 $("input[id*='btnLoad']").click();
+                alert("hello");
             }
+            //alert("hello");
         }
-        });
     </script>
 
     <table>
@@ -74,7 +77,7 @@
                 <asp:Button runat="server" ID="btnOk" Text="Xác nhận" OnClick="btnOk_Click" />
                 <br />
                 <br />
-                <asp:LinkButton runat="server" ID="btnLoad" onclick="btnLoad_Click"></asp:LinkButton>
+                <asp:Button runat="server" ID="btnLoad" OnClick="btnLoad_Click" ></asp:Button>
             </td>
         </tr>
     </table>

@@ -16,11 +16,7 @@ public partial class Production_Extract : System.Web.UI.Page
         }
         set
         {
-
-            List<TestDef.Component> productList = new List<TestDef.Component>();
-            productList.Add(
-            
-            Pack p = PackBLL.Get4Production(value, productList);
+            Pack p = PackBLL.Get4Production_Extract(value);
             if (p == null)
             {
                 ViewState["AutoNum"] = 0;
@@ -72,7 +68,7 @@ public partial class Production_Extract : System.Web.UI.Page
         else
         {
 
-            Pack p = PackBLL.Get4Production(Autonum);
+            Pack p = PackBLL.Get4Production_Extract(Autonum);
             e.Result = p;
         }
     }
@@ -86,7 +82,7 @@ public partial class Production_Extract : System.Web.UI.Page
             return;
         }
 
-        Pack p = PackBLL.Get4Production(Autonum);
+        Pack p = PackBLL.Get4Production_Extract(Autonum);
 
         if (p != null && p.PackExtractsBySource.Count > 0)
         {
@@ -105,7 +101,7 @@ public partial class Production_Extract : System.Web.UI.Page
 
     void LoadPack()
     {
-        Pack p = PackBLL.Get4Production(Autonum);
+        Pack p = PackBLL.Get4Production_Extract(Autonum);
 
         if (p != null)
         {
