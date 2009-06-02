@@ -114,17 +114,44 @@ public class PackBLL
         return new List<Pack>();
     }
 
-    public static List<Pack> Get4Production(List<int> autonumList,List<TestDef.Component> productList)
+    public static Pack Get4Production_Combine(int autonum)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-        return Get4Production(db, autonumList,productList);
+        List<int> l = new List<int>();
+        l.Add(autonum);
+
+        return Get4Production_Combine(l).FirstOrDefault();
     }
 
-    public static Pack Get4Production(int autonum, List<TestDef.Component> productList)
+    public static List<Pack> Get4Production_Combine(List<int> autonumList)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get4Production(db, autonum,productList);
+        
+        List<TestDef.Component> productList = new List<TestDef.Component>();
+        productList.Add(TestDef.Component.Platelet);
+
+        return Get4Production(db, autonumList, productList);
     }
+
+    public static Pack Get4Production_Extract(int autonum)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        List<int> l = new List<int>();
+        l.Add(autonum);
+
+        return Get4Production_Extract(db, l).FirstOrDefault();
+    }
+    
+    public static List<Pack> Get4Production_Extract(RedBloodDataContext db, List<int> autonumList)
+    {
+        List<TestDef.Component> productList = new List<TestDef.Component>();
+        productList.Add(TestDef.Component.Plasma);
+        productList.Add(TestDef.Component.RBC);
+
+        return Get4Production(db, autonumList, productList);
+    }
+
+
     public static Pack Get4Production(RedBloodDataContext db, int autonum, List<TestDef.Component> productList)
     {
         List<int> l = new List<int>();
@@ -138,7 +165,7 @@ public class PackBLL
         List<Pack> l = Get(autonumList, db, StatusList4Production(), false);
 
         return l.Where(p => p.ComponentID.Value == (int)TestDef.Component.Full
-            && p.PackExtractsBySource.Where(r => productList.Contains((TestDef.Component)r.SourcePack.ComponentID)).Count() == 0).ToList();
+            && p.PackExtractsBySource.Where(r => productList.Contains((TestDef.Component)r.ExtractPack.ComponentID)).Count() == 0).ToList();
     }
 
     public static Pack GetInitPack4Combine(int autonum)
@@ -621,10 +648,7 @@ public class PackBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<TestDef.Component> productList = new List<TestDef.Component>();
-        productList.Add(TestDef.Component.Platelet);
-
-        List<Pack> pList = Get4Production(autonumListIn,productList);
+        List<Pack> pList = Get4Production_Combine(autonumListIn);
         Pack pOut = GetInitPack4Combine(db, autonumOut);
 
         if (autonumListIn.Count != pList.Count

@@ -68,10 +68,7 @@ public partial class Production_Combine : System.Web.UI.Page
 
     protected void LinqDataSourcePackIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        List<TestDef.Component> productList = new List<TestDef.Component>();
-        productList.Add(TestDef.Component.Platelet);
-
-        List<Pack> l = PackBLL.Get4Production(PackInAutonumList, productList);
+        List<Pack> l = PackBLL.Get4Production_Combine(PackInAutonumList);
         if (l.Count == 0)
         {
             e.Result = null;
@@ -115,7 +112,7 @@ public partial class Production_Combine : System.Web.UI.Page
 
     private void LoadPack(int autonum)
     {
-        if (PackBLL.Get4Production(autonum) != null)
+        if (PackBLL.Get4Production_Combine(autonum) != null)
         {
             if (!PackInAutonumList.Contains(autonum))
                 PackInAutonumList.Add(autonum);
@@ -130,7 +127,9 @@ public partial class Production_Combine : System.Web.UI.Page
 
         if (PackBLL.IsCombined2Platelet(autonum))
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoad();", true);
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Không thể taạo tiểu cầu. Thiếu thông tin túi máu.');", true);
         }
     }
 
