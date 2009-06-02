@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text;
 
 public partial class Production_Combine : System.Web.UI.Page
 {
@@ -49,20 +50,7 @@ public partial class Production_Combine : System.Web.UI.Page
 
         if (CodabarBLL.IsValidPackCode(code))
         {
-            int autonum = CodabarBLL.ParsePackAutoNum(code);
-
-            if (PackBLL.Get4Production(autonum) != null)
-            {
-                if (!PackInAutonumList.Contains(autonum))
-                    PackInAutonumList.Add(autonum);
-                GridViewPackIn.DataBind();
-            }
-
-            if (PackBLL.Get4Combine(autonum) != null)
-            {
-                PackOutAutonum = autonum;
-                GridViewPackOut.DataBind();
-            }
+            LoadPack(CodabarBLL.ParsePackAutoNum(code));
         }
         else if (CodabarBLL.IsValidTestResultCode(code))
         {
@@ -80,7 +68,10 @@ public partial class Production_Combine : System.Web.UI.Page
 
     protected void LinqDataSourcePackIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        List<Pack> l = PackBLL.Get4Production(PackInAutonumList);
+        List<TestDef.Component> productList = new List<TestDef.Component>();
+        productList.Add(TestDef.Component.Platelet);
+
+        List<Pack> l = PackBLL.Get4Production(PackInAutonumList, productList);
         if (l.Count == 0)
         {
             e.Result = null;
@@ -90,7 +81,7 @@ public partial class Production_Combine : System.Web.UI.Page
     }
     protected void LinqDataSourcePackOut_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        Pack p = PackBLL.Get4Combine(PackOutAutonum);
+        Pack p = PackBLL.GetInitPack4Combine(PackOutAutonum);
         if (p != null)
         {
             e.Result = p;
@@ -119,6 +110,33 @@ public partial class Production_Combine : System.Web.UI.Page
             return;
         }
 
+        PackBLL.Combine2Platelet(PackInAutonumList, PackOutAutonum, Page.User.Identity.Name);
+    }
 
+    private void LoadPack(int autonum)
+    {
+        if (PackBLL.Get4Production(autonum) != null)
+        {
+            if (!PackInAutonumList.Contains(autonum))
+                PackInAutonumList.Add(autonum);
+            GridViewPackIn.DataBind();
+        }
+
+        if (PackBLL.GetInitPack4Combine(autonum) != null)
+        {
+            PackOutAutonum = autonum;
+            GridViewPackOut.DataBind();
+        }
+
+        if (PackBLL.IsCombined2Platelet(autonum))
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoad();", true);
+        }
+    }
+
+
+    protected void btnLoad_Click(object sender, EventArgs e)
+    {
+        btnLoad.Text = "Okok";
     }
 }

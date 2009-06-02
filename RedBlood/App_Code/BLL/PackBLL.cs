@@ -114,39 +114,40 @@ public class PackBLL
         return new List<Pack>();
     }
 
-    public static List<Pack> Get4Production(List<int> autonumList)
+    public static List<Pack> Get4Production(List<int> autonumList,List<TestDef.Component> productList)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get4Production(db, autonumList);
+        return Get4Production(db, autonumList,productList);
     }
 
-    public static Pack Get4Production(int autonum)
+    public static Pack Get4Production(int autonum, List<TestDef.Component> productList)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get4Production(db, autonum);
+        return Get4Production(db, autonum,productList);
     }
-    public static Pack Get4Production(RedBloodDataContext db, int autonum)
+    public static Pack Get4Production(RedBloodDataContext db, int autonum, List<TestDef.Component> productList)
     {
         List<int> l = new List<int>();
         l.Add(autonum);
 
-        return Get4Production(db, l).FirstOrDefault();
+        return Get4Production(db, l,productList).FirstOrDefault();
     }
 
-    public static List<Pack> Get4Production(RedBloodDataContext db, List<int> autonumList)
+    public static List<Pack> Get4Production(RedBloodDataContext db, List<int> autonumList, List<TestDef.Component> productList)
     {
         List<Pack> l = Get(autonumList, db, StatusList4Production(), false);
 
-        return l.Where(p => p.ComponentID.Value == (int)TestDef.Component.Full).ToList();
+        return l.Where(p => p.ComponentID.Value == (int)TestDef.Component.Full
+            && p.PackExtractsBySource.Where(r => productList.Contains((TestDef.Component)r.SourcePack.ComponentID)).Count() == 0).ToList();
     }
 
-    public static Pack Get4Combine(int autonum)
+    public static Pack GetInitPack4Combine(int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get4Combine(db, autonum);
+        return GetInitPack4Combine(db, autonum);
     }
 
-    public static Pack Get4Combine(RedBloodDataContext db, int autonum)
+    public static Pack GetInitPack4Combine(RedBloodDataContext db, int autonum)
     {
         return PackBLL.Get(autonum, db, new Pack.StatusX[] { Pack.StatusX.Init }, false);
     }
@@ -192,15 +193,13 @@ public class PackBLL
 
         try
         {
-            Pack.StatusX from = p.Status;
-
             p.PeopleID = peopleID;
-            p.Status = Pack.StatusX.Assign;
             p.CollectedDate = DateTime.Now;
             p.CampaignID = campaignID;
             p.ComponentID = (int)TestDef.Component.Full;
 
-            db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, p.Status, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString()));
+            PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Assign, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
+            db.PackStatusHistories.InsertOnSubmit(h);
 
             db.SubmitChanges();
 
@@ -213,6 +212,8 @@ public class PackBLL
 
         return PackErrList.Non;
     }
+
+
 
     public Pack[] New(int count)
     {
@@ -345,11 +346,8 @@ public class PackBLL
             if (p.CampaignID != campaignID) return PackErrList.NonExistInCam;
         }
 
-        Pack.StatusX from = p.Status;
-
-        p.Status = Pack.StatusX.Delete;
-
-        db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, p.Status, actor, note));
+        PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Delete, actor, note);
+        db.PackStatusHistories.InsertOnSubmit(h);
 
         db.SubmitChanges();
 
@@ -376,16 +374,13 @@ public class PackBLL
 
         if (p == null && p.PeopleID != null) return p;
 
-
-        Pack.StatusX from = p.Status;
-
         //remove people
         p.PeopleID = null;
-        p.Status = Pack.StatusX.Init; ;
         p.CollectedDate = null;
         p.CampaignID = null;
 
-        db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, p.Status, actor, "Remove peopleID=" + p.PeopleID.ToString() + "&CampaignID=" + p.CampaignID.ToString()));
+        PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Init, actor, "Remove peopleID=" + p.PeopleID.ToString() + "&CampaignID=" + p.CampaignID.ToString());
+        db.PackStatusHistories.InsertOnSubmit(h);
 
         db.SubmitChanges();
 
@@ -551,15 +546,13 @@ public class PackBLL
                 && p.TestResult2.HIVID != null && p.TestResult2.HCVID != null && p.TestResult2.HBsAgID != null && p.TestResult2.SyphilisID != null && p.TestResult2.MalariaID != null)
                 )
             {
-                Pack.StatusX from = p.Status;
-                p.Status = Pack.StatusX.CommitTestResult;
-                db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.CommitTestResult, actor, "Manually Enter"));
+                PackStatusHistory h = ChangeStatus(p, Pack.StatusX.CommitTestResult, actor, "Manually Enter");
+                db.PackStatusHistories.InsertOnSubmit(h);
             }
             else
             {
-                Pack.StatusX from = p.Status;
-                p.Status = Pack.StatusX.EnterTestResult;
-                db.PackStatusHistories.InsertOnSubmit(new PackStatusHistory(p, from, Pack.StatusX.EnterTestResult, actor, "Manually Enter"));
+                PackStatusHistory h = ChangeStatus(p, Pack.StatusX.EnterTestResult, actor, "Manually Enter");
+                db.PackStatusHistories.InsertOnSubmit(h);
             }
         }
 
@@ -569,7 +562,12 @@ public class PackBLL
     public static PackErr Extract(int autonum, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = Get4Production(db, autonum);
+
+        List<TestDef.Component> productList = new List<TestDef.Component>();
+        productList.Add(TestDef.Component.Plasma);
+        productList.Add(TestDef.Component.RBC);
+        
+        Pack p = Get4Production(db, autonum,productList);
 
         if (p == null) return PackErrList.NonExist;
 
@@ -592,13 +590,14 @@ public class PackBLL
         packRBC.ComponentID = (int)TestDef.Component.RBC;
         packRBC.CollectedDate = DateTime.Now;
         packRBC.Status = Pack.StatusX.Production;
+        packRBC.Actor = actor;
         db.Packs.InsertOnSubmit(packRBC);
-
 
         Pack packPlasma = new Pack();
         packPlasma.ComponentID = (int)TestDef.Component.Plasma;
         packPlasma.CollectedDate = DateTime.Now;
         packPlasma.Status = Pack.StatusX.Production;
+        packPlasma.Actor = actor;
         db.Packs.InsertOnSubmit(packPlasma);
 
         db.SubmitChanges();
@@ -618,22 +617,27 @@ public class PackBLL
         return err;
     }
 
-    public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut)
+    public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Pack> pList = Get4Production(autonumListIn);
-        Pack pOut = Get4Combine(db,autonumOut);
+        List<TestDef.Component> productList = new List<TestDef.Component>();
+        productList.Add(TestDef.Component.Platelet);
+
+        List<Pack> pList = Get4Production(autonumListIn,productList);
+        Pack pOut = GetInitPack4Combine(db, autonumOut);
 
         if (autonumListIn.Count != pList.Count
             || pOut == null)
         {
-            return PackErrList.CombinePackInInvalid; 
+            return PackErrList.CombinePackInInvalid;
         }
 
         pOut.ComponentID = (int)TestDef.Component.Platelet;
         pOut.CollectedDate = DateTime.Now;
-        pOut.Status = Pack.StatusX.Production;
+
+        PackStatusHistory h = ChangeStatus(pOut, Pack.StatusX.Production, actor, "Combine2Platelet");
+        db.PackStatusHistories.InsertOnSubmit(h);
 
         foreach (Pack item in pList)
         {
@@ -644,8 +648,29 @@ public class PackBLL
         }
 
         db.SubmitChanges();
-        
+
         return PackErrList.Non;
+    }
+
+    public static bool IsCombined2Platelet(int autonum)
+    {
+        Pack p = Get(autonum);
+
+        if (p.ComponentID == (int)TestDef.Component.Full)
+        {
+            foreach (PackExtract item in p.PackExtractsBySource)
+            {
+                if (item.ExtractPack.ComponentID == (int)TestDef.Component.Platelet)
+                    return true;
+            }
+        }
+
+        if (p.ComponentID == (int)TestDef.Component.Platelet)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
 

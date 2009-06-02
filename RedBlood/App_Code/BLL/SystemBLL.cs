@@ -40,7 +40,7 @@ public class SystemBLL
 
             LogBLL.Add(db, Task.TaskX.ScanExp);
 
-            //db.SubmitChanges();
+            db.SubmitChanges();
         }
     }
 
@@ -55,7 +55,7 @@ public class SystemBLL
 
             LogBLL.Add(db, Task.TaskX.CloseOrder);
 
-            //db.SubmitChanges();
+            db.SubmitChanges();
         }
     }
 }
