@@ -10,8 +10,8 @@ using System.Web;
 /// </summary>
 public class CodabarBLL
 {
-    //http://localhost:8449/RedBlood/
-    public static string RootUrl { get; set; }
+    //http://localhost:8449/RedBlood/CodarBar/Image.aspx
+    public static string CodabarImgPage { get; set; }
 
     static string hospitalCode;
     public CodabarBLL()
@@ -139,7 +139,7 @@ public class CodabarBLL
 
     public static string Url4People(Guid ID)
     {
-        return RootUrl + "?code=" + GenStringCode(Resources.Codabar.peopleSSC, ID.ToString());
+        return CodabarImgPage + "?code=" + GenStringCode(Resources.Codabar.peopleSSC, ID.ToString());
     }
 
     public static string Url4Pack(int? autonum)
@@ -168,21 +168,21 @@ public class CodabarBLL
             top = "&topleft=" + topleft + "&topright=" + topright;
         }
 
-        return RootUrl + "?hasText=true&code=" + CodabarBLL.GenPackCode(autonum) + top;
+        return CodabarImgPage + "?hasText=true&code=" + CodabarBLL.GenPackCode(autonum) + top;
     }
 
     public static string Url4Campaign(int ID)
     {
-        return RootUrl + "?hasText=true&code=" + GenStringCode(Resources.Codabar.campaignSSC, ID.ToString());
+        return CodabarImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.campaignSSC, ID.ToString());
     }
 
     public static string Url4Org(int ID)
     {
-        return RootUrl + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orgSSC, ID.ToString());
+        return CodabarImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orgSSC, ID.ToString());
     }
 
     public static string Url4Order(int ID)
     {
-        return RootUrl + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orderSSC, ID.ToString());
+        return CodabarImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orderSSC, ID.ToString());
     }
 }

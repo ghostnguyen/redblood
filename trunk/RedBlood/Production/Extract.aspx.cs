@@ -16,7 +16,11 @@ public partial class Production_Extract : System.Web.UI.Page
         }
         set
         {
-            Pack p = PackBLL.Get4Production(value);
+
+            List<TestDef.Component> productList = new List<TestDef.Component>();
+            productList.Add(
+            
+            Pack p = PackBLL.Get4Production(value, productList);
             if (p == null)
             {
                 ViewState["AutoNum"] = 0;

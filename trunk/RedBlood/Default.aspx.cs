@@ -21,13 +21,6 @@ public partial class _Default : System.Web.UI.Page
     {
         SystemBLL.SOD();
 
-
-        if (string.IsNullOrEmpty(CodabarBLL.RootUrl))
-        {
-            string[] split = Request.Url.AbsoluteUri.Split('/');
-            CodabarBLL.RootUrl = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3] + "/Codabar/Image.aspx";
-        }
-
         //GeoBLL bll = new GeoBLL();
         //bll.UpdateFullname();
 

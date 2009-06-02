@@ -4,6 +4,17 @@
     AutoEventWireup="true" CodeFile="Combine.aspx.cs" Inherits="Production_Combine" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <script type="text/javascript">
+        // Your code goes here
+        function doLoad() {
+            if (confirm("Load thông tin?")) {
+                $("input[id*='btnLoad']").click();
+            }
+        }
+        });
+    </script>
+
     <table>
         <tr>
             <td>
@@ -63,6 +74,7 @@
                 <asp:Button runat="server" ID="btnOk" Text="Xác nhận" OnClick="btnOk_Click" />
                 <br />
                 <br />
+                <asp:LinkButton runat="server" ID="btnLoad" onclick="btnLoad_Click"></asp:LinkButton>
             </td>
         </tr>
     </table>
