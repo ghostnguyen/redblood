@@ -58,6 +58,13 @@ public class PackBLL
         return Get(autonum, db, Pack.StatusX.All);
     }
 
+    public static List<Pack> Get(List<int> autonumList)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        return Get(autonumList, db, new Pack.StatusX[] { Pack.StatusX.All }, true);
+    }
+
     public static Pack Get(int autonum, RedBloodDataContext db)
     {
         return Get(autonum, db, Pack.StatusX.All, false);
@@ -65,7 +72,7 @@ public class PackBLL
 
     public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX status)
     {
-        return Get(autonum, db, status, false);
+        return Get(autonum, db, status, true);
     }
 
     public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX status, bool allowPackErr)
@@ -125,7 +132,7 @@ public class PackBLL
     public static List<Pack> Get4Production_Combine(List<int> autonumList)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        
+
         List<TestDef.Component> productList = new List<TestDef.Component>();
         productList.Add(TestDef.Component.Platelet);
 
@@ -141,7 +148,7 @@ public class PackBLL
 
         return Get4Production_Extract(db, l).FirstOrDefault();
     }
-    
+
     public static List<Pack> Get4Production_Extract(RedBloodDataContext db, List<int> autonumList)
     {
         List<TestDef.Component> productList = new List<TestDef.Component>();
@@ -157,7 +164,7 @@ public class PackBLL
         List<int> l = new List<int>();
         l.Add(autonum);
 
-        return Get4Production(db, l,productList).FirstOrDefault();
+        return Get4Production(db, l, productList).FirstOrDefault();
     }
 
     public static List<Pack> Get4Production(RedBloodDataContext db, List<int> autonumList, List<TestDef.Component> productList)
@@ -593,8 +600,8 @@ public class PackBLL
         List<TestDef.Component> productList = new List<TestDef.Component>();
         productList.Add(TestDef.Component.Plasma);
         productList.Add(TestDef.Component.RBC);
-        
-        Pack p = Get4Production(db, autonum,productList);
+
+        Pack p = Get4Production(db, autonum, productList);
 
         if (p == null) return PackErrList.NonExist;
 
@@ -676,25 +683,27 @@ public class PackBLL
         return PackErrList.Non;
     }
 
-    public static bool IsCombined2Platelet(int autonum)
+    public static Pack IsCombined2Platelet(int autonum)
     {
         Pack p = Get(autonum);
 
+        if (p == null) return null;
+
         if (p.ComponentID == (int)TestDef.Component.Full)
         {
-            foreach (PackExtract item in p.PackExtractsBySource)
-            {
-                if (item.ExtractPack.ComponentID == (int)TestDef.Component.Platelet)
-                    return true;
-            }
+            if (p.PackExtractsBySource
+                .Where(r =>
+                    r.ExtractPack.ComponentID == (int)TestDef.Component.Platelet)
+                .Count() > 0)
+                return p;
         }
 
         if (p.ComponentID == (int)TestDef.Component.Platelet)
         {
-            return true;
+            return p;
         }
 
-        return false;
+        return null;
     }
 }
 

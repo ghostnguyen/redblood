@@ -33,5 +33,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
             }
         }
 
+        //this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(),"jquery", ResolveUrl("jquery-1.3.2.js"),true);
+        //Page.ClientScript.RegisterClientScriptInclude("jquery", ResolveUrl("jquery-1.3.2.js"));
+
     }
 }
