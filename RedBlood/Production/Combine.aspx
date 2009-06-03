@@ -8,76 +8,92 @@
     <script type="text/javascript">
         // Your code goes here
         function doLoadPackCombined() {
-            if (confirm("Load thông tin?")) 
-            {
-                alert("hello11");
+            if (confirm("Túi máu đã sản xuất. Xem chi tiết?")) {
                 $("input[id*='btnLoad']").click();
-                alert("hello");
             }
             //alert("hello");
         }
+        
     </script>
 
     <table>
         <tr>
-            <td>
-                <asp:GridView runat="server" ID="GridViewPackIn" AutoGenerateColumns="False" DataKeyNames="Autonum"
-                    DataSourceID="LinqDataSourcePackIn" OnRowDeleting="GridViewPackIn_RowDeleting">
-                    <Columns>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-                        <asp:BoundField DataField="Volume" HeaderText="Volume" SortExpression="Volume" />
-                        <asp:TemplateField HeaderText="Thành phần">
-                            <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:CommandField DeleteText='<%$ Resources:Resource,Delete %>' ShowDeleteButton="true" />
-                    </Columns>
-                </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSourcePackIn" runat="server" ContextTypeName="RedBloodDataContext"
-                    OnSelecting="LinqDataSourcePackIn_Selecting" TableName="Packs">
-                </asp:LinqDataSource>
+            <td valign="top">
+                <div class="part">
+                    <div class="partHeader">
+                        Sản xuất tiểu cầu
+                    </div>
+                    <div class="partLinkLast">
+                        <asp:Button ID="btnNew" runat="server" Text="Thêm" OnClick="btnNew_Click"
+                            />
+                    </div>
+                </div>
             </td>
             <td>
-                <asp:GridView runat="server" ID="GridViewPackOut" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSourcePackOut">
-                    <Columns>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-                        <asp:BoundField DataField="Volume" HeaderText="Volume" SortExpression="Volume" />
-                        <asp:TemplateField HeaderText="Thành phần">
-                            <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSourcePackOut" runat="server" ContextTypeName="RedBloodDataContext"
-                    OnSelecting="LinqDataSourcePackOut_Selecting" TableName="Packs">
-                </asp:LinqDataSource>
-                Ghi chú:
-                <asp:TextBox runat="server" ID="txtNote"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center" style="border-top: solid 1px black">
-                <br />
-                Sản xuất tiểu cầu
-                <br />
-                <br />
-                <asp:Button runat="server" ID="btnOk" Text="Xác nhận" OnClick="btnOk_Click" />
-                <br />
-                <br />
-                <asp:Button runat="server" ID="btnLoad" OnClick="btnLoad_Click" ></asp:Button>
+                <table>
+                    <tr>
+                        <td>
+                            <asp:GridView runat="server" ID="GridViewPackIn" AutoGenerateColumns="False" DataKeyNames="Autonum"
+                                DataSourceID="LinqDataSourcePackIn" OnRowDeleting="GridViewPackIn_RowDeleting">
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
+                                    <asp:BoundField DataField="Volume" HeaderText="Volume" SortExpression="Volume" />
+                                    <asp:TemplateField HeaderText="Thành phần">
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:CommandField DeleteText='<%$ Resources:Resource,Delete %>' ShowDeleteButton="true" />
+                                </Columns>
+                            </asp:GridView>
+                            <asp:LinqDataSource ID="LinqDataSourcePackIn" runat="server" ContextTypeName="RedBloodDataContext"
+                                OnSelecting="LinqDataSourcePackIn_Selecting" TableName="Packs">
+                            </asp:LinqDataSource>
+                        </td>
+                        <td>
+                            <asp:GridView runat="server" ID="GridViewPackOut" AutoGenerateColumns="False" DataKeyNames="ID"
+                                DataSourceID="LinqDataSourcePackOut">
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
+                                    <asp:BoundField DataField="Volume" HeaderText="Volume" SortExpression="Volume" />
+                                    <asp:TemplateField HeaderText="Thành phần">
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <asp:LinqDataSource ID="LinqDataSourcePackOut" runat="server" ContextTypeName="RedBloodDataContext"
+                                OnSelecting="LinqDataSourcePackOut_Selecting" TableName="Packs">
+                            </asp:LinqDataSource>
+                            Ghi chú:
+                            <asp:TextBox runat="server" ID="txtNote"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" style="border-top: solid 1px black">
+                            <br />
+                            Sản xuất tiểu cầu
+                            <br />
+                            <br />
+                            <asp:Button runat="server" ID="btnOk" Text="Xác nhận" OnClick="btnOk_Click" />
+                            <br />
+                            <br />
+                            <asp:Button runat="server" ID="btnLoad" OnClick="btnLoad_Click" Style="visibility: hidden;">
+                            </asp:Button>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>

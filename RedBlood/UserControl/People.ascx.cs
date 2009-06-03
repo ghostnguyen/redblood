@@ -169,6 +169,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
         divErrName.Attributes["class"] = "hidden";
         divErrCMND.Attributes["class"] = "hidden";
         divErrDOB.Attributes["class"] = "hidden";
+        divErrSex.Attributes["class"] = "hidden";
         divErrMailingGeo.Attributes["class"] = "hidden";
         divErrResidentalGeo.Attributes["class"] = "hidden";
     }
