@@ -11,28 +11,24 @@
             if (confirm("Túi máu đã sản xuất. Xem chi tiết?")) {
                 $("input[id*='btnLoad']").click();
             }
-            //alert("hello");
         }
         
     </script>
 
-    <table>
-        <tr>
-            <td valign="top">
-                <div class="part">
-                    <div class="partHeader">
-                        Sản xuất tiểu cầu
-                    </div>
-                    <div class="partLinkLast">
-                        <asp:Button ID="btnNew" runat="server" Text="Thêm" OnClick="btnNew_Click"
-                            />
-                    </div>
-                </div>
-            </td>
+    <table width="100%">
+        <tr align="center">
             <td>
-                <table>
-                    <tr>
+                <table cellspacing="1" border="1">
+                    <tr align="center">
                         <td>
+                            Đầu vào
+                        </td>
+                        <td>
+                            Đầu ra
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
                             <asp:GridView runat="server" ID="GridViewPackIn" AutoGenerateColumns="False" DataKeyNames="Autonum"
                                 DataSourceID="LinqDataSourcePackIn" OnRowDeleting="GridViewPackIn_RowDeleting">
                                 <Columns>
@@ -81,14 +77,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center" style="border-top: solid 1px black">
+                        <td colspan="2" align="center">
                             <br />
                             Sản xuất tiểu cầu
                             <br />
                             <br />
                             <asp:Button runat="server" ID="btnOk" Text="Xác nhận" OnClick="btnOk_Click" />
-                            <br />
-                            <br />
                             <asp:Button runat="server" ID="btnLoad" OnClick="btnLoad_Click" Style="visibility: hidden;">
                             </asp:Button>
                         </td>

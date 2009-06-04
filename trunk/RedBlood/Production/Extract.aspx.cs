@@ -16,16 +16,23 @@ public partial class Production_Extract : System.Web.UI.Page
         }
         set
         {
-            Pack p = PackBLL.Get4Production_Extract(value);
-            if (p == null)
+            ViewState["AutoNum"] = value;
+        }
+    }
+
+    public int CheckPackAutonum
+    {
+        get
+        {
+            if (ViewState["CheckPackAutonum"] == null)
             {
-                ViewState["AutoNum"] = 0;
+                return 0;
             }
-            else
-            {
-                ViewState["AutoNum"] = value;
-                LoadPack();
-            }
+            return (int)ViewState["CheckPackAutonum"];
+        }
+        set
+        {
+            ViewState["CheckPackAutonum"] = value;
         }
     }
 
@@ -43,7 +50,7 @@ public partial class Production_Extract : System.Web.UI.Page
 
         if (CodabarBLL.IsValidPackCode(code))
         {
-            Autonum = CodabarBLL.ParsePackAutoNum(code);
+            LoadPack(CodabarBLL.ParsePackAutoNum(code));
         }
         else if (CodabarBLL.IsValidTestResultCode(code))
         {
@@ -67,7 +74,6 @@ public partial class Production_Extract : System.Web.UI.Page
         }
         else
         {
-
             Pack p = PackBLL.Get4Production_Extract(Autonum);
             e.Result = p;
         }
@@ -94,19 +100,32 @@ public partial class Production_Extract : System.Web.UI.Page
             e.Cancel = true;
             btnProduct.Enabled = true;
         }
-
     }
 
-
-
-    void LoadPack()
+    void LoadPack(int autonum)
     {
-        Pack p = PackBLL.Get4Production_Extract(Autonum);
-
-        if (p != null)
+        if (PackBLL.Get4Production_Extract(autonum) != null)
         {
+            Autonum = autonum;
             DetailsViewPack.DataBind();
             GridViewExtract.DataBind();
+        }
+        else if (PackBLL.IsExtracted(autonum) != null)
+        {
+            CheckPackAutonum = autonum;
+
+            if (Autonum == 0)
+            {
+                //btnLoad_Click(null, null);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
+            }
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('Dữ liệu không hợp lệ.');", true);
         }
     }
 

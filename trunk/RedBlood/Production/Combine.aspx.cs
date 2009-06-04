@@ -129,7 +129,13 @@ public partial class Production_Combine : System.Web.UI.Page
             return;
         }
 
-        PackBLL.Combine2Platelet(PackInAutonumList, PackOutAutonum, Page.User.Identity.Name);
+        PackErr err = PackBLL.Combine2Platelet(PackInAutonumList, PackOutAutonum, Page.User.Identity.Name, txtNote.Text);
+        if (err == PackErrList.Non)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);
+        }
+        else
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
     }
 
     private void LoadPack(int autonum)
@@ -148,12 +154,19 @@ public partial class Production_Combine : System.Web.UI.Page
 
             PackOutAutonum = autonum;
             GridViewPackOut.DataBind();
-            btnOk.Enabled = true;
         }
         else if (PackBLL.IsCombined2Platelet(autonum) != null)
         {
             CheckPackAutonum = autonum;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
+
+            if (PackInAutonumList.Count == 0 || PackBLL.IsCombined2Platelet(PackOutAutonum) != null)
+            {
+                btnLoad_Click(null, null);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
+            }
         }
         else
         {
@@ -170,7 +183,9 @@ public partial class Production_Combine : System.Web.UI.Page
         if (p.ComponentID == (int)TestDef.Component.Platelet)
         {
             PackOutAutonum = p.Autonum;
+            txtNote.Text = p.Note;
             PackInAutonumList = p.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
+
         }
         else
         {
@@ -178,6 +193,7 @@ public partial class Production_Combine : System.Web.UI.Page
             if (pe != null)
             {
                 PackOutAutonum = pe.ExtractPack.Autonum;
+                txtNote.Text = pe.ExtractPack.Note;
                 PackInAutonumList = pe.ExtractPack.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
             }
         }
@@ -186,6 +202,14 @@ public partial class Production_Combine : System.Web.UI.Page
         GridViewPackOut.DataBind();
 
         btnOk.Enabled = false;
+
+        foreach (DataControlField item in GridViewPackIn.Columns)
+        {
+            if (item is CommandField)
+            {
+                (item as CommandField).ShowDeleteButton = false;
+            }
+        }
     }
     protected void btnNew_Click(object sender, EventArgs e)
     {
@@ -203,6 +227,14 @@ public partial class Production_Combine : System.Web.UI.Page
             GridViewPackOut.DataBind();
 
             btnOk.Enabled = true;
+
+            foreach (DataControlField item in GridViewPackIn.Columns)
+            {
+                if (item is CommandField)
+                {
+                    (item as CommandField).ShowDeleteButton = true;
+                }
+            }
         }
     }
 }
