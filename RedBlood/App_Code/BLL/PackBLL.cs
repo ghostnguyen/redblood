@@ -651,7 +651,7 @@ public class PackBLL
         return err;
     }
 
-    public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut, string actor)
+    public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut, string actor, string note)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -666,6 +666,7 @@ public class PackBLL
 
         pOut.ComponentID = (int)TestDef.Component.Platelet;
         pOut.CollectedDate = DateTime.Now;
+        pOut.Note = note;
 
         PackStatusHistory h = ChangeStatus(pOut, Pack.StatusX.Production, actor, "Combine2Platelet");
         db.PackStatusHistories.InsertOnSubmit(h);
@@ -699,6 +700,33 @@ public class PackBLL
         }
 
         if (p.ComponentID == (int)TestDef.Component.Platelet)
+        {
+            return p;
+        }
+
+        return null;
+    }
+
+    public static Pack IsExtracted(int autonum)
+    {
+        Pack p = Get(autonum);
+
+        if (p == null) return null;
+
+        if (p.ComponentID == (int)TestDef.Component.Full)
+        {
+            if (p.PackExtractsBySource
+                .Where(r =>
+                    r.ExtractPack.ComponentID == (int)TestDef.Component.RBC
+                    || r.ExtractPack.ComponentID == (int)TestDef.Component.Plasma
+                    )
+                .Count() > 0)
+                return p;
+        }
+
+        if (p.ComponentID == (int)TestDef.Component.RBC
+            || p.ComponentID == (int)TestDef.Component.Plasma
+            )
         {
             return p;
         }

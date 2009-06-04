@@ -9,7 +9,7 @@
       <siteMapNode url="Category/Org.aspx" title="Đơn vị"  description="" />
       <siteMapNode url="Codabar/Pack.aspx" title="Tạo mã túi máu"  description="" />
     </siteMapNode>
-    <siteMapNode url="Campaign.aspx" title="Đợt thu máu"  description="" />
+    <siteMapNode url="CampaignPage.aspx" title="Đợt thu máu"  description="" />
     <siteMapNode url="ReceiveBlood.aspx" title="Thu máu"  description="" />
     <siteMapNode url="PackTempStore.aspx" title="Kho tạm"  description="" />
     <siteMapNode url="PackTestResult.aspx" title="KQXN"  description="" />

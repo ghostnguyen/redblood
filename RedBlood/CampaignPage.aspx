@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUserMenuWithBarcode.master"
-    AutoEventWireup="true" CodeFile="Campaign.aspx.cs" Inherits="Campaign" %>
+    AutoEventWireup="true" CodeFile="CampaignPage.aspx.cs" Inherits="CampaignPage" %>
 
 <%@ Register Src="~/UserControl/Campaign.ascx" TagPrefix="uc" TagName="Campaign" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">

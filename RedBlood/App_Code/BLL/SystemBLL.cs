@@ -29,7 +29,7 @@ public class SystemBLL
             RedBloodDataContext db = new RedBloodDataContext();
 
             Pack.StatusX[] statusList = new Pack.StatusX[] { 
-                Pack.StatusX.Init, Pack.StatusX.Assign, Pack.StatusX.EnterTestResult,Pack.StatusX.CommitTestResult};
+                Pack.StatusX.Init, Pack.StatusX.Assign, Pack.StatusX.EnterTestResult,Pack.StatusX.CommitTestResult,Pack.StatusX.Production};
 
             List<Pack> rs = PackBLL.Get(db,statusList);
             
