@@ -193,13 +193,16 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
         OrderType = type;
         txtName.Focus();
-
+        btnUpdate.Enabled = true;
         SwitchGUI();
     }
     public void Clear()
     {
         ViewState["OrderID"] = 0;
-        imgCodabar.Attributes.Add("src", "none");
+        
+        //imgCodabar.Attributes.Add("src", "none");
+        imgCodabar.ImageUrl = "none";
+
         txtName.Text = "";
         txtDate.Text = "";
         txtNote.Text = "";
@@ -251,6 +254,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
             GridViewPack.DataBind();
             SwitchGUI();
+
+            btnUpdate.Enabled = e.Status == Order.StatusX.Init;
         }
     }
 

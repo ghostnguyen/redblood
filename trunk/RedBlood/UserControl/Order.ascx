@@ -124,7 +124,7 @@
                                     Text='<%$ Resources:Resource,Delete %>' OnClientClick='return confirm("Hủy cấp phát túi máu này?");'></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ShowDeleteButton="True" DeleteText='<%$ Resources:Resource,Delete %>' />
+                        
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"

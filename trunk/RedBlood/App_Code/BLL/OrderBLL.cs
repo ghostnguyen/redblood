@@ -36,6 +36,9 @@ public class OrderBLL
         Order r = OrderBLL.Get(ID);
         if (r == null) return PackErrList.NonExistOrder;
 
+        if (r.Status == Order.StatusX.Done)
+            return PackErrList.OrderClose;
+
         Pack p = PackBLL.Get(autonum, db);
 
         if (p == null) return PackErrList.NonExist;
@@ -68,7 +71,7 @@ public class OrderBLL
             {
                 return PackErrList.Expired;
             }
-            if (p.Status == Pack.StatusX.Delete)
+            else if (p.Status == Pack.StatusX.Delete)
             {
                 return PackErrList.Deleted;
             }
@@ -77,13 +80,18 @@ public class OrderBLL
             {
                 return PackErrList.CanNotOrder;
             }
-            else if (p.Status == Pack.StatusX.CommitTestResult
-                || p.Status == Pack.StatusX.Production)
+            else if (p.Status == Pack.StatusX.CommitTestResult)
             {
                 if (PackBLL.ValidateTestResult(p.TestResult2).Count() != 0)
                     return PackErrList.Positive;
+            }
+            else if (p.Status == Pack.StatusX.Production)
+            {
+                if (PackBLL.ValidateTestResult(p).Count() != 0)
+                    return PackErrList.Positive;
+            }
 
-                PackOrder po = new PackOrder();
+             PackOrder po = new PackOrder();
                 po.OrderID = r.ID;
                 po.PackID = p.ID;
 
@@ -91,7 +99,6 @@ public class OrderBLL
 
                 PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Dilivered, actor, "Add Order");
                 db.PackStatusHistories.InsertOnSubmit(h);
-            }
         }
 
         db.SubmitChanges();
@@ -109,7 +116,7 @@ public class OrderBLL
             || po.Pack == null
             || po.Order == null
             || po.Order.Status == Order.StatusX.Done) return;
-        
+
         PackStatusHistory h;
 
         if (po.Pack.ComponentID == (int)TestDef.Component.Full)

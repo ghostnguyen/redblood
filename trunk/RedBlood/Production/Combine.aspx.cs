@@ -8,51 +8,67 @@ using System.Text;
 
 public partial class Production_Combine : System.Web.UI.Page
 {
-    public int PackOutAutonum
+    public List<int> AutonumListOut
     {
         get
         {
-            if (ViewState["PackOutAutonum"] == null)
+            if (ViewState["AutonumListOut"] == null)
             {
-                return 0;
+                ViewState["AutonumListOut"] = new List<int>();
             }
-            return (int)ViewState["PackOutAutonum"];
+            return (List<int>)ViewState["AutonumListOut"];
         }
         set
         {
-            ViewState["PackOutAutonum"] = value;
+            ViewState["AutonumListOut"] = value;
         }
     }
 
-    public List<int> PackInAutonumList
+    public List<int> AutonumListIn
     {
         get
         {
-            if (ViewState["PackInAutonumList"] == null)
+            if (ViewState["AutonumListIn"] == null)
             {
-                ViewState["PackInAutonumList"] = new List<int>();
+                ViewState["AutonumListIn"] = new List<int>();
             }
-            return (List<int>)ViewState["PackInAutonumList"];
+            return (List<int>)ViewState["AutonumListIn"];
         }
         set
         {
-            ViewState["PackInAutonumList"] = value;
+            ViewState["AutonumListIn"] = value;
         }
     }
 
-    public int CheckPackAutonum
+    public int TempAutonum
     {
         get
         {
-            if (ViewState["CheckPackAutonum"] == null)
+            if (ViewState["TempAutonum"] == null)
             {
                 return 0;
             }
-            return (int)ViewState["CheckPackAutonum"];
+            return (int)ViewState["TempAutonum"];
         }
         set
         {
-            ViewState["CheckPackAutonum"] = value;
+            ViewState["TempAutonum"] = value;
+        }
+    }
+
+    public bool IsEditMode
+    {
+        get
+        {
+            if (ViewState["IsEditMode"] == null)
+            {
+                return true;
+            }
+            return (bool)ViewState["IsEditMode"];
+        }
+        set
+        {
+            ViewState["IsEditMode"] = value;
         }
     }
 
@@ -70,7 +86,7 @@ public partial class Production_Combine : System.Web.UI.Page
 
         if (CodabarBLL.IsValidPackCode(code))
         {
-            LoadPack(CodabarBLL.ParsePackAutoNum(code));
+            CheckAutonum(CodabarBLL.ParsePackAutoNum(code));
         }
         else if (CodabarBLL.IsValidTestResultCode(code))
         {
@@ -89,7 +105,7 @@ public partial class Production_Combine : System.Web.UI.Page
     protected void LinqDataSourcePackIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         //List<Pack> l = PackBLL.Get4Production_Combine(PackInAutonumList);
-        List<Pack> l = PackBLL.Get(PackInAutonumList);
+        List<Pack> l = PackBLL.Get(AutonumListIn);
         if (l.Count == 0)
         {
             e.Result = null;
@@ -100,10 +116,11 @@ public partial class Production_Combine : System.Web.UI.Page
     protected void LinqDataSourcePackOut_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         //Pack p = PackBLL.GetInitPack4Combine(PackOutAutonum);
-        Pack p = PackBLL.Get(PackOutAutonum);
+        Pack p = PackBLL.Get(AutonumListOut).FirstOrDefault();
         if (p != null)
         {
             e.Result = p;
+            txtNote.Text = p.Note;
         }
         else
         {
@@ -114,7 +131,7 @@ public partial class Production_Combine : System.Web.UI.Page
 
     protected void GridViewPackIn_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        PackInAutonumList.Remove((int)e.Keys[0]);
+        AutonumListIn.Remove((int)e.Keys[0]);
         GridViewPackIn.DataBind();
         e.Cancel = true;
 
@@ -122,118 +139,131 @@ public partial class Production_Combine : System.Web.UI.Page
 
     protected void btnOk_Click(object sender, EventArgs e)
     {
-        if (PackInAutonumList.Count == 0
-            || PackOutAutonum == 0)
+        if (AutonumListIn.Count == 0
+            || AutonumListOut.Count == 0)
         {
             ScriptManager.RegisterStartupScript(btnOk, btnOk.GetType(), "Thông tin", "alert ('Không thể tạo tiểu cầu. Thiếu thông tin túi máu.');", true);
             return;
         }
 
-        PackErr err = PackBLL.Combine2Platelet(PackInAutonumList, PackOutAutonum, Page.User.Identity.Name, txtNote.Text);
+        PackErr err = PackBLL.Combine2Platelet(AutonumListIn, AutonumListOut[0], Page.User.Identity.Name, txtNote.Text);
         if (err == PackErrList.Non)
         {
+            IsEditMode = false;
+            LoadPack();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);
         }
         else
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
     }
 
-    private void LoadPack(int autonum)
+    private void CheckAutonum(int autonum)
     {
-        if (PackBLL.Get4Production_Combine(autonum) != null)
-        {
-            ResetIfInLoadMode();
+        Pack p;
 
-            if (!PackInAutonumList.Contains(autonum))
-                PackInAutonumList.Add(autonum);
-            GridViewPackIn.DataBind();
-        }
-        else if (PackBLL.GetInitPack4Combine(autonum) != null)
+        p = PackBLL.IsCombined2Platelet(autonum);
+        if (p != null)
         {
-            ResetIfInLoadMode();
+            TempAutonum = autonum;
 
-            PackOutAutonum = autonum;
-            GridViewPackOut.DataBind();
-        }
-        else if (PackBLL.IsCombined2Platelet(autonum) != null)
-        {
-            CheckPackAutonum = autonum;
-
-            if (PackInAutonumList.Count == 0 || PackBLL.IsCombined2Platelet(PackOutAutonum) != null)
-            {
-                btnLoad_Click(null, null);
-            }
-            else
+            if (IsEditMode)
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
             }
-        }
-        else
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('Dữ liệu không hợp lệ.');", true);
-        }
-    }
+            else
+            {
+                AutonumListIn.Clear();
+                AutonumListOut.Clear();
 
+                if (p.ComponentID == (int)TestDef.Component.Full)
+                {
+                    PackExtract pe = p.PackExtractsBySource.Where(r => r.ExtractPack.ComponentID == (int)TestDef.Component.Platelet).FirstOrDefault();
+
+                    AutonumListIn = pe.ExtractPack.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
+                    AutonumListOut.Add(pe.ExtractPack.Autonum);
+                }
+                else if (p.ComponentID == (int)TestDef.Component.Platelet)
+                {
+                    AutonumListIn = p.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
+                    AutonumListOut.Add(p.Autonum);
+                }
+
+                LoadPack();
+            }
+            return;
+        }
+
+        p = PackBLL.Get4Production_Combine(autonum);
+        if (p != null)
+        {
+            if (IsEditMode)
+            {
+                if (!AutonumListIn.Contains(autonum))
+                    AutonumListIn.Add(autonum);
+            }
+            else
+            {
+                AutonumListIn.Clear();
+                AutonumListOut.Clear();
+                IsEditMode = true;
+
+                AutonumListIn.Add(autonum);
+            }
+            LoadPack();
+            return;
+        }
+
+        p = PackBLL.GetInitPack4Combine(autonum);
+        if (p != null)
+        {
+            if (IsEditMode)
+            {
+                AutonumListOut.Clear();
+                AutonumListOut.Add(autonum);
+            }
+            else
+            {
+                AutonumListIn.Clear();
+                AutonumListOut.Clear();
+                IsEditMode = true;
+
+                AutonumListOut.Add(autonum);
+            }
+
+            LoadPack();
+            return;
+        }
+
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('Dữ liệu không hợp lệ.');", true);
+    }
 
     protected void btnLoad_Click(object sender, EventArgs e)
     {
-        Pack p = PackBLL.IsCombined2Platelet(CheckPackAutonum);
+        Pack p = PackBLL.IsCombined2Platelet(TempAutonum);
         if (p == null) return;
 
-        if (p.ComponentID == (int)TestDef.Component.Platelet)
-        {
-            PackOutAutonum = p.Autonum;
-            txtNote.Text = p.Note;
-            PackInAutonumList = p.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
+        IsEditMode = false;
+        CheckAutonum(TempAutonum);
+    }
 
-        }
-        else
-        {
-            PackExtract pe = p.PackExtractsBySource.Where(r => r.ExtractPack.ComponentID == (int)TestDef.Component.Platelet).FirstOrDefault();
-            if (pe != null)
-            {
-                PackOutAutonum = pe.ExtractPack.Autonum;
-                txtNote.Text = pe.ExtractPack.Note;
-                PackInAutonumList = pe.ExtractPack.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
-            }
-        }
+    //bool IsInEditMode()
+    //{
+    //    return (AutonumListOut.Count == 0
+    //        || PackBLL.GetInitPack4Combine(AutonumListOut[0]) != null);
+    //}
 
+    void LoadPack()
+    {
         GridViewPackIn.DataBind();
         GridViewPackOut.DataBind();
 
-        btnOk.Enabled = false;
-
+        //Load GUI
+        btnOk.Enabled = IsEditMode;
         foreach (DataControlField item in GridViewPackIn.Columns)
         {
             if (item is CommandField)
             {
-                (item as CommandField).ShowDeleteButton = false;
-            }
-        }
-    }
-    protected void btnNew_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    void ResetIfInLoadMode()
-    {
-        if (PackBLL.IsCombined2Platelet(PackOutAutonum) != null)
-        {
-            PackInAutonumList.Clear();
-            PackOutAutonum = 0;
-
-            GridViewPackIn.DataBind();
-            GridViewPackOut.DataBind();
-
-            btnOk.Enabled = true;
-
-            foreach (DataControlField item in GridViewPackIn.Columns)
-            {
-                if (item is CommandField)
-                {
-                    (item as CommandField).ShowDeleteButton = true;
-                }
+                (item as CommandField).ShowDeleteButton = IsEditMode;
             }
         }
     }
