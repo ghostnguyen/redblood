@@ -143,19 +143,19 @@ public class PackBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<int> l = new List<int>();
-        l.Add(autonum);
-
-        return Get4Production_Extract(db, l).FirstOrDefault();
+        return Get4Production_Extract(db, autonum).FirstOrDefault();
     }
 
-    public static List<Pack> Get4Production_Extract(RedBloodDataContext db, List<int> autonumList)
+    public static List<Pack> Get4Production_Extract(RedBloodDataContext db, int autonum)
     {
         List<TestDef.Component> productList = new List<TestDef.Component>();
         productList.Add(TestDef.Component.Plasma);
         productList.Add(TestDef.Component.RBC);
 
-        return Get4Production(db, autonumList, productList);
+        List<int> l = new List<int>();
+        l.Add(autonum);
+
+        return Get4Production(db, l, productList);
     }
 
 
@@ -421,7 +421,42 @@ public class PackBLL
         return p;
     }
 
-    public static TestDef[] ValidateTestResult(TestResult e)
+    public static List<TestDef> ValidateTestResult(Pack p)
+    {
+        if (p.ComponentID == (int)TestDef.Component.Full)
+        {
+            return ValidateTestResult(p.TestResult2);
+        }
+
+        if (p.ComponentID == (int)TestDef.Component.RBC
+            || p.ComponentID == (int)TestDef.Component.Plasma)
+        {
+            if (p.PackExtractsByExtract.Count == 0)
+                throw new Exception("Lỗi dữ liệu.");
+
+            return ValidateTestResult(p.PackExtractsByExtract.FirstOrDefault().SourcePack.TestResult2);
+        }
+
+        if (p.ComponentID == (int)TestDef.Component.Platelet)
+        {
+            if (p.PackExtractsByExtract.Count == 0)
+                throw new Exception("Lỗi dữ liệu.");
+
+            List<TestDef> r = new List<TestDef>();
+
+            foreach (PackExtract item in p.PackExtractsByExtract)
+            {
+                r = ValidateTestResult(item.SourcePack.TestResult2);
+                if (r.Count() > 0) return r;
+            }
+
+            return r;
+        }
+
+        throw new Exception("Không kiểm tra được KQXN.");
+    }
+
+    public static List<TestDef> ValidateTestResult(TestResult e)
     {
         List<TestDef> r = new List<TestDef>();
 
@@ -443,7 +478,7 @@ public class PackBLL
         if (e.MalariaID.Value == (int)TestDef.Malaria.Pos || e.MalariaID.Value == (int)TestDef.Malaria.NA)
             r.Add(e.Malaria);
 
-        return r.ToArray();
+        return r;
     }
 
     public static PackErr ValidateAndChangeStatus(RedBloodDataContext db, Pack p, string actor)
@@ -482,7 +517,7 @@ public class PackBLL
                 || p.CampaignID != null)
                 return PackErrList.DataErr;
         }
-        else
+        else if (p.ComponentID == (int)TestDef.Component.Full)
         {
             if (p.PeopleID == null
                 || p.CampaignID == null
@@ -597,11 +632,7 @@ public class PackBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<TestDef.Component> productList = new List<TestDef.Component>();
-        productList.Add(TestDef.Component.Plasma);
-        productList.Add(TestDef.Component.RBC);
-
-        Pack p = Get4Production(db, autonum, productList);
+        Pack p = Get4Production_Extract(db, autonum).FirstOrDefault();
 
         if (p == null) return PackErrList.NonExist;
 
@@ -613,13 +644,7 @@ public class PackBLL
             return err;
         }
 
-        if (p.PackExtractsBySource.Count > 0)
-            return PackErrList.Extracted;
-
         //Extract
-        //PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Production, actor, "Production");
-        //db.PackStatusHistories.InsertOnSubmit(h);
-
         Pack packRBC = new Pack();
         packRBC.ComponentID = (int)TestDef.Component.RBC;
         packRBC.CollectedDate = DateTime.Now;

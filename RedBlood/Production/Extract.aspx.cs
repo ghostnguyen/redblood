@@ -7,32 +7,67 @@ using System.Web.UI.WebControls;
 
 public partial class Production_Extract : System.Web.UI.Page
 {
-    public int Autonum
+    public List<int> AutonumListOut
     {
         get
         {
-            if (ViewState["AutoNum"] == null) return 0;
-            return (int)ViewState["AutoNum"];
+            if (ViewState["AutonumListOut"] == null)
+            {
+                ViewState["AutonumListOut"] = new List<int>();
+            }
+            return (List<int>)ViewState["AutonumListOut"];
         }
         set
         {
-            ViewState["AutoNum"] = value;
+            ViewState["AutonumListOut"] = value;
         }
     }
 
-    public int CheckPackAutonum
+    public List<int> AutonumListIn
     {
         get
         {
-            if (ViewState["CheckPackAutonum"] == null)
+            if (ViewState["AutonumListIn"] == null)
             {
-                return 0;
+                ViewState["AutonumListIn"] = new List<int>();
             }
-            return (int)ViewState["CheckPackAutonum"];
+            return (List<int>)ViewState["AutonumListIn"];
         }
         set
         {
-            ViewState["CheckPackAutonum"] = value;
+            ViewState["AutonumListIn"] = value;
+        }
+    }
+
+    public int TempAutonum
+    {
+        get
+        {
+            if (ViewState["TempAutonum"] == null)
+            {
+                return 0;
+            }
+            return (int)ViewState["TempAutonum"];
+        }
+        set
+        {
+            ViewState["TempAutonum"] = value;
+        }
+    }
+
+    public bool IsEditMode
+    {
+        get
+        {
+            if (ViewState["IsEditMode"] == null)
+            {
+                return true;
+            }
+            return (bool)ViewState["IsEditMode"];
+        }
+        set
+        {
+            ViewState["IsEditMode"] = value;
         }
     }
 
@@ -50,7 +85,7 @@ public partial class Production_Extract : System.Web.UI.Page
 
         if (CodabarBLL.IsValidPackCode(code))
         {
-            LoadPack(CodabarBLL.ParsePackAutoNum(code));
+            CheckAutonum(CodabarBLL.ParsePackAutoNum(code));
         }
         else if (CodabarBLL.IsValidTestResultCode(code))
         {
@@ -67,81 +102,120 @@ public partial class Production_Extract : System.Web.UI.Page
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (Autonum == 0)
+        Pack p = PackBLL.Get(AutonumListIn).FirstOrDefault();
+        if (p == null)
         {
             e.Result = null;
             e.Cancel = true;
         }
-        else
-        {
-            Pack p = PackBLL.Get4Production_Extract(Autonum);
-            e.Result = p;
-        }
+        else e.Result = p;
     }
 
     protected void LinqDataSourceExtract_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (Autonum == 0)
+        List<Pack> l = PackBLL.Get(AutonumListOut);
+        if (l.Count == 0)
         {
             e.Result = null;
             e.Cancel = true;
+        }
+        else e.Result = l;
+    }
+
+    void CheckAutonum(int autonum)
+    {
+        Pack p;
+        p = PackBLL.Get4Production_Extract(autonum);
+        if (p != null)
+        {
+            AutonumListIn.Clear();
+            AutonumListOut.Clear();
+            IsEditMode = true;
+
+            AutonumListIn.Add(autonum);
+
+            LoadPack();
             return;
         }
 
-        Pack p = PackBLL.Get4Production_Extract(Autonum);
+        p = PackBLL.IsExtracted(autonum);
+        if (p != null)
+        {
+            TempAutonum = autonum;
 
-        if (p != null && p.PackExtractsBySource.Count > 0)
-        {
-            e.Result = p.PackExtractsBySource;
-            btnProduct.Enabled = false;
-        }
-        else
-        {
-            e.Cancel = true;
-            btnProduct.Enabled = true;
-        }
-    }
-
-    void LoadPack(int autonum)
-    {
-        if (PackBLL.Get4Production_Extract(autonum) != null)
-        {
-            Autonum = autonum;
-            DetailsViewPack.DataBind();
-            GridViewExtract.DataBind();
-        }
-        else if (PackBLL.IsExtracted(autonum) != null)
-        {
-            CheckPackAutonum = autonum;
-
-            if (Autonum == 0)
-            {
-                //btnLoad_Click(null, null);
-            }
-            else
+            if (IsEditMode)
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
             }
+            else
+            {
+                if (p.ComponentID == (int)TestDef.Component.Platelet
+                      || p.ComponentID == (int)TestDef.Component.RBC)
+                {
+                    PackExtract pe = p.PackExtractsByExtract.FirstOrDefault();
+                    if (pe == null)
+                        p = null;
+                    else p = pe.SourcePack;
+                }
+
+                if (p != null)
+                {
+                    AutonumListIn.Clear();
+                    AutonumListOut.Clear();
+
+                    AutonumListIn.Add(p.Autonum);
+                    AutonumListOut = p.PackExtractsBySource
+                    .Where(r => r.ExtractPack.ComponentID == (int)TestDef.Component.RBC
+                        || r.ExtractPack.ComponentID == (int)TestDef.Component.Plasma)
+                    .Select(r => r.ExtractPack.Autonum)
+                    .ToList();
+
+                    LoadPack();
+
+                }
+            }
+            return;
         }
-        else
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('Dữ liệu không hợp lệ.');", true);
-        }
+
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('Dữ liệu không hợp lệ.');", true);
+    }
+
+    void LoadPack()
+    {
+        DetailsViewPack.DataBind();
+        GridViewExtract.DataBind();
+
+        //Load GUI
+        btnProduct.Enabled = IsEditMode;
     }
 
     protected void btnProduct_Click(object sender, EventArgs e)
     {
-        PackErr err = PackBLL.Extract(Autonum, Page.User.Identity.Name);
-
-        if (err == null || err == PackErrList.Non)
+        if (AutonumListIn.Count == 0)
         {
-            //GridViewPack.DataBind();
-            LoadPack();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Thiếu thông tin túi máu.');", true);
+            return;
+        }
+
+        PackErr err = PackBLL.Extract(AutonumListIn[0], Page.User.Identity.Name);
+
+        if (err == PackErrList.Non)
+        {
+            IsEditMode = false;
+            CheckAutonum(AutonumListIn[0]);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);
         }
         else
-        {
-            ScriptManager.RegisterStartupScript(btnProduct, btnProduct.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
-        }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
 
+    }
+
+    protected void btnLoad_Click(object sender, EventArgs e)
+    {
+        Pack p = PackBLL.IsExtracted(TempAutonum);
+        if (p == null) return;
+
+        IsEditMode = false;
+        CheckAutonum(TempAutonum);
     }
 }
