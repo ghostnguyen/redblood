@@ -1,7 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUserMenuWithBarcode.master"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageFind.master"
     AutoEventWireup="true" CodeFile="FindPeople.aspx.cs" Inherits="Find_FindPeople" %>
 
-<%@ MasterType VirtualPath="~/MasterPageUserMenuWithBarcode.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%">
         <tr valign="top">

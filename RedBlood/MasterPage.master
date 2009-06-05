@@ -6,9 +6,8 @@
     <title>RedBlood</title>
     <link href="App_Themes/Default/StyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="App_Themes/Default/ModalPopup.css" rel="stylesheet" type="text/css" />
-
-    
-
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
