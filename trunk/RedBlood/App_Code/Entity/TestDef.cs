@@ -60,6 +60,13 @@ public partial class TestDef
         Platelet = 30 // Tiểu cầu
     }
 
+    public enum Source : int
+    {
+        Donation = 37,
+        RedCross = 38,
+        Other = 40
+    }
+
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
         if (action == System.Data.Linq.ChangeAction.Insert
