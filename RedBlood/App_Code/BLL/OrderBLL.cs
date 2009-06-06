@@ -97,7 +97,7 @@ public class OrderBLL
 
                 db.PackOrders.InsertOnSubmit(po);
 
-                PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Dilivered, actor, "Add Order");
+                PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Delivered, actor, "Add Order");
                 db.PackStatusHistories.InsertOnSubmit(h);
         }
 

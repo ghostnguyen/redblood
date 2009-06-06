@@ -26,17 +26,19 @@ public partial class Pack
         //CommitReceived = 2,
         Delete = 4,
         Hủy = 4,
-        
+
         EnterTestResult = 7,
         Đang_nhập_KQ = 7,
         Đã_nhập = 8,
         CommitTestResult = 8,
+
+        Delivered = 9,
         Cấp_phát = 9,
-        Dilivered = 9,
         Sản_xuất = 10,
         Production = 10,
 
         Expire = 40,
+        Quá_hạn = 40,
         ExpireEnter = 41,
         ExpireCommitReceived = 42,
         DataErr = 49

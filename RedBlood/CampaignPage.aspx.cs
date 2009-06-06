@@ -10,6 +10,28 @@ public partial class CampaignPage : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
+        string code = Master.TextBoxCode.Text.Trim();
+        Master.TextBoxCode.Text = "";
+
+        if (code.Length == 0) return;
+
+        if (CodabarBLL.IsValidPackCode(code))
+        {
+            
+        }
+        else if (CodabarBLL.IsValidTestResultCode(code))
+        {
+            
+        }
+        else if (CodabarBLL.IsValidCampaignCode(code))
+        {
+            ucCampaign1.CampaignID = CodabarBLL.ParseCampaignID(code);
+        }
+        else
+        {
+            
+        }
+
     }
     protected void lbSource_Click(object sender, BulletedListEventArgs e)
     {

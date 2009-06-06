@@ -23,7 +23,7 @@ public class CampaignBLL
 
         return (from c in db.Campaigns
                 where c.ID == ID
-                select c).First();
+                select c).FirstOrDefault();
     }
 
     public static Campaign GetByID(int ID)

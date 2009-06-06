@@ -20,7 +20,7 @@ public class PackBLL
     /// <returns></returns>
     public static Pack.StatusX[] StatusListHadTestResult()
     {
-        return new Pack.StatusX[] { Pack.StatusX.CommitTestResult };
+        return new Pack.StatusX[] { Pack.StatusX.CommitTestResult, Pack.StatusX.Delivered };
     }
 
     public static Pack.StatusX[] StatusList4Production()
