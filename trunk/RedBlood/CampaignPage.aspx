@@ -2,6 +2,7 @@
     AutoEventWireup="true" CodeFile="CampaignPage.aspx.cs" Inherits="CampaignPage" %>
 
 <%@ Register Src="~/UserControl/Campaign.ascx" TagPrefix="uc" TagName="Campaign" %>
+<%@ MasterType VirtualPath="~/MasterPageUserMenuWithBarcode.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%">
         <tr valign="top">

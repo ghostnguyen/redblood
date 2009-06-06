@@ -87,9 +87,16 @@ public partial class UserControl_People : System.Web.UI.UserControl
         }
     }
 
+    public bool ReadOnly
+    {
+        set
+        {
+            btnUpdate.Visible = !value;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
     }
     protected void chkEnableMaillingAddress_CheckedChanged(object sender, EventArgs e)
     {
@@ -108,12 +115,15 @@ public partial class UserControl_People : System.Web.UI.UserControl
         else
         {
             imgCodabar.ImageUrl = CodabarBLL.Url4People(e.ID);
-            
+
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;
 
             if (e.DOB != null)
                 txtDOB.Text = e.DOB.ToStringVN();
+
+            if (ddlSex.Items.Count == 1)
+                ddlSex.DataBind();
 
             ddlSex.SelectedValue = e.SexID.ToString();
 
@@ -305,5 +315,4 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
         return isDone;
     }
-
 }

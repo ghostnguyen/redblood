@@ -76,7 +76,14 @@ public partial class UserControl_CampaignDetail4Manually : System.Web.UI.UserCon
                 lblHostOrg.Text = "Địa điểm: " + e.HostOrg.Name;
             }
 
-            lblNote.Text = e.Note;            
+            if (!string.IsNullOrEmpty(e.ContactName))
+            {
+                lblContactName.Text = "Người LH: " + e.ContactName;
+                lblTitle.Text = "Chức vụ: " + e.ContactTitle;
+                lblPhone.Text = "ĐT: " + e.ContactPhone;
+            }
+
+            lblNote.Text = "Ghi chú: " + e.Note;            
         }
     }
 
@@ -91,6 +98,10 @@ public partial class UserControl_CampaignDetail4Manually : System.Web.UI.UserCon
 
         lblCoopOrg.Text = "";
         lblHostOrg.Text = "";
+
+        lblContactName.Text = "";
+        lblTitle.Text = "";
+        lblPhone.Text = "";
 
         lblNote.Text = "";
     }

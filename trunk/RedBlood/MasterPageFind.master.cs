@@ -25,48 +25,7 @@ public partial class MasterPageFind : System.Web.UI.MasterPage
 
         if (!IsPostBack)
         {
-            StringBuilder script = new StringBuilder();
-
-            script.Append("function checkLength(text) \n");
-            script.Append("{ \n");
-            script.Append("var len = text.length;  \n");
-
-            script.Append("if (len == "
-                + Resources.Codabar.testResultLength
-                + " && text[0] == "
-                + "\"" + Resources.Codabar.testResultStartCode + "\""
-                + " && text[len - 1] == "
-                + "\"" + Resources.Codabar.testResultStopCode + "\""
-                + ") \n");
-            script.Append("{ \n");
-            script.Append("document.forms[0].submit(); \n");
-            script.Append("} \n");
-
-            script.Append("if (len == "
-                + Resources.Codabar.packLength
-                + " && text[0] == "
-                + "\"" + Resources.Codabar.packStarCode + "\""
-                + " && text[len - 1] == "
-                + "\"" + Resources.Codabar.packStopCode + "\""
-                + ") \n");
-            script.Append("{ \n");
-            script.Append("document.forms[0].submit(); \n");
-            script.Append("} \n");
-
-            script.Append("if (len == "
-                + Resources.Codabar.peopleLength
-                + " && text[0] == "
-                + "\"" + Resources.Codabar.peopleStarCode + "\""
-                + " && text[len - 1] == "
-                + "\"" + Resources.Codabar.peopleStopCode + "\""
-                + ") \n");
-            script.Append("{ \n");
-            script.Append("document.forms[0].submit(); \n");
-            script.Append("} \n");
-
-            script.Append("} \n");
-
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", script.ToString(), true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", CodabarBLL.JScript4Postback(), true);
         }
 
         string key = TextBoxCode.Text.Trim();
@@ -81,7 +40,7 @@ public partial class MasterPageFind : System.Web.UI.MasterPage
             People r = PeopleBLL.GetByCode(key);
             if (r != null)
             {
-                Response.Redirect("~/Find/PeopleDetail.aspx?key=" + r.ID.ToString());
+                Response.Redirect("~/FindAndReport/PeopleDetail.aspx?key=" + r.ID.ToString());
             }
         }
         else if (CodabarBLL.IsValidPackCode(key))
@@ -89,7 +48,7 @@ public partial class MasterPageFind : System.Web.UI.MasterPage
             Pack r = PackBLL.Get(CodabarBLL.ParsePackAutoNum(key));
             if (r != null)
             {
-                Response.Redirect("~/Find/PackDetail.aspx?key=" + r.Autonum.ToString());
+                Response.Redirect("~/FindAndReport/PackDetail.aspx?key=" + r.Autonum.ToString());
             }            
         }
         else if (CodabarBLL.IsValidCampaignCode(key))
@@ -97,7 +56,7 @@ public partial class MasterPageFind : System.Web.UI.MasterPage
             Campaign r = CampaignBLL.GetByID(CodabarBLL.ParseCampaignID(key));
             if (r != null)
             {
-                Response.Redirect("~/Find/CampaignDetail.aspx?key=" + r.ID.ToString());
+                Response.Redirect("~/FindAndReport/CampaignDetail.aspx?key=" + r.ID.ToString());
             }
         }
         else if (regx.IsMatch(key) && key.Length >= Resources.Codabar.CMNDLength.ToInt())
@@ -105,12 +64,12 @@ public partial class MasterPageFind : System.Web.UI.MasterPage
             People r = PeopleBLL.GetByCMND(key);
             if (r != null)
             {
-                Response.Redirect("~/Find/PeopleDetail.aspx?key=" + r.ID.ToString());
+                Response.Redirect("~/FindAndReport/PeopleDetail.aspx?key=" + r.ID.ToString());
             }
         }
         else if (key.Length > 1)
         {
-            Response.Redirect("~/Find/FindPeople.aspx?key=" + key);
+            Response.Redirect("~/FindAndReport/FindPeople.aspx?key=" + key);
         }
 
         //Master.TextBoxCode.Text = "";

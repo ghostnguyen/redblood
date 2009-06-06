@@ -19,11 +19,11 @@
 			<siteMapNode url="Production/Combine.aspx" title="Tiểu cầu"  description="" />
 		</siteMapNode>
 		<siteMapNode url="" title="In danh sách"  description="">
-			<siteMapNode url="Report/CampaignRptSelect.aspx" title="Đợt thu"  description="" />
+			<siteMapNode url="FindAndReport/CampaignDetail.aspx" title="Đợt thu"  description="" />
 		</siteMapNode>
 		<siteMapNode url="Order/Order.aspx" title="Cấp phát"  description="" />
-		<siteMapNode url="Find/FindPeople.aspx" title="Tìm kiếm"  description="">
-			<siteMapNode url="Find/FindCampaign.aspx" title="Tìm chiến dịch"  description="" />
+		<siteMapNode url="FindAndReport/FindPeople.aspx" title="Tìm kiếm"  description="">
+			<siteMapNode url="FindAndReport/FindCampaign.aspx" title="Tìm chiến dịch"  description="" />
 		</siteMapNode>
 		<siteMapNode url="" title="Thống kê"  description="">
 

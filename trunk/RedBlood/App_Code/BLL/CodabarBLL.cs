@@ -185,4 +185,50 @@ public class CodabarBLL
     {
         return CodabarImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orderSSC, ID.ToString());
     }
+
+    public static string JScript4Postback()
+    {
+        StringBuilder script = new StringBuilder();
+
+        script.Append("function checkLength(text) \n");
+        script.Append("{ \n");
+        script.Append("var len = text.length;  \n");
+
+        script.Append("if (len == "
+            + Resources.Codabar.testResultLength
+            + " && text[0] == "
+            + "\"" + Resources.Codabar.testResultStartCode + "\""
+            + " && text[len - 1] == "
+            + "\"" + Resources.Codabar.testResultStopCode + "\""
+            + ") \n");
+        script.Append("{ \n");
+        script.Append("document.forms[0].submit(); \n");
+        script.Append("} \n");
+
+        script.Append("if (len == "
+            + Resources.Codabar.packLength
+            + " && text[0] == "
+            + "\"" + Resources.Codabar.packStarCode + "\""
+            + " && text[len - 1] == "
+            + "\"" + Resources.Codabar.packStopCode + "\""
+            + ") \n");
+        script.Append("{ \n");
+        script.Append("document.forms[0].submit(); \n");
+        script.Append("} \n");
+
+        script.Append("if (len == "
+            + Resources.Codabar.peopleLength
+            + " && text[0] == "
+            + "\"" + Resources.Codabar.peopleStarCode + "\""
+            + " && text[len - 1] == "
+            + "\"" + Resources.Codabar.peopleStopCode + "\""
+            + ") \n");
+        script.Append("{ \n");
+        script.Append("document.forms[0].submit(); \n");
+        script.Append("} \n");
+
+        script.Append("} \n");
+
+        return script.ToString();
+    }
 }

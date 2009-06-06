@@ -130,4 +130,34 @@ public partial class Campaign
         if (value == null || value == 0)
             throw new Exception("Nhập nguồn thu máu.");
     }
+    
+    public int CountPack
+    {
+        get
+        {
+            return this.Packs.Count();
+        }
+    }
+    
+    public int CountPack450
+    {
+        get
+        {
+            return this.Packs.Where(r => r.Volume == 450).Count();
+        }
+    }
+    public int CountPack350
+    {
+        get
+        {
+            return this.Packs.Where(r => r.Volume == 350).Count();
+        }
+    }
+    public int CountPack250
+    {
+        get
+        {
+            return this.Packs.Where(r => r.Volume == 250).Count();
+        }
+    }
 }

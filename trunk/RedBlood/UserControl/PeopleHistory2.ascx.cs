@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
+public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
 {
     public Guid PeopleID
     {
