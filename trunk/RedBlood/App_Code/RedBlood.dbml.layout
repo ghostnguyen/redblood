@@ -1,59 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.25, 46.625" name="RedBlood">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17, 49.625" name="RedBlood">
   <DataContextMoniker Name="/RedBloodDataContext" />
   <nestedChildShapes>
-    <classShape Id="5a170dbe-c28b-4862-a8ae-1931dce69763" absoluteBounds="14.5, 11, 2, 1.3736596679687487">
+    <classShape Id="5a170dbe-c28b-4862-a8ae-1931dce69763" absoluteBounds="12.5, 1.125, 2, 1.3736596679687487">
       <DataClassMoniker Name="/RedBloodDataContext/aspnet_UserProfile" />
       <nestedChildShapes>
-        <elementListCompartment Id="abefe861-597f-4ce9-ae55-c44322f82d89" absoluteBounds="14.515000000596046, 11.46000000089407, 1.9700000000000002, 0.81365966796875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="abefe861-597f-4ce9-ae55-c44322f82d89" absoluteBounds="12.515000000596046, 1.5850000008940697, 1.9700000000000002, 0.81365966796875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="bfbd31a1-4f56-4eef-b442-c124df1913a6" absoluteBounds="11.75, 13.5, 2, 2.1316349283854166">
+    <classShape Id="bfbd31a1-4f56-4eef-b442-c124df1913a6" absoluteBounds="9.75, 3.5, 2, 2.1316349283854166">
       <DataClassMoniker Name="/RedBloodDataContext/aspnet_User" />
       <nestedChildShapes>
-        <elementListCompartment Id="9c88b6c0-3372-42b5-a3c3-85afa08e2d4e" absoluteBounds="11.765000000596046, 13.96000000089407, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9c88b6c0-3372-42b5-a3c3-85afa08e2d4e" absoluteBounds="9.7650000005960464, 3.9600000008940697, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(12.75 : 13.5); (12.75 : 11.6868298339844); (14.5 : 11.6868298339844)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(10.75 : 3.5); (10.75 : 1.81182983398437); (12.5 : 1.81182983398437)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/aspnet_User/aspnet_User_aspnet_UserProfile" />
       <nodes>
         <classShapeMoniker Id="bfbd31a1-4f56-4eef-b442-c124df1913a6" />
         <classShapeMoniker Id="5a170dbe-c28b-4862-a8ae-1931dce69763" />
       </nodes>
     </associationConnector>
-    <classShape Id="94aab1d2-df9c-4708-a544-66393deb7066" absoluteBounds="14.5, 13.125, 2, 4.784548339843754">
+    <classShape Id="94aab1d2-df9c-4708-a544-66393deb7066" absoluteBounds="12.5, 3.25, 2, 4.7845483398437532">
       <DataClassMoniker Name="/RedBloodDataContext/aspnet_Membership" />
       <nestedChildShapes>
-        <elementListCompartment Id="4c6852d7-b5b3-4c6c-b897-5645964d4151" absoluteBounds="14.515000000596046, 13.58500000089407, 1.9700000000000002, 4.22454833984375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4c6852d7-b5b3-4c6c-b897-5645964d4151" absoluteBounds="12.515000000596046, 3.7100000008940697, 1.9700000000000002, 4.22454833984375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(13.75 : 14.5658174641927); (14.5 : 14.5658174641927)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(11.75 : 4.56581746419271); (12.5 : 4.56581746419271)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/aspnet_User/aspnet_User_aspnet_Membership" />
       <nodes>
         <classShapeMoniker Id="bfbd31a1-4f56-4eef-b442-c124df1913a6" />
         <classShapeMoniker Id="94aab1d2-df9c-4708-a544-66393deb7066" />
       </nodes>
     </associationConnector>
-    <classShape Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" absoluteBounds="0.75, 14.75, 2, 2.8896101888020809">
+    <classShape Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" absoluteBounds="0.75, 23.75, 2, 2.8896101888020809">
       <DataClassMoniker Name="/RedBloodDataContext/Company" />
       <nestedChildShapes>
-        <elementListCompartment Id="473cb641-af3f-4349-ba8c-8f86511a628b" absoluteBounds="0.76500000000000057, 15.21, 1.9700000000000002, 2.329610188802083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="473cb641-af3f-4349-ba8c-8f86511a628b" absoluteBounds="0.76500000000000057, 24.21, 1.9700000000000002, 2.329610188802083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="bc99e6b1-eee9-4d4b-95ff-6c2ac1d7499d" absoluteBounds="1.5, 11.25, 2, 1.9421411132812523">
+    <classShape Id="bc99e6b1-eee9-4d4b-95ff-6c2ac1d7499d" absoluteBounds="1.5, 28.25, 2, 1.9421411132812523">
       <DataClassMoniker Name="/RedBloodDataContext/CompanyBankAccount" />
       <nestedChildShapes>
-        <elementListCompartment Id="16e2ebdc-8942-4e77-a4fa-594b72b18346" absoluteBounds="1.5150000000000006, 11.71, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="16e2ebdc-8942-4e77-a4fa-594b72b18346" absoluteBounds="1.5150000000000006, 28.71, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.125 : 13.1921411132813); (2.125 : 14.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.125 : 28.25); (2.125 : 26.6396101888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/CompanyBankAccount/CompanyBankAccount_Company" />
       <nodes>
         <classShapeMoniker Id="bc99e6b1-eee9-4d4b-95ff-6c2ac1d7499d" />
         <classShapeMoniker Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 14.75); (2.5 : 13.1921411132813)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 26.6396101888021); (2.5 : 28.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Company/Company_CompanyBankAccount" />
       <nodes>
         <classShapeMoniker Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" />
@@ -66,793 +66,793 @@
         <elementListCompartment Id="d8d2c1c7-a0dc-4c03-9294-3a8c7253c2cd" absoluteBounds="6.2650000005960464, 28.46000000089407, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="18ab94ae-17f4-45cd-85c3-2d14870f3f85" absoluteBounds="1.5, 38.25, 2, 1.9421411132812523">
+    <classShape Id="18ab94ae-17f4-45cd-85c3-2d14870f3f85" absoluteBounds="1.5, 39.25, 2, 1.9421411132812523">
       <DataClassMoniker Name="/RedBloodDataContext/SupplierBankAccount" />
       <nestedChildShapes>
-        <elementListCompartment Id="eec49f51-0e82-4594-8297-22d7a9239763" absoluteBounds="1.5149999999999997, 38.71, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="eec49f51-0e82-4594-8297-22d7a9239763" absoluteBounds="1.5149999999999997, 39.71, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7cc9ba04-26fd-4bb3-89b8-10a51772a660" absoluteBounds="1.75, 8, 2, 2.3211287434895809">
+    <classShape Id="7cc9ba04-26fd-4bb3-89b8-10a51772a660" absoluteBounds="1.75, 31, 2, 2.3211287434895809">
       <DataClassMoniker Name="/RedBloodDataContext/Bank" />
       <nestedChildShapes>
-        <elementListCompartment Id="db2bd6fd-9c82-47c8-b784-f624b6706e37" absoluteBounds="1.7650000000000006, 8.46, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="db2bd6fd-9c82-47c8-b784-f624b6706e37" absoluteBounds="1.7650000000000006, 31.46, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.625 : 10.3211287434896); (2.625 : 11.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.625 : 31); (2.625 : 30.1921411132813)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Bank/Bank_CompanyBankAccount" />
       <nodes>
         <classShapeMoniker Id="7cc9ba04-26fd-4bb3-89b8-10a51772a660" />
         <classShapeMoniker Id="bc99e6b1-eee9-4d4b-95ff-6c2ac1d7499d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.218752 : 10.3211287434896); (3.218752 : 11); (2.70833333333333 : 11 : JumpStart); (2.54166666666667 : 11 : JumpEnd); (1.42708333333333 : 11 : JumpStart); (1.16666666666667 : 11 : JumpEnd); (1.08333333333333 : 11 : JumpStart); (0.916666666666667 : 11 : JumpEnd); (0.5 : 11); (0.5 : 39.2210705566406); (1.5 : 39.2210705566406)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.125 : 33.3211287434896); (3.125 : 39.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Bank/Bank_SupplierBankAccount" />
       <nodes>
         <classShapeMoniker Id="7cc9ba04-26fd-4bb3-89b8-10a51772a660" />
         <classShapeMoniker Id="18ab94ae-17f4-45cd-85c3-2d14870f3f85" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.45923076923077 : 8); (2.45923076923077 : 7.75); (3.05461538461538 : 7.75); (3.05461538461538 : 8)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.75 : 31.8179204977965); (1.5 : 31.8179204977965); (1.5 : 32.519524620643); (1.75 : 32.519524620643)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/RedBloodDataContext/Bank/Bank_Bank" />
       <nodes>
         <classShapeMoniker Id="7cc9ba04-26fd-4bb3-89b8-10a51772a660" />
         <classShapeMoniker Id="7cc9ba04-26fd-4bb3-89b8-10a51772a660" />
       </nodes>
     </associationConnector>
-    <classShape Id="5e2b08a1-a225-47a9-a8bc-8bf5180a316b" absoluteBounds="3.5, 22.875, 2, 2.5106225585937523">
+    <classShape Id="5e2b08a1-a225-47a9-a8bc-8bf5180a316b" absoluteBounds="3.5, 24, 2, 2.5106225585937523">
       <DataClassMoniker Name="/RedBloodDataContext/SupplierLocation" />
       <nestedChildShapes>
-        <elementListCompartment Id="4df09af4-22e5-4a08-97d4-f39a2d094341" absoluteBounds="3.5149999999999997, 23.335, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4df09af4-22e5-4a08-97d4-f39a2d094341" absoluteBounds="3.5149999999999997, 24.46, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.53125 : 25.3856225585938); (4.53125 : 29.1605643717448); (6.25 : 29.1605643717448)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.53125 : 26.5106225585938); (4.53125 : 29.1605643717448); (4.70573016666667 : 29.1605643717448 : JumpStart); (4.87239683333333 : 29.1605643717448 : JumpEnd); (4.96354366666667 : 29.1605643717448 : JumpStart); (5.13021033333333 : 29.1605643717448 : JumpEnd); (5.19010466666667 : 29.1605643717448 : JumpStart); (5.35677133333333 : 29.1605643717448 : JumpEnd); (5.97916666666667 : 29.1605643717448 : JumpStart); (6.14583333333333 : 29.1605643717448 : JumpEnd); (6.25 : 29.1605643717448)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/SupplierLocation/SupplierLocation_SupplierContactPerson" />
       <nodes>
         <classShapeMoniker Id="5e2b08a1-a225-47a9-a8bc-8bf5180a316b" />
         <classShapeMoniker Id="7f72ad59-e5b5-4479-b6aa-bd4492bc0a5d" />
       </nodes>
     </associationConnector>
-    <classShape Id="bdcb6bc8-c272-446f-81cb-71ecd2e04c37" absoluteBounds="6.25, 14, 2, 2.3211287434895826">
+    <classShape Id="bdcb6bc8-c272-446f-81cb-71ecd2e04c37" absoluteBounds="6.25, 24, 2, 2.3211287434895809">
       <DataClassMoniker Name="/RedBloodDataContext/CompanyContactPerson" />
       <nestedChildShapes>
-        <elementListCompartment Id="d1267cd2-299e-4bdb-bdbc-b500b4ee26f3" absoluteBounds="6.2650000000000006, 14.46, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d1267cd2-299e-4bdb-bdbc-b500b4ee26f3" absoluteBounds="6.2650000000000006, 24.46, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d99687cb-5743-4abb-a9d9-f28e61d90b96" absoluteBounds="3.5, 14.875, 2, 2.5106225585937523">
+    <classShape Id="d99687cb-5743-4abb-a9d9-f28e61d90b96" absoluteBounds="3.5, 20, 2, 2.5106225585937523">
       <DataClassMoniker Name="/RedBloodDataContext/CompanyLocation" />
       <nestedChildShapes>
-        <elementListCompartment Id="bbd535ec-fe61-4404-b8f1-5116144d059b" absoluteBounds="3.5150000000000006, 15.335, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bbd535ec-fe61-4404-b8f1-5116144d059b" absoluteBounds="3.5150000000000006, 20.46, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.5 : 15.5980643717448); (5.54166416666667 : 15.5980643717448 : JumpStart); (5.73958333333333 : 15.5980643717448 : JumpEnd); (5.91666666666667 : 15.5980643717448 : JumpStart); (6.08333333333333 : 15.5980643717448 : JumpEnd); (6.25 : 15.5980643717448)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 22.5090830970553); (5.59732443490112 : 22.6064075319564 : JumpStart); (5.71517556509888 : 22.7242586621542 : JumpEnd); (5.875 : 22.8840830970553); (5.875 : 25.1605643717448); (5.97916666666667 : 25.1605643717448 : JumpStart); (6.14583333333333 : 25.1605643717448 : JumpEnd); (6.25 : 25.1605643717448)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/CompanyLocation/CompanyLocation_CompanyContactPerson" />
       <nodes>
         <classShapeMoniker Id="d99687cb-5743-4abb-a9d9-f28e61d90b96" />
         <classShapeMoniker Id="bdcb6bc8-c272-446f-81cb-71ecd2e04c37" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 16.1303112792969); (2.91666666666667 : 16.1303112792969 : JumpStart); (3.08333333333333 : 16.1303112792969 : JumpEnd); (3.29166666666667 : 16.1303112792969 : JumpStart); (3.45833333333333 : 16.1303112792969 : JumpEnd); (3.5 : 16.1303112792969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 23.75); (2.81607443490112 : 23.6839255650989 : JumpStart); (2.99642556509888 : 23.5035744349011 : JumpEnd); (3.00357443490112 : 23.4964255650989 : JumpStart); (3.12142556509888 : 23.3785744349011 : JumpEnd); (3.125 : 23.375); (3.125 : 21.2553112792969); (3.16666666666667 : 21.2553112792969 : JumpStart); (3.45833333333333 : 21.2553112792969 : JumpEnd); (3.5 : 21.2553112792969)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Company/Company_CompanyLocation" />
       <nodes>
         <classShapeMoniker Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" />
         <classShapeMoniker Id="d99687cb-5743-4abb-a9d9-f28e61d90b96" />
       </nodes>
     </associationConnector>
-    <classShape Id="8e2f080f-0d48-4294-9458-136f6bf69563" absoluteBounds="1.5, 27.25, 2, 1.9421411132812523">
+    <classShape Id="8e2f080f-0d48-4294-9458-136f6bf69563" absoluteBounds="1, 9.25, 2, 1.9421411132812523">
       <DataClassMoniker Name="/RedBloodDataContext/CustomerBankAccount" />
       <nestedChildShapes>
-        <elementListCompartment Id="97a8bd44-4641-4f8f-8592-fbc9de9b651e" absoluteBounds="1.5150000000000001, 27.71, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="97a8bd44-4641-4f8f-8592-fbc9de9b651e" absoluteBounds="1.0150000000000001, 9.71, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a7a2b56b-c353-452b-b45e-43a9d043dfd6" absoluteBounds="6.25, 24, 2, 2.3211287434895809">
+    <classShape Id="a7a2b56b-c353-452b-b45e-43a9d043dfd6" absoluteBounds="9.25, 20, 2, 2.3211287434895809">
       <DataClassMoniker Name="/RedBloodDataContext/CustomerContactPerson" />
       <nestedChildShapes>
-        <elementListCompartment Id="8b1020df-8a86-4575-b313-6be6a2a22fb8" absoluteBounds="6.2650000000000006, 24.46, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8b1020df-8a86-4575-b313-6be6a2a22fb8" absoluteBounds="9.265, 20.46, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d900b207-457d-4c85-a41c-fdbbcc69246e" absoluteBounds="3.5, 18.875, 2, 2.5106225585937523">
+    <classShape Id="d900b207-457d-4c85-a41c-fdbbcc69246e" absoluteBounds="6.5, 20, 2, 2.5106225585937523">
       <DataClassMoniker Name="/RedBloodDataContext/CustomerLocation" />
       <nestedChildShapes>
-        <elementListCompartment Id="075aa462-c12e-4c20-80c1-0bf09d30818e" absoluteBounds="3.5149999999999997, 19.335, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="075aa462-c12e-4c20-80c1-0bf09d30818e" absoluteBounds="6.515, 20.46, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.75 : 9.16056437174479); (1.42708333333333 : 9.16056437174479 : JumpStart); (1.26041666666667 : 9.16056437174479 : JumpEnd); (1.25 : 9.16056437174479); (1.25 : 14.5); (1.26041666666667 : 14.5 : JumpStart); (1.42708333333333 : 14.5 : JumpEnd); (2.04166666666667 : 14.5 : JumpStart); (2.20833333333333 : 14.5 : JumpEnd); (2.41666666666667 : 14.5 : JumpStart); (2.58333333333333 : 14.5 : JumpEnd); (3 : 14.5); (3 : 26.875); (2.89583333333333 : 26.875 : JumpStart); (2.72916666666667 : 26.875 : JumpEnd); (2.5 : 26.875); (2.5 : 27.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.218752 : 31); (3.218752 : 30.4421411132813); (3.75 : 30.4421411132813); (3.75 : 26.8896101888021); (3.45833333333333 : 26.8896101888021 : JumpStart); (3.29166666666667 : 26.8896101888021 : JumpEnd); (3.25 : 26.8896101888021); (3.25 : 10.2210705566406); (3 : 10.2210705566406)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Bank/Bank_CustomerBankAccount" />
       <nodes>
         <classShapeMoniker Id="7cc9ba04-26fd-4bb3-89b8-10a51772a660" />
         <classShapeMoniker Id="8e2f080f-0d48-4294-9458-136f6bf69563" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 21.3840830970553); (5.56607193490112 : 21.4501550319564 : JumpStart); (5.76205056509888 : 21.6461336621542 : JumpEnd); (5.875 : 21.7590830970553); (5.875 : 25.1605643717448); (6.25 : 25.1605643717448)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.5 : 21.1605643717448); (8.91666666666667 : 21.1605643717448 : JumpStart); (9.17708333333333 : 21.1605643717448 : JumpEnd); (9.25 : 21.1605643717448)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/CustomerLocation/CustomerLocation_CustomerContactPerson" />
       <nodes>
         <classShapeMoniker Id="d900b207-457d-4c85-a41c-fdbbcc69246e" />
         <classShapeMoniker Id="a7a2b56b-c353-452b-b45e-43a9d043dfd6" />
       </nodes>
     </associationConnector>
-    <classShape Id="1c61a41a-ff7f-465e-a6db-7ac0ad74d92d" absoluteBounds="0.75, 29.875, 2, 2.5106225585937487">
+    <classShape Id="1c61a41a-ff7f-465e-a6db-7ac0ad74d92d" absoluteBounds="0.75, 35, 2, 2.5106225585937523">
       <DataClassMoniker Name="/RedBloodDataContext/Supplier" />
       <nestedChildShapes>
-        <elementListCompartment Id="6fb87d3d-5da8-45a2-b4f5-458ec556f034" absoluteBounds="0.76500000000000057, 30.335, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6fb87d3d-5da8-45a2-b4f5-458ec556f034" absoluteBounds="0.76500000000000057, 35.46, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.125 : 32.3856225585938); (2.125 : 38.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.125 : 37.5106225585938); (2.125 : 39.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Supplier/Supplier_SupplierBankAccount" />
       <nodes>
         <classShapeMoniker Id="1c61a41a-ff7f-465e-a6db-7ac0ad74d92d" />
         <classShapeMoniker Id="18ab94ae-17f4-45cd-85c3-2d14870f3f85" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 30.53125); (3.625 : 30.53125); (3.625 : 25.3856225585938)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 35); (3.125 : 34.625); (3.91666666666667 : 34.625 : JumpStart); (4.47395833333333 : 34.625 : JumpEnd); (4.70573016666667 : 34.625 : JumpStart); (4.87239683333333 : 34.625 : JumpEnd); (5.046877 : 34.625); (5.046877 : 26.5106225585938)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Supplier/Supplier_SupplierLocation" />
       <nodes>
         <classShapeMoniker Id="1c61a41a-ff7f-465e-a6db-7ac0ad74d92d" />
         <classShapeMoniker Id="5e2b08a1-a225-47a9-a8bc-8bf5180a316b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(0.75 : 17.6396101888021); (0.375 : 18.0146101888021); (0.375 : 29.5); (0.75 : 29.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.0625 : 26.6396101888021); (1.0625 : 35)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Company/Company_Supplier" />
       <nodes>
         <classShapeMoniker Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" />
         <classShapeMoniker Id="1c61a41a-ff7f-465e-a6db-7ac0ad74d92d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 38.25); (2.5 : 32.3856225585938)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 39.25); (2.5 : 37.5106225585938)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/SupplierBankAccount/SupplierBankAccount_Supplier" />
       <nodes>
         <classShapeMoniker Id="18ab94ae-17f4-45cd-85c3-2d14870f3f85" />
         <classShapeMoniker Id="1c61a41a-ff7f-465e-a6db-7ac0ad74d92d" />
       </nodes>
     </associationConnector>
-    <classShape Id="7596290d-2d1c-4b3f-b36a-aa8425dfdaef" absoluteBounds="3.5, 43.125, 2, 2.1316349283854237">
+    <classShape Id="7596290d-2d1c-4b3f-b36a-aa8425dfdaef" absoluteBounds="3.5, 46.125, 2, 2.1316349283854237">
       <DataClassMoniker Name="/RedBloodDataContext/Warehouse" />
       <nestedChildShapes>
-        <elementListCompartment Id="3f01fc05-c449-4414-a957-3e26a055f8f0" absoluteBounds="3.5149999999999997, 43.585, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3f01fc05-c449-4414-a957-3e26a055f8f0" absoluteBounds="3.5149999999999997, 46.585, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="5b21f8fa-11ca-444a-b033-9800af64100e" absoluteBounds="6.25, 42.125, 2, 1.7526472981770809">
+    <classShape Id="5b21f8fa-11ca-444a-b033-9800af64100e" absoluteBounds="6.25, 45.125, 2, 1.7526472981770809">
       <DataClassMoniker Name="/RedBloodDataContext/WarehouseDivision" />
       <nestedChildShapes>
-        <elementListCompartment Id="d00b8971-223d-4be3-8e3f-e8186af3681d" absoluteBounds="6.265, 42.585, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d00b8971-223d-4be3-8e3f-e8186af3681d" absoluteBounds="6.265, 45.585, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a293c4a4-a819-4bf0-a273-209834bc19ae" absoluteBounds="6.25, 44.625, 2, 1.7526472981770809">
+    <classShape Id="a293c4a4-a819-4bf0-a273-209834bc19ae" absoluteBounds="6.25, 47.625, 2, 1.7526472981770809">
       <DataClassMoniker Name="/RedBloodDataContext/WarehouseKeeper" />
       <nestedChildShapes>
-        <elementListCompartment Id="88a188d4-ba9e-4a28-90e2-092acb29d911" absoluteBounds="6.265, 45.085, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="88a188d4-ba9e-4a28-90e2-092acb29d911" absoluteBounds="6.265, 48.085, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 16.9162127340495); (2.91666666666667 : 16.9162127340495 : JumpStart); (3.08333333333333 : 16.9162127340495 : JumpEnd); (3.25 : 16.9162127340495); (3.25 : 27); (3.54166666666667 : 27 : JumpStart); (3.70833333333333 : 27 : JumpEnd); (3.79166666666667 : 27 : JumpStart); (3.95833333333333 : 27 : JumpEnd); (4 : 27); (4 : 31); (3.83333333333333 : 31 : JumpStart); (3.54166666666667 : 31 : JumpEnd); (3.45833333333333 : 31 : JumpStart); (3.29166666666667 : 31 : JumpEnd); (3.25 : 31); (3.25 : 38); (4.5 : 38); (4.5 : 43.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 25.226057094401); (2.79166666666667 : 25.226057094401 : JumpStart); (2.95833333333333 : 25.226057094401 : JumpEnd); (3 : 25.226057094401); (3 : 26.7606225585938); (3.16666666666667 : 26.7606225585938 : JumpStart); (3.45833333333333 : 26.7606225585938 : JumpEnd); (4.25 : 26.7606225585938); (4.25 : 35.375); (4.20833333333333 : 35.375 : JumpStart); (4.04166666666667 : 35.375 : JumpEnd); (3.45833333333333 : 35.375 : JumpStart); (3.29166666666667 : 35.375 : JumpEnd); (3.25 : 35.375); (3.25 : 39); (3.75 : 39); (3.75 : 42); (3.25 : 42); (3.25 : 45.75); (4.5 : 45.75); (4.5 : 46.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Company/Company_Warehouse" />
       <nodes>
         <classShapeMoniker Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" />
         <classShapeMoniker Id="7596290d-2d1c-4b3f-b36a-aa8425dfdaef" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 43.5013236490885); (6.25 : 43.5013236490885)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 46.5013236490885); (6.25 : 46.5013236490885)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Warehouse/Warehouse_WarehouseDivision" />
       <nodes>
         <classShapeMoniker Id="7596290d-2d1c-4b3f-b36a-aa8425dfdaef" />
         <classShapeMoniker Id="5b21f8fa-11ca-444a-b033-9800af64100e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 44.9408174641927); (6.25 : 44.9408174641927)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 47.9408174641927); (6.25 : 47.9408174641927)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Warehouse/Warehouse_WarehouseKeeper" />
       <nodes>
         <classShapeMoniker Id="7596290d-2d1c-4b3f-b36a-aa8425dfdaef" />
         <classShapeMoniker Id="a293c4a4-a819-4bf0-a273-209834bc19ae" />
       </nodes>
     </associationConnector>
-    <classShape Id="3b3ca45b-c978-4683-a99d-74334c51c37a" absoluteBounds="6.75, 2.25, 2, 1.5631534830729166">
+    <classShape Id="3b3ca45b-c978-4683-a99d-74334c51c37a" absoluteBounds="0.75, 1.375, 2, 1.5631534829735756">
       <DataClassMoniker Name="/RedBloodDataContext/Cat" />
       <nestedChildShapes>
-        <elementListCompartment Id="eede768c-6f15-4631-ad29-2ced9825ff8e" absoluteBounds="6.7650000005960464, 2.7100000008940697, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="eede768c-6f15-4631-ad29-2ced9825ff8e" absoluteBounds="0.76500000059604645, 1.8350000008940697, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.45217401780349 : 3.81315348307292); (7.45217401780349 : 4.06315348307292); (8.06200817182492 : 4.06315348307292); (8.06200817182492 : 3.81315348307292)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.45217401780188 : 2.93815348297358); (1.45217401780188 : 3.18815348297358); (2.0620081718266 : 3.18815348297358); (2.0620081718266 : 2.93815348297358)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/RedBloodDataContext/Cat/Cat_Cat" />
       <nodes>
         <classShapeMoniker Id="3b3ca45b-c978-4683-a99d-74334c51c37a" />
         <classShapeMoniker Id="3b3ca45b-c978-4683-a99d-74334c51c37a" />
       </nodes>
     </associationConnector>
-    <classShape Id="20758c2e-13a9-4445-b7f1-0e4fcb9e83f8" absoluteBounds="6.75, 7.25, 2, 3.4580916341145596">
+    <classShape Id="20758c2e-13a9-4445-b7f1-0e4fcb9e83f8" absoluteBounds="0.75, 4.25, 2, 3.4580916341145596">
       <DataClassMoniker Name="/RedBloodDataContext/Furniture" />
       <nestedChildShapes>
-        <elementListCompartment Id="bfdca5d0-e534-4e39-a5f4-23c78a60223b" absoluteBounds="6.7650000000000006, 7.710000000000008, 1.9700000000000002, 2.898091634114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bfdca5d0-e534-4e39-a5f4-23c78a60223b" absoluteBounds="0.76500000000000057, 4.710000000000008, 1.9700000000000002, 2.898091634114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="5dbe7d5b-f86e-42d1-a218-e51ec7713428" absoluteBounds="9.5, 8.125, 2, 1.5631534830729024">
+    <classShape Id="5dbe7d5b-f86e-42d1-a218-e51ec7713428" absoluteBounds="3.5, 42.25, 2, 1.5631534830729095">
       <DataClassMoniker Name="/RedBloodDataContext/ItemImg" />
       <nestedChildShapes>
-        <elementListCompartment Id="8b2f972f-e213-40ec-bfb0-782b66e2eea0" absoluteBounds="9.515, 8.585000000000008, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8b2f972f-e213-40ec-bfb0-782b66e2eea0" absoluteBounds="3.5150000000000006, 42.710000000000008, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1 : 14.75); (1 : 7.5); (1.26041666666667 : 7.5 : JumpStart); (1.42708333333333 : 7.5 : JumpEnd); (5.54166416666667 : 7.5 : JumpStart); (5.73958333333333 : 7.5 : JumpEnd); (6.38541666666667 : 7.5 : JumpStart); (6.70833333333333 : 7.5 : JumpEnd); (6.75 : 7.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(0.75 : 23.75); (0.375 : 23.375); (0.375 : 8.08462909565302); (0.751537461538462 : 7.70809163411456)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/RedBloodDataContext/Company/Company_Furniture" />
       <nodes>
         <classShapeMoniker Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" />
         <classShapeMoniker Id="20758c2e-13a9-4445-b7f1-0e4fcb9e83f8" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.75 : 8.90657674153645); (8.82291666666667 : 8.90657674153645 : JumpStart); (8.98958333333333 : 8.90657674153645 : JumpEnd); (9.5 : 8.90657674153645)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 5.97904581705728); (3.375 : 5.97904581705728); (3.375 : 28); (3.66666666666667 : 28 : JumpStart); (3.83333333333333 : 28 : JumpEnd); (4 : 28); (4 : 35.125); (3.375 : 35.125); (3.375 : 38.75); (4.6249995 : 38.75); (4.6249995 : 42.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Furniture/Furniture_ItemImg" />
       <nodes>
         <classShapeMoniker Id="20758c2e-13a9-4445-b7f1-0e4fcb9e83f8" />
         <classShapeMoniker Id="5dbe7d5b-f86e-42d1-a218-e51ec7713428" />
       </nodes>
     </associationConnector>
-    <classShape Id="76dbfc9c-3733-4cf6-8675-73c4953e1ab5" absoluteBounds="9.5, 1.875, 2, 2.3211287434895835">
+    <classShape Id="76dbfc9c-3733-4cf6-8675-73c4953e1ab5" absoluteBounds="3.5, 1, 2, 2.3211287427693605">
       <DataClassMoniker Name="/RedBloodDataContext/ItemCat" />
       <nestedChildShapes>
-        <elementListCompartment Id="8313d8e7-712a-4716-8c17-796a815e7ca7" absoluteBounds="9.515, 2.335, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8313d8e7-712a-4716-8c17-796a815e7ca7" absoluteBounds="3.5150000005960464, 1.4600000008940697, 1.9700000000000002, 1.7611287434895835" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.10108750890175 : 7.25); (7.10108750890175 : 3.87565348307292); (8.8125 : 3.87565348307292); (8.8125 : 3.03556437174479); (9.5 : 3.03556437174479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.25153746153846); (3.125 : 3.87653746153846); (3.125 : 2.16056437138468); (3.5 : 2.16056437138468)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Furniture/Furniture_ItemCat" />
       <nodes>
         <classShapeMoniker Id="20758c2e-13a9-4445-b7f1-0e4fcb9e83f8" />
         <classShapeMoniker Id="76dbfc9c-3733-4cf6-8675-73c4953e1ab5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.75 : 2.5802821858724); (9.5 : 2.5802821858724)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 1.70528218569234); (3.5 : 1.70528218569234)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Cat/Cat_ItemCat" />
       <nodes>
         <classShapeMoniker Id="3b3ca45b-c978-4683-a99d-74334c51c37a" />
         <classShapeMoniker Id="76dbfc9c-3733-4cf6-8675-73c4953e1ab5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.75 : 3.48685892740885); (9.5 : 3.48685892740885)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 2.61185892717913); (3.04166666666667 : 2.61185892717913 : JumpStart); (3.20833333333333 : 2.61185892717913 : JumpEnd); (3.5 : 2.61185892717913)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Cat/Cat_ItemCat1" />
       <nodes>
         <classShapeMoniker Id="3b3ca45b-c978-4683-a99d-74334c51c37a" />
         <classShapeMoniker Id="76dbfc9c-3733-4cf6-8675-73c4953e1ab5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.75 : 2.80792327880859); (9.5 : 2.80792327880859)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 1.93292327853851); (3.5 : 1.93292327853851)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Cat/Cat_ItemCat2" />
       <nodes>
         <classShapeMoniker Id="3b3ca45b-c978-4683-a99d-74334c51c37a" />
         <classShapeMoniker Id="76dbfc9c-3733-4cf6-8675-73c4953e1ab5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.75 : 2.3526410929362); (9.5 : 2.3526410929362)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 1.47764109284617); (3.5 : 1.47764109284617)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Cat/Cat_ItemCat3" />
       <nodes>
         <classShapeMoniker Id="3b3ca45b-c978-4683-a99d-74334c51c37a" />
         <classShapeMoniker Id="76dbfc9c-3733-4cf6-8675-73c4953e1ab5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.75 : 3.26121164957682); (9.5 : 3.26121164957682)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 2.3862116492819); (3.04166666666667 : 2.3862116492819 : JumpStart); (3.20833333333333 : 2.3862116492819 : JumpEnd); (3.5 : 2.3862116492819)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Cat/Cat_ItemCat4" />
       <nodes>
         <classShapeMoniker Id="3b3ca45b-c978-4683-a99d-74334c51c37a" />
         <classShapeMoniker Id="76dbfc9c-3733-4cf6-8675-73c4953e1ab5" />
       </nodes>
     </associationConnector>
-    <classShape Id="ca8b0fc9-7fc8-4192-9a8c-b6567b0cbdff" absoluteBounds="0.75, 22.5, 2, 3.4580916341145809">
+    <classShape Id="ca8b0fc9-7fc8-4192-9a8c-b6567b0cbdff" absoluteBounds="3.75, 8.5, 2, 3.4580916341145809">
       <DataClassMoniker Name="/RedBloodDataContext/Customer" />
       <nestedChildShapes>
-        <elementListCompartment Id="5a8c0d9e-26be-4fc8-b194-5dcbbcce3123" absoluteBounds="0.76500000000000012, 22.96, 1.9700000000000002, 2.898091634114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5a8c0d9e-26be-4fc8-b194-5dcbbcce3123" absoluteBounds="3.765, 8.96, 1.9700000000000002, 2.898091634114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.9375 : 25.9580916341146); (1.9375 : 27.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.75 : 9.67303527832031); (3.45833333333333 : 9.67303527832031 : JumpStart); (3.22916666666667 : 9.67303527832031 : JumpEnd); (3 : 9.67303527832031)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Customer/Customer_CustomerBankAccount" />
       <nodes>
         <classShapeMoniker Id="ca8b0fc9-7fc8-4192-9a8c-b6567b0cbdff" />
         <classShapeMoniker Id="8e2f080f-0d48-4294-9458-136f6bf69563" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 22.5); (2.75357443490112 : 22.4964255650989 : JumpStart); (2.87142556509888 : 22.3785744349011 : JumpEnd); (2.94107443490112 : 22.3089255650989 : JumpStart); (3.05892556509888 : 22.1910744349011 : JumpEnd); (3.06607443490112 : 22.1839255650989 : JumpStart); (3.35580056509888 : 21.8941994349011 : JumpEnd); (3.375 : 21.875); (3.375 : 20.1303112792969); (3.5 : 20.1303112792969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.75 : 11.9580916341146); (4.75 : 13.375); (5.57291666666667 : 13.375 : JumpStart); (5.73958333333333 : 13.375 : JumpEnd); (5.75 : 13.375); (5.75 : 21.2553112792969); (5.97916666666667 : 21.2553112792969 : JumpStart); (6.14583333333333 : 21.2553112792969 : JumpEnd); (6.5 : 21.2553112792969)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Customer/Customer_CustomerLocation" />
       <nodes>
         <classShapeMoniker Id="ca8b0fc9-7fc8-4192-9a8c-b6567b0cbdff" />
         <classShapeMoniker Id="d900b207-457d-4c85-a41c-fdbbcc69246e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 17.5765322657252); (2.94107443490112 : 17.7676067006263 : JumpStart); (3.05892556509888 : 17.8854578308241 : JumpEnd); (3.1875 : 18.0140322657252); (3.1875 : 22.0132692307692); (3.18392556509888 : 22.0168436656703 : JumpStart); (3.06607443490112 : 22.1346947958681 : JumpEnd); (3.05892556509888 : 22.1418436656703 : JumpStart); (2.94107443490112 : 22.2596947958681 : JumpEnd); (2.87142556509888 : 22.3293436656703 : JumpStart); (2.75357443490112 : 22.4471947958681 : JumpEnd); (2.70076923076923 : 22.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 23.8750025); (2.79166666666667 : 23.8750025 : JumpStart); (3.50520833333333 : 23.8750025 : JumpEnd); (5.65625 : 23.8750025); (5.65625 : 11.9580916341146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Company/Company_Customer" />
       <nodes>
         <classShapeMoniker Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" />
         <classShapeMoniker Id="ca8b0fc9-7fc8-4192-9a8c-b6567b0cbdff" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.21875 : 27.25); (2.21875 : 25.9580916341146)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3 : 10.7691058349609); (3.16666666666667 : 10.7691058349609 : JumpStart); (3.45833333333333 : 10.7691058349609 : JumpEnd); (3.75 : 10.7691058349609)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/CustomerBankAccount/CustomerBankAccount_Customer" />
       <nodes>
         <classShapeMoniker Id="8e2f080f-0d48-4294-9458-136f6bf69563" />
         <classShapeMoniker Id="ca8b0fc9-7fc8-4192-9a8c-b6567b0cbdff" />
       </nodes>
     </associationConnector>
-    <classShape Id="456d7894-19f5-47cb-8aa0-87a86d43ce01" absoluteBounds="3.5, 0.75, 2, 1.5631534830729166">
+    <classShape Id="456d7894-19f5-47cb-8aa0-87a86d43ce01" absoluteBounds="3.5, 5.75, 2, 1.5631534830729166">
       <DataClassMoniker Name="/RedBloodDataContext/PointDef" />
       <nestedChildShapes>
-        <elementListCompartment Id="f4fde4f6-e9b7-4e1c-bc7f-7e386da70f2d" absoluteBounds="3.5149999999999997, 1.2100000000000009, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f4fde4f6-e9b7-4e1c-bc7f-7e386da70f2d" absoluteBounds="3.5149999999999997, 6.2100000000000009, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.34375 : 14.75); (1.34375 : 1.53157674153646); (3.5 : 1.53157674153646)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 23.75); (1.75 : 22.4421411132813); (1.97226120167268 : 22.4421411132813 : JumpStart); (2.13892786833934 : 22.4421411132813 : JumpEnd); (2.79166666666667 : 22.4421411132813 : JumpStart); (3.20833333333333 : 22.4421411132813 : JumpEnd); (3.3125 : 22.4421411132813); (3.3125 : 6.6460991500651); (3.5 : 6.6460991500651)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Company/Company_PointDef" />
       <nodes>
         <classShapeMoniker Id="7750f789-3dfd-44a7-9f89-a17a3cdec3a1" />
         <classShapeMoniker Id="456d7894-19f5-47cb-8aa0-87a86d43ce01" />
       </nodes>
     </associationConnector>
-    <classShape Id="82e62f27-b1d8-46d6-92b7-80567de44b61" absoluteBounds="6.25, 11.5, 2, 1.5631534830729166">
+    <classShape Id="82e62f27-b1d8-46d6-92b7-80567de44b61" absoluteBounds="6.5, 8.125, 2, 1.5631534830729166">
       <DataClassMoniker Name="/RedBloodDataContext/CustomerPoint" />
       <nestedChildShapes>
-        <elementListCompartment Id="fe7f7f58-9536-41ac-9285-2f08e9949c8c" absoluteBounds="6.2650000000000006, 11.96, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="fe7f7f58-9536-41ac-9285-2f08e9949c8c" absoluteBounds="6.5150000000000006, 8.585, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 22.5492297692308); (2.75357443490112 : 22.5456553343297 : JumpStart); (2.87142556509888 : 22.4278042041319 : JumpEnd); (2.94107443490112 : 22.3581553343297 : JumpStart); (3.05892556509888 : 22.2403042041319 : JumpEnd); (3.17422976923077 : 22.125); (3.21354166666667 : 22.125 : JumpStart); (3.42708333333333 : 22.125 : JumpEnd); (5.54166416666667 : 22.125 : JumpStart); (5.78645833333333 : 22.125 : JumpEnd); (5.79166666666667 : 22.125 : JumpStart); (5.95833333333333 : 22.125 : JumpEnd); (6 : 22.125); (6 : 13.3131534830729); (6.25 : 13.0631534830729)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.75 : 9.09407674153646); (6.5 : 9.09407674153646)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Customer/Customer_CustomerPoint" />
       <nodes>
         <classShapeMoniker Id="ca8b0fc9-7fc8-4192-9a8c-b6567b0cbdff" />
         <classShapeMoniker Id="82e62f27-b1d8-46d6-92b7-80567de44b61" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 1.46875); (6.46875 : 1.46875); (6.46875 : 11.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.59375 : 7.31315348307292); (3.59375 : 8.28125); (6.5 : 8.28125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/PointDef/PointDef_CustomerPoint" />
       <nodes>
         <classShapeMoniker Id="456d7894-19f5-47cb-8aa0-87a86d43ce01" />
         <classShapeMoniker Id="82e62f27-b1d8-46d6-92b7-80567de44b61" />
       </nodes>
     </associationConnector>
-    <classShape Id="6057a6b0-71ad-42a8-a681-b21d65b1b49a" absoluteBounds="9.25, 19.125, 2, 2.1316349283854166">
+    <classShape Id="6057a6b0-71ad-42a8-a681-b21d65b1b49a" absoluteBounds="6.25, 15.125, 2, 2.1316349283854166">
       <DataClassMoniker Name="/RedBloodDataContext/PeopleStayIn" />
       <nestedChildShapes>
-        <elementListCompartment Id="a52c3940-2993-4557-b4d3-c468df3d9aa2" absoluteBounds="9.265, 19.585, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a52c3940-2993-4557-b4d3-c468df3d9aa2" absoluteBounds="6.2650000000000006, 15.585, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3946aa82-6902-43c0-a222-0df16dac91e9" absoluteBounds="3.75, 31.25, 2, 1.1841658528645809">
+    <classShape Id="3946aa82-6902-43c0-a222-0df16dac91e9" absoluteBounds="0.75, 17.25, 2, 1.1841658528645809">
       <DataClassMoniker Name="/RedBloodDataContext/Sex" />
       <nestedChildShapes>
-        <elementListCompartment Id="154547af-bce3-49e9-a760-e808f9fa39cd" absoluteBounds="3.7650000000000006, 31.71, 1.9700000000000002, 0.62416585286458326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="154547af-bce3-49e9-a760-e808f9fa39cd" absoluteBounds="0.76500000000000057, 17.71, 1.9700000000000002, 0.62416585286458326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" absoluteBounds="0.75, 19.25, 2, 1.9421411132812523">
+    <classShape Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" absoluteBounds="0.75, 20.25, 2, 1.9421411132812523">
       <DataClassMoniker Name="/RedBloodDataContext/Geo" />
       <nestedChildShapes>
-        <elementListCompartment Id="71da2d80-9370-4b6c-9574-cbd4127f0f18" absoluteBounds="0.765, 19.71, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="71da2d80-9370-4b6c-9574-cbd4127f0f18" absoluteBounds="0.765, 20.71, 1.9700000000000002, 1.38214111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.70219344951923 : 21.1921411132813); (2.94107443490112 : 21.4310220986631 : JumpStart); (3.05892556509888 : 21.5488732288609 : JumpEnd); (3.125 : 21.614947663762); (3.125 : 24.1303112792969); (3.13541666666667 : 24.1303112792969 : JumpStart); (3.33333333333333 : 24.1303112792969 : JumpEnd); (3.5 : 24.1303112792969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.70219344951923 : 22.1921411132813); (2.81607443490112 : 22.3060220986631 : JumpStart); (2.99642556509888 : 22.4863732288609 : JumpEnd); (3.00357443490112 : 22.4935220986631 : JumpStart); (3.18392556509888 : 22.6738732288609 : JumpEnd); (3.1875 : 22.677447663762); (3.1875 : 25.2553112792969); (3.29166666666667 : 25.2553112792969 : JumpStart); (3.45833333333333 : 25.2553112792969 : JumpEnd); (3.5 : 25.2553112792969)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_SupplierLocation" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="5e2b08a1-a225-47a9-a8bc-8bf5180a316b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 21.1921411132813); (2.75357443490112 : 21.1957155481824 : JumpStart); (3.12142556509888 : 21.5635666783802 : JumpEnd); (3.15625 : 21.5983911132813); (3.15625 : 24.1303112792969); (3.16666666666667 : 24.1303112792969 : JumpStart); (3.42708333333333 : 24.1303112792969 : JumpEnd); (3.5 : 24.1303112792969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 22.1921411132813); (2.81607443490112 : 22.2582155481824 : JumpStart); (2.99642556509888 : 22.4385666783801 : JumpEnd); (3.00357443490112 : 22.4457155481824 : JumpStart); (3.12142556509888 : 22.5635666783801 : JumpEnd); (3.15625 : 22.5983911132813); (3.15625 : 25.2553112792969); (3.16666666666667 : 25.2553112792969 : JumpStart); (3.45833333333333 : 25.2553112792969 : JumpEnd); (3.5 : 25.2553112792969)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_SupplierLocation1" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="5e2b08a1-a225-47a9-a8bc-8bf5180a316b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 21.1293940157752); (2.94107443490112 : 21.3204684506763 : JumpStart); (3.05892556509888 : 21.4383195808741 : JumpEnd); (3.15982443490112 : 21.5392184506763 : JumpStart); (3.27767556509888 : 21.6570695808741 : JumpEnd); (3.296875 : 21.6762690157752); (3.296875 : 24.1303112792969); (3.5 : 24.1303112792969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 22.1293940157752); (2.81607443490112 : 22.1954684506764 : JumpStart); (2.99642556509888 : 22.3758195808741 : JumpEnd); (3.00357443490112 : 22.3829684506764 : JumpStart); (3.18392556509888 : 22.5633195808741 : JumpEnd); (3.19107443490112 : 22.5704684506764 : JumpStart); (3.30892556509888 : 22.6883195808741 : JumpEnd); (3.421875 : 22.8012690157752); (3.421875 : 25.2553112792969); (3.5 : 25.2553112792969)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_SupplierLocation2" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="5e2b08a1-a225-47a9-a8bc-8bf5180a316b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 19.2992995051833); (2.81607443490112 : 19.2332250702822 : JumpStart); (3.12142556509888 : 18.9278739400844 : JumpEnd); (3.12857443490112 : 18.9207250702822 : JumpStart); (3.30892556509888 : 18.7403739400844 : JumpEnd); (3.46875 : 18.5805495051833); (3.46875 : 15.4714036396484); (3.5 : 15.4714036396484)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 20.6901556396484); (2.85416666666667 : 20.6901556396484 : JumpStart); (3.02083333333333 : 20.6901556396484 : JumpEnd); (3.16666666666667 : 20.6901556396484 : JumpStart); (3.45833333333333 : 20.6901556396484 : JumpEnd); (3.5 : 20.6901556396484)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_CompanyLocation" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="d99687cb-5743-4abb-a9d9-f28e61d90b96" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 19.2514929547025); (2.81607443490112 : 19.1854185198014 : JumpStart); (3.12142556509888 : 18.8800673896036 : JumpEnd); (3.12857443490112 : 18.8729185198014 : JumpStart); (3.30892556509888 : 18.6925673896036 : JumpEnd); (3.4375 : 18.5639929547025); (3.4375 : 15.4714036396484); (3.5 : 15.4714036396484)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 21.7236001475361); (2.79166666666667 : 21.7236001475361 : JumpStart); (3.02083333333333 : 21.7236001475361 : JumpEnd); (3.04166666666667 : 21.7236001475361 : JumpStart); (3.45833333333333 : 21.7236001475361 : JumpEnd); (3.5 : 21.7236001475361)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_CompanyLocation1" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="d99687cb-5743-4abb-a9d9-f28e61d90b96" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.70219344951923 : 19.25); (2.87857443490112 : 19.0736190146181 : JumpStart); (3.12142556509888 : 18.8307678844203 : JumpEnd); (3.12857443490112 : 18.8236190146181 : JumpStart); (3.30892556509888 : 18.6432678844203 : JumpEnd); (3.375 : 18.5771934495192); (3.375 : 15.4714036396484); (3.5 : 15.4714036396484)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 20.9727334594727); (2.85416666666667 : 20.9727334594727 : JumpStart); (3.02083333333333 : 20.9727334594727 : JumpEnd); (3.16666666666667 : 20.9727334594727 : JumpStart); (3.45833333333333 : 20.9727334594727 : JumpEnd); (3.5 : 20.9727334594727)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_CompanyLocation2" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="d99687cb-5743-4abb-a9d9-f28e61d90b96" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 20.6611001475361); (2.79166666666667 : 20.6611001475361 : JumpStart); (3.14583333333333 : 20.6611001475361 : JumpEnd); (3.16666666666667 : 20.6611001475361 : JumpStart); (3.42708333333333 : 20.6611001475361 : JumpEnd); (3.5 : 20.6611001475361)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 20.3172269616136); (2.78125 : 20.2859769616136); (2.78125 : 19.125); (2.97916666666667 : 19.125 : JumpStart); (3.52083333333333 : 19.125 : JumpEnd); (5.57576923076923 : 19.125); (5.59732443490112 : 19.1465552041319 : JumpStart); (5.80892556509888 : 19.3581563343296 : JumpEnd); (6.00357443490112 : 19.5528052041319 : JumpStart); (6.12142556509888 : 19.6706563343296 : JumpEnd); (6.5 : 20.0492307692308)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_CustomerLocation" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="d900b207-457d-4c85-a41c-fdbbcc69246e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 19.6835578922401); (2.91666666666667 : 19.6835578922401 : JumpStart); (3.08333333333333 : 19.6835578922401 : JumpEnd); (3.5 : 19.6835578922401)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 20.2992995051833); (3 : 20.0492995051833); (3 : 19.375); (3.04166666666667 : 19.375 : JumpStart); (3.52083333333333 : 19.375 : JumpEnd); (5.57291666666667 : 19.375 : JumpStart); (5.83333333333333 : 19.375 : JumpEnd); (5.875 : 19.375); (6.00357443490112 : 19.5035744349011 : JumpStart); (6.12142556509888 : 19.6214255650989 : JumpEnd); (6.5 : 20)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_CustomerLocation1" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="d900b207-457d-4c85-a41c-fdbbcc69246e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 20.3957057134165); (3.5 : 20.3957057134165)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 20.281372048753); (2.875 : 20.156372048753); (2.875 : 19.625); (2.91666666666667 : 19.625 : JumpStart); (3.45833333333333 : 19.625 : JumpEnd); (5.57291666666667 : 19.625 : JumpStart); (5.83333333333333 : 19.625 : JumpEnd); (5.97916666666667 : 19.625 : JumpStart); (6.15910256410256 : 19.625 : JumpEnd); (6.17422976923077 : 19.625); (6.54922976923077 : 20)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_CustomerLocation2" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="d900b207-457d-4c85-a41c-fdbbcc69246e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.86112528545673 : 21.1921411132813); (1.86112528545673 : 21.4421411132813); (2.19450114182692 : 21.4421411132813); (2.19450114182692 : 21.1921411132813)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.45829612567608 : 22.1921411132813); (1.45829612567608 : 22.6921411132813); (1.66666666666667 : 22.6921411132813 : JumpStart); (1.83333333333333 : 22.6921411132813 : JumpEnd); (2.05559453500601 : 22.6921411132813); (2.05559453500601 : 22.1921411132813)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_Geo" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
       </nodes>
     </associationConnector>
-    <classShape Id="4dcad597-7a2a-4e78-b6ee-cf5c27d607b1" absoluteBounds="3.75, 4, 2, 2.5106225585937505">
+    <classShape Id="4dcad597-7a2a-4e78-b6ee-cf5c27d607b1" absoluteBounds="0.75, 14, 2, 2.5106225585937523">
       <DataClassMoniker Name="/RedBloodDataContext/Hospital" />
       <nestedChildShapes>
-        <elementListCompartment Id="e9abf8aa-0e6b-4a94-9622-e388a03bdba7" absoluteBounds="3.7650000000000006, 4.46, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="e9abf8aa-0e6b-4a94-9622-e388a03bdba7" absoluteBounds="0.76500000000000057, 14.46, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="097404d8-ba23-4893-8ba8-2f958da0729c" absoluteBounds="6.5, 38.75, 2, 1.7526472981770809">
+    <classShape Id="097404d8-ba23-4893-8ba8-2f958da0729c" absoluteBounds="6.25, 31.25, 2, 1.7526472981770809">
       <DataClassMoniker Name="/RedBloodDataContext/TestDef" />
       <nestedChildShapes>
-        <elementListCompartment Id="1121eea9-d027-4539-9e10-62d083ce83cf" absoluteBounds="6.5150000000000006, 39.21, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="1121eea9-d027-4539-9e10-62d083ce83cf" absoluteBounds="6.2650000000000006, 31.71, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.20523507173978 : 40.5026472981771); (7.20523507173978 : 40.7526472981771); (7.80880135341546 : 40.7526472981771); (7.80880135341546 : 40.5026472981771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.95523507173978 : 33.0026472981771); (6.95523507173978 : 33.2526472981771); (7.55880135341546 : 33.2526472981771); (7.55880135341546 : 33.0026472981771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_TestDef" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
       </nodes>
     </associationConnector>
-    <classShape Id="566e2007-8939-491d-b95a-784297eaed47" absoluteBounds="6.5, 17.625, 2, 5.1635359700520809">
+    <classShape Id="566e2007-8939-491d-b95a-784297eaed47" absoluteBounds="3.5, 13.625, 2, 5.1635359700520809">
       <DataClassMoniker Name="/RedBloodDataContext/People" />
       <nestedChildShapes>
-        <elementListCompartment Id="2c960899-1eea-44ae-a214-a9addbab1df9" absoluteBounds="6.5150000000000006, 18.085, 1.9700000000000002, 4.603535970052083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="2c960899-1eea-44ae-a214-a9addbab1df9" absoluteBounds="3.5150000000000006, 14.085, 1.9700000000000002, 4.603535970052083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.5 : 20.1908174641927); (8.82291666666667 : 20.1908174641927 : JumpStart); (9.08333333333333 : 20.1908174641927 : JumpEnd); (9.25 : 20.1908174641927)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 16.1908174641927); (5.57291666666667 : 16.1908174641927 : JumpStart); (5.83333333333333 : 16.1908174641927 : JumpEnd); (6.25 : 16.1908174641927)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/People/People_PeopleStayIn" />
       <nodes>
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
         <classShapeMoniker Id="6057a6b0-71ad-42a8-a681-b21d65b1b49a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.65625 : 6.51062255859375); (5.65625 : 18.21875); (5.91666666666667 : 18.21875 : JumpStart); (6.08333333333333 : 18.21875 : JumpEnd); (6.5 : 18.21875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 15.2553112792969); (3.16666666666667 : 15.2553112792969 : JumpStart); (3.45833333333333 : 15.2553112792969 : JumpEnd); (3.5 : 15.2553112792969)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Hospital/Hospital_People" />
       <nodes>
         <classShapeMoniker Id="4dcad597-7a2a-4e78-b6ee-cf5c27d607b1" />
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.69484472475962 : 19.25); (1.69484472475962 : 19); (2.11518575380609 : 19 : JumpStart); (2.28185242047275 : 19 : JumpEnd); (2.367022934996 : 19 : JumpStart); (2.53368960166266 : 19 : JumpEnd); (2.875 : 19); (2.875 : 21.6356225585938); (2.91666666666667 : 21.6356225585938 : JumpStart); (3.45833333333333 : 21.6356225585938 : JumpEnd); (5.54166416666667 : 21.6356225585938 : JumpStart); (5.83487279487183 : 21.6356225585938 : JumpEnd); (5.91666666666667 : 21.6356225585938 : JumpStart); (6.08333333333333 : 21.6356225585938 : JumpEnd); (6.125 : 21.6356225585938); (6.125 : 20.534894985026); (6.16666666666667 : 20.534894985026 : JumpStart); (6.33333333333333 : 20.534894985026 : JumpEnd); (6.5 : 20.534894985026)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.72609672475962 : 20.25); (3.19107443490112 : 19.7850222898585 : JumpStart); (3.43392556509888 : 19.5421711596607 : JumpEnd); (3.4375 : 19.5385967247596); (3.4375 : 17.0531756246745); (3.5 : 17.0531756246745)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_People" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.19851908713942 : 19.25); (2.19851908713942 : 18.75); (3.0625 : 18.75); (3.0625 : 21.8856225585938); (3.07291666666667 : 21.8856225585938 : JumpStart); (3.42708333333333 : 21.8856225585938 : JumpEnd); (5.54166416666667 : 21.8856225585938 : JumpStart); (5.78645833333333 : 21.8856225585938 : JumpEnd); (5.79166666666667 : 21.8856225585938 : JumpStart); (6.08333333333333 : 21.8856225585938 : JumpEnd); (6.25 : 21.8856225585938); (6.25 : 19.376822492513); (6.5 : 19.376822492513)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 20.278384139348); (3.234375 : 19.794009139348); (3.234375 : 17.0531756246745); (3.29166666666667 : 17.0531756246745 : JumpStart); (3.45833333333333 : 17.0531756246745 : JumpEnd); (3.5 : 17.0531756246745)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_People1" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.69484472475962 : 21.1921411132813); (1.69484472475962 : 21.7606225585938); (2.91666666666667 : 21.7606225585938 : JumpStart); (3.08333333333333 : 21.7606225585938 : JumpEnd); (3.13541666666667 : 21.7606225585938 : JumpStart); (3.38020833333333 : 21.7606225585938 : JumpEnd); (5.54166416666667 : 21.7606225585938 : JumpStart); (5.70833083333333 : 21.7606225585938 : JumpEnd); (5.91666666666667 : 21.7606225585938 : JumpStart); (6.08333333333333 : 21.7606225585938 : JumpEnd); (6.375 : 21.7606225585938); (6.375 : 21.1165112718099); (6.5 : 21.1165112718099)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 20.2753962299429); (3.21875 : 19.8066462299429); (3.21875 : 17.0531756246745); (3.22916666666667 : 17.0531756246745 : JumpStart); (3.45833333333333 : 17.0531756246745 : JumpEnd); (3.5 : 17.0531756246745)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_People2" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.19117036237981 : 19.25); (1.19117036237981 : 19.125); (1.61151139142629 : 19.125 : JumpStart); (1.77817805809295 : 19.125 : JumpEnd); (2.11518575380609 : 19.125 : JumpStart); (2.28185242047275 : 19.125 : JumpEnd); (2.367022934996 : 19.125 : JumpStart); (2.53368960166266 : 19.125 : JumpEnd); (2.74386011618589 : 19.125 : JumpStart); (3.33333333333333 : 19.125 : JumpEnd); (3.4375 : 19.125); (3.4375 : 21.5106225585938); (5.54166416666667 : 21.5106225585938 : JumpStart); (5.83333333333333 : 21.5106225585938 : JumpEnd); (5.875 : 21.5106225585938); (5.875 : 19.9558587387695); (5.91666666666667 : 19.9558587387695 : JumpStart); (6.08333333333333 : 19.9558587387695 : JumpEnd); (6.16666666666667 : 19.9558587387695 : JumpStart); (6.33333333333333 : 19.9558587387695 : JumpEnd); (6.5 : 19.9558587387695)]" manuallyRouted="true" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.73804836237981 : 20.25); (3.1875 : 19.8005483623798); (3.1875 : 17.0531756246745); (3.22916666666667 : 17.0531756246745 : JumpStart); (3.45833333333333 : 17.0531756246745 : JumpEnd); (3.5 : 17.0531756246745)]" manuallyRouted="true" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_People3" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.19851908713942 : 21.1921411132813); (2.19851908713942 : 21.6981225585938); (2.72916666666667 : 21.6981225585938 : JumpStart); (2.89583333333333 : 21.6981225585938 : JumpEnd); (2.91666666666667 : 21.6981225585938 : JumpStart); (3.45833333333333 : 21.6981225585938 : JumpEnd); (5.54166416666667 : 21.6981225585938 : JumpStart); (5.70833083333333 : 21.6981225585938 : JumpEnd); (5.75 : 21.6981225585938); (5.75 : 18.7977862462565); (5.91666666666667 : 18.7977862462565 : JumpStart); (6.08333333333333 : 18.7977862462565 : JumpEnd); (6.5 : 18.7977862462565)]" manuallyRouted="true" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.72012090594952 : 20.25); (2.72232443490112 : 20.2477964710484 : JumpStart); (2.84017556509888 : 20.1299453408506 : JumpEnd); (3.15625 : 19.8138709059495); (3.15625 : 17.0531756246745); (3.16666666666667 : 17.0531756246745 : JumpStart); (3.45833333333333 : 17.0531756246745 : JumpEnd); (3.5 : 17.0531756246745)]" manuallyRouted="true" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_People4" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.45035626832933 : 19.25); (2.45035626832933 : 18.875); (2.9375 : 18.875); (2.9375 : 21.5731225585938); (2.97916666666667 : 21.5731225585938 : JumpStart); (3.45833333333333 : 21.5731225585938 : JumpEnd); (5.54166416666667 : 21.5731225585938 : JumpStart); (5.83333333333333 : 21.5731225585938 : JumpEnd); (5.91666666666667 : 21.5731225585938 : JumpStart); (6.08333333333333 : 21.5731225585938 : JumpEnd); (6.1875 : 21.5731225585938); (6.1875 : 22.3370787643229); (6.5 : 22.3370787643229)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.67231435546875 : 20.25); (2.72232443490112 : 20.1999899205676 : JumpStart); (2.93392556509888 : 19.9883887903699 : JumpEnd); (2.94107443490112 : 19.9812399205676 : JumpStart); (3.05892556509888 : 19.8633887903699 : JumpEnd); (3.125 : 19.7973143554688); (3.125 : 17.0531756246745); (3.16666666666667 : 17.0531756246745 : JumpStart); (3.45833333333333 : 17.0531756246745 : JumpEnd); (3.5 : 17.0531756246745)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_People5" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.703125 : 31.25); (5.703125 : 17.8906225); (5.91666666666667 : 17.8906225 : JumpStart); (6.08333333333333 : 17.8906225 : JumpEnd); (6.5 : 17.8906225)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 17.8420829264323); (2.97916666666667 : 17.8420829264323 : JumpStart); (3.45833333333333 : 17.8420829264323 : JumpEnd); (3.5 : 17.8420829264323)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Sex/Sex_People" />
       <nodes>
         <classShapeMoniker Id="3946aa82-6902-43c0-a222-0df16dac91e9" />
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
       </nodes>
     </associationConnector>
-    <classShape Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" absoluteBounds="9.25, 26, 2, 3.2685978190104166">
+    <classShape Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" absoluteBounds="9, 24.375, 2, 3.4580916341145809">
       <DataClassMoniker Name="/RedBloodDataContext/Pack" />
       <nestedChildShapes>
-        <elementListCompartment Id="a2a04604-cab8-4a5d-a3c8-6c5eb37fff9e" absoluteBounds="9.265, 26.46, 1.9700000000000002, 2.7085978190104165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a2a04604-cab8-4a5d-a3c8-6c5eb37fff9e" absoluteBounds="9.015, 24.835, 1.9700000000000002, 2.898091634114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.6249975 : 6.51062255859375); (5.6249975 : 27.46875); (8.27604166666667 : 27.46875 : JumpStart); (8.54427283333334 : 27.46875 : JumpEnd); (8.82291666666667 : 27.46875 : JumpStart); (8.98958333333333 : 27.46875 : JumpEnd); (9.25 : 27.46875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 15.9142189189453); (3.0625 : 15.9142189189453); (3.0625 : 19.75); (3.14276339142628 : 19.75 : JumpStart); (3.45833333333333 : 19.75 : JumpEnd); (5.57291666666667 : 19.75 : JumpStart); (5.83333333333333 : 19.75 : JumpEnd); (5.97916666666667 : 19.75 : JumpStart); (6.3825631025641 : 19.75 : JumpEnd); (9 : 19.75); (9 : 24); (9.01041666666667 : 24 : JumpStart); (9.17708333333333 : 24 : JumpEnd); (10 : 24); (10 : 24.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Hospital/Hospital_Pack" />
       <nodes>
         <classShapeMoniker Id="4dcad597-7a2a-4e78-b6ee-cf5c27d607b1" />
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.40625 : 22.7885359700521); (8.40625 : 26.8949368717448); (8.82291666666667 : 26.8949368717448 : JumpStart); (8.98958333333333 : 26.8949368717448 : JumpEnd); (9.25 : 26.8949368717448)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 18.0538354492187); (5.57291666666667 : 18.0538354492187 : JumpStart); (5.83333333333333 : 18.0538354492187 : JumpEnd); (9.09375 : 18.0538354492187); (9.09375 : 24.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/People/People_Pack" />
       <nodes>
         <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.4609395 : 38.75); (8.4609395 : 27.1818434358724); (8.82291666666667 : 27.1818434358724 : JumpStart); (8.98958333333333 : 27.1818434358724 : JumpEnd); (9.25 : 27.1818434358724)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 32.9188663736979); (8.60416666666667 : 32.9188663736979 : JumpStart); (8.77083333333333 : 32.9188663736979 : JumpEnd); (9.09375 : 32.9188663736979); (9.09375 : 27.8330916341146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_Pack" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.359375 : 38.75); (8.359375 : 26.6080303076172); (8.82291666666667 : 26.6080303076172 : JumpStart); (8.98958333333333 : 26.6080303076172 : JumpEnd); (9.25 : 26.6080303076172)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 32.8876138736979); (8.60416666666667 : 32.8876138736979 : JumpStart); (8.77083333333333 : 32.8876138736979 : JumpEnd); (9.0624975 : 32.8876138736979); (9.0624975 : 27.8330916341146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_Pack1" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
       </nodes>
     </associationConnector>
-    <classShape Id="4d70f01c-9dea-4c5b-860b-ae3fa898ce35" absoluteBounds="12, 22.25, 2, 2.7001163736979166">
+    <classShape Id="4d70f01c-9dea-4c5b-860b-ae3fa898ce35" absoluteBounds="14.75, 25.75, 2, 2.7001163736979166">
       <DataClassMoniker Name="/RedBloodDataContext/TestResult" />
       <nestedChildShapes>
-        <elementListCompartment Id="8883db2b-3e42-403a-99ff-30c50151256e" absoluteBounds="12.015, 22.71, 1.9700000000000002, 2.1401163736979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8883db2b-3e42-403a-99ff-30c50151256e" absoluteBounds="14.765, 26.21, 1.9700000000000002, 2.1401163736979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(10.781252 : 26); (10.781252 : 23.600058186849); (12 : 23.600058186849)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(11 : 27.51361328125); (12.6666666666667 : 27.51361328125 : JumpStart); (12.8333333333333 : 27.51361328125 : JumpEnd); (14.75 : 27.51361328125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Pack/Pack_TestResult" />
       <nodes>
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
         <classShapeMoniker Id="4d70f01c-9dea-4c5b-860b-ae3fa898ce35" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 38.764829092523); (8.67107909252304 : 38.59375); (11.5416666666667 : 38.59375 : JumpStart); (11.8333333333333 : 38.59375 : JumpEnd); (11.96875 : 38.59375); (11.96875 : 25.0305961429287); (12.0492297692308 : 24.9501163736979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 32.9501188736979); (8.60416666666667 : 32.9501188736979 : JumpStart); (8.77083333333333 : 32.9501188736979 : JumpEnd); (11.2916666666667 : 32.9501188736979 : JumpStart); (11.7083333333333 : 32.9501188736979 : JumpEnd); (15.75 : 32.9501188736979); (15.75 : 28.4501163736979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_TestResult" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="4d70f01c-9dea-4c5b-860b-ae3fa898ce35" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.48112533678886 : 38.75); (8.66862533678886 : 38.5625); (11.5416666666667 : 38.5625 : JumpStart); (11.8333333333333 : 38.5625 : JumpEnd); (11.9375 : 38.5625); (11.9375 : 25.0126163736979); (12 : 24.9501163736979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 32.8613496614583); (8.60416666666667 : 32.8613496614583 : JumpStart); (8.77083333333333 : 32.8613496614583 : JumpEnd); (11.2916666666667 : 32.8613496614583 : JumpStart); (11.7083333333333 : 32.8613496614583 : JumpEnd); (15.2187475 : 32.8613496614583); (15.2187475 : 28.4501163736979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_TestResult1" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="4d70f01c-9dea-4c5b-860b-ae3fa898ce35" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.44742058105469 : 38.75); (8.69742058105469 : 38.5); (11.5416666666667 : 38.5 : JumpStart); (11.8333333333333 : 38.5 : JumpEnd); (11.875 : 38.5); (11.875 : 25.0258856044671); (12 : 24.9008856044671)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 32.9763830859375); (8.60416666666667 : 32.9763830859375 : JumpStart); (8.77083333333333 : 32.9763830859375 : JumpEnd); (11.2916666666667 : 32.9763830859375 : JumpStart); (11.7083333333333 : 32.9763830859375 : JumpEnd); (16.2812525 : 32.9763830859375); (16.2812525 : 28.4501163736979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_TestResult2" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="4d70f01c-9dea-4c5b-860b-ae3fa898ce35" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.59825497608674 : 38.75); (8.52634048853165 : 38.78125); (11.75 : 38.78125); (11.75 : 25.1662702198518); (12 : 24.9162702198518)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 32.9032401236979); (8.60416666666667 : 32.9032401236979 : JumpStart); (8.77083333333333 : 32.9032401236979 : JumpEnd); (11.2916666666667 : 32.9032401236979 : JumpStart); (11.7083333333333 : 32.9032401236979 : JumpEnd); (14.95312125 : 32.9032401236979); (14.95312125 : 28.4501163736979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_TestResult3" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="4d70f01c-9dea-4c5b-860b-ae3fa898ce35" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.19119864658454 : 38.75); (8.79521515174279 : 38.78125); (11.625 : 38.78125); (11.625 : 25.2589625275441); (12 : 24.8839625275441)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 32.9344926236979); (8.60416666666667 : 32.9344926236979 : JumpStart); (8.77083333333333 : 32.9344926236979 : JumpEnd); (11.2916666666667 : 32.9344926236979 : JumpStart); (11.7083333333333 : 32.9344926236979 : JumpEnd); (15.48437375 : 32.9344926236979); (15.48437375 : 28.4501163736979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_TestResult4" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="4d70f01c-9dea-4c5b-860b-ae3fa898ce35" />
       </nodes>
     </associationConnector>
-    <classShape Id="e1dc0283-181f-40ab-b4c2-69e728d42766" absoluteBounds="15, 26.5, 2, 2.1316349283854166">
+    <classShape Id="e1dc0283-181f-40ab-b4c2-69e728d42766" absoluteBounds="12.75, 22, 2, 2.1316349283854166">
       <DataClassMoniker Name="/RedBloodDataContext/BloodType" />
       <nestedChildShapes>
-        <elementListCompartment Id="143e0b2a-f97d-4064-ae12-c9346b2ccce5" absoluteBounds="15.015, 26.96, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="143e0b2a-f97d-4064-ae12-c9346b2ccce5" absoluteBounds="12.765, 22.46, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(11.25 : 26.09375); (11.4166666666667 : 26.09375 : JumpStart); (12.0520833333333 : 26.09375 : JumpEnd); (16 : 26.09375); (16 : 26.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(11 : 24.65625); (14.25 : 24.65625); (14.25 : 24.1316349283854)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Pack/Pack_BloodType" />
       <nodes>
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
         <classShapeMoniker Id="e1dc0283-181f-40ab-b4c2-69e728d42766" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 39.6649901953501); (14.75 : 39.6649901953501); (14.75 : 29.5791040039063); (14.7811573397019 : 29.5791040039063 : JumpStart); (14.9895833333333 : 29.5791040039063 : JumpEnd); (15.3854146666667 : 29.5791040039063 : JumpStart); (15.5520813333333 : 29.5791040039063 : JumpEnd); (16 : 29.5791040039063); (16 : 28.6316349283854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 31.3120157505509); (8.62857443490112 : 30.9334413156498 : JumpStart); (8.74642556509888 : 30.815590185452 : JumpEnd); (8.78125 : 30.7807657505509); (8.78125 : 23.1918143717448); (8.91666666666667 : 23.1918143717448 : JumpStart); (9.17708333333333 : 23.1918143717448 : JumpEnd); (12.75 : 23.1918143717448)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_BloodType" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="e1dc0283-181f-40ab-b4c2-69e728d42766" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 39.2149096439366); (14.5 : 39.2149096439366); (14.5 : 29.7041040039063); (14.8384026762195 : 29.7041040039063 : JumpStart); (15.0050693428862 : 29.7041040039063 : JumpEnd); (15.468748 : 29.7041040039063); (15.468748 : 28.6316349283854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.22168800518329 : 31.25); (8.625 : 30.8466880051833); (8.625 : 23.1918143717448); (8.91666666666667 : 23.1918143717448 : JumpStart); (9.17708333333333 : 23.1918143717448 : JumpEnd); (12.75 : 23.1918143717448)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_BloodType1" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="e1dc0283-181f-40ab-b4c2-69e728d42766" />
       </nodes>
     </associationConnector>
-    <classShape Id="1e922367-1129-487d-8546-cb1bead310a9" absoluteBounds="12, 29.5, 2, 2.1316349283854166">
+    <classShape Id="1e922367-1129-487d-8546-cb1bead310a9" absoluteBounds="11.75, 37.5, 2, 2.1316349283854095">
       <DataClassMoniker Name="/RedBloodDataContext/PackStatusHistory" />
       <nestedChildShapes>
-        <elementListCompartment Id="c4e82e5f-dde4-4118-8c18-d74c7f4e5404" absoluteBounds="12.015, 29.96, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c4e82e5f-dde4-4118-8c18-d74c7f4e5404" absoluteBounds="11.765, 37.96, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(11.25 : 26.1250025); (11.5416666666667 : 26.1250025 : JumpStart); (11.7083333333333 : 26.1250025 : JumpEnd); (12.34375 : 26.1250025); (12.34375 : 29.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(10.078127 : 27.8330916341146); (10.078127 : 28.875); (11.2916666666667 : 28.875 : JumpStart); (11.4583333333333 : 28.875 : JumpEnd); (11.5 : 28.875); (11.5 : 38.5658174641927); (11.75 : 38.5658174641927)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Pack/Pack_PackStatusHistory" />
       <nodes>
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
         <classShapeMoniker Id="1e922367-1129-487d-8546-cb1bead310a9" />
       </nodes>
     </associationConnector>
-    <classShape Id="656a108b-90d2-454f-9777-95b5ce446495" absoluteBounds="3.5, 34.625, 2, 2.5106225585937523">
+    <classShape Id="656a108b-90d2-454f-9777-95b5ce446495" absoluteBounds="3.5, 35.625, 2, 2.5106225585937523">
       <DataClassMoniker Name="/RedBloodDataContext/Org" />
       <nestedChildShapes>
-        <elementListCompartment Id="7832cf5a-f4d1-48e7-975c-78788e36837a" absoluteBounds="3.5150000000000006, 35.085, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7832cf5a-f4d1-48e7-975c-78788e36837a" absoluteBounds="3.5150000000000006, 36.085, 1.9700000000000002, 1.95062255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 20.0396318028283); (2.8125 : 20.0396318028283); (2.8125 : 27.125); (3.54166666666667 : 27.125 : JumpStart); (3.70833333333333 : 27.125 : JumpEnd); (3.75 : 27.125); (3.75 : 31.125); (3.70833333333333 : 31.125 : JumpStart); (3.54166666666667 : 31.125 : JumpEnd); (3.5 : 31.125); (3.5 : 34.25); (3.88541466666667 : 34.25 : JumpStart); (4.05208133333333 : 34.25 : JumpEnd); (5.031252 : 34.25); (5.031252 : 34.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 21.4582032134165); (2.875 : 21.4582032134165); (2.875 : 27.75); (2.97916666666667 : 27.75 : JumpStart); (3.14583333333333 : 27.75 : JumpEnd); (3.29166666666667 : 27.75 : JumpStart); (3.45833333333333 : 27.75 : JumpEnd); (3.66666666666667 : 27.75 : JumpStart); (3.83333333333333 : 27.75 : JumpEnd); (4.16666666666667 : 27.75 : JumpStart); (4.33333333333333 : 27.75 : JumpEnd); (4.44791666666667 : 27.75 : JumpStart); (4.61458333333333 : 27.75 : JumpEnd); (4.7890635 : 27.75); (4.7890635 : 35.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_Org" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="656a108b-90d2-454f-9777-95b5ce446495" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 20.8952470816556); (2.79166666666667 : 20.8952470816556 : JumpStart); (3.14583333333333 : 20.8952470816556 : JumpEnd); (3.21875 : 20.8952470816556); (3.21875 : 26.5); (3.26041666666667 : 26.5 : JumpStart); (3.42708333333333 : 26.5 : JumpEnd); (3.54166666666667 : 26.5 : JumpStart); (3.70833333333333 : 26.5 : JumpEnd); (3.875 : 26.5); (3.875 : 30.875); (3.83333333333333 : 30.875 : JumpStart); (3.66666666666667 : 30.875 : JumpEnd); (3.625 : 30.875); (3.625 : 34); (3.968748 : 34); (3.968748 : 34.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 21.9264970816556); (2.79166666666667 : 21.9264970816556 : JumpStart); (3.02083333333333 : 21.9264970816556 : JumpEnd); (3.0625 : 21.9264970816556); (3.0625 : 28.125); (3.66666666666667 : 28.125 : JumpStart); (3.83333333333333 : 28.125 : JumpEnd); (3.91666666666667 : 28.125 : JumpStart); (4.08333333333333 : 28.125 : JumpEnd); (4.16666666666667 : 28.125 : JumpStart); (4.61458333333333 : 28.125 : JumpEnd); (4.70573016666667 : 28.125 : JumpStart); (4.87239683333333 : 28.125 : JumpEnd); (4.96354366666667 : 28.125 : JumpStart); (5.13021033333333 : 28.125 : JumpEnd); (5.273438 : 28.125); (5.273438 : 35.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_Org1" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="656a108b-90d2-454f-9777-95b5ce446495" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 19.4914286987117); (2.79166666666667 : 19.4914286987117 : JumpStart); (3.33333333333333 : 19.4914286987117 : JumpEnd); (3.34375 : 19.4914286987117); (3.34375 : 26.875); (3.54166666666667 : 26.875 : JumpStart); (3.70833333333333 : 26.875 : JumpEnd); (3.79166666666667 : 26.875 : JumpStart); (3.95833333333333 : 26.875 : JumpEnd); (4.125 : 26.875); (4.125 : 30.75); (4.08333333333333 : 30.75 : JumpStart); (3.66666666666667 : 30.75 : JumpEnd); (3.375 : 30.75); (3.375 : 34.375); (3.88541466666667 : 34.375 : JumpStart); (4.05208133333333 : 34.375 : JumpEnd); (4.5 : 34.375); (4.5 : 34.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 20.503691300631); (2.9375 : 20.503691300631); (2.9375 : 27.875); (2.97916666666667 : 27.875 : JumpStart); (3.14583333333333 : 27.875 : JumpEnd); (3.29166666666667 : 27.875 : JumpStart); (3.45833333333333 : 27.875 : JumpEnd); (3.66666666666667 : 27.875 : JumpStart); (3.83333333333333 : 27.875 : JumpEnd); (4.16666666666667 : 27.875 : JumpStart); (4.33333333333333 : 27.875 : JumpEnd); (4.390625 : 27.875); (4.390625 : 35.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Geo/Geo_Org2" />
       <nodes>
         <classShapeMoniker Id="3925c563-adf2-47b1-80cd-4041fa3e8de3" />
         <classShapeMoniker Id="656a108b-90d2-454f-9777-95b5ce446495" />
       </nodes>
     </associationConnector>
-    <classShape Id="6587d892-cc2f-460b-8a31-ab2be3f3002c" absoluteBounds="6.25, 34.125, 2, 3.4580916341145809">
+    <classShape Id="6587d892-cc2f-460b-8a31-ab2be3f3002c" absoluteBounds="6.25, 35.125, 2, 3.4580916333943605">
       <DataClassMoniker Name="/RedBloodDataContext/Campaign" />
       <nestedChildShapes>
-        <elementListCompartment Id="2c0e1344-f2b0-4449-8037-053139a6a399" absoluteBounds="6.2650000000000006, 34.585, 1.9700000000000002, 2.898091634114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="2c0e1344-f2b0-4449-8037-053139a6a399" absoluteBounds="6.2650000005960464, 35.58500000089407, 1.9700000000000002, 2.898091634114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.25 : 34.46875); (8.27604166666667 : 34.46875 : JumpStart); (8.54427283333334 : 34.46875 : JumpEnd); (10.25 : 34.46875); (10.25 : 29.2685978190104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 35.1865374615385); (8.6875 : 34.7490374615385); (8.6875 : 26.1040458170573); (8.69791666666667 : 26.1040458170573 : JumpStart); (8.86458333333333 : 26.1040458170573 : JumpEnd); (9 : 26.1040458170573)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Campaign/Campaign_Pack" />
       <nodes>
         <classShapeMoniker Id="6587d892-cc2f-460b-8a31-ab2be3f3002c" />
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 35.8803112792969); (6.25 : 35.8803112792969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 36.8803112792969); (6.25 : 36.8803112792969)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Org/Org_Campaign" />
       <nodes>
         <classShapeMoniker Id="656a108b-90d2-454f-9777-95b5ce446495" />
         <classShapeMoniker Id="6587d892-cc2f-460b-8a31-ab2be3f3002c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 35.1901556396484); (6.25 : 35.1901556396484)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 36.1901556396484); (6.25 : 36.1901556396484)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Org/Org_Campaign1" />
       <nodes>
         <classShapeMoniker Id="656a108b-90d2-454f-9777-95b5ce446495" />
         <classShapeMoniker Id="6587d892-cc2f-460b-8a31-ab2be3f3002c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.375 : 38.75); (7.375 : 37.5830916341146)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.54011753586989 : 33.0026472981771); (6.54011753586989 : 35.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_Campaign" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="6587d892-cc2f-460b-8a31-ab2be3f3002c" />
       </nodes>
     </associationConnector>
-    <classShape Id="5828bba9-50af-47ea-b0a8-0548062435d5" absoluteBounds="9, 34.875, 2, 2.1316349283854095">
+    <classShape Id="5828bba9-50af-47ea-b0a8-0548062435d5" absoluteBounds="9, 35.875, 2, 2.1316349283854095">
       <DataClassMoniker Name="/RedBloodDataContext/CampaignStatusHistory" />
       <nestedChildShapes>
-        <elementListCompartment Id="3eb19ae6-e1e8-4208-a165-370529a30b66" absoluteBounds="9.015, 35.335, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3eb19ae6-e1e8-4208-a165-370529a30b66" absoluteBounds="9.015, 36.335, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.25 : 35.9408174641927); (9 : 35.9408174641927)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 36.9408174641927); (9 : 36.9408174641927)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Campaign/Campaign_CampaignStatusHistory" />
       <nodes>
         <classShapeMoniker Id="6587d892-cc2f-460b-8a31-ab2be3f3002c" />
         <classShapeMoniker Id="5828bba9-50af-47ea-b0a8-0548062435d5" />
       </nodes>
     </associationConnector>
-    <classShape Id="8248e321-d6d0-4fa7-bfa5-d7771325d8f0" absoluteBounds="9.75, 5.625, 2, 1.7526472981770844">
+    <classShape Id="8248e321-d6d0-4fa7-bfa5-d7771325d8f0" absoluteBounds="6.75, 0.75, 2, 1.7526472981770844">
       <DataClassMoniker Name="/RedBloodDataContext/Log" />
       <nestedChildShapes>
-        <elementListCompartment Id="eddc3a1c-9379-43de-8854-398011d81b2b" absoluteBounds="9.765, 6.0850000000000009, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="eddc3a1c-9379-43de-8854-398011d81b2b" absoluteBounds="6.7650000000000006, 1.2100000000000009, 1.9700000000000002, 1.1926472981770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8580c82d-a0b4-4ce6-a59b-d01827bd2cbb" absoluteBounds="15, 23.5, 2, 2.1316349283854166">
+    <classShape Id="8580c82d-a0b4-4ce6-a59b-d01827bd2cbb" absoluteBounds="11.75, 25, 2, 2.1316349283854237">
       <DataClassMoniker Name="/RedBloodDataContext/PackResultHistory" />
       <nestedChildShapes>
-        <elementListCompartment Id="c91e288f-4d45-4bee-8422-99bfad7ecbe7" absoluteBounds="15.015, 23.96, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c91e288f-4d45-4bee-8422-99bfad7ecbe7" absoluteBounds="11.765, 25.46, 1.9700000000000002, 1.5716349283854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(10.25 : 26); (10.25 : 25.3221251510417); (10.6979186666667 : 25.3221251510417 : JumpStart); (10.8645853333333 : 25.3221251510417 : JumpEnd); (11.4166666666667 : 25.3221251510417 : JumpStart); (11.5833333333333 : 25.3221251510417 : JumpEnd); (11.6666666666667 : 25.3221251510417 : JumpStart); (12.0520833333333 : 25.3221251510417 : JumpEnd); (14.1666666666667 : 25.3221251510417 : JumpStart); (14.3333333333333 : 25.3221251510417 : JumpEnd); (15 : 25.3221251510417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(11 : 26.0658174641927); (11.75 : 26.0658174641927)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Pack/Pack_PackResultHistory" />
       <nodes>
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
         <classShapeMoniker Id="8580c82d-a0b4-4ce6-a59b-d01827bd2cbb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.3984355 : 38.75); (7.3984355 : 37.8330916341146); (8.27604166666667 : 37.8330916341146 : JumpStart); (8.54427283333334 : 37.8330916341146 : JumpEnd); (11.5 : 37.8330916341146); (11.5 : 25.2001163736979); (11.7916666666667 : 25.2001163736979 : JumpStart); (12.0520833333333 : 25.2001163736979 : JumpEnd); (14.1666666666667 : 25.2001163736979 : JumpStart); (14.3333333333333 : 25.2001163736979 : JumpEnd); (14.625 : 25.2001163736979); (14.625 : 24.5658174641927); (15 : 24.5658174641927)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 32.0866827060046); (8.60416666666667 : 32.0866827060046 : JumpStart); (8.77083333333333 : 32.0866827060046 : JumpEnd); (9 : 32.0866827060046); (9 : 28.625); (9.01041666666667 : 28.625 : JumpStart); (9.20833583333333 : 28.625 : JumpEnd); (9.99479366666667 : 28.625 : JumpStart); (10.1614603333333 : 28.625 : JumpEnd); (10.4869821666667 : 28.625 : JumpStart); (10.6536488333333 : 28.625 : JumpEnd); (11.2916666666667 : 28.625 : JumpStart); (11.4583333333333 : 28.625 : JumpEnd); (12.75 : 28.625); (12.75 : 27.1316349283854)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/TestDef/TestDef_PackResultHistory" />
       <nodes>
         <classShapeMoniker Id="097404d8-ba23-4893-8ba8-2f958da0729c" />
         <classShapeMoniker Id="8580c82d-a0b4-4ce6-a59b-d01827bd2cbb" />
       </nodes>
     </associationConnector>
-    <classShape Id="af9168ba-c800-4346-b55b-9f17f4ba2065" absoluteBounds="15, 29.875, 2, 1.3736596679687523">
+    <classShape Id="af9168ba-c800-4346-b55b-9f17f4ba2065" absoluteBounds="12, 28.875, 2, 1.3736596679687523">
       <DataClassMoniker Name="/RedBloodDataContext/PackOrder" />
       <nestedChildShapes>
-        <elementListCompartment Id="4151c41f-1040-4d42-bcc8-23ca46068d9e" absoluteBounds="15.015, 30.335, 1.9700000000000002, 0.81365966796875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4151c41f-1040-4d42-bcc8-23ca46068d9e" absoluteBounds="12.015, 29.335, 1.9700000000000002, 0.81365966796875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(10.781252 : 29.2685978190104); (10.781252 : 29.4375); (11.4166666666667 : 29.4375 : JumpStart); (11.7083333333333 : 29.4375 : JumpEnd); (11.7916666666667 : 29.4375 : JumpStart); (12.0520833333333 : 29.4375 : JumpEnd); (14.7163079888551 : 29.4375 : JumpStart); (14.8829746555217 : 29.4375 : JumpEnd); (14.90625 : 29.4375); (14.90625 : 30.5618298339844); (15 : 30.5618298339844)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.1250025 : 27.8330916341146); (9.1250025 : 28.96875); (11.2916666666667 : 28.96875 : JumpStart); (11.7083333333333 : 28.96875 : JumpEnd); (12 : 28.96875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Pack/Pack_PackOrder" />
       <nodes>
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
         <classShapeMoniker Id="af9168ba-c800-4346-b55b-9f17f4ba2065" />
       </nodes>
     </associationConnector>
-    <classShape Id="5575ed1d-1af8-4584-aae1-4958c1bc92ac" absoluteBounds="12.75, 26.25, 2, 3.07910400390625">
-      <DataClassMoniker Name="/RedBloodDataContext/Order" />
-      <nestedChildShapes>
-        <elementListCompartment Id="51046199-b2dc-4d77-9bdf-07a16d93ef5a" absoluteBounds="12.765, 26.71, 1.9700000000000002, 2.51910400390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(14.75 : 29.3291040039062); (15 : 29.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/RedBloodDataContext/Order/Order_PackOrder" />
-      <nodes>
-        <classShapeMoniker Id="5575ed1d-1af8-4584-aae1-4958c1bc92ac" />
-        <classShapeMoniker Id="af9168ba-c800-4346-b55b-9f17f4ba2065" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.296878 : 34.625); (5.296878 : 32.6841658528646); (8.37760616666667 : 32.6841658528646 : JumpStart); (8.54427283333333 : 32.6841658528646 : JumpEnd); (11.375 : 32.6841658528646); (11.375 : 27.7895520019531); (11.4166666666667 : 27.7895520019531 : JumpStart); (12.0520833333333 : 27.7895520019531 : JumpEnd); (12.2604166666667 : 27.7895520019531 : JumpStart); (12.4270833333333 : 27.7895520019531 : JumpEnd); (12.75 : 27.7895520019531)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/RedBloodDataContext/Org/Org_Order" />
-      <nodes>
-        <classShapeMoniker Id="656a108b-90d2-454f-9777-95b5ce446495" />
-        <classShapeMoniker Id="5575ed1d-1af8-4584-aae1-4958c1bc92ac" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 18.5172741699219); (8.82291666666667 : 18.5172741699219 : JumpStart); (9.08333333333333 : 18.5172741699219 : JumpEnd); (14.25 : 18.5172741699219); (14.25 : 26.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/RedBloodDataContext/People/People_Order" />
-      <nodes>
-        <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
-        <classShapeMoniker Id="5575ed1d-1af8-4584-aae1-4958c1bc92ac" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="91264e0e-ff6d-4ac4-a486-da3735be78e9" absoluteBounds="7.875, 5.125, 2, 1.5631534830729166">
+    <classShape Id="91264e0e-ff6d-4ac4-a486-da3735be78e9" absoluteBounds="11.75, 35.25, 2, 1.5631534830729095">
       <DataClassMoniker Name="/RedBloodDataContext/PackExtract" />
       <nestedChildShapes>
-        <elementListCompartment Id="70220177-3db9-4a88-bc5f-edaa96ebfcc4" absoluteBounds="7.89, 5.585, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="70220177-3db9-4a88-bc5f-edaa96ebfcc4" absoluteBounds="11.765, 35.71, 1.9700000000000002, 1.0031534830729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(9.718748 : 26); (9.718748 : 21.5066349283854); (9 : 21.5066349283854); (9 : 10.9580916341146); (8.98958333333333 : 10.9580916341146 : JumpStart); (8.82291666666667 : 10.9580916341146 : JumpEnd); (6.625 : 10.9580916341146); (6.625 : 5.90657674153646); (7.01775417556841 : 5.90657674153646 : JumpStart); (7.18442084223508 : 5.90657674153646 : JumpEnd); (7.875 : 5.90657674153646)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(10.5703155 : 27.8330916341146); (10.5703155 : 28.75); (11.2916666666667 : 28.75 : JumpStart); (11.4583333333333 : 28.75 : JumpEnd); (11.625 : 28.75); (11.625 : 36.0315767415365); (11.75 : 36.0315767415365)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Pack/Pack_PackExtract" />
       <nodes>
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
         <classShapeMoniker Id="91264e0e-ff6d-4ac4-a486-da3735be78e9" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.25 : 27.7343775); (8.90625 : 27.7343775); (8.90625 : 6.68815348307292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(9.60156475 : 27.8330916341146); (9.60156475 : 28.5); (9.99479366666667 : 28.5 : JumpStart); (10.1614603333333 : 28.5 : JumpEnd); (10.4869821666667 : 28.5 : JumpStart); (10.6536488333333 : 28.5 : JumpEnd); (11.375 : 28.5); (11.375 : 35.6095363707682); (11.4166666666667 : 35.6095363707682 : JumpStart); (11.7083333333333 : 35.6095363707682 : JumpEnd); (11.75 : 35.6095363707682)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/RedBloodDataContext/Pack/Pack_PackExtract1" />
       <nodes>
         <classShapeMoniker Id="0b6229b7-6d1a-4e8f-9576-d74f1da44728" />
         <classShapeMoniker Id="91264e0e-ff6d-4ac4-a486-da3735be78e9" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="dc97d8a2-bc58-4d92-a8a5-a3d886431570" absoluteBounds="9.25, 29.125, 2, 3.6475854492187523">
+      <DataClassMoniker Name="/RedBloodDataContext/Order" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7264b8a1-5e43-4f94-b25a-7d3934fb95ac" absoluteBounds="9.265, 29.585, 1.9700000000000002, 3.08758544921875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.25 : 29.6868298339844); (11.2916666666667 : 29.6868298339844 : JumpStart); (11.7083333333333 : 29.6868298339844 : JumpEnd); (12 : 29.6868298339844)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/RedBloodDataContext/Order/Order_PackOrder" />
+      <nodes>
+        <classShapeMoniker Id="dc97d8a2-bc58-4d92-a8a5-a3d886431570" />
+        <classShapeMoniker Id="af9168ba-c800-4346-b55b-9f17f4ba2065" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.125 : 35.625); (4.125 : 30.6898205566406); (4.16666666666667 : 30.6898205566406 : JumpStart); (4.47395833333333 : 30.6898205566406 : JumpEnd); (4.70573016666667 : 30.6898205566406 : JumpStart); (4.87239683333333 : 30.6898205566406 : JumpEnd); (4.96354366666667 : 30.6898205566406 : JumpStart); (5.13021033333333 : 30.6898205566406 : JumpEnd); (5.19010466666667 : 30.6898205566406 : JumpStart); (5.35677133333333 : 30.6898205566406 : JumpEnd); (5.97916666666667 : 30.6898205566406 : JumpStart); (6.14583333333333 : 30.6898205566406 : JumpEnd); (8.54166666666667 : 30.6898205566406 : JumpStart); (8.86458333333333 : 30.6898205566406 : JumpEnd); (8.91666666666667 : 30.6898205566406 : JumpStart); (9.17708333333333 : 30.6898205566406 : JumpEnd); (9.25 : 30.6898205566406)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/RedBloodDataContext/Org/Org_Order" />
+      <nodes>
+        <classShapeMoniker Id="656a108b-90d2-454f-9777-95b5ce446495" />
+        <classShapeMoniker Id="dc97d8a2-bc58-4d92-a8a5-a3d886431570" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 18.7254580469752); (5.59732443490112 : 18.8227824818763 : JumpStart); (5.80892556509888 : 19.034383612074 : JumpEnd); (6.0625 : 19.2879580469752); (6.0625 : 30.9699127783203); (8.41844189352964 : 30.9699127783203 : JumpStart); (8.77083333333333 : 30.9699127783203 : JumpEnd); (8.91666666666667 : 30.9699127783203 : JumpStart); (9.17708333333333 : 30.9699127783203 : JumpEnd); (9.25 : 30.9699127783203)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/RedBloodDataContext/People/People_Order" />
+      <nodes>
+        <classShapeMoniker Id="566e2007-8939-491d-b95a-784297eaed47" />
+        <classShapeMoniker Id="dc97d8a2-bc58-4d92-a8a5-a3d886431570" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
