@@ -528,8 +528,13 @@ public class PackBLL
 
         //is expired
         if (p.CollectedDate != null
-            && !(p.CollectedDate.Value.Date >= LowerLimDate()))
-            return PackErrList.Expired;
+            && !(p.CollectedDate.Value.Date >= LowerLimDate())
+            )
+            if (p.PackExtractsBySource.Count > 0)
+            {
+                return PackErrList.ExpiredAndProduced;
+            }
+            else return PackErrList.Expired;
 
         if (StatusListEnteringTestResult().Contains(p.Status))
         {

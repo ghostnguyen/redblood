@@ -32,10 +32,16 @@ public partial class Pack
         Đã_nhập = 8,
         CommitTestResult = 8,
 
-        Delivered = 9,
         Cấp_phát = 9,
-        Sản_xuất = 10,
+        Delivered = 9,
+        
+        
+        Thành_phẩm = 10,
         Production = 10,
+        
+        Produced = 11,
+        Đã_sản_xuất = 11,
+
 
         Expire = 40,
         Quá_hạn = 40,

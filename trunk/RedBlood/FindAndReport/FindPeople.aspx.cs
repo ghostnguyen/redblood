@@ -65,43 +65,11 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (Master.TextBoxCode.Text.Trim().Length == 0
-        //    || Keyword == Master.TextBoxCode.Text.Trim()) return;
-
-        //Keyword = Master.TextBoxCode.Text.Trim();
-
-        //string pattern = @"\d+";
-        //Regex regx = new Regex(pattern);
-
-        //if (CodabarBLL.IsValidPeopleCode(Keyword))
-        //{
-        //    //People r = PeopleBLL.GetByCode(code);
-
-        //    //if (r != null)
-        //    //{
-        //    //}
-        //}
-        //else if (regx.IsMatch(Keyword) && Keyword.Length >= 9)
-        //{
-        //    //People r = bll.GetByCMND(Code);
-        //    //if (r != null)
-        //    //{
-        //    //    PeopleID = r.ID;
-        //    //}
-        //    //else
-        //    //{
-        //    //    New(Code);
-        //    //}
-        //}
-        //else if (Keyword.Length > 1)
-        //{
-        //    GridView1.DataBind();
-        //}
-
-        ////Master.TextBoxCode.Text = "";
-
-        Keyword = Request.Params["key"];
-        GridView1.DataBind();
+        if (!IsPostBack)
+        {
+            Keyword = Request.Params["key"];
+            GridView1.DataBind();
+        }
     }
 
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)

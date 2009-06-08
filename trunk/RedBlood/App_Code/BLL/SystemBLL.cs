@@ -8,6 +8,12 @@ using System.Web;
 /// </summary>
 public class SystemBLL
 {
+    public static string Url4CampaignDetail = "~/FindAndReport/CampaignDetail.aspx?";
+    public static string Url4PackDetail = "~/FindAndReport/PackDetail.aspx?";
+    public static string Url4PeopleDetail = "~/FindAndReport/PeopleDetail.aspx?";
+    public static string Url4OrderDetail = "~/Order/Order.aspx?";
+    public static string Url4FindPeople = "~/FindAndReport/FindPeople.aspx?";
+
     public SystemBLL()
     {
         //

@@ -40,7 +40,7 @@ public partial class MasterPageFind : System.Web.UI.MasterPage
             People r = PeopleBLL.GetByCode(key);
             if (r != null)
             {
-                Response.Redirect("~/FindAndReport/PeopleDetail.aspx?key=" + r.ID.ToString());
+                Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
             }
         }
         else if (CodabarBLL.IsValidPackCode(key))
@@ -48,15 +48,23 @@ public partial class MasterPageFind : System.Web.UI.MasterPage
             Pack r = PackBLL.Get(CodabarBLL.ParsePackAutoNum(key));
             if (r != null)
             {
-                Response.Redirect("~/FindAndReport/PackDetail.aspx?key=" + r.Autonum.ToString());
-            }            
+                Response.Redirect(SystemBLL.Url4PackDetail + "key=" + r.Autonum.ToString());
+            }
         }
         else if (CodabarBLL.IsValidCampaignCode(key))
         {
             Campaign r = CampaignBLL.GetByID(CodabarBLL.ParseCampaignID(key));
             if (r != null)
             {
-                Response.Redirect("~/FindAndReport/CampaignDetail.aspx?key=" + r.ID.ToString());
+                Response.Redirect(SystemBLL.Url4CampaignDetail + "key=" + r.ID.ToString());
+            }
+        }
+        else if (CodabarBLL.IsValidOrderCode(key))
+        {
+            Order r = OrderBLL.Get(CodabarBLL.ParseOrderID(key));
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4OrderDetail + "key=" + r.ID.ToString());
             }
         }
         else if (regx.IsMatch(key) && key.Length >= Resources.Codabar.CMNDLength.ToInt())
@@ -64,12 +72,12 @@ public partial class MasterPageFind : System.Web.UI.MasterPage
             People r = PeopleBLL.GetByCMND(key);
             if (r != null)
             {
-                Response.Redirect("~/FindAndReport/PeopleDetail.aspx?key=" + r.ID.ToString());
+                Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
             }
         }
         else if (key.Length > 1)
         {
-            Response.Redirect("~/FindAndReport/FindPeople.aspx?key=" + key);
+            Response.Redirect(SystemBLL.Url4FindPeople + "key=" + key);
         }
 
         //Master.TextBoxCode.Text = "";

@@ -10,11 +10,14 @@ public partial class FindAndReport_CampaignDetail : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int campaignID = Request.Params["key"].ToInt();
-
-        if (campaignID != 0)
+        if (!IsPostBack)
         {
-            CampaignEnter(campaignID);
+            int campaignID = Request.Params["key"].ToInt();
+
+            if (campaignID != 0)
+            {
+                CampaignEnter(campaignID);
+            }
         }
     }
 
