@@ -119,6 +119,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
         ScriptManager.RegisterStartupScript(btnUpdate, btnUpdate.GetType(), "SaveDone", "alert ('Lưu thành công.');", true);
     }
+
+
     private bool LoadFromGUI(Order p)
     {
         bool isDone = true;
@@ -161,6 +163,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             p.Dept = txtDept.Text.Trim();
             p.Room = txtRoom.Text.Trim();
             p.Bed = txtBed.Text.Trim();
+            p.Diagnosis = txtDiagnosis.Text.Trim();
+            p.PatientCode = txtPatientCode.Text.Trim();
+            p.TransfusionNote = txtTransfusionNote.Text.Trim();
         }
 
         return isDone;
@@ -199,7 +204,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     public void Clear()
     {
         ViewState["OrderID"] = 0;
-        
+
         //imgCodabar.Attributes.Add("src", "none");
         imgCodabar.ImageUrl = "none";
 
@@ -210,6 +215,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         txtDept.Text = "";
         txtRoom.Text = "";
         txtBed.Text = "";
+        txtDiagnosis.Text = "";
+        txtPatientCode.Text = "";
+        txtTransfusionNote.Text = "";
         People1.PeopleID = Guid.Empty;
 
         divErrName.Attributes["class"] = "hidden";
@@ -250,6 +258,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
                 txtDept.Text = e.Dept;
                 txtRoom.Text = e.Room;
                 txtBed.Text = e.Bed;
+                txtDiagnosis.Text = e.Diagnosis;
+                txtPatientCode.Text = e.PatientCode;
+                txtTransfusionNote.Text = e.TransfusionNote;
             }
 
             GridViewPack.DataBind();
@@ -292,13 +303,13 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         if (e.CommandName == "Delete")
         {
-            OrderBLL.Remove(e.CommandArgument.ToString().ToInt(), Page.User.Identity.Name);
+            //OrderBLL.Remove(e.CommandArgument.ToString().ToInt(), Page.User.Identity.Name, txtRemoveNote.Text.Trim());
         }
     }
     protected void GridViewPack_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         //OrderBLL.Remove((int)e.Keys[0], Page.User.Identity.Name);
-        //e.Cancel = true;
+        e.Cancel = true;
     }
 
     public string GetItemUrl(int? autonum)
@@ -306,4 +317,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         return CodabarBLL.Url4Pack(autonum.Value);
     }
 
+
+    protected void btnSelect_Click(object sender, EventArgs e)
+    {
+
+    }
 }

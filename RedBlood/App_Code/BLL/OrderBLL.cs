@@ -91,14 +91,14 @@ public class OrderBLL
                     return PackErrList.Positive;
             }
 
-             PackOrder po = new PackOrder();
-                po.OrderID = r.ID;
-                po.PackID = p.ID;
+            PackOrder po = new PackOrder();
+            po.OrderID = r.ID;
+            po.PackID = p.ID;
 
-                db.PackOrders.InsertOnSubmit(po);
+            db.PackOrders.InsertOnSubmit(po);
 
-                PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Delivered, actor, "Add Order");
-                db.PackStatusHistories.InsertOnSubmit(h);
+            PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Delivered, actor, "Add to Order: " + po.OrderID.Value.ToString());
+            db.PackStatusHistories.InsertOnSubmit(h);
         }
 
         db.SubmitChanges();
@@ -106,7 +106,7 @@ public class OrderBLL
         return err;
     }
 
-    public static void Remove(int packOrderID, string actor)
+    public static void Remove(int packOrderID, string actor, string note)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -114,24 +114,26 @@ public class OrderBLL
 
         if (po == null
             || po.Pack == null
-            || po.Order == null
-            || po.Order.Status == Order.StatusX.Done) return;
+            || po.Order == null) return;
 
         PackStatusHistory h;
 
         if (po.Pack.ComponentID == (int)TestDef.Component.Full)
         {
-            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.CommitTestResult, actor, "Remove Order");
+            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.CommitTestResult, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
         }
         else
         {
-            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Production, actor, "Remove Order");
+            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Production, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
         }
 
         db.PackStatusHistories.InsertOnSubmit(h);
 
         db.PackOrders.DeleteOnSubmit(po);
 
+        db.SubmitChanges();
+
+        PackErr err =  PackBLL.ValidateAndChangeStatus(db, po.Pack, actor);
         db.SubmitChanges();
     }
 

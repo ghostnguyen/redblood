@@ -3,6 +3,18 @@
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <%@ Register Src="~/UserControl/PeopleOrder.ascx" TagPrefix="uc" TagName="PeopleOrder" %>
 <asp:Panel runat="server" ID="Panel1">
+
+    <script type="text/javascript">
+        // Your code goes here
+        function txtRemoveNoteKeyUp(text) {
+            //$("input[id*='txtRemoveNote']").value = text;
+            //alert("as:" + text);
+            $("input[name*='txtRemoveNoteGlobal']").val(text);
+        }
+        
+    </script>
+
+    <asp:TextBox ID="txtRemoveNoteGlobal" runat="server" Text="sad"></asp:TextBox>
     <table>
         <tr valign="top">
             <td>
@@ -16,16 +28,16 @@
                         <td colspan="2">
                             <div>
                                 <span style="float: left;">Tên&nbsp;</span>
-                                <asp:TextBox ID="txtName" runat="server" Width="350" Style="float: left;" />
-                                <div id="divErrName" runat="server" class="hidden" />
+                                <asp:TextBox ID="txtName" runat="server" Width="290" Style="float: left;" />
+                                <div id="divErrName" runat="server" class="hidden" style="float: left;" />
+                                <span style="float: left;">Ngày giờ&nbsp;</span>
+                                <asp:TextBox ID="txtDate" runat="server" ReadOnly="true" Width="100" Style="float: left;" />
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div>
-                                Ngày giờ
-                                <asp:TextBox ID="txtDate" runat="server" ReadOnly="true" Width="100" />
                                 <div id="divErrDate" runat="server" class="hidden" />
                             </div>
                         </td>
@@ -71,9 +83,56 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    Khoa:&nbsp;<asp:TextBox ID="txtDept" Width="199" runat="server"></asp:TextBox>
-                    Phòng:&nbsp;<asp:TextBox ID="txtRoom" Width="30" runat="server"></asp:TextBox>
-                    Giường:&nbsp;<asp:TextBox ID="txtBed" Width="30" runat="server"></asp:TextBox>
+                    <table>
+                        <tr>
+                            <td>
+                                Khoa
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtDept" Width="299" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Phòng
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtRoom" Width="30" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Giường
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtBed" Width="30" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Chuẩn đoán bệnh
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtDiagnosis" Width="299" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Mã nhập viện
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtPatientCode" Width="299" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Ghi chú truyền máu
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtTransfusionNote" Width="299" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </div>
@@ -83,18 +142,7 @@
             </td>
             <td>
                 <uc:PeopleOrder runat="server" ID="PeopleOrder1" />
-                <ajk:ModalPopupExtender ID="MPE1" runat="server" TargetControlID="LinkButtonAppPeople"
-                    PopupControlID="PanelPeople" CancelControlID="btnClose" OkControlID="btnSelect"
-                    BackgroundCssClass="modalBackground">
-                </ajk:ModalPopupExtender>
-                <asp:LinkButton ID="LinkButtonAppPeople" Text="Thêm người mới" runat="server"></asp:LinkButton>
-                <asp:Panel runat="server" ID="PanelPeople" Style="display: none;" CssClass="modalPopup">
-                    <uc:People runat="server" ID="People1" />
-                    <div class="dotLineBottom" style="width: 100%;">
-                    </div>
-                    <asp:Button runat="server" ID="btnSelect" Text='<%$ Resources:Resource,Select %>' />
-                    <asp:Button runat="server" ID="btnClose" Text='<%$ Resources:Resource,Close %>' />
-                </asp:Panel>
+            
             </td>
         </tr>--%>
         <tr>
@@ -120,11 +168,23 @@
                         <asp:BoundField DataField="OrderID" HeaderText="OrderID" SortExpression="OrderID" />
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <asp:LinkButton runat="server" CommandName="Delete" CommandArgument='<%# Eval("ID") %>'
-                                    Text='<%$ Resources:Resource,Delete %>' OnClientClick='return confirm("Hủy cấp phát túi máu này?");'></asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="LinkButtonDelete" CommandName="Delete" CommandArgument='<%# Eval("ID") %>'
+                                    Text='<%$ Resources:Resource,Delete %>'>
+                                </asp:LinkButton>
+                                <ajk:ModalPopupExtender ID="MPE1" runat="server" TargetControlID="LinkButtonDelete"
+                                    PopupControlID="PanelPeople" CancelControlID="btnClose" BackgroundCssClass="modalBackground">
+                                </ajk:ModalPopupExtender>
+                                <asp:Panel runat="server" ID="PanelPeople" Style="display: none;" CssClass="modalPopup">
+                                    Lý do hủy:
+                                    <asp:TextBox runat="server" ID="txtRemoveNote" onkeyup="txtRemoveNoteKeyUp(this.value);"> </asp:TextBox>
+                                    <div class="dotLineBottom" style="width: 100%;">
+                                    </div>
+                                    <asp:Button runat="server" ID="btnSelect" Text='<%$ Resources:Resource,Delete %>'
+                                        OnClick="btnSelect_Click" CommandName="Delete" CommandArgument='<%# Eval("ID") %>' />
+                                    <asp:Button runat="server" ID="btnClose" Text='<%$ Resources:Resource,Close %>' />
+                                </asp:Panel>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"

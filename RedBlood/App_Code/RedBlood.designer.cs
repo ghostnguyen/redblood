@@ -152,12 +152,12 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackOrder(PackOrder instance);
   partial void UpdatePackOrder(PackOrder instance);
   partial void DeletePackOrder(PackOrder instance);
-  partial void InsertOrder(Order instance);
-  partial void UpdateOrder(Order instance);
-  partial void DeleteOrder(Order instance);
   partial void InsertPackExtract(PackExtract instance);
   partial void UpdatePackExtract(PackExtract instance);
   partial void DeletePackExtract(PackExtract instance);
+  partial void InsertOrder(Order instance);
+  partial void UpdateOrder(Order instance);
+  partial void DeleteOrder(Order instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -518,19 +518,19 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<Order> Orders
-	{
-		get
-		{
-			return this.GetTable<Order>();
-		}
-	}
-	
 	public System.Data.Linq.Table<PackExtract> PackExtracts
 	{
 		get
 		{
 			return this.GetTable<PackExtract>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Order> Orders
+	{
+		get
+		{
+			return this.GetTable<Order>();
 		}
 	}
 }
@@ -12000,6 +12000,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _Actor;
 	
+	private string _Feedback;
+	
 	private EntitySet<TestResult> _TestResults;
 	
 	private EntitySet<BloodType> _BloodTypes;
@@ -12054,6 +12056,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnComponentIDChanged();
     partial void OnActorChanging(string value);
     partial void OnActorChanged();
+    partial void OnFeedbackChanging(string value);
+    partial void OnFeedbackChanged();
     #endregion
 	
 	public Pack()
@@ -12349,6 +12353,26 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 				this._Actor = value;
 				this.SendPropertyChanged("Actor");
 				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Feedback", DbType="NVarChar(MAX)")]
+	public string Feedback
+	{
+		get
+		{
+			return this._Feedback;
+		}
+		set
+		{
+			if ((this._Feedback != value))
+			{
+				this.OnFeedbackChanging(value);
+				this.SendPropertyChanging();
+				this._Feedback = value;
+				this.SendPropertyChanged("Feedback");
+				this.OnFeedbackChanged();
 			}
 		}
 	}
@@ -15718,6 +15742,222 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 }
 
+[Table(Name="dbo.PackExtract")]
+public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private System.Nullable<System.Guid> _SourcePackID;
+	
+	private System.Nullable<System.Guid> _ExtractPackID;
+	
+	private string _Note;
+	
+	private EntityRef<Pack> _SourcePack;
+	
+	private EntityRef<Pack> _ExtractPack;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnSourcePackIDChanging(System.Nullable<System.Guid> value);
+    partial void OnSourcePackIDChanged();
+    partial void OnExtractPackIDChanging(System.Nullable<System.Guid> value);
+    partial void OnExtractPackIDChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    #endregion
+	
+	public PackExtract()
+	{
+		this._SourcePack = default(EntityRef<Pack>);
+		this._ExtractPack = default(EntityRef<Pack>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_SourcePackID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> SourcePackID
+	{
+		get
+		{
+			return this._SourcePackID;
+		}
+		set
+		{
+			if ((this._SourcePackID != value))
+			{
+				if (this._SourcePack.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSourcePackIDChanging(value);
+				this.SendPropertyChanging();
+				this._SourcePackID = value;
+				this.SendPropertyChanged("SourcePackID");
+				this.OnSourcePackIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ExtractPackID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> ExtractPackID
+	{
+		get
+		{
+			return this._ExtractPackID;
+		}
+		set
+		{
+			if ((this._ExtractPackID != value))
+			{
+				if (this._ExtractPack.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnExtractPackIDChanging(value);
+				this.SendPropertyChanging();
+				this._ExtractPackID = value;
+				this.SendPropertyChanged("ExtractPackID");
+				this.OnExtractPackIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackExtract", Storage="_SourcePack", ThisKey="SourcePackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack SourcePack
+	{
+		get
+		{
+			return this._SourcePack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._SourcePack.Entity;
+			if (((previousValue != value) 
+						|| (this._SourcePack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._SourcePack.Entity = null;
+					previousValue.PackExtractsBySource.Remove(this);
+				}
+				this._SourcePack.Entity = value;
+				if ((value != null))
+				{
+					value.PackExtractsBySource.Add(this);
+					this._SourcePackID = value.ID;
+				}
+				else
+				{
+					this._SourcePackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("SourcePack");
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackExtract1", Storage="_ExtractPack", ThisKey="ExtractPackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack ExtractPack
+	{
+		get
+		{
+			return this._ExtractPack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._ExtractPack.Entity;
+			if (((previousValue != value) 
+						|| (this._ExtractPack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._ExtractPack.Entity = null;
+					previousValue.PackExtractsByExtract.Remove(this);
+				}
+				this._ExtractPack.Entity = value;
+				if ((value != null))
+				{
+					value.PackExtractsByExtract.Add(this);
+					this._ExtractPackID = value.ID;
+				}
+				else
+				{
+					this._ExtractPackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("ExtractPack");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
 [Table(Name="dbo.[Order]")]
 public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -15747,6 +15987,12 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	private string _Room;
 	
 	private string _Bed;
+	
+	private string _PatientCode;
+	
+	private string _TransfusionNote;
+	
+	private string _Diagnosis;
 	
 	private EntitySet<PackOrder> _PackOrders;
 	
@@ -15782,6 +16028,12 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnRoomChanged();
     partial void OnBedChanging(string value);
     partial void OnBedChanged();
+    partial void OnPatientCodeChanging(string value);
+    partial void OnPatientCodeChanged();
+    partial void OnTransfusionNoteChanging(string value);
+    partial void OnTransfusionNoteChanged();
+    partial void OnDiagnosisChanging(string value);
+    partial void OnDiagnosisChanged();
     #endregion
 	
 	public Order()
@@ -16040,6 +16292,66 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Column(Storage="_PatientCode", DbType="NVarChar(MAX)")]
+	public string PatientCode
+	{
+		get
+		{
+			return this._PatientCode;
+		}
+		set
+		{
+			if ((this._PatientCode != value))
+			{
+				this.OnPatientCodeChanging(value);
+				this.SendPropertyChanging();
+				this._PatientCode = value;
+				this.SendPropertyChanged("PatientCode");
+				this.OnPatientCodeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_TransfusionNote", DbType="NVarChar(MAX)")]
+	public string TransfusionNote
+	{
+		get
+		{
+			return this._TransfusionNote;
+		}
+		set
+		{
+			if ((this._TransfusionNote != value))
+			{
+				this.OnTransfusionNoteChanging(value);
+				this.SendPropertyChanging();
+				this._TransfusionNote = value;
+				this.SendPropertyChanged("TransfusionNote");
+				this.OnTransfusionNoteChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Diagnosis", DbType="NVarChar(MAX)")]
+	public string Diagnosis
+	{
+		get
+		{
+			return this._Diagnosis;
+		}
+		set
+		{
+			if ((this._Diagnosis != value))
+			{
+				this.OnDiagnosisChanging(value);
+				this.SendPropertyChanging();
+				this._Diagnosis = value;
+				this.SendPropertyChanged("Diagnosis");
+				this.OnDiagnosisChanged();
+			}
+		}
+	}
+	
 	[Association(Name="Order_PackOrder", Storage="_PackOrders", ThisKey="ID", OtherKey="OrderID")]
 	public EntitySet<PackOrder> PackOrders
 	{
@@ -16151,222 +16463,6 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Order = null;
-	}
-}
-
-[Table(Name="dbo.PackExtract")]
-public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _ID;
-	
-	private System.Nullable<System.Guid> _SourcePackID;
-	
-	private System.Nullable<System.Guid> _ExtractPackID;
-	
-	private string _Note;
-	
-	private EntityRef<Pack> _SourcePack;
-	
-	private EntityRef<Pack> _ExtractPack;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnSourcePackIDChanging(System.Nullable<System.Guid> value);
-    partial void OnSourcePackIDChanged();
-    partial void OnExtractPackIDChanging(System.Nullable<System.Guid> value);
-    partial void OnExtractPackIDChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    #endregion
-	
-	public PackExtract()
-	{
-		this._SourcePack = default(EntityRef<Pack>);
-		this._ExtractPack = default(EntityRef<Pack>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_SourcePackID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> SourcePackID
-	{
-		get
-		{
-			return this._SourcePackID;
-		}
-		set
-		{
-			if ((this._SourcePackID != value))
-			{
-				if (this._SourcePack.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnSourcePackIDChanging(value);
-				this.SendPropertyChanging();
-				this._SourcePackID = value;
-				this.SendPropertyChanged("SourcePackID");
-				this.OnSourcePackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ExtractPackID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> ExtractPackID
-	{
-		get
-		{
-			return this._ExtractPackID;
-		}
-		set
-		{
-			if ((this._ExtractPackID != value))
-			{
-				if (this._ExtractPack.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnExtractPackIDChanging(value);
-				this.SendPropertyChanging();
-				this._ExtractPackID = value;
-				this.SendPropertyChanged("ExtractPackID");
-				this.OnExtractPackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this.OnNoteChanging(value);
-				this.SendPropertyChanging();
-				this._Note = value;
-				this.SendPropertyChanged("Note");
-				this.OnNoteChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Pack_PackExtract", Storage="_SourcePack", ThisKey="SourcePackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack SourcePack
-	{
-		get
-		{
-			return this._SourcePack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._SourcePack.Entity;
-			if (((previousValue != value) 
-						|| (this._SourcePack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._SourcePack.Entity = null;
-					previousValue.PackExtractsBySource.Remove(this);
-				}
-				this._SourcePack.Entity = value;
-				if ((value != null))
-				{
-					value.PackExtractsBySource.Add(this);
-					this._SourcePackID = value.ID;
-				}
-				else
-				{
-					this._SourcePackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("SourcePack");
-			}
-		}
-	}
-	
-	[Association(Name="Pack_PackExtract1", Storage="_ExtractPack", ThisKey="ExtractPackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack ExtractPack
-	{
-		get
-		{
-			return this._ExtractPack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._ExtractPack.Entity;
-			if (((previousValue != value) 
-						|| (this._ExtractPack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._ExtractPack.Entity = null;
-					previousValue.PackExtractsByExtract.Remove(this);
-				}
-				this._ExtractPack.Entity = value;
-				if ((value != null))
-				{
-					value.PackExtractsByExtract.Add(this);
-					this._ExtractPackID = value.ID;
-				}
-				else
-				{
-					this._ExtractPackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("ExtractPack");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
 	}
 }
 #pragma warning restore 1591
