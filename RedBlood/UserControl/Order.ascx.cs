@@ -303,20 +303,20 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         if (e.CommandName == "Delete")
         {
-            //OrderBLL.Remove(e.CommandArgument.ToString().ToInt(), Page.User.Identity.Name, txtRemoveNote.Text.Trim());
+            //Change status of pack before delete PackOrder
+            OrderBLL.Remove(e.CommandArgument.ToString().ToInt(), Page.User.Identity.Name, txtRemoveNoteGlobal.Text.Trim());
         }
     }
     protected void GridViewPack_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        //OrderBLL.Remove((int)e.Keys[0], Page.User.Identity.Name);
-        e.Cancel = true;
+        //Delete row in table PackOrder
+        //e.Cancel = true;
     }
 
     public string GetItemUrl(int? autonum)
     {
         return CodabarBLL.Url4Pack(autonum.Value);
     }
-
 
     protected void btnSelect_Click(object sender, EventArgs e)
     {

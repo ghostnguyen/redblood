@@ -13,53 +13,56 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string strCamID = Request["CampaignID"];
-        string rptType = Request["RptType"];
-
-        if (!string.IsNullOrEmpty(strCamID)
-            && !string.IsNullOrEmpty(rptType))
+        if (!IsPostBack)
         {
-            RptType = (ReportType)rptType.ToInt();
-            Camp = CampaignBLL.GetByID(strCamID.ToInt());
+            string strCamID = Request["CampaignID"];
+            string rptType = Request["RptType"];
 
-            try
+            if (!string.IsNullOrEmpty(strCamID)
+                && !string.IsNullOrEmpty(rptType))
             {
-                CoopOrgGeo1ID = Camp.CoopOrg.Geo1.ID;
+                RptType = (ReportType)rptType.ToInt();
+                Camp = CampaignBLL.GetByID(strCamID.ToInt());
+
+                try
+                {
+                    CoopOrgGeo1ID = Camp.CoopOrg.Geo1.ID;
+                }
+                catch (Exception)
+                {
+                }
+
+                CampaignDetail1.CampaignID = Camp.ID;
+
+                switch (RptType)
+                {
+                    case ReportType.FourPosInCam:
+                        LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
+                        //LabelTitle2.Text = "Dương tính (Không bao gồm HIV)";
+                        foreach (DataControlField item in GridView1.Columns)
+                        {
+                            //if (item.HeaderText == "HIV")
+                            //{ item.Visible = false; }
+                        }
+
+                        break;
+                    case ReportType.NegInCam:
+                        LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
+                        //LabelTitle2.Text = "Âm tính";
+
+                        break;
+                    case ReportType.HIVInCam:
+                        LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
+                        //LabelTitle2.Text = "Dương tính (Bao gồm HIV)";
+
+                        break;
+                    default:
+                        break;
+                }
+                GridView1.DataBind();
+
+                divNote.Visible = (RptType == ReportType.HIVInCam) && IsSpecialProvince();
             }
-            catch (Exception)
-            {
-            }
-
-            CampaignDetail1.CampaignID = Camp.ID;
-
-            switch (RptType)
-            {
-                case ReportType.FourPosInCam:
-                    LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
-                    //LabelTitle2.Text = "Dương tính (Không bao gồm HIV)";
-                    foreach (DataControlField item in GridView1.Columns)
-                    {
-                        //if (item.HeaderText == "HIV")
-                        //{ item.Visible = false; }
-                    }
-
-                    break;
-                case ReportType.NegInCam:
-                    LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
-                    //LabelTitle2.Text = "Âm tính";
-
-                    break;
-                case ReportType.HIVInCam:
-                    LabelTitle1.Text = "Danh sách kết quả xét nghiệm";
-                    //LabelTitle2.Text = "Dương tính (Bao gồm HIV)";
-
-                    break;
-                default:
-                    break;
-            }
-            GridView1.DataBind();
-
-            divNote.Visible = (RptType == ReportType.HIVInCam) && IsSpecialProvince();
         }
     }
 
@@ -124,7 +127,7 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
                             if (p.TestResult2.HIVID == (int)TestDef.HIV.Pos)
                             {
                                 cell.Attributes.Add("style", style);
-                                if (IsSpecialProvince()) (ctr as Label).Text = "XN lần 2"; 
+                                if (IsSpecialProvince()) (ctr as Label).Text = "XN lần 2";
                             }
                         }
                     }

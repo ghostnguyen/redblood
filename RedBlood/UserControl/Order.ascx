@@ -7,14 +7,27 @@
     <script type="text/javascript">
         // Your code goes here
         function txtRemoveNoteKeyUp(text) {
-            //$("input[id*='txtRemoveNote']").value = text;
-            //alert("as:" + text);
             $("input[name*='txtRemoveNoteGlobal']").val(text);
         }
+
+        //
+//        function PanelOnKeyPress(args) {
+//            if (args.keyCode == Sys.UI.Key.esc) {
+//                alert($("id[name*='ModalPopupExtender1']").value);
+//                //$("input[name*='ModalPopupExtender1']").hide();
+//                //$("input[id*='ModalPopupExtender1']").css("color", "red");
+//            }
+//        }
+
+//        function pageLoad(sender, args) {
+//            $addHandler(document, "keydown", PanelOnKeyPress);
+//        }
+
+
         
     </script>
 
-    <asp:TextBox ID="txtRemoveNoteGlobal" runat="server" Text="sad"></asp:TextBox>
+    <asp:TextBox ID="txtRemoveNoteGlobal" runat="server" Style="visibility: collapse;"></asp:TextBox>
     <table>
         <tr valign="top">
             <td>
@@ -171,7 +184,7 @@
                                 <asp:LinkButton runat="server" ID="LinkButtonDelete" CommandName="Delete" CommandArgument='<%# Eval("ID") %>'
                                     Text='<%$ Resources:Resource,Delete %>'>
                                 </asp:LinkButton>
-                                <ajk:ModalPopupExtender ID="MPE1" runat="server" TargetControlID="LinkButtonDelete"
+                                <ajk:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="LinkButtonDelete"
                                     PopupControlID="PanelPeople" CancelControlID="btnClose" BackgroundCssClass="modalBackground">
                                 </ajk:ModalPopupExtender>
                                 <asp:Panel runat="server" ID="PanelPeople" Style="display: none;" CssClass="modalPopup">

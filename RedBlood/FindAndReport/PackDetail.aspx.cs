@@ -22,9 +22,12 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Autonum = Request.Params["key"].ToInt();
+        if (!IsPostBack)
+        {
+            Autonum = Request.Params["key"].ToInt();
 
-        DetailView1.DataBind();
+            DetailView1.DataBind();
+        }
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
