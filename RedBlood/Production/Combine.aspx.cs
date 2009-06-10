@@ -104,7 +104,6 @@ public partial class Production_Combine : System.Web.UI.Page
 
     protected void LinqDataSourcePackIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        //List<Pack> l = PackBLL.Get4Production_Combine(PackInAutonumList);
         List<Pack> l = PackBLL.Get(AutonumListIn);
         if (l.Count == 0)
         {
@@ -115,7 +114,6 @@ public partial class Production_Combine : System.Web.UI.Page
     }
     protected void LinqDataSourcePackOut_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        //Pack p = PackBLL.GetInitPack4Combine(PackOutAutonum);
         Pack p = PackBLL.Get(AutonumListOut).FirstOrDefault();
         if (p != null)
         {
@@ -134,7 +132,6 @@ public partial class Production_Combine : System.Web.UI.Page
         AutonumListIn.Remove((int)e.Keys[0]);
         GridViewPackIn.DataBind();
         e.Cancel = true;
-
     }
 
     protected void btnOk_Click(object sender, EventArgs e)
@@ -159,10 +156,15 @@ public partial class Production_Combine : System.Web.UI.Page
 
     private void CheckAutonum(int autonum)
     {
-        Pack p;
+        Pack p = PackBLL.Get4Combined2Platelet(autonum, Page.User.Identity.Name);
 
-        p = PackBLL.IsCombined2Platelet(autonum);
-        if (p != null)
+        if (p == null)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum');", true);
+        }
+
+        if (p.Err == PackErrList.IsPlatelet
+        || p.Err == PackErrList.Combined2Platelet)
         {
             TempAutonum = autonum;
 
@@ -193,8 +195,7 @@ public partial class Production_Combine : System.Web.UI.Page
             return;
         }
 
-        p = PackBLL.Get4Production_Combine(autonum);
-        if (p != null)
+        if (p.Err == PackErrList.Valid4Platelet)
         {
             if (IsEditMode)
             {
@@ -213,8 +214,7 @@ public partial class Production_Combine : System.Web.UI.Page
             return;
         }
 
-        p = PackBLL.GetInitPack4Combine(autonum);
-        if (p != null)
+        if (p.Err == PackErrList.Init4Platelet)
         {
             if (IsEditMode)
             {
@@ -234,16 +234,24 @@ public partial class Production_Combine : System.Web.UI.Page
             return;
         }
 
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('Dữ liệu không hợp lệ.');", true);
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('" + p.Err.Message + "');", true);
     }
 
     protected void btnLoad_Click(object sender, EventArgs e)
     {
-        Pack p = PackBLL.IsCombined2Platelet(TempAutonum);
-        if (p == null) return;
+        Pack p = PackBLL.Get4Combined2Platelet(TempAutonum, Page.User.Identity.Name);
 
-        IsEditMode = false;
-        CheckAutonum(TempAutonum);
+        if (p == null)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum');", true);
+        }
+
+        if (p.Err == PackErrList.IsPlatelet
+            || p.Err == PackErrList.Combined2Platelet)
+        {
+            IsEditMode = false;
+            CheckAutonum(TempAutonum);
+        }
     }
 
     //bool IsInEditMode()

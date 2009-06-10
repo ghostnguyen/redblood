@@ -50,7 +50,36 @@ public class PackBLL
         return DateTime.Now.Date.AddDays(1 - Resources.Setting.EnterPackExpire.ToInt());
     }
 
+    /// <summary>
+    /// Get pack -> Validate -> Change status if need
+    /// </summary>
+    /// <param name="autonum"></param>
+    /// <returns></returns>
+    public static Pack GetCarefully(RedBloodDataContext db, int autonum, string actor)
+    {
+        Pack pErr = new Pack();
 
+        Pack p = Get(autonum, db);
+
+        if (p == null)
+        {
+            pErr.Err = PackErrList.NonExist;
+            return pErr;
+        }
+
+        PackErr err = ValidateAndChangeStatus(db, p, actor);
+        if (err != PackErrList.Non)
+        {
+            db.SubmitChanges();
+            pErr.Err = err;
+            return pErr;
+        }
+        else
+        {
+            p.Err = err;
+            return p;
+        }
+    }
 
     public static Pack Get(int autonum)
     {
@@ -121,41 +150,60 @@ public class PackBLL
         return new List<Pack>();
     }
 
-    public static Pack Get4Production_Combine(int autonum)
-    {
-        List<int> l = new List<int>();
-        l.Add(autonum);
-
-        return Get4Production_Combine(l).FirstOrDefault();
-    }
-
-    public static List<Pack> Get4Production_Combine(List<int> autonumList)
+    public static Pack Get4Extract(int autonum, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<TestDef.Component> productList = new List<TestDef.Component>();
-        productList.Add(TestDef.Component.Platelet);
-
-        return Get4Production(db, autonumList, productList);
+        return Get4Extract(db, autonum, actor);
     }
 
-    public static Pack Get4Production_Extract(int autonum)
+    public static Pack Get4Extract(RedBloodDataContext db, int autonum, string actor)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        Pack p = GetCarefully(db, autonum, actor);
 
-        return Get4Production_Extract(db, autonum).FirstOrDefault();
-    }
+        if (p == null) throw new Exception("Get4Extract() catch Exception");
 
-    public static List<Pack> Get4Production_Extract(RedBloodDataContext db, int autonum)
-    {
-        List<TestDef.Component> productList = new List<TestDef.Component>();
-        productList.Add(TestDef.Component.Plasma);
-        productList.Add(TestDef.Component.RBC);
+        if (p.Err != PackErrList.Non)
+        {
+            return p;
+        }
 
-        List<int> l = new List<int>();
-        l.Add(autonum);
+        if (p.ComponentID == (int)TestDef.Component.RBC
+           || p.ComponentID == (int)TestDef.Component.Plasma
+           )
+        {
+            p.Err = PackErrList.ExtractedProduction;
+            return p;
+        }
 
-        return Get4Production(db, l, productList);
+        if (p.ComponentID == (int)TestDef.Component.Full)
+        {
+            int count = p.PackExtractsBySource
+                .Where(r =>
+                    r.ExtractPack.ComponentID == (int)TestDef.Component.RBC
+                    || r.ExtractPack.ComponentID == (int)TestDef.Component.Plasma
+                    )
+                .Count();
+
+            if (count == 2)
+            {
+                p.Err = PackErrList.Extracted;
+                return p;
+            }
+            else if (count == 0)
+            {
+                p.Err = PackErrList.Valid4Extract;
+                return p;
+            }
+            else
+            {
+                p.Err = PackErrList.DataErr;
+                return p;
+            }
+        }
+
+        p.Err = new PackErr(PackErrList.Invalid4Extract.Message + " " + p.Component.Name);
+        return p;
     }
 
 
@@ -174,18 +222,6 @@ public class PackBLL
         return l.Where(p => p.ComponentID.Value == (int)TestDef.Component.Full
             && p.PackExtractsBySource.Where(r => productList.Contains((TestDef.Component)r.ExtractPack.ComponentID)).Count() == 0).ToList();
     }
-
-    public static Pack GetInitPack4Combine(int autonum)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-        return GetInitPack4Combine(db, autonum);
-    }
-
-    public static Pack GetInitPack4Combine(RedBloodDataContext db, int autonum)
-    {
-        return PackBLL.Get(autonum, db, new Pack.StatusX[] { Pack.StatusX.Init }, false);
-    }
-
 
     public static Pack GetByCode(string code)
     {
@@ -510,6 +546,12 @@ public class PackBLL
     {
         if (p == null) return PackErrList.Non;
 
+        if (p.Status == Pack.StatusX.Expire
+            || p.Status == Pack.StatusX.Delete)
+        {
+            return PackErrList.Non;
+        }
+
         if (p.Status == Pack.StatusX.Init)
         {
             if (p.PeopleID != null
@@ -637,17 +679,12 @@ public class PackBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get4Production_Extract(db, autonum).FirstOrDefault();
+        Pack p = Get4Extract(db, autonum, actor);
 
         if (p == null) return PackErrList.NonExist;
 
-        PackErr err = ValidateAndChangeStatus(db, p, actor);
-
-        if (err != PackErrList.Non)
-        {
-            db.SubmitChanges();
-            return err;
-        }
+        if (p.Err != PackErrList.Valid4Extract)
+            return p.Err;
 
         //Extract
         Pack packRBC = new Pack();
@@ -678,20 +715,30 @@ public class PackBLL
 
         db.SubmitChanges();
 
-        return err;
+        return PackErrList.Non;
     }
 
     public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut, string actor, string note)
     {
+        List<Pack> pInList = new List<Pack>();
+        foreach (int item in autonumListIn)
+        {
+            Pack p = Get4Combined2Platelet(item, actor);
+            if (p.Err == PackErrList.Valid4Platelet)
+                pInList.Add(p);
+            else
+                return p.Err;
+        }
+
         RedBloodDataContext db = new RedBloodDataContext();
+        Pack pOut = Get4Combined2Platelet(db, autonumOut, actor);
+        if (pOut.Err != PackErrList.Init4Platelet)
+            return pOut.Err;
 
-        List<Pack> pList = Get4Production_Combine(autonumListIn);
-        Pack pOut = GetInitPack4Combine(db, autonumOut);
-
-        if (autonumListIn.Count != pList.Count
+        if (autonumListIn.Count != pInList.Count
             || pOut == null)
         {
-            return PackErrList.CombinePackInInvalid;
+            return PackErrList.Invalid4Platelet;
         }
 
         pOut.ComponentID = (int)TestDef.Component.Platelet;
@@ -701,7 +748,7 @@ public class PackBLL
         PackStatusHistory h = ChangeStatus(pOut, Pack.StatusX.Production, actor, "Combine2Platelet");
         db.PackStatusHistories.InsertOnSubmit(h);
 
-        foreach (Pack item in pList)
+        foreach (Pack item in pInList)
         {
             PackExtract pe = new PackExtract();
             pe.SourcePackID = item.ID;
@@ -714,27 +761,63 @@ public class PackBLL
         return PackErrList.Non;
     }
 
-    public static Pack IsCombined2Platelet(int autonum)
+    public static Pack Get4Combined2Platelet(int autonum, string actor)
     {
-        Pack p = Get(autonum);
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get4Combined2Platelet(db, autonum, actor);
+    }
 
-        if (p == null) return null;
+    public static Pack Get4Combined2Platelet(RedBloodDataContext db, int autonum, string actor)
+    {
+        Pack p = GetCarefully(db, autonum, actor);
 
-        if (p.ComponentID == (int)TestDef.Component.Full)
-        {
-            if (p.PackExtractsBySource
-                .Where(r =>
-                    r.ExtractPack.ComponentID == (int)TestDef.Component.Platelet)
-                .Count() > 0)
-                return p;
-        }
+        if (p == null) throw new Exception("GetCarefully() catch Exception");
 
-        if (p.ComponentID == (int)TestDef.Component.Platelet)
+        if (p.Err != PackErrList.Non)
         {
             return p;
         }
 
-        return null;
+        if (p.Status == Pack.StatusX.Init)
+        {
+            p.Err = PackErrList.Init4Platelet;
+            return p;
+        }
+
+        if (p.ComponentID == (int)TestDef.Component.Platelet)
+        {
+            p.Err = PackErrList.IsPlatelet;
+            return p;
+        }
+
+        if (p.ComponentID == (int)TestDef.Component.Full)
+        {
+            int count = p.PackExtractsBySource
+                .Where(r =>
+                    r.ExtractPack.ComponentID == (int)TestDef.Component.Platelet)
+                .Count();
+
+            if (count == 1)
+            {
+                p.Err = PackErrList.Combined2Platelet;
+                return p;
+            }
+
+            if (count == 0)
+            {
+                p.Err = PackErrList.Valid4Platelet;
+                return p;
+            }
+
+            if (count > 1)
+            {
+                p.Err = PackErrList.DataErr;
+                return p;
+            }
+        }
+
+        p.Err = new PackErr(PackErrList.Invalid4Platelet.Message + " " + p.Component.Name);
+        return p;
     }
 
     public static Pack IsExtracted(int autonum)
