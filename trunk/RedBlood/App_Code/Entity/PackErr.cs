@@ -43,7 +43,19 @@ public class PackErrList
     public static PackErr NonExistOrder = new PackErr("Sai đợt cấp phát.");
     public static PackErr OrderClose = new PackErr("Khóa sổ đợt cấp phát này.");
 
+    //Extract 2 RBC, Plasma
+    public static PackErr ExtractedProduction = new PackErr("");
     public static PackErr Extracted = new PackErr("Túi máu đã sản xuất.");
+    public static PackErr Valid4Extract = new PackErr("");
+    public static PackErr Invalid4Extract = new PackErr("Không thể sản xuất.");
 
-    public static PackErr CombinePackInInvalid = new PackErr("Dữ liệu vào sai.");
+
+    //Combine 2 Platelet
+    public static PackErr Combined2Platelet = new PackErr("");
+    public static PackErr Init4Platelet = new PackErr("");
+    public static PackErr IsPlatelet = new PackErr("");
+    public static PackErr Valid4Platelet = new PackErr("");
+    public static PackErr Invalid4Platelet = new PackErr("Không thể sản xuất tiểu cầu.");
+
+
 }

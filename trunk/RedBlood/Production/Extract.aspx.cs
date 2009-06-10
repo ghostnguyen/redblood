@@ -124,22 +124,16 @@ public partial class Production_Extract : System.Web.UI.Page
 
     void CheckAutonum(int autonum)
     {
-        Pack p;
-        p = PackBLL.Get4Production_Extract(autonum);
-        if (p != null)
+        Pack p = PackBLL.Get4Extract(autonum, Page.User.Identity.Name);
+
+        if (p == null)
         {
-            AutonumListIn.Clear();
-            AutonumListOut.Clear();
-            IsEditMode = true;
-
-            AutonumListIn.Add(autonum);
-
-            LoadPack();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum');", true);
             return;
         }
 
-        p = PackBLL.IsExtracted(autonum);
-        if (p != null)
+        if (p.Err == PackErrList.ExtractedProduction
+            || p.Err == PackErrList.Extracted)
         {
             TempAutonum = autonum;
 
@@ -149,7 +143,7 @@ public partial class Production_Extract : System.Web.UI.Page
             }
             else
             {
-                if (p.ComponentID == (int)TestDef.Component.Platelet
+                if (p.ComponentID == (int)TestDef.Component.Plasma
                       || p.ComponentID == (int)TestDef.Component.RBC)
                 {
                     PackExtract pe = p.PackExtractsByExtract.FirstOrDefault();
@@ -171,13 +165,24 @@ public partial class Production_Extract : System.Web.UI.Page
                     .ToList();
 
                     LoadPack();
-
                 }
             }
             return;
         }
 
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('Dữ liệu không hợp lệ.');", true);
+        if (p.Err == PackErrList.Valid4Extract)
+        {
+            AutonumListIn.Clear();
+            AutonumListOut.Clear();
+            IsEditMode = true;
+
+            AutonumListIn.Add(autonum);
+
+            LoadPack();
+            return;
+        }
+
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('" + p.Err.Message + "');", true);
     }
 
     void LoadPack()

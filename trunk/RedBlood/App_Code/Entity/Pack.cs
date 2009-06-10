@@ -134,4 +134,5 @@ public partial class Pack
         }
     }
 
+    public PackErr Err { get; set; }
 }
