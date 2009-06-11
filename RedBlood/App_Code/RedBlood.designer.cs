@@ -15831,7 +15831,7 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		OnCreated();
 	}
 	
-	[Column(Storage="_ID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 	public System.Guid ID
 	{
 		get
