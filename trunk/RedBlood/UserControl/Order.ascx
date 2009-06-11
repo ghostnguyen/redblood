@@ -173,12 +173,11 @@
                                 <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# this.GetItemUrl( Eval("Pack.Autonum") as int?) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Túi máu">
+                        <asp:TemplateField HeaderText="Thành phần">
                             <ItemTemplate>
-                                <asp:Label runat="server" Text='<%# Eval("Pack.Autonum") %>'></asp:Label>
+                                <asp:Label runat="server" Text='<%# Eval("Pack.Component.Name") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="OrderID" HeaderText="OrderID" SortExpression="OrderID" />
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:LinkButton runat="server" ID="LinkButtonDelete" CommandName="Delete" CommandArgument='<%# Eval("ID") %>'

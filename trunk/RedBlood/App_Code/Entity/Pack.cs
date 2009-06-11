@@ -29,15 +29,14 @@ public partial class Pack
 
         EnterTestResult = 7,
         Đang_nhập_KQ = 7,
-        Đã_nhập = 8,
         CommitTestResult = 8,
+        Đã_nhập = 8,
 
         Cấp_phát = 9,
         Delivered = 9,
         
-        
-        Thành_phẩm = 10,
         Production = 10,
+        Thành_phẩm = 10,
         
         Produced = 11,
         Đã_sản_xuất = 11,

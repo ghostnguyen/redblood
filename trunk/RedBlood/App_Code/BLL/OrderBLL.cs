@@ -43,12 +43,12 @@ public class OrderBLL
 
         if (p == null) return PackErrList.NonExist;
 
-        if (!PackBLL.StatusList4Order().Contains(p.Status))
-            return PackErrList.CanNotOrder;
-
         if (p.ComponentID == (int)TestDef.Component.Full
             && p.PackExtractsBySource.Count > 0)
             return PackErrList.Extracted;
+
+        if (!PackBLL.StatusList4Order().Contains(p.Status))
+            return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
 
         int i = p.PackOrders.Count;
 
@@ -87,7 +87,18 @@ public class OrderBLL
             }
             else if (p.Status == Pack.StatusX.Production)
             {
-                if (PackBLL.ValidateTestResult(p).Count() != 0)
+                int count = 0;
+
+                try
+                {
+                    count = PackBLL.ValidateTestResult(p).Count();
+                }
+                catch (Exception ex)
+                {
+                    return new PackErr(ex.Message);
+                }
+
+                if (count != 0)
                     return PackErrList.Positive;
             }
 
@@ -133,7 +144,7 @@ public class OrderBLL
 
         db.SubmitChanges();
 
-        PackErr err =  PackBLL.ValidateAndChangeStatus(db, po.Pack, actor);
+        PackErr err = PackBLL.ValidateAndChangeStatus(db, po.Pack, actor);
         db.SubmitChanges();
     }
 

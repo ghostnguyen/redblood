@@ -168,6 +168,8 @@ public class PackBLL
             return p;
         }
 
+
+
         if (p.ComponentID == (int)TestDef.Component.RBC
            || p.ComponentID == (int)TestDef.Component.Plasma
            )
@@ -192,6 +194,12 @@ public class PackBLL
             }
             else if (count == 0)
             {
+                if (!StatusList4Production().Contains(p.Status))
+                {
+                    p.Err = new PackErr("Túi máu: " + p.Status);
+                    return p;
+                }
+
                 p.Err = PackErrList.Valid4Extract;
                 return p;
             }
@@ -204,23 +212,6 @@ public class PackBLL
 
         p.Err = new PackErr(PackErrList.Invalid4Extract.Message + " " + p.Component.Name);
         return p;
-    }
-
-
-    public static Pack Get4Production(RedBloodDataContext db, int autonum, List<TestDef.Component> productList)
-    {
-        List<int> l = new List<int>();
-        l.Add(autonum);
-
-        return Get4Production(db, l, productList).FirstOrDefault();
-    }
-
-    public static List<Pack> Get4Production(RedBloodDataContext db, List<int> autonumList, List<TestDef.Component> productList)
-    {
-        List<Pack> l = Get(autonumList, db, StatusList4Production(), false);
-
-        return l.Where(p => p.ComponentID.Value == (int)TestDef.Component.Full
-            && p.PackExtractsBySource.Where(r => productList.Contains((TestDef.Component)r.ExtractPack.ComponentID)).Count() == 0).ToList();
     }
 
     public static Pack GetByCode(string code)
@@ -790,6 +781,8 @@ public class PackBLL
             return p;
         }
 
+
+
         if (p.ComponentID == (int)TestDef.Component.Full)
         {
             int count = p.PackExtractsBySource
@@ -805,6 +798,12 @@ public class PackBLL
 
             if (count == 0)
             {
+                if (!StatusList4Production().Contains(p.Status))
+                {
+                    p.Err = new PackErr("Túi máu: " + p.Status);
+                    return p;
+                }
+
                 p.Err = PackErrList.Valid4Platelet;
                 return p;
             }

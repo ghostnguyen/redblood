@@ -667,7 +667,7 @@
   </Table>
   <Table Name="dbo.Pack" Member="Packs">
     <Type Name="Pack">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Codabar" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Status" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />

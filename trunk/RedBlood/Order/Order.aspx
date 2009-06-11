@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageFind.master"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUserMenuWithBarcode.master"
     AutoEventWireup="true" CodeFile="Order.aspx.cs" Inherits="Order_Order" %>
 
-<%@ MasterType VirtualPath="~/MasterPageFind.master" %>
+<%@ MasterType VirtualPath="~/MasterPageUserMenuWithBarcode.master" %>
 <%@ Register Src="~/UserControl/Order.ascx" TagPrefix="uc" TagName="Order" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 

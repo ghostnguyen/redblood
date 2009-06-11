@@ -40,4 +40,32 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
         else
             e.Result = p;
     }
+
+    protected void LinqDataSourcePackRelative_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        Pack p = PackBLL.Get(Autonum);
+        if (p == null)
+        {
+            e.Result = null;
+            e.Cancel = true;
+            return;
+        }
+
+        if (p.ComponentID == (int)TestDef.Component.Full)
+        {
+            if (p.PackExtractsBySource.Count != 0)
+            {
+                e.Result = p.PackExtractsBySource.Select(r => r.ExtractPack);
+            }
+        }
+
+        if (p.ComponentID == (int)TestDef.Component.Platelet
+            || p.ComponentID == (int)TestDef.Component.Plasma
+            || p.ComponentID == (int)TestDef.Component.RBC)
+        {
+            e.Result = p.PackExtractsByExtract.Select(r => r.SourcePack);
+        }
+    }
+
+
 }
