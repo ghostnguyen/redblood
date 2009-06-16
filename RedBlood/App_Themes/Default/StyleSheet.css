@@ -1,138 +1,141 @@
 ﻿.main_window
 {
-    width: 960px;
-    border: solid 1px #999999;
+	width: 980px;
+	border: solid 1px #999999;
+	padding: 0 2px;
+	background: #fff url(http://images.apple.com/iphone/images/content-bg-20090608.gif) repeat;
+
 }
 
 .main_window_rpt
 {
-    width: 960px;
+	width: 960px;
 }
 
 .Banner
 {
-    width: 100%;
-    margin: 5px 0px 5px 0px;
-    
+	width: 100%;
+	margin: 5px 0px 5px 0px;
 }
 
 .Important
 {
-    font-size: large;
-    color: Red;
+	font-size: large;
+	color: Red;
 }
 
 .Title
 {
-    font: bold x-large Arial;
+	font: bold x-large Arial;
 }
 
 .main_menu
 {
-    width: 100%;
-    border-top: solid 1px #999999;
-    border-bottom: solid 1px #999999;
+	width: 100%;
+	border-top: solid 1px #999999;
+	border-bottom: solid 1px #999999;
 }
 
 .searchBarcodePanel
 {
-    text-align: center;
-    background: #fff url(../../Image/searchBarBG.gif) repeat-x bottom left;
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0 10px 0px;
+	text-align: center;
+	background: #fff url(../../Image/searchBarBG.gif) repeat-x bottom left;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 0 10px 0px;
 }
 
 .content
 {
-    padding: 3px;
+	padding: 3px;
+
 }
 
 
 
 .part
 {
-    margin-bottom: 15px;
-    background-color: #f8fafb;
-    border: #4fa4c3 solid 1px;
+	margin-bottom: 15px;
+	background-color: #f8fafb;
+	border: #4fa4c3 solid 1px;
 }
 
 .partHeader
 {
-    background: url(../../Image/PartHeaderBar.gif) repeat-x;
-    height: 28px;
-    font: Arial;
-    font-weight: bold;
-    color: #282828;
-    border-bottom: #bedbe6 solid 1px;
-    line-height: 195.5%;
-    padding: 0px 5px;
+	background: url(../../Image/PartHeaderBar.gif) repeat-x;
+	height: 28px;
+	font: Arial;
+	font-weight: bold;
+	color: #282828;
+	border-bottom: #bedbe6 solid 1px;
+	line-height: 195.5%;
+	padding: 0px 5px;
 }
 
 .partLink
 {
-    margin: 0px 7px;
-    padding: 7px 0px;
-    background: url(../../Image/dottedLine.gif) bottom repeat-x;
+	margin: 0px 7px;
+	padding: 7px 0px;
+	background: url(../../Image/dottedLine.gif) bottom repeat-x;
 }
 
 .partLinkLast
 {
-    margin: 0px 7px;
-    padding: 7px 0px;
+	margin: 0px 7px;
+	padding: 7px 0px;
 }
 
 .partLink a:link, .partLinkLast a:link
 {
-    color: #1e5b7e;
-    text-decoration: none;
-    cursor: pointer;
+	color: #1e5b7e;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .partLink a:hover, .partLinkLast a:hover
 {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .people_cellheader
 {
-    text-align: right;
-    width: 80px;
-    padding-right: 8px;
-    vertical-align: top;
+	text-align: right;
+	width: 80px;
+	padding-right: 8px;
+	vertical-align: top;
 }
 
 .people_cellvalue
 {
-    width: 280px;
+	width: 280px;
 }
 
 .campaign_cellheader
 {
-    text-align: right;
-    width: 100%;
-    padding-right: 8px;
-    vertical-align: top;
+	text-align: right;
+	width: 100%;
+	padding-right: 8px;
+	vertical-align: top;
 }
 .campaign_cellvalue
 {
-    width: 250px;
+	width: 250px;
 }
 
 .org_cellvalue
 {
-    width: 280px;
+	width: 280px;
 }
 
 .img_codabar
 {
-    background: url(../../Image/dottedLine.gif) top repeat-x;
-    height: 55px;
+	background: url(../../Image/dottedLine.gif) top repeat-x;
+	height: 55px;
 }
 
 .dotLineBottom
 {
-    height: 15px;
-    background: url(../../Image/dottedLine.gif) center repeat-x;
+	height: 15px;
+	background: url(../../Image/dottedLine.gif) center repeat-x;
 }
 
 /*Textbox Watermark*/
@@ -142,23 +145,23 @@
 
 .watermarked
 {
-    border: solid 2px;
-    background-color: #F0F8FF;
-    color: gray;
-    width: 280px;
+	border: solid 2px;
+	background-color: #F0F8FF;
+	color: gray;
+	width: 280px;
 }
 
 
 .tabPanel
 {
-    border: solid 5px #FFCC66;
-    padding: 5px 5px 5px 5px;
+	border: solid 5px #FFCC66;
+	padding: 5px 5px 5px 5px;
 }
 
 
 .propertyHeaderCell
 {
-    width: 150px;
+	width: 150px;
 }
 
 .propertyContent
@@ -166,35 +169,35 @@
 }
 .txtPoint
 {
-    width: 50px;
+	width: 50px;
 }
 
 .packProperty
 {
-    text-align: center;
-    font-size: larger;
-    width: 100%;
+	text-align: center;
+	font-size: larger;
+	width: 100%;
 }
 
 .hidden
 {
-    visibility: hidden;
-    height: 0px;
-    width: 0px;
+	visibility: hidden;
+	height: 0px;
+	width: 0px;
 }
 
 .err
 {
-    color: Red;
+	color: Red;
 }
 
 ul.noindent
 {
-    margin: 0px;
-    padding: 0px;
+	margin: 0px;
+	padding: 0px;
 }
 
 ul.noindent li
 {
-    list-style-type:none;            
+	list-style-type: none;
 }
