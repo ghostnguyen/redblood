@@ -1,0 +1,31 @@
+/* content, routing
+------------------------*/
+
+#menu1 .column
+{
+	width: 165px;
+	height: 165px;
+	padding: 0 25px 25px 25px;
+}
+#menu1 .column.next
+{
+	background: url(http://images.apple.com/iphone/home/elements/route-lines-20090608.gif) repeat-y;
+}
+#menu1 .column img
+{
+	border-style: none;
+	width: 128px;
+	height: 128px;
+}
+#menu1 h3 a
+{
+	text-decoration: none;
+	color: #000;
+}
+#menu1 h3 a:hover
+{
+	color: #08c;
+	text-decoration: none;
+}
+
+
