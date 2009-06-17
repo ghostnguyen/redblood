@@ -6,9 +6,7 @@
     <title>RedBlood</title>
     <link href="App_Themes/Default/StyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="App_Themes/Default/ModalPopup.css" rel="stylesheet" type="text/css" />
-    
     <link href="App_Themes/Default/DefaultPage.css" rel="stylesheet" type="text/css" />
-    
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -23,6 +21,18 @@
             <asp:ServiceReference Path="~/AutoComplete.asmx" />
         </Services>
     </asp:ScriptManager>
+
+    <script type="text/javascript">
+        // Your code goes here
+        $(document).bind('keydown', '0', function() {
+            window.location.replace("/RedBlood/Default.aspx");
+
+
+        });
+
+        jQuery(document).bind('keydown', 'esc', function(evt) { window.location.replace("/RedBlood/Default.aspx"); return false; });
+    </script>
+
     <table style="width: 100%;">
         <tr align="center">
             <td>
@@ -44,10 +54,16 @@
                                     </td>
                                 </tr>
                             </table>
-                            <div>
-                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                                </asp:ContentPlaceHolder>
-                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 10px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="main_window">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
                         </td>
                     </tr>
                 </table>
