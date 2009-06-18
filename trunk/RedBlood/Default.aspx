@@ -6,10 +6,40 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <script type="text/javascript">
+
         // Your code goes here
+        $(document).bind('keydown', '7', function() {
+            window.location.replace("/RedBlood/ReceiveBlood.aspx");
+        });
+
+        $(document).bind('keydown', '8', function() {
+            window.location.replace("/RedBlood/PackManually.aspx");
+        });
+
         $(document).bind('keydown', '9', function() {
             window.location.replace("/RedBlood/Default9.aspx");
         });
+
+        $(document).bind('keydown', '4', function() {
+            window.location.replace("/RedBlood/CampaignPage.aspx");
+        });
+
+        $(document).bind('keydown', '5', function() {
+            window.location.replace("/RedBlood/Default9.aspx");
+        });
+
+        $(document).bind('keydown', '6', function() {
+            window.location.replace("/RedBlood/Order/Order.aspx");
+        });
+
+        $(document).bind('keydown', '1', function() {
+            window.location.replace("/RedBlood/FindAndReport/FindPeople.aspx");
+        });
+
+        $(document).bind('keydown', '2', function() {
+            window.location.replace("/RedBlood/Order/Order.aspx");
+        });
+        
     </script>
 
     <table width="100%">
@@ -50,10 +80,10 @@
                     <tr>
                         <td class="column">
                             <h3>
-                                <a href="/RedBlood/PackManually.aspx">4. Đợt thu máu</a></h3>
+                                <a href="/RedBlood/CampaignPage.aspx">4. Đợt thu máu</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/PackManually.aspx" />
+                            <a href="/RedBlood/CampaignPage.aspx" />
                             <img src="Image/Icon/Ambulance.png" alt="" />
                         </td>
                         <td class="column next">
@@ -66,10 +96,10 @@
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="/RedBlood/PackManually.aspx">6. Cấp phát</a></h3>
+                                <a href="/RedBlood/Order/Order.aspx">6. Cấp phát</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/PackManually.aspx" />
+                            <a href="/RedBlood/Order/Order.aspx" />
                             <img src="Image/Icon/Shopcart-Add_128.png" alt="" />
                         </td>
                     </tr>
@@ -80,10 +110,10 @@
                     <tr>
                         <td class="column">
                             <h3>
-                                <a href="/RedBlood/PackManually.aspx">1. Tìm kiếm</a></h3>
+                                <a href="/RedBlood/FindAndReport/FindPeople.aspx">1. Tìm kiếm</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/PackManually.aspx" />
+                            <a href="/RedBlood/FindAndReport/FindPeople.aspx" />
                             <img src="Image/Icon/Hospital2Search.png" alt="" />
                         </td>
                         <td class="column next">
