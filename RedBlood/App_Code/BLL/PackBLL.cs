@@ -171,7 +171,7 @@ public class PackBLL
 
 
         if (p.ComponentID == (int)TestDef.Component.RBC
-           || p.ComponentID == (int)TestDef.Component.Plasma
+           || p.ComponentID == (int)TestDef.Component.FFPlasma
            )
         {
             p.Err = PackErrList.ExtractedProduction;
@@ -183,7 +183,7 @@ public class PackBLL
             int count = p.PackExtractsBySource
                 .Where(r =>
                     r.ExtractPack.ComponentID == (int)TestDef.Component.RBC
-                    || r.ExtractPack.ComponentID == (int)TestDef.Component.Plasma
+                    || r.ExtractPack.ComponentID == (int)TestDef.Component.FFPlasma
                     )
                 .Count();
 
@@ -456,7 +456,7 @@ public class PackBLL
         }
 
         if (p.ComponentID == (int)TestDef.Component.RBC
-            || p.ComponentID == (int)TestDef.Component.Plasma)
+            || p.ComponentID == (int)TestDef.Component.FFPlasma)
         {
             if (p.PackExtractsByExtract.Count == 0)
                 throw new Exception("Lỗi dữ liệu.");
@@ -642,7 +642,7 @@ public class PackBLL
         {
             if (
                 (p.ComponentID != null
-                && p.ComponentID.Value == (int)TestDef.Component.PlateletKit)
+                && p.ComponentID.Value == (int)TestDef.Component.PlateletApheresis)
 
                 ||
 
@@ -686,7 +686,7 @@ public class PackBLL
         db.Packs.InsertOnSubmit(packRBC);
 
         Pack packPlasma = new Pack();
-        packPlasma.ComponentID = (int)TestDef.Component.Plasma;
+        packPlasma.ComponentID = (int)TestDef.Component.FFPlasma;
         packPlasma.CollectedDate = DateTime.Now;
         packPlasma.Status = Pack.StatusX.Production;
         packPlasma.Actor = actor;
@@ -830,14 +830,14 @@ public class PackBLL
             if (p.PackExtractsBySource
                 .Where(r =>
                     r.ExtractPack.ComponentID == (int)TestDef.Component.RBC
-                    || r.ExtractPack.ComponentID == (int)TestDef.Component.Plasma
+                    || r.ExtractPack.ComponentID == (int)TestDef.Component.FFPlasma
                     )
                 .Count() > 0)
                 return p;
         }
 
         if (p.ComponentID == (int)TestDef.Component.RBC
-            || p.ComponentID == (int)TestDef.Component.Plasma
+            || p.ComponentID == (int)TestDef.Component.FFPlasma
             )
         {
             return p;

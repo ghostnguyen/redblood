@@ -143,7 +143,7 @@ public partial class Production_Extract : System.Web.UI.Page
             }
             else
             {
-                if (p.ComponentID == (int)TestDef.Component.Plasma
+                if (p.ComponentID == (int)TestDef.Component.FFPlasma
                       || p.ComponentID == (int)TestDef.Component.RBC)
                 {
                     PackExtract pe = p.PackExtractsByExtract.FirstOrDefault();
@@ -160,7 +160,7 @@ public partial class Production_Extract : System.Web.UI.Page
                     AutonumListIn.Add(p.Autonum);
                     AutonumListOut = p.PackExtractsBySource
                     .Where(r => r.ExtractPack.ComponentID == (int)TestDef.Component.RBC
-                        || r.ExtractPack.ComponentID == (int)TestDef.Component.Plasma)
+                        || r.ExtractPack.ComponentID == (int)TestDef.Component.FFPlasma)
                     .Select(r => r.ExtractPack.Autonum)
                     .ToList();
 
