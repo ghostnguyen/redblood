@@ -45,14 +45,11 @@
 
 #menu_lvl2 .column
 {
-	vertical-align:middle;
-	width: 165px;
-	padding: 0 25px 25px 25px;
-	
+	width: 185px;
 }
 #menu_lvl2 .column.next
 {
-	background: url(../../Image/route-lines.gif) repeat-y;
+	
 }
 #menu_lvl2 .column img
 {

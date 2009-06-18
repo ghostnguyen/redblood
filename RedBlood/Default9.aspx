@@ -4,6 +4,30 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <script type="text/javascript">
+        // Your code goes here
+
+        $(document).bind('keydown', '7', function() {
+            window.location = ("/RedBlood/Category/Geo.aspx");
+        });
+
+        $(document).bind('keydown', '8', function() {
+            window.location = ("/RedBlood/Category/Sex.aspx");
+        });
+
+        $(document).bind('keydown', '9', function() {
+            window.location = ("/RedBlood/Category/TestDef.aspx");
+        });
+        $(document).bind('keydown', '4', function() {
+            window.location = ("/RedBlood/Category/Org.aspx");
+        });
+
+        $(document).bind('keydown', '5', function() {
+            window.location.replace("/RedBlood/Codabar/Pack.aspx");
+        });
+    </script>
+
     <table width="100%">
         <tr>
             <td align="center">
@@ -11,25 +35,52 @@
                 <table id="menu_lvl2">
                     <tr>
                         <td class="column">
-                            <h4>
-                                <a href="/RedBlood/ReceiveBlood.aspx" />
-                                <img src="Image/Icon/number9.gif" alt="" />Thu máu</h4>
-                            <p>
-                            </p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/Category/Geo.aspx">
+                                            <img src="Image/Icon/number7.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/Category/Geo.aspx">Địa chính</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                         <td class="column next">
-                           <h4>
-                                <a href="/RedBlood/ReceiveBlood.aspx" />
-                                <img src="Image/Icon/number8.gif" alt="" />Thu máu</h4>
-                            <p>
-                            </p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/Category/Sex.aspx">
+                                            <img src="Image/Icon/number8.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/Category/Sex.aspx">Giới tính</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                         <td class="column next">
-                            <h4>
-                                <a href="/RedBlood/ReceiveBlood.aspx" />
-                                <img src="Image/Icon/number7.gif" alt="" />Thu máu</h4>
-                            <p>
-                            </p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/Category/TestDef.aspx">
+                                            <img src="Image/Icon/number9.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/Category/TestDef.aspx">Kết quả xét nghiệm</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>
@@ -38,25 +89,52 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <h4>
-                                <a href="/RedBlood/ReceiveBlood.aspx" />
-                                <img src="Image/Icon/number6.gif" alt="" />Thu máu</h4>
-                            <p>
-                            </p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/Category/Org.aspx">
+                                            <img src="Image/Icon/number4.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/Category/Org.aspx">Đơn vị</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                         <td class="column next">
-                            <h4>
-                                <a href="/RedBlood/ReceiveBlood.aspx" />
-                                <img src="Image/Icon/number5.gif" alt="" />Thu máu</h4>
-                            <p>
-                            </p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/Codabar/Pack.aspx">
+                                            <img src="Image/Icon/number5.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/Codabar/Pack.aspx">Tạo mã túi máu</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                         <td class="column next">
-                           <h4>
-                                <a href="/RedBlood/ReceiveBlood.aspx" />
-                                <img src="Image/Icon/number4.gif" alt="" />Thu máu</h4>
-                            <p>
-                            </p>
+                            <%--<table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                            <img src="Image/Icon/number6.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>--%>
                         </td>
                     </tr>
                     <tr>
@@ -65,18 +143,36 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <h4>
-                                <a href="/RedBlood/ReceiveBlood.aspx" />
-                                <img src="Image/Icon/number3.gif" alt="" />Thu máu</h4>
-                            <p>
-                            </p>
+                            <%-- <table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                            <img src="Image/Icon/number3.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>--%>
                         </td>
                         <td class="column next">
-                           <h4>
-                                <a href="/RedBlood/ReceiveBlood.aspx" />
-                                <img src="Image/Icon/number2.gif" alt="" />Thu máu</h4>
-                            <p>
-                            </p>
+                            <%--<table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                            <img src="Image/Icon/number2.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <%--<h3>
