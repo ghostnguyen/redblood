@@ -53,11 +53,13 @@ public partial class TestDef
     public enum Component : int
     {
         Full = 25,
-        PlateletKit = 29, // Kit Tiểu cầu
-
         RBC = 26, //red blood cell
-        Plasma = 27, // Huyết tương
-        Platelet = 30 // Tiểu cầu
+        FFPlasma = 27, // Huyết tương
+        FactorVIII = 28,
+        PlateletApheresis = 29,
+        Platelet = 30, // Tiểu cầu
+        Poor_FFPlasma = 46,
+        WBC = 47 // white blood cell
     }
 
     public enum Source : int

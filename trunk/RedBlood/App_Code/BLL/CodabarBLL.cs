@@ -158,7 +158,7 @@ public class CodabarBLL
         string top = "";
 
         if(p.ComponentID == (int)TestDef.Component.RBC
-            || p.ComponentID == (int)TestDef.Component.Plasma)
+            || p.ComponentID == (int)TestDef.Component.FFPlasma)
         {
             topleft = p.Component.Name;
             PackExtract pe = p.PackExtractsByExtract.FirstOrDefault();

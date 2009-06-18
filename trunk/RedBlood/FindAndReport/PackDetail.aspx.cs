@@ -60,7 +60,7 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
         }
 
         if (p.ComponentID == (int)TestDef.Component.Platelet
-            || p.ComponentID == (int)TestDef.Component.Plasma
+            || p.ComponentID == (int)TestDef.Component.FFPlasma
             || p.ComponentID == (int)TestDef.Component.RBC)
         {
             e.Result = p.PackExtractsByExtract.Select(r => r.SourcePack);
