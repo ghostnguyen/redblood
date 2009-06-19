@@ -25,6 +25,7 @@
                     SelectText="<%$ Resources:Resource,Select %>" EditText="<%$ Resources:Resource,Edit %>"
                     DeleteText="<%$ Resources:Resource,Delete %>" UpdateText="<%$ Resources:Resource,Update %>"
                     CancelText="<%$ Resources:Resource,Cancel %>"></asp:CommandField>
+                <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
             </Columns>
         </asp:GridView>
@@ -49,6 +50,7 @@
                     SelectText="<%$ Resources:Resource,Select %>" EditText="<%$ Resources:Resource,Edit %>"
                     DeleteText="<%$ Resources:Resource,Delete %>" UpdateText="<%$ Resources:Resource,Update %>"
                     CancelText="<%$ Resources:Resource,Cancel %>"></asp:CommandField>
+                <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
             </Columns>
         </asp:GridView>

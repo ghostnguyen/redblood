@@ -24,13 +24,9 @@
 
     <script type="text/javascript">
         // Your code goes here
-        $(document).bind('keydown', '0', function() {
-            window.location.replace("/RedBlood/Default.aspx");
-
-
+        jQuery(document).bind('keydown', 'esc', function(evt) {
+            window.location.replace("/RedBlood/Default.aspx"); return false;
         });
-
-        jQuery(document).bind('keydown', 'esc', function(evt) { window.location.replace("/RedBlood/Default.aspx"); return false; });
     </script>
 
     <table style="width: 100%;">

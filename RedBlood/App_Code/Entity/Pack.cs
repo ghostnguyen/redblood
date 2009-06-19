@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
@@ -22,7 +24,7 @@ public partial class Pack
         All = -1,
         Init = 0,
         Đã_thu = 1,
-        Assign = 1,
+        Collected = 1,
         //CommitReceived = 2,
         Delete = 4,
         Hủy = 4,
@@ -34,10 +36,10 @@ public partial class Pack
 
         Cấp_phát = 9,
         Delivered = 9,
-        
+
         Production = 10,
         Thành_phẩm = 10,
-        
+
         Produced = 11,
         Đã_sản_xuất = 11,
 
@@ -47,6 +49,15 @@ public partial class Pack
         ExpireEnter = 41,
         ExpireCommitReceived = 42,
         DataErr = 49
+    }
+
+    public enum TestResultStatusX : int
+    {
+        Non = 0,
+        Negative = 1,
+        Positive = 2,
+        NegativeLocked = 3,
+        PositiveLocked = 4
     }
 
 
@@ -71,7 +82,7 @@ public partial class Pack
         //Remove PeopleID
         if (value == null)
         {
-            if (Status == StatusX.Init || Status == StatusX.Assign)
+            if (Status == StatusX.Init || Status == StatusX.Collected)
             { }
             else
             {
@@ -130,6 +141,36 @@ public partial class Pack
             PackStatusHistory e = PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).FirstOrDefault();
             if (e == null) return "";
             else return e.Note;
+        }
+    }
+
+    public Pack.TestResultStatusX RootTestResultStatus
+    {
+        get
+        {
+            List<TestResultStatusX> l = PackExtractsByExtract.Select(r => r.SourcePack.TestResultStatus).ToList();
+
+            foreach (TestResultStatusX item in l)
+            {
+                if (item == TestResultStatusX.Positive
+                    || item == TestResultStatusX.PositiveLocked)
+                    return item;
+            }
+
+            foreach (TestResultStatusX item in l)
+            {
+                if (item == TestResultStatusX.Non)
+                    return item;
+            }
+
+            foreach (TestResultStatusX item in l)
+            {
+                if (item == TestResultStatusX.Negative
+                    || item == TestResultStatusX.NegativeLocked)
+                    return item;
+            }
+
+            return TestResultStatus;
         }
     }
 
