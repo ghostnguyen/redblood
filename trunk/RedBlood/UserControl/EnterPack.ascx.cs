@@ -160,7 +160,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
         if (e == null) return;
 
-        if (e.Status == Pack.StatusX.Assign)
+        if (e.Status == Pack.StatusX.Collected)
         {
             btnRemove.Visible = true;
             btnDelete.Visible = true;
@@ -199,7 +199,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     void Update()
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = PackBLL.Get(Autonum, db, Pack.StatusX.Assign);
+        Pack p = PackBLL.Get(Autonum, db, Pack.StatusX.Collected);
 
         if (p != null)
         {

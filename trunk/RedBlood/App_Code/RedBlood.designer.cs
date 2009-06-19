@@ -15753,6 +15753,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<int> _FeedbackID;
 	
+	private Pack.TestResultStatusX _TestResultStatus;
+	
 	private EntitySet<TestResult> _TestResults;
 	
 	private EntitySet<BloodType> _BloodTypes;
@@ -15811,6 +15813,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnCampaignIDChanged();
     partial void OnFeedbackIDChanging(System.Nullable<int> value);
     partial void OnFeedbackIDChanged();
+    partial void OnTestResultStatusChanging(Pack.TestResultStatusX value);
+    partial void OnTestResultStatusChanged();
     #endregion
 	
 	public Pack()
@@ -16131,6 +16135,26 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 				this._FeedbackID = value;
 				this.SendPropertyChanged("FeedbackID");
 				this.OnFeedbackIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_TestResultStatus", DbType="Int", CanBeNull=true)]
+	public Pack.TestResultStatusX TestResultStatus
+	{
+		get
+		{
+			return this._TestResultStatus;
+		}
+		set
+		{
+			if ((this._TestResultStatus != value))
+			{
+				this.OnTestResultStatusChanging(value);
+				this.SendPropertyChanging();
+				this._TestResultStatus = value;
+				this.SendPropertyChanged("TestResultStatus");
+				this.OnTestResultStatusChanged();
 			}
 		}
 	}

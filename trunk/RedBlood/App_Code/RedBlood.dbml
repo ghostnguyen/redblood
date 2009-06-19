@@ -681,6 +681,7 @@
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="CampaignID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="FeedbackID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestResultStatus" Type="Pack.TestResultStatusX" DbType="Int" CanBeNull="true" />
       <Association Name="Pack_TestResult" Member="TestResults" ThisKey="ID" OtherKey="PackID" Type="TestResult" />
       <Association Name="Pack_BloodType" Member="BloodTypes" ThisKey="ID" OtherKey="PackID" Type="BloodType" />
       <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />

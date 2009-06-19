@@ -17,20 +17,16 @@ public class TestResultBLL
 
     public static TestResult GetByID(Guid ID)
     {
-        RedBloodDataContext db = new RedBloodDataContext(); 
+        RedBloodDataContext db = new RedBloodDataContext();
         return (from r in db.TestResults
-                        where r.ID == ID
-                        select r).First();
+                where r.ID == ID
+                select r).First();
     }
     public static void Update(RedBloodDataContext db, Pack p, int times,
        int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID, string actor, string note)
     {
-        if (p != null && PackBLL.StatusListEnteringTestResult().Contains(p.Status))
-        { }
-        else
-        {
+        if (p == null || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus))
             return;
-        }
 
         if (p.TestResults.Count == 0)
         {
@@ -100,5 +96,32 @@ public class TestResultBLL
         {
 
         }
+
+        PackBLL.ChangeTestResultStatus();
+    }
+
+    public static List<TestDef> GetNonNegative(TestResult e)
+    {
+        List<TestDef> r = new List<TestDef>();
+
+        if (e == null || e.HIVID == null || e.HBsAgID == null || e.HCVID == null || e.SyphilisID == null || e.MalariaID == null)
+            throw new Exception("Chưa nhập kết quả túi máu.");
+
+        if (e.HIVID.Value == (int)TestDef.HIV.Pos || e.HIVID.Value == (int)TestDef.HIV.NA)
+            r.Add(e.HIV);
+
+        if (e.HBsAgID.Value == (int)TestDef.HBsAg.Pos || e.HBsAgID.Value == (int)TestDef.HBsAg.NA)
+            r.Add(e.HBsAg);
+
+        if (e.HCVID.Value == (int)TestDef.HCV.Pos || e.HCVID.Value == (int)TestDef.HCV.NA)
+            r.Add(e.HCV);
+
+        if (e.SyphilisID.Value == (int)TestDef.Syphilis.Pos || e.SyphilisID.Value == (int)TestDef.Syphilis.NA)
+            r.Add(e.Syphilis);
+
+        if (e.MalariaID.Value == (int)TestDef.Malaria.Pos || e.MalariaID.Value == (int)TestDef.Malaria.NA)
+            r.Add(e.Malaria);
+
+        return r;
     }
 }

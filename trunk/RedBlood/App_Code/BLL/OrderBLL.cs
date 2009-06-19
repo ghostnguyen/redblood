@@ -76,7 +76,7 @@ public class OrderBLL
                 return PackErrList.Deleted;
             }
             else if (p.Status == Pack.StatusX.EnterTestResult
-                || p.Status == Pack.StatusX.Assign)
+                || p.Status == Pack.StatusX.Collected)
             {
                 return PackErrList.CanNotOrder;
             }

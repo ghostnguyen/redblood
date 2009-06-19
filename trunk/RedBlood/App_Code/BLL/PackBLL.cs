@@ -25,7 +25,7 @@ public class PackBLL
 
     public static Pack.StatusX[] StatusList4Production()
     {
-        return new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
+        return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
     }
 
     public static Pack.StatusX[] StatusList4Order()
@@ -37,9 +37,11 @@ public class PackBLL
     /// Return the list of pack status which pack had entered test result
     /// </summary>
     /// <returns></returns>
-    public static Pack.StatusX[] StatusListEnteringTestResult()
+    public static Pack.TestResultStatusX[] AllowEnterTestResult()
     {
-        return new Pack.StatusX[] { Pack.StatusX.Assign, Pack.StatusX.EnterTestResult, Pack.StatusX.CommitTestResult };
+        return new Pack.TestResultStatusX[] { Pack.TestResultStatusX.Non, 
+            Pack.TestResultStatusX.Negative, 
+            Pack.TestResultStatusX.Positive};
     }
 
     public static DateTime LowerLimDate()
@@ -259,7 +261,7 @@ public class PackBLL
             p.CampaignID = campaignID;
             p.ComponentID = (int)TestDef.Component.Full;
 
-            PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Assign, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
+            PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Collected, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
             db.PackStatusHistories.InsertOnSubmit(h);
 
             db.SubmitChanges();
@@ -284,6 +286,8 @@ public class PackBLL
         {
             l[i] = new Pack();
             l[i].Status = Pack.StatusX.Init;
+            l[i].TestResultStatus = Pack.TestResultStatusX.Non;
+
         }
 
         RedBloodDataContext db = new RedBloodDataContext();
@@ -306,7 +310,7 @@ public class PackBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         var e = from c in db.Packs
-                where c.PeopleID == peopleID && (c.Status == Pack.StatusX.Assign || c.Status == Pack.StatusX.EnterTestResult)
+                where c.PeopleID == peopleID && (c.Status == Pack.StatusX.Collected || c.Status == Pack.StatusX.EnterTestResult)
                 orderby c.Status descending, c.CollectedDate descending
                 select c;
 
@@ -431,7 +435,7 @@ public class PackBLL
 
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get(autonum, db, Pack.StatusX.Assign);
+        Pack p = Get(autonum, db, Pack.StatusX.Collected);
 
         if (p == null && p.PeopleID != null) return p;
 
@@ -448,65 +452,42 @@ public class PackBLL
         return p;
     }
 
-    public static List<TestDef> ValidateTestResult(Pack p)
-    {
-        if (p.ComponentID == (int)TestDef.Component.Full)
-        {
-            return ValidateTestResult(p.TestResult2);
-        }
+    //public static List<TestDef> ValidateTestResult(Pack p)
+    //{
+    //    if (p.ComponentID == (int)TestDef.Component.Full)
+    //    {
+    //        return ValidateTestResult(p.TestResult2);
+    //    }
 
-        if (p.ComponentID == (int)TestDef.Component.RBC
-            || p.ComponentID == (int)TestDef.Component.FFPlasma)
-        {
-            if (p.PackExtractsByExtract.Count == 0)
-                throw new Exception("Lỗi dữ liệu.");
+    //    if (p.ComponentID == (int)TestDef.Component.RBC
+    //        || p.ComponentID == (int)TestDef.Component.FFPlasma)
+    //    {
+    //        if (p.PackExtractsByExtract.Count == 0)
+    //            throw new Exception("Lỗi dữ liệu.");
 
-            return ValidateTestResult(p.PackExtractsByExtract.FirstOrDefault().SourcePack.TestResult2);
-        }
+    //        return ValidateTestResult(p.PackExtractsByExtract.FirstOrDefault().SourcePack.TestResult2);
+    //    }
 
-        if (p.ComponentID == (int)TestDef.Component.Platelet)
-        {
-            if (p.PackExtractsByExtract.Count == 0)
-                throw new Exception("Lỗi dữ liệu.");
+    //    if (p.ComponentID == (int)TestDef.Component.Platelet)
+    //    {
+    //        if (p.PackExtractsByExtract.Count == 0)
+    //            throw new Exception("Lỗi dữ liệu.");
 
-            List<TestDef> r = new List<TestDef>();
+    //        List<TestDef> r = new List<TestDef>();
 
-            foreach (PackExtract item in p.PackExtractsByExtract)
-            {
-                r = ValidateTestResult(item.SourcePack.TestResult2);
-                if (r.Count() > 0) return r;
-            }
+    //        foreach (PackExtract item in p.PackExtractsByExtract)
+    //        {
+    //            r = ValidateTestResult(item.SourcePack.TestResult2);
+    //            if (r.Count() > 0) return r;
+    //        }
 
-            return r;
-        }
+    //        return r;
+    //    }
 
-        throw new Exception("Không kiểm tra được KQXN.");
-    }
+    //    throw new Exception("Không kiểm tra được KQXN.");
+    //}
 
-    public static List<TestDef> ValidateTestResult(TestResult e)
-    {
-        List<TestDef> r = new List<TestDef>();
 
-        if (e == null || e.HIVID == null || e.HBsAgID == null || e.HCVID == null || e.SyphilisID == null || e.MalariaID == null)
-            throw new Exception("Chưa nhập kết quả túi máu.");
-
-        if (e.HIVID.Value == (int)TestDef.HIV.Pos || e.HIVID.Value == (int)TestDef.HIV.NA)
-            r.Add(e.HIV);
-
-        if (e.HBsAgID.Value == (int)TestDef.HBsAg.Pos || e.HBsAgID.Value == (int)TestDef.HBsAg.NA)
-            r.Add(e.HBsAg);
-
-        if (e.HCVID.Value == (int)TestDef.HCV.Pos || e.HCVID.Value == (int)TestDef.HCV.NA)
-            r.Add(e.HCV);
-
-        if (e.SyphilisID.Value == (int)TestDef.Syphilis.Pos || e.SyphilisID.Value == (int)TestDef.Syphilis.NA)
-            r.Add(e.Syphilis);
-
-        if (e.MalariaID.Value == (int)TestDef.Malaria.Pos || e.MalariaID.Value == (int)TestDef.Malaria.NA)
-            r.Add(e.Malaria);
-
-        return r;
-    }
 
     public static PackErr ValidateAndChangeStatus(RedBloodDataContext db, Pack p, string actor)
     {
@@ -632,38 +613,42 @@ public class PackBLL
         return PackErrList.Non;
     }
 
-    public static void VerifyCommitTestResult(int autonum, string actor)
+    public static void ChangeTestResultStatus(RedBloodDataContext db, Pack p, string actor)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = PackBLL.Get(autonum, db);
+        if (p == null
+            || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
+            || p.ComponentID == null)
+            return;
 
-        if (p != null
-            && StatusListEnteringTestResult().Contains(p.Status))
+        if (p.ComponentID.Value == (int)TestDef.Component.PlateletApheresis)
         {
-            if (
-                (p.ComponentID != null
-                && p.ComponentID.Value == (int)TestDef.Component.PlateletApheresis)
-
-                ||
-
-                (p.ComponentID != null && p.Volume != null
-                && p.BloodType2 != null
-                && p.BloodType2.aboID != null && p.BloodType2.rhID != null
-                && p.TestResult2 != null
-                && p.TestResult2.HIVID != null && p.TestResult2.HCVID != null && p.TestResult2.HBsAgID != null && p.TestResult2.SyphilisID != null && p.TestResult2.MalariaID != null)
-                )
-            {
-                PackStatusHistory h = ChangeStatus(p, Pack.StatusX.CommitTestResult, actor, "Manually Enter");
-                db.PackStatusHistories.InsertOnSubmit(h);
-            }
-            else
-            {
-                PackStatusHistory h = ChangeStatus(p, Pack.StatusX.EnterTestResult, actor, "Manually Enter");
-                db.PackStatusHistories.InsertOnSubmit(h);
-            }
+            p.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
         }
 
-        db.SubmitChanges();
+        if (p.ComponentID.Value == (int)TestDef.Component.Full)
+        {
+            if (p.Volume == null
+            || p.BloodType2 == null
+            || p.BloodType2.aboID == null
+            || p.BloodType2.rhID == null
+            || p.TestResult2 == null)
+            {
+                p.TestResultStatus = Pack.TestResultStatusX.Non;
+                return;
+            }
+
+            try
+            {
+                List<TestDef> l = TestResultBLL.GetNonNegative(p.TestResult2);
+                if (l.Count == 0)
+                    p.TestResultStatus = Pack.TestResultStatusX.Negative;
+                else p.TestResultStatus = Pack.TestResultStatusX.Positive;
+            }
+            catch (Exception)
+            {
+                p.TestResultStatus = Pack.TestResultStatusX.Non;
+            }
+        }
     }
 
     public static PackErr Extract(int autonum, string actor)
