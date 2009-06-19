@@ -34,7 +34,7 @@ public partial class Pack
         CommitTestResult = 8,
         Đã_nhập = 8,
 
-        Cấp_phát = 9,
+        Đã_cấp_phát = 9,
         Delivered = 9,
 
         Production = 10,

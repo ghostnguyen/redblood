@@ -17,12 +17,11 @@ public class BloodTypeBLL
 
     public static void Update(RedBloodDataContext db, Pack p, int times, int? aboID, int? rhID, string actor, string note)
     {
-        if (p != null && PackBLL.StatusListEnteringTestResult().Contains(p.Status))
-        { }
-        else
-        {
+        if (p == null
+           || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
+           || p.ComponentID == null
+           || p.ComponentID.Value != (int)TestDef.Component.Full)
             return;
-        }
 
         if (p.BloodTypes.Count == 0)
         {

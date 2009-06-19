@@ -57,7 +57,7 @@ public partial class PackTestResult : System.Web.UI.Page
         else
         {
             //e.Result = PackBLL.GetByCampaingID4Manually(CampaignDetail1.CampaignID);
-            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID, PackBLL.StatusListEnteringTestResult());
+            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID, PackBLL.AllowEnterTestResult());
         }
     }
 

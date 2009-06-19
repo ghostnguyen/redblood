@@ -43,65 +43,21 @@ public class OrderBLL
 
         if (p == null) return PackErrList.NonExist;
 
-        if (p.ComponentID == (int)TestDef.Component.Full
-            && p.PackExtractsBySource.Count > 0)
-            return PackErrList.Extracted;
+        PackErr err = PackBLL.ValidateAndChangeStatus(db, p, "Order");
 
         if (!PackBLL.StatusList4Order().Contains(p.Status))
             return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
 
-        int i = p.PackOrders.Count;
+        if (p.PackOrders.Count >= 1) return PackErrList.DataErr;
 
-        if (i > 1) return PackErrList.DataErr;
-
-        if (i == 1)
+        if (p.TestResultStatus == Pack.TestResultStatusX.Negative
+            || p.TestResultStatus == Pack.TestResultStatusX.NegativeLocked
+            || p.TestResultStatus == Pack.TestResultStatusX.Non)
         {
-            if (p.PackOrders.First().OrderID.Value != ID)
-                return PackErrList.Dilivered;
-            else
-                return PackErrList.Non;
+            return new PackErr("Không thể cấp phát. KQXN: " + p.TestResultStatus);
         }
-
-        PackErr err = PackErrList.Non;
-        if (i == 0)
+        else
         {
-            err = PackBLL.ValidateAndChangeStatus(db, p, "Order");
-
-            if (p.Status == Pack.StatusX.Expire)
-            {
-                return PackErrList.Expired;
-            }
-            else if (p.Status == Pack.StatusX.Delete)
-            {
-                return PackErrList.Deleted;
-            }
-            else if (p.Status == Pack.StatusX.EnterTestResult
-                || p.Status == Pack.StatusX.Collected)
-            {
-                return PackErrList.CanNotOrder;
-            }
-            else if (p.Status == Pack.StatusX.CommitTestResult)
-            {
-                if (PackBLL.ValidateTestResult(p.TestResult2).Count() != 0)
-                    return PackErrList.Positive;
-            }
-            else if (p.Status == Pack.StatusX.Production)
-            {
-                int count = 0;
-
-                try
-                {
-                    count = PackBLL.ValidateTestResult(p).Count();
-                }
-                catch (Exception ex)
-                {
-                    return new PackErr(ex.Message);
-                }
-
-                if (count != 0)
-                    return PackErrList.Positive;
-            }
-
             PackOrder po = new PackOrder();
             po.OrderID = r.ID;
             po.PackID = p.ID;
@@ -129,9 +85,10 @@ public class OrderBLL
 
         PackStatusHistory h;
 
-        if (po.Pack.ComponentID == (int)TestDef.Component.Full)
+        if (po.Pack.ComponentID == (int)TestDef.Component.Full
+            || po.Pack.ComponentID == (int)TestDef.Component.PlateletApheresis)
         {
-            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.CommitTestResult, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
+            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Collected, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
         }
         else
         {
