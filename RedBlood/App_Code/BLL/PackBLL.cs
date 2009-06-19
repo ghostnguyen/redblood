@@ -30,7 +30,7 @@ public class PackBLL
 
     public static Pack.StatusX[] StatusList4Order()
     {
-        return new Pack.StatusX[] { Pack.StatusX.CommitTestResult, Pack.StatusX.Production };
+        return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.Production };
     }
 
     /// <summary>
@@ -170,8 +170,6 @@ public class PackBLL
             return p;
         }
 
-
-
         if (p.ComponentID == (int)TestDef.Component.RBC
            || p.ComponentID == (int)TestDef.Component.FFPlasma
            )
@@ -230,7 +228,13 @@ public class PackBLL
         return rs.ToList();
     }
 
-    public static List<Pack> GetByCampaign(int campaignID, Pack.StatusX[] status)
+    public static List<Pack> GetByCampaign(int campaignID, Pack.TestResultStatusX[] status)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.TestResultStatus)).ToList();
+    }
+
+    public static List<Pack> GetByCampaign1(int campaignID, Pack.StatusX[] status)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
@@ -531,7 +535,8 @@ public class PackBLL
                 || p.CampaignID != null)
                 return PackErrList.DataErr;
         }
-        else if (p.ComponentID == (int)TestDef.Component.Full)
+        else if (p.ComponentID == (int)TestDef.Component.Full
+            || p.ComponentID == (int)TestDef.Component.PlateletApheresis)
         {
             if (p.PeopleID == null
                 || p.CampaignID == null
@@ -541,35 +546,14 @@ public class PackBLL
         }
 
         //is expired
-        if (p.CollectedDate != null
-            && !(p.CollectedDate.Value.Date >= LowerLimDate())
-            )
-            if (p.PackExtractsBySource.Count > 0)
-            {
-                return PackErrList.ExpiredAndProduced;
-            }
-            else return PackErrList.Expired;
-
-        if (StatusListEnteringTestResult().Contains(p.Status))
-        {
-            //Data error
-            //if (p.BloodTypes.Count > 1)
-            //    return PackErrList.DataErr;
-
-            //Data error
-            //if (p.BloodTypes.Count == 1)
-            //{
-            //    try
-            //    {
-            //        //Validate BloodType
-            //        BloodType e = p.BloodTypes[0];
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        return new PackErr(ex.Message, Pack.StatusX.Delete);
-            //    }
-            //}
-        }
+        //if (p.CollectedDate != null
+        //    && !(p.CollectedDate.Value.Date >= LowerLimDate())
+        //    )
+        //    if (p.PackExtractsBySource.Count > 0)
+        //    {
+        //        return PackErrList.ExpiredAndProduced;
+        //    }
+        //    else return PackErrList.Expired;
 
         return PackErrList.Non;
     }
@@ -585,19 +569,19 @@ public class PackBLL
 
         if (rptType == ReportType.NegInCam)
         {
-            return v.ToList().Where(r => ValidateTestResult(r.TestResult2).Count() == 0).ToList();
+            return v.ToList().Where(r => TestResultBLL.GetNonNegative(r.TestResult2).Count() == 0).ToList();
         }
 
         if (rptType == ReportType.FourPosInCam)
         {
             return v.ToList().Where(r =>
-                ValidateTestResult(r.TestResult2).Count() > 0 &&
-                ValidateTestResult(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 0).ToList();
+                TestResultBLL.GetNonNegative(r.TestResult2).Count() > 0 &&
+                TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 0).ToList();
         }
 
         if (rptType == ReportType.HIVInCam)
         {
-            return v.ToList().Where(r => PackBLL.ValidateTestResult(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 1).ToList();
+            return v.ToList().Where(r => TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 1).ToList();
         }
 
         return null;
@@ -613,30 +597,24 @@ public class PackBLL
         return PackErrList.Non;
     }
 
-    public static void ChangeTestResultStatus(RedBloodDataContext db, Pack p, string actor)
+    public static void UpdateTestResultStatus4Full(RedBloodDataContext db, Pack p)
     {
         if (p == null
             || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
-            || p.ComponentID == null)
+            || p.ComponentID == null
+            || p.ComponentID.Value != (int)TestDef.Component.Full)
             return;
 
-        if (p.ComponentID.Value == (int)TestDef.Component.PlateletApheresis)
+        if (p.Volume == null
+        || p.BloodType2 == null
+        || p.BloodType2.aboID == null
+        || p.BloodType2.rhID == null
+        || p.TestResult2 == null)
         {
-            p.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+            p.TestResultStatus = Pack.TestResultStatusX.Non;
         }
-
-        if (p.ComponentID.Value == (int)TestDef.Component.Full)
+        else
         {
-            if (p.Volume == null
-            || p.BloodType2 == null
-            || p.BloodType2.aboID == null
-            || p.BloodType2.rhID == null
-            || p.TestResult2 == null)
-            {
-                p.TestResultStatus = Pack.TestResultStatusX.Non;
-                return;
-            }
-
             try
             {
                 List<TestDef> l = TestResultBLL.GetNonNegative(p.TestResult2);
@@ -649,7 +627,22 @@ public class PackBLL
                 p.TestResultStatus = Pack.TestResultStatusX.Non;
             }
         }
+
+        //Update for all related packs
+        UpdateTestResultStatus4Extracts(db, p);
     }
+
+    public static void UpdateTestResultStatus4Extracts(RedBloodDataContext db, Pack srcP)
+    {
+        List<Pack> extractP = srcP.PackExtractsBySource.Select(r => r.ExtractPack).ToList();
+
+        foreach (Pack item in extractP)
+        {
+            item.TestResultStatus = item.RootTestResultStatus;
+            UpdateTestResultStatus4Extracts(db, item);
+        }
+    }
+
 
     public static PackErr Extract(int autonum, string actor)
     {

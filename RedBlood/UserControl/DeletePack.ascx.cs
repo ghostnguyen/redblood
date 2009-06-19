@@ -85,7 +85,7 @@ public partial class UserControl_DeletePack : System.Web.UI.UserControl
         else
         {
             //e.Result = PackBLL.GetByCampaingID4Manually(CampaignID, new Pack.StatusX[] { Pack.StatusX.Delete });
-            e.Result = PackBLL.GetByCampaign(CampaignID, new Pack.StatusX[] { Pack.StatusX.Delete });
+            e.Result = PackBLL.GetByCampaign1(CampaignID, new Pack.StatusX[] { Pack.StatusX.Delete });
         }
     }
 }

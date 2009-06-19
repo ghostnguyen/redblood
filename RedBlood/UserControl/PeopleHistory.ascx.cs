@@ -83,7 +83,8 @@ public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
 
             else if (e.Status == Pack.StatusX.CommitTestResult)
             {
-                List<TestDef> def = PackBLL.ValidateTestResult(e.TestResults.Where(r => r.Times == 2).First());
+                //List<TestDef> def = PackBLL.ValidateTestResult(e.TestResults.Where(r => r.Times == 2).First());
+                List<TestDef> def = TestResultBLL.GetNonNegative(e.TestResults.Where(r => r.Times == 2).First());
 
                 if (def.Count() == 0)
                 {
