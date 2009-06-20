@@ -58,7 +58,7 @@ public partial class TestDef
         FactorVIII = 28,
         PlateletApheresis = 29,
         Platelet = 30, // Tiểu cầu
-        Poor_FFPlasma = 46,
+        FFPlasma_Poor = 46,
         WBC = 47 // white blood cell
     }
 

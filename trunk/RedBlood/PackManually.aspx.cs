@@ -56,7 +56,7 @@ public partial class PackManually : System.Web.UI.Page
         }
         else
         {
-            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID, PackBLL.StatusListEnteringTestResult());
+            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID, PackBLL.AllowEnterTestResult());
         }
     }
 
@@ -64,25 +64,23 @@ public partial class PackManually : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get((int)e.Keys[0],  db, PackBLL.StatusListEnteringTestResult(), true);
+        Pack p = PackBLL.Get((int)e.Keys[0], db);
 
         if (p != null)
         {
-            PackBLL.Update(p, e.NewValues["ComponentID"].ToIntNullable(), e.NewValues["Volume"].ToIntNullable());
+            PackBLL.Update(db, p, e.NewValues["ComponentID"].ToIntNullable(), e.NewValues["Volume"].ToIntNullable());
             BloodTypeBLL.Update(db, p, 2,
                 e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(),
                 Page.User.Identity.Name, "");
-            TestResultBLL.Update(db, p, 2, 
-                e.NewValues["TestResult2.HIV.ID"].ToIntNullable(), 
-                e.NewValues["TestResult2.HCV.ID"].ToIntNullable(), 
-                e.NewValues["TestResult2.HBsAg.ID"].ToIntNullable(), 
-                e.NewValues["TestResult2.Syphilis.ID"].ToIntNullable(), 
+            TestResultBLL.Update(db, p, 2,
+                e.NewValues["TestResult2.HIV.ID"].ToIntNullable(),
+                e.NewValues["TestResult2.HCV.ID"].ToIntNullable(),
+                e.NewValues["TestResult2.HBsAg.ID"].ToIntNullable(),
+                e.NewValues["TestResult2.Syphilis.ID"].ToIntNullable(),
                 e.NewValues["TestResult2.Malaria.ID"].ToIntNullable(),
                 Page.User.Identity.Name, "");
 
             db.SubmitChanges();
-
-            PackBLL.VerifyCommitTestResult(p.Autonum, Page.User.Identity.Name);
         }
 
         e.Cancel = true;

@@ -44,14 +44,6 @@ public class PackBLL
             Pack.TestResultStatusX.Positive};
     }
 
-    public static DateTime LowerLimDate()
-    {
-        //CollectDate + (ExpireCount - 1) >= Now
-        //CollectDate >= Now + 1 - ExpireCount
-        //CollectDate >= LowerLimDate
-        return DateTime.Now.Date.AddDays(1 - Resources.Setting.EnterPackExpire.ToInt());
-    }
-
     /// <summary>
     /// Get pack -> Validate -> Change status if need
     /// </summary>
@@ -69,7 +61,7 @@ public class PackBLL
             return pErr;
         }
 
-        PackErr err = ValidateAndChangeStatus(db, p, actor);
+        PackErr err = ValidateAndUpdateStatus(db, p, actor);
         if (err != PackErrList.Non)
         {
             db.SubmitChanges();
@@ -493,7 +485,7 @@ public class PackBLL
 
 
 
-    public static PackErr ValidateAndChangeStatus(RedBloodDataContext db, Pack p, string actor)
+    public static PackErr ValidateAndUpdateStatus(RedBloodDataContext db, Pack p, string actor)
     {
         PackErr err = Validate(p);
 
@@ -545,15 +537,28 @@ public class PackBLL
                 return PackErrList.DataErr;
         }
 
-        //is expired
-        //if (p.CollectedDate != null
-        //    && !(p.CollectedDate.Value.Date >= LowerLimDate())
-        //    )
-        //    if (p.PackExtractsBySource.Count > 0)
-        //    {
-        //        return PackErrList.ExpiredAndProduced;
-        //    }
-        //    else return PackErrList.Expired;
+        //Check expired
+        return CheckExpire(p);
+    }
+
+    public static PackErr CheckExpire(Pack p)
+    {
+        if (p.Component == null
+            || p.CollectedDate == null
+            || p.CollectedDate >= DateTime.Now)
+        {
+            return PackErrList.DataErr;
+        }
+
+        TimeSpan ts = SystemBLL.GetExpire(p);
+        
+        if (ts != TimeSpan.MinValue)
+        {
+            if (DateTime.Now - p.CollectedDate > ts)
+            {
+                return PackErrList.Expired;
+            }
+        }
 
         return PackErrList.Non;
     }
@@ -587,12 +592,27 @@ public class PackBLL
         return null;
     }
 
-    public static PackErr Update(Pack p, int? componentID, int? volume)
+    public static List<Pack> GetSourcePacks_AllLevel(Pack p)
+    {
+        List<Pack> l = p.PackExtractsByExtract.Select(r => r.SourcePack).ToList();
+        List<Pack> temp = l;
+
+        foreach (Pack item in temp)
+        {
+            l.AddRange(GetSourcePacks_AllLevel(item));
+        }
+
+        return l.Distinct().ToList();
+    }
+
+    public static PackErr Update(RedBloodDataContext db, Pack p, int? componentID, int? volume)
     {
         if (p == null) return PackErrList.NonExist;
 
         if (p.ComponentID != componentID) p.ComponentID = componentID;
         if (p.Volume != volume) p.Volume = volume;
+
+        PackBLL.UpdateTestResultStatus4Full(db, p);
 
         return PackErrList.Non;
     }
@@ -638,7 +658,7 @@ public class PackBLL
 
         foreach (Pack item in extractP)
         {
-            item.TestResultStatus = item.RootTestResultStatus;
+            item.TestResultStatus = item.TestResultStatusRoot;
             UpdateTestResultStatus4Extracts(db, item);
         }
     }

@@ -60,6 +60,14 @@ public partial class Pack
         PositiveLocked = 4
     }
 
+    public enum SubstanceX : int
+    {
+        Non = 0,
+        Yes = 1
+    }
+
+    
+
 
     PackBLL bll = new PackBLL();
     CampaignBLL campaignBLL = new CampaignBLL();
@@ -144,11 +152,15 @@ public partial class Pack
         }
     }
 
-    public Pack.TestResultStatusX RootTestResultStatus
+    public Pack.TestResultStatusX TestResultStatusRoot
     {
         get
         {
-            List<TestResultStatusX> l = PackExtractsByExtract.Select(r => r.SourcePack.TestResultStatus).ToList();
+            //Get all packs related pack and each has componet is full
+            List<TestResultStatusX> l = PackBLL.GetSourcePacks_AllLevel(this)
+                                            .Where(r => r.ComponentID == (int)TestDef.Component.Full)
+                                            .Select(r => r.TestResultStatus)
+                                            .ToList();
 
             foreach (TestResultStatusX item in l)
             {
@@ -171,6 +183,32 @@ public partial class Pack
             }
 
             return TestResultStatus;
+        }
+    }
+
+    public SubstanceX SubstanceRoot
+    {
+        get
+        {
+            //Get all packs related pack and each has componet is full
+            List<SubstanceX> l = PackBLL.GetSourcePacks_AllLevel(this)
+                                            .Where(r => r.ComponentID == (int)TestDef.Component.Full)
+                                            .Select(r => r.Substance)
+                                            .ToList();
+
+            foreach (SubstanceX item in l)
+            {
+                if (item == SubstanceX.Yes)
+                    return item;
+            }
+
+            foreach (SubstanceX item in l)
+            {
+                if (item == SubstanceX.Non)
+                    return item;
+            }
+
+            return Substance;
         }
     }
 

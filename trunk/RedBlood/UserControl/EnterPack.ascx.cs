@@ -203,7 +203,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
         if (p != null)
         {
-            PackBLL.Update(p, DropDownListComponent.SelectedValue.ToIntNullable4Zero(),
+            PackBLL.Update(db, p, DropDownListComponent.SelectedValue.ToIntNullable4Zero(),
                 DropDownListVolume.SelectedValue.ToIntNullable4Zero());
 
             BloodTypeBLL.Update(db, p, 1

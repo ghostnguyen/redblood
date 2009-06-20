@@ -14,6 +14,8 @@ public class SystemBLL
     public static string Url4OrderDetail = "~/Order/Order.aspx?";
     public static string Url4FindPeople = "~/FindAndReport/FindPeople.aspx?";
 
+    public static TimeSpan ExpTime4ProduceFFPlasma = new TimeSpan(0, 18, 0, 0);
+
     public SystemBLL()
     {
         //
@@ -35,13 +37,13 @@ public class SystemBLL
             RedBloodDataContext db = new RedBloodDataContext();
 
             Pack.StatusX[] statusList = new Pack.StatusX[] { 
-                Pack.StatusX.Init, Pack.StatusX.Collected, Pack.StatusX.Production};
+                Pack.StatusX.Collected, Pack.StatusX.Production};
 
-            List<Pack> rs = PackBLL.Get(db,statusList);
-            
+            List<Pack> rs = PackBLL.Get(db, statusList);
+
             foreach (Pack r in rs)
             {
-                PackBLL.ValidateAndChangeStatus(db, r, SystemActor.SOD);                
+                PackBLL.ValidateAndUpdateStatus(db, r, SystemActor.SOD);
             }
 
             LogBLL.Add(db, Task.TaskX.ScanExp);
@@ -63,5 +65,51 @@ public class SystemBLL
 
             db.SubmitChanges();
         }
+    }
+
+    public static TimeSpan GetExpire(Pack p)
+    {
+        return GetExpire((TestDef.Component)p.ComponentID, p.SubstanceRoot);
+    }
+
+
+    public static TimeSpan GetExpire(TestDef.Component c, Pack.SubstanceX s)
+    {
+        if (c == TestDef.Component.Full)
+        {
+            return new TimeSpan(35, 0, 0, 0);
+        }
+
+        if (c == TestDef.Component.RBC)
+        {
+            if (s == Pack.SubstanceX.Yes)
+                return new TimeSpan(42, 0, 0, 0);
+            else
+                return new TimeSpan(5, 0, 0, 0);
+        }
+
+        if (c == TestDef.Component.WBC)
+        {
+            return new TimeSpan(5, 0, 0, 0);
+        }
+
+        if (c == TestDef.Component.FactorVIII)
+        {
+            return new TimeSpan(5, 0, 0, 0);
+        }
+
+        if (c == TestDef.Component.Platelet
+            || c == TestDef.Component.PlateletApheresis)
+        {
+            return new TimeSpan(5, 0, 0, 0);
+        }
+
+        if (c == TestDef.Component.FFPlasma
+            || c == TestDef.Component.FFPlasma_Poor)
+        {
+            return new TimeSpan(730, 0, 0, 0);
+        }
+
+        return TimeSpan.MinValue;
     }
 }
