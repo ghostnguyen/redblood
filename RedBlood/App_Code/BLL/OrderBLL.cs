@@ -43,7 +43,7 @@ public class OrderBLL
 
         if (p == null) return PackErrList.NonExist;
 
-        PackErr err = PackBLL.ValidateAndChangeStatus(db, p, "Order");
+        PackErr err = PackBLL.ValidateAndUpdateStatus(db, p, "Order");
 
         if (!PackBLL.StatusList4Order().Contains(p.Status))
             return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
@@ -101,7 +101,7 @@ public class OrderBLL
 
         db.SubmitChanges();
 
-        PackErr err = PackBLL.ValidateAndChangeStatus(db, po.Pack, actor);
+        PackErr err = PackBLL.ValidateAndUpdateStatus(db, po.Pack, actor);
         db.SubmitChanges();
     }
 

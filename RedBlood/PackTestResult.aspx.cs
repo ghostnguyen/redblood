@@ -65,7 +65,7 @@ public partial class PackTestResult : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get((int)e.Keys[0], db, PackBLL.StatusListEnteringTestResult(), true);
+        Pack p = PackBLL.Get((int)e.Keys[0], db);
 
         if (p != null)
         {
@@ -78,9 +78,6 @@ public partial class PackTestResult : System.Web.UI.Page
                Page.User.Identity.Name, "");
 
             db.SubmitChanges();
-
-            PackBLL.VerifyCommitTestResult(p.Autonum, Page.User.Identity.Name);
-
         }
 
         e.Cancel = true;
