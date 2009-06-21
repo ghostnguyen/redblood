@@ -29,10 +29,10 @@ public partial class Pack
         Delete = 4,
         Hủy = 4,
 
-        EnterTestResult = 7,
-        Đang_nhập_KQ = 7,
-        CommitTestResult = 8,
-        Đã_nhập = 8,
+        //EnterTestResult = 7,
+        //Đang_nhập_KQ = 7,
+        //CommitTestResult = 8,
+        //Đã_nhập = 8,
 
         Đã_cấp_phát = 9,
         Delivered = 9,
@@ -46,8 +46,8 @@ public partial class Pack
 
         Expire = 40,
         Quá_hạn = 40,
-        ExpireEnter = 41,
-        ExpireCommitReceived = 42,
+        //ExpireEnter = 41,
+        //ExpireCommitReceived = 42,
         DataErr = 49
     }
 
@@ -60,11 +60,7 @@ public partial class Pack
         PositiveLocked = 4
     }
 
-    public enum SubstanceX : int
-    {
-        Non = 0,
-        Yes = 1
-    }
+ 
 
     
 
@@ -82,7 +78,6 @@ public partial class Pack
 
     partial void OnLoaded()
     {
-
     }
 
     partial void OnPeopleIDChanging(Guid? value)
@@ -186,25 +181,25 @@ public partial class Pack
         }
     }
 
-    public SubstanceX SubstanceRoot
+    public TestDef SubstanceRoot
     {
         get
         {
             //Get all packs related pack and each has componet is full
-            List<SubstanceX> l = PackBLL.GetSourcePacks_AllLevel(this)
+            List<TestDef> l = PackBLL.GetSourcePacks_AllLevel(this)
                                             .Where(r => r.ComponentID == (int)TestDef.Component.Full)
                                             .Select(r => r.Substance)
                                             .ToList();
 
-            foreach (SubstanceX item in l)
+            foreach (TestDef item in l)
             {
-                if (item == SubstanceX.Yes)
+                if (item.ID == (int)TestDef.Substance.Yes)
                     return item;
             }
 
-            foreach (SubstanceX item in l)
+            foreach (TestDef item in l)
             {
-                if (item == SubstanceX.Non)
+                if (item.ID == (int)TestDef.Substance.Non)
                     return item;
             }
 
@@ -213,4 +208,5 @@ public partial class Pack
     }
 
     public PackErr Err { get; set; }
+    public List<TestDef.Component> CanExtractTo { get; set; }
 }

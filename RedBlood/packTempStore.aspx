@@ -53,6 +53,8 @@
                                 <asp:Label ID="lblComponent" runat="server" Text='<%# Eval("Component.Name") %>' />
                                 <br />
                                 <asp:Label ID="lblVolume" runat="server" Text='<%# Eval("Volume") %>' />
+                                <br />
+                                <asp:Label ID="lblSubstance" runat="server" Text='<%# Eval("Substance.Name") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListComponent" runat="server" DataSourceID="LinqDataSourceComponent"
@@ -71,6 +73,15 @@
                                 </asp:DropDownList>
                                 <asp:LinqDataSource ID="LinqDataSourceVol" runat="server" ContextTypeName="RedBloodDataContext"
                                     TableName="TestDefs" Where="ParentID == 31">
+                                </asp:LinqDataSource>
+                                <br />
+                                <asp:DropDownList ID="DropDownListSubstance" runat="server" DataSourceID="LinqDataSourceSubstance"
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("SubstanceID") %>'
+                                    AppendDataBoundItems="true" Enabled="false">
+                                    <asp:ListItem Text="" Value="" />
+                                </asp:DropDownList>
+                                <asp:LinqDataSource ID="LinqDataSourceSubstance" runat="server" ContextTypeName="RedBloodDataContext"
+                                    TableName="TestDefs" Where="ParentID == 48">
                                 </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>

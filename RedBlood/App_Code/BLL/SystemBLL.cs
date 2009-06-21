@@ -69,11 +69,18 @@ public class SystemBLL
 
     public static TimeSpan GetExpire(Pack p)
     {
-        return GetExpire((TestDef.Component)p.ComponentID, p.SubstanceRoot);
+        if (p.Component == null) return TimeSpan.MinValue;
+
+        if (p.SubstanceRoot == null)
+        {
+            return GetExpire((TestDef.Component)p.ComponentID, TestDef.Substance.Non);
+        }
+        else
+            return GetExpire((TestDef.Component)p.ComponentID, (TestDef.Substance)p.SubstanceRoot.ID);
+        
     }
 
-
-    public static TimeSpan GetExpire(TestDef.Component c, Pack.SubstanceX s)
+    public static TimeSpan GetExpire(TestDef.Component c, TestDef.Substance s)
     {
         if (c == TestDef.Component.Full)
         {
@@ -82,7 +89,7 @@ public class SystemBLL
 
         if (c == TestDef.Component.RBC)
         {
-            if (s == Pack.SubstanceX.Yes)
+            if (s == TestDef.Substance.Yes)
                 return new TimeSpan(42, 0, 0, 0);
             else
                 return new TimeSpan(5, 0, 0, 0);

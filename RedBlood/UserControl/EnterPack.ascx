@@ -27,8 +27,18 @@
                     <asp:LinqDataSource ID="LinqDataSourceComponent" runat="server" ContextTypeName="RedBloodDataContext"
                         TableName="TestDefs" Where="ID == 25 || ID == 30">
                     </asp:LinqDataSource>
+                    <br />
+                    Chất nuôi hồng cầu<br />
+                    <asp:DropDownList ID="DropDownListSubstance" runat="server" DataSourceID="LinqDataSourceSubstance"
+                        DataTextField="Name" DataValueField="ID" AppendDataBoundItems="true" CssClass="packProperty"
+                        AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="DropDownListSubstance_SelectedIndexChanged">
+                        <asp:ListItem Text="" Value="0" />
+                    </asp:DropDownList>
+                    <asp:LinqDataSource ID="LinqDataSourceSubstance" runat="server" ContextTypeName="RedBloodDataContext"
+                        TableName="TestDefs" Where="ParentID == 48">
+                    </asp:LinqDataSource>
                 </td>
-                <td style="visibility:collapse;">
+                <td style="visibility: collapse;">
                     Thể tích (ml)<br />
                     <asp:DropDownList ID="DropDownListVolume" runat="server" DataSourceID="LinqDataSourceVolume"
                         DataTextField="Name" DataValueField="ID" AppendDataBoundItems="true" CssClass="packProperty"
@@ -40,7 +50,7 @@
                     </asp:LinqDataSource>
                 </td>
             </tr>
-            <tr style="visibility:collapse;">
+            <tr style="visibility: collapse;">
                 <td colspan="2" style="border-bottom: dotted 1px; padding: 0px 0px 8px 0px;">
                     <asp:Button ID="btnCommitWithout" runat="server" OnClientClick="return confirm('Xác nhận thu máu (không ABO test)?');"
                         Visible="false" Text="Xác nhận (không ABO test)" OnClick="btnCommitWithout_Click">
@@ -49,7 +59,7 @@
                     <asp:Label ID="Label1" runat="server" ForeColor="red"></asp:Label>
                 </td>
             </tr>
-            <tr style="visibility:collapse;">
+            <tr style="visibility: collapse;">
                 <td>
                     ABO<br />
                     <asp:DropDownList ID="DropDownListABO" runat="server" DataSourceID="LinqDataSource1"
