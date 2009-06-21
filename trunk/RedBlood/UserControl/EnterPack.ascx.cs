@@ -67,6 +67,9 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
                 if (e.ComponentID != null)
                     DropDownListComponent.SelectedValue = e.ComponentID.ToString();
 
+                if (e.SubstanceID != null)
+                    DropDownListSubstance.SelectedValue = e.SubstanceID.ToString();
+
                 if (e.Volume != null && e.Volume != 0)
                     DropDownListVolume.SelectByText(e.Volume.Value.ToString());
 
@@ -127,12 +130,14 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
         lblPackMsg.Text = "";
 
         DropDownListComponent.SelectedIndex = 0;
+        DropDownListSubstance.SelectedIndex = 0;
         DropDownListVolume.SelectedIndex = 0;
 
         DropDownListABO.SelectedIndex = 0;
         DropDownListRH.SelectedIndex = 0;
 
         DropDownListComponent.Enabled = false;
+        DropDownListSubstance.Enabled = false;
         DropDownListVolume.Enabled = false;
 
         DropDownListABO.Enabled = false;
@@ -153,6 +158,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
         btnCommitWithout.Visible = false;
 
         DropDownListComponent.Enabled = false;
+        DropDownListSubstance.Enabled = false;
         DropDownListVolume.Enabled = false;
 
         DropDownListABO.Enabled = false;
@@ -166,6 +172,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
             btnDelete.Visible = true;
 
             DropDownListComponent.Enabled = true;
+            DropDownListSubstance.Enabled = true;
             DropDownListVolume.Enabled = true;
 
             DropDownListABO.Enabled = true;
@@ -189,11 +196,6 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
             }
             else btnCommitWithout.Visible = false;
         }
-        else if (e.Status == Pack.StatusX.EnterTestResult
-            || e.Status == Pack.StatusX.CommitTestResult)
-        {
-            btnDelete.Visible = true;
-        }
     }
 
     void Update()
@@ -204,7 +206,8 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
         if (p != null)
         {
             PackBLL.Update(db, p, DropDownListComponent.SelectedValue.ToIntNullable4Zero(),
-                DropDownListVolume.SelectedValue.ToIntNullable4Zero());
+                DropDownListVolume.SelectedValue.ToIntNullable4Zero(),
+                DropDownListSubstance.SelectedValue.ToIntNullable4Zero());
 
             BloodTypeBLL.Update(db, p, 1
                 , DropDownListABO.SelectedValue.ToIntNullable4Zero()
@@ -218,6 +221,11 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     }
 
     protected void DropDownListComponent_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Update();
+    }
+
+    protected void DropDownListSubstance_SelectedIndexChanged(object sender, EventArgs e)
     {
         Update();
     }

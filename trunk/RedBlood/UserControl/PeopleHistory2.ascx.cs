@@ -71,7 +71,7 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
                 else
                     e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note;
             }
-            else if (e.Status == Pack.StatusX.Collected || e.Status == Pack.StatusX.EnterTestResult)
+            else if (e.Status == Pack.StatusX.Collected )
             {
                 e.Note = e.Status.ToString();
             }
@@ -81,7 +81,7 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
                 e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expire).First().Note;
             }
 
-            else if (e.Status == Pack.StatusX.CommitTestResult)
+            else if (e.TestResultStatus != Pack.TestResultStatusX.Non)
             {
                 //List<TestDef> def = PackBLL.ValidateTestResult(e.TestResults.Where(r => r.Times == 2).First());
                 List<TestDef> def = TestResultBLL.GetNonNegative(e.TestResults.Where(r => r.Times == 2).First());

@@ -5,11 +5,7 @@
     void Application_Start(object sender, EventArgs e)
     {
         // Code that runs on application startup
-        if (string.IsNullOrEmpty(CodabarBLL.CodabarImgPage))
-        {
-            string[] split = Request.Url.AbsoluteUri.Split('/');
-            CodabarBLL.CodabarImgPage = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3] + "/Codabar/Image.aspx";
-        }
+      
 
         SystemBLL.SOD();
     }
@@ -29,6 +25,11 @@
     void Session_Start(object sender, EventArgs e)
     {
         // Code that runs when a new session is started
+        if (string.IsNullOrEmpty(CodabarBLL.CodabarImgPage))
+        {
+            string[] split = Request.Url.AbsoluteUri.Split('/');
+            CodabarBLL.CodabarImgPage = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3] + "/Codabar/Image.aspx";
+        }
     }
 
     void Session_End(object sender, EventArgs e)

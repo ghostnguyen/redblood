@@ -10473,6 +10473,8 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<Pack> _PacksBySource;
 	
+	private EntitySet<Pack> _PacksBySubstance;
+	
 	private EntityRef<TestDef> _Parent;
 	
     #region Extensibility Method Definitions
@@ -10506,6 +10508,7 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		this._PacksByComponent = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByComponent), new Action<Pack>(this.detach_PacksByComponent));
 		this._PacksByFeedback = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByFeedback), new Action<Pack>(this.detach_PacksByFeedback));
 		this._PacksBySource = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksBySource), new Action<Pack>(this.detach_PacksBySource));
+		this._PacksBySubstance = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksBySubstance), new Action<Pack>(this.detach_PacksBySubstance));
 		this._Parent = default(EntityRef<TestDef>);
 		OnCreated();
 	}
@@ -10783,6 +10786,19 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="TestDef_Pack3", Storage="_PacksBySubstance", ThisKey="ID", OtherKey="SubstanceID")]
+	public EntitySet<Pack> PacksBySubstance
+	{
+		get
+		{
+			return this._PacksBySubstance;
+		}
+		set
+		{
+			this._PacksBySubstance.Assign(value);
+		}
+	}
+	
 	[Association(Name="TestDef_TestDef", Storage="_Parent", ThisKey="ParentID", OtherKey="ID", IsForeignKey=true)]
 	public TestDef Parent
 	{
@@ -10991,6 +11007,18 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Source = null;
+	}
+	
+	private void attach_PacksBySubstance(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Substance = this;
+	}
+	
+	private void detach_PacksBySubstance(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Substance = null;
 	}
 }
 
@@ -11340,7 +11368,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -15755,7 +15783,7 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private Pack.TestResultStatusX _TestResultStatus;
 	
-	private Pack.SubstanceX _Substance;
+	private System.Nullable<int> _SubstanceID;
 	
 	private EntitySet<TestResult> _TestResults;
 	
@@ -15782,6 +15810,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	private EntityRef<TestDef> _Feedback;
 	
 	private EntityRef<TestDef> _Source;
+	
+	private EntityRef<TestDef> _Substance;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -15817,8 +15847,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnFeedbackIDChanged();
     partial void OnTestResultStatusChanging(Pack.TestResultStatusX value);
     partial void OnTestResultStatusChanged();
-    partial void OnSubstanceChanging(Pack.SubstanceX value);
-    partial void OnSubstanceChanged();
+    partial void OnSubstanceIDChanging(System.Nullable<int> value);
+    partial void OnSubstanceIDChanged();
     #endregion
 	
 	public Pack()
@@ -15836,6 +15866,7 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		this._Component = default(EntityRef<TestDef>);
 		this._Feedback = default(EntityRef<TestDef>);
 		this._Source = default(EntityRef<TestDef>);
+		this._Substance = default(EntityRef<TestDef>);
 		OnCreated();
 	}
 	
@@ -16163,22 +16194,26 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Substance", DbType="Int", CanBeNull=true)]
-	public Pack.SubstanceX Substance
+	[Column(Storage="_SubstanceID", DbType="Int")]
+	public System.Nullable<int> SubstanceID
 	{
 		get
 		{
-			return this._Substance;
+			return this._SubstanceID;
 		}
 		set
 		{
-			if ((this._Substance != value))
+			if ((this._SubstanceID != value))
 			{
-				this.OnSubstanceChanging(value);
+				if (this._Substance.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSubstanceIDChanging(value);
 				this.SendPropertyChanging();
-				this._Substance = value;
-				this.SendPropertyChanged("Substance");
-				this.OnSubstanceChanged();
+				this._SubstanceID = value;
+				this.SendPropertyChanged("SubstanceID");
+				this.OnSubstanceIDChanged();
 			}
 		}
 	}
@@ -16474,6 +16509,40 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 					this._SourceID = default(Nullable<int>);
 				}
 				this.SendPropertyChanged("Source");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack3", Storage="_Substance", ThisKey="SubstanceID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef Substance
+	{
+		get
+		{
+			return this._Substance.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._Substance.Entity;
+			if (((previousValue != value) 
+						|| (this._Substance.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Substance.Entity = null;
+					previousValue.PacksBySubstance.Remove(this);
+				}
+				this._Substance.Entity = value;
+				if ((value != null))
+				{
+					value.PacksBySubstance.Add(this);
+					this._SubstanceID = value.ID;
+				}
+				else
+				{
+					this._SubstanceID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Substance");
 			}
 		}
 	}

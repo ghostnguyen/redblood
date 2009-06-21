@@ -20,6 +20,7 @@
                 <table>
                     <tr>
                         <td>
+                            
                             <asp:DetailsView runat="server" ID="DetailsViewPack" AutoGenerateRows="False" DataKeyNames="ID"
                                 DataSourceID="LinqDataSource1">
                                 <Fields>

@@ -132,8 +132,7 @@ public partial class Production_Extract : System.Web.UI.Page
             return;
         }
 
-        if (p.Err == PackErrList.ExtractedProduction
-            || p.Err == PackErrList.Extracted)
+        if (p.Err == PackErrList.Extracted)
         {
             TempAutonum = autonum;
 

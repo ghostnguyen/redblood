@@ -69,6 +69,12 @@ public partial class TestDef
         Other = 40
     }
 
+    public enum Substance : int
+    {
+        Non = 49,
+        Yes = 50
+    }
+
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
         if (action == System.Data.Linq.ChangeAction.Insert

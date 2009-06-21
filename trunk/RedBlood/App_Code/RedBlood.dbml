@@ -461,6 +461,7 @@
       <Association Name="TestDef_Pack" Member="PacksByComponent" ThisKey="ID" OtherKey="ComponentID" Type="Pack" />
       <Association Name="TestDef_Pack1" Member="PacksByFeedback" ThisKey="ID" OtherKey="FeedbackID" Type="Pack" />
       <Association Name="TestDef_Pack2" Member="PacksBySource" ThisKey="ID" OtherKey="SourceID" Type="Pack" />
+      <Association Name="TestDef_Pack3" Member="PacksBySubstance" ThisKey="ID" OtherKey="SubstanceID" Type="Pack" />
       <Association Name="TestDef_TestDef" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
     </Type>
   </Table>
@@ -682,7 +683,7 @@
       <Column Name="CampaignID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="FeedbackID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TestResultStatus" Type="Pack.TestResultStatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="Substance" Type="Pack.SubstanceX" DbType="Int" CanBeNull="true" />
+      <Column Name="SubstanceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Pack_TestResult" Member="TestResults" ThisKey="ID" OtherKey="PackID" Type="TestResult" />
       <Association Name="Pack_BloodType" Member="BloodTypes" ThisKey="ID" OtherKey="PackID" Type="BloodType" />
       <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
@@ -696,6 +697,7 @@
       <Association Name="TestDef_Pack" Member="Component" ThisKey="ComponentID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
       <Association Name="TestDef_Pack1" Member="Feedback" ThisKey="FeedbackID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
       <Association Name="TestDef_Pack2" Member="Source" ThisKey="SourceID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
+      <Association Name="TestDef_Pack3" Member="Substance" ThisKey="SubstanceID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
