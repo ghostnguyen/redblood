@@ -33,22 +33,26 @@ public class OrderBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
+        //Check order
         Order r = OrderBLL.Get(ID);
         if (r == null) return PackErrList.NonExistOrder;
 
         if (r.Status == Order.StatusX.Done)
             return PackErrList.OrderClose;
 
+        //Check Pack
         Pack p = PackBLL.Get(autonum, db);
 
-        if (p == null) return PackErrList.NonExist;
+        if (p == null
+            || p.DeliverStatus != Pack.DeliverStatusX.Non)
+            return PackErrList.NonExist;
 
         PackErr err = PackBLL.ValidateAndUpdateStatus(db, p, "Order");
 
         if (!PackBLL.StatusList4Order().Contains(p.Status))
             return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
 
-        if (p.PackOrders.Count >= 1) return PackErrList.DataErr;
+        //if (p.PackOrders.Count >= 1) return PackErrList.DataErr;
 
         if (p.TestResultStatus == Pack.TestResultStatusX.Negative
             || p.TestResultStatus == Pack.TestResultStatusX.NegativeLocked
@@ -58,14 +62,17 @@ public class OrderBLL
         }
         else
         {
+            p.DeliverStatus = Pack.DeliverStatusX.Yes;
+
             PackOrder po = new PackOrder();
             po.OrderID = r.ID;
             po.PackID = p.ID;
+            po.Status = PackOrder.StatusX.Order;
 
             db.PackOrders.InsertOnSubmit(po);
 
-            PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Delivered, actor, "Add to Order: " + po.OrderID.Value.ToString());
-            db.PackStatusHistories.InsertOnSubmit(h);
+            //PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Delivered, actor, "Add to Order: " + po.OrderID.Value.ToString());
+            //db.PackStatusHistories.InsertOnSubmit(h);
         }
 
         db.SubmitChanges();
@@ -83,21 +90,28 @@ public class OrderBLL
             || po.Pack == null
             || po.Order == null) return;
 
-        PackStatusHistory h;
+        //PackStatusHistory h;
 
-        if (po.Pack.ComponentID == (int)TestDef.Component.Full
-            || po.Pack.ComponentID == (int)TestDef.Component.PlateletApheresis)
-        {
-            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Collected, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
-        }
-        else
-        {
-            h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Production, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
-        }
+        //if (po.Pack.ComponentID == (int)TestDef.Component.Full
+        //    || po.Pack.ComponentID == (int)TestDef.Component.PlateletApheresis)
+        //{
+        //    h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Collected, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
+        //}
+        //else
+        //{
+        //    h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Production, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
+        //}
 
-        db.PackStatusHistories.InsertOnSubmit(h);
+        //db.PackStatusHistories.InsertOnSubmit(h);
 
-        db.PackOrders.DeleteOnSubmit(po);
+
+        po.Status = PackOrder.StatusX.Return;
+        po.Actor = actor;
+        po.Note = note;
+
+        po.Pack.DeliverStatus = Pack.DeliverStatusX.Non;
+
+        //db.PackOrders.DeleteOnSubmit(po);
 
         db.SubmitChanges();
 
