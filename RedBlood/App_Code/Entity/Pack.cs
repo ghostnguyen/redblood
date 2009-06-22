@@ -34,8 +34,8 @@ public partial class Pack
         //CommitTestResult = 8,
         //Đã_nhập = 8,
 
-        Đã_cấp_phát = 9,
-        Delivered = 9,
+        //Đã_cấp_phát = 9,
+        //Delivered = 9,
 
         Production = 10,
         Thành_phẩm = 10,
@@ -60,9 +60,15 @@ public partial class Pack
         PositiveLocked = 4
     }
 
- 
+    public enum DeliverStatusX : int
+    {
+        Non = 0,
+        Yes = 1
+    }
 
-    
+
+
+
 
 
     PackBLL bll = new PackBLL();
@@ -209,4 +215,12 @@ public partial class Pack
 
     public PackErr Err { get; set; }
     public List<TestDef.Component> CanExtractTo { get; set; }
+    public List<Pack> RelatedPack
+    {
+        get
+        {
+            return PackBLL.GetRelatedPacks_AllLevel(this);
+        }
+    }
+
 }

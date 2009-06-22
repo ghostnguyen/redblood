@@ -162,32 +162,24 @@ public class PackBLL
             return p;
         }
 
-        if (p.Status == Pack.StatusX.Collected
-           || p.Status == Pack.StatusX.Production)
+        if (p.Status == Pack.StatusX.Collected)
         {
-            int count = p.PackExtractsBySource.Count();
+            p.Err = PackErrList.Valid4Extract;
 
-            if (count > 0)
-            {
-                p.Err = PackErrList.DataErr;
-                return p;
-            }
+            p.CanExtractTo = new List<TestDef.Component>();
 
-            if (p.ComponentID == (int)TestDef.Component.Full)
-            {
-                p.Err = PackErrList.Valid4Extract;
-                p.CanExtractTo = new List<TestDef.Component>();
+            p.CanExtractTo.Add(TestDef.Component.WBC);
+            p.CanExtractTo.Add(TestDef.Component.RBC);
+            p.CanExtractTo.Add(TestDef.Component.FFPlasma_Poor);
 
-                p.CanExtractTo.Add(TestDef.Component.WBC);
-                p.CanExtractTo.Add(TestDef.Component.RBC);
-                p.CanExtractTo.Add(TestDef.Component.FFPlasma_Poor);
+            if (DateTime.Now - p.CollectedDate <= SystemBLL.ExpTime4ProduceFFPlasma)
+                p.CanExtractTo.Add(TestDef.Component.FFPlasma);
 
-                if (DateTime.Now - p.CollectedDate <= SystemBLL.ExpTime4ProduceFFPlasma)
-                    p.CanExtractTo.Add(TestDef.Component.FFPlasma);
-
-                return p;
-            }
-            else if (p.ComponentID == (int)TestDef.Component.FFPlasma)
+            return p;
+        }
+        else if (p.Status == Pack.StatusX.Production)
+        {
+            if (p.ComponentID == (int)TestDef.Component.FFPlasma)
             {
                 p.Err = PackErrList.Valid4Extract;
                 p.CanExtractTo = new List<TestDef.Component>();
@@ -204,16 +196,16 @@ public class PackBLL
                 return p;
             }
         }
-        else if (p.Status == Pack.StatusX.Pro
-           || p.Status == Pack.StatusX.Production)
-        { }
+        else if (p.Status == Pack.StatusX.Produced)
+        {
+            p.Err = PackErrList.Extracted;
+            return p;
+        }
         else
         {
             p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.Status);
             return p;
         }
-
-
     }
 
     public static Pack GetByCode(string code)
@@ -294,6 +286,7 @@ public class PackBLL
             l[i] = new Pack();
             l[i].Status = Pack.StatusX.Init;
             l[i].TestResultStatus = Pack.TestResultStatusX.Non;
+            l[i].DeliverStatus = Pack.DeliverStatusX.Non;
         }
 
         RedBloodDataContext db = new RedBloodDataContext();
@@ -548,6 +541,22 @@ public class PackBLL
                 return PackErrList.DataErr;
         }
 
+        if (p.Status == Pack.StatusX.Collected)
+        {
+            if (p.ComponentID != (int)TestDef.Component.Full)
+                return PackErrList.DataErr;
+        }
+
+        if (p.Status == Pack.StatusX.Production)
+        {
+            int count = p.PackExtractsBySource.Count();
+
+            if (count > 0)
+            {
+                return PackErrList.DataErr;
+            }
+        }
+
         //Check expired
         return CheckExpire(p);
     }
@@ -619,8 +628,29 @@ public class PackBLL
             l.AddRange(GetSourcePacks_AllLevel(item));
         }
 
+        return l.Distinct().ToList();
+    }
 
+    public static List<Pack> GetExtractPacks_AllLevel(Pack p)
+    {
+        List<Pack> l = p.PackExtractsBySource.Select(r => r.ExtractPack).ToList();
 
+        Pack[] temp = new Pack[l.Count];
+        l.CopyTo(temp);
+
+        foreach (Pack item in temp)
+        {
+            l.AddRange(GetExtractPacks_AllLevel(item));
+        }
+
+        return l.Distinct().ToList();
+    }
+
+    public static List<Pack> GetRelatedPacks_AllLevel(Pack p)
+    {
+        List<Pack> l = new List<Pack>();
+        l.AddRange(GetSourcePacks_AllLevel(p));
+        l.AddRange(GetExtractPacks_AllLevel(p));
         return l.Distinct().ToList();
     }
 
