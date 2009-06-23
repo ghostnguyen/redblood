@@ -18,10 +18,10 @@ public class PackBLL
     /// Return the list of pack status which pack had entered test result
     /// </summary>
     /// <returns></returns>
-    //public static Pack.StatusX[] StatusListHadTestResult()
-    //{
-    //    return new Pack.StatusX[] { Pack.StatusX.CommitTestResult, Pack.StatusX.Delivered };
-    //}
+    public static Pack.StatusX[] StatusListAllowEnterTestResult()
+    {
+        return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.Produced };
+    }
 
     //public static Pack.StatusX[] StatusList4Production()
     //{
@@ -162,11 +162,11 @@ public class PackBLL
             return p;
         }
 
+        p.CanExtractTo = new List<TestDef.Component>();
+
         if (p.Status == Pack.StatusX.Collected)
         {
             p.Err = PackErrList.Valid4Extract;
-
-            p.CanExtractTo = new List<TestDef.Component>();
 
             p.CanExtractTo.Add(TestDef.Component.WBC);
             p.CanExtractTo.Add(TestDef.Component.RBC);
@@ -182,7 +182,6 @@ public class PackBLL
             if (p.ComponentID == (int)TestDef.Component.FFPlasma)
             {
                 p.Err = PackErrList.Valid4Extract;
-                p.CanExtractTo = new List<TestDef.Component>();
 
                 p.CanExtractTo.Add(TestDef.Component.FactorVIII);
                 p.CanExtractTo.Add(TestDef.Component.Platelet);
@@ -222,13 +221,17 @@ public class PackBLL
         return rs.ToList();
     }
 
-    public static List<Pack> GetByCampaign(int campaignID, Pack.TestResultStatusX[] status)
+    public static List<Pack> GetByCampaign(int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.TestResultStatus)).ToList();
+        return db.Packs.Where(r => r.CampaignID == campaignID 
+            && StatusListAllowEnterTestResult().Contains(r.Status)
+            && AllowEnterTestResult().Contains(r.TestResultStatus)
+            && r.ComponentID == (int)TestDef.Component.Full
+            ).ToList();
     }
 
-    public static List<Pack> GetByCampaign1(int campaignID, Pack.StatusX[] status)
+    public static List<Pack> GetByCampaign(int campaignID, Pack.StatusX[] status)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
@@ -277,7 +280,7 @@ public class PackBLL
 
 
 
-    public Pack[] New(int count)
+    public static Pack[] New(RedBloodDataContext db, int count)
     {
         Pack[] l = new Pack[count];
 
@@ -289,8 +292,16 @@ public class PackBLL
             l[i].DeliverStatus = Pack.DeliverStatusX.Non;
         }
 
+        db.Packs.InsertAllOnSubmit(l);
+
+        return l;
+    }
+
+    public static Pack[] New(int count)
+    {
         RedBloodDataContext db = new RedBloodDataContext();
 
+        Pack[] l = New(db, count);
         db.Packs.InsertAllOnSubmit(l);
 
         db.SubmitChanges();
@@ -628,6 +639,7 @@ public class PackBLL
             l.AddRange(GetSourcePacks_AllLevel(item));
         }
 
+        l.Add(p);
         return l.Distinct().ToList();
     }
 
@@ -643,6 +655,7 @@ public class PackBLL
             l.AddRange(GetExtractPacks_AllLevel(item));
         }
 
+        l.Add(p);
         return l.Distinct().ToList();
     }
 
@@ -713,46 +726,96 @@ public class PackBLL
         }
     }
 
-
-    public static PackErr Extract(int autonum, string actor)
+    public static PackErr Extract(int autonum, List<TestDef.Component> l, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         Pack p = Get4Extract(db, autonum, actor);
 
-        if (p == null) return PackErrList.NonExist;
+        if (l.Count == 0) return PackErrList.SelectNoExtract;
+        if (p.CanExtractTo.Count == 0) return PackErrList.Invalid4Extract;
 
-        if (p.Err != PackErrList.Valid4Extract)
-            return p.Err;
+        int count = 0;
+        foreach (TestDef.Component item in l)
+        {
+            if (p.CanExtractTo.Contains(item))
+            {
+                //Extract
+                Pack extractP = PackBLL.New(db, 1).First();
+                if (extractP == null) return PackErrList.DataErr;
 
-        //Extract
-        Pack packRBC = new Pack();
-        packRBC.ComponentID = (int)TestDef.Component.RBC;
-        packRBC.CollectedDate = DateTime.Now;
-        packRBC.Status = Pack.StatusX.Production;
-        packRBC.Actor = actor;
-        db.Packs.InsertOnSubmit(packRBC);
+                db.SubmitChanges();
 
-        Pack packPlasma = new Pack();
-        packPlasma.ComponentID = (int)TestDef.Component.FFPlasma;
-        packPlasma.CollectedDate = DateTime.Now;
-        packPlasma.Status = Pack.StatusX.Production;
-        packPlasma.Actor = actor;
-        db.Packs.InsertOnSubmit(packPlasma);
+                extractP.ComponentID = (int)item;
+                extractP.CollectedDate = DateTime.Now;
+                extractP.Actor = actor;
 
-        db.SubmitChanges();
+                PackStatusHistory h = ChangeStatus(extractP, Pack.StatusX.Production, actor, "Extract");
+                db.PackStatusHistories.InsertOnSubmit(h);
 
-        PackExtract peRBC = new PackExtract();
-        peRBC.SourcePackID = p.ID;
-        peRBC.ExtractPackID = packRBC.ID;
-        db.PackExtracts.InsertOnSubmit(peRBC);
+                PackExtract pe = new PackExtract();
+                pe.SourcePackID = p.ID;
+                pe.ExtractPackID = extractP.ID;
+                db.PackExtracts.InsertOnSubmit(pe);
 
-        PackExtract pePlasma = new PackExtract();
-        pePlasma.SourcePackID = p.ID;
-        pePlasma.ExtractPackID = packPlasma.ID;
-        db.PackExtracts.InsertOnSubmit(pePlasma);
+                count++;
+            }
+        }
 
-        db.SubmitChanges();
+        if (count > 0)
+        {
+            PackStatusHistory hi = ChangeStatus(p, Pack.StatusX.Produced, actor, "Extract");
+            db.PackStatusHistories.InsertOnSubmit(hi);
+
+            db.SubmitChanges();
+            return PackErrList.Non;
+        }
+        else
+        {
+            return PackErrList.DataErr;
+        }
+
+        
+    }
+    public static PackErr Extract(int autonum, string actor)
+    {
+        //RedBloodDataContext db = new RedBloodDataContext();
+
+        //Pack p = Get4Extract(db, autonum, actor);
+
+        //if (p == null) return PackErrList.NonExist;
+
+        //if (p.Err != PackErrList.Valid4Extract)
+        //    return p.Err;
+
+        ////Extract
+        //Pack packRBC = new Pack();
+        //packRBC.ComponentID = (int)TestDef.Component.RBC;
+        //packRBC.CollectedDate = DateTime.Now;
+        //packRBC.Status = Pack.StatusX.Production;
+        //packRBC.Actor = actor;
+        //db.Packs.InsertOnSubmit(packRBC);
+
+        //Pack packPlasma = new Pack();
+        //packPlasma.ComponentID = (int)TestDef.Component.FFPlasma;
+        //packPlasma.CollectedDate = DateTime.Now;
+        //packPlasma.Status = Pack.StatusX.Production;
+        //packPlasma.Actor = actor;
+        //db.Packs.InsertOnSubmit(packPlasma);
+
+        //db.SubmitChanges();
+
+        //PackExtract peRBC = new PackExtract();
+        //peRBC.SourcePackID = p.ID;
+        //peRBC.ExtractPackID = packRBC.ID;
+        //db.PackExtracts.InsertOnSubmit(peRBC);
+
+        //PackExtract pePlasma = new PackExtract();
+        //pePlasma.SourcePackID = p.ID;
+        //pePlasma.ExtractPackID = packPlasma.ID;
+        //db.PackExtracts.InsertOnSubmit(pePlasma);
+
+        //db.SubmitChanges();
 
         return PackErrList.Non;
     }

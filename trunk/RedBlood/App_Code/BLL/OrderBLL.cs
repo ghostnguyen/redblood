@@ -54,8 +54,8 @@ public class OrderBLL
 
         //if (p.PackOrders.Count >= 1) return PackErrList.DataErr;
 
-        if (p.TestResultStatus == Pack.TestResultStatusX.Negative
-            || p.TestResultStatus == Pack.TestResultStatusX.NegativeLocked
+        if (p.TestResultStatus == Pack.TestResultStatusX.Positive
+            || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked
             || p.TestResultStatus == Pack.TestResultStatusX.Non)
         {
             return new PackErr("Không thể cấp phát. KQXN: " + p.TestResultStatus);
@@ -63,6 +63,9 @@ public class OrderBLL
         else
         {
             p.DeliverStatus = Pack.DeliverStatusX.Yes;
+
+            if (p.TestResultStatus == Pack.TestResultStatusX.Negative)
+                p.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
 
             PackOrder po = new PackOrder();
             po.OrderID = r.ID;

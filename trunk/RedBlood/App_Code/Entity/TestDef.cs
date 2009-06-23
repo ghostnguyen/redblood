@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Configuration;
 using System.Linq;
 using System.Web;
@@ -10,56 +13,45 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
+
 /// <summary>
 /// Summary description for TestDef
 /// </summary>
 public partial class TestDef
 {
-    public enum HIV : int
-    {
-        Neg = 19,        
-        Pos = 20,
-        NA = 41
-    }
+    public static TestDef HIV_Neg;
+    public static TestDef HIV_Pos;
+    public static TestDef HIV_NA;
 
-    public enum HBsAg : int
-    {
-        Neg = 13,
-        Pos = 14,
-        NA = 42
-    }
+    public static TestDef HBsAg_Neg;
+    public static TestDef HBsAg_Pos;
+    public static TestDef HBsAg_NA;
 
-    public enum HCV : int
-    {
-        Neg = 16,
-        Pos = 17,
-        NA = 44
-    }
+    public static TestDef HCV_Neg;
+    public static TestDef HCV_Pos;
+    public static TestDef HCV_NA;
 
-    public enum Syphilis : int
-    {
-        Neg = 10,
-        Pos = 11,
-        NA = 43
-    }
+    public static TestDef Syphilis_Neg;
+    public static TestDef Syphilis_Pos;
+    public static TestDef Syphilis_NA;
 
-    public enum Malaria : int
-    {
-        Neg = 22,
-        Pos = 23,
-        NA = 45
-    }
+    public static TestDef Malaria_Neg;
+    public static TestDef Malaria_Pos;
+    public static TestDef Malaria_NA;
 
-    public enum Component : int
+
+
+    static class Component
     {
-        Full = 25,
-        RBC = 26, //red blood cell
-        FFPlasma = 27, // Huyết tương
-        FactorVIII = 28,
-        PlateletApheresis = 29,
-        Platelet = 30, // Tiểu cầu
-        FFPlasma_Poor = 46,
-        WBC = 47 // white blood cell
+        public static TestDef Full;
+        //= 25,
+        //RBC = 26, //red blood cell
+        //FFPlasma = 27, // Huyết tương
+        //FactorVIII = 28,
+        //PlateletApheresis = 29,
+        //Platelet = 30, // Tiểu cầu
+        //FFPlasma_Poor = 46,
+        //WBC = 47 // white blood cell
     }
 
     public enum Source : int
@@ -74,6 +66,39 @@ public partial class TestDef
         Non = 49,
         Yes = 50
     }
+
+    static TestDef()
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        List<TestDef> l = db.TestDefs.ToList();
+
+        HIV_Neg = l.Where(r => r.ID == 19).FirstOrDefault();
+        HIV_Pos = l.Where(r => r.ID == 20).FirstOrDefault();
+        HIV_NA = l.Where(r => r.ID == 41).FirstOrDefault();
+
+        HBsAg_Neg = l.Where(r => r.ID == 13).FirstOrDefault();
+        HBsAg_Pos = l.Where(r => r.ID == 14).FirstOrDefault();
+        HBsAg_NA = l.Where(r => r.ID == 42).FirstOrDefault();
+
+        HCV_Neg = l.Where(r => r.ID == 16).FirstOrDefault();
+        HCV_Pos = l.Where(r => r.ID == 17).FirstOrDefault();
+        HCV_NA = l.Where(r => r.ID == 44).FirstOrDefault();
+
+        Syphilis_Neg = l.Where(r => r.ID == 10).FirstOrDefault();
+        Syphilis_Pos = l.Where(r => r.ID == 11).FirstOrDefault();
+        Syphilis_NA = l.Where(r => r.ID == 43).FirstOrDefault();
+
+        Malaria_Neg = l.Where(r => r.ID == 22).FirstOrDefault();
+        Malaria_Pos = l.Where(r => r.ID == 23).FirstOrDefault();
+        Malaria_NA = l.Where(r => r.ID == 45).FirstOrDefault();
+
+        
+        
+    }
+
+
+
+
 
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
@@ -93,3 +118,5 @@ public partial class TestDef
         }
     }
 }
+
+

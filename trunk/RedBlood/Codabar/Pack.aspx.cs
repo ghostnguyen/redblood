@@ -12,7 +12,7 @@ public partial class Codabar_Pack : System.Web.UI.Page
     {
         CodabarBLL codabarBLL = new CodabarBLL();
         PackBLL bll = new PackBLL();
-        Pack[] l = bll.New(5);
+        Pack[] l = PackBLL.New(5);
 
         foreach (Pack r in l)
         {

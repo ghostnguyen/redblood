@@ -25,7 +25,7 @@
         });
 
         $(document).bind('keydown', '5', function() {
-            window.location.replace("/RedBlood/Default9.aspx");
+            window.location.replace("/RedBlood/Production/Extract.aspx");
         });
 
         $(document).bind('keydown', '6', function() {
@@ -88,10 +88,10 @@
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="/RedBlood/PackManually.aspx">5. Sản xuất</a></h3>
+                                <a href="/RedBlood/Production/Extract.aspx">5. Sản xuất</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/PackManually.aspx" />
+                            <a href="/RedBlood/Production/Extract.aspx" />
                             <img src="Image/Icon/extract.png" alt="" />
                         </td>
                         <td class="column next">
