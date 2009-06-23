@@ -92,9 +92,9 @@ public partial class FindAndReport_FindCampaign : System.Web.UI.Page
             }
 
             List<int> sourceList = new List<int>();
-            sourceList.Add((int)TestDef.Source.Donation);
-            sourceList.Add((int)TestDef.Source.RedCross);
-            sourceList.Add((int)TestDef.Source.Other);
+            sourceList.Add(TestDef.Source.Donation.ID);
+            sourceList.Add(TestDef.Source.RedCross.ID);
+            sourceList.Add(TestDef.Source.Other.ID);
             CheckBoxListSource.DataSource = db.TestDefs.Where(r => sourceList.Contains(r.ID));
             CheckBoxListSource.DataBind();
             foreach (ListItem item in CheckBoxListSource.Items)

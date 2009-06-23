@@ -37,45 +37,45 @@ public partial class UserControl_ThanksLetter : System.Web.UI.UserControl
 
         if (e.HIVID == null)
             LabelHIV.Text = "Không có";
-        else if (e.HIVID == (int)TestDef.HIV.Neg)
+        else if (e.HIV == TestDef.HIV.Neg)
             LabelHIV.Text = "Âm tính";
-        else if (e.HIVID == (int)TestDef.HIV.Pos)
+        else if (e.HIV== TestDef.HIV.Pos)
             LabelHIV.Text = "Dương tính";
         else
             LabelHIV.Text = e.HIV.Name;
 
         if (e.HCVID == null)
             LabelHCV.Text = "Không có";
-        else if (e.HCVID == (int)TestDef.HCV.Neg)
+        else if (e.HCV== TestDef.HCV.Neg)
             LabelHCV.Text = "Âm tính";
-        else if (e.HCVID == (int)TestDef.HCV.Pos)
+        else if (e.HCV== TestDef.HCV.Pos)
             LabelHCV.Text = "Dương tính";
         else
             LabelHCV.Text = e.HCV.Name;
 
         if (e.HBsAgID == null)
             LabelHBsAg.Text = "Không có";
-        else if (e.HBsAgID == (int)TestDef.HBsAg.Neg)
+        else if (e.HBsAg== TestDef.HBsAg.Neg)
             LabelHBsAg.Text = "Âm tính";
-        else if (e.HBsAgID == (int)TestDef.HBsAg.Pos)
+        else if (e.HBsAg==TestDef.HBsAg.Pos)
             LabelHBsAg.Text = "Dương tính";
         else
             LabelHBsAg.Text = e.HBsAg.Name;
 
         if (e.MalariaID == null)
             LabelMalaria.Text = "Không có";
-        else if (e.MalariaID == (int)TestDef.Malaria.Neg)
+        else if (e.Malaria==TestDef.Malaria.Neg)
             LabelMalaria.Text = "Âm tính";
-        else if (e.MalariaID == (int)TestDef.Malaria.Pos)
+        else if (e.Malaria==TestDef.Malaria.Pos)
             LabelMalaria.Text = "Dương tính";
         else
             LabelMalaria.Text = e.Malaria.Name;
 
         if (e.SyphilisID == null)
             LabelSyphilis.Text = "Không có";
-        else if (e.SyphilisID == (int)TestDef.Syphilis.Neg)
+        else if (e.Syphilis==TestDef.Syphilis.Neg)
             LabelSyphilis.Text = "Âm tính";
-        else if (e.SyphilisID == (int)TestDef.Syphilis.Pos)
+        else if (e.Syphilis==TestDef.Syphilis.Pos)
             LabelSyphilis.Text = "Dương tính";
         else
             LabelSyphilis.Text = e.Syphilis.Name;

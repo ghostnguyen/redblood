@@ -238,12 +238,5 @@ public static class dotNetExt
         else return o.ToString().ToIntNullable();
     }
 
-    public static ListItem ToListItem(this Enum e)
-    {
-        string text = Enum.GetName(e.GetType(), e);
-
-        string value = ((int)((TestDef.Component)e)).ToString();
-
-        return new ListItem(text, value);
-    }
+    
 }
