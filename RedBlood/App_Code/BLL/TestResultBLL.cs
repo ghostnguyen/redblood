@@ -34,6 +34,7 @@ public class TestResultBLL
             e.PackID = p.ID;
 
             e.HIVID = hivID;
+            
             e.HCVID = hcvID;
             e.HBsAgID = HBsAgID;
             e.SyphilisID = syphilisID;
@@ -59,7 +60,8 @@ public class TestResultBLL
             {
                 if (p.TestResults[0].HIVID != hivID)
                 {
-                    p.TestResults[0].HIVID = hivID;
+                    //p.TestResults[0].HIVID = hivID;
+                    p.TestResults[0].HIV = db.TestDefs.Where(r => r.ID == hivID).FirstOrDefault();
                     PackResultHistoryBLL.Insert(db, p, hivID, times, actor, note);
                 }
 

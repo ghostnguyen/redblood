@@ -24,11 +24,15 @@
                                 <asp:Label ID="Label3" runat="server" Text="Túi máu" />
                                 <br />
                                 <asp:Label ID="Label4" runat="server" Text="Tình trạng" />
+                                <br />
+                                <asp:Label ID="Label8" runat="server" Text="KQXN" />
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("Autonum") %>' />
                                 <br />
                                 <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' />
+                                <br />
+                                <asp:Label ID="lblTestResultStatus" runat="server" Text='<%# Eval("TestResultStatus") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField>
@@ -48,6 +52,8 @@
                                 <asp:Label ID="Label5" runat="server" Text="Thành phần" />
                                 <br />
                                 <asp:Label ID="Label7" runat="server" Text="Thể tích (ml)" />
+                                <br />
+                                <asp:Label ID="Label9" runat="server" Text="Chất nuôi" />
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblComponent" runat="server" Text='<%# Eval("Component.Name") %>' />

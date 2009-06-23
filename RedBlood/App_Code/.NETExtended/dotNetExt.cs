@@ -168,6 +168,8 @@ public static class dotNetExt
         return null;
     }
 
+    #region DateTime
+
     public static string ToStringVN(this DateTime dt)
     {
         return dt.ToString("dd/MM/yyyy");
@@ -209,6 +211,8 @@ public static class dotNetExt
         return dt.Year - dt.Year % 10;
     }
 
+    #endregion
+
     public static void SelectByText(this DropDownList ddl, string text)
     {
         ListItem li = ddl.Items.FindByText(text);
@@ -232,5 +236,14 @@ public static class dotNetExt
     {
         if (o == null) return null;
         else return o.ToString().ToIntNullable();
+    }
+
+    public static ListItem ToListItem(this Enum e)
+    {
+        string text = Enum.GetName(e.GetType(), e);
+
+        string value = ((int)((TestDef.Component)e)).ToString();
+
+        return new ListItem(text, value);
     }
 }

@@ -46,6 +46,7 @@ public class PackErrList
     public static PackErr Extracted = new PackErr("Túi máu đã sản xuất.");
     public static PackErr Valid4Extract = new PackErr("");
     public static PackErr Invalid4Extract = new PackErr("Không thể sản xuất.");
+    public static PackErr SelectNoExtract = new PackErr("Chưa chọn loại chế phẩm.");
 
 
     //Combine 2 Platelet

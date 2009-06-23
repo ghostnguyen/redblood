@@ -56,7 +56,7 @@ public partial class PackTempStore : System.Web.UI.Page
         }
         else
         {
-            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID, PackBLL.AllowEnterTestResult());
+            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID);
         }
     }
 

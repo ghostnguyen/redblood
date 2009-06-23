@@ -53,10 +53,19 @@ public partial class Pack
 
     public enum TestResultStatusX : int
     {
+        Chưa_có = 0,
         Non = 0,
+
+        Âm_tính = 1,
         Negative = 1,
+
+        Dương_tính = 2,
         Positive = 2,
+
+        Âm_tính_K = 3,
         NegativeLocked = 3,
+
+        Dương_tính_K = 4,
         PositiveLocked = 4
     }
 
@@ -65,10 +74,6 @@ public partial class Pack
         Non = 0,
         Yes = 1
     }
-
-
-
-
 
 
     PackBLL bll = new PackBLL();
