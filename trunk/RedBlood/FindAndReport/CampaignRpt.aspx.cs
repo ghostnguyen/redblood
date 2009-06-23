@@ -124,7 +124,7 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.TestResult2.HIVID == (int)TestDef.HIV.Pos)
+                            if (p.TestResult2.HIV==TestDef.HIV.Pos)
                             {
                                 cell.Attributes.Add("style", style);
                                 if (IsSpecialProvince()) (ctr as Label).Text = "XN lần 2";
@@ -139,7 +139,7 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.TestResult2.HCVID == (int)TestDef.HCV.Pos)
+                            if (p.TestResult2.HCV==TestDef.HCV.Pos)
                                 cell.Attributes.Add("style", style);
                         }
                     }
@@ -152,7 +152,7 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.TestResult2.HBsAgID == (int)TestDef.HBsAg.Pos)
+                            if (p.TestResult2.HBsAg==TestDef.HBsAg.Pos)
                                 cell.Attributes.Add("style", style);
                         }
                     }
@@ -165,7 +165,7 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.TestResult2.SyphilisID == (int)TestDef.Syphilis.Pos)
+                            if (p.TestResult2.Syphilis==TestDef.Syphilis.Pos)
                                 cell.Attributes.Add("style", style);
                         }
                     }
@@ -177,7 +177,7 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.TestResult2.MalariaID == (int)TestDef.Malaria.Pos)
+                            if (p.TestResult2.Malaria==TestDef.Malaria.Pos)
                                 cell.Attributes.Add("style", style);
                         }
                     }

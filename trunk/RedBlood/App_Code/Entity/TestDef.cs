@@ -19,52 +19,65 @@ using System.Xml.Linq;
 /// </summary>
 public partial class TestDef
 {
-    public static TestDef HIV_Neg;
-    public static TestDef HIV_Pos;
-    public static TestDef HIV_NA;
+    public static class HIV
+    {
+        public static TestDef Neg;
+        public static TestDef Pos;
+        public static TestDef NA;
+    }
 
-    public static TestDef HBsAg_Neg;
-    public static TestDef HBsAg_Pos;
-    public static TestDef HBsAg_NA;
+    public static class HBsAg
+    {
+        public static TestDef Neg;
+        public static TestDef Pos;
+        public static TestDef NA;
+    }
 
-    public static TestDef HCV_Neg;
-    public static TestDef HCV_Pos;
-    public static TestDef HCV_NA;
+    public static class HCV
+    {
+        public static TestDef Neg;
+        public static TestDef Pos;
+        public static TestDef NA;
+    }
 
-    public static TestDef Syphilis_Neg;
-    public static TestDef Syphilis_Pos;
-    public static TestDef Syphilis_NA;
+    public static class Syphilis
+    {
+        public static TestDef Neg;
+        public static TestDef Pos;
+        public static TestDef NA;
+    }
 
-    public static TestDef Malaria_Neg;
-    public static TestDef Malaria_Pos;
-    public static TestDef Malaria_NA;
+    public static class Malaria
+    {
+        public static TestDef Neg;
+        public static TestDef Pos;
+        public static TestDef NA;
+    }
 
-
-
-    static class Component
+    public static class Component
     {
         public static TestDef Full;
-        //= 25,
-        //RBC = 26, //red blood cell
-        //FFPlasma = 27, // Huyết tương
-        //FactorVIII = 28,
-        //PlateletApheresis = 29,
-        //Platelet = 30, // Tiểu cầu
-        //FFPlasma_Poor = 46,
-        //WBC = 47 // white blood cell
+        public static TestDef RBC; //red blood cell
+        public static TestDef FFPlasma; // Huyết tương
+        public static TestDef FactorVIII;
+        public static TestDef PlateletApheresis;
+        public static TestDef Platelet; // Tiểu cầu
+        public static TestDef FFPlasma_Poor;
+        public static TestDef WBC;// white blood cell
     }
 
-    public enum Source : int
+    public static class Source
     {
-        Donation = 37,
-        RedCross = 38,
-        Other = 40
+        public static TestDef Donation;
+        public static TestDef RedCross;
+        public static TestDef Other;
     }
 
-    public enum Substance : int
+
+    public static class Substance
     {
-        Non = 49,
-        Yes = 50
+        public static TestDef Non;
+        public static TestDef Yes;
     }
 
     static TestDef()
@@ -72,32 +85,57 @@ public partial class TestDef
         RedBloodDataContext db = new RedBloodDataContext();
         List<TestDef> l = db.TestDefs.ToList();
 
-        HIV_Neg = l.Where(r => r.ID == 19).FirstOrDefault();
-        HIV_Pos = l.Where(r => r.ID == 20).FirstOrDefault();
-        HIV_NA = l.Where(r => r.ID == 41).FirstOrDefault();
+        HIV.Neg = l.Where(r => r.ID == 19).FirstOrDefault();
+        HIV.Pos = l.Where(r => r.ID == 20).FirstOrDefault();
+        HIV.NA = l.Where(r => r.ID == 41).FirstOrDefault();
 
-        HBsAg_Neg = l.Where(r => r.ID == 13).FirstOrDefault();
-        HBsAg_Pos = l.Where(r => r.ID == 14).FirstOrDefault();
-        HBsAg_NA = l.Where(r => r.ID == 42).FirstOrDefault();
+        HBsAg.Neg = l.Where(r => r.ID == 13).FirstOrDefault();
+        HBsAg.Pos = l.Where(r => r.ID == 14).FirstOrDefault();
+        HBsAg.NA = l.Where(r => r.ID == 42).FirstOrDefault();
 
-        HCV_Neg = l.Where(r => r.ID == 16).FirstOrDefault();
-        HCV_Pos = l.Where(r => r.ID == 17).FirstOrDefault();
-        HCV_NA = l.Where(r => r.ID == 44).FirstOrDefault();
+        HCV.Neg = l.Where(r => r.ID == 16).FirstOrDefault();
+        HCV.Pos = l.Where(r => r.ID == 17).FirstOrDefault();
+        HCV.NA = l.Where(r => r.ID == 44).FirstOrDefault();
 
-        Syphilis_Neg = l.Where(r => r.ID == 10).FirstOrDefault();
-        Syphilis_Pos = l.Where(r => r.ID == 11).FirstOrDefault();
-        Syphilis_NA = l.Where(r => r.ID == 43).FirstOrDefault();
+        Syphilis.Neg = l.Where(r => r.ID == 10).FirstOrDefault();
+        Syphilis.Pos = l.Where(r => r.ID == 11).FirstOrDefault();
+        Syphilis.NA = l.Where(r => r.ID == 43).FirstOrDefault();
 
-        Malaria_Neg = l.Where(r => r.ID == 22).FirstOrDefault();
-        Malaria_Pos = l.Where(r => r.ID == 23).FirstOrDefault();
-        Malaria_NA = l.Where(r => r.ID == 45).FirstOrDefault();
+        Malaria.Neg = l.Where(r => r.ID == 22).FirstOrDefault();
+        Malaria.Pos = l.Where(r => r.ID == 23).FirstOrDefault();
+        Malaria.NA = l.Where(r => r.ID == 45).FirstOrDefault();
 
-        
-        
+        Component.Full = l.Where(r => r.ID == 25).FirstOrDefault();
+        Component.RBC = l.Where(r => r.ID == 26).FirstOrDefault();//red blood cell
+        Component.FFPlasma = l.Where(r => r.ID == 27).FirstOrDefault();// Huyết tương
+        Component.FactorVIII = l.Where(r => r.ID == 28).FirstOrDefault();
+        Component.PlateletApheresis = l.Where(r => r.ID == 29).FirstOrDefault();
+        Component.Platelet = l.Where(r => r.ID == 30).FirstOrDefault();// Tiểu cầu
+        Component.FFPlasma_Poor = l.Where(r => r.ID == 46).FirstOrDefault();
+        Component.WBC = l.Where(r => r.ID == 47).FirstOrDefault(); // white blood cell
+
+        Source.Donation = l.Where(r => r.ID == 37).FirstOrDefault();
+        Source.RedCross = l.Where(r => r.ID == 38).FirstOrDefault();
+        Source.Other = l.Where(r => r.ID == 40).FirstOrDefault();
+
+        Substance.Non = l.Where(r => r.ID == 49).FirstOrDefault();
+        Substance.Yes = l.Where(r => r.ID == 50).FirstOrDefault();
     }
 
+    public static bool operator ==(TestDef td1, TestDef td2)
+    {
 
+        if ((object)td1 == null && (object)td2 == null) return true;
 
+        if ((object)td1 == null || (object)td2 == null) return false;
+
+        return (td1.ID == td2.ID);
+    }
+
+    public static bool operator !=(TestDef td1, TestDef td2)
+    {
+        return !(td1 == td2);
+    }
 
 
     partial void OnValidate(System.Data.Linq.ChangeAction action)

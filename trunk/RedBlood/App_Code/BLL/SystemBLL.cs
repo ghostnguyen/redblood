@@ -73,14 +73,14 @@ public class SystemBLL
 
         if (p.SubstanceRoot == null)
         {
-            return GetExpire((TestDef.Component)p.ComponentID, TestDef.Substance.Non);
+            return GetExpire(p.Component, TestDef.Substance.Non);
         }
         else
-            return GetExpire((TestDef.Component)p.ComponentID, (TestDef.Substance)p.SubstanceRoot.ID);
+            return GetExpire(p.Component, p.SubstanceRoot);
         
     }
 
-    public static TimeSpan GetExpire(TestDef.Component c, TestDef.Substance s)
+    public static TimeSpan GetExpire(TestDef c, TestDef s)
     {
         if (c == TestDef.Component.Full)
         {

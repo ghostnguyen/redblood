@@ -162,7 +162,7 @@ public class PackBLL
             return p;
         }
 
-        p.CanExtractTo = new List<TestDef.Component>();
+        p.CanExtractTo = new List<TestDef>();
 
         if (p.Status == Pack.StatusX.Collected)
         {
@@ -179,7 +179,7 @@ public class PackBLL
         }
         else if (p.Status == Pack.StatusX.Production)
         {
-            if (p.ComponentID == (int)TestDef.Component.FFPlasma)
+            if (p.Component == TestDef.Component.FFPlasma)
             {
                 p.Err = PackErrList.Valid4Extract;
 
@@ -224,10 +224,10 @@ public class PackBLL
     public static List<Pack> GetByCampaign(int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return db.Packs.Where(r => r.CampaignID == campaignID 
+        return db.Packs.Where(r => r.CampaignID == campaignID
             && StatusListAllowEnterTestResult().Contains(r.Status)
             && AllowEnterTestResult().Contains(r.TestResultStatus)
-            && r.ComponentID == (int)TestDef.Component.Full
+            && r.Component == TestDef.Component.Full
             ).ToList();
     }
 
@@ -260,8 +260,8 @@ public class PackBLL
             p.PeopleID = peopleID;
             p.CollectedDate = DateTime.Now;
             p.CampaignID = campaignID;
-            p.SubstanceID = (int)TestDef.Substance.Non;
-            p.ComponentID = (int)TestDef.Component.Full;
+            p.Substance = TestDef.Substance.Non;
+            p.Component = TestDef.Component.Full;
 
             PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Collected, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
             db.PackStatusHistories.InsertOnSubmit(h);
@@ -542,8 +542,8 @@ public class PackBLL
                 || p.CampaignID != null)
                 return PackErrList.DataErr;
         }
-        else if (p.ComponentID == (int)TestDef.Component.Full
-            || p.ComponentID == (int)TestDef.Component.PlateletApheresis)
+        else if (p.Component == TestDef.Component.Full
+            || p.Component == TestDef.Component.PlateletApheresis)
         {
             if (p.PeopleID == null
                 || p.CampaignID == null
@@ -554,7 +554,7 @@ public class PackBLL
 
         if (p.Status == Pack.StatusX.Collected)
         {
-            if (p.ComponentID != (int)TestDef.Component.Full)
+            if (p.Component != TestDef.Component.Full)
                 return PackErrList.DataErr;
         }
 
@@ -616,12 +616,12 @@ public class PackBLL
         {
             return v.ToList().Where(r =>
                 TestResultBLL.GetNonNegative(r.TestResult2).Count() > 0 &&
-                TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 0).ToList();
+                TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef == TestDef.HIV.Pos || tdef == TestDef.HIV.NA).Count() == 0).ToList();
         }
 
         if (rptType == ReportType.HIVInCam)
         {
-            return v.ToList().Where(r => TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef.ID == (int)TestDef.HIV.Pos || tdef.ID == (int)TestDef.HIV.NA).Count() == 1).ToList();
+            return v.ToList().Where(r => TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef == TestDef.HIV.Pos || tdef == TestDef.HIV.NA).Count() == 1).ToList();
         }
 
         return null;
@@ -685,7 +685,7 @@ public class PackBLL
         if (p == null
             || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
             || p.ComponentID == null
-            || p.ComponentID.Value != (int)TestDef.Component.Full)
+            || p.Component != TestDef.Component.Full)
             return;
 
         if (p.Volume == null
@@ -726,17 +726,17 @@ public class PackBLL
         }
     }
 
-    public static PackErr Extract(int autonum, List<TestDef.Component> l, string actor)
+    public static PackErr Extract(int autonum, List<TestDef> c, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         Pack p = Get4Extract(db, autonum, actor);
 
-        if (l.Count == 0) return PackErrList.SelectNoExtract;
+        if (c.Count == 0) return PackErrList.SelectNoExtract;
         if (p.CanExtractTo.Count == 0) return PackErrList.Invalid4Extract;
 
         int count = 0;
-        foreach (TestDef.Component item in l)
+        foreach (TestDef item in c)
         {
             if (p.CanExtractTo.Contains(item))
             {
@@ -746,7 +746,7 @@ public class PackBLL
 
                 db.SubmitChanges();
 
-                extractP.ComponentID = (int)item;
+                extractP.Component = item;
                 extractP.CollectedDate = DateTime.Now;
                 extractP.Actor = actor;
 
@@ -775,7 +775,7 @@ public class PackBLL
             return PackErrList.DataErr;
         }
 
-        
+
     }
     public static PackErr Extract(int autonum, string actor)
     {
@@ -843,7 +843,7 @@ public class PackBLL
             return PackErrList.Invalid4Platelet;
         }
 
-        pOut.ComponentID = (int)TestDef.Component.Platelet;
+        pOut.Component = TestDef.Component.Platelet;
         pOut.CollectedDate = DateTime.Now;
         pOut.Note = note;
 
@@ -936,19 +936,19 @@ public class PackBLL
 
         if (p == null) return null;
 
-        if (p.ComponentID == (int)TestDef.Component.Full)
+        if (p.Component == TestDef.Component.Full)
         {
             if (p.PackExtractsBySource
                 .Where(r =>
-                    r.ExtractPack.ComponentID == (int)TestDef.Component.RBC
-                    || r.ExtractPack.ComponentID == (int)TestDef.Component.FFPlasma
+                    r.ExtractPack.Component == TestDef.Component.RBC
+                    || r.ExtractPack.Component == TestDef.Component.FFPlasma
                     )
                 .Count() > 0)
                 return p;
         }
 
-        if (p.ComponentID == (int)TestDef.Component.RBC
-            || p.ComponentID == (int)TestDef.Component.FFPlasma
+        if (p.Component == TestDef.Component.RBC
+            || p.Component == TestDef.Component.FFPlasma
             )
         {
             return p;

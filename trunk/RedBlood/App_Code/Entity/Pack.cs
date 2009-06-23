@@ -164,7 +164,7 @@ public partial class Pack
         {
             //Get all packs related pack and each has componet is full
             List<TestResultStatusX> l = PackBLL.GetSourcePacks_AllLevel(this)
-                                            .Where(r => r.ComponentID == (int)TestDef.Component.Full)
+                                            .Where(r => r.Component == TestDef.Component.Full)
                                             .Select(r => r.TestResultStatus)
                                             .ToList();
 
@@ -198,19 +198,19 @@ public partial class Pack
         {
             //Get all packs related pack and each has componet is full
             List<TestDef> l = PackBLL.GetSourcePacks_AllLevel(this)
-                                            .Where(r => r.ComponentID == (int)TestDef.Component.Full)
+                                            .Where(r => r.Component == TestDef.Component.Full)
                                             .Select(r => r.Substance)
                                             .ToList();
 
             foreach (TestDef item in l)
             {
-                if (item.ID == (int)TestDef.Substance.Yes)
+                if (item == TestDef.Substance.Yes)
                     return item;
             }
 
             foreach (TestDef item in l)
             {
-                if (item.ID == (int)TestDef.Substance.Non)
+                if (item == TestDef.Substance.Non)
                     return item;
             }
 
@@ -219,7 +219,7 @@ public partial class Pack
     }
 
     public PackErr Err { get; set; }
-    public List<TestDef.Component> CanExtractTo { get; set; }
+    public List<TestDef> CanExtractTo { get; set; }
     public List<Pack> RelatedPack
     {
         get
