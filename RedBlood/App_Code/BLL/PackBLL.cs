@@ -257,11 +257,12 @@ public class PackBLL
 
         try
         {
+            
             p.PeopleID = peopleID;
             p.CollectedDate = DateTime.Now;
             p.CampaignID = campaignID;
-            p.Substance = TestDef.Substance.Non;
-            p.Component = TestDef.Component.Full;
+            p.Substance = TestDefBLL.Get(db,TestDef.Substance.Non.ID);
+            p.Component = TestDefBLL.Get(db, TestDef.Component.Full.ID); 
 
             PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Collected, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
             db.PackStatusHistories.InsertOnSubmit(h);
@@ -320,8 +321,10 @@ public class PackBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         var e = from c in db.Packs
-                //where c.PeopleID == peopleID && (c.Status == Pack.StatusX.Collected || c.Status == Pack.StatusX.EnterTestResult)
-                where c.PeopleID == peopleID && (c.Status == Pack.StatusX.Collected)
+                where c.PeopleID == peopleID 
+                && (c.Status == Pack.StatusX.Collected)
+                && (c.TestResultStatus == Pack.TestResultStatusX.Non)
+
                 orderby c.Status descending, c.CollectedDate descending
                 select c;
 
@@ -542,8 +545,8 @@ public class PackBLL
                 || p.CampaignID != null)
                 return PackErrList.DataErr;
         }
-        else if (p.Component == TestDef.Component.Full
-            || p.Component == TestDef.Component.PlateletApheresis)
+        else if (p.Component.ID == TestDef.Component.Full
+            || p.Component.ID == TestDef.Component.PlateletApheresis)
         {
             if (p.PeopleID == null
                 || p.CampaignID == null
@@ -554,7 +557,7 @@ public class PackBLL
 
         if (p.Status == Pack.StatusX.Collected)
         {
-            if (p.Component != TestDef.Component.Full)
+            if (p.Component.ID != TestDef.Component.Full)
                 return PackErrList.DataErr;
         }
 
@@ -616,12 +619,12 @@ public class PackBLL
         {
             return v.ToList().Where(r =>
                 TestResultBLL.GetNonNegative(r.TestResult2).Count() > 0 &&
-                TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef == TestDef.HIV.Pos || tdef == TestDef.HIV.NA).Count() == 0).ToList();
+                TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef.ID == TestDef.HIV.Pos || tdef.ID == TestDef.HIV.NA).Count() == 0).ToList();
         }
 
         if (rptType == ReportType.HIVInCam)
         {
-            return v.ToList().Where(r => TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef == TestDef.HIV.Pos || tdef == TestDef.HIV.NA).Count() == 1).ToList();
+            return v.ToList().Where(r => TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef.ID == TestDef.HIV.Pos || tdef == TestDef.HIV.NA).Count() == 1).ToList();
         }
 
         return null;
@@ -685,7 +688,7 @@ public class PackBLL
         if (p == null
             || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
             || p.ComponentID == null
-            || p.Component != TestDef.Component.Full)
+            || p.Component.ID != TestDef.Component.Full)
             return;
 
         if (p.Volume == null
@@ -936,25 +939,60 @@ public class PackBLL
 
         if (p == null) return null;
 
-        if (p.Component == TestDef.Component.Full)
+        if (p.Component.ID == TestDef.Component.Full)
         {
             if (p.PackExtractsBySource
                 .Where(r =>
-                    r.ExtractPack.Component == TestDef.Component.RBC
-                    || r.ExtractPack.Component == TestDef.Component.FFPlasma
+                    r.ExtractPack.Component.ID == TestDef.Component.RBC
+                    || r.ExtractPack.Component.ID == TestDef.Component.FFPlasma
                     )
                 .Count() > 0)
                 return p;
         }
 
-        if (p.Component == TestDef.Component.RBC
-            || p.Component == TestDef.Component.FFPlasma
+        if (p.Component.ID == TestDef.Component.RBC
+            || p.Component.ID == TestDef.Component.FFPlasma
             )
         {
             return p;
         }
 
         return null;
+    }
+
+
+    public static void LockEnterTestResult()
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        //This tricky code help load static const in class TestDef.
+        TestDef td = new TestDef();
+
+        List<Pack> l = db.Packs.Where(r =>
+            (r.TestResultStatus == Pack.TestResultStatusX.Negative
+            || r.TestResultStatus == Pack.TestResultStatusX.Positive)
+            && r.ComponentID == TestDef.Component.Full
+            ).ToList();
+
+        List<TestResult> trL = l.Select(r => r.TestResult2).Where(r => r != null).ToList();
+
+        foreach (TestResult item in trL)
+        {
+            if (item.CommitDate != null
+                && item.CommitDate.Value.Date < DateTime.Now.Date)
+            {
+                if (item.Pack.TestResultStatus == Pack.TestResultStatusX.Negative)
+                    item.Pack.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+
+                if (item.Pack.TestResultStatus == Pack.TestResultStatusX.Positive)
+                    item.Pack.TestResultStatus = Pack.TestResultStatusX.PositiveLocked;
+
+                //Update for all related packs
+                UpdateTestResultStatus4Extracts(db, item.Pack);
+            }
+        }
+
+        db.SubmitChanges();
     }
 }
 

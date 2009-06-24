@@ -68,16 +68,20 @@ public partial class PackManually : System.Web.UI.Page
 
         if (p != null)
         {
-            PackBLL.Update(db, p, e.NewValues["ComponentID"].ToIntNullable(), e.NewValues["Volume"].ToIntNullable(), e.NewValues["SubstanceID"].ToIntNullable());
+            PackBLL.Update(db, p, 
+                e.NewValues["ComponentID"].ToString().ToIntNullable4Zero(), 
+                e.NewValues["Volume"].ToString().ToIntNullable4Zero(),
+                e.NewValues["SubstanceID"].ToString().ToIntNullable4Zero());
             BloodTypeBLL.Update(db, p, 2,
-                e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(),
+                TestDefBLL.GetConst(e.NewValues["BloodType2.ABO.ID"].ToString().ToInt()), 
+                TestDefBLL.GetConst(e.NewValues["BloodType2.RH.ID"].ToString().ToInt()),
                 Page.User.Identity.Name, "");
             TestResultBLL.Update(db, p, 2,
-                e.NewValues["TestResult2.HIV.ID"].ToIntNullable(),
-                e.NewValues["TestResult2.HCV.ID"].ToIntNullable(),
-                e.NewValues["TestResult2.HBsAg.ID"].ToIntNullable(),
-                e.NewValues["TestResult2.Syphilis.ID"].ToIntNullable(),
-                e.NewValues["TestResult2.Malaria.ID"].ToIntNullable(),
+                TestDefBLL.GetConst(e.NewValues["TestResult2.HIV.ID"].ToString().ToInt()), 
+                TestDefBLL.GetConst(e.NewValues["TestResult2.HCV.ID"].ToString().ToInt()), 
+                TestDefBLL.GetConst(e.NewValues["TestResult2.HBsAg.ID"].ToString().ToInt()), 
+                TestDefBLL.GetConst(e.NewValues["TestResult2.Syphilis.ID"].ToString().ToInt()),
+                TestDefBLL.GetConst(e.NewValues["TestResult2.Malaria.ID"].ToString().ToInt()), 
                 Page.User.Identity.Name, "");
 
             db.SubmitChanges();

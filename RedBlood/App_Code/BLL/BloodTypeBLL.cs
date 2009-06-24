@@ -15,24 +15,24 @@ public class BloodTypeBLL
         //
     }
 
-    public static void Update(RedBloodDataContext db, Pack p, int times, int? aboID, int? rhID, string actor, string note)
+    public static void Update(RedBloodDataContext db, Pack p, int times, TestDef ABO, TestDef RH, string actor, string note)
     {
         if (p == null
            || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
            || p.ComponentID == null
-           || p.Component != TestDef.Component.Full)
+           || p.Component.ID != TestDef.Component.Full)
             return;
 
         if (p.BloodTypes.Count == 0)
         {
             BloodType bt = new BloodType();
             bt.PackID = p.ID;
-            bt.aboID = aboID;
-            bt.rhID = rhID;
+            bt.ABO = ABO;
+            bt.RH = RH;
             bt.Times = times;
 
-            PackResultHistoryBLL.Insert(db, p, aboID, times, actor, note);
-            PackResultHistoryBLL.Insert(db, p, rhID, times, actor, note);
+            PackResultHistoryBLL.Insert(db, p, ABO, times, actor, note);
+            PackResultHistoryBLL.Insert(db, p, RH, times, actor, note);
 
             db.BloodTypes.InsertOnSubmit(bt);
             return;
@@ -42,15 +42,15 @@ public class BloodTypeBLL
         {
             if (p.BloodTypes[0].Times == times)
             {
-                if (p.BloodTypes[0].aboID != aboID)
+                if (p.BloodTypes[0].ABO != ABO)
                 {
-                    p.BloodTypes[0].aboID = aboID;
-                    PackResultHistoryBLL.Insert(db, p, aboID, times, actor, note);
+                    p.BloodTypes[0].ABO = ABO;
+                    PackResultHistoryBLL.Insert(db, p, ABO, times, actor, note);
                 }
-                if (p.BloodTypes[0].rhID != rhID)
+                if (p.BloodTypes[0].RH != RH)
                 {
-                    p.BloodTypes[0].rhID = rhID;
-                    PackResultHistoryBLL.Insert(db, p, rhID, times, actor, note);
+                    p.BloodTypes[0].RH = RH;
+                    PackResultHistoryBLL.Insert(db, p, RH, times, actor, note);
                 }
             }
         }

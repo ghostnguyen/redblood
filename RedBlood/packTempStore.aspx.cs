@@ -68,14 +68,21 @@ public partial class PackTempStore : System.Web.UI.Page
 
         if (p != null)
         {
-            PackBLL.Update(db, p, e.NewValues["ComponentID"].ToIntNullable(), e.NewValues["Volume"].ToIntNullable(), e.NewValues["SubstanceID"].ToIntNullable());
-            BloodTypeBLL.Update(db, p, 2, 
-                e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(), 
+            //PackBLL.Update(db, p, e.NewValues["ComponentID"].ToIntNullable(), e.NewValues["Volume"].ToIntNullable(), e.NewValues["SubstanceID"].ToIntNullable());
+            //BloodTypeBLL.Update(db, p, 2, 
+            //    e.NewValues["BloodType2.ABO.ID"].ToIntNullable(), e.NewValues["BloodType2.RH.ID"].ToIntNullable(), 
+            //    Page.User.Identity.Name, "");
+
+            PackBLL.Update(db, p,
+                e.NewValues["ComponentID"].ToString().ToIntNullable4Zero(),
+                e.NewValues["Volume"].ToString().ToIntNullable4Zero(),
+                e.NewValues["SubstanceID"].ToString().ToIntNullable4Zero());
+            BloodTypeBLL.Update(db, p, 2,
+                TestDefBLL.GetConst(e.NewValues["BloodType2.ABO.ID"].ToString().ToInt()),
+                TestDefBLL.GetConst(e.NewValues["BloodType2.RH.ID"].ToString().ToInt()),
                 Page.User.Identity.Name, "");
 
             db.SubmitChanges();
-
-            
         }
 
         e.Cancel = true;

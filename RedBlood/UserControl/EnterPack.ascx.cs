@@ -209,10 +209,10 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
                 DropDownListVolume.SelectedValue.ToIntNullable4Zero(),
                 DropDownListSubstance.SelectedValue.ToIntNullable4Zero());
 
-            BloodTypeBLL.Update(db, p, 1
-                , DropDownListABO.SelectedValue.ToIntNullable4Zero()
-                , DropDownListRH.SelectedValue.ToIntNullable4Zero()
-                , Page.User.Identity.Name, "");
+            //BloodTypeBLL.Update(db, p, 1
+            //    , DropDownListABO.SelectedValue.ToIntNullable4Zero()
+            //    , DropDownListRH.SelectedValue.ToIntNullable4Zero()
+            //    , Page.User.Identity.Name, "");
 
             db.SubmitChanges();
 

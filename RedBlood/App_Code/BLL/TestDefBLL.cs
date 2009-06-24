@@ -40,8 +40,20 @@ public class TestDefBLL
 
         return (from i in db.TestDefs
                 where i.ID == ID
-                select i).First();
+                select i).FirstOrDefault();
     }
+
+    public static TestDef Get(RedBloodDataContext db, int ID)
+    {
+        return (from i in db.TestDefs
+                where i.ID == ID
+                select i).FirstOrDefault();
+    }
+
+    //public static TestDef GetConst(int ID)
+    //{
+    //    return TestDef.all.Where(r => r.ID == ID).FirstOrDefault(); 
+    //}
 
     public string Insert(string name, int level, int? parentID)
     {
@@ -112,4 +124,6 @@ public class TestDefBLL
         }
         db.TestDefs.DeleteOnSubmit(c);
     }
+
+    
 }

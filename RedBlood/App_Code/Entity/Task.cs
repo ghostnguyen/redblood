@@ -11,7 +11,9 @@ public class Task
     public enum TaskX
     {
         ScanExp = 1,
-        CloseOrder = 2
+        CloseOrder = 2,
+        LockEnterTestResult = 3
+
     }
 
     public Task()
