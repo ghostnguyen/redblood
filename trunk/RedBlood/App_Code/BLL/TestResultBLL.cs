@@ -22,8 +22,14 @@ public class TestResultBLL
                 where r.ID == ID
                 select r).First();
     }
+
+
+    //public static void Update(RedBloodDataContext db, Pack p, int times,
+    //   int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID, 
+    //    string actor, string note)
     public static void Update(RedBloodDataContext db, Pack p, int times,
-       int? hivID, int? hcvID, int? HBsAgID, int? syphilisID, int? malariaID, string actor, string note)
+       TestDef HIV, TestDef HCV, TestDef HBsAg, TestDef Syphilis, TestDef Malaria,
+        string actor, string note)
     {
         if (p == null || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus))
             return;
@@ -33,22 +39,21 @@ public class TestResultBLL
             TestResult e = new TestResult();
             e.PackID = p.ID;
 
-            e.HIVID = hivID;
-            
-            e.HCVID = hcvID;
-            e.HBsAgID = HBsAgID;
-            e.SyphilisID = syphilisID;
-            e.MalariaID = malariaID;
+            e.HIV = HIV;
+            e.HCV = HCV;
+            e.HBsAg = HBsAg;
+            e.Syphilis = Syphilis;
+            e.Malaria = Malaria;
             e.CommitDate = DateTime.Now;
             e.Actor = actor;
 
             e.Times = times;
 
-            PackResultHistoryBLL.Insert(db, p, hivID, times, actor, note);
-            PackResultHistoryBLL.Insert(db, p, hcvID, times, actor, note);
-            PackResultHistoryBLL.Insert(db, p, HBsAgID, times, actor, note);
-            PackResultHistoryBLL.Insert(db, p, syphilisID, times, actor, note);
-            PackResultHistoryBLL.Insert(db, p, malariaID, times, actor, note);
+            PackResultHistoryBLL.Insert(db, p, HIV, times, actor, note);
+            PackResultHistoryBLL.Insert(db, p, HCV, times, actor, note);
+            PackResultHistoryBLL.Insert(db, p, HBsAg, times, actor, note);
+            PackResultHistoryBLL.Insert(db, p, Syphilis, times, actor, note);
+            PackResultHistoryBLL.Insert(db, p, Malaria, times, actor, note);
 
             db.TestResults.InsertOnSubmit(e);
             return;
@@ -58,35 +63,35 @@ public class TestResultBLL
         {
             if (p.TestResults[0].Times == times)
             {
-                if (p.TestResults[0].HIVID != hivID)
+                if (p.TestResults[0].HIV != HIV)
                 {
-                    //p.TestResults[0].HIV = TestDef;
-                    p.TestResults[0].HIV = db.TestDefs.Where(r => r.ID == hivID).FirstOrDefault();
-                    PackResultHistoryBLL.Insert(db, p, hivID, times, actor, note);
+                    p.TestResults[0].HIV = HIV;
+                    //p.TestResults[0].HIV = db.TestDefs.Where(r => r.ID == hivID).FirstOrDefault();
+                    PackResultHistoryBLL.Insert(db, p, HIV, times, actor, note);
                 }
 
-                if (p.TestResults[0].HCVID != hcvID)
+                if (p.TestResults[0].HCV != HCV)
                 {
-                    p.TestResults[0].HCVID = hcvID;
-                    PackResultHistoryBLL.Insert(db, p, hcvID, times, actor, note);
+                    p.TestResults[0].HCV = HCV;
+                    PackResultHistoryBLL.Insert(db, p, HCV, times, actor, note);
                 }
 
-                if (p.TestResults[0].HBsAgID != HBsAgID)
+                if (p.TestResults[0].HBsAg != HBsAg)
                 {
-                    p.TestResults[0].HBsAgID = HBsAgID;
-                    PackResultHistoryBLL.Insert(db, p, HBsAgID, times, actor, note);
+                    p.TestResults[0].HBsAg = HBsAg;
+                    PackResultHistoryBLL.Insert(db, p, HBsAg, times, actor, note);
                 }
 
-                if (p.TestResults[0].SyphilisID != syphilisID)
+                if (p.TestResults[0].Syphilis != Syphilis)
                 {
-                    p.TestResults[0].SyphilisID = syphilisID;
-                    PackResultHistoryBLL.Insert(db, p, syphilisID, times, actor, note);
+                    p.TestResults[0].Syphilis = Syphilis;
+                    PackResultHistoryBLL.Insert(db, p, Syphilis, times, actor, note);
                 }
 
-                if (p.TestResults[0].MalariaID != malariaID)
+                if (p.TestResults[0].Malaria != Malaria)
                 {
-                    p.TestResults[0].MalariaID = malariaID;
-                    PackResultHistoryBLL.Insert(db, p, malariaID, times, actor, note);
+                    p.TestResults[0].Malaria = Malaria;
+                    PackResultHistoryBLL.Insert(db, p, Malaria, times, actor, note);
                 }
 
                 p.TestResults[0].CommitDate = DateTime.Now;
@@ -109,21 +114,23 @@ public class TestResultBLL
         if (e == null || e.HIVID == null || e.HBsAgID == null || e.HCVID == null || e.SyphilisID == null || e.MalariaID == null)
             throw new Exception("Chưa nhập kết quả túi máu.");
 
-        if (e.HIV == TestDef.HIV.Pos || e.HIV == TestDef.HIV.NA)
+        if (e.HIV.ID == TestDef.HIV.Pos || e.HIV.ID == TestDef.HIV.NA)
             r.Add(e.HIV);
 
-        if (e.HBsAg == TestDef.HBsAg.Pos || e.HBsAg == TestDef.HBsAg.NA)
+        if (e.HBsAg.ID == TestDef.HBsAg.Pos || e.HBsAg.ID == TestDef.HBsAg.NA)
             r.Add(e.HBsAg);
 
-        if (e.HCV == TestDef.HCV.Pos || e.HCV == TestDef.HCV.NA)
+        if (e.HCV.ID == TestDef.HCV.Pos || e.HCV.ID == TestDef.HCV.NA)
             r.Add(e.HCV);
 
-        if (e.Syphilis == TestDef.Syphilis.Pos || e.Syphilis == TestDef.Syphilis.NA)
+        if (e.Syphilis.ID == TestDef.Syphilis.Pos || e.Syphilis.ID == TestDef.Syphilis.NA)
             r.Add(e.Syphilis);
 
-        if (e.Malaria == TestDef.Malaria.Pos || e.Malaria == TestDef.Malaria.NA)
+        if (e.Malaria.ID == TestDef.Malaria.Pos || e.Malaria.ID == TestDef.Malaria.NA)
             r.Add(e.Malaria);
 
         return r;
     }
+
+
 }

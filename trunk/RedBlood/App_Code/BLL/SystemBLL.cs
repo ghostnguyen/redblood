@@ -27,6 +27,7 @@ public class SystemBLL
     {
         ScanExp(true);
         CloseOrder(true);
+        LockEnterTestResult(true);
     }
 
     //isSOD: isStartOfDate
@@ -67,6 +68,21 @@ public class SystemBLL
         }
     }
 
+    //isSOD: isStartOfDate
+    public static void LockEnterTestResult(bool isSOD)
+    {
+        if (!isSOD || !LogBLL.IsLog(Task.TaskX.LockEnterTestResult))
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+
+            PackBLL.LockEnterTestResult();
+
+            LogBLL.Add(db, Task.TaskX.LockEnterTestResult);
+
+            db.SubmitChanges();
+        }
+    }
+
     public static TimeSpan GetExpire(Pack p)
     {
         if (p.Component == null) return TimeSpan.MinValue;
@@ -82,12 +98,12 @@ public class SystemBLL
 
     public static TimeSpan GetExpire(TestDef c, TestDef s)
     {
-        if (c == TestDef.Component.Full)
+        if (c.ID == TestDef.Component.Full)
         {
             return new TimeSpan(35, 0, 0, 0);
         }
 
-        if (c == TestDef.Component.RBC)
+        if (c.ID == TestDef.Component.RBC)
         {
             if (s == TestDef.Substance.Yes)
                 return new TimeSpan(42, 0, 0, 0);
@@ -95,24 +111,24 @@ public class SystemBLL
                 return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (c == TestDef.Component.WBC)
+        if (c.ID == TestDef.Component.WBC)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (c == TestDef.Component.FactorVIII)
+        if (c.ID == TestDef.Component.FactorVIII)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (c == TestDef.Component.Platelet
-            || c == TestDef.Component.PlateletApheresis)
+        if (c.ID == TestDef.Component.Platelet
+            || c.ID == TestDef.Component.PlateletApheresis)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (c == TestDef.Component.FFPlasma
-            || c == TestDef.Component.FFPlasma_Poor)
+        if (c.ID == TestDef.Component.FFPlasma
+            || c.ID == TestDef.Component.FFPlasma_Poor)
         {
             return new TimeSpan(730, 0, 0, 0);
         }
