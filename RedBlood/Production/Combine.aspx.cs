@@ -177,14 +177,14 @@ public partial class Production_Combine : System.Web.UI.Page
                 AutonumListIn.Clear();
                 AutonumListOut.Clear();
 
-                if (p.Component==TestDef.Component.Full)
+                if (p.ComponentID == TestDef.Component.Full)
                 {
-                    PackExtract pe = p.PackExtractsBySource.Where(r => r.ExtractPack.Component==TestDef.Component.Platelet).FirstOrDefault();
+                    PackExtract pe = p.PackExtractsBySource.Where(r => r.ExtractPack.ComponentID == TestDef.Component.Platelet).FirstOrDefault();
 
                     AutonumListIn = pe.ExtractPack.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
                     AutonumListOut.Add(pe.ExtractPack.Autonum);
                 }
-                else if (p.Component==TestDef.Component.Platelet)
+                else if (p.ComponentID == TestDef.Component.Platelet)
                 {
                     AutonumListIn = p.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
                     AutonumListOut.Add(p.Autonum);

@@ -15,8 +15,5 @@ using System.Xml.Linq;
 /// </summary>
 public partial class RedBloodDataContext
 {
-    public TestDef Get(int ID)
-    {
-        return TestDefBLL.Get(this, ID);        
-    }
+    
 }
