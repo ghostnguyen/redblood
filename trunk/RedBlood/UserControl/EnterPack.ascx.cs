@@ -61,7 +61,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
             if (e != null)
             {
                 Autonum = e.Autonum;
-                
+
                 ImageCodabar.ImageUrl = CodabarBLL.Url4Pack(e.Autonum);
 
                 if (e.ComponentID != null)
@@ -205,9 +205,10 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
         if (p != null)
         {
-            PackBLL.Update(db, p, DropDownListComponent.SelectedValue.ToIntNullable4Zero(),
+            PackBLL.Update(db, p,
+                TestDefBLL.Get(db, DropDownListComponent.SelectedValue.ToInt()),
                 DropDownListVolume.SelectedValue.ToIntNullable4Zero(),
-                DropDownListSubstance.SelectedValue.ToIntNullable4Zero());
+                TestDefBLL.Get(db, DropDownListSubstance.SelectedValue.ToInt()));
 
             //BloodTypeBLL.Update(db, p, 1
             //    , DropDownListABO.SelectedValue.ToIntNullable4Zero()

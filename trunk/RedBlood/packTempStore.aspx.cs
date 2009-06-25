@@ -74,12 +74,12 @@ public partial class PackTempStore : System.Web.UI.Page
             //    Page.User.Identity.Name, "");
 
             PackBLL.Update(db, p,
-                e.NewValues["ComponentID"].ToString().ToIntNullable4Zero(),
-                e.NewValues["Volume"].ToString().ToIntNullable4Zero(),
-                e.NewValues["SubstanceID"].ToString().ToIntNullable4Zero());
+                TestDefBLL.Get(db,e.NewValues["ComponentID"].ToString().ToInt()),
+                e.NewValues["Volume"].ToIntNullable(),
+                TestDefBLL.Get(db,e.NewValues["SubstanceID"].ToString().ToInt()));
             BloodTypeBLL.Update(db, p, 2,
-                TestDefBLL.GetConst(e.NewValues["BloodType2.ABO.ID"].ToString().ToInt()),
-                TestDefBLL.GetConst(e.NewValues["BloodType2.RH.ID"].ToString().ToInt()),
+                TestDefBLL.Get(db, e.NewValues["BloodType2.ABO.ID"].ToString().ToInt()),
+                TestDefBLL.Get(db, e.NewValues["BloodType2.RH.ID"].ToString().ToInt()),
                 Page.User.Identity.Name, "");
 
             db.SubmitChanges();

@@ -65,7 +65,19 @@ public class OrderBLL
             p.DeliverStatus = Pack.DeliverStatusX.Yes;
 
             if (p.TestResultStatus == Pack.TestResultStatusX.Negative)
-                p.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+            {
+                List<Pack> l = PackBLL.GetSourcePacks_AllLevel(p)
+                    .Where(rp => rp.ComponentID == TestDef.Component.Full).ToList();
+                foreach (Pack item in l)
+                {
+                    if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
+                    {
+                        PackBLL.UpdateTestResultStatus4Extracts(db, item);
+                    }
+                }
+
+                //p.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+            }
 
             PackOrder po = new PackOrder();
             po.OrderID = r.ID;

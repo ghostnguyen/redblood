@@ -232,13 +232,16 @@ public static class dotNetExt
         return 0;
     }
 
-    //public static int? ToIntNullable(this object o)
-    //{
-    //    if (o == null) return null;
-    //    else return o.ToString().ToIntNullable();
-    //}
+    public static int ToInt(this object o)
+    {
+        if (o == null) return 0;
+        else return o.ToString().ToInt();
+    }
 
-    
-
+    public static int? ToIntNullable(this object o)
+    {
+        if (o == null) return null;
+        else return o.ToString().ToIntNullable();
+    }
     
 }

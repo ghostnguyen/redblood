@@ -89,46 +89,46 @@ public class SystemBLL
 
         if (p.SubstanceRoot == null)
         {
-            return GetExpire(p.Component, TestDef.Substance.Non);
+            return GetExpire(p.ComponentID.Value, TestDef.Substance.Non);
         }
         else
-            return GetExpire(p.Component, p.SubstanceRoot);
+            return GetExpire(p.ComponentID.Value, p.SubstanceRoot.ID);
         
     }
 
-    public static TimeSpan GetExpire(TestDef c, TestDef s)
+    public static TimeSpan GetExpire(int componentID, int substanceID)
     {
-        if (c.ID == TestDef.Component.Full)
+        if (componentID == TestDef.Component.Full)
         {
             return new TimeSpan(35, 0, 0, 0);
         }
 
-        if (c.ID == TestDef.Component.RBC)
+        if (componentID == TestDef.Component.RBC)
         {
-            if (s == TestDef.Substance.Yes)
+            if (substanceID == TestDef.Substance.Yes)
                 return new TimeSpan(42, 0, 0, 0);
             else
                 return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (c.ID == TestDef.Component.WBC)
+        if (componentID == TestDef.Component.WBC)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (c.ID == TestDef.Component.FactorVIII)
+        if (componentID == TestDef.Component.FactorVIII)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (c.ID == TestDef.Component.Platelet
-            || c.ID == TestDef.Component.PlateletApheresis)
+        if (componentID == TestDef.Component.Platelet
+            || componentID == TestDef.Component.PlateletApheresis)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (c.ID == TestDef.Component.FFPlasma
-            || c.ID == TestDef.Component.FFPlasma_Poor)
+        if (componentID == TestDef.Component.FFPlasma
+            || componentID == TestDef.Component.FFPlasma_Poor)
         {
             return new TimeSpan(730, 0, 0, 0);
         }

@@ -93,30 +93,30 @@ public partial class Production_Extract : System.Web.UI.Page
 
         Clear();
 
-        CheckBoxListExtractTo.DataSource = p.CanExtractTo;
-        CheckBoxListExtractTo.DataBind(); 
+        CheckBoxListExtractTo.DataSource = TestDefBLL.Get(p.CanExtractTo);
+        CheckBoxListExtractTo.DataBind();
 
         List<Pack> l = p.RelatedPack;
 
-        DetailsViewFull.DataSource = l.Where(r => r.Component==TestDef.Component.Full);
+        DetailsViewFull.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Full);
         DetailsViewFull.DataBind();
 
-        DetailsViewRBC.DataSource = l.Where(r => r.Component==TestDef.Component.RBC);
+        DetailsViewRBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.RBC);
         DetailsViewRBC.DataBind();
 
-        DetailsViewFFPlasma.DataSource = l.Where(r => r.Component==TestDef.Component.FFPlasma);
+        DetailsViewFFPlasma.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma);
         DetailsViewFFPlasma.DataBind();
 
-        DetailsViewFFPlasma_Poor.DataSource = l.Where(r => r.Component==TestDef.Component.FFPlasma_Poor);
+        DetailsViewFFPlasma_Poor.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor);
         DetailsViewFFPlasma_Poor.DataBind();
 
-        DetailsViewWBC.DataSource = l.Where(r => r.Component==TestDef.Component.WBC);
+        DetailsViewWBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.WBC);
         DetailsViewWBC.DataBind();
 
-        DetailsViewPlatelet.DataSource = l.Where(r => r.Component==TestDef.Component.Platelet);
+        DetailsViewPlatelet.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Platelet);
         DetailsViewPlatelet.DataBind();
 
-        DetailsViewFactorVIII.DataSource = l.Where(r => r.Component==TestDef.Component.FactorVIII);
+        DetailsViewFactorVIII.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII);
         DetailsViewFactorVIII.DataBind();
 
         //if (p.Err == PackErrList.Extracted)
@@ -193,16 +193,16 @@ public partial class Production_Extract : System.Web.UI.Page
     }
     protected void btnExtract_Click(object sender, EventArgs e)
     {
-        List<TestDef> l = new List<TestDef>();
+        List<int> l = new List<int>();
 
         foreach (ListItem item in CheckBoxListExtractTo.Items)
         {
-            //if (item.Selected)
-            //    l.Add((TestDef.Component)item.Value.ToInt());
+            if (item.Selected)
+                l.Add(item.Value.ToInt());
         }
 
-        PackErr err = PackBLL.Extract(Autonum,l, Page.User.Identity.Name);
-        
+        PackErr err = PackBLL.Extract(Autonum, l, Page.User.Identity.Name);
+
         if (err == PackErrList.Non)
         {
             LoadAutonum();
@@ -210,6 +210,6 @@ public partial class Production_Extract : System.Web.UI.Page
         }
         else
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
-        
+
     }
 }

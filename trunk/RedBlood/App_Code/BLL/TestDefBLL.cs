@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Linq;
 using System.Configuration;
@@ -34,20 +36,31 @@ public class TestDefBLL
         return r.ToArray();
     }
 
-    public TestDef GetByID(int ID)
+    public static TestDef Get(int ID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
+        return Get(db, ID);        
+    }
 
-        return (from i in db.TestDefs
-                where i.ID == ID
-                select i).FirstOrDefault();
+    public static List<TestDef> Get(List<int> IDList)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get(db, IDList);
     }
 
     public static TestDef Get(RedBloodDataContext db, int ID)
     {
+        List<int> l = new List<int>();
+        l.Add(ID);
+        
+        return Get(db, l).FirstOrDefault();
+    }
+
+    public static List<TestDef> Get(RedBloodDataContext db, List<int> IDList)
+    {
         return (from i in db.TestDefs
-                where i.ID == ID
-                select i).FirstOrDefault();
+                where IDList.Contains(i.ID)
+                select i).ToList();
     }
 
     //public static TestDef GetConst(int ID)

@@ -68,23 +68,25 @@ public partial class PackManually : System.Web.UI.Page
 
         if (p != null)
         {
-            PackBLL.Update(db, p, 
-                e.NewValues["ComponentID"].ToString().ToIntNullable4Zero(), 
-                e.NewValues["Volume"].ToString().ToIntNullable4Zero(),
-                e.NewValues["SubstanceID"].ToString().ToIntNullable4Zero());
+            PackBLL.Update(db, p,
+                TestDefBLL.Get(db,e.NewValues["ComponentID"].ToInt()),
+                e.NewValues["Volume"].ToIntNullable(),
+                TestDefBLL.Get(db,e.NewValues["SubstanceID"].ToInt()));
             BloodTypeBLL.Update(db, p, 2,
-                TestDefBLL.GetConst(e.NewValues["BloodType2.ABO.ID"].ToString().ToInt()), 
-                TestDefBLL.GetConst(e.NewValues["BloodType2.RH.ID"].ToString().ToInt()),
+                TestDefBLL.Get(db, e.NewValues["BloodType2.ABO.ID"].ToInt()),
+                TestDefBLL.Get(db, e.NewValues["BloodType2.RH.ID"].ToInt()),
                 Page.User.Identity.Name, "");
             TestResultBLL.Update(db, p, 2,
-                TestDefBLL.GetConst(e.NewValues["TestResult2.HIV.ID"].ToString().ToInt()), 
-                TestDefBLL.GetConst(e.NewValues["TestResult2.HCV.ID"].ToString().ToInt()), 
-                TestDefBLL.GetConst(e.NewValues["TestResult2.HBsAg.ID"].ToString().ToInt()), 
-                TestDefBLL.GetConst(e.NewValues["TestResult2.Syphilis.ID"].ToString().ToInt()),
-                TestDefBLL.GetConst(e.NewValues["TestResult2.Malaria.ID"].ToString().ToInt()), 
+                TestDefBLL.Get(db, e.NewValues["TestResult2.HIV.ID"].ToInt()),
+                TestDefBLL.Get(db, e.NewValues["TestResult2.HCV.ID"].ToInt()),
+                TestDefBLL.Get(db, e.NewValues["TestResult2.HBsAg.ID"].ToInt()),
+                TestDefBLL.Get(db, e.NewValues["TestResult2.Syphilis.ID"].ToInt()),
+                TestDefBLL.Get(db, e.NewValues["TestResult2.Malaria.ID"].ToInt()),
                 Page.User.Identity.Name, "");
 
             db.SubmitChanges();
+
+            PackBLL.UpdateTestResultStatus4Full(p.Autonum);
         }
 
         e.Cancel = true;

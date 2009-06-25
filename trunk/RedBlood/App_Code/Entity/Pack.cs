@@ -80,10 +80,19 @@ public partial class Pack
     CampaignBLL campaignBLL = new CampaignBLL();
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
-        if (action == System.Data.Linq.ChangeAction.Insert
-            || action == System.Data.Linq.ChangeAction.Update)
+        if (action == System.Data.Linq.ChangeAction.Insert)
         {
+            if (Status == StatusX.Production)
+            {
+                TestResultStatus = TestResultStatusRoot;
+                CollectedDate = DateTime.Now;
+            }
 
+            if (Status == StatusX.Init)
+            {
+                TestResultStatus = Pack.TestResultStatusX.Non;
+                DeliverStatus = Pack.DeliverStatusX.Non;
+            }
         }
     }
 
@@ -164,7 +173,7 @@ public partial class Pack
         {
             //Get all packs related pack and each has componet is full
             List<TestResultStatusX> l = PackBLL.GetSourcePacks_AllLevel(this)
-                                            .Where(r => r.Component == TestDef.Component.Full)
+                                            .Where(r => r.ComponentID == TestDef.Component.Full)
                                             .Select(r => r.TestResultStatus)
                                             .ToList();
 
@@ -198,19 +207,19 @@ public partial class Pack
         {
             //Get all packs related pack and each has componet is full
             List<TestDef> l = PackBLL.GetSourcePacks_AllLevel(this)
-                                            .Where(r => r.Component == TestDef.Component.Full)
+                                            .Where(r => r.ComponentID == TestDef.Component.Full)
                                             .Select(r => r.Substance)
                                             .ToList();
 
             foreach (TestDef item in l)
             {
-                if (item == TestDef.Substance.Yes)
+                if (item.ID == TestDef.Substance.Yes)
                     return item;
             }
 
             foreach (TestDef item in l)
             {
-                if (item == TestDef.Substance.Non)
+                if (item.ID == TestDef.Substance.Non)
                     return item;
             }
 
@@ -219,7 +228,7 @@ public partial class Pack
     }
 
     public PackErr Err { get; set; }
-    public List<TestDef> CanExtractTo { get; set; }
+    public List<int> CanExtractTo { get; set; }
     public List<Pack> RelatedPack
     {
         get

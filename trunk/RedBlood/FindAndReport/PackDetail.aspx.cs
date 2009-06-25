@@ -51,7 +51,7 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
             return;
         }
 
-        if (p.Component==TestDef.Component.Full)
+        if (p.ComponentID == TestDef.Component.Full)
         {
             if (p.PackExtractsBySource.Count != 0)
             {
@@ -59,9 +59,9 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
             }
         }
 
-        if (p.Component==TestDef.Component.Platelet
-            || p.Component==TestDef.Component.FFPlasma
-            || p.Component==TestDef.Component.RBC)
+        if (p.ComponentID == TestDef.Component.Platelet
+            || p.ComponentID == TestDef.Component.FFPlasma
+            || p.ComponentID == TestDef.Component.RBC)
         {
             e.Result = p.PackExtractsByExtract.Select(r => r.SourcePack);
         }

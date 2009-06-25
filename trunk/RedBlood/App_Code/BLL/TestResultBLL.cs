@@ -104,7 +104,7 @@ public class TestResultBLL
 
         }
 
-        PackBLL.UpdateTestResultStatus4Full(db, p);
+        //PackBLL.UpdateTestResultStatus4Full(db, p);
     }
 
     public static List<TestDef> GetNonNegative(TestResult e)

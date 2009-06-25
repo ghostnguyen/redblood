@@ -70,11 +70,11 @@ public partial class PackTestResult : System.Web.UI.Page
         if (p != null)
         {
             TestResultBLL.Update(db, p, 2,
-               TestDefBLL.GetConst(e.NewValues["TestResult2.HIV.ID"].ToString().ToInt()),
-               TestDefBLL.GetConst(e.NewValues["TestResult2.HCV.ID"].ToString().ToInt()),
-               TestDefBLL.GetConst(e.NewValues["TestResult2.HBsAg.ID"].ToString().ToInt()),
-               TestDefBLL.GetConst(e.NewValues["TestResult2.Syphilis.ID"].ToString().ToInt()),
-               TestDefBLL.GetConst(e.NewValues["TestResult2.Malaria.ID"].ToString().ToInt()),
+               TestDefBLL.Get(db, e.NewValues["TestResult2.HIV.ID"].ToString().ToInt()),
+               TestDefBLL.Get(db, e.NewValues["TestResult2.HCV.ID"].ToString().ToInt()),
+               TestDefBLL.Get(db, e.NewValues["TestResult2.HBsAg.ID"].ToString().ToInt()),
+               TestDefBLL.Get(db, e.NewValues["TestResult2.Syphilis.ID"].ToString().ToInt()),
+               TestDefBLL.Get(db, e.NewValues["TestResult2.Malaria.ID"].ToString().ToInt()),
                Page.User.Identity.Name, "");
 
             db.SubmitChanges();

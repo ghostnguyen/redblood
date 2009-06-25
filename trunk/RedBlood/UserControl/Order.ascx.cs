@@ -296,7 +296,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID);
+        e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID 
+            && r.Status != PackOrder.StatusX.Return);
     }
 
     protected void GridViewPack_RowCommand(object sender, GridViewCommandEventArgs e)
