@@ -158,7 +158,12 @@ public class CodabarBLL
         string top = "";
 
         if(p.ComponentID == TestDef.Component.RBC
-            || p.ComponentID == TestDef.Component.FFPlasma)
+            || p.ComponentID == TestDef.Component.FFPlasma
+            || p.ComponentID == TestDef.Component.FFPlasma_Poor
+            || p.ComponentID == TestDef.Component.WBC
+            || p.ComponentID == TestDef.Component.FactorVIII
+            || p.ComponentID == TestDef.Component.Platelet
+            || p.ComponentID == TestDef.Component.PlateletApheresis)
         {
             topleft = p.Component.Name;
             PackExtract pe = p.PackExtractsByExtract.FirstOrDefault();

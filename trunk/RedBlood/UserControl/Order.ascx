@@ -11,17 +11,17 @@
         }
 
         //
-//        function PanelOnKeyPress(args) {
-//            if (args.keyCode == Sys.UI.Key.esc) {
-//                alert($("id[name*='ModalPopupExtender1']").value);
-//                //$("input[name*='ModalPopupExtender1']").hide();
-//                //$("input[id*='ModalPopupExtender1']").css("color", "red");
-//            }
-//        }
+        //        function PanelOnKeyPress(args) {
+        //            if (args.keyCode == Sys.UI.Key.esc) {
+        //                alert($("id[name*='ModalPopupExtender1']").value);
+        //                //$("input[name*='ModalPopupExtender1']").hide();
+        //                //$("input[id*='ModalPopupExtender1']").css("color", "red");
+        //            }
+        //        }
 
-//        function pageLoad(sender, args) {
-//            $addHandler(document, "keydown", PanelOnKeyPress);
-//        }
+        //        function pageLoad(sender, args) {
+        //            $addHandler(document, "keydown", PanelOnKeyPress);
+        //        }
 
 
         
@@ -166,7 +166,7 @@
             <td colspan="2">
                 Danh sách túi máu
                 <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSourcePack" OnRowCommand="GridViewPack_RowCommand" OnRowDeleting="GridViewPack_RowDeleting">
+                    DataSourceID="LinqDataSourcePack" OnRowUpdating="GridViewPack_RowUpdating">
                     <Columns>
                         <asp:TemplateField HeaderText="Túi máu">
                             <ItemTemplate>
@@ -175,27 +175,15 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Thành phần">
                             <ItemTemplate>
-                                <asp:Label runat="server" Text='<%# Eval("Pack.Component.Name") %>'></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Pack.Component.Name") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:LinkButton runat="server" ID="LinkButtonDelete" CommandName="Delete" CommandArgument='<%# Eval("ID") %>'
-                                    Text='<%$ Resources:Resource,Delete %>'>
-                                </asp:LinkButton>
-                                <ajk:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="LinkButtonDelete"
-                                    PopupControlID="PanelPeople" CancelControlID="btnClose" BackgroundCssClass="modalBackground">
-                                </ajk:ModalPopupExtender>
-                                <asp:Panel runat="server" ID="PanelPeople" Style="display: none;" CssClass="modalPopup">
-                                    Lý do hủy:
-                                    <asp:TextBox runat="server" ID="txtRemoveNote" onkeyup="txtRemoveNoteKeyUp(this.value);"> </asp:TextBox>
-                                    <div class="dotLineBottom" style="width: 100%;">
-                                    </div>
-                                    <asp:Button runat="server" ID="btnSelect" Text='<%$ Resources:Resource,Delete %>'
-                                        OnClick="btnSelect_Click" CommandName="Delete" CommandArgument='<%# Eval("ID") %>' />
-                                    <asp:Button runat="server" ID="btnClose" Text='<%$ Resources:Resource,Close %>' />
-                                </asp:Panel>
-                            </ItemTemplate>
+                        <asp:CommandField ShowEditButton="True" EditText="Thu hồi" UpdateText="Ok" CancelText='<%$ Resources:Resource,Cancel %>' />
+                        <asp:TemplateField HeaderText="">
+                            <EditItemTemplate>
+                                Lý do:
+                                <asp:TextBox ID="txtRemoveNote" runat="server" onkeyup="txtRemoveNoteKeyUp(this.value);"></asp:TextBox>
+                            </EditItemTemplate>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>

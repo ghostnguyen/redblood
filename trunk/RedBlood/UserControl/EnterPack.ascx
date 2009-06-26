@@ -25,7 +25,7 @@
                         <asp:ListItem Text="" Value="0" />
                     </asp:DropDownList>
                     <asp:LinqDataSource ID="LinqDataSourceComponent" runat="server" ContextTypeName="RedBloodDataContext"
-                        TableName="TestDefs" Where="ID == 25 || ID == 30">
+                        TableName="TestDefs" Where="ID == 25 || ID == 29">
                     </asp:LinqDataSource>
                     <br />
                     Chất nuôi hồng cầu<br />
@@ -37,6 +37,9 @@
                     <asp:LinqDataSource ID="LinqDataSourceSubstance" runat="server" ContextTypeName="RedBloodDataContext"
                         TableName="TestDefs" Where="ParentID == 48">
                     </asp:LinqDataSource>
+                    <br />
+                    <asp:Button runat="server" ID="btnCommitPlateleApheresis" Text="Xác nhận thu tiểu cầu Apheresis"
+                        OnClick="btnConfirmPlateleApheresis_Click" />
                 </td>
                 <td style="visibility: collapse;">
                     Thể tích (ml)<br />

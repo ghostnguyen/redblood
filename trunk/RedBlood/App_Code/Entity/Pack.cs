@@ -82,16 +82,10 @@ public partial class Pack
     {
         if (action == System.Data.Linq.ChangeAction.Insert)
         {
-            if (Status == StatusX.Production)
-            {
-                TestResultStatus = TestResultStatusRoot;
-                CollectedDate = DateTime.Now;
-            }
-
             if (Status == StatusX.Init)
             {
-                TestResultStatus = Pack.TestResultStatusX.Non;
-                DeliverStatus = Pack.DeliverStatusX.Non;
+                //TestResultStatus = Pack.TestResultStatusX.Non;
+                //DeliverStatus = Pack.DeliverStatusX.Non;
             }
         }
     }

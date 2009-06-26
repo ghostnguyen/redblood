@@ -70,13 +70,17 @@ public partial class Enter : System.Web.UI.Page
         }
         else
         {
-            if (p.Status == Pack.StatusX.Delete)
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                    "alert ('Túi máu đã hủy.');", true);
-                return;
-            }
-            ucPeople.PeopleID = p.PeopleID.Value;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+                    "alert ('Túi máu: " + p.Status.ToString() + "');", true);
+            return;
+
+            //if (p.Status == Pack.StatusX.Delete)
+            //{
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+            //        "alert ('Túi máu đã hủy.');", true);
+            //    return;
+            //}
+            //ucPeople.PeopleID = p.PeopleID.Value;
         }
     }
 
