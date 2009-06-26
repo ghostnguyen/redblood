@@ -147,6 +147,8 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
         btnDelete.Visible = false;
         btnCommit.Visible = false;
         btnCommitWithout.Visible = false;
+
+        btnCommitPlateleApheresis.Visible = false;
     }
 
     private void ResetGUI(Pack e)
@@ -164,6 +166,8 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
         DropDownListABO.Enabled = false;
         DropDownListRH.Enabled = false;
 
+        btnCommitPlateleApheresis.Visible = false;
+
         if (e == null) return;
 
         if (e.Status == Pack.StatusX.Collected)
@@ -177,6 +181,9 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
             DropDownListABO.Enabled = true;
             DropDownListRH.Enabled = true;
+
+            btnCommitPlateleApheresis.Visible
+                = (DropDownListComponent.SelectedValue.ToInt() == TestDef.Component.PlateletApheresis);
 
             if (DropDownListComponent.SelectedValue.ToInt() != 0
                 && DropDownListVolume.SelectedValue.ToInt() != 0
@@ -223,6 +230,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
     protected void DropDownListComponent_SelectedIndexChanged(object sender, EventArgs e)
     {
+
         Update();
     }
 
@@ -268,6 +276,8 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
         Load_EnterPack();
     }
 
+    protected void btnConfirmPlateleApheresis_Click(object sender, EventArgs e)
+    {
 
-
+    }
 }

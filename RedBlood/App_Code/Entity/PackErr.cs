@@ -44,16 +44,16 @@ public class PackErrList
 
     //Extract 2 RBC, Plasma
     public static PackErr Extracted = new PackErr("Túi máu đã sản xuất.");
-    public static PackErr Valid4Extract = new PackErr("");
+    public static PackErr Valid4Extract = new PackErr("Valid4Extract");
     public static PackErr Invalid4Extract = new PackErr("Không thể sản xuất.");
     public static PackErr SelectNoExtract = new PackErr("Chưa chọn loại chế phẩm.");
 
 
     //Combine 2 Platelet
-    public static PackErr Combined2Platelet = new PackErr("");
-    public static PackErr Init4Platelet = new PackErr("");
-    public static PackErr IsPlatelet = new PackErr("");
-    public static PackErr Valid4Platelet = new PackErr("");
+    public static PackErr Combined2Platelet = new PackErr("Combined2Platelet");
+    public static PackErr Init4Platelet = new PackErr("Init4Platelet");
+    public static PackErr IsPlatelet = new PackErr("IsPlatelet");
+    public static PackErr Valid4Platelet = new PackErr("Valid4Platelet");
     public static PackErr Invalid4Platelet = new PackErr("Không thể sản xuất tiểu cầu.");
 
 

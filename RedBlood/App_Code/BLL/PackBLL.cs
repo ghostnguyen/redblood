@@ -288,9 +288,9 @@ public class PackBLL
         for (int i = 0; i < l.Length; i++)
         {
             l[i] = new Pack();
-            //l[i].Status = Pack.StatusX.Init;
-            //l[i].TestResultStatus = Pack.TestResultStatusX.Non;
-            //l[i].DeliverStatus = Pack.DeliverStatusX.Non;
+            l[i].Status = Pack.StatusX.Init;
+            l[i].TestResultStatus = Pack.TestResultStatusX.Non;
+            l[i].DeliverStatus = Pack.DeliverStatusX.Non;
         }
 
         db.Packs.InsertAllOnSubmit(l);
@@ -304,6 +304,7 @@ public class PackBLL
 
         Pack[] l = New(db, count);
         db.Packs.InsertAllOnSubmit(l);
+        
 
         db.SubmitChanges();
         return l;
@@ -546,8 +547,8 @@ public class PackBLL
                 || p.CampaignID != null)
                 return PackErrList.DataErr;
         }
-        else if (p.Component.ID == TestDef.Component.Full
-            || p.Component.ID == TestDef.Component.PlateletApheresis)
+        else if (p.ComponentID == TestDef.Component.Full
+            || p.ComponentID == TestDef.Component.PlateletApheresis)
         {
             if (p.PeopleID == null
                 || p.CampaignID == null
@@ -558,7 +559,7 @@ public class PackBLL
 
         if (p.Status == Pack.StatusX.Collected)
         {
-            if (p.Component.ID != TestDef.Component.Full)
+            if (p.ComponentID != TestDef.Component.Full)
                 return PackErrList.DataErr;
         }
 
@@ -757,6 +758,8 @@ public class PackBLL
 
                 extractP.Component = TestDefBLL.Get(db,item);
                 extractP.Actor = actor;
+                extractP.TestResultStatus = extractP.TestResultStatusRoot;
+                extractP.CollectedDate = DateTime.Now;
 
                 PackStatusHistory h = ChangeStatus(extractP, Pack.StatusX.Production, actor, "Extract");
                 db.PackStatusHistories.InsertOnSubmit(h);

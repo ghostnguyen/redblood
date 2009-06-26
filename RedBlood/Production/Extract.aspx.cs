@@ -27,7 +27,6 @@ public partial class Production_Extract : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //btnProduct.Enabled = false;
         }
 
         string code = Master.TextBoxCode.Text.Trim();
@@ -85,9 +84,12 @@ public partial class Production_Extract : System.Web.UI.Page
     {
         Pack p = PackBLL.Get4Extract(Autonum, Page.User.Identity.Name);
 
-        if (p == null)
+        if (p == null
+            ||
+            (p.Err != PackErrList.Valid4Extract
+            && p.Err != PackErrList.Extracted))
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum');", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum: " + p.Err.Message + "');", true);
             return;
         }
 
@@ -118,79 +120,8 @@ public partial class Production_Extract : System.Web.UI.Page
 
         DetailsViewFactorVIII.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII);
         DetailsViewFactorVIII.DataBind();
-
-        //if (p.Err == PackErrList.Extracted)
-        //{
-        //    TempAutonum = autonum;
-
-        //    if (IsEditMode)
-        //    {
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
-        //    }
-        //    else
-        //    {
-        //        if (p.ComponentID == (int)TestDef.Component.FFPlasma
-        //              || p.ComponentID == (int)TestDef.Component.RBC)
-        //        {
-        //            PackExtract pe = p.PackExtractsByExtract.FirstOrDefault();
-        //            if (pe == null)
-        //                p = null;
-        //            else p = pe.SourcePack;
-        //        }
-
-        //        if (p != null)
-        //        {
-        //            AutonumListIn.Clear();
-        //            AutonumListOut.Clear();
-
-        //            AutonumListIn.Add(p.Autonum);
-        //            AutonumListOut = p.PackExtractsBySource
-        //            .Where(r => r.ExtractPack.ComponentID == (int)TestDef.Component.RBC
-        //                || r.ExtractPack.ComponentID == (int)TestDef.Component.FFPlasma)
-        //            .Select(r => r.ExtractPack.Autonum)
-        //            .ToList();
-
-        //            LoadPack();
-        //        }
-        //    }
-        //    return;
-        //}
-
-        //if (p.Err == PackErrList.Valid4Extract)
-        //{
-        //    AutonumListIn.Clear();
-        //    AutonumListOut.Clear();
-        //    IsEditMode = true;
-
-        //    AutonumListIn.Add(autonum);
-
-        //    LoadPack();
-        //    return;
-        //}
-
-        //ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('" + p.Err.Message + "');", true);
     }
 
-    protected void btnProduct_Click(object sender, EventArgs e)
-    {
-        //if (AutonumListIn.Count == 0)
-        //{
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Thiếu thông tin túi máu.');", true);
-        //    return;
-        //}
-
-        //PackErr err = PackBLL.Extract(AutonumListIn[0], Page.User.Identity.Name);
-
-        //if (err == PackErrList.Non)
-        //{
-        //    IsEditMode = false;
-        //    CheckAutonum(AutonumListIn[0]);
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);
-        //}
-        //else
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
-
-    }
     protected void btnExtract_Click(object sender, EventArgs e)
     {
         List<int> l = new List<int>();
@@ -199,6 +130,13 @@ public partial class Production_Extract : System.Web.UI.Page
         {
             if (item.Selected)
                 l.Add(item.Value.ToInt());
+        }
+
+        if (l.Contains(TestDef.Component.FFPlasma)
+            && l.Contains(TestDef.Component.FFPlasma_Poor))
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Chỉ được chọn 1 trong 2 loại huyết tương.');", true);
+            return;
         }
 
         PackErr err = PackBLL.Extract(Autonum, l, Page.User.Identity.Name);

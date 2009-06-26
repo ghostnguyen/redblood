@@ -296,22 +296,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID 
+        e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID
             && r.Status != PackOrder.StatusX.Return);
-    }
-
-    protected void GridViewPack_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        if (e.CommandName == "Delete")
-        {
-            //Change status of pack before delete PackOrder
-            OrderBLL.Remove(e.CommandArgument.ToString().ToInt(), Page.User.Identity.Name, txtRemoveNoteGlobal.Text.Trim());
-        }
-    }
-    protected void GridViewPack_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-        //Delete row in table PackOrder
-        //e.Cancel = true;
     }
 
     public string GetItemUrl(int? autonum)
@@ -319,8 +305,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         return CodabarBLL.Url4Pack(autonum.Value);
     }
 
-    protected void btnSelect_Click(object sender, EventArgs e)
-    {
 
+    protected void GridViewPack_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        OrderBLL.Remove(e.Keys[0].ToInt(), Page.User.Identity.Name, txtRemoveNoteGlobal.Text.Trim());
     }
 }

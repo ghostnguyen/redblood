@@ -68,10 +68,12 @@ public class OrderBLL
             {
                 List<Pack> l = PackBLL.GetSourcePacks_AllLevel(p)
                     .Where(rp => rp.ComponentID == TestDef.Component.Full).ToList();
+                
                 foreach (Pack item in l)
                 {
                     if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
                     {
+                        item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
                         PackBLL.UpdateTestResultStatus4Extracts(db, item);
                     }
                 }
