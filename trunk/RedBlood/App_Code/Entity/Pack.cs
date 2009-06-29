@@ -111,7 +111,7 @@ public partial class Pack
             if (PeopleID != null)
                 throw new Exception("Túi máu đã có người.");
 
-            Pack p = bll.GetEnterPackByPeopleID(value.Value);
+            Pack p = PackBLL.GetEnterPackByPeopleID(value.Value);
             if (p != null)
                 throw new Exception("Người này có túi máu chưa xử lý.");
         }

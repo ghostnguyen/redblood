@@ -14,7 +14,7 @@
         //        }
     </script>
 
-    <table width="100%">
+    <table width="100%" style="background: url(../../Image/PackExtractLayout.png);">
         <tr>
             <td>
                 <div runat="server" id="divExtract">

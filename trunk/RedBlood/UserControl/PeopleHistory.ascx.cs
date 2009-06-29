@@ -19,14 +19,6 @@ public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
         {
             ViewState["PeopleID"] = value;
             GridView1.DataBind();
-            //Clear();
-            //ViewState["PeopleID"] = value;
-            //if (value == null)
-            //{ }
-            //else
-            //{
-            //    LoadPeople();
-            //}
         }
     }
 

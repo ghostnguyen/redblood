@@ -102,7 +102,7 @@ public class CampaignBLL
         db.SubmitChanges();
     }
 
-    public void SetStatus(int ID)
+    public static void SetStatus(int ID)
     {
         RedBloodDataContext db;
 

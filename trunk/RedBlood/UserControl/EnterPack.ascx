@@ -38,8 +38,9 @@
                         TableName="TestDefs" Where="ParentID == 48">
                     </asp:LinqDataSource>
                     <br />
+                    <br />
                     <asp:Button runat="server" ID="btnCommitPlateleApheresis" Text="Xác nhận thu tiểu cầu Apheresis"
-                        OnClick="btnConfirmPlateleApheresis_Click" />
+                        OnClick="btnConfirmPlateleApheresis_Click" Visible="false" />
                 </td>
                 <td style="visibility: collapse;">
                     Thể tích (ml)<br />
