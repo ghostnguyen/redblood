@@ -114,19 +114,19 @@ public class TestResultBLL
         if (e == null || e.HIVID == null || e.HBsAgID == null || e.HCVID == null || e.SyphilisID == null || e.MalariaID == null)
             throw new Exception("Chưa nhập kết quả túi máu.");
 
-        if (e.HIV.ID == TestDef.HIV.Pos || e.HIV.ID == TestDef.HIV.NA)
+        if (e.HIVID == TestDef.HIV.Pos || e.HIVID == TestDef.HIV.NA)
             r.Add(e.HIV);
 
-        if (e.HBsAg.ID == TestDef.HBsAg.Pos || e.HBsAg.ID == TestDef.HBsAg.NA)
+        if (e.HBsAgID == TestDef.HBsAg.Pos || e.HBsAgID == TestDef.HBsAg.NA)
             r.Add(e.HBsAg);
 
-        if (e.HCV.ID == TestDef.HCV.Pos || e.HCV.ID == TestDef.HCV.NA)
+        if (e.HCVID == TestDef.HCV.Pos || e.HCVID == TestDef.HCV.NA)
             r.Add(e.HCV);
 
-        if (e.Syphilis.ID == TestDef.Syphilis.Pos || e.Syphilis.ID == TestDef.Syphilis.NA)
+        if (e.SyphilisID == TestDef.Syphilis.Pos || e.SyphilisID == TestDef.Syphilis.NA)
             r.Add(e.Syphilis);
 
-        if (e.Malaria.ID == TestDef.Malaria.Pos || e.Malaria.ID == TestDef.Malaria.NA)
+        if (e.MalariaID == TestDef.Malaria.Pos || e.MalariaID == TestDef.Malaria.NA)
             r.Add(e.Malaria);
 
         return r;

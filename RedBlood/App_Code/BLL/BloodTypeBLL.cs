@@ -20,7 +20,7 @@ public class BloodTypeBLL
         if (p == null
            || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
            || p.ComponentID == null
-           || p.Component.ID != TestDef.Component.Full)
+           || p.ComponentID != TestDef.Component.Full)
             return;
 
         if (p.BloodTypes.Count == 0)

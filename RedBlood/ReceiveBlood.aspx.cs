@@ -7,10 +7,10 @@ using System.Web.UI.WebControls;
 
 public partial class Enter : System.Web.UI.Page
 {
-    CodabarBLL codabarBLL = new CodabarBLL();
-    PackBLL packBLL = new PackBLL();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
+        ucEnterPack.PlateletApheresisConfirmed += new EventHandler(ucEnterPack_PlateletApheresisConfirmed);
         ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
 
         string code = Master.TextBoxCode.Text.Trim();
@@ -34,6 +34,11 @@ public partial class Enter : System.Web.UI.Page
         {
             ucPeople.Code = code;
         }
+    }
+
+    void ucEnterPack_PlateletApheresisConfirmed(object sender, EventArgs e)
+    {
+        PeopleHistory1.LoadPeople();
     }
 
     void ucPeople_PeopleChanged(object sender, EventArgs e)
@@ -73,14 +78,6 @@ public partial class Enter : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
                     "alert ('Túi máu: " + p.Status.ToString() + "');", true);
             return;
-
-            //if (p.Status == Pack.StatusX.Delete)
-            //{
-            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-            //        "alert ('Túi máu đã hủy.');", true);
-            //    return;
-            //}
-            //ucPeople.PeopleID = p.PeopleID.Value;
         }
     }
 

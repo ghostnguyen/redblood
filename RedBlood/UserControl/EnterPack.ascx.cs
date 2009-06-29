@@ -8,8 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class UserControl_EnterPack : System.Web.UI.UserControl
 {
-    PackBLL bll = new PackBLL();
-    CodabarBLL codabarBLL = new CodabarBLL();
+    public event EventHandler PlateletApheresisConfirmed;
 
     public Guid PeopleID
     {
@@ -49,7 +48,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
         if (PeopleID != Guid.Empty)
         {
             PackErr err = PackErrList.Non;
-            Pack e = bll.GetEnterPackByPeopleID(PeopleID, err);
+            Pack e = PackBLL.GetEnterPackByPeopleID(PeopleID, err);
 
             if (!err.Equals(PackErrList.Non))
             {
@@ -109,7 +108,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
     public void Assign(int autonum, int campaignID)
     {
-        PackErr err = bll.Assign(autonum, PeopleID, Page.User.Identity.Name, campaignID);
+        PackErr err = PackBLL.Assign(autonum, PeopleID, Page.User.Identity.Name, campaignID);
         if (err == PackErrList.Non)
         {
             Load_EnterPack();
@@ -217,11 +216,6 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
                 DropDownListVolume.SelectedValue.ToIntNullable4Zero(),
                 TestDefBLL.Get(db, DropDownListSubstance.SelectedValue.ToInt()));
 
-            //BloodTypeBLL.Update(db, p, 1
-            //    , DropDownListABO.SelectedValue.ToIntNullable4Zero()
-            //    , DropDownListRH.SelectedValue.ToIntNullable4Zero()
-            //    , Page.User.Identity.Name, "");
-
             db.SubmitChanges();
 
             Load_EnterPack();
@@ -272,12 +266,22 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     }
     protected void btnRemove_Click(object sender, EventArgs e)
     {
-        bll.RemovePeople(Autonum, Page.User.Identity.Name);
+        PackBLL.RemovePeople(Autonum, Page.User.Identity.Name);
         Load_EnterPack();
     }
 
     protected void btnConfirmPlateleApheresis_Click(object sender, EventArgs e)
     {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Pack p = PackBLL.Get(Autonum, db, Pack.StatusX.Collected);
 
+        p.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+
+        db.SubmitChanges();
+
+        Load_EnterPack();
+
+        if (PlateletApheresisConfirmed != null)
+            PlateletApheresisConfirmed(null, null);
     }
 }

@@ -237,7 +237,7 @@ public class PackBLL
         return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
     }
 
-    public PackErr Assign(int autonum, Guid peopleID, string actor, int campaignID)
+    public static PackErr Assign(int autonum, Guid peopleID, string actor, int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -269,7 +269,7 @@ public class PackBLL
 
             db.SubmitChanges();
 
-            campaignBLL.SetStatus(campaignID);
+            CampaignBLL.SetStatus(campaignID);
         }
         catch (Exception ex)
         {
@@ -312,12 +312,12 @@ public class PackBLL
 
 
 
-    public Pack GetEnterPackByPeopleID(Guid peopleID)
+    public static Pack GetEnterPackByPeopleID(Guid peopleID)
     {
         return GetEnterPackByPeopleID(peopleID, null);
     }
 
-    public Pack GetEnterPackByPeopleID(Guid peopleID, PackErr err)
+    public static Pack GetEnterPackByPeopleID(Guid peopleID, PackErr err)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -444,7 +444,7 @@ public class PackBLL
     //}
 
     //Only pack has status 0 can be remove, to re-assign to another people.
-    public Pack RemovePeople(int autonum, string actor)
+    public static Pack RemovePeople(int autonum, string actor)
     {
         if (autonum == 0) return null;
 
@@ -693,7 +693,7 @@ public class PackBLL
         if (p == null
             || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
             || p.ComponentID == null
-            || p.Component.ID != TestDef.Component.Full)
+            || p.ComponentID != TestDef.Component.Full)
             return;
 
         if (p.Volume == null
@@ -905,19 +905,19 @@ public class PackBLL
 
         if (p == null) return null;
 
-        if (p.Component.ID == TestDef.Component.Full)
+        if (p.ComponentID == TestDef.Component.Full)
         {
             if (p.PackExtractsBySource
                 .Where(r =>
-                    r.ExtractPack.Component.ID == TestDef.Component.RBC
-                    || r.ExtractPack.Component.ID == TestDef.Component.FFPlasma
+                    r.ExtractPack.ComponentID == TestDef.Component.RBC
+                    || r.ExtractPack.ComponentID == TestDef.Component.FFPlasma
                     )
                 .Count() > 0)
                 return p;
         }
 
-        if (p.Component.ID == TestDef.Component.RBC
-            || p.Component.ID == TestDef.Component.FFPlasma
+        if (p.ComponentID == TestDef.Component.RBC
+            || p.ComponentID == TestDef.Component.FFPlasma
             )
         {
             return p;
