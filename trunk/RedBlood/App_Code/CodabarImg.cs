@@ -88,10 +88,12 @@ public class CodabarImg
 
     public Bitmap Draw(string code, int width, int height, bool isDrawCode, string topleft, string topright)
     {
-        // Multiply the lenght of the code by 40 (just to have enough width)
         int w = CountWidth(code) * width;
 
-        // Create a bitmap object of the width that we calculated and height of 100        
+        //No need extend width for People codabar 
+        if (w < 300)
+            w += 100;
+
         Bitmap oBitmap = new Bitmap(w, height, PixelFormat.Format32bppArgb);
 
         if (isDrawCode)
@@ -99,45 +101,26 @@ public class CodabarImg
 
         if (!string.IsNullOrEmpty(topleft) || !string.IsNullOrEmpty(topright))
         {
-            oBitmap = new Bitmap(w, oBitmap.Height + 16 + 16, PixelFormat.Format32bppArgb);
+            //oBitmap = new Bitmap(w, oBitmap.Height + 16 + 16, PixelFormat.Format32bppArgb);
+            oBitmap = new Bitmap(w, oBitmap.Height + 16, PixelFormat.Format32bppArgb);
         }
 
-        // then create a Graphic object for the bitmap we just created.
         Graphics oGraphics = Graphics.FromImage(oBitmap);
-
-        // Now create a Font object for the Barcode Font
-        // (in this case the IDAutomationHC39M) of 18 point size
-        //Font oFont = new Font("Arial", 12);
-        //Font oFont = new Font("CodabarMedium", 24);
-
-        // Let's create the Point and Brushes for the barcode
 
         SolidBrush oBrush = new SolidBrush(Color.Black);
 
-        // Now lets create the actual barcode image
-        // with a rectangle filled with white color
-
-
-
-        //oGraphics.FillRectangle(oBrush, 0, 0, w, height);
-
-        // We have to put prefix and sufix of an asterisk (*),
-        // in order to be a valid barcode
-        //oGraphics.DrawString("*" + Code + "*", oFont, oBrushWrite, oPoint);
-
-        //oGraphics.DrawString(Code, oFont, Brushes.Black, oPoint);
-        //PointF oPoint = new PointF(0, 0);
-
         Font oFontNum = new Font("Courier New", 12);
-        //Font oFontNum = new Font("Times New Roman", 12);
 
         Point start = new Point(0, 0);
 
         if (!string.IsNullOrEmpty(topleft) || !string.IsNullOrEmpty(topright))
         {
-            oGraphics.DrawString(topleft, oFontNum, oBrush, 0, 0);
-            oGraphics.DrawString(topright, oFontNum, oBrush, 0, 16);
-            start.Y += 16 + 16;
+            //oGraphics.DrawString(topleft, oFontNum, oBrush, 0, 0);
+            //oGraphics.DrawString(topright, oFontNum, oBrush, 0, 16);
+            //start.Y += 16 + 16;
+
+            oGraphics.DrawString(topleft + " - " + topright + "", oFontNum, oBrush, 0, 0);
+            start.Y += 16;
         }
 
         foreach (char ch in code)

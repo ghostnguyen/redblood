@@ -56,7 +56,11 @@ public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
 
         foreach (Pack e in v)
         {
-            if (e.Status == Pack.StatusX.Delete)
+            if (e.Status == Pack.StatusX.DataErr)
+            {
+                e.Note = PackErrList.DataErr.Message;
+            }
+            else if (e.Status == Pack.StatusX.Delete)
             {
                 if (e.PackStatusHistories.Count == 0)
                     e.Note = "Unknown";
