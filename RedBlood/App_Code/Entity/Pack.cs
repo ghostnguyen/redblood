@@ -161,6 +161,22 @@ public partial class Pack
         }
     }
 
+    public List<Pack> SourcePacks
+    {
+        get
+        {
+            return PackExtractsByExtract.Select(r => r.SourcePack).ToList();
+        }
+    }
+
+    public List<Pack> ExtractedPacks
+    {
+        get
+        {
+            return PackExtractsBySource.Select(r => r.ExtractPack).ToList();
+        }
+    }
+
     public Pack.TestResultStatusX TestResultStatusRoot
     {
         get

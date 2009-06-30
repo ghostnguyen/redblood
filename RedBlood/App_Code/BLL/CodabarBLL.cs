@@ -173,7 +173,7 @@ public class CodabarBLL
             top = "&topleft=" + topleft + "&topright=" + topright;
         }
 
-        return CodabarImgPage + "?hasText=true&code=" + CodabarBLL.GenPackCode(autonum) + top;
+        return CodabarImgPage + "?hasText=true&code=" + GenPackCode(autonum) + top + "&ssc";
     }
 
     public static string Url4Campaign(int ID)

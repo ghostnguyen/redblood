@@ -191,7 +191,8 @@ public class PackBLL
             }
             else
             {
-                p.Err = new PackErr(PackErrList.Invalid4Extract.Message + " " + p.Component.Name);
+                //p.Err = new PackErr(PackErrList.Invalid4Extract.Message + " " + p.Component.Name);
+                p.Err = PackErrList.Extracted;
                 return p;
             }
         }
@@ -559,7 +560,8 @@ public class PackBLL
 
         if (p.Status == Pack.StatusX.Collected)
         {
-            if (p.ComponentID != TestDef.Component.Full)
+            if (p.ComponentID != TestDef.Component.Full
+                && p.ComponentID != TestDef.Component.PlateletApheresis)
                 return PackErrList.DataErr;
         }
 
@@ -634,7 +636,7 @@ public class PackBLL
 
     public static List<Pack> GetSourcePacks_AllLevel(Pack p)
     {
-        List<Pack> l = p.PackExtractsByExtract.Select(r => r.SourcePack).ToList();
+        List<Pack> l = p.SourcePacks;
 
         Pack[] temp = new Pack[l.Count];
         l.CopyTo(temp);
@@ -650,7 +652,7 @@ public class PackBLL
 
     public static List<Pack> GetExtractPacks_AllLevel(Pack p)
     {
-        List<Pack> l = p.PackExtractsBySource.Select(r => r.ExtractPack).ToList();
+        List<Pack> l = p.ExtractedPacks;
 
         Pack[] temp = new Pack[l.Count];
         l.CopyTo(temp);

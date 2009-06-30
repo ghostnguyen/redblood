@@ -13,8 +13,6 @@ public partial class GenCodabar : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         string ssc = "";
-        string autonum = "";
-
         string code = "";
         bool hasText = false;
 
@@ -23,17 +21,7 @@ public partial class GenCodabar : System.Web.UI.Page
 
         try
         {
-            ssc = code = Request["ssc"].ToString();
-        }
-        catch (Exception)
-        {
-
-        }
-
-
-        try
-        {
-            ssc = code = Request["autonum"].ToString();
+            ssc = Request["ssc"].ToString();
         }
         catch (Exception)
         {
@@ -74,14 +62,6 @@ public partial class GenCodabar : System.Web.UI.Page
         catch (Exception)
         {
 
-        }
-
-
-
-        if (ssc.ToLower() == Resources.Codabar.packSSC.ToLower()
-            && autonum.ToInt() != 0)
-        {
-            code = CodabarBLL.GenPackCode(autonum.ToInt());
         }
 
         CodabarImg gen = new CodabarImg();

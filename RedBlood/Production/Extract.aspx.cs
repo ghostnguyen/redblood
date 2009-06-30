@@ -23,6 +23,9 @@ public partial class Production_Extract : System.Web.UI.Page
         }
     }
 
+    string style_non = "";
+    string style_select = "border:solid 1px red";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -57,27 +60,31 @@ public partial class Production_Extract : System.Web.UI.Page
     {
         CheckBoxListExtractTo.Items.Clear();
 
-        DetailsViewFull.DataSource = null;
-        DetailsViewFull.DataBind();
+        DataListFull.DataSource = null;
+        DataListFull.DataBind();
 
-        DetailsViewRBC.DataSource = null;
-        DetailsViewRBC.DataBind();
+        DataListRBC.DataSource = null;
+        DataListRBC.DataBind();
 
-        DetailsViewFFPlasma.DataSource = null;
-        DetailsViewFFPlasma.DataBind();
+        DataListWBC.DataSource = null;
+        DataListWBC.DataBind();
 
-        DetailsViewFFPlasma_Poor.DataSource = null;
-        DetailsViewFFPlasma_Poor.DataBind();
+        DataListFFPlasma_Poor.DataSource = null;
+        DataListFFPlasma_Poor.DataBind();
 
-        DetailsViewWBC.DataSource = null;
-        DetailsViewWBC.DataBind();
+        DataListFFPlasma.DataSource = null;
+        DataListFFPlasma.DataBind();
 
-        DetailsViewPlatelet.DataSource = null;
-        DetailsViewPlatelet.DataBind();
+        DataListPlatelet.DataSource = null;
+        DataListPlatelet.DataBind();
 
-        DetailsViewFactorVIII.DataSource = null;
-        DetailsViewFactorVIII.DataBind();
+        DataListFactorVIII.DataSource = null;
+        DataListFactorVIII.DataBind();
 
+        DataListFFPlasma_Poor2.DataSource = null;
+        DataListFFPlasma_Poor2.DataBind();
+
+        divExtract.Visible = false;
     }
 
     void LoadAutonum()
@@ -97,29 +104,43 @@ public partial class Production_Extract : System.Web.UI.Page
 
         CheckBoxListExtractTo.DataSource = TestDefBLL.Get(p.CanExtractTo);
         CheckBoxListExtractTo.DataBind();
+        if (p.CanExtractTo.Count > 0)
+        {
+            divExtract.Visible = true;
+        }
 
-        List<Pack> l = p.RelatedPack;
+        List<Pack> l = p.RelatedPack
+            .Where(r => r.ComponentID == TestDef.Component.Full)
+            .FirstOrDefault()
+            .RelatedPack;
 
-        DetailsViewFull.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Full);
-        DetailsViewFull.DataBind();
+        DataListFull.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Full);
+        DataListFull.DataBind();
 
-        DetailsViewRBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.RBC);
-        DetailsViewRBC.DataBind();
+        DataListRBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.RBC);
+        DataListRBC.DataBind();
 
-        DetailsViewFFPlasma.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma);
-        DetailsViewFFPlasma.DataBind();
+        DataListFFPlasma.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma);
+        DataListFFPlasma.DataBind();
 
-        DetailsViewFFPlasma_Poor.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor);
-        DetailsViewFFPlasma_Poor.DataBind();
+        DataListFFPlasma_Poor.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor
+            && r.SourcePacks.Select(s => s.ComponentID).Contains(TestDef.Component.Full));
+        DataListFFPlasma_Poor.DataBind();
 
-        DetailsViewWBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.WBC);
-        DetailsViewWBC.DataBind();
+        DataListWBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.WBC);
+        DataListWBC.DataBind();
 
-        DetailsViewPlatelet.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Platelet);
-        DetailsViewPlatelet.DataBind();
+        DataListPlatelet.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Platelet);
+        DataListPlatelet.DataBind();
 
-        DetailsViewFactorVIII.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII);
-        DetailsViewFactorVIII.DataBind();
+        DataListFactorVIII.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII);
+        DataListFactorVIII.DataBind();
+
+        DataListFFPlasma_Poor2.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor
+            && r.SourcePacks.Select(s => s.ComponentID).Contains(TestDef.Component.FFPlasma));
+        DataListFFPlasma_Poor2.DataBind();
+
+        Highlight_Div(p);
     }
 
     protected void btnExtract_Click(object sender, EventArgs e)
@@ -149,5 +170,15 @@ public partial class Production_Extract : System.Web.UI.Page
         else
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
 
+    }
+
+    void Highlight_Div(Pack p)
+    {
+        if (p.ComponentID == TestDef.Component.Full)
+        {
+            divFull.Attributes.CssStyle.Add("border", "solid 1px red");
+        }
+        else
+            divFull.Attributes.CssStyle.Add("border", "");
     }
 }
