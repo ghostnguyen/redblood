@@ -19,14 +19,6 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
         {
             ViewState["PeopleID"] = value;
             GridView1.DataBind();
-            //Clear();
-            //ViewState["PeopleID"] = value;
-            //if (value == null)
-            //{ }
-            //else
-            //{
-            //    LoadPeople();
-            //}
         }
     }
 
@@ -71,26 +63,27 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
                 else
                     e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note;
             }
-            else if (e.Status == Pack.StatusX.Collected )
+            else if (e.Status == Pack.StatusX.Collected)
             {
                 e.Note = e.Status.ToString();
             }
 
-            else if (e.Status == Pack.StatusX.Collected || e.Status == Pack.StatusX.Expire)
+            else if (e.Status == Pack.StatusX.Expire)
             {
                 e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expire).First().Note;
             }
-
-            else if (e.TestResultStatus != Pack.TestResultStatusX.Non)
+            else if (e.TestResultStatus == Pack.TestResultStatusX.Negative
+                || e.TestResultStatus == Pack.TestResultStatusX.NegativeLocked)
+            {
+                e.Note = "Negative";
+            }
+            else if (e.TestResultStatus == Pack.TestResultStatusX.Positive
+                || e.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
             {
                 //List<TestDef> def = PackBLL.ValidateTestResult(e.TestResults.Where(r => r.Times == 2).First());
                 List<TestDef> def = TestResultBLL.GetNonNegative(e.TestResults.Where(r => r.Times == 2).First());
 
-                if (def.Count() == 0)
-                {
-                    e.Note = "Negative";
-                }
-                else
+                if (def.Count() > 0)
                 {
                     e.Note = "Positive: ";
                     foreach (TestDef t in def)
@@ -103,8 +96,6 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
             {
                 e.Note = e.Status.ToString();
             }
-
-
         }
 
         return v;

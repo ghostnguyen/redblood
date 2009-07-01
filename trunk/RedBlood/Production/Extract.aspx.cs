@@ -24,7 +24,7 @@ public partial class Production_Extract : System.Web.UI.Page
     }
 
     string style_non = "";
-    string style_select = "border:solid 1px red";
+    string style_select = "border:ridge 5px red";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -174,11 +174,11 @@ public partial class Production_Extract : System.Web.UI.Page
 
     void Highlight_Div(Pack p)
     {
-        if (p.ComponentID == TestDef.Component.Full)
-        {
-            divFull.Attributes.CssStyle.Add("border", "solid 1px red");
-        }
-        else
-            divFull.Attributes.CssStyle.Add("border", "");
+        //if (p.ComponentID == TestDef.Component.Full)
+        //{
+        //    divFull.Attributes.CssStyle.Add("border", "groove white");
+        //}
+        //else
+        //    divFull.Attributes.CssStyle.Add("border", "");
     }
 }
