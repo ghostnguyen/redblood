@@ -676,6 +676,8 @@
       <Column Name="TestResultStatus" Type="Pack.TestResultStatusX" DbType="Int" CanBeNull="true" />
       <Column Name="SubstanceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DeliverStatus" Type="Pack.DeliverStatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="MSTM" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MSNH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Pack_TestResult" Member="TestResults" ThisKey="ID" OtherKey="PackID" Type="TestResult" />
       <Association Name="Pack_BloodType" Member="BloodTypes" ThisKey="ID" OtherKey="PackID" Type="BloodType" />
       <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
@@ -702,6 +704,29 @@
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
       <Association Name="Pack_PackOrder" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Excel" Member="Excels">
+    <Type Name="Excel">
+      <Column Name="STT" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MSTM" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MSNH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HoVaTen" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DOB" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ABO" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HIV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HBsAg" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HCV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Syphilis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Malaria" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Ward" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="District" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Province" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CampaignID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Imported" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
