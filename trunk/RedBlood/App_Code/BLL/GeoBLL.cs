@@ -98,12 +98,17 @@ public class GeoBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        var r = from e in db.Geos
-                where e.Fullname == fullname.Trim()
-                select e;
-        if (r.Count() == 0)
-            return null;
-        else
-            return r.First();
+        return (from e in db.Geos
+                where e.Fullname.ToLower() == fullname.Trim().ToLower()
+                select e).FirstOrDefault();
+    }
+
+    static public Geo GetByName(string name, int level)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        return (from e in db.Geos
+                where e.Name.ToLower() == name.Trim().ToLower() && e.Level == level
+                select e).FirstOrDefault();
     }
 }

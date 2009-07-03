@@ -158,6 +158,9 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackOrder(PackOrder instance);
   partial void UpdatePackOrder(PackOrder instance);
   partial void DeletePackOrder(PackOrder instance);
+  partial void InsertExcel(Excel instance);
+  partial void UpdateExcel(Excel instance);
+  partial void DeleteExcel(Excel instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -531,6 +534,14 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<PackOrder>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Excel> Excels
+	{
+		get
+		{
+			return this.GetTable<Excel>();
 		}
 	}
 }
@@ -15595,6 +15606,10 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private Pack.DeliverStatusX _DeliverStatus;
 	
+	private string _MSTM;
+	
+	private string _MSNH;
+	
 	private EntitySet<TestResult> _TestResults;
 	
 	private EntitySet<BloodType> _BloodTypes;
@@ -15661,6 +15676,10 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnSubstanceIDChanged();
     partial void OnDeliverStatusChanging(Pack.DeliverStatusX value);
     partial void OnDeliverStatusChanged();
+    partial void OnMSTMChanging(string value);
+    partial void OnMSTMChanged();
+    partial void OnMSNHChanging(string value);
+    partial void OnMSNHChanged();
     #endregion
 	
 	public Pack()
@@ -16046,6 +16065,46 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 				this._DeliverStatus = value;
 				this.SendPropertyChanged("DeliverStatus");
 				this.OnDeliverStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_MSTM", DbType="NVarChar(MAX)")]
+	public string MSTM
+	{
+		get
+		{
+			return this._MSTM;
+		}
+		set
+		{
+			if ((this._MSTM != value))
+			{
+				this.OnMSTMChanging(value);
+				this.SendPropertyChanging();
+				this._MSTM = value;
+				this.SendPropertyChanged("MSTM");
+				this.OnMSTMChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_MSNH", DbType="NVarChar(MAX)")]
+	public string MSNH
+	{
+		get
+		{
+			return this._MSNH;
+		}
+		set
+		{
+			if ((this._MSNH != value))
+			{
+				this.OnMSNHChanging(value);
+				this.SendPropertyChanging();
+				this._MSNH = value;
+				this.SendPropertyChanged("MSNH");
+				this.OnMSNHChanged();
 			}
 		}
 	}
@@ -16723,6 +16782,500 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 					this._PackID = default(Nullable<System.Guid>);
 				}
 				this.SendPropertyChanged("Pack");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.Excel")]
+public partial class Excel : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private string _STT;
+	
+	private string _MSTM;
+	
+	private string _MSNH;
+	
+	private string _HoVaTen;
+	
+	private string _DOB;
+	
+	private string _ABO;
+	
+	private string _RH;
+	
+	private string _HIV;
+	
+	private string _HBsAg;
+	
+	private string _HCV;
+	
+	private string _Syphilis;
+	
+	private string _Malaria;
+	
+	private string _Address;
+	
+	private string _Ward;
+	
+	private string _District;
+	
+	private string _Province;
+	
+	private int _ID;
+	
+	private System.Nullable<int> _CampaignID;
+	
+	private System.Nullable<int> _Imported;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSTTChanging(string value);
+    partial void OnSTTChanged();
+    partial void OnMSTMChanging(string value);
+    partial void OnMSTMChanged();
+    partial void OnMSNHChanging(string value);
+    partial void OnMSNHChanged();
+    partial void OnHoVaTenChanging(string value);
+    partial void OnHoVaTenChanged();
+    partial void OnDOBChanging(string value);
+    partial void OnDOBChanged();
+    partial void OnABOChanging(string value);
+    partial void OnABOChanged();
+    partial void OnRHChanging(string value);
+    partial void OnRHChanged();
+    partial void OnHIVChanging(string value);
+    partial void OnHIVChanged();
+    partial void OnHBsAgChanging(string value);
+    partial void OnHBsAgChanged();
+    partial void OnHCVChanging(string value);
+    partial void OnHCVChanged();
+    partial void OnSyphilisChanging(string value);
+    partial void OnSyphilisChanged();
+    partial void OnMalariaChanging(string value);
+    partial void OnMalariaChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnWardChanging(string value);
+    partial void OnWardChanged();
+    partial void OnDistrictChanging(string value);
+    partial void OnDistrictChanged();
+    partial void OnProvinceChanging(string value);
+    partial void OnProvinceChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnCampaignIDChanging(System.Nullable<int> value);
+    partial void OnCampaignIDChanged();
+    partial void OnImportedChanging(System.Nullable<int> value);
+    partial void OnImportedChanged();
+    #endregion
+	
+	public Excel()
+	{
+		OnCreated();
+	}
+	
+	[Column(Storage="_STT", DbType="NVarChar(MAX)")]
+	public string STT
+	{
+		get
+		{
+			return this._STT;
+		}
+		set
+		{
+			if ((this._STT != value))
+			{
+				this.OnSTTChanging(value);
+				this.SendPropertyChanging();
+				this._STT = value;
+				this.SendPropertyChanged("STT");
+				this.OnSTTChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_MSTM", DbType="NVarChar(MAX)")]
+	public string MSTM
+	{
+		get
+		{
+			return this._MSTM;
+		}
+		set
+		{
+			if ((this._MSTM != value))
+			{
+				this.OnMSTMChanging(value);
+				this.SendPropertyChanging();
+				this._MSTM = value;
+				this.SendPropertyChanged("MSTM");
+				this.OnMSTMChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_MSNH", DbType="NVarChar(MAX)")]
+	public string MSNH
+	{
+		get
+		{
+			return this._MSNH;
+		}
+		set
+		{
+			if ((this._MSNH != value))
+			{
+				this.OnMSNHChanging(value);
+				this.SendPropertyChanging();
+				this._MSNH = value;
+				this.SendPropertyChanged("MSNH");
+				this.OnMSNHChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_HoVaTen", DbType="NVarChar(MAX)")]
+	public string HoVaTen
+	{
+		get
+		{
+			return this._HoVaTen;
+		}
+		set
+		{
+			if ((this._HoVaTen != value))
+			{
+				this.OnHoVaTenChanging(value);
+				this.SendPropertyChanging();
+				this._HoVaTen = value;
+				this.SendPropertyChanged("HoVaTen");
+				this.OnHoVaTenChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_DOB", DbType="NVarChar(MAX)")]
+	public string DOB
+	{
+		get
+		{
+			return this._DOB;
+		}
+		set
+		{
+			if ((this._DOB != value))
+			{
+				this.OnDOBChanging(value);
+				this.SendPropertyChanging();
+				this._DOB = value;
+				this.SendPropertyChanged("DOB");
+				this.OnDOBChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ABO", DbType="NVarChar(MAX)")]
+	public string ABO
+	{
+		get
+		{
+			return this._ABO;
+		}
+		set
+		{
+			if ((this._ABO != value))
+			{
+				this.OnABOChanging(value);
+				this.SendPropertyChanging();
+				this._ABO = value;
+				this.SendPropertyChanged("ABO");
+				this.OnABOChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_RH", DbType="NVarChar(MAX)")]
+	public string RH
+	{
+		get
+		{
+			return this._RH;
+		}
+		set
+		{
+			if ((this._RH != value))
+			{
+				this.OnRHChanging(value);
+				this.SendPropertyChanging();
+				this._RH = value;
+				this.SendPropertyChanged("RH");
+				this.OnRHChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_HIV", DbType="NVarChar(MAX)")]
+	public string HIV
+	{
+		get
+		{
+			return this._HIV;
+		}
+		set
+		{
+			if ((this._HIV != value))
+			{
+				this.OnHIVChanging(value);
+				this.SendPropertyChanging();
+				this._HIV = value;
+				this.SendPropertyChanged("HIV");
+				this.OnHIVChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_HBsAg", DbType="NVarChar(MAX)")]
+	public string HBsAg
+	{
+		get
+		{
+			return this._HBsAg;
+		}
+		set
+		{
+			if ((this._HBsAg != value))
+			{
+				this.OnHBsAgChanging(value);
+				this.SendPropertyChanging();
+				this._HBsAg = value;
+				this.SendPropertyChanged("HBsAg");
+				this.OnHBsAgChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_HCV", DbType="NVarChar(MAX)")]
+	public string HCV
+	{
+		get
+		{
+			return this._HCV;
+		}
+		set
+		{
+			if ((this._HCV != value))
+			{
+				this.OnHCVChanging(value);
+				this.SendPropertyChanging();
+				this._HCV = value;
+				this.SendPropertyChanged("HCV");
+				this.OnHCVChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Syphilis", DbType="NVarChar(MAX)")]
+	public string Syphilis
+	{
+		get
+		{
+			return this._Syphilis;
+		}
+		set
+		{
+			if ((this._Syphilis != value))
+			{
+				this.OnSyphilisChanging(value);
+				this.SendPropertyChanging();
+				this._Syphilis = value;
+				this.SendPropertyChanged("Syphilis");
+				this.OnSyphilisChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Malaria", DbType="NVarChar(MAX)")]
+	public string Malaria
+	{
+		get
+		{
+			return this._Malaria;
+		}
+		set
+		{
+			if ((this._Malaria != value))
+			{
+				this.OnMalariaChanging(value);
+				this.SendPropertyChanging();
+				this._Malaria = value;
+				this.SendPropertyChanged("Malaria");
+				this.OnMalariaChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Address", DbType="NVarChar(MAX)")]
+	public string Address
+	{
+		get
+		{
+			return this._Address;
+		}
+		set
+		{
+			if ((this._Address != value))
+			{
+				this.OnAddressChanging(value);
+				this.SendPropertyChanging();
+				this._Address = value;
+				this.SendPropertyChanged("Address");
+				this.OnAddressChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Ward", DbType="NVarChar(MAX)")]
+	public string Ward
+	{
+		get
+		{
+			return this._Ward;
+		}
+		set
+		{
+			if ((this._Ward != value))
+			{
+				this.OnWardChanging(value);
+				this.SendPropertyChanging();
+				this._Ward = value;
+				this.SendPropertyChanged("Ward");
+				this.OnWardChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_District", DbType="NVarChar(MAX)")]
+	public string District
+	{
+		get
+		{
+			return this._District;
+		}
+		set
+		{
+			if ((this._District != value))
+			{
+				this.OnDistrictChanging(value);
+				this.SendPropertyChanging();
+				this._District = value;
+				this.SendPropertyChanged("District");
+				this.OnDistrictChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Province", DbType="NVarChar(MAX)")]
+	public string Province
+	{
+		get
+		{
+			return this._Province;
+		}
+		set
+		{
+			if ((this._Province != value))
+			{
+				this.OnProvinceChanging(value);
+				this.SendPropertyChanging();
+				this._Province = value;
+				this.SendPropertyChanged("Province");
+				this.OnProvinceChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_CampaignID", DbType="Int")]
+	public System.Nullable<int> CampaignID
+	{
+		get
+		{
+			return this._CampaignID;
+		}
+		set
+		{
+			if ((this._CampaignID != value))
+			{
+				this.OnCampaignIDChanging(value);
+				this.SendPropertyChanging();
+				this._CampaignID = value;
+				this.SendPropertyChanged("CampaignID");
+				this.OnCampaignIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Imported", DbType="Int")]
+	public System.Nullable<int> Imported
+	{
+		get
+		{
+			return this._Imported;
+		}
+		set
+		{
+			if ((this._Imported != value))
+			{
+				this.OnImportedChanging(value);
+				this.SendPropertyChanging();
+				this._Imported = value;
+				this.SendPropertyChanged("Imported");
+				this.OnImportedChanged();
 			}
 		}
 	}

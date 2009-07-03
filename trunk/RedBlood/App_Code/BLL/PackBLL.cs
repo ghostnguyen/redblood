@@ -182,11 +182,11 @@ public class PackBLL
             if (p.ComponentID == TestDef.Component.FFPlasma)
             {
                 p.Err = PackErrList.Valid4Extract;
-
+                
                 p.CanExtractTo.Add(TestDef.Component.FactorVIII);
                 p.CanExtractTo.Add(TestDef.Component.Platelet);
                 p.CanExtractTo.Add(TestDef.Component.FFPlasma_Poor);
-
+                
                 return p;
             }
             else
