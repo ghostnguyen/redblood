@@ -68,7 +68,7 @@
                     </LayoutTemplate>
                 </asp:ListView>
                 <asp:LinqDataSource ID="LinqDataSourceCampaign" runat="server" ContextTypeName="RedBloodDataContext"
-                    TableName="Campaigns" OrderBy="Date desc" EnableUpdate="True" 
+                    TableName="Campaigns" OrderBy="Date desc,ID desc" EnableUpdate="True" 
                     Where="SourceID == @SourceID">
                     <WhereParameters>
                         <asp:ControlParameter ControlID="lbSource" DefaultValue="0" 
