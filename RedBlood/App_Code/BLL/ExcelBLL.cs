@@ -42,8 +42,18 @@ public class ExcelBLL
         {
             RedBloodDataContext db = new RedBloodDataContext();
 
+            //Pack p = db.Packs.Where(r => r.Status == Pack.StatusX.Init).FirstOrDefault();
+            
+            Pack p = db.Packs.Where(r => r.Autonum == item.ID).FirstOrDefault();
+
+            if (p == null || p.Status != Pack.StatusX.Init)
+            {
+                return;
+            }
+
+            //db.SubmitChanges();
+
             if (string.IsNullOrEmpty(item.HoVaTen.Trim())
-                || string.IsNullOrEmpty(item.DOB.Trim())
                 || string.IsNullOrEmpty(item.MSTM.Trim())
                 || string.IsNullOrEmpty(item.MSNH.Trim()))
             {
@@ -120,8 +130,6 @@ public class ExcelBLL
             //Geo geo2 = GeoBLL.GetByName(item.District, 2);
             //Geo geo3 = GeoBLL.GetByName(item.Ward, 3);
 
-
-
            
 
             Campaign cam = CampaignBLL.GetByID(item.CampaignID.ToInt());
@@ -138,7 +146,7 @@ public class ExcelBLL
             }
             catch (Exception)
             {
-                continue;                
+                people.DOB = new DateTime(1888, 1, 1);
             }
             
 
@@ -151,14 +159,7 @@ public class ExcelBLL
             db.Peoples.InsertOnSubmit(people);
             db.SubmitChanges();
 
-            Pack p = db.Packs.Where(r => r.Status == Pack.StatusX.Init).FirstOrDefault();
-
-            if (p == null)
-            {
-                p = PackBLL.New(db, 1).First();
-            }
-
-            db.SubmitChanges();
+            
 
             p.MSTM = item.MSTM;
             p.MSNH = item.MSNH;
@@ -201,9 +202,11 @@ public class ExcelBLL
             {
                 throw;
             }
+
+            db1.SubmitChanges();
         }
 
-        db1.SubmitChanges();
+        
     }
 
 }

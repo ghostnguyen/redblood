@@ -114,7 +114,7 @@ public static class dotNetExt
 
         if (DateTime.TryParse(s.Trim(), MyCultureInfo, DateTimeStyles.None, out dt))
         {
-            return (dt < new DateTime(1883, 1, 1)) ? false : true;
+            return (dt < new DateTime(1888, 1, 1)) ? false : true;
         }
         else
         {
