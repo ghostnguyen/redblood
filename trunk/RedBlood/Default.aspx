@@ -37,7 +37,7 @@
         });
 
         $(document).bind('keydown', '2', function() {
-            window.location.replace("/RedBlood/Order/Order.aspx");
+            window.location.replace("/RedBlood/Default2.aspx");
         });
         
     </script>
@@ -118,10 +118,10 @@
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="/RedBlood/PackManually.aspx">2. Báo cáo</a></h3>
+                                <a href="/RedBlood/Default2.aspx">2. Báo cáo</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/PackManually.aspx" />
+                            <a href="/RedBlood/Default2.aspx" />
                             <img src="Image/Icon/Medical-invoice-information.png" alt="" />
                         </td>
                         <td class="column next">
