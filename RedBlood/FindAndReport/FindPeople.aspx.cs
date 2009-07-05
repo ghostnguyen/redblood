@@ -80,7 +80,7 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
             return;
         }
 
-        string search = "%" + Keyword.Replace(" ", "%") + "%";
+        string search = "%" + Keyword + "%";
 
         if (Keyword.ToLower().Trim() == "all") search = "%";
         RedBloodDataContext db = new RedBloodDataContext();

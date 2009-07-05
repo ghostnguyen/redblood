@@ -52,5 +52,18 @@ public class AutoComplete : System.Web.Services.WebService
         return r.ToArray();
     }
 
+    [WebMethod]
+    public string[] GetListSideEffect(string prefixText, int count)
+    {
+        string search = "%" + prefixText.Replace(" ", "%") + "%";
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        var r = (from rs in db.SideEffects
+                 where SqlMethods.Like(rs.Fullname, search) || SqlMethods.Like(rs.FullnameNoDiacritics, search)
+                 select rs.Fullname).Take(count);
+
+        return r.ToArray();
+    }
+
 }
 

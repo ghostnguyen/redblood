@@ -40,7 +40,7 @@ public class SystemBLL
             Pack.StatusX[] statusList = new Pack.StatusX[] { 
                 Pack.StatusX.Collected, Pack.StatusX.Production};
 
-            List<Pack> rs = PackBLL.Get(db, statusList);
+            List<Pack> rs = PackBLL.Get(db, statusList).Where(r => r.DeliverStatus == Pack.DeliverStatusX.Non).ToList();
 
             foreach (Pack r in rs)
             {

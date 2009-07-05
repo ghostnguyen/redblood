@@ -33,7 +33,7 @@
         });
 
         $(document).bind('keydown', '1', function() {
-            window.location.replace("/RedBlood/FindAndReport/FindPeople.aspx");
+            window.location.replace("/RedBlood/Default1.aspx");
         });
 
         $(document).bind('keydown', '2', function() {
@@ -110,10 +110,10 @@
                     <tr>
                         <td class="column">
                             <h3>
-                                <a href="/RedBlood/FindAndReport/FindPeople.aspx">1. Tìm kiếm</a></h3>
+                                <a href="/RedBlood/Default1.aspx">1. Tìm kiếm</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/FindAndReport/FindPeople.aspx" />
+                            <a href="/RedBlood/Default1.aspx" />
                             <img src="Image/Icon/Hospital2Search.png" alt="" />
                         </td>
                         <td class="column next">

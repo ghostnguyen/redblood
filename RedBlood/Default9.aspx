@@ -26,6 +26,10 @@
         $(document).bind('keydown', '5', function() {
             window.location.replace("/RedBlood/Codabar/Pack.aspx");
         });
+
+        $(document).bind('keydown', '6', function() {
+        window.location.replace("/RedBlood/Category/SideEffect.aspx");
+        });
     </script>
 
     <table width="100%">
@@ -121,20 +125,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                        <a href="/RedBlood/Category/SideEffect.aspx">
                                             <img src="Image/Icon/number6.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="/RedBlood/Category/SideEffect.aspx">Phản ứng truyền máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>
