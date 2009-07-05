@@ -182,11 +182,11 @@ public class PackBLL
             if (p.ComponentID == TestDef.Component.FFPlasma)
             {
                 p.Err = PackErrList.Valid4Extract;
-                
+
                 p.CanExtractTo.Add(TestDef.Component.FactorVIII);
                 p.CanExtractTo.Add(TestDef.Component.Platelet);
                 p.CanExtractTo.Add(TestDef.Component.FFPlasma_Poor);
-                
+
                 return p;
             }
             else
@@ -258,12 +258,12 @@ public class PackBLL
 
         try
         {
-            
+
             p.PeopleID = peopleID;
             p.CollectedDate = DateTime.Now;
             p.CampaignID = campaignID;
-            p.Substance = TestDefBLL.Get(db,TestDef.Substance.Non);
-            p.Component = TestDefBLL.Get(db, TestDef.Component.Full); 
+            p.Substance = TestDefBLL.Get(db, TestDef.Substance.Non);
+            p.Component = TestDefBLL.Get(db, TestDef.Component.Full);
 
             PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Collected, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
             db.PackStatusHistories.InsertOnSubmit(h);
@@ -305,7 +305,7 @@ public class PackBLL
 
         Pack[] l = New(db, count);
         db.Packs.InsertAllOnSubmit(l);
-        
+
 
         db.SubmitChanges();
         return l;
@@ -323,7 +323,7 @@ public class PackBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         var e = from c in db.Packs
-                where c.PeopleID == peopleID 
+                where c.PeopleID == peopleID
                 && (c.Status == Pack.StatusX.Collected)
                 && (c.TestResultStatus == Pack.TestResultStatusX.Non)
 
@@ -581,6 +581,10 @@ public class PackBLL
 
     public static PackErr CheckExpire(Pack p)
     {
+        if (p.DeliverStatus == Pack.DeliverStatusX.Yes
+            || p.Status == Pack.StatusX.Produced)
+            return PackErrList.Non;
+
         if (p.Component != null)
         {
             if (p.CollectedDate == null
@@ -589,7 +593,6 @@ public class PackBLL
                 return PackErrList.DataErr;
             }
         }
-
 
         TimeSpan ts = SystemBLL.GetExpire(p);
 
@@ -722,20 +725,36 @@ public class PackBLL
         }
 
         //Update for all related packs
-        UpdateTestResultStatus4Extracts(db, p);
+        UpdateTestResultStatus4Extracts(db,p);
 
         db.SubmitChanges();
     }
 
-    public static void UpdateTestResultStatus4Extracts(RedBloodDataContext db, Pack srcP)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="db">This parameter does nothing in the function. It is used to alert that the function depend on DataContext to submits.</param>
+    /// <param name="srcP"></param>
+    public static void UpdateTestResultStatus4Extracts(RedBloodDataContext db,Pack srcP)
     {
         List<Pack> extractP = srcP.PackExtractsBySource.Select(r => r.ExtractPack).ToList();
 
         foreach (Pack item in extractP)
         {
             item.TestResultStatus = item.TestResultStatusRoot;
-            UpdateTestResultStatus4Extracts(db, item);
+            UpdateTestResultStatus4Extracts(db,item);
         }
+    }
+
+    public static void UpdateTestResultStatus4Extracts(int autonum)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Pack p = PackBLL.Get(autonum, db);
+        
+        UpdateTestResultStatus4Extracts(db,p);
+
+        db.SubmitChanges();
     }
 
     public static PackErr Extract(int autonum, List<int> to, string actor)
@@ -758,9 +777,9 @@ public class PackBLL
 
                 db.SubmitChanges();
 
-                extractP.Component = TestDefBLL.Get(db,item);
+                extractP.Component = TestDefBLL.Get(db, item);
                 extractP.Actor = actor;
-                extractP.TestResultStatus = extractP.TestResultStatusRoot;
+                //extractP.TestResultStatus = extractP.TestResultStatusRoot;
                 extractP.CollectedDate = DateTime.Now;
 
                 PackStatusHistory h = ChangeStatus(extractP, Pack.StatusX.Production, actor, "Extract");
@@ -781,6 +800,8 @@ public class PackBLL
             db.PackStatusHistories.InsertOnSubmit(hi);
 
             db.SubmitChanges();
+
+            PackBLL.UpdateTestResultStatus4Extracts(p.Autonum);
             return PackErrList.Non;
         }
         else
@@ -946,8 +967,7 @@ public class PackBLL
 
         foreach (TestResult item in trL)
         {
-            if (item.CommitDate != null
-                && item.CommitDate.Value.Date < DateTime.Now.Date)
+            if (item.CommitDate != null && item.CommitDate.Value.Date < DateTime.Now.Date)
             {
                 if (item.Pack.TestResultStatus == Pack.TestResultStatusX.Negative)
                     item.Pack.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;

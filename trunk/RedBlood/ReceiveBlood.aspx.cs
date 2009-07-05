@@ -10,29 +10,36 @@ public partial class Enter : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
-        ucEnterPack.PlateletApheresisConfirmed += new EventHandler(ucEnterPack_PlateletApheresisConfirmed);
-        ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
-
-        string code = Master.TextBoxCode.Text.Trim();
-        Master.TextBoxCode.Text = "";
-
-        if (code.Length == 0) return;
-
-        if (CodabarBLL.IsValidPackCode(code))
+        if (!IsPostBack)
         {
-            PackCodeEnter(code);
-        }
-        else if (CodabarBLL.IsValidTestResultCode(code))
-        {
-            TestResultEnter(code);
-        }
-        else if (CodabarBLL.IsValidCampaignCode(code))
-        {
-            CampaignEnter(code);
+            //ucPeople.Code = Request.Params["key"].ToString();
         }
         else
         {
-            ucPeople.Code = code;
+            ucEnterPack.PlateletApheresisConfirmed += new EventHandler(ucEnterPack_PlateletApheresisConfirmed);
+            ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
+
+            string code = Master.TextBoxCode.Text.Trim();
+            Master.TextBoxCode.Text = "";
+
+            if (code.Length == 0) return;
+
+            if (CodabarBLL.IsValidPackCode(code))
+            {
+                PackCodeEnter(code);
+            }
+            else if (CodabarBLL.IsValidTestResultCode(code))
+            {
+                TestResultEnter(code);
+            }
+            else if (CodabarBLL.IsValidCampaignCode(code))
+            {
+                CampaignEnter(code);
+            }
+            else
+            {
+                ucPeople.Code = code;
+            }
         }
     }
 

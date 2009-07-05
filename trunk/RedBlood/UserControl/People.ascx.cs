@@ -62,6 +62,10 @@ public partial class UserControl_People : System.Web.UI.UserControl
                     PeopleID = r.ID;
                 }
             }
+            else if (Code.ToGuid() != Guid.Empty)
+            {
+                PeopleID = Code.ToGuid();
+            }
             else if (Code.Length >= 9)
             {
                 People r = PeopleBLL.GetByCMND(Code);
@@ -74,6 +78,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
                     New(Code);
                 }
             }
+
             else
             { }
         }

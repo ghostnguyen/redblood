@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageFind.master" AutoEventWireup="true"
     CodeFile="PackDetail.aspx.cs" Inherits="FindAndReport_PackDetail" %>
+    
+    <%@ Register Src="~/UserControl/PackSideEffect.ascx" TagPrefix="uc" TagName="PSE" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table>
@@ -121,6 +123,9 @@
                 <asp:LinqDataSource ID="LinqDataSourcePackRelative" runat="server" ContextTypeName="RedBloodDataContext"
                     OnSelecting="LinqDataSourcePackRelative_Selecting" TableName="Packs">
                 </asp:LinqDataSource>
+                <br />
+                
+                <uc:PSE runat="server" ID="PSE1" />
             </td>
         </tr>
     </table>

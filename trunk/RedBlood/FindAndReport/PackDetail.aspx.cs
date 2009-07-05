@@ -27,6 +27,7 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
             Autonum = Request.Params["key"].ToInt();
 
             DetailView1.DataBind();
+            PSE1.Autonum = Autonum;
         }
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -43,7 +44,9 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
 
     protected void LinqDataSourcePackRelative_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
+        
         Pack p = PackBLL.Get(Autonum);
+
         if (p == null)
         {
             e.Result = null;
@@ -65,6 +68,9 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
         {
             e.Result = p.PackExtractsByExtract.Select(r => r.SourcePack);
         }
+
+        e.Result = null;
+        e.Cancel = true;
     }
 
 

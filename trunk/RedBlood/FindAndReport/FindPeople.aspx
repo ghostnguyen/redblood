@@ -1,5 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageFind.master"
-    AutoEventWireup="true" CodeFile="FindPeople.aspx.cs" Inherits="FindAndReport_FindPeople" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageFind.master" AutoEventWireup="true"
+    CodeFile="FindPeople.aspx.cs" Inherits="FindAndReport_FindPeople" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%">
@@ -50,7 +50,11 @@
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
                     DataSourceID="LinqDataSource1">
                     <Columns>
-                        <asp:BoundField DataField="Name" HeaderText="Tên" SortExpression="Name" />
+                        <asp:TemplateField HeaderText="Name">
+                            <ItemTemplate>
+                                <asp:HyperLink ID="Label1" runat="server" Text='<%# Eval("Name")%>' NavigateUrl='<%# SystemBLL.Url4PeopleDetail + "key=" + Eval("ID")  %>'></asp:HyperLink>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="CMND" HeaderText="CMND" SortExpression="CMND" />
                         <asp:BoundField DataField="DOB" HeaderText="Năm sinh" SortExpression="DOB" DataFormatString="{0:dd/MM/yyyy}" />
                         <asp:TemplateField HeaderText="Giới tính">
@@ -62,6 +66,7 @@
                         <asp:BoundField DataField="FullResidentalAddress" HeaderText="Địa chỉ" ReadOnly="True"
                             SortExpression="FullResidentalAddress" />
                         <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
+                     <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"

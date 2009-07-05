@@ -38,7 +38,8 @@
                             <table class="Banner">
                                 <tr>
                                     <td align="left" style="width: 150px;">
-                                        <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/RedBlood.png" />
+                                        <%--<asp:Image ID="Image1" runat="server" ImageUrl="~/Image/RedBlood.png" />--%>
+                                        <asp:Image ID="Image2" runat="server" ImageUrl="~/Image/Logo.png" />
                                     </td>
                                     <td align="center" class="Title">
                                         <asp:Label ID="lblTitle" runat="server" Text="Labelfasdf"></asp:Label>

@@ -232,6 +232,11 @@ public static class dotNetExt
         return 0;
     }
 
+    public static string ToStringRemoveZero(this int i)
+    {
+        return i == 0 ? "" : i.ToString();
+    }
+
     public static int ToInt(this object o)
     {
         if (o == null) return 0;

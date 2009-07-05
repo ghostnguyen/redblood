@@ -43,7 +43,7 @@
                 <table>
                     <tr>
                         <td>
-                            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
+                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
                                 DataKeyNames="Autonum" DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller"
                                 OnRowDataBound="GridView1_RowDataBound">
                                 <Columns>
@@ -118,7 +118,7 @@
                             </asp:GridView>
                             <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
                                 EnableUpdate="True" OnSelecting="LinqDataSource1_Selecting" TableName="Packs"
-                                OrderBy="People.Name" EnableDelete="True" OnSelected="LinqDataSource1_Selected">
+                                OrderBy="Autonum" EnableDelete="True" OnSelected="LinqDataSource1_Selected">
                             </asp:LinqDataSource>
                         </td>
                     </tr>

@@ -48,7 +48,7 @@ public class ExcelBLL
 
             if (p == null || p.Status != Pack.StatusX.Init)
             {
-                return;
+                continue;
             }
 
             //db.SubmitChanges();
@@ -151,7 +151,10 @@ public class ExcelBLL
             
 
             people.Name = item.HoVaTen;
+            people.SexID = new Guid("582FCCF2-65A0-4162-BE24-B29E9C664262");
+
             people.ResidentGeoID1 = geo1.ID;
+
             if (geo2 != null) people.ResidentGeoID2 = geo2.ID;
             if (geo3 != null) people.ResidentGeoID3 = geo3.ID;
             people.ResidentAddress = item.Address;
@@ -171,13 +174,13 @@ public class ExcelBLL
             PackStatusHistory his = PackBLL.ChangeStatus(p, Pack.StatusX.Collected, actor, note);
             db.PackStatusHistories.InsertOnSubmit(his);
 
-            p.DeliverStatus = Pack.DeliverStatusX.Yes;
-
             PackBLL.Update(db, p
                 , TestDefBLL.Get(db, TestDef.Component.Full)
                 , 250
                 , TestDefBLL.Get(db, TestDef.Substance.Non));
+            
             BloodTypeBLL.Update(db, p, 2, TestDefBLL.Get(db, ABOID), TestDefBLL.Get(db, RHID), actor, note);
+
             TestResultBLL.Update(db, p, 2
                 , TestDefBLL.Get(db, HIVID)
                 , TestDefBLL.Get(db, HCVID)
@@ -185,16 +188,29 @@ public class ExcelBLL
                 , TestDefBLL.Get(db, SyphilisID)
                 , TestDefBLL.Get(db, MalariaID)
                 , actor, note);
+            
 
             p.HospitalID = new Guid("0D39EC10-B425-41ED-9210-28FF740AD80D");
             p.Actor = actor;
             p.Note = note;
 
+
+           
+
             try
             {
+                // This trick help validate pack. Change Deliver Status later
+                p.DeliverStatus = Pack.DeliverStatusX.Yes;
+
                 db.SubmitChanges(ConflictMode.FailOnFirstConflict);
 
+                UpdateDate(p.Autonum, cam.Date.Value);
+        
                 PackBLL.UpdateTestResultStatus4Full(p.Autonum);
+
+                PackBLL.LockEnterTestResult();
+                
+                UpdateDeliverStatus(p.Autonum,actor);
 
                 item.Imported = 1;
             }
@@ -207,6 +223,38 @@ public class ExcelBLL
         }
 
         
+    }
+
+    static void UpdateDate(int autonum, DateTime date)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Pack p = db.Packs.Where(r => r.Autonum == autonum).FirstOrDefault();
+
+        if (p == null) return;
+
+        p.TestResult2.CommitDate = date;
+
+        db.SubmitChanges();
+    }
+
+    static void UpdateDeliverStatus(int autonum,string actor)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Pack p = db.Packs.Where(r => r.Autonum == autonum).FirstOrDefault();
+
+        if (p == null) return;
+
+        if (p.TestResultStatus == Pack.TestResultStatusX.NegativeLocked)
+        {
+            p.DeliverStatus = Pack.DeliverStatusX.Yes; 
+        }
+
+        if (p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
+        {
+            PackBLL.ChangeStatus(p, Pack.StatusX.Delete, actor, "Excel Import Positive");
+        }
+
+        db.SubmitChanges();
     }
 
 }

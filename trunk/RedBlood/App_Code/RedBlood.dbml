@@ -685,6 +685,7 @@
       <Association Name="Pack_PackExtract" Member="PackExtractsBySource" Storage="_PackExtracts" ThisKey="ID" OtherKey="SourcePackID" Type="PackExtract" />
       <Association Name="Pack_PackExtract1" Member="PackExtractsByExtract" Storage="_PackExtracts1" ThisKey="ID" OtherKey="ExtractPackID" Type="PackExtract" />
       <Association Name="Pack_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="PackID" Type="PackOrder" />
+      <Association Name="Pack_PackSideEffect" Member="PackSideEffects" ThisKey="ID" OtherKey="PackID" Type="PackSideEffect" />
       <Association Name="Campaign_Pack" Member="Campaign" ThisKey="CampaignID" OtherKey="ID" Type="Campaign" IsForeignKey="true" />
       <Association Name="Hospital_Pack" Member="Hospital" ThisKey="HospitalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="People_Pack" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
@@ -727,6 +728,37 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="CampaignID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Imported" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SideEffect" Member="SideEffects">
+    <Type Name="SideEffect">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Fullname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FullnameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="SideEffect_SideEffect" Member="ChildSideEffects" Storage="_SideEffects" ThisKey="ID" OtherKey="ParentID" Type="SideEffect" />
+      <Association Name="SideEffect_PackSideEffect" Member="PackSideEffects1" ThisKey="ID" OtherKey="SideEffectID1" Type="PackSideEffect" />
+      <Association Name="SideEffect_PackSideEffect1" Member="PackSideEffects2" ThisKey="ID" OtherKey="SideEffectID2" Type="PackSideEffect" />
+      <Association Name="SideEffect_PackSideEffect2" Member="PackSideEffects3" ThisKey="ID" OtherKey="SideEffectID3" Type="PackSideEffect" />
+      <Association Name="SideEffect_SideEffect" Member="ParentSideEffect" Storage="_SideEffect1" ThisKey="ParentID" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackSideEffect" Member="PackSideEffects">
+    <Type Name="PackSideEffect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SideEffectID1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="SideEffectID2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="SideEffectID3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Pack_PackSideEffect" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+      <Association Name="SideEffect_PackSideEffect" Member="SideEffect1" ThisKey="SideEffectID1" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
+      <Association Name="SideEffect_PackSideEffect1" Member="SideEffect2" ThisKey="SideEffectID2" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
+      <Association Name="SideEffect_PackSideEffect2" Member="SideEffect3" ThisKey="SideEffectID3" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
