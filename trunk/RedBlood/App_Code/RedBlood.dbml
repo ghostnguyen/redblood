@@ -48,103 +48,6 @@
       <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Company" Member="Companies">
-    <Type Name="Company">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="NameInEnglish" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="NameInShort" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="TaxNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="DefaultBankAccountID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Company_CompanyBankAccount" Member="CompanyBankAccounts" ThisKey="ID" OtherKey="CompanyID" Type="CompanyBankAccount" />
-      <Association Name="Company_CompanyLocation" Member="CompanyLocations" ThisKey="ID" OtherKey="CompanyID" Type="CompanyLocation" />
-      <Association Name="Company_Supplier" Member="Suppliers" ThisKey="ID" OtherKey="CompanyID" Type="Supplier" />
-      <Association Name="Company_Warehouse" Member="Warehouses" ThisKey="ID" OtherKey="CompanyID" Type="Warehouse" />
-      <Association Name="Company_Furniture" Member="Furnitures" ThisKey="ID" OtherKey="CompanyID" Type="Furniture" />
-      <Association Name="Company_Customer" Member="Customers" ThisKey="ID" OtherKey="CompanyID" Type="Customer" />
-      <Association Name="Company_PointDef" Member="PointDefs" ThisKey="ID" OtherKey="CompanyID" Type="PointDef" />
-      <Association Name="CompanyBankAccount_Company" Member="CompanyBankAccount" ThisKey="DefaultBankAccountID" OtherKey="ID" Type="CompanyBankAccount" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CompanyBankAccount" Member="CompanyBankAccounts">
-    <Type Name="CompanyBankAccount">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CompanyID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="BankID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="No" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="CompanyBankAccount_Company" Member="Companies" ThisKey="ID" OtherKey="DefaultBankAccountID" Type="Company" />
-      <Association Name="Company_CompanyBankAccount" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
-      <Association Name="Bank_CompanyBankAccount" Member="Bank" ThisKey="BankID" OtherKey="ID" Type="Bank" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SupplierContactPerson" Member="SupplierContactPersons">
-    <Type Name="SupplierContactPerson">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="SupplierLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="SupplierLocation_SupplierContactPerson" Member="SupplierLocation" ThisKey="SupplierLocationID" OtherKey="ID" Type="SupplierLocation" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SupplierBankAccount" Member="SupplierBankAccounts">
-    <Type Name="SupplierBankAccount">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SupplierID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="BankID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="No" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="SupplierBankAccount_Supplier" Member="Suppliers" ThisKey="ID" OtherKey="DefaultBankAccountID" Type="Supplier" />
-      <Association Name="Bank_SupplierBankAccount" Member="Bank" ThisKey="BankID" OtherKey="ID" Type="Bank" IsForeignKey="true" />
-      <Association Name="Supplier_SupplierBankAccount" Member="Supplier" ThisKey="SupplierID" OtherKey="ID" Type="Supplier" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Bank" Member="Banks">
-    <Type Name="Bank">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Adddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Fax" Storage="_Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Storage="_Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Bank_CompanyBankAccount" Member="CompanyBankAccounts" ThisKey="ID" OtherKey="BankID" Type="CompanyBankAccount" />
-      <Association Name="Bank_SupplierBankAccount" Member="SupplierBankAccounts" ThisKey="ID" OtherKey="BankID" Type="SupplierBankAccount" />
-      <Association Name="Bank_Bank" Member="Banks" ThisKey="ID" OtherKey="ParentID" Type="Bank" />
-      <Association Name="Bank_CustomerBankAccount" Member="CustomerBankAccounts" ThisKey="ID" OtherKey="BankID" Type="CustomerBankAccount" />
-      <Association Name="Bank_Bank" Member="Bank1" ThisKey="ParentID" OtherKey="ID" Type="Bank" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SupplierLocation" Member="SupplierLocations">
-    <Type Name="SupplierLocation">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="SupplierID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="SupplierLocation_SupplierContactPerson" Member="SupplierContactPersons" ThisKey="ID" OtherKey="SupplierLocationID" Type="SupplierContactPerson" />
-      <Association Name="Supplier_SupplierLocation" Member="Supplier" ThisKey="SupplierID" OtherKey="ID" Type="Supplier" IsForeignKey="true" />
-      <Association Name="Geo_SupplierLocation" Member="Geo" ThisKey="GeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-      <Association Name="Geo_SupplierLocation1" Member="Geo1" ThisKey="GeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-      <Association Name="Geo_SupplierLocation2" Member="Geo2" ThisKey="GeoID3" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.CompanyContactPerson" Member="CompanyContactPersons">
     <Type Name="CompanyContactPerson">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -155,226 +58,6 @@
       <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="CompanyLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="CompanyLocation_CompanyContactPerson" Member="CompanyLocation" ThisKey="CompanyLocationID" OtherKey="ID" Type="CompanyLocation" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CompanyLocation" Member="CompanyLocations">
-    <Type Name="CompanyLocation">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Storage="_Nam" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="CompanyLocation_CompanyContactPerson" Member="CompanyContactPersons" ThisKey="ID" OtherKey="CompanyLocationID" Type="CompanyContactPerson" />
-      <Association Name="Company_CompanyLocation" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
-      <Association Name="Geo_CompanyLocation" Member="Geo" ThisKey="GeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-      <Association Name="Geo_CompanyLocation1" Member="Geo1" ThisKey="GeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-      <Association Name="Geo_CompanyLocation2" Member="Geo2" ThisKey="GeoID3" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CustomerBankAccount" Member="CustomerBankAccounts">
-    <Type Name="CustomerBankAccount">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CustomerID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="BankID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="No" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="CustomerBankAccount_Customer" Member="Customers" ThisKey="ID" OtherKey="DefaultBankAccountID" Type="Customer" />
-      <Association Name="Bank_CustomerBankAccount" Member="Bank" ThisKey="BankID" OtherKey="ID" Type="Bank" IsForeignKey="true" />
-      <Association Name="Customer_CustomerBankAccount" Member="Customer" ThisKey="CustomerID" OtherKey="ID" Type="Customer" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CustomerContactPerson" Member="CustomerContactPersons">
-    <Type Name="CustomerContactPerson">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Birthday" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Storage="_Node" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="CustomerLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="CustomerLocation_CustomerContactPerson" Member="CustomerLocation" ThisKey="CustomerLocationID" OtherKey="ID" Type="CustomerLocation" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CustomerLocation" Member="CustomerLocations">
-    <Type Name="CustomerLocation">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="CustomerID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="GeoID3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="CustomerLocation_CustomerContactPerson" Member="CustomerContactPersons" ThisKey="ID" OtherKey="CustomerLocationID" Type="CustomerContactPerson" />
-      <Association Name="Customer_CustomerLocation" Member="Customer" ThisKey="CustomerID" OtherKey="ID" Type="Customer" IsForeignKey="true" />
-      <Association Name="Geo_CustomerLocation" Member="Geo" ThisKey="GeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-      <Association Name="Geo_CustomerLocation1" Member="Geo1" ThisKey="GeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-      <Association Name="Geo_CustomerLocation2" Member="Geo2" ThisKey="GeoID3" OtherKey="ID" Type="Geo" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Supplier" Member="Suppliers">
-    <Type Name="Supplier">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="TaxNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="DefaultBankAccountID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Supplier_SupplierBankAccount" Member="SupplierBankAccounts" ThisKey="ID" OtherKey="SupplierID" Type="SupplierBankAccount" />
-      <Association Name="Supplier_SupplierLocation" Member="SupplierLocations" ThisKey="ID" OtherKey="SupplierID" Type="SupplierLocation" />
-      <Association Name="Company_Supplier" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
-      <Association Name="SupplierBankAccount_Supplier" Member="SupplierBankAccount" ThisKey="DefaultBankAccountID" OtherKey="ID" Type="SupplierBankAccount" IsForeignKey="true" DeleteRule="SET NULL" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Warehouse" Member="Warehouses">
-    <Type Name="Warehouse">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Code" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Warehouse_WarehouseDivision" Member="WarehouseDivisions" ThisKey="ID" OtherKey="WarehouseID" Type="WarehouseDivision" />
-      <Association Name="Warehouse_WarehouseKeeper" Member="WarehouseKeepers" ThisKey="ID" OtherKey="WarehouseID" Type="WarehouseKeeper" />
-      <Association Name="Company_Warehouse" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.WarehouseDivision" Member="WarehouseDivisions">
-    <Type Name="WarehouseDivision">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Code" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Location" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="WarehouseID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Warehouse_WarehouseDivision" Member="Warehouse" ThisKey="WarehouseID" OtherKey="ID" Type="Warehouse" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.WarehouseKeeper" Member="WarehouseKeepers">
-    <Type Name="WarehouseKeeper">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="WarehouseID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Warehouse_WarehouseKeeper" Member="Warehouse" ThisKey="WarehouseID" OtherKey="ID" Type="Warehouse" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Cat" Member="Cats">
-    <Type Name="Cat">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Cat_Cat" Member="Cats" ThisKey="ID" OtherKey="ParentID" Type="Cat" />
-      <Association Name="Cat_ItemCat" Member="ItemCats1" ThisKey="ID" OtherKey="CatID1" Type="ItemCat" />
-      <Association Name="Cat_ItemCat1" Member="ItemCats2" ThisKey="ID" OtherKey="CatID2" Type="ItemCat" />
-      <Association Name="Cat_ItemCat2" Member="ItemCats3" ThisKey="ID" OtherKey="CatID3" Type="ItemCat" />
-      <Association Name="Cat_ItemCat3" Member="ItemCats4" ThisKey="ID" OtherKey="CatID4" Type="ItemCat" />
-      <Association Name="Cat_ItemCat4" Member="ItemCats5" ThisKey="ID" OtherKey="CatID5" Type="ItemCat" />
-      <Association Name="Cat_Cat" Member="Cat1" ThisKey="ParentID" OtherKey="ID" Type="Cat" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Furniture" Member="Furnitures">
-    <Type Name="Furniture">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CompanyID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Code" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="SerialNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="BarCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Dimension" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Color" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Material" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Unit1Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Unit2Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Unit3Name" Storage="_Unit3name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Unit12Factor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Unit23Factor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Furniture_ItemImg" Member="FurImgs" ThisKey="ID" OtherKey="ItemID" Type="ItemImg" />
-      <Association Name="Furniture_ItemCat" Member="FurCats" ThisKey="ID" OtherKey="ItemID" Type="ItemCat" />
-      <Association Name="Company_Furniture" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ItemImg" Member="ItemImgs">
-    <Type Name="ItemImg">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ItemID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="FileName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="TableName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Furniture_ItemImg" Member="Furniture" ThisKey="ItemID" OtherKey="ID" Type="Furniture" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ItemCat" Member="ItemCats">
-    <Type Name="ItemCat">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ItemID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="CatID1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="CatID2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="CatID3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="CatID4" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="CatID5" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="TableName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Furniture_ItemCat" Member="Furniture" ThisKey="ItemID" OtherKey="ID" Type="Furniture" IsForeignKey="true" />
-      <Association Name="Cat_ItemCat" Member="Cat1" ThisKey="CatID1" OtherKey="ID" Type="Cat" IsForeignKey="true" />
-      <Association Name="Cat_ItemCat1" Member="Cat2" ThisKey="CatID2" OtherKey="ID" Type="Cat" IsForeignKey="true" />
-      <Association Name="Cat_ItemCat2" Member="Cat3" ThisKey="CatID3" OtherKey="ID" Type="Cat" IsForeignKey="true" />
-      <Association Name="Cat_ItemCat3" Member="Cat4" ThisKey="CatID4" OtherKey="ID" Type="Cat" IsForeignKey="true" />
-      <Association Name="Cat_ItemCat4" Member="Cat5" ThisKey="CatID5" OtherKey="ID" Type="Cat" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Customer" Member="Customers">
-    <Type Name="Customer">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="TaxNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="DefaultBankAccountID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="BankAccountNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="BankName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="CMND" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="RedBlood" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Customer_CustomerBankAccount" Member="CustomerBankAccounts" ThisKey="ID" OtherKey="CustomerID" Type="CustomerBankAccount" />
-      <Association Name="Customer_CustomerLocation" Member="CustomerLocations" ThisKey="ID" OtherKey="CustomerID" Type="CustomerLocation" />
-      <Association Name="Customer_CustomerPoint" Member="CustomerPoints" ThisKey="ID" OtherKey="CustomerID" Type="CustomerPoint" />
-      <Association Name="Company_Customer" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
-      <Association Name="CustomerBankAccount_Customer" Member="CustomerBankAccount" ThisKey="DefaultBankAccountID" OtherKey="ID" Type="CustomerBankAccount" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PointDef" Member="PointDefs">
-    <Type Name="PointDef">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="PointDef_CustomerPoint" Member="CustomerPoints" ThisKey="ID" OtherKey="PointDefID" Type="CustomerPoint" />
-      <Association Name="Company_PointDef" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CustomerPoint" Member="CustomerPoints">
-    <Type Name="CustomerPoint">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CustomerID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="PointDefID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Point" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Customer_CustomerPoint" Member="Customer" ThisKey="CustomerID" OtherKey="ID" Type="Customer" IsForeignKey="true" />
-      <Association Name="PointDef_CustomerPoint" Member="PointDef" ThisKey="PointDefID" OtherKey="ID" Type="PointDef" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Sex" Member="Sexes">
@@ -392,15 +75,6 @@
       <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Fullname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="FullnameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Geo_SupplierLocation" Member="SupplierLocations" ThisKey="ID" OtherKey="GeoID1" Type="SupplierLocation" />
-      <Association Name="Geo_SupplierLocation1" Member="SupplierLocations1" ThisKey="ID" OtherKey="GeoID2" Type="SupplierLocation" />
-      <Association Name="Geo_SupplierLocation2" Member="SupplierLocations2" ThisKey="ID" OtherKey="GeoID3" Type="SupplierLocation" />
-      <Association Name="Geo_CompanyLocation" Member="CompanyLocations" ThisKey="ID" OtherKey="GeoID1" Type="CompanyLocation" />
-      <Association Name="Geo_CompanyLocation1" Member="CompanyLocations1" ThisKey="ID" OtherKey="GeoID2" Type="CompanyLocation" />
-      <Association Name="Geo_CompanyLocation2" Member="CompanyLocations2" ThisKey="ID" OtherKey="GeoID3" Type="CompanyLocation" />
-      <Association Name="Geo_CustomerLocation" Member="CustomerLocations" ThisKey="ID" OtherKey="GeoID1" Type="CustomerLocation" />
-      <Association Name="Geo_CustomerLocation1" Member="CustomerLocations1" ThisKey="ID" OtherKey="GeoID2" Type="CustomerLocation" />
-      <Association Name="Geo_CustomerLocation2" Member="CustomerLocations2" ThisKey="ID" OtherKey="GeoID3" Type="CustomerLocation" />
       <Association Name="Geo_Geo" Member="Geos" ThisKey="ID" OtherKey="ParentID" Type="Geo" />
       <Association Name="Geo_People" Member="PeopleMailingGeo1" Storage="_Peoples" ThisKey="ID" OtherKey="MailingGeoID1" Type="People" />
       <Association Name="Geo_People1" Member="PeopleMailingGeo2" Storage="_Peoples1" ThisKey="ID" OtherKey="MailingGeoID2" Type="People" />
@@ -479,9 +153,8 @@
       <Column Name="MailingGeoID3" Storage="_MailingGeo3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="EnableMailingAddress" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="People_Order" Member="Orders" ThisKey="ID" OtherKey="PeopleID" Type="Order" />
       <Association Name="People_Pack" Member="Packs" ThisKey="ID" OtherKey="PeopleID" Type="Pack" />
-      <Association Name="People_PeopleStayIn" Member="PeopleStayIns" ThisKey="ID" OtherKey="PeopleID" Type="PeopleStayIn" />
+      <Association Name="People_Order" Member="Orders" ThisKey="ID" OtherKey="PeopleID" Type="Order" />
       <Association Name="Hospital_People" Member="Hospital" ThisKey="HopistalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="Geo_People" Member="MailingGeo1" Storage="_Geo" ThisKey="MailingGeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
       <Association Name="Geo_People1" Member="MailingGeo2" Storage="_Geo1" ThisKey="MailingGeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
@@ -624,28 +297,6 @@
       <Association Name="Pack_PackExtract1" Member="ExtractPack" Storage="_Pack1" ThisKey="ExtractPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[Order]" Member="Orders">
-    <Type Name="Order">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Type" Type="Order.TypeX" DbType="Int" CanBeNull="true" />
-      <Column Name="Status" Type="Order.StatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="Dept" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Room" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Bed" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="PatientCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="TransfusionNote" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Diagnosis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Order_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="OrderID" Type="PackOrder" />
-      <Association Name="Org_Order" Member="Org" ThisKey="OrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
-      <Association Name="People_Order" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Pack" Member="Packs">
     <Type Name="Pack">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -692,8 +343,8 @@
       <Column Name="Status" Type="PackOrder.StatusX" DbType="Int" CanBeNull="true" />
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
       <Association Name="Pack_PackOrder" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+      <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Excel" Member="Excels">
@@ -750,32 +401,48 @@
       <Association Name="SideEffect_PackSideEffect2" Member="SideEffect3" ThisKey="SideEffectID3" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PeopleStayIn" Member="PeopleStayIns">
-    <Type Name="PeopleStayIn">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="EnterDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DepartmentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Room" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Bed" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="People_PeopleStayIn" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
-      <Association Name="Department_PeopleStayIn" Member="Department" ThisKey="DepartmentID" OtherKey="ID" Type="Department" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Department" Member="Departments">
     <Type Name="Department">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Fullname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="FullnameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="HospitalID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Department_PeopleStayIn" Member="PeopleStayIns" ThisKey="ID" OtherKey="DepartmentID" Type="PeopleStayIn" />
-      <Association Name="Department_Department" Member="ChildDepartments" Modifier="New" ThisKey="ID" OtherKey="ParentID" Type="Department" />
+      <Association Name="Department_Department" Member="ChildDepartments" ThisKey="ID" OtherKey="ParentID" Type="Department" />
+      <Association Name="Department_Order" Member="OrdersByDepartment1" ThisKey="ID" OtherKey="DepartmentID1" Type="Order" />
+      <Association Name="Department_Order1" Member="OrdersByDepartment2" ThisKey="ID" OtherKey="DepartmentID2" Type="Order" />
+      <Association Name="Department_Order2" Member="OrdersByDepartment3" Modifier="New" ThisKey="ID" OtherKey="DepartmentID3" Type="Order" />
       <Association Name="Department_Department" Member="ParentDepartment" ThisKey="ParentID" OtherKey="ID" Type="Department" IsForeignKey="true" />
       <Association Name="Hospital_Department" Member="Hospital" ThisKey="HospitalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Type" Type="Order.TypeX" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="Order.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="DepartmentID1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="DepartmentID2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="DepartmentID3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Room" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Bed" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Diagnosis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PatientCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TransfusionNote" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Order_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="OrderID" Type="PackOrder" />
+      <Association Name="Department_Order" Member="Department1" ThisKey="DepartmentID1" OtherKey="ID" Type="Department" IsForeignKey="true" />
+      <Association Name="Department_Order1" Member="Department2" ThisKey="DepartmentID2" OtherKey="ID" Type="Department" IsForeignKey="true" />
+      <Association Name="Department_Order2" Member="Department3" ThisKey="DepartmentID3" OtherKey="ID" Type="Department" IsForeignKey="true" />
+      <Association Name="Org_Order" Member="Org" ThisKey="OrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
+      <Association Name="People_Order" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

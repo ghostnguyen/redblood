@@ -46,4 +46,62 @@ public partial class Order
             }
         }
     }
+
+    public void SetDepartment(string value)
+    {
+        value = value.Trim();
+        if (String.IsNullOrEmpty(value))
+        {
+            DepartmentID1 = null;
+            DepartmentID2 = null;
+            DepartmentID3 = null;
+        }
+        else
+        {
+            Department g = DepartmentBLL.GetByFullname(value);
+            if (g == null)
+            {
+                throw new Exception("Nhập sai triệu chứng.");
+            }
+            else
+            {
+                DepartmentID1 = null;
+                DepartmentID2 = null;
+                DepartmentID3 = null;
+
+                if (g.Level == 1)
+                {
+                    DepartmentID1 = g.ID;
+                }
+
+                if (g.Level == 2)
+                {
+                    DepartmentID2 = g.ID;
+                    DepartmentID1 = g.ParentDepartment.ID;
+                }
+
+                if (g.Level == 3)
+                {
+                    DepartmentID3 = g.ID;
+                    DepartmentID2 = g.ParentDepartment.ID;
+                    DepartmentID1 = g.ParentDepartment.ParentDepartment.ID;
+                }
+            }
+        }
+    }
+    public string FullDepartment
+    {
+        get
+        {
+            string r = "";
+            if (Department3 != null)
+                r += Department3.Fullname;
+            else if (Department2 != null)
+                r += Department2.Fullname;
+            else if (Department1 != null)
+                r += Department1.Fullname;
+
+            return r;
+        }
+    }
 }

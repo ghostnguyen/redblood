@@ -65,5 +65,18 @@ public class AutoComplete : System.Web.Services.WebService
         return r.ToArray();
     }
 
+    [WebMethod]
+    public string[] GetListDepartment(string prefixText, int count)
+    {
+        string search = "%" + prefixText.Replace(" ", "%") + "%";
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        var r = (from rs in db.Departments
+                 where SqlMethods.Like(rs.Fullname, search) || SqlMethods.Like(rs.FullnameNoDiacritics, search)
+                 select rs.Fullname).Take(count);
+
+        return r.ToArray();
+    }
+
 }
 

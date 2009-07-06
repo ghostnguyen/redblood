@@ -160,7 +160,9 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         if (OrderType == Order.TypeX.ToPeople)
         {
             p.PeopleID = People1.PeopleID;
-            p.Dept = txtDept.Text.Trim();
+            
+            p.SetDepartment(txtDept.Text.Trim());
+            
             p.Room = txtRoom.Text.Trim();
             p.Bed = txtBed.Text.Trim();
             p.Diagnosis = txtDiagnosis.Text.Trim();
@@ -255,7 +257,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             if (OrderType == Order.TypeX.ToPeople && e.People != null)
             {
                 People1.PeopleID = e.PeopleID.GetValueOrDefault();
-                txtDept.Text = e.Dept;
+                txtDept.Text = e.FullDepartment;
                 txtRoom.Text = e.Room;
                 txtBed.Text = e.Bed;
                 txtDiagnosis.Text = e.Diagnosis;
