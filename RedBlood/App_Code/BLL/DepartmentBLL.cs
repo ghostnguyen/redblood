@@ -26,7 +26,7 @@ public class DepartmentBLL
     public static string Insert(string name, int level, Guid? parentID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-
+        
         Department geo = new Department();
         geo.Name = name.Trim();
         geo.Level = level;

@@ -103,6 +103,10 @@
                             </td>
                             <td>
                                 <asp:TextBox ID="txtDept" Width="299" runat="server"></asp:TextBox>
+                                <ajk:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtDept"
+                                    ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListDepartment" MinimumPrefixLength="3"
+                                    CompletionSetCount="15" EnableCaching="true">
+                                </ajk:AutoCompleteExtender>
                             </td>
                         </tr>
                         <tr>

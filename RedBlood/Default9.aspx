@@ -28,7 +28,11 @@
         });
 
         $(document).bind('keydown', '6', function() {
-        window.location.replace("/RedBlood/Category/SideEffect.aspx");
+            window.location.replace("/RedBlood/Category/SideEffect.aspx");
+        });
+
+        $(document).bind('keydown', '1', function() {
+            window.location.replace("/RedBlood/Category/Department.aspx");
         });
     </script>
 
@@ -147,20 +151,20 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%-- <table>
+                           <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
-                                            <img src="Image/Icon/number3.gif" alt="" />
+                                        <a href="/RedBlood/Category/Department.aspx">
+                                            <img src="Image/Icon/number1.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="/RedBlood/Category/Department.aspx">Danh mục khoa</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>
