@@ -16,9 +16,8 @@ public class CodabarBLL
     static string hospitalCode;
     public CodabarBLL()
     {
-        HospitalBLL hospitalBLL = new HospitalBLL();
-        Hospital h = hospitalBLL.Select_First();
-        hospitalCode = h.Code;
+        Hospital h = HospitalBLL.GetFirst();
+        hospitalCode = h == null ? "00" : h.Code;
     }
 
     public static string GenPackCode(int autonum)

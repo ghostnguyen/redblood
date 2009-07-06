@@ -377,18 +377,6 @@
       <Association Name="PointDef_CustomerPoint" Member="PointDef" ThisKey="PointDefID" OtherKey="ID" Type="PointDef" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PeopleStayIn" Member="PeopleStayIns">
-    <Type Name="PeopleStayIn">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="EnterDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Department" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Room" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Bed" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="People_PeopleStayIn" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Sex" Member="Sexes">
     <Type Name="Sex">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -439,6 +427,7 @@
       <Column Name="Code" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Hospital_People" Member="Peoples" ThisKey="ID" OtherKey="HopistalID" Type="People" />
       <Association Name="Hospital_Pack" Member="Packs" ThisKey="ID" OtherKey="HospitalID" Type="Pack" />
+      <Association Name="Hospital_Department" Member="Departments" ThisKey="ID" OtherKey="HospitalID" Type="Department" />
     </Type>
   </Table>
   <Table Name="dbo.TestDef" Member="TestDefs">
@@ -490,9 +479,9 @@
       <Column Name="MailingGeoID3" Storage="_MailingGeo3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="EnableMailingAddress" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="People_PeopleStayIn" Member="PeopleStayIns" ThisKey="ID" OtherKey="PeopleID" Type="PeopleStayIn" />
       <Association Name="People_Order" Member="Orders" ThisKey="ID" OtherKey="PeopleID" Type="Order" />
       <Association Name="People_Pack" Member="Packs" ThisKey="ID" OtherKey="PeopleID" Type="Pack" />
+      <Association Name="People_PeopleStayIn" Member="PeopleStayIns" ThisKey="ID" OtherKey="PeopleID" Type="PeopleStayIn" />
       <Association Name="Hospital_People" Member="Hospital" ThisKey="HopistalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="Geo_People" Member="MailingGeo1" Storage="_Geo" ThisKey="MailingGeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
       <Association Name="Geo_People1" Member="MailingGeo2" Storage="_Geo1" ThisKey="MailingGeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
@@ -759,6 +748,34 @@
       <Association Name="SideEffect_PackSideEffect" Member="SideEffect1" ThisKey="SideEffectID1" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
       <Association Name="SideEffect_PackSideEffect1" Member="SideEffect2" ThisKey="SideEffectID2" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
       <Association Name="SideEffect_PackSideEffect2" Member="SideEffect3" ThisKey="SideEffectID3" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PeopleStayIn" Member="PeopleStayIns">
+    <Type Name="PeopleStayIn">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="EnterDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DepartmentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Room" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Bed" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="People_PeopleStayIn" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
+      <Association Name="Department_PeopleStayIn" Member="Department" ThisKey="DepartmentID" OtherKey="ID" Type="Department" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Department" Member="Departments">
+    <Type Name="Department">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Fullname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FullnameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HospitalID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="Department_PeopleStayIn" Member="PeopleStayIns" ThisKey="ID" OtherKey="DepartmentID" Type="PeopleStayIn" />
+      <Association Name="Department_Department" Member="ChildDepartments" Modifier="New" ThisKey="ID" OtherKey="ParentID" Type="Department" />
+      <Association Name="Department_Department" Member="ParentDepartment" ThisKey="ParentID" OtherKey="ID" Type="Department" IsForeignKey="true" />
+      <Association Name="Hospital_Department" Member="Hospital" ThisKey="HospitalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

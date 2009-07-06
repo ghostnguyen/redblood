@@ -23,24 +23,20 @@ public class HospitalBLL
         //
     }
 
-    public Hospital Select(Guid ID)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        var r = from s in db.Hospitals
-                        where s.ID == ID
-                        select s;
-
-
-        if (r.Count() != 1) return null;
-        else return r.First();
-    }
-
-    public Hospital Select_First()
+    public static Hospital Get(Guid ID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         return (from s in db.Hospitals
-                select s).First();
+                        where s.ID == ID
+                        select s).FirstOrDefault();
+    }
+
+    public static Hospital GetFirst()
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        return (from s in db.Hospitals
+                select s).FirstOrDefault();
     }
 }
