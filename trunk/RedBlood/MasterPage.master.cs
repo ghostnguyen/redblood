@@ -13,6 +13,16 @@ using System.Xml.Linq;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
+    public TextBox TextBoxCode
+    {
+        get
+        {
+            return txtCode;
+        }
+        set
+        { }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Request.IsAuthenticated)
@@ -20,21 +30,20 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
         if (!Page.IsPostBack)
         {
-            SiteMapNode node = SiteMap.RootNode.Find(this.Request.Path);
+            //SiteMapNode node = SiteMap.RootNode.Find(this.Request.Path);
 
-            if (node != null)
-                lblTitle.Text = node.Title;
-            else
-            {
-                if (Request.Path.Contains("Default.aspx"))
-                    lblTitle.Text = "RedBlood";
-                else
-                    lblTitle.Text = Request.Path;
-            }
+            //if (node != null)
+            //    lblTitle.Text = node.Title;
+            //else
+            //{
+            //    if (Request.Path.Contains("Default.aspx"))
+            //        lblTitle.Text = "RedBlood";
+            //    else
+            //        lblTitle.Text = Request.Path;
+            //}
         }
 
-        //this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(),"jquery", ResolveUrl("jquery-1.3.2.js"),true);
-        //Page.ClientScript.RegisterClientScriptInclude("jquery", ResolveUrl("jquery-1.3.2.js"));
-
+        txtCode.Focus();
+        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", CodabarBLL.JScript4Postback(), true);
     }
 }
