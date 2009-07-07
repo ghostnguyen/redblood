@@ -24,7 +24,10 @@
 
 .Title
 {
-	font: bold x-large Arial;
+	color:Red;
+	letter-spacing:25px;
+	font-size: larger;
+	font-weight: bold;
 }
 
 .main_menu
@@ -45,7 +48,6 @@
 .content
 {
 	padding: 3px;
-
 }
 
 

@@ -1,8 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUserMenuWithBarcode.master"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
     AutoEventWireup="true" CodeFile="CampaignPage.aspx.cs" Inherits="CampaignPage" %>
 
 <%@ Register Src="~/UserControl/Campaign.ascx" TagPrefix="uc" TagName="Campaign" %>
-<%@ MasterType VirtualPath="~/MasterPageUserMenuWithBarcode.master" %>
+<%@ MasterType VirtualPath="~/MasterPage.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%">
         <tr valign="top">

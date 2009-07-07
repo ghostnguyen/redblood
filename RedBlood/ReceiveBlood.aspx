@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUserMenuWithBarcode.master"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
     AutoEventWireup="true" CodeFile="ReceiveBlood.aspx.cs" Inherits="Enter" MaintainScrollPositionOnPostback="true" %>
 
-<%@ MasterType VirtualPath="~/MasterPageUserMenuWithBarcode.master" %>
+<%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <%@ Register Src="~/UserControl/PeopleHistory.ascx" TagPrefix="uc" TagName="PeopleHistory" %>
 <%@ Register Src="~/UserControl/EnterPack.ascx" TagPrefix="uc" TagName="EnterPack" %>

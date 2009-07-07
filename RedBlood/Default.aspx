@@ -6,10 +6,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <script type="text/javascript">
+        function TxtCodeHasText() {
+            if ($("input[id*='txtCode']").text().length > 0)
+                return true;
+            else
+                return false;
+
+        }
 
         // Your code goes here
         $(document).bind('keydown', '7', function() {
-            window.location.replace("/RedBlood/ReceiveBlood.aspx");
+            
+            alert($("input[id*='txtCode']").is);
+            //if (!TxtCodeHasText()) {
+                //window.location.replace("/RedBlood/ReceiveBlood.aspx");
+            //}
         });
 
         $(document).bind('keydown', '8', function() {

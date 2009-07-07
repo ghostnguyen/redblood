@@ -1,6 +1,6 @@
-﻿<%@ MasterType VirtualPath="~/MasterPageUserMenuWithBarcode.master" %>
+﻿<%@ MasterType VirtualPath="~/MasterPage.master" %>
 
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUserMenuWithBarcode.master"
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
     AutoEventWireup="true" CodeFile="Extract.aspx.cs" Inherits="Production_Extract" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">

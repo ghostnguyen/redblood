@@ -36,15 +36,20 @@
                     <tr>
                         <td class="main_window">
                             <table class="Banner">
-                                <tr>
-                                    <td align="left" style="width: 150px;">
+                                <tr valign="middle">
+                                    <td align="left" style="width: 250px;" valign="middle">
                                         <%--<asp:Image ID="Image1" runat="server" ImageUrl="~/Image/RedBlood.png" />--%>
-                                        <asp:Image ID="Image2" runat="server" ImageUrl="~/Image/Logo.png" />
+                                        <%--<asp:Label ID="lblTitle" runat="server" Text="Labelfasdf" class="Title" Visible="false">
+                                        </asp:Label>--%>
+                                        <img src="Image/Logo.png" alt="" /> 
                                     </td>
-                                    <td align="center" class="Title">
-                                        <asp:Label ID="lblTitle" runat="server" Text="Labelfasdf"></asp:Label>
+                                    <td align="center">
+                                    <span class="Title">RedBlood</span>
+                                    <br />
+                                        <asp:TextBox ID="txtCode" runat="server" Width="299" onkeyup="checkLength(this.value);"></asp:TextBox>
+                                        <asp:Button ID="btnOk" runat="server" Text="Ok" />
                                     </td>
-                                    <td align="right" style="width: 150px;" valign="top">
+                                    <td align="right" style="width: 250px;" valign="top">
                                         <asp:LoginName ID="LoginName1" runat="server" />
                                         |
                                         <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutText="Thoát" />
