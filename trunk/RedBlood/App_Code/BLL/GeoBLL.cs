@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Linq;
 using System.Configuration;
@@ -110,5 +112,11 @@ public class GeoBLL
         return (from e in db.Geos
                 where e.Name.ToLower() == name.Trim().ToLower() && e.Level == level
                 select e).FirstOrDefault();
+    }
+
+    public static List<Geo> Get(List<Guid> IDList, int level)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return db.Geos.Where(r => IDList.Contains(r.ID) && r.Level == level).ToList();
     }
 }

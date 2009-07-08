@@ -43,7 +43,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             //}
         }
 
-        txtCode.Focus();
+        //txtCode.Focus();
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", CodabarBLL.JScript4Postback(), true);
     }
 }

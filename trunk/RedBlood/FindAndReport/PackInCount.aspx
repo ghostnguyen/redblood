@@ -1,11 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageFind.master" AutoEventWireup="true"
-    CodeFile="FindCampaign.aspx.cs" Inherits="FindAndReport_FindCampaign" %>
-
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
-<%@ Register Src="~/UserControl/CampaignListByProvince.ascx" TagPrefix="uc" TagName="CampaignListByProvince" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="PackInCount.aspx.cs" Inherits="FindAndReport_PackInCount" %>
 <%@ Register Src="~/UserControl/PackCountByProvince.ascx" TagPrefix="uc" TagName="PackCountByProvince" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <table width="100%">
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+ <table width="100%">
         <tr valign="top">
             <td style="width: 210px;">
                 <div class="part">
@@ -13,7 +14,7 @@
                         Tìm
                     </div>
                     <div class="partLinkLast">
-                        <asp:Button runat="server" ID="btnFind" Text="Tìm" OnClick="btnFind_Click" />
+                        <%--<asp:Button runat="server" ID="btnFind" Text="Tìm" OnClick="btnFind_Click" />--%>
                     </div>
                 </div>
                 <div class="part">
@@ -54,7 +55,7 @@
                 </div>
             </td>
             <td>
-                <%-- <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
+               <%--<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
                     DataSourceID="LinqDataSource1">
                     <Columns>
                         <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" InsertVisible="False"
@@ -96,13 +97,8 @@
                 <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
                     EnableUpdate="True" TableName="Campaigns" OnSelecting="LinqDataSource1_Selecting">
                 </asp:LinqDataSource>--%>
-                <asp:DataList runat="server" ID="DataList1">
-                    <ItemTemplate>
-                        <uc:CampaignListByProvince runat="server" From='<%# Eval("From") %>' To='<%# Eval("To") %>' ProvinceIDList='<%# Eval("ProvinceIDList") %>' />
-                        <uc:PackCountByProvince ID="PackCountByProvince1" runat="server" From='<%# Eval("From") %>' To='<%# Eval("To") %>' ProvinceIDList='<%# Eval("ProvinceIDList") %>' />
-                    </ItemTemplate>
-                </asp:DataList>
             </td>
         </tr>
     </table>
 </asp:Content>
+
