@@ -43,7 +43,7 @@
                                         <%--<asp:Image ID="Image1" runat="server" ImageUrl="~/Image/RedBlood.png" />--%>
                                         <%--<asp:Label ID="lblTitle" runat="server" Text="Labelfasdf" class="Title" Visible="false">
                                         </asp:Label>--%>
-                                        <img src="Image/Logo.png" alt="" /> 
+                                        <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Logo.png" />
                                     </td>
                                     <td align="center">
                                     <span class="Title">RedBlood</span>

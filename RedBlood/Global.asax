@@ -27,6 +27,7 @@
         {
             string[] split = Request.Url.AbsoluteUri.Split('/');
             CodabarBLL.CodabarImgPage = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3] + "/Codabar/Image.aspx";
+            CodabarBLL.CodabarImgPage = CodabarBLL.CodabarImgPage.Replace("0.0.0.0","localhost");
         }
     }
 

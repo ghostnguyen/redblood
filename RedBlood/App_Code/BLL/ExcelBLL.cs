@@ -40,6 +40,7 @@ public class ExcelBLL
 
         foreach (Excel item in l)
         {
+            //if (item.ID < 1020) continue;
             RedBloodDataContext db = new RedBloodDataContext();
 
             //Pack p = db.Packs.Where(r => r.Status == Pack.StatusX.Init).FirstOrDefault();
@@ -108,7 +109,7 @@ public class ExcelBLL
             if (Malaria.ToLower() == "Chưa xác định".ToLower()) MalariaID = TestDef.Malaria.NA;
 
             if (HIVID == 0 || HCVID == 0 || HBsAgID == 0 || SyphilisID == 0 || MalariaID == 0
-                || RHID == 0 || RHID == 0)
+                || RHID == 0 || ABOID == 0)
             {
                 continue;
             }
@@ -248,9 +249,11 @@ public class ExcelBLL
         {
             p.DeliverStatus = Pack.DeliverStatusX.Yes; 
         }
+        
 
         if (p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
         {
+            p.DeliverStatus = Pack.DeliverStatusX.Non; 
             PackBLL.ChangeStatus(p, Pack.StatusX.Delete, actor, "Excel Import Positive");
         }
 

@@ -65,11 +65,15 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            Keyword = Request.Params["key"];
-            GridView1.DataBind();
-        }
+        Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
+
+        if (Master.TextBoxCode.Text.Length == 0) return;
+
+        Keyword = Master.TextBoxCode.Text;
+
+        GridView1.DataBind();
+        
+        Master.TextBoxCode.Text = "";
     }
 
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)

@@ -28,22 +28,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
         if (!Request.IsAuthenticated)
             Response.Redirect("~/Login.aspx");
 
-        if (!Page.IsPostBack)
-        {
-            //SiteMapNode node = SiteMap.RootNode.Find(this.Request.Path);
-
-            //if (node != null)
-            //    lblTitle.Text = node.Title;
-            //else
-            //{
-            //    if (Request.Path.Contains("Default.aspx"))
-            //        lblTitle.Text = "RedBlood";
-            //    else
-            //        lblTitle.Text = Request.Path;
-            //}
-        }
-
-        //txtCode.Focus();
+        
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", CodabarBLL.JScript4Postback(), true);
+
+        if (!Request.Url.ToString().ToLower().Contains("default"))
+        {
+            txtCode.Focus();
+        }
     }
 }
