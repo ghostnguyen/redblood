@@ -33,6 +33,23 @@ public class CampaignBLL
         return GetByID(ID, out db);
     }
 
+    public static List<Campaign> Get(List<Guid> provinceIDList, DateTime? from, DateTime? to, Campaign.TypeX type)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        
+        //List<Guid> geoIDL = GeoBLL.Get(IDList, 1).Select(r => r.ID).ToList();
+        //if (geoIDL.Count == 0) return new List<Campaign>();
+
+        if (provinceIDList == null || provinceIDList.Count == 0) return new List<Campaign>();
+
+        return db.Campaigns.Where(r => provinceIDList.Contains(r.CoopOrg.GeoID1.Value)
+            && r.Type == type
+            && r.Date != null
+            && (from == null || r.Date.Value.Date >= from.Value.Date)
+            && (to == null || r.Date.Value.Date <= to.Value.Date)
+            ).ToList();
+    }
+
     public bool IsExistNameInSameDate(string name, int ID, DateTime dt)
     {
         RedBloodDataContext db = new RedBloodDataContext();

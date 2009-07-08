@@ -115,15 +115,49 @@ public partial class FindAndReport_FindCampaign : System.Web.UI.Page
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
+        //DateTime? from = txtFrom.Text.ToDatetimeFromVNFormat();
+        //DateTime? to = txtTo.Text.ToDatetimeFromVNFormat();
+
+        //if (from == null || to == null)
+        //{
+        //    e.Result = null;
+        //    e.Cancel = true;
+        //    return;
+        //}
+
+        //List<Guid> geo1List = new List<Guid>();
+        //foreach (ListItem item in CheckBoxListGeo1.Items)
+        //{
+        //    if (item.Selected) geo1List.Add(item.Value.ToGuid());
+        //}
+
+        //List<int> sourceList = new List<int>();
+        //foreach (ListItem item in CheckBoxListSource.Items)
+        //{
+        //    if (item.Selected) sourceList.Add(item.Value.ToInt());
+        //}
+
+        //RedBloodDataContext db = new RedBloodDataContext();
+        //List<Campaign> l = db.Campaigns.Where(r => from.Value.Date <= r.Date.Value.Date
+        //    && to.Value.Date >= r.Date.Value.Date
+        //    && geo1List.Contains(r.CoopOrg.GeoID1.Value)
+        //    && sourceList.Contains(r.SourceID.Value)
+        //    ).ToList();
+
+        //if (l.Count == 0)
+        //{
+        //    e.Result = null;
+        //    e.Cancel = true;
+        //}
+        //else
+        //    e.Result = l;
+    }
+    protected void btnFind_Click(object sender, EventArgs e)
+    {
+        //GridView1.DataBind();
+
         DateTime? from = txtFrom.Text.ToDatetimeFromVNFormat();
         DateTime? to = txtTo.Text.ToDatetimeFromVNFormat();
-
-        if (from == null || to == null)
-        {
-            e.Result = null;
-            e.Cancel = true;
-            return;
-        }
 
         List<Guid> geo1List = new List<Guid>();
         foreach (ListItem item in CheckBoxListGeo1.Items)
@@ -131,29 +165,17 @@ public partial class FindAndReport_FindCampaign : System.Web.UI.Page
             if (item.Selected) geo1List.Add(item.Value.ToGuid());
         }
 
-        List<int> sourceList = new List<int>();
-        foreach (ListItem item in CheckBoxListSource.Items)
-        {
-            if (item.Selected) sourceList.Add(item.Value.ToInt());
-        }
+        var v = geo1List.Select(r => new { From = from, To = to, ProvinceIDList = ToList(r) });
 
-        RedBloodDataContext db = new RedBloodDataContext();
-        List<Campaign> l = db.Campaigns.Where(r => from.Value.Date <= r.Date.Value.Date
-            && to.Value.Date >= r.Date.Value.Date
-            && geo1List.Contains(r.CoopOrg.GeoID1.Value)
-            && sourceList.Contains(r.SourceID.Value)
-            ).ToList();
+        DataList1.DataSource = v;
 
-        if (l.Count == 0)
-        {
-            e.Result = null;
-            e.Cancel = true;
-        }
-        else
-            e.Result = l;
+        DataList1.DataBind();
     }
-    protected void btnFind_Click(object sender, EventArgs e)
+
+    List<Guid> ToList(Guid g)
     {
-        GridView1.DataBind();
+        List<Guid> l = new List<Guid>();
+        l.Add(g);
+        return l;
     }
 }

@@ -1,53 +1,50 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
     CodeFile="Default.aspx.cs" Inherits="_Default" Title="Default" %>
+<%@ MasterType VirtualPath="~/MasterPage.master" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <script type="text/javascript">
-        function TxtCodeHasText() {
-            if ($("input[id*='txtCode']").text().length > 0)
-                return true;
-            else
-                return false;
-
-        }
-
         // Your code goes here
         $(document).bind('keydown', '7', function() {
-            
-            alert($("input[id*='txtCode']").is);
-            //if (!TxtCodeHasText()) {
-                //window.location.replace("/RedBlood/ReceiveBlood.aspx");
-            //}
+            if (selectedInput) return;
+            window.location.replace("/RedBlood/ReceiveBlood.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
+            if (selectedInput) return;
             window.location.replace("/RedBlood/PackManually.aspx");
         });
 
         $(document).bind('keydown', '9', function() {
+            if (selectedInput) return;
             window.location.replace("/RedBlood/Default9.aspx");
         });
 
         $(document).bind('keydown', '4', function() {
+            if (selectedInput) return;
             window.location.replace("/RedBlood/CampaignPage.aspx");
         });
 
         $(document).bind('keydown', '5', function() {
+            if (selectedInput) return;
             window.location.replace("/RedBlood/Production/Extract.aspx");
         });
 
         $(document).bind('keydown', '6', function() {
+            if (selectedInput) return;
             window.location.replace("/RedBlood/Order/Order.aspx");
         });
 
         $(document).bind('keydown', '1', function() {
+            if (selectedInput) return;
             window.location.replace("/RedBlood/Default1.aspx");
         });
 
         $(document).bind('keydown', '2', function() {
+            if (selectedInput) return;
             window.location.replace("/RedBlood/Default2.aspx");
         });
         
