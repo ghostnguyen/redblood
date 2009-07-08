@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageFind.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
     CodeFile="FindPeople.aspx.cs" Inherits="FindAndReport_FindPeople" %>
-
+<%@ MasterType VirtualPath="~/MasterPage.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%">
         <tr valign="top">
@@ -66,7 +66,7 @@
                         <asp:BoundField DataField="FullResidentalAddress" HeaderText="Địa chỉ" ReadOnly="True"
                             SortExpression="FullResidentalAddress" />
                         <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
-                     <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
+                        <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"

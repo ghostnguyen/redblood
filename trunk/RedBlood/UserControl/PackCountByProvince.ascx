@@ -59,18 +59,22 @@
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull250_AB_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull250_AB_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull250_A_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull250_A_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull250_B_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull250_B_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull250_O_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull250_O_RhNeg"> </asp:Label>
                     </td>
                 </tr>
@@ -80,18 +84,22 @@
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull350_AB_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull350_AB_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull350_A_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull350_A_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull350_B_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull350_B_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull350_O_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull350_O_RhNeg"> </asp:Label>
                     </td>
                 </tr>
@@ -101,18 +109,22 @@
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull450_AB_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull450_AB_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull450_A_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull450_A_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull450_B_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull450_B_RhNeg"> </asp:Label>
                     </td>
                     <td>
                         <asp:Label runat="server" ID="lblFull450_O_RhPos"> </asp:Label>
+                        <br />
                         <asp:Label runat="server" ID="lblFull450_O_RhNeg"> </asp:Label>
                     </td>
                 </tr>

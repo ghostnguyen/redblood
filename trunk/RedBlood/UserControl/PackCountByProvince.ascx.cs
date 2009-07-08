@@ -79,7 +79,7 @@ public partial class UserControl_PackCountByProvince : System.Web.UI.UserControl
             && r.TestResultStatus == Pack.TestResultStatusX.Non)
             .Count().ToStringRemoveZero();
 
-        lblPos.Text = l1.Where(r =>
+        lblPos.Text = l.Where(r =>
                             (r.TestResultStatus == Pack.TestResultStatusX.Positive
                 || r.TestResultStatus == Pack.TestResultStatusX.PositiveLocked))
             .Count().ToStringRemoveZero();
@@ -159,7 +159,7 @@ public partial class UserControl_PackCountByProvince : System.Web.UI.UserControl
         {
             if (rh == TestDef.RH.Pos)
             {
-                return count.ToString() + " (Rh+)";
+                return count.ToString();
             }
 
             if (rh == TestDef.RH.Neg)

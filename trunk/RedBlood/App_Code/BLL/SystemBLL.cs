@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Summary description for SystemBLL
@@ -134,5 +137,62 @@ public class SystemBLL
         }
 
         return TimeSpan.MinValue;
+    }
+
+    public static void Find(HttpResponse Response,TextBox txtCode)
+    {
+        string key = txtCode.Text.Trim();
+
+        if (key.Length == 0) return;
+
+        string pattern = @"\d+";
+        Regex regx = new Regex(pattern);
+
+        if (CodabarBLL.IsValidPeopleCode(key))
+        {
+            People r = PeopleBLL.GetByCode(key);
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
+            }
+        }
+        else if (CodabarBLL.IsValidPackCode(key))
+        {
+            Pack r = PackBLL.Get(CodabarBLL.ParsePackAutoNum(key));
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4PackDetail + "key=" + r.Autonum.ToString());
+            }
+        }
+        else if (CodabarBLL.IsValidCampaignCode(key))
+        {
+            Campaign r = CampaignBLL.GetByID(CodabarBLL.ParseCampaignID(key));
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4CampaignDetail + "key=" + r.ID.ToString());
+            }
+        }
+        else if (CodabarBLL.IsValidOrderCode(key))
+        {
+            Order r = OrderBLL.Get(CodabarBLL.ParseOrderID(key));
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4OrderDetail + "key=" + r.ID.ToString());
+            }
+        }
+        else if (regx.IsMatch(key) && key.Length >= Resources.Codabar.CMNDLength.ToInt())
+        {
+            People r = PeopleBLL.GetByCMND(key);
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
+            }
+        }
+        else if (key.Length > 1)
+        {
+            Response.Redirect(SystemBLL.Url4FindPeople + "key=" + key);
+        }
+
+        txtCode.Text = "";
     }
 }

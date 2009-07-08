@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageFind.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
     CodeFile="PeopleDetail.aspx.cs" Inherits="FindAndReport_PeopleDetail" %>
 
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>

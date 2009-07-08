@@ -164,8 +164,18 @@ public class PackBLL
 
         p.CanExtractTo = new List<int>();
 
+        if (p.TestResultStatus == Pack.TestResultStatusX.Positive
+            || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
+        {
+            p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.TestResultStatus);
+            return p;
+        }
+        
+
         if (p.Status == Pack.StatusX.Collected)
         {
+            
+            
             p.Err = PackErrList.Valid4Extract;
 
             p.CanExtractTo.Add(TestDef.Component.WBC);
