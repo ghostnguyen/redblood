@@ -12,13 +12,14 @@
             window.location = ("/RedBlood/FindAndReport/StoreCount.aspx");
         });
 
-//        $(document).bind('keydown', '8', function() {
-//            window.location = ("/RedBlood/FindAndReport/FindCampaign.aspx");
-//        });
+        $(document).bind('keydown', '8', function() {
+            window.location = ("/RedBlood/FindAndReport/FindCampaign.aspx");
+        });
 
-//        $(document).bind('keydown', '9', function() {
-//            window.location = ("/RedBlood/FindAndReport/FindPeople.aspx");
-//        });
+        $(document).bind('keydown', '9', function() {
+            window.location = ("/RedBlood/FindAndReport/PackOrderCount.aspx");
+        });
+        
         //        $(document).bind('keydown', '4', function() {
         //            window.location = ("/RedBlood/Category/Org.aspx");
         //        });
@@ -51,7 +52,7 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
                                         <a href="/RedBlood/FindAndReport/FindCampaign.aspx">
@@ -60,27 +61,27 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/FindCampaign.aspx">Tìm chiến dịch</a>
+                                            <a href="/RedBlood/FindAndReport/FindCampaign.aspx">Thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/FindAndReport/FindPeople.aspx">
+                                        <a href="/RedBlood/FindAndReport/PackOrderCount.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/FindPeople.aspx">Tìm người hiến máu</a>
+                                            <a href="/RedBlood/FindAndReport/PackOrderCount.aspx">Cấp phát máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>

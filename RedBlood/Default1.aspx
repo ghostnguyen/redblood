@@ -12,9 +12,9 @@
             window.location = ("/RedBlood/FindAndReport/FindPeople.aspx");
         });
 
-        $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/FindAndReport/FindCampaign.aspx");
-        });
+//        $(document).bind('keydown', '8', function() {
+//            window.location = ("/RedBlood/FindAndReport/FindCampaign.aspx");
+//        });
 
         $(document).bind('keydown', '9', function() {
             window.location = ("/RedBlood/FindAndReport/FindPeople.aspx");
@@ -51,7 +51,7 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="/RedBlood/FindAndReport/FindCampaign.aspx">
@@ -64,7 +64,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <table>

@@ -31,7 +31,7 @@
             <td>
                 <div style="background: url(../Image/PackExtractLayout.png); position: relative;
                     height: 700px;">
-                    <div style="position: absolute; left: 10px; top: 115px; border: groove white;" id="divFull"
+                    <div style="position: absolute; left: 10px; top: 115px;" id="divFull"
                         runat="server">
                         <asp:DataList runat="server" ID="DataListFull" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
@@ -76,7 +76,7 @@
                             </ItemTemplate>
                         </asp:DataList>
                     </div>
-                    <div id="divRBC" style="position: absolute; left: 340px; top: 300px; border: groove white;"
+                    <div id="divRBC" style="position: absolute; left: 340px; top: 300px; "
                         runat="server">
                         <asp:DataList runat="server" ID="DataListRBC" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
@@ -91,7 +91,7 @@
                         </asp:DataList>
                     </div>
                     <div runat="server" id="divWBC" style="position: absolute; top: 448px; left: 340px;
-                        border: groove white;">
+                        ">
                         <asp:DataList runat="server" ID="DataListWBC" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
                                 <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
@@ -105,7 +105,7 @@
                         </asp:DataList>
                     </div>
                     <div runat="server" id="divFFPlasma" style="position: absolute; left: 340px; top: 155px;
-                        border: groove white;">
+                        ">
                         <asp:DataList runat="server" ID="DataListFFPlasma" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
                                 <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
@@ -119,7 +119,7 @@
                         </asp:DataList>
                     </div>
                     <div runat="server" id="divFFPlasma_Poor" style="position: absolute; top: 9px; left: 340px;
-                        border: groove white;">
+                        ">
                         <asp:DataList runat="server" ID="DataListFFPlasma_Poor" AutoGenerateRows="False"
                             DataKeyNames="ID">
                             <ItemTemplate>
@@ -134,7 +134,7 @@
                         </asp:DataList>
                     </div>
                     <div runat="server" id="divPlatelet" style="position: absolute; top: 9px; left: 670px;
-                        border: groove white;">
+                        ">
                         <asp:DataList runat="server" ID="DataListPlatelet" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
                                 <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
@@ -148,7 +148,7 @@
                         </asp:DataList>
                     </div>
                     <div runat="server" id="divFactorVIII" style="position: absolute; top: 155px; left: 670px;
-                        border: groove white;">
+                        ">
                         <asp:DataList runat="server" ID="DataListFactorVIII" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
                                 <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
@@ -162,7 +162,7 @@
                         </asp:DataList>
                     </div>
                     <div runat="server" id="divFFPlasma_Poor2" style="position: absolute; top: 302px;
-                        left: 670px; border: groove white;">
+                        left: 670px; ">
                         <asp:DataList runat="server" ID="DataListFFPlasma_Poor2" AutoGenerateRows="False"
                             DataKeyNames="ID">
                             <ItemTemplate>
