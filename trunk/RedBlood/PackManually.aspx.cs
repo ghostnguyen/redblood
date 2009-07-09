@@ -18,17 +18,9 @@ public partial class PackManually : System.Web.UI.Page
 
         if (Master.TextBoxCode.Text.Length == 0) return;
 
-        if (CodabarBLL.IsValidPackCode(Master.TextBoxCode.Text))
-        {
-            //PackCodeEnter(Master.TextBoxCode.Text);
-        }
-        else if (CodabarBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+        if (CodabarBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
         {
             CampaignEnter(Master.TextBoxCode.Text);
-        }
-        else
-        {
-            //ucPeople.Code = Master.TextBoxCode.Text;
         }
 
         Master.TextBoxCode.Text = "";
@@ -43,6 +35,7 @@ public partial class PackManually : System.Web.UI.Page
     {
         CampaignDetail1.CampaignID = CodabarBLL.ParseCampaignID(code);
         GridView1.DataBind();
+        GridViewOtherPack.DataBind();
 
         DeletePack1.CampaignID = CodabarBLL.ParseCampaignID(code);
     }
@@ -69,9 +62,9 @@ public partial class PackManually : System.Web.UI.Page
         if (p != null)
         {
             PackBLL.Update(db, p,
-                TestDefBLL.Get(db,e.NewValues["ComponentID"].ToInt()),
+                TestDefBLL.Get(db, e.NewValues["ComponentID"].ToInt()),
                 e.NewValues["Volume"].ToIntNullable(),
-                TestDefBLL.Get(db,e.NewValues["SubstanceID"].ToInt()));
+                TestDefBLL.Get(db, e.NewValues["SubstanceID"].ToInt()));
             BloodTypeBLL.Update(db, p, 2,
                 TestDefBLL.Get(db, e.NewValues["BloodType2.ABO.ID"].ToInt()),
                 TestDefBLL.Get(db, e.NewValues["BloodType2.RH.ID"].ToInt()),
@@ -95,5 +88,26 @@ public partial class PackManually : System.Web.UI.Page
     protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
     {
 
+    }
+    protected void LinqDataSourcePackOther_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        if (CampaignDetail1.CampaignID == 0)
+        {
+            e.Result = null;
+            e.Cancel = true;
+        }
+        else
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+
+            List<Pack.TestResultStatusX> trStatusL = new List<Pack.TestResultStatusX>();
+            trStatusL.Add(Pack.TestResultStatusX.NegativeLocked);
+            trStatusL.Add(Pack.TestResultStatusX.PositiveLocked);
+
+
+            e.Result = db.Packs.Where(r => r.CampaignID == CampaignDetail1.CampaignID
+                && trStatusL.Contains(r.TestResultStatus)
+                );
+        }
     }
 }

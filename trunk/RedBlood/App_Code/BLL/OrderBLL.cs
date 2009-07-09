@@ -68,7 +68,7 @@ public class OrderBLL
             {
                 List<Pack> l = PackBLL.GetSourcePacks_AllLevel(p)
                     .Where(rp => rp.ComponentID == TestDef.Component.Full).ToList();
-                
+
                 foreach (Pack item in l)
                 {
                     if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
@@ -146,5 +146,20 @@ public class OrderBLL
             if (tsp.Days > 0)
                 item.Status = Order.StatusX.Done;
         }
+    }
+
+    public static List<Order> Get(DateTime? from, DateTime? to, Order.TypeX type)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        //List<Guid> geoIDL = GeoBLL.Get(IDList, 1).Select(r => r.ID).ToList();
+        //if (geoIDL.Count == 0) return new List<Campaign>();
+
+        return db.Orders.Where(r =>
+            r.Type == type
+            && r.Date != null
+            && (from == null || r.Date.Value.Date >= from.Value.Date)
+            && (to == null || r.Date.Value.Date <= to.Value.Date)
+            ).ToList();
     }
 }

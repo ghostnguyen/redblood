@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeFile="PackManually.aspx.cs" Inherits="PackManually"
-    MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    CodeFile="PackManually.aspx.cs" Inherits="PackManually" MaintainScrollPositionOnPostback="true" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
@@ -211,6 +210,103 @@
             <td>
                 <hr />
                 <uc:DeletePack runat="server" ID="DeletePack1" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <h4>
+            Các túi máu đã nhập KQXN
+            </h4>
+                <asp:GridView ID="GridViewOtherPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
+                    DataSourceID="LinqDataSourcePackOther">
+                    <Columns>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="Label3" runat="server" Text="Túi máu" />
+                                <br />
+                                <asp:Label ID="Label4" runat="server" Text="Tình trạng" />
+                                <br />
+                                <asp:Label ID="Label8" runat="server" Text="KQXN" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("Autonum") %>' />
+                                <br />
+                                <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' />
+                                <br />
+                                <asp:Label ID="lblTestResultStatus" runat="server" Text='<%# Eval("TestResultStatus") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="Label5" runat="server" Text="Họ & Tên" />
+                                <br />
+                                <asp:Label ID="Label6" runat="server" Text="Ngày giờ thu" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblName" runat="server" Text='<%# Eval("People.Name") %>' />
+                                <br />
+                                <asp:Label ID="lblDate" runat="server" Text='<%# Eval("CollectedDate","{0:dd/MM/yyyy HH:mm}") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="Label5" runat="server" Text="Thành phần" />
+                                <br />
+                                <asp:Label ID="Label7" runat="server" Text="Thể tích (ml)" />
+                                <br />
+                                <asp:Label ID="Label9" runat="server" Text="Chất nuôi" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblComponent" runat="server" Text='<%# Eval("Component.Name") %>' />
+                                <br />
+                                <asp:Label ID="lblVolume" runat="server" Text='<%# Eval("Volume") %>' />
+                                <br />
+                                <asp:Label ID="lblSubstance" runat="server" Text='<%# Eval("Substance.Name") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="ABO">
+                            <HeaderTemplate>
+                                <asp:Label ID="Label1" runat="server" Text="ABO" />
+                                <br />
+                                <asp:Label ID="Label2" runat="server" Text="RH" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodType2.ABO.Name") %>' />
+                                <br />
+                                <asp:Label ID="lblRH" runat="server" Text='<%# Eval("BloodType2.RH.Name") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="HIV">
+                            <ItemTemplate>
+                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("TestResult2.HIV.Name") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="HCV">
+                            <ItemTemplate>
+                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("TestResult2.HCV.Name") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="HBsAg">
+                            <ItemTemplate>
+                                <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("TestResult2.HBsAg.Name") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Syphilis">
+                            <ItemTemplate>
+                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("TestResult2.Syphilis.Name") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Malaria">
+                            <ItemTemplate>
+                                <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("TestResult2.Malaria.Name") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+                <asp:LinqDataSource ID="LinqDataSourcePackOther" runat="server" ContextTypeName="RedBloodDataContext"
+                    TableName="Packs" EnableUpdate="True" 
+                    onselecting="LinqDataSourcePackOther_Selecting">
+                </asp:LinqDataSource>
             </td>
         </tr>
     </table>
