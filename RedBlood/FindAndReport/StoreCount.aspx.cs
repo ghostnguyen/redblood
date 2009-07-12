@@ -107,9 +107,9 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
            && r.Volume == volume
            &&
                (r.TestResultStatus == Pack.TestResultStatusX.Negative
-               || r.TestResultStatus == Pack.TestResultStatusX.NegativeLocked))
-           .Select(r => r.BloodTypes.Where(bt => bt.Times == 2).FirstOrDefault())
-           .Where(bt => bt.rhID == rh && bt.aboID == abo)
+               || r.TestResultStatus == Pack.TestResultStatusX.NegativeLocked)
+           && r.RhID == rh
+           && r.ABOID == abo)
            .Count();
 
         if (count > 0)

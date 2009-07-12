@@ -151,8 +151,7 @@ public partial class UserControl_PackCountByProvince : System.Web.UI.UserControl
     string Calc_ABO_Rh(List<Pack> l, int abo, int rh)
     {
         int count = l
-           .Select(r => r.BloodTypes.Where(bt => bt.Times == 2).FirstOrDefault())
-           .Where(bt => bt.rhID == rh && bt.aboID == abo)
+           .Where(r => r.RhID == rh && r.ABOID == abo)
            .Count();
 
         if (count > 0)

@@ -59,9 +59,9 @@
                     <asp:Label ID="Label2" runat="server" Text="RH" />
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodType2.ABO.Name") %>' />
+                    <asp:Label ID="lblABO" runat="server" Text='<%# Eval("ABO.Name") %>' />
                     <br />
-                    <asp:Label ID="lblRH" runat="server" Text='<%# Eval("BloodType2.RH.Name") %>' />
+                    <asp:Label ID="lblRH" runat="server" Text='<%# Eval("RH.Name") %>' />
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Ghi chú">

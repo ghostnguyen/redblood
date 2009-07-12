@@ -7,9 +7,6 @@ using System.Web.UI.WebControls;
 
 public partial class PackManually : System.Web.UI.Page
 {
-    CampaignBLL campaignBLL = new CampaignBLL();
-    PackBLL packBLL = new PackBLL();
-
     protected void Page_Load(object sender, EventArgs e)
     {
         DeletePack1.PackDeleted += new EventHandler(DeletePack1_PackDeleted);
@@ -57,25 +54,27 @@ public partial class PackManually : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get((int)e.Keys[0], db);
+        Pack p = PackBLL.Get(db, (int)e.Keys[0]);
 
         if (p != null)
         {
             PackBLL.Update(db, p,
-                TestDefBLL.Get(db, e.NewValues["ComponentID"].ToInt()),
+                e.NewValues["ComponentID"].ToInt(),
                 e.NewValues["Volume"].ToIntNullable(),
-                TestDefBLL.Get(db, e.NewValues["SubstanceID"].ToInt()));
-            BloodTypeBLL.Update(db, p, 2,
-                TestDefBLL.Get(db, e.NewValues["BloodType2.ABO.ID"].ToInt()),
-                TestDefBLL.Get(db, e.NewValues["BloodType2.RH.ID"].ToInt()),
-                Page.User.Identity.Name, "");
-            TestResultBLL.Update(db, p, 2,
-                TestDefBLL.Get(db, e.NewValues["TestResult2.HIV.ID"].ToInt()),
-                TestDefBLL.Get(db, e.NewValues["TestResult2.HCV.ID"].ToInt()),
-                TestDefBLL.Get(db, e.NewValues["TestResult2.HBsAg.ID"].ToInt()),
-                TestDefBLL.Get(db, e.NewValues["TestResult2.Syphilis.ID"].ToInt()),
-                TestDefBLL.Get(db, e.NewValues["TestResult2.Malaria.ID"].ToInt()),
-                Page.User.Identity.Name, "");
+                e.NewValues["SubstanceID"].ToInt());
+
+            PackBLL.Update(db, p, 2,
+                e.NewValues["ABO.ID"].ToInt(),
+                e.NewValues["RH.ID"].ToInt(),
+                "");
+
+            PackBLL.Update(db, p, 2,
+                e.NewValues["HIV.ID"].ToInt(),
+                e.NewValues["HCV.ID"].ToInt(),
+                e.NewValues["HBsAg.ID"].ToInt(),
+                 e.NewValues["Syphilis.ID"].ToInt(),
+                e.NewValues["Malaria.ID"].ToInt(),
+                 "");
 
             db.SubmitChanges();
 

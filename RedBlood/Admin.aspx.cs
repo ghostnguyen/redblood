@@ -19,5 +19,6 @@ public partial class Admin : System.Web.UI.Page
         {
             Response.Redirect("~/Login.aspx", true);
         }
+        
     }
 }

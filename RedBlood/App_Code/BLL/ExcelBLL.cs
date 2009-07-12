@@ -44,7 +44,7 @@ public class ExcelBLL
             RedBloodDataContext db = new RedBloodDataContext();
 
             //Pack p = db.Packs.Where(r => r.Status == Pack.StatusX.Init).FirstOrDefault();
-            
+
             Pack p = db.Packs.Where(r => r.Autonum == item.ID).FirstOrDefault();
 
             if (p == null || p.Status != Pack.StatusX.Init)
@@ -131,7 +131,7 @@ public class ExcelBLL
             //Geo geo2 = GeoBLL.GetByName(item.District, 2);
             //Geo geo3 = GeoBLL.GetByName(item.Ward, 3);
 
-           
+
 
             Campaign cam = CampaignBLL.GetByID(item.CampaignID.ToInt());
             if (cam == null || cam.Date == null)
@@ -140,7 +140,7 @@ public class ExcelBLL
             }
 
             People people = new People();
-            
+
             try
             {
                 people.DOB = new DateTime(item.DOB.ToInt(), 1, 1);
@@ -149,7 +149,7 @@ public class ExcelBLL
             {
                 people.DOB = new DateTime(1888, 1, 1);
             }
-            
+
 
             people.Name = item.HoVaTen;
             people.SexID = new Guid("582FCCF2-65A0-4162-BE24-B29E9C664262");
@@ -163,7 +163,7 @@ public class ExcelBLL
             db.Peoples.InsertOnSubmit(people);
             db.SubmitChanges();
 
-            
+
 
             p.MSTM = item.MSTM;
             p.MSNH = item.MSNH;
@@ -172,31 +172,31 @@ public class ExcelBLL
             p.CollectedDate = cam.Date;
             p.CampaignID = cam.ID;
 
-            PackStatusHistory his = PackBLL.ChangeStatus(p, Pack.StatusX.Collected, actor, note);
-            db.PackStatusHistories.InsertOnSubmit(his);
+            PackStatusHistory his = PackBLL.ChangeStatus(db, p, Pack.StatusX.Collected, note);
+
 
             PackBLL.Update(db, p
-                , TestDefBLL.Get(db, TestDef.Component.Full)
+                , TestDef.Component.Full
                 , 250
-                , TestDefBLL.Get(db, TestDef.Substance.Non));
-            
-            BloodTypeBLL.Update(db, p, 2, TestDefBLL.Get(db, ABOID), TestDefBLL.Get(db, RHID), actor, note);
+                , TestDef.Substance.Non);
 
-            TestResultBLL.Update(db, p, 2
-                , TestDefBLL.Get(db, HIVID)
-                , TestDefBLL.Get(db, HCVID)
-                , TestDefBLL.Get(db, HBsAgID)
-                , TestDefBLL.Get(db, SyphilisID)
-                , TestDefBLL.Get(db, MalariaID)
-                , actor, note);
-            
+            PackBLL.Update(db, p, 2, ABOID, RHID, note);
+
+            PackBLL.Update(db, p, 2
+                , HIVID
+                , HCVID
+                , HBsAgID
+                , SyphilisID
+                , MalariaID
+                , note);
+
 
             p.HospitalID = new Guid("0D39EC10-B425-41ED-9210-28FF740AD80D");
             p.Actor = actor;
             p.Note = note;
 
 
-           
+
 
             try
             {
@@ -205,13 +205,13 @@ public class ExcelBLL
 
                 db.SubmitChanges(ConflictMode.FailOnFirstConflict);
 
-                UpdateDate(p.Autonum, cam.Date.Value);
-        
+                //UpdateDate(p.Autonum, cam.Date.Value);
+
                 PackBLL.UpdateTestResultStatus4Full(p.Autonum);
 
                 PackBLL.LockEnterTestResult();
-                
-                UpdateDeliverStatus(p.Autonum,actor);
+
+                UpdateDeliverStatus(p.Autonum, actor);
 
                 item.Imported = 1;
             }
@@ -223,22 +223,22 @@ public class ExcelBLL
             db1.SubmitChanges();
         }
 
-        
+
     }
 
-    static void UpdateDate(int autonum, DateTime date)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = db.Packs.Where(r => r.Autonum == autonum).FirstOrDefault();
+    //static void UpdateDate(int autonum, DateTime date)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
+    //    Pack p = db.Packs.Where(r => r.Autonum == autonum).FirstOrDefault();
 
-        if (p == null) return;
+    //    if (p == null) return;
 
-        p.TestResult2.CommitDate = date;
+    //    p.TestResult2.CommitDate = date;
 
-        db.SubmitChanges();
-    }
+    //    db.SubmitChanges();
+    //}
 
-    static void UpdateDeliverStatus(int autonum,string actor)
+    static void UpdateDeliverStatus(int autonum, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         Pack p = db.Packs.Where(r => r.Autonum == autonum).FirstOrDefault();
@@ -247,14 +247,14 @@ public class ExcelBLL
 
         if (p.TestResultStatus == Pack.TestResultStatusX.NegativeLocked)
         {
-            p.DeliverStatus = Pack.DeliverStatusX.Yes; 
+            p.DeliverStatus = Pack.DeliverStatusX.Yes;
         }
-        
+
 
         if (p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
         {
-            p.DeliverStatus = Pack.DeliverStatusX.Non; 
-            PackBLL.ChangeStatus(p, Pack.StatusX.Delete, actor, "Excel Import Positive");
+            p.DeliverStatus = Pack.DeliverStatusX.Non;
+            PackBLL.ChangeStatus(db, p, Pack.StatusX.Delete, "Excel Import Positive");
         }
 
         db.SubmitChanges();

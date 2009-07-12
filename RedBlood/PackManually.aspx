@@ -97,13 +97,13 @@
                                 <asp:Label ID="Label2" runat="server" Text="RH" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodType2.ABO.Name") %>' />
+                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("ABO.Name") %>' />
                                 <br />
-                                <asp:Label ID="lblRH" runat="server" Text='<%# Eval("BloodType2.RH.Name") %>' />
+                                <asp:Label ID="lblRH" runat="server" Text='<%# Eval("RH.Name") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListABO" runat="server" DataSourceID="LinqDataSourceABO"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("BloodType2.ABO.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("ABO.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
@@ -112,7 +112,7 @@
                                 </asp:LinqDataSource>
                                 <br />
                                 <asp:DropDownList ID="DropDownListRH" runat="server" DataSourceID="LinqDataSourceRH"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("BloodType2.RH.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("RH.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
@@ -123,11 +123,11 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HIV">
                             <ItemTemplate>
-                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("TestResult2.HIV.Name") %>' />
+                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("HIV.Name") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListHIV" runat="server" DataSourceID="LinqDataSourceHIV"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("TestResult2.HIV.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("HIV.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
@@ -138,11 +138,11 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HCV">
                             <ItemTemplate>
-                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("TestResult2.HCV.Name") %>' />
+                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("HCV.Name") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListHCV" runat="server" DataSourceID="LinqDataSourceHCV"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("TestResult2.HCV.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("HCV.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
@@ -153,11 +153,11 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HBsAg">
                             <ItemTemplate>
-                                <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("TestResult2.HBsAg.Name") %>' />
+                                <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("HBsAg.Name") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListHBsAg" runat="server" DataSourceID="LinqDataSourceHBsAg"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("TestResult2.HBsAg.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("HBsAg.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
@@ -168,11 +168,11 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Syphilis">
                             <ItemTemplate>
-                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("TestResult2.Syphilis.Name") %>' />
+                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Syphilis.Name") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListSyphilis" runat="server" DataSourceID="LinqDataSourceSyphilis"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("TestResult2.Syphilis.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("Syphilis.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
@@ -183,11 +183,11 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Malaria">
                             <ItemTemplate>
-                                <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("TestResult2.Malaria.Name") %>' />
+                                <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Malaria.Name") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListMalaria" runat="server" DataSourceID="LinqDataSourceMalaria"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("TestResult2.Malaria.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("Malaria.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
@@ -278,27 +278,27 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HIV">
                             <ItemTemplate>
-                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("TestResult2.HIV.Name") %>' />
+                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("HIV.Name") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HCV">
                             <ItemTemplate>
-                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("TestResult2.HCV.Name") %>' />
+                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("HCV.Name") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HBsAg">
                             <ItemTemplate>
-                                <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("TestResult2.HBsAg.Name") %>' />
+                                <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("HBsAg.Name") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Syphilis">
                             <ItemTemplate>
-                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("TestResult2.Syphilis.Name") %>' />
+                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Syphilis.Name") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Malaria">
                             <ItemTemplate>
-                                <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("TestResult2.Malaria.Name") %>' />
+                                <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Malaria.Name") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

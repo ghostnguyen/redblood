@@ -302,11 +302,6 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             && r.Status != PackOrder.StatusX.Return);
     }
 
-    public string GetItemUrl(int? autonum)
-    {
-        return CodabarBLL.Url4Pack(autonum.Value);
-    }
-
 
     protected void GridViewPack_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {

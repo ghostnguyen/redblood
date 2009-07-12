@@ -15,34 +15,17 @@ using System.Xml.Linq;
 /// </summary>
 public partial class BloodType
 {
-    partial void OnValidate(System.Data.Linq.ChangeAction action)
-    {
-        if (action == System.Data.Linq.ChangeAction.Insert
-            || action == System.Data.Linq.ChangeAction.Update)
-        {
+    //partial void OnValidate(System.Data.Linq.ChangeAction action)
+    //{
+    //    if (action == System.Data.Linq.ChangeAction.Insert
+    //        || action == System.Data.Linq.ChangeAction.Update)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    partial void OnLoaded()
-    {
-        //string dataErr = "Dữ liệu nhóm máu bị lỗi.";
-
-        //if (Pack == null) return;
-
-        //Pack p = this.Pack;
-
-        //if (p.Status == Pack.StatusX.Assign)
-        //{
-        //    if (!string.IsNullOrEmpty(Actor) || CommitDate != null || Times != 1)
-        //        throw new Exception(dataErr);
-        //}
-
-        //if (p.Status == Pack.StatusX.CommitReceived)
-        //{
-        //    if (string.IsNullOrEmpty(Actor) || CommitDate == null || Times != 1
-        //        || rhID == null || aboID == null)
-        //        throw new Exception(dataErr);
-        //}
-    }
+    //partial void OnLoaded()
+    //{
+        
+    //}
 }

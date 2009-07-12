@@ -56,7 +56,11 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
 
         foreach (Pack e in v)
         {
-            if (e.Status == Pack.StatusX.Delete)
+            if (e.Status == Pack.StatusX.DataErr)
+            {
+                e.Note = PackErrList.DataErr.Message;
+            }
+            else if (e.Status == Pack.StatusX.Delete)
             {
                 if (e.PackStatusHistories.Count == 0)
                     e.Note = "Unknown";
@@ -65,32 +69,11 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
             }
             else if (e.Status == Pack.StatusX.Collected)
             {
-                e.Note = e.Status.ToString();
+                e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
             }
-
             else if (e.Status == Pack.StatusX.Expire)
             {
                 e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expire).First().Note;
-            }
-            else if (e.TestResultStatus == Pack.TestResultStatusX.Negative
-                || e.TestResultStatus == Pack.TestResultStatusX.NegativeLocked)
-            {
-                e.Note = "Negative";
-            }
-            else if (e.TestResultStatus == Pack.TestResultStatusX.Positive
-                || e.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
-            {
-                //List<TestDef> def = PackBLL.ValidateTestResult(e.TestResults.Where(r => r.Times == 2).First());
-                List<TestDef> def = TestResultBLL.GetNonNegative(e.TestResults.Where(r => r.Times == 2).First());
-
-                if (def.Count() > 0)
-                {
-                    e.Note = "Positive: ";
-                    foreach (TestDef t in def)
-                    {
-                        e.Note += t.Parent.Name + ", ";
-                    }
-                }
             }
             else
             {

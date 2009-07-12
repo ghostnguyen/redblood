@@ -27,13 +27,13 @@ public partial class UserControl_ThanksLetter : System.Web.UI.UserControl
     }
 
 
-    public void Fill_Letter(TestResult e)
+    public void Fill_Letter(Pack e)
     {
-        LabelName.Text = e.Pack.People.Name;
-        LabelDOB.Text = e.Pack.People.DOB.ToStringVN();
+        LabelName.Text = e.People.Name;
+        LabelDOB.Text = e.People.DOB.ToStringVN();
 
-        LabelPackCode.Text = e.Pack.Code;
-        LabelAddress.Text = e.Pack.People.FullResidentalAddress;
+        LabelPackCode.Text = e.Code;
+        LabelAddress.Text = e.People.FullResidentalAddress;
 
         if (e.HIVID == null)
             LabelHIV.Text = "Không có";
@@ -80,12 +80,7 @@ public partial class UserControl_ThanksLetter : System.Web.UI.UserControl
         else
             LabelSyphilis.Text = e.Syphilis.Name;
 
-        //BloodType bt = e.Pack.BloodTypes.Where(r => r.Times == 2).First();
-        BloodType bt = e.Pack.BloodType2;
-
-        if (bt == null) return;
-
-        if (bt.ABO != null && bt.RH != null)
-            LabelABO_Rh.Text = bt.ABO.Name + ", " + bt.RH.Name;
+        if (e.ABOID != null && e.RhID != null)
+            LabelABO_Rh.Text = e.ABO.Name + ", " + e.Rh.Name;
     }
 }

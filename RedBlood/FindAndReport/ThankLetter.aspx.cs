@@ -24,7 +24,7 @@ public partial class FindAndReport_ThankLetter : System.Web.UI.Page
         {
             UserControl_ThanksLetter uc = new UserControl_ThanksLetter();
             uc = (UserControl_ThanksLetter)LoadControl("~/UserControl/ThanksLetter.ascx");
-            uc.Fill_Letter(item.TestResult2);
+            uc.Fill_Letter(item);
 
             divCon.Controls.Add(uc);
 

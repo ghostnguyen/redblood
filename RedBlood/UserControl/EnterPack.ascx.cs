@@ -72,14 +72,12 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
                 if (e.Volume != null && e.Volume != 0)
                     DropDownListVolume.SelectByText(e.Volume.Value.ToString());
 
-                if (e.BloodTypes.Count == 1)
-                {
-                    if (e.BloodTypes[0].aboID != null && e.BloodTypes[0].aboID != 0)
-                        DropDownListABO.SelectedValue = e.BloodTypes[0].aboID.ToString();
+                if (e.ABOID != null && e.ABOID != 0)
+                    DropDownListABO.SelectedValue = e.ABOID.ToString();
 
-                    if (e.BloodTypes[0].rhID != null && e.BloodTypes[0].rhID != 0)
-                        DropDownListRH.SelectedValue = e.BloodTypes[0].rhID.ToString();
-                }
+                if (e.RhID != null && e.RhID != 0)
+                    DropDownListRH.SelectedValue = e.RhID.ToString();
+
 
                 //if (e.Status == Pack.StatusX.CommitReceived)  //ABO test 1 Commited
                 //{
@@ -207,14 +205,14 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     void Update()
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = PackBLL.Get(Autonum, db, Pack.StatusX.Collected);
+        Pack p = PackBLL.Get(db, Autonum, Pack.StatusX.Collected);
 
         if (p != null)
         {
             PackBLL.Update(db, p,
-                TestDefBLL.Get(db, DropDownListComponent.SelectedValue.ToInt()),
+                DropDownListComponent.SelectedValue.ToInt(),
                 DropDownListVolume.SelectedValue.ToIntNullable4Zero(),
-                TestDefBLL.Get(db, DropDownListSubstance.SelectedValue.ToInt()));
+                DropDownListSubstance.SelectedValue.ToInt());
 
             db.SubmitChanges();
 
@@ -224,7 +222,6 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
     protected void DropDownListComponent_SelectedIndexChanged(object sender, EventArgs e)
     {
-
         Update();
     }
 
@@ -273,7 +270,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     protected void btnConfirmPlateleApheresis_Click(object sender, EventArgs e)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = PackBLL.Get(Autonum, db, Pack.StatusX.Collected);
+        Pack p = PackBLL.Get(db, Autonum, Pack.StatusX.Collected);
 
         p.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
 

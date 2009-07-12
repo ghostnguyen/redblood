@@ -41,7 +41,7 @@ public class OrderBLL
             return PackErrList.OrderClose;
 
         //Check Pack
-        Pack p = PackBLL.Get(autonum, db);
+        Pack p = PackBLL.Get(db,autonum);
 
         if (p == null
             || p.DeliverStatus != Pack.DeliverStatusX.Non)

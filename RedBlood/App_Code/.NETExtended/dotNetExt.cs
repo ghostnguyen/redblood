@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Configuration;
 using System.Linq;
@@ -248,5 +250,6 @@ public static class dotNetExt
         if (o == null) return null;
         else return o.ToString().ToIntNullable();
     }
+
     
 }

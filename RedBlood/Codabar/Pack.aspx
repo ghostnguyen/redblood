@@ -13,9 +13,8 @@
             <ItemTemplate>
                 <asp:Panel runat="server" ID="Panel1" CssClass="PackLabel_PannelBorder">
                     <p class="PackLabel_Img">
-                        <asp:Image ImageUrl='<%# Eval("Codabar") %>' runat="server" />
+                        <asp:Image runat="server" ImageUrl='<%# CodabarBLL.Url4Pack( Eval("Autonum") as int?) %>' />
                         <br />
-                        <asp:Literal runat="server" Text='<%# Eval("Note") %>'></asp:Literal>
                     </p>
                     <asp:Label runat="server" ID="Label2" Text="Tên:" CssClass="PackLabel_Name" />
                 </asp:Panel>

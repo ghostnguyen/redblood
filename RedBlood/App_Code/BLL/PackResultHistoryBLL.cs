@@ -15,11 +15,13 @@ public class PackResultHistoryBLL
         //
     }
 
-    public static void Insert(RedBloodDataContext db, Pack p, TestDef td, int? times, string actor, string note)
+    public static void Insert(RedBloodDataContext db, Pack p, int tdID, int? times, string actor, string note)
     {
+        if (tdID == 0) return;
+
         PackResultHistory e = new PackResultHistory();
         e.PackID = p.ID;
-        e.TestDef = td;
+        e.TestDefID = tdID;
         e.Times = times;
         e.Date = DateTime.Now;
         e.Actor = actor;
