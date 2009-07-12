@@ -38,7 +38,7 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get(Autonum, db);
+        Pack p = PackBLL.Get(db,Autonum);
 
         if (p == null) return;
 

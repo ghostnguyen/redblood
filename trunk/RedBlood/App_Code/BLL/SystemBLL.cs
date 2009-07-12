@@ -24,6 +24,7 @@ public class SystemBLL
         //
         // TODO: Add constructor logic here
         //
+        
     }
 
     public static void SOD()
@@ -40,14 +41,14 @@ public class SystemBLL
         {
             RedBloodDataContext db = new RedBloodDataContext();
 
-            Pack.StatusX[] statusList = new Pack.StatusX[] { 
+            List<Pack.StatusX> statusList = new List<Pack.StatusX> { 
                 Pack.StatusX.Collected, Pack.StatusX.Production};
 
             List<Pack> rs = PackBLL.Get(db, statusList).Where(r => r.DeliverStatus == Pack.DeliverStatusX.Non).ToList();
 
             foreach (Pack r in rs)
             {
-                PackBLL.ValidateAndUpdateStatus(db, r, SystemActor.SOD);
+                PackBLL.ValidateAndUpdateStatus(db, r, RedBloodSystem.SODActor);
             }
 
             LogBLL.Add(db, Task.TaskX.ScanExp);

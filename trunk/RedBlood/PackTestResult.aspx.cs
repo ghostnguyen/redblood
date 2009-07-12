@@ -65,17 +65,17 @@ public partial class PackTestResult : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get((int)e.Keys[0], db);
+        Pack p = PackBLL.Get(db, (int)e.Keys[0]);
 
         if (p != null)
         {
-            TestResultBLL.Update(db, p, 2,
-               TestDefBLL.Get(db, e.NewValues["TestResult2.HIV.ID"].ToString().ToInt()),
-               TestDefBLL.Get(db, e.NewValues["TestResult2.HCV.ID"].ToString().ToInt()),
-               TestDefBLL.Get(db, e.NewValues["TestResult2.HBsAg.ID"].ToString().ToInt()),
-               TestDefBLL.Get(db, e.NewValues["TestResult2.Syphilis.ID"].ToString().ToInt()),
-               TestDefBLL.Get(db, e.NewValues["TestResult2.Malaria.ID"].ToString().ToInt()),
-               Page.User.Identity.Name, "");
+            PackBLL.Update(db, p, 2,
+               e.NewValues["TestResult2.HIV.ID"].ToInt(),
+               e.NewValues["TestResult2.HCV.ID"].ToInt(),
+               e.NewValues["TestResult2.HBsAg.ID"].ToInt(),
+                e.NewValues["TestResult2.Syphilis.ID"].ToInt(),
+               e.NewValues["TestResult2.Malaria.ID"].ToInt(),
+                "");
 
             db.SubmitChanges();
         }

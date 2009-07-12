@@ -17,7 +17,7 @@ public partial class Codabar_Pack : System.Web.UI.Page
         foreach (Pack r in l)
         {
             string strCode = CodabarBLL.GenStringCode(Resources.Codabar.packSSC, r.Autonum.ToString());
-            r.Codabar = "Image.aspx?&code=" + strCode;
+            //r.Codabar = "Image.aspx?&code=" + strCode;
             r.Note = strCode;
         }
 

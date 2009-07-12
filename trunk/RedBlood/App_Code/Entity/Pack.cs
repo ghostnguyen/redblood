@@ -133,16 +133,28 @@ public partial class Pack
         }
     }
 
-    public TestResult TestResult2
-    {
-        get { return TestResults.Where(r => r.Times == 2).FirstOrDefault(); }
-    }
 
-    public BloodType BloodType2
+
+    //public TestResult TestResult2
+    //{
+    //    get { return TestResults.Where(r => r.Times == 2).FirstOrDefault(); }
+    //}
+
+    //public BloodType BloodType2
+    //{
+    //    get
+    //    {
+    //        return BloodTypes.Where(r => r.Times == 2).FirstOrDefault();
+    //    }
+    //}
+
+    public bool CanUpdateTestResult
     {
         get
         {
-            return BloodTypes.Where(r => r.Times == 2).FirstOrDefault();
+            return ComponentID != null
+                && ComponentID == TestDef.Component.Full
+                && PackBLL.AllowEnterTestResult().Contains(TestResultStatus);
         }
     }
 
@@ -235,6 +247,33 @@ public partial class Pack
 
             return Substance;
         }
+    }
+
+    public List<TestDef> NonNegativeTestResult()
+    {
+
+        List<TestDef> r = new List<TestDef>();
+
+        //if (TestResultStatus == TestResultStatusX.Non)
+        //    throw new Exception("Chưa nhập kết quả túi máu.");
+
+        if (HIVID == TestDef.HIV.Pos || HIVID == TestDef.HIV.NA)
+            r.Add(HIV);
+
+        if (HBsAgID == TestDef.HBsAg.Pos || HBsAgID == TestDef.HBsAg.NA)
+            r.Add(HBsAg);
+
+        if (HCVID == TestDef.HCV.Pos || HCVID == TestDef.HCV.NA)
+            r.Add(HCV);
+
+        if (SyphilisID == TestDef.Syphilis.Pos || SyphilisID == TestDef.Syphilis.NA)
+            r.Add(Syphilis);
+
+        if (MalariaID == TestDef.Malaria.Pos || MalariaID == TestDef.Malaria.NA)
+            r.Add(Malaria);
+
+        return r;
+
     }
 
     public PackErr Err { get; set; }

@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
     CodeFile="Default.aspx.cs" Inherits="_Default" Title="Default" %>
-<%@ MasterType VirtualPath="~/MasterPage.master" %>
 
+<%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -30,7 +30,7 @@
 
         $(document).bind('keydown', '5', function() {
             if (selectedInput) return;
-            window.location.replace("/RedBlood/Production/Extract.aspx");
+            window.location.replace("/RedBlood/Default5.aspx");
         });
 
         $(document).bind('keydown', '6', function() {
@@ -96,10 +96,10 @@
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="/RedBlood/Production/Extract.aspx">5. Sản xuất</a></h3>
+                                <a href="/RedBlood/Default5.aspx">5. Sản xuất</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/Production/Extract.aspx" />
+                            <a href="/RedBlood/Default5.aspx" />
                             <img src="Image/Icon/extract.png" alt="" />
                         </td>
                         <td class="column next">

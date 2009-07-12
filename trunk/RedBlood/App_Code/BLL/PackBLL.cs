@@ -53,7 +53,7 @@ public class PackBLL
     {
         Pack pErr = new Pack();
 
-        Pack p = Get(autonum, db);
+        Pack p = Get(db, autonum);
 
         if (p == null)
         {
@@ -78,60 +78,66 @@ public class PackBLL
     public static Pack Get(int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get(autonum, db, Pack.StatusX.All);
+        return Get(db, autonum);
+    }
+
+    public static Pack Get(RedBloodDataContext db, int autonum)
+    {
+        return Get(db, new List<int> { autonum }).FirstOrDefault();
+    }
+
+    public static Pack Get(int autonum, Pack.StatusX status)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get(db, autonum, status);
+    }
+
+    public static Pack Get(int autonum, List<Pack.StatusX> statusList)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get(db, new List<int> { autonum }, statusList).FirstOrDefault();
+    }
+
+    public static Pack Get(RedBloodDataContext db, int autonum, Pack.StatusX status)
+    {
+        return Get(db, new List<int> { autonum }, new List<Pack.StatusX> { status }).FirstOrDefault();
     }
 
     public static List<Pack> Get(List<int> autonumList)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-
-        return Get(autonumList, db, new Pack.StatusX[] { Pack.StatusX.All }, true);
+        return Get(db, autonumList);
     }
 
-    public static Pack Get(int autonum, RedBloodDataContext db)
+    public static List<Pack> Get(RedBloodDataContext db, List<int> autonumList)
     {
-        return Get(autonum, db, Pack.StatusX.All, false);
+        return Get(db, autonumList, new List<Pack.StatusX> { Pack.StatusX.All });
     }
 
-    public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX status)
-    {
-        return Get(autonum, db, status, true);
-    }
-
-    public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX status, bool allowPackErr)
-    {
-        return Get(autonum, db, new Pack.StatusX[] { status }, allowPackErr);
-    }
-
-    public static Pack Get(int autonum, Pack.StatusX[] status)
+    public static List<Pack> Get(List<int> autonumList, List<Pack.StatusX> statusList)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get(autonum, db, status, false);
+        return Get(db, autonumList, statusList);
     }
 
-    public static Pack Get(int autonum, RedBloodDataContext db, Pack.StatusX[] status, bool allowPackErr)
+    public static List<Pack> Get(RedBloodDataContext db, List<int> autonumList, List<Pack.StatusX> statusList)
     {
-        List<int> a = new List<int>();
-        a.Add(autonum);
-
-        List<Pack> l = Get(a, db, status, allowPackErr);
-
-        return l.FirstOrDefault();
+        return Get(db, autonumList, statusList, false);
     }
 
-    public static List<Pack> Get(List<int> autonumList, RedBloodDataContext db, Pack.StatusX[] status, bool allowPackErr)
+    public static List<Pack> Get(RedBloodDataContext db, List<int> autonumList, List<Pack.StatusX> statusList, bool allowPackErr)
     {
         if (autonumList.Count == 0) return new List<Pack>();
 
         List<Pack> pList;
 
-        if (status.Count() == 1 && status[0] == Pack.StatusX.All)
+        if (statusList.Count() == 1 && statusList[0] == Pack.StatusX.All)
         {
             pList = db.Packs.Where(e => autonumList.Contains(e.Autonum)).ToList();
         }
         else
         {
-            pList = db.Packs.Where(e => autonumList.Contains(e.Autonum) && status.Contains(e.Status)).ToList();
+            pList = db.Packs.Where(e => autonumList.Contains(e.Autonum) && statusList.Contains(e.Status)).ToList();
         }
 
         if (allowPackErr) return pList;
@@ -170,12 +176,12 @@ public class PackBLL
             p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.TestResultStatus);
             return p;
         }
-        
+
 
         if (p.Status == Pack.StatusX.Collected)
         {
-            
-            
+
+
             p.Err = PackErrList.Valid4Extract;
 
             p.CanExtractTo.Add(TestDef.Component.WBC);
@@ -223,7 +229,7 @@ public class PackBLL
         return Get(CodabarBLL.ParsePackAutoNum(code));
     }
 
-    public static List<Pack> Get(RedBloodDataContext db, Pack.StatusX[] status)
+    public static List<Pack> Get(RedBloodDataContext db, List<Pack.StatusX> status)
     {
         var rs = from c in db.Packs
                  where status.Contains(c.Status)
@@ -242,7 +248,7 @@ public class PackBLL
             ).ToList();
     }
 
-    public static List<Pack> GetByCampaign(int campaignID, Pack.StatusX[] status)
+    public static List<Pack> GetByCampaign(int campaignID, List<Pack.StatusX> status)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
@@ -275,8 +281,7 @@ public class PackBLL
             p.Substance = TestDefBLL.Get(db, TestDef.Substance.Non);
             p.Component = TestDefBLL.Get(db, TestDef.Component.Full);
 
-            PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Collected, actor, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
-            db.PackStatusHistories.InsertOnSubmit(h);
+            PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Collected, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
 
             db.SubmitChanges();
 
@@ -412,15 +417,20 @@ public class PackBLL
     //    return p;
     //}
 
-    public static PackStatusHistory ChangeStatus(Pack p, Pack.StatusX to, string actor, string note)
+    public static PackStatusHistory ChangeStatus(RedBloodDataContext db, Pack p, Pack.StatusX to, string note)
     {
+        if (p.Status == to) return null;
+
         Pack.StatusX from = p.Status;
 
         p.Status = to;
 
-        return new PackStatusHistory(p, from, to, actor, note);
-    }
+        PackStatusHistory h = new PackStatusHistory(p, from, to, RedBloodSystem.CurrentActor, note);
 
+        db.PackStatusHistories.InsertOnSubmit(h);
+
+        return h;
+    }
 
     public static PackErr DeletePack(int? campaignID, int autonum, string note, string actor)
     {
@@ -428,7 +438,7 @@ public class PackBLL
 
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get(autonum, db, Pack.StatusX.All, true);
+        Pack p = Get(db, new List<int> { autonum }, new List<Pack.StatusX> { Pack.StatusX.All }, true).FirstOrDefault();
 
         if (p == null) return PackErrList.NonExist;
 
@@ -437,8 +447,7 @@ public class PackBLL
             if (p.CampaignID != campaignID) return PackErrList.NonExistInCam;
         }
 
-        PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Delete, actor, note);
-        db.PackStatusHistories.InsertOnSubmit(h);
+        PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Delete, note);
 
         db.SubmitChanges();
 
@@ -461,7 +470,7 @@ public class PackBLL
 
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get(autonum, db, Pack.StatusX.Collected);
+        Pack p = Get(db, autonum, Pack.StatusX.Collected);
 
         if (p == null && p.PeopleID != null) return p;
         if (p.TestResultStatus != Pack.TestResultStatusX.Non) return p;
@@ -471,7 +480,7 @@ public class PackBLL
         p.CollectedDate = null;
         p.CampaignID = null;
 
-        PackStatusHistory h = ChangeStatus(p, Pack.StatusX.Init, actor, "Remove peopleID=" + p.PeopleID.ToString() + "&CampaignID=" + p.CampaignID.ToString());
+        PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Init, "Remove peopleID=" + p.PeopleID.ToString() + "&CampaignID=" + p.CampaignID.ToString());
         db.PackStatusHistories.InsertOnSubmit(h);
 
         db.SubmitChanges();
@@ -522,8 +531,7 @@ public class PackBLL
 
         if (err != PackErrList.Non)
         {
-            PackStatusHistory h = PackBLL.ChangeStatus(p, err.ToStatusX, actor, err.Message);
-            db.PackStatusHistories.InsertOnSubmit(h);
+            PackStatusHistory h = PackBLL.ChangeStatus(db, p, err.ToStatusX, err.Message);
         }
 
         return err;
@@ -621,30 +629,28 @@ public class PackBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        //Pack.StatusX[] status = PackBLL.StatusListHadTestResult();
         var v = from r in db.Packs
-                //where r.CampaignID == campaignID && status.Contains(r.Status)
                 where r.CampaignID == campaignID && r.TestResultStatus != Pack.TestResultStatusX.Non
                 select r;
 
         if (rptType == ReportType.NegInCam)
         {
-            return v.ToList().Where(r => TestResultBLL.GetNonNegative(r.TestResult2).Count() == 0).ToList();
+            return v.ToList().Where(r => r.NonNegativeTestResult().Count() == 0).ToList();
         }
 
         if (rptType == ReportType.FourPosInCam)
         {
             return v.ToList().Where(r =>
-                TestResultBLL.GetNonNegative(r.TestResult2).Count() > 0 &&
-                TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef.ID == TestDef.HIV.Pos || tdef.ID == TestDef.HIV.NA).Count() == 0).ToList();
+                r.NonNegativeTestResult().Count() > 0 &&
+                r.HIVID == TestDef.HIV.Neg).ToList();
         }
 
         if (rptType == ReportType.HIVInCam)
         {
-            return v.ToList().Where(r => TestResultBLL.GetNonNegative(r.TestResult2).Where(tdef => tdef.ID == TestDef.HIV.Pos || tdef.ID == TestDef.HIV.NA).Count() == 1).ToList();
+            return v.Where(r => r.HIVID == TestDef.HIV.Pos || r.HIVID == TestDef.HIV.NA).ToList();
         }
 
-        return null;
+        return new List<Pack>();
     }
 
     public static List<Pack> GetSourcePacks_AllLevel(Pack p)
@@ -687,23 +693,80 @@ public class PackBLL
         return l.Distinct().ToList();
     }
 
-    public static PackErr Update(RedBloodDataContext db, Pack p, TestDef component, int? volume, TestDef substance)
+    public static PackErr Update(RedBloodDataContext db, Pack p, int componentID, int? volume, int substanceID)
     {
         if (p == null) return PackErrList.NonExist;
 
-        p.Component = component;
+        p.Component = TestDefBLL.Get(db, componentID);
         p.Volume = volume;
-        p.Substance = substance;
-
-        //PackBLL.UpdateTestResultStatus4Full(db, p);
+        p.Substance = TestDefBLL.Get(db, substanceID);
 
         return PackErrList.Non;
     }
 
+    public static PackErr Update(RedBloodDataContext db, Pack p, int times, int ABOID, int RhID, string note)
+    {
+        if (p == null || !p.CanUpdateTestResult) return PackErrList.NonExist;
+
+        if (p.ABOID != ABOID)
+        {
+            p.ABO = TestDefBLL.Get(db, ABOID);
+            PackResultHistoryBLL.Insert(db, p, ABOID, times, RedBloodSystem.CurrentActor, note);
+        }
+
+        if (p.RhID != RhID)
+        {
+            p.Rh = TestDefBLL.Get(db, RhID);
+            PackResultHistoryBLL.Insert(db, p, RhID, times, RedBloodSystem.CurrentActor, note);
+        }
+
+        return PackErrList.Non;
+    }
+
+    public static PackErr Update(RedBloodDataContext db, Pack p, int times,
+       int HIVID, int HCVID, int HBsAgID, int SyphilisID, int MalariaID,
+        string note)
+    {
+        if (p == null || !p.CanUpdateTestResult) return PackErrList.NonExist;
+
+        if (p.HCVID != HIVID)
+        {
+            p.HIV = TestDefBLL.Get(db, HIVID);
+            PackResultHistoryBLL.Insert(db, p, HIVID, times, RedBloodSystem.CurrentActor, note);
+        }
+
+        if (p.HCVID != HCVID)
+        {
+            p.HCV = TestDefBLL.Get(db, HCVID);
+            PackResultHistoryBLL.Insert(db, p, HCVID, times, RedBloodSystem.CurrentActor, note);
+        }
+
+        if (p.HBsAgID != HBsAgID)
+        {
+            p.HBsAg = TestDefBLL.Get(db, HBsAgID);
+            PackResultHistoryBLL.Insert(db, p, HBsAgID, times, RedBloodSystem.CurrentActor, note);
+        }
+
+        if (p.SyphilisID != SyphilisID)
+        {
+            p.Syphilis = TestDefBLL.Get(db, SyphilisID);
+            PackResultHistoryBLL.Insert(db, p, SyphilisID, times, RedBloodSystem.CurrentActor, note);
+        }
+
+        if (p.MalariaID != MalariaID)
+        {
+            p.Malaria = TestDefBLL.Get(db, MalariaID);
+            PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
+        }
+
+        return PackErrList.Non;
+    }
+
+
     public static void UpdateTestResultStatus4Full(int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = PackBLL.Get(autonum, db);
+        Pack p = PackBLL.Get(db, autonum);
 
         if (p == null
             || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
@@ -712,10 +775,12 @@ public class PackBLL
             return;
 
         if (p.Volume == null
-        || p.BloodType2 == null
-        || p.BloodType2.aboID == null
-        || p.BloodType2.rhID == null
-        || p.TestResult2 == null)
+            || p.ABOID == null || p.RhID == null
+            || p.HIVID == null
+            || p.HCVID == null
+            || p.HBsAgID == null
+            || p.SyphilisID == null
+            || p.MalariaID == null)
         {
             p.TestResultStatus = Pack.TestResultStatusX.Non;
         }
@@ -723,7 +788,7 @@ public class PackBLL
         {
             try
             {
-                List<TestDef> l = TestResultBLL.GetNonNegative(p.TestResult2);
+                List<TestDef> l = p.NonNegativeTestResult();
                 if (l.Count == 0)
                     p.TestResultStatus = Pack.TestResultStatusX.Negative;
                 else p.TestResultStatus = Pack.TestResultStatusX.Positive;
@@ -735,7 +800,7 @@ public class PackBLL
         }
 
         //Update for all related packs
-        UpdateTestResultStatus4Extracts(db,p);
+        UpdateTestResultStatus4Extracts(db, p);
 
         db.SubmitChanges();
     }
@@ -745,14 +810,14 @@ public class PackBLL
     /// </summary>
     /// <param name="db">This parameter does nothing in the function. It is used to alert that the function depend on DataContext to submits.</param>
     /// <param name="srcP"></param>
-    public static void UpdateTestResultStatus4Extracts(RedBloodDataContext db,Pack srcP)
+    public static void UpdateTestResultStatus4Extracts(RedBloodDataContext db, Pack srcP)
     {
         List<Pack> extractP = srcP.PackExtractsBySource.Select(r => r.ExtractPack).ToList();
 
         foreach (Pack item in extractP)
         {
             item.TestResultStatus = item.TestResultStatusRoot;
-            UpdateTestResultStatus4Extracts(db,item);
+            UpdateTestResultStatus4Extracts(db, item);
         }
     }
 
@@ -760,9 +825,9 @@ public class PackBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get(autonum, db);
-        
-        UpdateTestResultStatus4Extracts(db,p);
+        Pack p = PackBLL.Get(db, autonum);
+
+        UpdateTestResultStatus4Extracts(db, p);
 
         db.SubmitChanges();
     }
@@ -792,8 +857,8 @@ public class PackBLL
                 //extractP.TestResultStatus = extractP.TestResultStatusRoot;
                 extractP.CollectedDate = DateTime.Now;
 
-                PackStatusHistory h = ChangeStatus(extractP, Pack.StatusX.Production, actor, "Extract");
-                db.PackStatusHistories.InsertOnSubmit(h);
+                PackStatusHistory h = ChangeStatus(db, extractP, Pack.StatusX.Production, "Extract");
+
 
                 PackExtract pe = new PackExtract();
                 pe.SourcePackID = p.ID;
@@ -806,8 +871,7 @@ public class PackBLL
 
         if (count > 0)
         {
-            PackStatusHistory hi = ChangeStatus(p, Pack.StatusX.Produced, actor, "Extract");
-            db.PackStatusHistories.InsertOnSubmit(hi);
+            PackStatusHistory hi = ChangeStatus(db, p, Pack.StatusX.Produced, "Extract");
 
             db.SubmitChanges();
 
@@ -849,8 +913,8 @@ public class PackBLL
         pOut.CollectedDate = DateTime.Now;
         pOut.Note = note;
 
-        PackStatusHistory h = ChangeStatus(pOut, Pack.StatusX.Production, actor, "Combine2Platelet");
-        db.PackStatusHistories.InsertOnSubmit(h);
+        PackStatusHistory h = ChangeStatus(db, pOut, Pack.StatusX.Production, "Combine2Platelet");
+
 
         foreach (Pack item in pInList)
         {
@@ -959,7 +1023,9 @@ public class PackBLL
         return null;
     }
 
-
+    /// <summary>
+    /// Lock All Test Result regarless of time
+    /// </summary>
     public static void LockEnterTestResult()
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -973,23 +1039,18 @@ public class PackBLL
             && r.ComponentID == TestDef.Component.Full
             ).ToList();
 
-        List<TestResult> trL = l.Select(r => r.TestResult2).Where(r => r != null).ToList();
 
-        foreach (TestResult item in trL)
+        foreach (Pack item in l)
         {
-            if (item.CommitDate != null && item.CommitDate.Value.Date < DateTime.Now.Date)
-            {
-                if (item.Pack.TestResultStatus == Pack.TestResultStatusX.Negative)
-                    item.Pack.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+            if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
+                item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
 
-                if (item.Pack.TestResultStatus == Pack.TestResultStatusX.Positive)
-                    item.Pack.TestResultStatus = Pack.TestResultStatusX.PositiveLocked;
+            if (item.TestResultStatus == Pack.TestResultStatusX.Positive)
+                item.TestResultStatus = Pack.TestResultStatusX.PositiveLocked;
 
-                //Update for all related packs
-                UpdateTestResultStatus4Extracts(db, item.Pack);
-            }
+            //Update for all related packs
+            UpdateTestResultStatus4Extracts(db, item);
         }
-
         db.SubmitChanges();
     }
 }

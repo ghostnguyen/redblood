@@ -22,7 +22,7 @@ public class LogBLL
         var e = (from r in db.Logs
                  where r.TaskID == task
                  && r.Date.Value.Date == DateTime.Now.Date
-                 && r.Actor == SystemActor.SOD
+                 && r.Actor == RedBloodSystem.SODActor
                  select r);
 
         return e.Count() != 0;
@@ -42,7 +42,7 @@ public class LogBLL
             Log e = new Log();
             e.TaskID = task;
             e.Date = DateTime.Now;
-            e.Actor = SystemActor.SOD;
+            e.Actor = RedBloodSystem.SODActor;
 
             db.Logs.InsertOnSubmit(e);
         }

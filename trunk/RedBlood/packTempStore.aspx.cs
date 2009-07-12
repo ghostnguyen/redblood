@@ -64,7 +64,7 @@ public partial class PackTempStore : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get((int)e.Keys[0], db);
+        Pack p = PackBLL.Get(db, (int)e.Keys[0]);
 
         if (p != null)
         {
@@ -74,13 +74,14 @@ public partial class PackTempStore : System.Web.UI.Page
             //    Page.User.Identity.Name, "");
 
             PackBLL.Update(db, p,
-                TestDefBLL.Get(db,e.NewValues["ComponentID"].ToString().ToInt()),
-                e.NewValues["Volume"].ToIntNullable(),
-                TestDefBLL.Get(db,e.NewValues["SubstanceID"].ToString().ToInt()));
-            BloodTypeBLL.Update(db, p, 2,
-                TestDefBLL.Get(db, e.NewValues["BloodType2.ABO.ID"].ToString().ToInt()),
-                TestDefBLL.Get(db, e.NewValues["BloodType2.RH.ID"].ToString().ToInt()),
-                Page.User.Identity.Name, "");
+               e.NewValues["ComponentID"].ToInt(),
+               e.NewValues["Volume"].ToIntNullable(),
+               e.NewValues["SubstanceID"].ToInt());
+
+            PackBLL.Update(db, p, 2,
+                e.NewValues["BloodType2.ABO.ID"].ToInt(),
+                e.NewValues["BloodType2.RH.ID"].ToInt(),
+                "");
 
             db.SubmitChanges();
         }

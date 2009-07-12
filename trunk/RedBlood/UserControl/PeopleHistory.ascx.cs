@@ -69,36 +69,16 @@ public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
             }
             else if (e.Status == Pack.StatusX.Collected)
             {
-                e.Note = e.Status.ToString();
+                e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
             }
-
-            else if (e.Status == Pack.StatusX.Collected || e.Status == Pack.StatusX.Expire)
+            else if (e.Status == Pack.StatusX.Expire)
             {
                 e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expire).First().Note;
-            }
-            else if (e.TestResultStatus != Pack.TestResultStatusX.Non)
-            {
-                List<TestDef> def = TestResultBLL.GetNonNegative(e.TestResults.Where(r => r.Times == 2).First());
-
-                if (def.Count() == 0)
-                {
-                    e.Note = "Negative";
-                }
-                else
-                {
-                    e.Note = "Positive: ";
-                    foreach (TestDef t in def)
-                    {
-                        e.Note += t.Parent.Name + ", ";
-                    }
-                }
             }
             else
             {
                 e.Note = e.Status.ToString();
             }
-
-
         }
 
         return v;

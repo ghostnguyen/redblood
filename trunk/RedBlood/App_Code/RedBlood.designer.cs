@@ -56,12 +56,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPeople(People instance);
   partial void UpdatePeople(People instance);
   partial void DeletePeople(People instance);
-  partial void InsertTestResult(TestResult instance);
-  partial void UpdateTestResult(TestResult instance);
-  partial void DeleteTestResult(TestResult instance);
-  partial void InsertBloodType(BloodType instance);
-  partial void UpdateBloodType(BloodType instance);
-  partial void DeleteBloodType(BloodType instance);
   partial void InsertPackStatusHistory(PackStatusHistory instance);
   partial void UpdatePackStatusHistory(PackStatusHistory instance);
   partial void DeletePackStatusHistory(PackStatusHistory instance);
@@ -83,9 +77,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackExtract(PackExtract instance);
   partial void UpdatePackExtract(PackExtract instance);
   partial void DeletePackExtract(PackExtract instance);
-  partial void InsertPack(Pack instance);
-  partial void UpdatePack(Pack instance);
-  partial void DeletePack(Pack instance);
   partial void InsertPackOrder(PackOrder instance);
   partial void UpdatePackOrder(PackOrder instance);
   partial void DeletePackOrder(PackOrder instance);
@@ -104,6 +95,9 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertOrder(Order instance);
   partial void UpdateOrder(Order instance);
   partial void DeleteOrder(Order instance);
+  partial void InsertPack(Pack instance);
+  partial void UpdatePack(Pack instance);
+  partial void DeletePack(Pack instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -208,22 +202,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<TestResult> TestResults
-	{
-		get
-		{
-			return this.GetTable<TestResult>();
-		}
-	}
-	
-	public System.Data.Linq.Table<BloodType> BloodTypes
-	{
-		get
-		{
-			return this.GetTable<BloodType>();
-		}
-	}
-	
 	public System.Data.Linq.Table<PackStatusHistory> PackStatusHistories
 	{
 		get
@@ -280,14 +258,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<Pack> Packs
-	{
-		get
-		{
-			return this.GetTable<Pack>();
-		}
-	}
-	
 	public System.Data.Linq.Table<PackOrder> PackOrders
 	{
 		get
@@ -333,6 +303,14 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Order>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Pack> Packs
+	{
+		get
+		{
+			return this.GetTable<Pack>();
 		}
 	}
 }
@@ -2214,9 +2192,9 @@ public partial class Hospital : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<People> _Peoples;
 	
-	private EntitySet<Pack> _Packs;
-	
 	private EntitySet<Department> _Departments;
+	
+	private EntitySet<Pack> _Packs;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2245,8 +2223,8 @@ public partial class Hospital : INotifyPropertyChanging, INotifyPropertyChanged
 	public Hospital()
 	{
 		this._Peoples = new EntitySet<People>(new Action<People>(this.attach_Peoples), new Action<People>(this.detach_Peoples));
-		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 		this._Departments = new EntitySet<Department>(new Action<Department>(this.attach_Departments), new Action<Department>(this.detach_Departments));
+		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 		OnCreated();
 	}
 	
@@ -2443,19 +2421,6 @@ public partial class Hospital : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="Hospital_Pack", Storage="_Packs", ThisKey="ID", OtherKey="HospitalID")]
-	public EntitySet<Pack> Packs
-	{
-		get
-		{
-			return this._Packs;
-		}
-		set
-		{
-			this._Packs.Assign(value);
-		}
-	}
-	
 	[Association(Name="Hospital_Department", Storage="_Departments", ThisKey="ID", OtherKey="HospitalID")]
 	public EntitySet<Department> Departments
 	{
@@ -2466,6 +2431,19 @@ public partial class Hospital : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._Departments.Assign(value);
+		}
+	}
+	
+	[Association(Name="Hospital_Pack", Storage="_Packs", ThisKey="ID", OtherKey="HospitalID")]
+	public EntitySet<Pack> Packs
+	{
+		get
+		{
+			return this._Packs;
+		}
+		set
+		{
+			this._Packs.Assign(value);
 		}
 	}
 	
@@ -2501,18 +2479,6 @@ public partial class Hospital : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Hospital = null;
 	}
 	
-	private void attach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.Hospital = this;
-	}
-	
-	private void detach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.Hospital = null;
-	}
-	
 	private void attach_Departments(Department entity)
 	{
 		this.SendPropertyChanging();
@@ -2520,6 +2486,18 @@ public partial class Hospital : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_Departments(Department entity)
+	{
+		this.SendPropertyChanging();
+		entity.Hospital = null;
+	}
+	
+	private void attach_Packs(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Hospital = this;
+	}
+	
+	private void detach_Packs(Pack entity)
 	{
 		this.SendPropertyChanging();
 		entity.Hospital = null;
@@ -2544,31 +2522,27 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<TestDef> _Children;
 	
-	private EntitySet<TestResult> _TestResults;
-	
-	private EntitySet<TestResult> _TestResults1;
-	
-	private EntitySet<TestResult> _TestResults2;
-	
-	private EntitySet<TestResult> _TestResults3;
-	
-	private EntitySet<TestResult> _TestResults4;
-	
-	private EntitySet<BloodType> _BloodTypesByABO;
-	
-	private EntitySet<BloodType> _BloodTypesByRH;
-	
 	private EntitySet<Campaign> _CampaignsBySource;
 	
 	private EntitySet<PackResultHistory> _PackResultHistories;
 	
+	private EntitySet<Pack> _PacksByABO;
+	
 	private EntitySet<Pack> _PacksByComponent;
 	
-	private EntitySet<Pack> _PacksByFeedback;
+	private EntitySet<Pack> _PacksByHBsAg;
 	
-	private EntitySet<Pack> _PacksBySource;
+	private EntitySet<Pack> _PacksByHCV;
+	
+	private EntitySet<Pack> _PacksByHIV;
+	
+	private EntitySet<Pack> _PacksByMalaria;
+	
+	private EntitySet<Pack> _PacksByRh;
 	
 	private EntitySet<Pack> _PacksBySubstance;
+	
+	private EntitySet<Pack> _PacksBySyphilis;
 	
 	private EntityRef<TestDef> _Parent;
 	
@@ -2591,19 +2565,17 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 	public TestDef()
 	{
 		this._Children = new EntitySet<TestDef>(new Action<TestDef>(this.attach_Children), new Action<TestDef>(this.detach_Children));
-		this._TestResults = new EntitySet<TestResult>(new Action<TestResult>(this.attach_TestResults), new Action<TestResult>(this.detach_TestResults));
-		this._TestResults1 = new EntitySet<TestResult>(new Action<TestResult>(this.attach_TestResults1), new Action<TestResult>(this.detach_TestResults1));
-		this._TestResults2 = new EntitySet<TestResult>(new Action<TestResult>(this.attach_TestResults2), new Action<TestResult>(this.detach_TestResults2));
-		this._TestResults3 = new EntitySet<TestResult>(new Action<TestResult>(this.attach_TestResults3), new Action<TestResult>(this.detach_TestResults3));
-		this._TestResults4 = new EntitySet<TestResult>(new Action<TestResult>(this.attach_TestResults4), new Action<TestResult>(this.detach_TestResults4));
-		this._BloodTypesByABO = new EntitySet<BloodType>(new Action<BloodType>(this.attach_BloodTypesByABO), new Action<BloodType>(this.detach_BloodTypesByABO));
-		this._BloodTypesByRH = new EntitySet<BloodType>(new Action<BloodType>(this.attach_BloodTypesByRH), new Action<BloodType>(this.detach_BloodTypesByRH));
 		this._CampaignsBySource = new EntitySet<Campaign>(new Action<Campaign>(this.attach_CampaignsBySource), new Action<Campaign>(this.detach_CampaignsBySource));
 		this._PackResultHistories = new EntitySet<PackResultHistory>(new Action<PackResultHistory>(this.attach_PackResultHistories), new Action<PackResultHistory>(this.detach_PackResultHistories));
+		this._PacksByABO = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByABO), new Action<Pack>(this.detach_PacksByABO));
 		this._PacksByComponent = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByComponent), new Action<Pack>(this.detach_PacksByComponent));
-		this._PacksByFeedback = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByFeedback), new Action<Pack>(this.detach_PacksByFeedback));
-		this._PacksBySource = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksBySource), new Action<Pack>(this.detach_PacksBySource));
+		this._PacksByHBsAg = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByHBsAg), new Action<Pack>(this.detach_PacksByHBsAg));
+		this._PacksByHCV = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByHCV), new Action<Pack>(this.detach_PacksByHCV));
+		this._PacksByHIV = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByHIV), new Action<Pack>(this.detach_PacksByHIV));
+		this._PacksByMalaria = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByMalaria), new Action<Pack>(this.detach_PacksByMalaria));
+		this._PacksByRh = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksByRh), new Action<Pack>(this.detach_PacksByRh));
 		this._PacksBySubstance = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksBySubstance), new Action<Pack>(this.detach_PacksBySubstance));
+		this._PacksBySyphilis = new EntitySet<Pack>(new Action<Pack>(this.attach_PacksBySyphilis), new Action<Pack>(this.detach_PacksBySyphilis));
 		this._Parent = default(EntityRef<TestDef>);
 		OnCreated();
 	}
@@ -2725,97 +2697,6 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="TestDef_TestResult", Storage="_TestResults", ThisKey="ID", OtherKey="HBsAgID")]
-	public EntitySet<TestResult> TestResultsByHBsAg
-	{
-		get
-		{
-			return this._TestResults;
-		}
-		set
-		{
-			this._TestResults.Assign(value);
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult1", Storage="_TestResults1", ThisKey="ID", OtherKey="HCVID")]
-	public EntitySet<TestResult> TestResultsByHCV
-	{
-		get
-		{
-			return this._TestResults1;
-		}
-		set
-		{
-			this._TestResults1.Assign(value);
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult2", Storage="_TestResults2", ThisKey="ID", OtherKey="HIVID")]
-	public EntitySet<TestResult> TestResultsByHIV
-	{
-		get
-		{
-			return this._TestResults2;
-		}
-		set
-		{
-			this._TestResults2.Assign(value);
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult3", Storage="_TestResults3", ThisKey="ID", OtherKey="MalariaID")]
-	public EntitySet<TestResult> TestResultsByMalaria
-	{
-		get
-		{
-			return this._TestResults3;
-		}
-		set
-		{
-			this._TestResults3.Assign(value);
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult4", Storage="_TestResults4", ThisKey="ID", OtherKey="SyphilisID")]
-	public EntitySet<TestResult> TestResultsBySyphilis
-	{
-		get
-		{
-			return this._TestResults4;
-		}
-		set
-		{
-			this._TestResults4.Assign(value);
-		}
-	}
-	
-	[Association(Name="TestDef_BloodType", Storage="_BloodTypesByABO", ThisKey="ID", OtherKey="aboID")]
-	public EntitySet<BloodType> BloodTypesByABO
-	{
-		get
-		{
-			return this._BloodTypesByABO;
-		}
-		set
-		{
-			this._BloodTypesByABO.Assign(value);
-		}
-	}
-	
-	[Association(Name="TestDef_BloodType1", Storage="_BloodTypesByRH", ThisKey="ID", OtherKey="rhID")]
-	public EntitySet<BloodType> BloodTypesByRH
-	{
-		get
-		{
-			return this._BloodTypesByRH;
-		}
-		set
-		{
-			this._BloodTypesByRH.Assign(value);
-		}
-	}
-	
 	[Association(Name="TestDef_Campaign", Storage="_CampaignsBySource", ThisKey="ID", OtherKey="SourceID")]
 	public EntitySet<Campaign> CampaignsBySource
 	{
@@ -2842,7 +2723,20 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="TestDef_Pack", Storage="_PacksByComponent", ThisKey="ID", OtherKey="ComponentID")]
+	[Association(Name="TestDef_Pack", Storage="_PacksByABO", ThisKey="ID", OtherKey="ABOID")]
+	public EntitySet<Pack> PacksByABO
+	{
+		get
+		{
+			return this._PacksByABO;
+		}
+		set
+		{
+			this._PacksByABO.Assign(value);
+		}
+	}
+	
+	[Association(Name="TestDef_Pack1", Storage="_PacksByComponent", ThisKey="ID", OtherKey="ComponentID")]
 	public EntitySet<Pack> PacksByComponent
 	{
 		get
@@ -2855,33 +2749,72 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="TestDef_Pack1", Storage="_PacksByFeedback", ThisKey="ID", OtherKey="FeedbackID")]
-	public EntitySet<Pack> PacksByFeedback
+	[Association(Name="TestDef_Pack2", Storage="_PacksByHBsAg", ThisKey="ID", OtherKey="HBsAgID")]
+	public EntitySet<Pack> PacksByHBsAg
 	{
 		get
 		{
-			return this._PacksByFeedback;
+			return this._PacksByHBsAg;
 		}
 		set
 		{
-			this._PacksByFeedback.Assign(value);
+			this._PacksByHBsAg.Assign(value);
 		}
 	}
 	
-	[Association(Name="TestDef_Pack2", Storage="_PacksBySource", ThisKey="ID", OtherKey="SourceID")]
-	public EntitySet<Pack> PacksBySource
+	[Association(Name="TestDef_Pack3", Storage="_PacksByHCV", ThisKey="ID", OtherKey="HCVID")]
+	public EntitySet<Pack> PacksByHCV
 	{
 		get
 		{
-			return this._PacksBySource;
+			return this._PacksByHCV;
 		}
 		set
 		{
-			this._PacksBySource.Assign(value);
+			this._PacksByHCV.Assign(value);
 		}
 	}
 	
-	[Association(Name="TestDef_Pack3", Storage="_PacksBySubstance", ThisKey="ID", OtherKey="SubstanceID")]
+	[Association(Name="TestDef_Pack4", Storage="_PacksByHIV", ThisKey="ID", OtherKey="HIVID")]
+	public EntitySet<Pack> PacksByHIV
+	{
+		get
+		{
+			return this._PacksByHIV;
+		}
+		set
+		{
+			this._PacksByHIV.Assign(value);
+		}
+	}
+	
+	[Association(Name="TestDef_Pack5", Storage="_PacksByMalaria", ThisKey="ID", OtherKey="MalariaID")]
+	public EntitySet<Pack> PacksByMalaria
+	{
+		get
+		{
+			return this._PacksByMalaria;
+		}
+		set
+		{
+			this._PacksByMalaria.Assign(value);
+		}
+	}
+	
+	[Association(Name="TestDef_Pack6", Storage="_PacksByRh", ThisKey="ID", OtherKey="RhID")]
+	public EntitySet<Pack> PacksByRh
+	{
+		get
+		{
+			return this._PacksByRh;
+		}
+		set
+		{
+			this._PacksByRh.Assign(value);
+		}
+	}
+	
+	[Association(Name="TestDef_Pack7", Storage="_PacksBySubstance", ThisKey="ID", OtherKey="SubstanceID")]
 	public EntitySet<Pack> PacksBySubstance
 	{
 		get
@@ -2891,6 +2824,19 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._PacksBySubstance.Assign(value);
+		}
+	}
+	
+	[Association(Name="TestDef_Pack8", Storage="_PacksBySyphilis", ThisKey="ID", OtherKey="SyphilisID")]
+	public EntitySet<Pack> PacksBySyphilis
+	{
+		get
+		{
+			return this._PacksBySyphilis;
+		}
+		set
+		{
+			this._PacksBySyphilis.Assign(value);
 		}
 	}
 	
@@ -2960,90 +2906,6 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Parent = null;
 	}
 	
-	private void attach_TestResults(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.HBsAg = this;
-	}
-	
-	private void detach_TestResults(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.HBsAg = null;
-	}
-	
-	private void attach_TestResults1(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.HCV = this;
-	}
-	
-	private void detach_TestResults1(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.HCV = null;
-	}
-	
-	private void attach_TestResults2(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.HIV = this;
-	}
-	
-	private void detach_TestResults2(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.HIV = null;
-	}
-	
-	private void attach_TestResults3(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.Malaria = this;
-	}
-	
-	private void detach_TestResults3(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.Malaria = null;
-	}
-	
-	private void attach_TestResults4(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.Syphilis = this;
-	}
-	
-	private void detach_TestResults4(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.Syphilis = null;
-	}
-	
-	private void attach_BloodTypesByABO(BloodType entity)
-	{
-		this.SendPropertyChanging();
-		entity.ABO = this;
-	}
-	
-	private void detach_BloodTypesByABO(BloodType entity)
-	{
-		this.SendPropertyChanging();
-		entity.ABO = null;
-	}
-	
-	private void attach_BloodTypesByRH(BloodType entity)
-	{
-		this.SendPropertyChanging();
-		entity.RH = this;
-	}
-	
-	private void detach_BloodTypesByRH(BloodType entity)
-	{
-		this.SendPropertyChanging();
-		entity.RH = null;
-	}
-	
 	private void attach_CampaignsBySource(Campaign entity)
 	{
 		this.SendPropertyChanging();
@@ -3068,6 +2930,18 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.TestDef = null;
 	}
 	
+	private void attach_PacksByABO(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.ABO = this;
+	}
+	
+	private void detach_PacksByABO(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.ABO = null;
+	}
+	
 	private void attach_PacksByComponent(Pack entity)
 	{
 		this.SendPropertyChanging();
@@ -3080,28 +2954,64 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Component = null;
 	}
 	
-	private void attach_PacksByFeedback(Pack entity)
+	private void attach_PacksByHBsAg(Pack entity)
 	{
 		this.SendPropertyChanging();
-		entity.Feedback = this;
+		entity.HBsAg = this;
 	}
 	
-	private void detach_PacksByFeedback(Pack entity)
+	private void detach_PacksByHBsAg(Pack entity)
 	{
 		this.SendPropertyChanging();
-		entity.Feedback = null;
+		entity.HBsAg = null;
 	}
 	
-	private void attach_PacksBySource(Pack entity)
+	private void attach_PacksByHCV(Pack entity)
 	{
 		this.SendPropertyChanging();
-		entity.Source = this;
+		entity.HCV = this;
 	}
 	
-	private void detach_PacksBySource(Pack entity)
+	private void detach_PacksByHCV(Pack entity)
 	{
 		this.SendPropertyChanging();
-		entity.Source = null;
+		entity.HCV = null;
+	}
+	
+	private void attach_PacksByHIV(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.HIV = this;
+	}
+	
+	private void detach_PacksByHIV(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.HIV = null;
+	}
+	
+	private void attach_PacksByMalaria(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Malaria = this;
+	}
+	
+	private void detach_PacksByMalaria(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Malaria = null;
+	}
+	
+	private void attach_PacksByRh(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Rh = this;
+	}
+	
+	private void detach_PacksByRh(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Rh = null;
 	}
 	
 	private void attach_PacksBySubstance(Pack entity)
@@ -3114,6 +3024,18 @@ public partial class TestDef : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Substance = null;
+	}
+	
+	private void attach_PacksBySyphilis(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Syphilis = this;
+	}
+	
+	private void detach_PacksBySyphilis(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Syphilis = null;
 	}
 }
 
@@ -3169,9 +3091,9 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _NameNoDiacritics;
 	
-	private EntitySet<Pack> _Packs;
-	
 	private EntitySet<Order> _Orders;
+	
+	private EntitySet<Pack> _Packs;
 	
 	private EntityRef<Hospital> _Hospital;
 	
@@ -3243,8 +3165,8 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public People()
 	{
-		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 		this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
+		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 		this._Hospital = default(EntityRef<Hospital>);
 		this._Geo = default(EntityRef<Geo>);
 		this._Geo1 = default(EntityRef<Geo>);
@@ -3748,19 +3670,6 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="People_Pack", Storage="_Packs", ThisKey="ID", OtherKey="PeopleID")]
-	public EntitySet<Pack> Packs
-	{
-		get
-		{
-			return this._Packs;
-		}
-		set
-		{
-			this._Packs.Assign(value);
-		}
-	}
-	
 	[Association(Name="People_Order", Storage="_Orders", ThisKey="ID", OtherKey="PeopleID")]
 	public EntitySet<Order> Orders
 	{
@@ -3771,6 +3680,19 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._Orders.Assign(value);
+		}
+	}
+	
+	[Association(Name="People_Pack", Storage="_Packs", ThisKey="ID", OtherKey="PeopleID")]
+	public EntitySet<Pack> Packs
+	{
+		get
+		{
+			return this._Packs;
+		}
+		set
+		{
+			this._Packs.Assign(value);
 		}
 	}
 	
@@ -4066,18 +3988,6 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	private void attach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.People = this;
-	}
-	
-	private void detach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.People = null;
-	}
-	
 	private void attach_Orders(Order entity)
 	{
 		this.SendPropertyChanging();
@@ -4089,858 +3999,17 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		this.SendPropertyChanging();
 		entity.People = null;
 	}
-}
-
-[Table(Name="dbo.TestResult")]
-public partial class TestResult : INotifyPropertyChanging, INotifyPropertyChanged
-{
 	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private System.Guid _ID;
-	
-	private System.Nullable<System.Guid> _PackID;
-	
-	private System.Nullable<int> _Syphilis;
-	
-	private System.Nullable<int> _HBsAg;
-	
-	private System.Nullable<int> _HCV;
-	
-	private System.Nullable<int> _HIV;
-	
-	private System.Nullable<int> _Malaria;
-	
-	private System.Nullable<System.DateTime> _CommitDate;
-	
-	private System.Nullable<int> _Times;
-	
-	private string _Actor;
-	
-	private EntityRef<TestDef> _TestDef;
-	
-	private EntityRef<TestDef> _TestDef1;
-	
-	private EntityRef<TestDef> _TestDef2;
-	
-	private EntityRef<TestDef> _TestDef3;
-	
-	private EntityRef<TestDef> _TestDef4;
-	
-	private EntityRef<Pack> _Pack;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(System.Guid value);
-    partial void OnIDChanged();
-    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
-    partial void OnPackIDChanged();
-    partial void OnSyphilisIDChanging(System.Nullable<int> value);
-    partial void OnSyphilisIDChanged();
-    partial void OnHBsAgIDChanging(System.Nullable<int> value);
-    partial void OnHBsAgIDChanged();
-    partial void OnHCVIDChanging(System.Nullable<int> value);
-    partial void OnHCVIDChanged();
-    partial void OnHIVIDChanging(System.Nullable<int> value);
-    partial void OnHIVIDChanged();
-    partial void OnMalariaIDChanging(System.Nullable<int> value);
-    partial void OnMalariaIDChanged();
-    partial void OnCommitDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCommitDateChanged();
-    partial void OnTimesChanging(System.Nullable<int> value);
-    partial void OnTimesChanged();
-    partial void OnActorChanging(string value);
-    partial void OnActorChanged();
-    #endregion
-	
-	public TestResult()
+	private void attach_Packs(Pack entity)
 	{
-		this._TestDef = default(EntityRef<TestDef>);
-		this._TestDef1 = default(EntityRef<TestDef>);
-		this._TestDef2 = default(EntityRef<TestDef>);
-		this._TestDef3 = default(EntityRef<TestDef>);
-		this._TestDef4 = default(EntityRef<TestDef>);
-		this._Pack = default(EntityRef<Pack>);
-		OnCreated();
+		this.SendPropertyChanging();
+		entity.People = this;
 	}
 	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
-	public System.Guid ID
+	private void detach_Packs(Pack entity)
 	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> PackID
-	{
-		get
-		{
-			return this._PackID;
-		}
-		set
-		{
-			if ((this._PackID != value))
-			{
-				if (this._Pack.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnPackIDChanging(value);
-				this.SendPropertyChanging();
-				this._PackID = value;
-				this.SendPropertyChanged("PackID");
-				this.OnPackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Syphilis", DbType="Int")]
-	public System.Nullable<int> SyphilisID
-	{
-		get
-		{
-			return this._Syphilis;
-		}
-		set
-		{
-			if ((this._Syphilis != value))
-			{
-				if (this._TestDef4.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnSyphilisIDChanging(value);
-				this.SendPropertyChanging();
-				this._Syphilis = value;
-				this.SendPropertyChanged("SyphilisID");
-				this.OnSyphilisIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_HBsAg", DbType="Int")]
-	public System.Nullable<int> HBsAgID
-	{
-		get
-		{
-			return this._HBsAg;
-		}
-		set
-		{
-			if ((this._HBsAg != value))
-			{
-				if (this._TestDef.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnHBsAgIDChanging(value);
-				this.SendPropertyChanging();
-				this._HBsAg = value;
-				this.SendPropertyChanged("HBsAgID");
-				this.OnHBsAgIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_HCV", DbType="Int")]
-	public System.Nullable<int> HCVID
-	{
-		get
-		{
-			return this._HCV;
-		}
-		set
-		{
-			if ((this._HCV != value))
-			{
-				if (this._TestDef1.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnHCVIDChanging(value);
-				this.SendPropertyChanging();
-				this._HCV = value;
-				this.SendPropertyChanged("HCVID");
-				this.OnHCVIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_HIV", DbType="Int")]
-	public System.Nullable<int> HIVID
-	{
-		get
-		{
-			return this._HIV;
-		}
-		set
-		{
-			if ((this._HIV != value))
-			{
-				if (this._TestDef2.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnHIVIDChanging(value);
-				this.SendPropertyChanging();
-				this._HIV = value;
-				this.SendPropertyChanged("HIVID");
-				this.OnHIVIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Malaria", DbType="Int")]
-	public System.Nullable<int> MalariaID
-	{
-		get
-		{
-			return this._Malaria;
-		}
-		set
-		{
-			if ((this._Malaria != value))
-			{
-				if (this._TestDef3.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnMalariaIDChanging(value);
-				this.SendPropertyChanging();
-				this._Malaria = value;
-				this.SendPropertyChanged("MalariaID");
-				this.OnMalariaIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_CommitDate", DbType="DateTime")]
-	public System.Nullable<System.DateTime> CommitDate
-	{
-		get
-		{
-			return this._CommitDate;
-		}
-		set
-		{
-			if ((this._CommitDate != value))
-			{
-				this.OnCommitDateChanging(value);
-				this.SendPropertyChanging();
-				this._CommitDate = value;
-				this.SendPropertyChanged("CommitDate");
-				this.OnCommitDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Times", DbType="Int")]
-	public System.Nullable<int> Times
-	{
-		get
-		{
-			return this._Times;
-		}
-		set
-		{
-			if ((this._Times != value))
-			{
-				this.OnTimesChanging(value);
-				this.SendPropertyChanging();
-				this._Times = value;
-				this.SendPropertyChanged("Times");
-				this.OnTimesChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
-	public string Actor
-	{
-		get
-		{
-			return this._Actor;
-		}
-		set
-		{
-			if ((this._Actor != value))
-			{
-				this.OnActorChanging(value);
-				this.SendPropertyChanging();
-				this._Actor = value;
-				this.SendPropertyChanged("Actor");
-				this.OnActorChanged();
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult", Storage="_TestDef", ThisKey="HBsAgID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef HBsAg
-	{
-		get
-		{
-			return this._TestDef.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._TestDef.Entity;
-			if (((previousValue != value) 
-						|| (this._TestDef.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._TestDef.Entity = null;
-					previousValue.TestResultsByHBsAg.Remove(this);
-				}
-				this._TestDef.Entity = value;
-				if ((value != null))
-				{
-					value.TestResultsByHBsAg.Add(this);
-					this._HBsAg = value.ID;
-				}
-				else
-				{
-					this._HBsAg = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("HBsAg");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult1", Storage="_TestDef1", ThisKey="HCVID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef HCV
-	{
-		get
-		{
-			return this._TestDef1.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._TestDef1.Entity;
-			if (((previousValue != value) 
-						|| (this._TestDef1.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._TestDef1.Entity = null;
-					previousValue.TestResultsByHCV.Remove(this);
-				}
-				this._TestDef1.Entity = value;
-				if ((value != null))
-				{
-					value.TestResultsByHCV.Add(this);
-					this._HCV = value.ID;
-				}
-				else
-				{
-					this._HCV = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("HCV");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult2", Storage="_TestDef2", ThisKey="HIVID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef HIV
-	{
-		get
-		{
-			return this._TestDef2.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._TestDef2.Entity;
-			if (((previousValue != value) 
-						|| (this._TestDef2.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._TestDef2.Entity = null;
-					previousValue.TestResultsByHIV.Remove(this);
-				}
-				this._TestDef2.Entity = value;
-				if ((value != null))
-				{
-					value.TestResultsByHIV.Add(this);
-					this._HIV = value.ID;
-				}
-				else
-				{
-					this._HIV = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("HIV");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult3", Storage="_TestDef3", ThisKey="MalariaID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef Malaria
-	{
-		get
-		{
-			return this._TestDef3.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._TestDef3.Entity;
-			if (((previousValue != value) 
-						|| (this._TestDef3.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._TestDef3.Entity = null;
-					previousValue.TestResultsByMalaria.Remove(this);
-				}
-				this._TestDef3.Entity = value;
-				if ((value != null))
-				{
-					value.TestResultsByMalaria.Add(this);
-					this._Malaria = value.ID;
-				}
-				else
-				{
-					this._Malaria = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Malaria");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_TestResult4", Storage="_TestDef4", ThisKey="SyphilisID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef Syphilis
-	{
-		get
-		{
-			return this._TestDef4.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._TestDef4.Entity;
-			if (((previousValue != value) 
-						|| (this._TestDef4.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._TestDef4.Entity = null;
-					previousValue.TestResultsBySyphilis.Remove(this);
-				}
-				this._TestDef4.Entity = value;
-				if ((value != null))
-				{
-					value.TestResultsBySyphilis.Add(this);
-					this._Syphilis = value.ID;
-				}
-				else
-				{
-					this._Syphilis = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Syphilis");
-			}
-		}
-	}
-	
-	[Association(Name="Pack_TestResult", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack Pack
-	{
-		get
-		{
-			return this._Pack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._Pack.Entity;
-			if (((previousValue != value) 
-						|| (this._Pack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Pack.Entity = null;
-					previousValue.TestResults.Remove(this);
-				}
-				this._Pack.Entity = value;
-				if ((value != null))
-				{
-					value.TestResults.Add(this);
-					this._PackID = value.ID;
-				}
-				else
-				{
-					this._PackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Pack");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[Table(Name="dbo.BloodType")]
-public partial class BloodType : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private System.Guid _ID;
-	
-	private System.Nullable<System.Guid> _PackID;
-	
-	private System.Nullable<int> _aboID;
-	
-	private System.Nullable<int> _rhID;
-	
-	private System.Nullable<System.DateTime> _CommitDate;
-	
-	private System.Nullable<int> _Times;
-	
-	private string _Actor;
-	
-	private EntityRef<TestDef> _ABO;
-	
-	private EntityRef<TestDef> _RH;
-	
-	private EntityRef<Pack> _Pack;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(System.Guid value);
-    partial void OnIDChanged();
-    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
-    partial void OnPackIDChanged();
-    partial void OnaboIDChanging(System.Nullable<int> value);
-    partial void OnaboIDChanged();
-    partial void OnrhIDChanging(System.Nullable<int> value);
-    partial void OnrhIDChanged();
-    partial void OnCommitDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCommitDateChanged();
-    partial void OnTimesChanging(System.Nullable<int> value);
-    partial void OnTimesChanged();
-    partial void OnActorChanging(string value);
-    partial void OnActorChanged();
-    #endregion
-	
-	public BloodType()
-	{
-		this._ABO = default(EntityRef<TestDef>);
-		this._RH = default(EntityRef<TestDef>);
-		this._Pack = default(EntityRef<Pack>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
-	public System.Guid ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> PackID
-	{
-		get
-		{
-			return this._PackID;
-		}
-		set
-		{
-			if ((this._PackID != value))
-			{
-				if (this._Pack.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnPackIDChanging(value);
-				this.SendPropertyChanging();
-				this._PackID = value;
-				this.SendPropertyChanged("PackID");
-				this.OnPackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_aboID", DbType="Int")]
-	public System.Nullable<int> aboID
-	{
-		get
-		{
-			return this._aboID;
-		}
-		set
-		{
-			if ((this._aboID != value))
-			{
-				if (this._ABO.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnaboIDChanging(value);
-				this.SendPropertyChanging();
-				this._aboID = value;
-				this.SendPropertyChanged("aboID");
-				this.OnaboIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_rhID", DbType="Int")]
-	public System.Nullable<int> rhID
-	{
-		get
-		{
-			return this._rhID;
-		}
-		set
-		{
-			if ((this._rhID != value))
-			{
-				if (this._RH.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnrhIDChanging(value);
-				this.SendPropertyChanging();
-				this._rhID = value;
-				this.SendPropertyChanged("rhID");
-				this.OnrhIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_CommitDate", DbType="DateTime")]
-	public System.Nullable<System.DateTime> CommitDate
-	{
-		get
-		{
-			return this._CommitDate;
-		}
-		set
-		{
-			if ((this._CommitDate != value))
-			{
-				this.OnCommitDateChanging(value);
-				this.SendPropertyChanging();
-				this._CommitDate = value;
-				this.SendPropertyChanged("CommitDate");
-				this.OnCommitDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Times", DbType="Int")]
-	public System.Nullable<int> Times
-	{
-		get
-		{
-			return this._Times;
-		}
-		set
-		{
-			if ((this._Times != value))
-			{
-				this.OnTimesChanging(value);
-				this.SendPropertyChanging();
-				this._Times = value;
-				this.SendPropertyChanged("Times");
-				this.OnTimesChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
-	public string Actor
-	{
-		get
-		{
-			return this._Actor;
-		}
-		set
-		{
-			if ((this._Actor != value))
-			{
-				this.OnActorChanging(value);
-				this.SendPropertyChanging();
-				this._Actor = value;
-				this.SendPropertyChanged("Actor");
-				this.OnActorChanged();
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_BloodType", Storage="_ABO", ThisKey="aboID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef ABO
-	{
-		get
-		{
-			return this._ABO.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._ABO.Entity;
-			if (((previousValue != value) 
-						|| (this._ABO.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._ABO.Entity = null;
-					previousValue.BloodTypesByABO.Remove(this);
-				}
-				this._ABO.Entity = value;
-				if ((value != null))
-				{
-					value.BloodTypesByABO.Add(this);
-					this._aboID = value.ID;
-				}
-				else
-				{
-					this._aboID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("ABO");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_BloodType1", Storage="_RH", ThisKey="rhID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef RH
-	{
-		get
-		{
-			return this._RH.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._RH.Entity;
-			if (((previousValue != value) 
-						|| (this._RH.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._RH.Entity = null;
-					previousValue.BloodTypesByRH.Remove(this);
-				}
-				this._RH.Entity = value;
-				if ((value != null))
-				{
-					value.BloodTypesByRH.Add(this);
-					this._rhID = value.ID;
-				}
-				else
-				{
-					this._rhID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("RH");
-			}
-		}
-	}
-	
-	[Association(Name="Pack_BloodType", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack Pack
-	{
-		get
-		{
-			return this._Pack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._Pack.Entity;
-			if (((previousValue != value) 
-						|| (this._Pack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Pack.Entity = null;
-					previousValue.BloodTypes.Remove(this);
-				}
-				this._Pack.Entity = value;
-				if ((value != null))
-				{
-					value.BloodTypes.Add(this);
-					this._PackID = value.ID;
-				}
-				else
-				{
-					this._PackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Pack");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
+		this.SendPropertyChanging();
+		entity.People = null;
 	}
 }
 
@@ -6912,9 +5981,9 @@ public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChang
 	
 	private string _Note;
 	
-	private EntityRef<Pack> _Pack;
+	private EntityRef<Pack> _SourcePack;
 	
-	private EntityRef<Pack> _Pack1;
+	private EntityRef<Pack> _ExtractPack;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -6932,8 +6001,8 @@ public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChang
 	
 	public PackExtract()
 	{
-		this._Pack = default(EntityRef<Pack>);
-		this._Pack1 = default(EntityRef<Pack>);
+		this._SourcePack = default(EntityRef<Pack>);
+		this._ExtractPack = default(EntityRef<Pack>);
 		OnCreated();
 	}
 	
@@ -6968,7 +6037,7 @@ public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChang
 		{
 			if ((this._SourcePackID != value))
 			{
-				if (this._Pack.HasLoadedOrAssignedValue)
+				if (this._SourcePack.HasLoadedOrAssignedValue)
 				{
 					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 				}
@@ -6992,7 +6061,7 @@ public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChang
 		{
 			if ((this._ExtractPackID != value))
 			{
-				if (this._Pack1.HasLoadedOrAssignedValue)
+				if (this._ExtractPack.HasLoadedOrAssignedValue)
 				{
 					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 				}
@@ -7025,26 +6094,26 @@ public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChang
 		}
 	}
 	
-	[Association(Name="Pack_PackExtract", Storage="_Pack", ThisKey="SourcePackID", OtherKey="ID", IsForeignKey=true)]
+	[Association(Name="Pack_PackExtract", Storage="_SourcePack", ThisKey="SourcePackID", OtherKey="ID", IsForeignKey=true)]
 	public Pack SourcePack
 	{
 		get
 		{
-			return this._Pack.Entity;
+			return this._SourcePack.Entity;
 		}
 		set
 		{
-			Pack previousValue = this._Pack.Entity;
+			Pack previousValue = this._SourcePack.Entity;
 			if (((previousValue != value) 
-						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+						|| (this._SourcePack.HasLoadedOrAssignedValue == false)))
 			{
 				this.SendPropertyChanging();
 				if ((previousValue != null))
 				{
-					this._Pack.Entity = null;
+					this._SourcePack.Entity = null;
 					previousValue.PackExtractsBySource.Remove(this);
 				}
-				this._Pack.Entity = value;
+				this._SourcePack.Entity = value;
 				if ((value != null))
 				{
 					value.PackExtractsBySource.Add(this);
@@ -7059,26 +6128,26 @@ public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChang
 		}
 	}
 	
-	[Association(Name="Pack_PackExtract1", Storage="_Pack1", ThisKey="ExtractPackID", OtherKey="ID", IsForeignKey=true)]
+	[Association(Name="Pack_PackExtract1", Storage="_ExtractPack", ThisKey="ExtractPackID", OtherKey="ID", IsForeignKey=true)]
 	public Pack ExtractPack
 	{
 		get
 		{
-			return this._Pack1.Entity;
+			return this._ExtractPack.Entity;
 		}
 		set
 		{
-			Pack previousValue = this._Pack1.Entity;
+			Pack previousValue = this._ExtractPack.Entity;
 			if (((previousValue != value) 
-						|| (this._Pack1.HasLoadedOrAssignedValue == false)))
+						|| (this._ExtractPack.HasLoadedOrAssignedValue == false)))
 			{
 				this.SendPropertyChanging();
 				if ((previousValue != null))
 				{
-					this._Pack1.Entity = null;
+					this._ExtractPack.Entity = null;
 					previousValue.PackExtractsByExtract.Remove(this);
 				}
-				this._Pack1.Entity = value;
+				this._ExtractPack.Entity = value;
 				if ((value != null))
 				{
 					value.PackExtractsByExtract.Add(this);
@@ -7114,1011 +6183,6 @@ public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChang
 	}
 }
 
-[Table(Name="dbo.Pack")]
-public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private System.Guid _ID;
-	
-	private string _Codabar;
-	
-	private System.Nullable<System.Guid> _PeopleID;
-	
-	private Pack.StatusX _Status;
-	
-	private System.Nullable<System.DateTime> _CollectedDate;
-	
-	private System.Nullable<int> _Volume;
-	
-	private System.Nullable<System.Guid> _HospitalID;
-	
-	private string _Note;
-	
-	private int _Autonum;
-	
-	private System.Nullable<int> _SourceID;
-	
-	private System.Nullable<int> _ComponentID;
-	
-	private string _Actor;
-	
-	private System.Nullable<int> _CampaignID;
-	
-	private System.Nullable<int> _FeedbackID;
-	
-	private Pack.TestResultStatusX _TestResultStatus;
-	
-	private System.Nullable<int> _SubstanceID;
-	
-	private Pack.DeliverStatusX _DeliverStatus;
-	
-	private string _MSTM;
-	
-	private string _MSNH;
-	
-	private EntitySet<TestResult> _TestResults;
-	
-	private EntitySet<BloodType> _BloodTypes;
-	
-	private EntitySet<PackStatusHistory> _PackStatusHistories;
-	
-	private EntitySet<PackResultHistory> _PackResultHistories;
-	
-	private EntitySet<PackExtract> _PackExtracts;
-	
-	private EntitySet<PackExtract> _PackExtracts1;
-	
-	private EntitySet<PackOrder> _PackOrders;
-	
-	private EntitySet<PackSideEffect> _PackSideEffects;
-	
-	private EntityRef<Campaign> _Campaign;
-	
-	private EntityRef<Hospital> _Hospital;
-	
-	private EntityRef<People> _People;
-	
-	private EntityRef<TestDef> _Component;
-	
-	private EntityRef<TestDef> _Feedback;
-	
-	private EntityRef<TestDef> _Source;
-	
-	private EntityRef<TestDef> _Substance;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(System.Guid value);
-    partial void OnIDChanged();
-    partial void OnCodabarChanging(string value);
-    partial void OnCodabarChanged();
-    partial void OnPeopleIDChanging(System.Nullable<System.Guid> value);
-    partial void OnPeopleIDChanged();
-    partial void OnStatusChanging(Pack.StatusX value);
-    partial void OnStatusChanged();
-    partial void OnCollectedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCollectedDateChanged();
-    partial void OnVolumeChanging(System.Nullable<int> value);
-    partial void OnVolumeChanged();
-    partial void OnHospitalIDChanging(System.Nullable<System.Guid> value);
-    partial void OnHospitalIDChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    partial void OnAutonumChanging(int value);
-    partial void OnAutonumChanged();
-    partial void OnSourceIDChanging(System.Nullable<int> value);
-    partial void OnSourceIDChanged();
-    partial void OnComponentIDChanging(System.Nullable<int> value);
-    partial void OnComponentIDChanged();
-    partial void OnActorChanging(string value);
-    partial void OnActorChanged();
-    partial void OnCampaignIDChanging(System.Nullable<int> value);
-    partial void OnCampaignIDChanged();
-    partial void OnFeedbackIDChanging(System.Nullable<int> value);
-    partial void OnFeedbackIDChanged();
-    partial void OnTestResultStatusChanging(Pack.TestResultStatusX value);
-    partial void OnTestResultStatusChanged();
-    partial void OnSubstanceIDChanging(System.Nullable<int> value);
-    partial void OnSubstanceIDChanged();
-    partial void OnDeliverStatusChanging(Pack.DeliverStatusX value);
-    partial void OnDeliverStatusChanged();
-    partial void OnMSTMChanging(string value);
-    partial void OnMSTMChanged();
-    partial void OnMSNHChanging(string value);
-    partial void OnMSNHChanged();
-    #endregion
-	
-	public Pack()
-	{
-		this._TestResults = new EntitySet<TestResult>(new Action<TestResult>(this.attach_TestResults), new Action<TestResult>(this.detach_TestResults));
-		this._BloodTypes = new EntitySet<BloodType>(new Action<BloodType>(this.attach_BloodTypes), new Action<BloodType>(this.detach_BloodTypes));
-		this._PackStatusHistories = new EntitySet<PackStatusHistory>(new Action<PackStatusHistory>(this.attach_PackStatusHistories), new Action<PackStatusHistory>(this.detach_PackStatusHistories));
-		this._PackResultHistories = new EntitySet<PackResultHistory>(new Action<PackResultHistory>(this.attach_PackResultHistories), new Action<PackResultHistory>(this.detach_PackResultHistories));
-		this._PackExtracts = new EntitySet<PackExtract>(new Action<PackExtract>(this.attach_PackExtracts), new Action<PackExtract>(this.detach_PackExtracts));
-		this._PackExtracts1 = new EntitySet<PackExtract>(new Action<PackExtract>(this.attach_PackExtracts1), new Action<PackExtract>(this.detach_PackExtracts1));
-		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
-		this._PackSideEffects = new EntitySet<PackSideEffect>(new Action<PackSideEffect>(this.attach_PackSideEffects), new Action<PackSideEffect>(this.detach_PackSideEffects));
-		this._Campaign = default(EntityRef<Campaign>);
-		this._Hospital = default(EntityRef<Hospital>);
-		this._People = default(EntityRef<People>);
-		this._Component = default(EntityRef<TestDef>);
-		this._Feedback = default(EntityRef<TestDef>);
-		this._Source = default(EntityRef<TestDef>);
-		this._Substance = default(EntityRef<TestDef>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
-	public System.Guid ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Codabar", DbType="NVarChar(MAX)")]
-	public string Codabar
-	{
-		get
-		{
-			return this._Codabar;
-		}
-		set
-		{
-			if ((this._Codabar != value))
-			{
-				this.OnCodabarChanging(value);
-				this.SendPropertyChanging();
-				this._Codabar = value;
-				this.SendPropertyChanged("Codabar");
-				this.OnCodabarChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PeopleID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> PeopleID
-	{
-		get
-		{
-			return this._PeopleID;
-		}
-		set
-		{
-			if ((this._PeopleID != value))
-			{
-				if (this._People.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnPeopleIDChanging(value);
-				this.SendPropertyChanging();
-				this._PeopleID = value;
-				this.SendPropertyChanged("PeopleID");
-				this.OnPeopleIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
-	public Pack.StatusX Status
-	{
-		get
-		{
-			return this._Status;
-		}
-		set
-		{
-			if ((this._Status != value))
-			{
-				this.OnStatusChanging(value);
-				this.SendPropertyChanging();
-				this._Status = value;
-				this.SendPropertyChanged("Status");
-				this.OnStatusChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_CollectedDate", DbType="DateTime")]
-	public System.Nullable<System.DateTime> CollectedDate
-	{
-		get
-		{
-			return this._CollectedDate;
-		}
-		set
-		{
-			if ((this._CollectedDate != value))
-			{
-				this.OnCollectedDateChanging(value);
-				this.SendPropertyChanging();
-				this._CollectedDate = value;
-				this.SendPropertyChanged("CollectedDate");
-				this.OnCollectedDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Volume", DbType="Int")]
-	public System.Nullable<int> Volume
-	{
-		get
-		{
-			return this._Volume;
-		}
-		set
-		{
-			if ((this._Volume != value))
-			{
-				this.OnVolumeChanging(value);
-				this.SendPropertyChanging();
-				this._Volume = value;
-				this.SendPropertyChanged("Volume");
-				this.OnVolumeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_HospitalID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> HospitalID
-	{
-		get
-		{
-			return this._HospitalID;
-		}
-		set
-		{
-			if ((this._HospitalID != value))
-			{
-				if (this._Hospital.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnHospitalIDChanging(value);
-				this.SendPropertyChanging();
-				this._HospitalID = value;
-				this.SendPropertyChanged("HospitalID");
-				this.OnHospitalIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this.OnNoteChanging(value);
-				this.SendPropertyChanging();
-				this._Note = value;
-				this.SendPropertyChanged("Note");
-				this.OnNoteChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Autonum", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-	public int Autonum
-	{
-		get
-		{
-			return this._Autonum;
-		}
-		set
-		{
-			if ((this._Autonum != value))
-			{
-				this.OnAutonumChanging(value);
-				this.SendPropertyChanging();
-				this._Autonum = value;
-				this.SendPropertyChanged("Autonum");
-				this.OnAutonumChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_SourceID", DbType="Int")]
-	public System.Nullable<int> SourceID
-	{
-		get
-		{
-			return this._SourceID;
-		}
-		set
-		{
-			if ((this._SourceID != value))
-			{
-				if (this._Source.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnSourceIDChanging(value);
-				this.SendPropertyChanging();
-				this._SourceID = value;
-				this.SendPropertyChanged("SourceID");
-				this.OnSourceIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ComponentID", DbType="Int")]
-	public System.Nullable<int> ComponentID
-	{
-		get
-		{
-			return this._ComponentID;
-		}
-		set
-		{
-			if ((this._ComponentID != value))
-			{
-				if (this._Component.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnComponentIDChanging(value);
-				this.SendPropertyChanging();
-				this._ComponentID = value;
-				this.SendPropertyChanged("ComponentID");
-				this.OnComponentIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
-	public string Actor
-	{
-		get
-		{
-			return this._Actor;
-		}
-		set
-		{
-			if ((this._Actor != value))
-			{
-				this.OnActorChanging(value);
-				this.SendPropertyChanging();
-				this._Actor = value;
-				this.SendPropertyChanged("Actor");
-				this.OnActorChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_CampaignID", DbType="Int")]
-	public System.Nullable<int> CampaignID
-	{
-		get
-		{
-			return this._CampaignID;
-		}
-		set
-		{
-			if ((this._CampaignID != value))
-			{
-				if (this._Campaign.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnCampaignIDChanging(value);
-				this.SendPropertyChanging();
-				this._CampaignID = value;
-				this.SendPropertyChanged("CampaignID");
-				this.OnCampaignIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_FeedbackID", DbType="Int")]
-	public System.Nullable<int> FeedbackID
-	{
-		get
-		{
-			return this._FeedbackID;
-		}
-		set
-		{
-			if ((this._FeedbackID != value))
-			{
-				if (this._Feedback.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnFeedbackIDChanging(value);
-				this.SendPropertyChanging();
-				this._FeedbackID = value;
-				this.SendPropertyChanged("FeedbackID");
-				this.OnFeedbackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TestResultStatus", DbType="Int", CanBeNull=true)]
-	public Pack.TestResultStatusX TestResultStatus
-	{
-		get
-		{
-			return this._TestResultStatus;
-		}
-		set
-		{
-			if ((this._TestResultStatus != value))
-			{
-				this.OnTestResultStatusChanging(value);
-				this.SendPropertyChanging();
-				this._TestResultStatus = value;
-				this.SendPropertyChanged("TestResultStatus");
-				this.OnTestResultStatusChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_SubstanceID", DbType="Int")]
-	public System.Nullable<int> SubstanceID
-	{
-		get
-		{
-			return this._SubstanceID;
-		}
-		set
-		{
-			if ((this._SubstanceID != value))
-			{
-				if (this._Substance.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnSubstanceIDChanging(value);
-				this.SendPropertyChanging();
-				this._SubstanceID = value;
-				this.SendPropertyChanged("SubstanceID");
-				this.OnSubstanceIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_DeliverStatus", DbType="Int", CanBeNull=true)]
-	public Pack.DeliverStatusX DeliverStatus
-	{
-		get
-		{
-			return this._DeliverStatus;
-		}
-		set
-		{
-			if ((this._DeliverStatus != value))
-			{
-				this.OnDeliverStatusChanging(value);
-				this.SendPropertyChanging();
-				this._DeliverStatus = value;
-				this.SendPropertyChanged("DeliverStatus");
-				this.OnDeliverStatusChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_MSTM", DbType="NVarChar(MAX)")]
-	public string MSTM
-	{
-		get
-		{
-			return this._MSTM;
-		}
-		set
-		{
-			if ((this._MSTM != value))
-			{
-				this.OnMSTMChanging(value);
-				this.SendPropertyChanging();
-				this._MSTM = value;
-				this.SendPropertyChanged("MSTM");
-				this.OnMSTMChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_MSNH", DbType="NVarChar(MAX)")]
-	public string MSNH
-	{
-		get
-		{
-			return this._MSNH;
-		}
-		set
-		{
-			if ((this._MSNH != value))
-			{
-				this.OnMSNHChanging(value);
-				this.SendPropertyChanging();
-				this._MSNH = value;
-				this.SendPropertyChanged("MSNH");
-				this.OnMSNHChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Pack_TestResult", Storage="_TestResults", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<TestResult> TestResults
-	{
-		get
-		{
-			return this._TestResults;
-		}
-		set
-		{
-			this._TestResults.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_BloodType", Storage="_BloodTypes", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<BloodType> BloodTypes
-	{
-		get
-		{
-			return this._BloodTypes;
-		}
-		set
-		{
-			this._BloodTypes.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackStatusHistory", Storage="_PackStatusHistories", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<PackStatusHistory> PackStatusHistories
-	{
-		get
-		{
-			return this._PackStatusHistories;
-		}
-		set
-		{
-			this._PackStatusHistories.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackResultHistory", Storage="_PackResultHistories", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<PackResultHistory> PackResultHistories
-	{
-		get
-		{
-			return this._PackResultHistories;
-		}
-		set
-		{
-			this._PackResultHistories.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackExtract", Storage="_PackExtracts", ThisKey="ID", OtherKey="SourcePackID")]
-	public EntitySet<PackExtract> PackExtractsBySource
-	{
-		get
-		{
-			return this._PackExtracts;
-		}
-		set
-		{
-			this._PackExtracts.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackExtract1", Storage="_PackExtracts1", ThisKey="ID", OtherKey="ExtractPackID")]
-	public EntitySet<PackExtract> PackExtractsByExtract
-	{
-		get
-		{
-			return this._PackExtracts1;
-		}
-		set
-		{
-			this._PackExtracts1.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackOrder", Storage="_PackOrders", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<PackOrder> PackOrders
-	{
-		get
-		{
-			return this._PackOrders;
-		}
-		set
-		{
-			this._PackOrders.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackSideEffect", Storage="_PackSideEffects", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<PackSideEffect> PackSideEffects
-	{
-		get
-		{
-			return this._PackSideEffects;
-		}
-		set
-		{
-			this._PackSideEffects.Assign(value);
-		}
-	}
-	
-	[Association(Name="Campaign_Pack", Storage="_Campaign", ThisKey="CampaignID", OtherKey="ID", IsForeignKey=true)]
-	public Campaign Campaign
-	{
-		get
-		{
-			return this._Campaign.Entity;
-		}
-		set
-		{
-			Campaign previousValue = this._Campaign.Entity;
-			if (((previousValue != value) 
-						|| (this._Campaign.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Campaign.Entity = null;
-					previousValue.Packs.Remove(this);
-				}
-				this._Campaign.Entity = value;
-				if ((value != null))
-				{
-					value.Packs.Add(this);
-					this._CampaignID = value.ID;
-				}
-				else
-				{
-					this._CampaignID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Campaign");
-			}
-		}
-	}
-	
-	[Association(Name="Hospital_Pack", Storage="_Hospital", ThisKey="HospitalID", OtherKey="ID", IsForeignKey=true)]
-	public Hospital Hospital
-	{
-		get
-		{
-			return this._Hospital.Entity;
-		}
-		set
-		{
-			Hospital previousValue = this._Hospital.Entity;
-			if (((previousValue != value) 
-						|| (this._Hospital.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Hospital.Entity = null;
-					previousValue.Packs.Remove(this);
-				}
-				this._Hospital.Entity = value;
-				if ((value != null))
-				{
-					value.Packs.Add(this);
-					this._HospitalID = value.ID;
-				}
-				else
-				{
-					this._HospitalID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Hospital");
-			}
-		}
-	}
-	
-	[Association(Name="People_Pack", Storage="_People", ThisKey="PeopleID", OtherKey="ID", IsForeignKey=true)]
-	public People People
-	{
-		get
-		{
-			return this._People.Entity;
-		}
-		set
-		{
-			People previousValue = this._People.Entity;
-			if (((previousValue != value) 
-						|| (this._People.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._People.Entity = null;
-					previousValue.Packs.Remove(this);
-				}
-				this._People.Entity = value;
-				if ((value != null))
-				{
-					value.Packs.Add(this);
-					this._PeopleID = value.ID;
-				}
-				else
-				{
-					this._PeopleID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("People");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_Pack", Storage="_Component", ThisKey="ComponentID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef Component
-	{
-		get
-		{
-			return this._Component.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._Component.Entity;
-			if (((previousValue != value) 
-						|| (this._Component.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Component.Entity = null;
-					previousValue.PacksByComponent.Remove(this);
-				}
-				this._Component.Entity = value;
-				if ((value != null))
-				{
-					value.PacksByComponent.Add(this);
-					this._ComponentID = value.ID;
-				}
-				else
-				{
-					this._ComponentID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Component");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_Pack1", Storage="_Feedback", ThisKey="FeedbackID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef Feedback
-	{
-		get
-		{
-			return this._Feedback.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._Feedback.Entity;
-			if (((previousValue != value) 
-						|| (this._Feedback.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Feedback.Entity = null;
-					previousValue.PacksByFeedback.Remove(this);
-				}
-				this._Feedback.Entity = value;
-				if ((value != null))
-				{
-					value.PacksByFeedback.Add(this);
-					this._FeedbackID = value.ID;
-				}
-				else
-				{
-					this._FeedbackID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Feedback");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_Pack2", Storage="_Source", ThisKey="SourceID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef Source
-	{
-		get
-		{
-			return this._Source.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._Source.Entity;
-			if (((previousValue != value) 
-						|| (this._Source.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Source.Entity = null;
-					previousValue.PacksBySource.Remove(this);
-				}
-				this._Source.Entity = value;
-				if ((value != null))
-				{
-					value.PacksBySource.Add(this);
-					this._SourceID = value.ID;
-				}
-				else
-				{
-					this._SourceID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Source");
-			}
-		}
-	}
-	
-	[Association(Name="TestDef_Pack3", Storage="_Substance", ThisKey="SubstanceID", OtherKey="ID", IsForeignKey=true)]
-	public TestDef Substance
-	{
-		get
-		{
-			return this._Substance.Entity;
-		}
-		set
-		{
-			TestDef previousValue = this._Substance.Entity;
-			if (((previousValue != value) 
-						|| (this._Substance.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Substance.Entity = null;
-					previousValue.PacksBySubstance.Remove(this);
-				}
-				this._Substance.Entity = value;
-				if ((value != null))
-				{
-					value.PacksBySubstance.Add(this);
-					this._SubstanceID = value.ID;
-				}
-				else
-				{
-					this._SubstanceID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Substance");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_TestResults(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_TestResults(TestResult entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_BloodTypes(BloodType entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_BloodTypes(BloodType entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_PackStatusHistories(PackStatusHistory entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_PackStatusHistories(PackStatusHistory entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_PackResultHistories(PackResultHistory entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_PackResultHistories(PackResultHistory entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_PackExtracts(PackExtract entity)
-	{
-		this.SendPropertyChanging();
-		entity.SourcePack = this;
-	}
-	
-	private void detach_PackExtracts(PackExtract entity)
-	{
-		this.SendPropertyChanging();
-		entity.SourcePack = null;
-	}
-	
-	private void attach_PackExtracts1(PackExtract entity)
-	{
-		this.SendPropertyChanging();
-		entity.ExtractPack = this;
-	}
-	
-	private void detach_PackExtracts1(PackExtract entity)
-	{
-		this.SendPropertyChanging();
-		entity.ExtractPack = null;
-	}
-	
-	private void attach_PackOrders(PackOrder entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_PackOrders(PackOrder entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_PackSideEffects(PackSideEffect entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_PackSideEffects(PackSideEffect entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-}
-
 [Table(Name="dbo.PackOrder")]
 public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -8137,9 +6201,9 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _Note;
 	
-	private EntityRef<Pack> _Pack;
-	
 	private EntityRef<Order> _Order;
+	
+	private EntityRef<Pack> _Pack;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -8161,8 +6225,8 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public PackOrder()
 	{
-		this._Pack = default(EntityRef<Pack>);
 		this._Order = default(EntityRef<Order>);
+		this._Pack = default(EntityRef<Pack>);
 		OnCreated();
 	}
 	
@@ -8294,40 +6358,6 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="Pack_PackOrder", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack Pack
-	{
-		get
-		{
-			return this._Pack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._Pack.Entity;
-			if (((previousValue != value) 
-						|| (this._Pack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Pack.Entity = null;
-					previousValue.PackOrders.Remove(this);
-				}
-				this._Pack.Entity = value;
-				if ((value != null))
-				{
-					value.PackOrders.Add(this);
-					this._PackID = value.ID;
-				}
-				else
-				{
-					this._PackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Pack");
-			}
-		}
-	}
-	
 	[Association(Name="Order_PackOrder", Storage="_Order", ThisKey="OrderID", OtherKey="ID", IsForeignKey=true)]
 	public Order Order
 	{
@@ -8358,6 +6388,40 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 					this._OrderID = default(Nullable<int>);
 				}
 				this.SendPropertyChanged("Order");
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackOrder", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.PackOrders.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.PackOrders.Add(this);
+					this._PackID = value.ID;
+				}
+				else
+				{
+					this._PackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
 			}
 		}
 	}
@@ -9234,13 +7298,13 @@ public partial class PackSideEffect : INotifyPropertyChanging, INotifyPropertyCh
 	
 	private System.Nullable<System.DateTime> _Date;
 	
-	private EntityRef<Pack> _Pack;
-	
 	private EntityRef<SideEffect> _SideEffect1;
 	
 	private EntityRef<SideEffect> _SideEffect2;
 	
 	private EntityRef<SideEffect> _SideEffect3;
+	
+	private EntityRef<Pack> _Pack;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9266,10 +7330,10 @@ public partial class PackSideEffect : INotifyPropertyChanging, INotifyPropertyCh
 	
 	public PackSideEffect()
 	{
-		this._Pack = default(EntityRef<Pack>);
 		this._SideEffect1 = default(EntityRef<SideEffect>);
 		this._SideEffect2 = default(EntityRef<SideEffect>);
 		this._SideEffect3 = default(EntityRef<SideEffect>);
+		this._Pack = default(EntityRef<Pack>);
 		OnCreated();
 	}
 	
@@ -9449,40 +7513,6 @@ public partial class PackSideEffect : INotifyPropertyChanging, INotifyPropertyCh
 		}
 	}
 	
-	[Association(Name="Pack_PackSideEffect", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack Pack
-	{
-		get
-		{
-			return this._Pack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._Pack.Entity;
-			if (((previousValue != value) 
-						|| (this._Pack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Pack.Entity = null;
-					previousValue.PackSideEffects.Remove(this);
-				}
-				this._Pack.Entity = value;
-				if ((value != null))
-				{
-					value.PackSideEffects.Add(this);
-					this._PackID = value.ID;
-				}
-				else
-				{
-					this._PackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Pack");
-			}
-		}
-	}
-	
 	[Association(Name="SideEffect_PackSideEffect", Storage="_SideEffect1", ThisKey="SideEffectID1", OtherKey="ID", IsForeignKey=true)]
 	public SideEffect SideEffect1
 	{
@@ -9581,6 +7611,40 @@ public partial class PackSideEffect : INotifyPropertyChanging, INotifyPropertyCh
 					this._SideEffectID3 = default(Nullable<System.Guid>);
 				}
 				this.SendPropertyChanged("SideEffect3");
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackSideEffect", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.PackSideEffects.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.PackSideEffects.Add(this);
+					this._PackID = value.ID;
+				}
+				else
+				{
+					this._PackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
 			}
 		}
 	}
@@ -10682,6 +8746,1256 @@ public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Order = null;
+	}
+}
+
+[Table(Name="dbo.Pack")]
+public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private System.Guid _ID;
+	
+	private System.Nullable<System.Guid> _PeopleID;
+	
+	private Pack.StatusX _Status;
+	
+	private System.Nullable<System.DateTime> _CollectedDate;
+	
+	private System.Nullable<int> _Volume;
+	
+	private System.Nullable<System.Guid> _HospitalID;
+	
+	private string _Note;
+	
+	private int _Autonum;
+	
+	private System.Nullable<int> _ComponentID;
+	
+	private string _Actor;
+	
+	private System.Nullable<int> _CampaignID;
+	
+	private Pack.TestResultStatusX _TestResultStatus;
+	
+	private System.Nullable<int> _SubstanceID;
+	
+	private Pack.DeliverStatusX _DeliverStatus;
+	
+	private string _MSTM;
+	
+	private string _MSNH;
+	
+	private System.Nullable<int> _HIVID;
+	
+	private System.Nullable<int> _HCVID;
+	
+	private System.Nullable<int> _HBsAgID;
+	
+	private System.Nullable<int> _SyphilisID;
+	
+	private System.Nullable<int> _MalariaID;
+	
+	private System.Nullable<int> _ABOID;
+	
+	private System.Nullable<int> _RhID;
+	
+	private EntitySet<PackStatusHistory> _PackStatusHistories;
+	
+	private EntitySet<PackResultHistory> _PackResultHistories;
+	
+	private EntitySet<PackExtract> _PackExtractsBySource;
+	
+	private EntitySet<PackExtract> _PackExtractsByExtract;
+	
+	private EntitySet<PackOrder> _PackOrders;
+	
+	private EntitySet<PackSideEffect> _PackSideEffects;
+	
+	private EntityRef<Campaign> _Campaign;
+	
+	private EntityRef<Hospital> _Hospital;
+	
+	private EntityRef<People> _People;
+	
+	private EntityRef<TestDef> _ABO;
+	
+	private EntityRef<TestDef> _Component;
+	
+	private EntityRef<TestDef> _HBsAg;
+	
+	private EntityRef<TestDef> _HCV;
+	
+	private EntityRef<TestDef> _HIV;
+	
+	private EntityRef<TestDef> _Malaria;
+	
+	private EntityRef<TestDef> _Rh;
+	
+	private EntityRef<TestDef> _Substance;
+	
+	private EntityRef<TestDef> _Syphilis;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(System.Guid value);
+    partial void OnIDChanged();
+    partial void OnPeopleIDChanging(System.Nullable<System.Guid> value);
+    partial void OnPeopleIDChanged();
+    partial void OnStatusChanging(Pack.StatusX value);
+    partial void OnStatusChanged();
+    partial void OnCollectedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCollectedDateChanged();
+    partial void OnVolumeChanging(System.Nullable<int> value);
+    partial void OnVolumeChanged();
+    partial void OnHospitalIDChanging(System.Nullable<System.Guid> value);
+    partial void OnHospitalIDChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    partial void OnAutonumChanging(int value);
+    partial void OnAutonumChanged();
+    partial void OnComponentIDChanging(System.Nullable<int> value);
+    partial void OnComponentIDChanged();
+    partial void OnActorChanging(string value);
+    partial void OnActorChanged();
+    partial void OnCampaignIDChanging(System.Nullable<int> value);
+    partial void OnCampaignIDChanged();
+    partial void OnTestResultStatusChanging(Pack.TestResultStatusX value);
+    partial void OnTestResultStatusChanged();
+    partial void OnSubstanceIDChanging(System.Nullable<int> value);
+    partial void OnSubstanceIDChanged();
+    partial void OnDeliverStatusChanging(Pack.DeliverStatusX value);
+    partial void OnDeliverStatusChanged();
+    partial void OnMSTMChanging(string value);
+    partial void OnMSTMChanged();
+    partial void OnMSNHChanging(string value);
+    partial void OnMSNHChanged();
+    partial void OnHIVIDChanging(System.Nullable<int> value);
+    partial void OnHIVIDChanged();
+    partial void OnHCVIDChanging(System.Nullable<int> value);
+    partial void OnHCVIDChanged();
+    partial void OnHBsAgIDChanging(System.Nullable<int> value);
+    partial void OnHBsAgIDChanged();
+    partial void OnSyphilisIDChanging(System.Nullable<int> value);
+    partial void OnSyphilisIDChanged();
+    partial void OnMalariaIDChanging(System.Nullable<int> value);
+    partial void OnMalariaIDChanged();
+    partial void OnABOIDChanging(System.Nullable<int> value);
+    partial void OnABOIDChanged();
+    partial void OnRhIDChanging(System.Nullable<int> value);
+    partial void OnRhIDChanged();
+    #endregion
+	
+	public Pack()
+	{
+		this._PackStatusHistories = new EntitySet<PackStatusHistory>(new Action<PackStatusHistory>(this.attach_PackStatusHistories), new Action<PackStatusHistory>(this.detach_PackStatusHistories));
+		this._PackResultHistories = new EntitySet<PackResultHistory>(new Action<PackResultHistory>(this.attach_PackResultHistories), new Action<PackResultHistory>(this.detach_PackResultHistories));
+		this._PackExtractsBySource = new EntitySet<PackExtract>(new Action<PackExtract>(this.attach_PackExtractsBySource), new Action<PackExtract>(this.detach_PackExtractsBySource));
+		this._PackExtractsByExtract = new EntitySet<PackExtract>(new Action<PackExtract>(this.attach_PackExtractsByExtract), new Action<PackExtract>(this.detach_PackExtractsByExtract));
+		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
+		this._PackSideEffects = new EntitySet<PackSideEffect>(new Action<PackSideEffect>(this.attach_PackSideEffects), new Action<PackSideEffect>(this.detach_PackSideEffects));
+		this._Campaign = default(EntityRef<Campaign>);
+		this._Hospital = default(EntityRef<Hospital>);
+		this._People = default(EntityRef<People>);
+		this._ABO = default(EntityRef<TestDef>);
+		this._Component = default(EntityRef<TestDef>);
+		this._HBsAg = default(EntityRef<TestDef>);
+		this._HCV = default(EntityRef<TestDef>);
+		this._HIV = default(EntityRef<TestDef>);
+		this._Malaria = default(EntityRef<TestDef>);
+		this._Rh = default(EntityRef<TestDef>);
+		this._Substance = default(EntityRef<TestDef>);
+		this._Syphilis = default(EntityRef<TestDef>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+	public System.Guid ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_PeopleID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> PeopleID
+	{
+		get
+		{
+			return this._PeopleID;
+		}
+		set
+		{
+			if ((this._PeopleID != value))
+			{
+				if (this._People.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnPeopleIDChanging(value);
+				this.SendPropertyChanging();
+				this._PeopleID = value;
+				this.SendPropertyChanged("PeopleID");
+				this.OnPeopleIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public Pack.StatusX Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_CollectedDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> CollectedDate
+	{
+		get
+		{
+			return this._CollectedDate;
+		}
+		set
+		{
+			if ((this._CollectedDate != value))
+			{
+				this.OnCollectedDateChanging(value);
+				this.SendPropertyChanging();
+				this._CollectedDate = value;
+				this.SendPropertyChanged("CollectedDate");
+				this.OnCollectedDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Volume", DbType="Int")]
+	public System.Nullable<int> Volume
+	{
+		get
+		{
+			return this._Volume;
+		}
+		set
+		{
+			if ((this._Volume != value))
+			{
+				this.OnVolumeChanging(value);
+				this.SendPropertyChanging();
+				this._Volume = value;
+				this.SendPropertyChanged("Volume");
+				this.OnVolumeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_HospitalID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> HospitalID
+	{
+		get
+		{
+			return this._HospitalID;
+		}
+		set
+		{
+			if ((this._HospitalID != value))
+			{
+				if (this._Hospital.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnHospitalIDChanging(value);
+				this.SendPropertyChanging();
+				this._HospitalID = value;
+				this.SendPropertyChanged("HospitalID");
+				this.OnHospitalIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Autonum", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+	public int Autonum
+	{
+		get
+		{
+			return this._Autonum;
+		}
+		set
+		{
+			if ((this._Autonum != value))
+			{
+				this.OnAutonumChanging(value);
+				this.SendPropertyChanging();
+				this._Autonum = value;
+				this.SendPropertyChanged("Autonum");
+				this.OnAutonumChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ComponentID", DbType="Int")]
+	public System.Nullable<int> ComponentID
+	{
+		get
+		{
+			return this._ComponentID;
+		}
+		set
+		{
+			if ((this._ComponentID != value))
+			{
+				if (this._Component.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnComponentIDChanging(value);
+				this.SendPropertyChanging();
+				this._ComponentID = value;
+				this.SendPropertyChanged("ComponentID");
+				this.OnComponentIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
+	public string Actor
+	{
+		get
+		{
+			return this._Actor;
+		}
+		set
+		{
+			if ((this._Actor != value))
+			{
+				this.OnActorChanging(value);
+				this.SendPropertyChanging();
+				this._Actor = value;
+				this.SendPropertyChanged("Actor");
+				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_CampaignID", DbType="Int")]
+	public System.Nullable<int> CampaignID
+	{
+		get
+		{
+			return this._CampaignID;
+		}
+		set
+		{
+			if ((this._CampaignID != value))
+			{
+				if (this._Campaign.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnCampaignIDChanging(value);
+				this.SendPropertyChanging();
+				this._CampaignID = value;
+				this.SendPropertyChanged("CampaignID");
+				this.OnCampaignIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_TestResultStatus", DbType="Int", CanBeNull=true)]
+	public Pack.TestResultStatusX TestResultStatus
+	{
+		get
+		{
+			return this._TestResultStatus;
+		}
+		set
+		{
+			if ((this._TestResultStatus != value))
+			{
+				this.OnTestResultStatusChanging(value);
+				this.SendPropertyChanging();
+				this._TestResultStatus = value;
+				this.SendPropertyChanged("TestResultStatus");
+				this.OnTestResultStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_SubstanceID", DbType="Int")]
+	public System.Nullable<int> SubstanceID
+	{
+		get
+		{
+			return this._SubstanceID;
+		}
+		set
+		{
+			if ((this._SubstanceID != value))
+			{
+				if (this._Substance.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSubstanceIDChanging(value);
+				this.SendPropertyChanging();
+				this._SubstanceID = value;
+				this.SendPropertyChanged("SubstanceID");
+				this.OnSubstanceIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_DeliverStatus", DbType="Int", CanBeNull=true)]
+	public Pack.DeliverStatusX DeliverStatus
+	{
+		get
+		{
+			return this._DeliverStatus;
+		}
+		set
+		{
+			if ((this._DeliverStatus != value))
+			{
+				this.OnDeliverStatusChanging(value);
+				this.SendPropertyChanging();
+				this._DeliverStatus = value;
+				this.SendPropertyChanged("DeliverStatus");
+				this.OnDeliverStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_MSTM", DbType="NVarChar(MAX)")]
+	public string MSTM
+	{
+		get
+		{
+			return this._MSTM;
+		}
+		set
+		{
+			if ((this._MSTM != value))
+			{
+				this.OnMSTMChanging(value);
+				this.SendPropertyChanging();
+				this._MSTM = value;
+				this.SendPropertyChanged("MSTM");
+				this.OnMSTMChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_MSNH", DbType="NVarChar(MAX)")]
+	public string MSNH
+	{
+		get
+		{
+			return this._MSNH;
+		}
+		set
+		{
+			if ((this._MSNH != value))
+			{
+				this.OnMSNHChanging(value);
+				this.SendPropertyChanging();
+				this._MSNH = value;
+				this.SendPropertyChanged("MSNH");
+				this.OnMSNHChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_HIVID", DbType="Int")]
+	public System.Nullable<int> HIVID
+	{
+		get
+		{
+			return this._HIVID;
+		}
+		set
+		{
+			if ((this._HIVID != value))
+			{
+				if (this._HIV.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnHIVIDChanging(value);
+				this.SendPropertyChanging();
+				this._HIVID = value;
+				this.SendPropertyChanged("HIVID");
+				this.OnHIVIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_HCVID", DbType="Int")]
+	public System.Nullable<int> HCVID
+	{
+		get
+		{
+			return this._HCVID;
+		}
+		set
+		{
+			if ((this._HCVID != value))
+			{
+				if (this._HCV.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnHCVIDChanging(value);
+				this.SendPropertyChanging();
+				this._HCVID = value;
+				this.SendPropertyChanged("HCVID");
+				this.OnHCVIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_HBsAgID", DbType="Int")]
+	public System.Nullable<int> HBsAgID
+	{
+		get
+		{
+			return this._HBsAgID;
+		}
+		set
+		{
+			if ((this._HBsAgID != value))
+			{
+				if (this._HBsAg.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnHBsAgIDChanging(value);
+				this.SendPropertyChanging();
+				this._HBsAgID = value;
+				this.SendPropertyChanged("HBsAgID");
+				this.OnHBsAgIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_SyphilisID", DbType="Int")]
+	public System.Nullable<int> SyphilisID
+	{
+		get
+		{
+			return this._SyphilisID;
+		}
+		set
+		{
+			if ((this._SyphilisID != value))
+			{
+				if (this._Syphilis.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnSyphilisIDChanging(value);
+				this.SendPropertyChanging();
+				this._SyphilisID = value;
+				this.SendPropertyChanged("SyphilisID");
+				this.OnSyphilisIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_MalariaID", DbType="Int")]
+	public System.Nullable<int> MalariaID
+	{
+		get
+		{
+			return this._MalariaID;
+		}
+		set
+		{
+			if ((this._MalariaID != value))
+			{
+				if (this._Malaria.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnMalariaIDChanging(value);
+				this.SendPropertyChanging();
+				this._MalariaID = value;
+				this.SendPropertyChanged("MalariaID");
+				this.OnMalariaIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ABOID", DbType="Int")]
+	public System.Nullable<int> ABOID
+	{
+		get
+		{
+			return this._ABOID;
+		}
+		set
+		{
+			if ((this._ABOID != value))
+			{
+				if (this._ABO.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnABOIDChanging(value);
+				this.SendPropertyChanging();
+				this._ABOID = value;
+				this.SendPropertyChanged("ABOID");
+				this.OnABOIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_RhID", DbType="Int")]
+	public System.Nullable<int> RhID
+	{
+		get
+		{
+			return this._RhID;
+		}
+		set
+		{
+			if ((this._RhID != value))
+			{
+				if (this._Rh.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnRhIDChanging(value);
+				this.SendPropertyChanging();
+				this._RhID = value;
+				this.SendPropertyChanged("RhID");
+				this.OnRhIDChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackStatusHistory", Storage="_PackStatusHistories", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackStatusHistory> PackStatusHistories
+	{
+		get
+		{
+			return this._PackStatusHistories;
+		}
+		set
+		{
+			this._PackStatusHistories.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackResultHistory", Storage="_PackResultHistories", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackResultHistory> PackResultHistories
+	{
+		get
+		{
+			return this._PackResultHistories;
+		}
+		set
+		{
+			this._PackResultHistories.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackExtract", Storage="_PackExtractsBySource", ThisKey="ID", OtherKey="SourcePackID")]
+	public EntitySet<PackExtract> PackExtractsBySource
+	{
+		get
+		{
+			return this._PackExtractsBySource;
+		}
+		set
+		{
+			this._PackExtractsBySource.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackExtract1", Storage="_PackExtractsByExtract", ThisKey="ID", OtherKey="ExtractPackID")]
+	public EntitySet<PackExtract> PackExtractsByExtract
+	{
+		get
+		{
+			return this._PackExtractsByExtract;
+		}
+		set
+		{
+			this._PackExtractsByExtract.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackOrder", Storage="_PackOrders", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackOrder> PackOrders
+	{
+		get
+		{
+			return this._PackOrders;
+		}
+		set
+		{
+			this._PackOrders.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackSideEffect", Storage="_PackSideEffects", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackSideEffect> PackSideEffects
+	{
+		get
+		{
+			return this._PackSideEffects;
+		}
+		set
+		{
+			this._PackSideEffects.Assign(value);
+		}
+	}
+	
+	[Association(Name="Campaign_Pack", Storage="_Campaign", ThisKey="CampaignID", OtherKey="ID", IsForeignKey=true)]
+	public Campaign Campaign
+	{
+		get
+		{
+			return this._Campaign.Entity;
+		}
+		set
+		{
+			Campaign previousValue = this._Campaign.Entity;
+			if (((previousValue != value) 
+						|| (this._Campaign.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Campaign.Entity = null;
+					previousValue.Packs.Remove(this);
+				}
+				this._Campaign.Entity = value;
+				if ((value != null))
+				{
+					value.Packs.Add(this);
+					this._CampaignID = value.ID;
+				}
+				else
+				{
+					this._CampaignID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Campaign");
+			}
+		}
+	}
+	
+	[Association(Name="Hospital_Pack", Storage="_Hospital", ThisKey="HospitalID", OtherKey="ID", IsForeignKey=true)]
+	public Hospital Hospital
+	{
+		get
+		{
+			return this._Hospital.Entity;
+		}
+		set
+		{
+			Hospital previousValue = this._Hospital.Entity;
+			if (((previousValue != value) 
+						|| (this._Hospital.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Hospital.Entity = null;
+					previousValue.Packs.Remove(this);
+				}
+				this._Hospital.Entity = value;
+				if ((value != null))
+				{
+					value.Packs.Add(this);
+					this._HospitalID = value.ID;
+				}
+				else
+				{
+					this._HospitalID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Hospital");
+			}
+		}
+	}
+	
+	[Association(Name="People_Pack", Storage="_People", ThisKey="PeopleID", OtherKey="ID", IsForeignKey=true)]
+	public People People
+	{
+		get
+		{
+			return this._People.Entity;
+		}
+		set
+		{
+			People previousValue = this._People.Entity;
+			if (((previousValue != value) 
+						|| (this._People.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._People.Entity = null;
+					previousValue.Packs.Remove(this);
+				}
+				this._People.Entity = value;
+				if ((value != null))
+				{
+					value.Packs.Add(this);
+					this._PeopleID = value.ID;
+				}
+				else
+				{
+					this._PeopleID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("People");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack", Storage="_ABO", ThisKey="ABOID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef ABO
+	{
+		get
+		{
+			return this._ABO.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._ABO.Entity;
+			if (((previousValue != value) 
+						|| (this._ABO.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._ABO.Entity = null;
+					previousValue.PacksByABO.Remove(this);
+				}
+				this._ABO.Entity = value;
+				if ((value != null))
+				{
+					value.PacksByABO.Add(this);
+					this._ABOID = value.ID;
+				}
+				else
+				{
+					this._ABOID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("ABO");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack1", Storage="_Component", ThisKey="ComponentID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef Component
+	{
+		get
+		{
+			return this._Component.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._Component.Entity;
+			if (((previousValue != value) 
+						|| (this._Component.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Component.Entity = null;
+					previousValue.PacksByComponent.Remove(this);
+				}
+				this._Component.Entity = value;
+				if ((value != null))
+				{
+					value.PacksByComponent.Add(this);
+					this._ComponentID = value.ID;
+				}
+				else
+				{
+					this._ComponentID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Component");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack2", Storage="_HBsAg", ThisKey="HBsAgID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef HBsAg
+	{
+		get
+		{
+			return this._HBsAg.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._HBsAg.Entity;
+			if (((previousValue != value) 
+						|| (this._HBsAg.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._HBsAg.Entity = null;
+					previousValue.PacksByHBsAg.Remove(this);
+				}
+				this._HBsAg.Entity = value;
+				if ((value != null))
+				{
+					value.PacksByHBsAg.Add(this);
+					this._HBsAgID = value.ID;
+				}
+				else
+				{
+					this._HBsAgID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("HBsAg");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack3", Storage="_HCV", ThisKey="HCVID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef HCV
+	{
+		get
+		{
+			return this._HCV.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._HCV.Entity;
+			if (((previousValue != value) 
+						|| (this._HCV.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._HCV.Entity = null;
+					previousValue.PacksByHCV.Remove(this);
+				}
+				this._HCV.Entity = value;
+				if ((value != null))
+				{
+					value.PacksByHCV.Add(this);
+					this._HCVID = value.ID;
+				}
+				else
+				{
+					this._HCVID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("HCV");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack4", Storage="_HIV", ThisKey="HIVID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef HIV
+	{
+		get
+		{
+			return this._HIV.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._HIV.Entity;
+			if (((previousValue != value) 
+						|| (this._HIV.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._HIV.Entity = null;
+					previousValue.PacksByHIV.Remove(this);
+				}
+				this._HIV.Entity = value;
+				if ((value != null))
+				{
+					value.PacksByHIV.Add(this);
+					this._HIVID = value.ID;
+				}
+				else
+				{
+					this._HIVID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("HIV");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack5", Storage="_Malaria", ThisKey="MalariaID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef Malaria
+	{
+		get
+		{
+			return this._Malaria.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._Malaria.Entity;
+			if (((previousValue != value) 
+						|| (this._Malaria.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Malaria.Entity = null;
+					previousValue.PacksByMalaria.Remove(this);
+				}
+				this._Malaria.Entity = value;
+				if ((value != null))
+				{
+					value.PacksByMalaria.Add(this);
+					this._MalariaID = value.ID;
+				}
+				else
+				{
+					this._MalariaID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Malaria");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack6", Storage="_Rh", ThisKey="RhID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef Rh
+	{
+		get
+		{
+			return this._Rh.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._Rh.Entity;
+			if (((previousValue != value) 
+						|| (this._Rh.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Rh.Entity = null;
+					previousValue.PacksByRh.Remove(this);
+				}
+				this._Rh.Entity = value;
+				if ((value != null))
+				{
+					value.PacksByRh.Add(this);
+					this._RhID = value.ID;
+				}
+				else
+				{
+					this._RhID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Rh");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack7", Storage="_Substance", ThisKey="SubstanceID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef Substance
+	{
+		get
+		{
+			return this._Substance.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._Substance.Entity;
+			if (((previousValue != value) 
+						|| (this._Substance.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Substance.Entity = null;
+					previousValue.PacksBySubstance.Remove(this);
+				}
+				this._Substance.Entity = value;
+				if ((value != null))
+				{
+					value.PacksBySubstance.Add(this);
+					this._SubstanceID = value.ID;
+				}
+				else
+				{
+					this._SubstanceID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Substance");
+			}
+		}
+	}
+	
+	[Association(Name="TestDef_Pack8", Storage="_Syphilis", ThisKey="SyphilisID", OtherKey="ID", IsForeignKey=true)]
+	public TestDef Syphilis
+	{
+		get
+		{
+			return this._Syphilis.Entity;
+		}
+		set
+		{
+			TestDef previousValue = this._Syphilis.Entity;
+			if (((previousValue != value) 
+						|| (this._Syphilis.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Syphilis.Entity = null;
+					previousValue.PacksBySyphilis.Remove(this);
+				}
+				this._Syphilis.Entity = value;
+				if ((value != null))
+				{
+					value.PacksBySyphilis.Add(this);
+					this._SyphilisID = value.ID;
+				}
+				else
+				{
+					this._SyphilisID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Syphilis");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_PackStatusHistories(PackStatusHistory entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackStatusHistories(PackStatusHistory entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackResultHistories(PackResultHistory entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackResultHistories(PackResultHistory entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackExtractsBySource(PackExtract entity)
+	{
+		this.SendPropertyChanging();
+		entity.SourcePack = this;
+	}
+	
+	private void detach_PackExtractsBySource(PackExtract entity)
+	{
+		this.SendPropertyChanging();
+		entity.SourcePack = null;
+	}
+	
+	private void attach_PackExtractsByExtract(PackExtract entity)
+	{
+		this.SendPropertyChanging();
+		entity.ExtractPack = this;
+	}
+	
+	private void detach_PackExtractsByExtract(PackExtract entity)
+	{
+		this.SendPropertyChanging();
+		entity.ExtractPack = null;
+	}
+	
+	private void attach_PackOrders(PackOrder entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackOrders(PackOrder entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackSideEffects(PackSideEffect entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackSideEffects(PackSideEffect entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
 	}
 }
 #pragma warning restore 1591
