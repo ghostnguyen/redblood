@@ -46,9 +46,10 @@
                                         <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Logo.png" />
                                     </td>
                                     <td align="center">
-                                    <span class="Title">RedBlood</span>
-                                    <br />
-                                        <asp:TextBox ID="txtCode" runat="server" Width="299" onkeyup="checkLength(this.value);" onfocus="selectedInput = true;" onblur="selectedInput = false;"></asp:TextBox>
+                                        <span class="Title">RedBlood</span>
+                                        <br />
+                                        <asp:TextBox ID="txtCode" runat="server" Width="299" onkeyup="checkLength(this.value);"
+                                            onfocus="selectedInput = true;" onblur="selectedInput = false;"></asp:TextBox>
                                         <asp:Button ID="btnOk" runat="server" Text="Ok" />
                                     </td>
                                     <td align="right" style="width: 250px;" valign="top">

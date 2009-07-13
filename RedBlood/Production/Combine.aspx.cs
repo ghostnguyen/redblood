@@ -88,14 +88,6 @@ public partial class Production_Combine : System.Web.UI.Page
         {
             CheckAutonum(CodabarBLL.ParsePackAutoNum(code));
         }
-        else if (CodabarBLL.IsValidTestResultCode(code))
-        {
-
-        }
-        else if (CodabarBLL.IsValidCampaignCode(code))
-        {
-
-        }
         else
         {
 

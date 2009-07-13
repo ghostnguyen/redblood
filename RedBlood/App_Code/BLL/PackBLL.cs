@@ -177,15 +177,20 @@ public class PackBLL
             return p;
         }
 
+        if (p.DeliverStatus == Pack.DeliverStatusX.Yes)
+        {
+            p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.DeliverStatus);
+            return p;
+        }
+
 
         if (p.Status == Pack.StatusX.Collected)
         {
-
-
             p.Err = PackErrList.Valid4Extract;
 
             p.CanExtractTo.Add(TestDef.Component.WBC);
             p.CanExtractTo.Add(TestDef.Component.RBC);
+            p.CanExtractTo.Add(TestDef.Component.Platelet);
             p.CanExtractTo.Add(TestDef.Component.FFPlasma_Poor);
 
             if (DateTime.Now - p.CollectedDate <= SystemBLL.ExpTime4ProduceFFPlasma)
@@ -200,7 +205,6 @@ public class PackBLL
                 p.Err = PackErrList.Valid4Extract;
 
                 p.CanExtractTo.Add(TestDef.Component.FactorVIII);
-                p.CanExtractTo.Add(TestDef.Component.Platelet);
                 p.CanExtractTo.Add(TestDef.Component.FFPlasma_Poor);
 
                 return p;
@@ -278,7 +282,7 @@ public class PackBLL
             p.PeopleID = peopleID;
             p.CollectedDate = DateTime.Now;
             p.CampaignID = campaignID;
-            p.Substance = TestDefBLL.Get(db, TestDef.Substance.Non);
+            p.Substance = TestDefBLL.Get(db, TestDef.Substance._21days);
             p.Component = TestDefBLL.Get(db, TestDef.Component.Full);
 
             PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Collected, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
