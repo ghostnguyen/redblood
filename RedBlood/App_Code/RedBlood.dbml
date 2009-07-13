@@ -396,6 +396,8 @@
       <Column Name="MalariaID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ABOID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="RhID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Collector" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExpiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
       <Association Name="Pack_PackResultHistory" Member="PackResultHistories" ThisKey="ID" OtherKey="PackID" Type="PackResultHistory" />
       <Association Name="Pack_PackExtract" Member="PackExtractsBySource" ThisKey="ID" OtherKey="SourcePackID" Type="PackExtract" />

@@ -762,6 +762,19 @@ public class PackBLL
         return PackErrList.Non;
     }
 
+    public void Update(string collector, List<int> autonumList)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        List<Pack> l = Get(db, autonumList);
+
+        foreach (Pack item in l)
+        {
+            item.Collector = collector;
+        }
+
+        db.SubmitChanges();
+    }
 
     public static void UpdateTestResultStatus4Full(int autonum)
     {

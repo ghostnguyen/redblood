@@ -10,7 +10,7 @@
         // Your code goes here
         $(document).bind('keydown', '7', function() {
             if (selectedInput) return;
-            window.location.replace("/RedBlood/ReceiveBlood.aspx");
+            window.location.replace("/RedBlood/Default7.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
@@ -58,10 +58,10 @@
                     <tr>
                         <td class="column">
                             <h3>
-                                <a href="/RedBlood/ReceiveBlood.aspx">7. Thu máu</a></h3>
+                                <a href="/RedBlood/Default7.aspx">7. Thu máu</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/ReceiveBlood.aspx" />
+                            <a href="/RedBlood/Default7.aspx" />
                             <img src="Image/Icon/Heart.png" alt="" />
                         </td>
                         <td class="column next">
