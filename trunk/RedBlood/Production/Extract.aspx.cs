@@ -42,18 +42,6 @@ public partial class Production_Extract : System.Web.UI.Page
             Autonum = CodabarBLL.ParsePackAutoNum(code);
             LoadAutonum();
         }
-        else if (CodabarBLL.IsValidTestResultCode(code))
-        {
-
-        }
-        else if (CodabarBLL.IsValidCampaignCode(code))
-        {
-
-        }
-        else
-        {
-
-        }
     }
 
     void Clear()

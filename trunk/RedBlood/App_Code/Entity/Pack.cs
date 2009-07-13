@@ -235,13 +235,13 @@ public partial class Pack
 
             foreach (TestDef item in l)
             {
-                if (item.ID == TestDef.Substance.Yes)
+                if (item.ID == TestDef.Substance._35days)
                     return item;
             }
 
             foreach (TestDef item in l)
             {
-                if (item.ID == TestDef.Substance.Non)
+                if (item.ID == TestDef.Substance._21days)
                     return item;
             }
 
@@ -285,5 +285,48 @@ public partial class Pack
             return PackBLL.GetRelatedPacks_AllLevel(this);
         }
     }
+
+
+
+    public Pack RBCPack
+    {
+        get
+        {
+            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.RBC).FirstOrDefault();
+        }
+    }
+
+    public Pack WBCPack
+    {
+        get
+        {
+            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.WBC).FirstOrDefault();
+        }
+    }
+
+    public Pack PlateletPack
+    {
+        get
+        {
+            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.Platelet).FirstOrDefault();
+        }
+    }
+
+    public Pack FFPlasmaPack
+    {
+        get
+        {
+            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.FFPlasma).FirstOrDefault();
+        }
+    }
+
+    public Pack FFPlasma_PoorPack
+    {
+        get
+        {
+            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor).FirstOrDefault();
+        }
+    }
+
 
 }
