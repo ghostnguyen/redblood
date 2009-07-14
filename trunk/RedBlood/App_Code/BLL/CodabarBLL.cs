@@ -143,11 +143,15 @@ public class CodabarBLL
 
     public static string Url4Pack(int? autonum)
     {
+        if (autonum == null) return "";
         return Url4Pack(autonum.Value);
     }
     
     public static string Url4Pack(int autonum)
     {
+        if (autonum == 0) return RedBloodSystem.RootUrl + "/Image/Icon/CanExtract.png";
+        if (autonum == -1) return RedBloodSystem.RootUrl + "/Image/Icon/CanNotExtract.png";
+
         Pack p = PackBLL.Get(autonum);
 
         if (p == null) return "none";
