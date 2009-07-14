@@ -106,7 +106,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
     public void Assign(int autonum, int campaignID)
     {
-        PackErr err = PackBLL.Assign(autonum, PeopleID, Page.User.Identity.Name, campaignID);
+        PackErr err = PackBLL.Assign(autonum, PeopleID, campaignID);
         if (err == PackErrList.Non)
         {
             Load_EnterPack();
@@ -258,12 +258,12 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     }
     protected void btnDelete_Click(object sender, EventArgs e)
     {
-        PackBLL.DeletePack(null, Autonum, "DeleteEnterPack", Page.User.Identity.Name);
+        PackBLL.DeletePack(null, Autonum, "DeleteEnterPack");
         Load_EnterPack();
     }
     protected void btnRemove_Click(object sender, EventArgs e)
     {
-        PackBLL.RemovePeople(Autonum, Page.User.Identity.Name);
+        PackBLL.RemovePeople(Autonum);
         Load_EnterPack();
     }
 

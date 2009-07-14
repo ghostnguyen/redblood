@@ -47,7 +47,7 @@ public partial class Production_ExtractInList : System.Web.UI.Page
         {
             if (!AutonumListIn.Contains(CodabarBLL.ParsePackAutoNum(code)))
             {
-                Pack p = PackBLL.Get4Extract(CodabarBLL.ParsePackAutoNum(code), Page.User.Identity.Name);
+                Pack p = PackBLL.Get4Extract(CodabarBLL.ParsePackAutoNum(code));
 
                 if (p != null 
                     && p.ComponentID == TestDef.Component.Full 

@@ -49,7 +49,7 @@ public class PackBLL
     /// </summary>
     /// <param name="autonum"></param>
     /// <returns></returns>
-    public static Pack GetCarefully(RedBloodDataContext db, int autonum, string actor)
+    public static Pack GetCarefully(RedBloodDataContext db, int autonum)
     {
         Pack pErr = new Pack();
 
@@ -61,7 +61,7 @@ public class PackBLL
             return pErr;
         }
 
-        PackErr err = ValidateAndUpdateStatus(db, p, actor);
+        PackErr err = ValidateAndUpdateStatus(db, p);
         if (err != PackErrList.Non)
         {
             db.SubmitChanges();
@@ -150,82 +150,102 @@ public class PackBLL
         return new List<Pack>();
     }
 
-    public static Pack Get4Extract(int autonum, string actor)
+    public static void LoadExtractInfo(Pack p)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        if (p == null) return;
 
-        return Get4Extract(db, autonum, actor);
-    }
+        p.CanExtractToList = new List<int>();
+        p.CanExtractToRBC = -1;
+        p.CanExtractToWBC = -1;
+        p.CanExtractToPlatelet = -1;
+        p.CanExtractToFFPlasma = -1;
+        p.CanExtractToFFPlasma_Poor = -1;
+        p.CanExtractToFactorVIII = -1;
 
-    public static Pack Get4Extract(RedBloodDataContext db, int autonum, string actor)
-    {
-        Pack p = GetCarefully(db, autonum, actor);
+        if (p.Status == Pack.StatusX.Collected
+            || p.Status == Pack.StatusX.Production
+            || p.Status == Pack.StatusX.Produced)
+        { }
+        else return;
 
-        if (p == null) throw new Exception("Get4Extract() catch Exception");
-
-        if (p.Err != PackErrList.Non)
+        if (p.DeliverStatus == Pack.DeliverStatusX.Yes)
         {
-            return p;
+            p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.DeliverStatus);
+            return;
         }
-
-        p.CanExtractTo = new List<int>();
 
         if (p.TestResultStatus == Pack.TestResultStatusX.Positive
             || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
         {
             p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.TestResultStatus);
-            return p;
+            return;
         }
 
-        if (p.DeliverStatus == Pack.DeliverStatusX.Yes)
+        if (p.ComponentID == TestDef.Component.Full
+            || p.ComponentID == TestDef.Component.FFPlasma)
+        { }
+        else return;
+
+        //Load extract information
+        List<Pack> l = p.ExtractedPacks;
+
+        if (p.ComponentID == TestDef.Component.Full)
         {
-            p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.DeliverStatus);
-            return p;
-        }
+            p.CanExtractToRBC = l.Where(r => r.ComponentID == TestDef.Component.RBC)
+                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
+            p.CanExtractToWBC = l.Where(r => r.ComponentID == TestDef.Component.WBC)
+                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-        if (p.Status == Pack.StatusX.Collected)
-        {
-            p.Err = PackErrList.Valid4Extract;
+            p.CanExtractToPlatelet = l.Where(r => r.ComponentID == TestDef.Component.Platelet)
+                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            p.CanExtractTo.Add(TestDef.Component.WBC);
-            p.CanExtractTo.Add(TestDef.Component.RBC);
-            p.CanExtractTo.Add(TestDef.Component.Platelet);
-            p.CanExtractTo.Add(TestDef.Component.FFPlasma_Poor);
+            p.CanExtractToFFPlasma_Poor = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor)
+                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            if (DateTime.Now - p.CollectedDate <= SystemBLL.ExpTime4ProduceFFPlasma)
-                p.CanExtractTo.Add(TestDef.Component.FFPlasma);
+            p.CanExtractToFFPlasma = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma)
+                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            return p;
-        }
-        else if (p.Status == Pack.StatusX.Production)
-        {
-            if (p.ComponentID == TestDef.Component.FFPlasma)
+            if (p.CanExtractToFFPlasma == 0
+                && DateTime.Now - p.CollectedDate > SystemBLL.ExpTime4ProduceFFPlasma)
             {
-                p.Err = PackErrList.Valid4Extract;
-
-                p.CanExtractTo.Add(TestDef.Component.FactorVIII);
-                p.CanExtractTo.Add(TestDef.Component.FFPlasma_Poor);
-
-                return p;
-            }
-            else
-            {
-                //p.Err = new PackErr(PackErrList.Invalid4Extract.Message + " " + p.Component.Name);
-                p.Err = PackErrList.Extracted;
-                return p;
+                p.CanExtractToFFPlasma = -1;
             }
         }
-        else if (p.Status == Pack.StatusX.Produced)
+
+        if (p.ComponentID == TestDef.Component.FFPlasma)
         {
-            p.Err = PackErrList.Extracted;
-            return p;
+            p.CanExtractToFactorVIII = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII)
+                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
+
+            p.CanExtractToFFPlasma_Poor = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor)
+                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
         }
-        else
-        {
-            p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.Status);
-            return p;
-        }
+
+        if (p.CanExtractToRBC == 0) p.CanExtractToList.Add(TestDef.Component.RBC);
+        if (p.CanExtractToWBC == 0) p.CanExtractToList.Add(TestDef.Component.WBC);
+        if (p.CanExtractToPlatelet == 0) p.CanExtractToList.Add(TestDef.Component.Platelet);
+        if (p.CanExtractToFFPlasma == 0) p.CanExtractToList.Add(TestDef.Component.FFPlasma);
+        if (p.CanExtractToFFPlasma_Poor == 0) p.CanExtractToList.Add(TestDef.Component.FFPlasma_Poor);
+        if (p.CanExtractToFactorVIII == 0) p.CanExtractToList.Add(TestDef.Component.FactorVIII);
+
+        return;
+    }
+
+    public static Pack Get4Extract(int autonum)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        return Get4Extract(db, autonum);
+    }
+
+    public static Pack Get4Extract(RedBloodDataContext db, int autonum)
+    {
+        Pack p = GetCarefully(db, autonum);
+
+        LoadExtractInfo(p);
+
+        return p;
     }
 
     public static Pack GetByCode(string code)
@@ -258,7 +278,7 @@ public class PackBLL
         return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
     }
 
-    public static PackErr Assign(int autonum, Guid peopleID, string actor, int campaignID)
+    public static PackErr Assign(int autonum, Guid peopleID, int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -282,8 +302,9 @@ public class PackBLL
             p.PeopleID = peopleID;
             p.CollectedDate = DateTime.Now;
             p.CampaignID = campaignID;
-            p.Substance = TestDefBLL.Get(db, TestDef.Substance._21days);
+            p.Substance = TestDefBLL.Get(db, TestDef.Substance.for21days);
             p.Component = TestDefBLL.Get(db, TestDef.Component.Full);
+            UpdateExpiredDate(p);
 
             PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Collected, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
 
@@ -423,20 +444,25 @@ public class PackBLL
 
     public static PackStatusHistory ChangeStatus(RedBloodDataContext db, Pack p, Pack.StatusX to, string note)
     {
+        return ChangeStatus(db, p, to, RedBloodSystem.CurrentActor, note);
+    }
+
+    public static PackStatusHistory ChangeStatus(RedBloodDataContext db, Pack p, Pack.StatusX to, string actor, string note)
+    {
         if (p.Status == to) return null;
 
         Pack.StatusX from = p.Status;
 
         p.Status = to;
 
-        PackStatusHistory h = new PackStatusHistory(p, from, to, RedBloodSystem.CurrentActor, note);
+        PackStatusHistory h = new PackStatusHistory(p, from, to, actor, note);
 
         db.PackStatusHistories.InsertOnSubmit(h);
 
         return h;
     }
 
-    public static PackErr DeletePack(int? campaignID, int autonum, string note, string actor)
+    public static PackErr DeletePack(int? campaignID, int autonum, string note)
     {
         if (autonum == 0) return null;
 
@@ -458,17 +484,8 @@ public class PackBLL
         return null;
     }
 
-    //public static void Delete_EnterPackErr(string actor)
-    //{
-    //    Pack[] l = GetEnterPackErr();
-    //    foreach (Pack e in l)
-    //    {
-    //        DeletePack(null, e.Autonum, "Hủy túi máu bị lỗi khi thu.", actor);
-    //    }
-    //}
-
     //Only pack has status 0 can be remove, to re-assign to another people.
-    public static Pack RemovePeople(int autonum, string actor)
+    public static Pack RemovePeople(int autonum)
     {
         if (autonum == 0) return null;
 
@@ -492,42 +509,10 @@ public class PackBLL
         return p;
     }
 
-    //public static List<TestDef> ValidateTestResult(Pack p)
-    //{
-    //    if (p.ComponentID == (int)TestDef.Component.Full)
-    //    {
-    //        return ValidateTestResult(p.TestResult2);
-    //    }
-
-    //    if (p.ComponentID == (int)TestDef.Component.RBC
-    //        || p.ComponentID == (int)TestDef.Component.FFPlasma)
-    //    {
-    //        if (p.PackExtractsByExtract.Count == 0)
-    //            throw new Exception("Lỗi dữ liệu.");
-
-    //        return ValidateTestResult(p.PackExtractsByExtract.FirstOrDefault().SourcePack.TestResult2);
-    //    }
-
-    //    if (p.ComponentID == (int)TestDef.Component.Platelet)
-    //    {
-    //        if (p.PackExtractsByExtract.Count == 0)
-    //            throw new Exception("Lỗi dữ liệu.");
-
-    //        List<TestDef> r = new List<TestDef>();
-
-    //        foreach (PackExtract item in p.PackExtractsByExtract)
-    //        {
-    //            r = ValidateTestResult(item.SourcePack.TestResult2);
-    //            if (r.Count() > 0) return r;
-    //        }
-
-    //        return r;
-    //    }
-
-    //    throw new Exception("Không kiểm tra được KQXN.");
-    //}
-
-
+    public static PackErr ValidateAndUpdateStatus(RedBloodDataContext db, Pack p)
+    {
+        return ValidateAndUpdateStatus(db, p, RedBloodSystem.CurrentActor);
+    }
 
     public static PackErr ValidateAndUpdateStatus(RedBloodDataContext db, Pack p, string actor)
     {
@@ -535,7 +520,7 @@ public class PackBLL
 
         if (err != PackErrList.Non)
         {
-            PackStatusHistory h = PackBLL.ChangeStatus(db, p, err.ToStatusX, err.Message);
+            PackStatusHistory h = PackBLL.ChangeStatus(db, p, err.ToStatusX, actor, err.Message);
         }
 
         return err;
@@ -589,7 +574,17 @@ public class PackBLL
 
         if (p.Status == Pack.StatusX.Production)
         {
-            int count = p.PackExtractsBySource.Count();
+            int count = p.SourcePacks.Count();
+
+            if (count > 0)
+            {
+                return PackErrList.DataErr;
+            }
+        }
+
+        if (p.Status == Pack.StatusX.Produced)
+        {
+            int count = p.ExtractedPacks.Count();
 
             if (count > 0)
             {
@@ -610,20 +605,16 @@ public class PackBLL
         if (p.Component != null)
         {
             if (p.CollectedDate == null
-            || p.CollectedDate >= DateTime.Now)
+            || p.CollectedDate >= DateTime.Now
+                || p.ExtractedPacks == null)
             {
                 return PackErrList.DataErr;
             }
         }
 
-        TimeSpan ts = SystemBLL.GetExpire(p);
-
-        if (ts != TimeSpan.MinValue)
+        if (DateTime.Now >= p.ExpiredDate)
         {
-            if (DateTime.Now - p.CollectedDate > ts)
-            {
-                return PackErrList.Expired;
-            }
+            return PackErrList.Expired;
         }
 
         return PackErrList.Non;
@@ -780,6 +771,23 @@ public class PackBLL
         db.SubmitChanges();
     }
 
+    public static void UpdateExpiredDate(Pack p)
+    {
+        if (p == null
+            || p.Status == Pack.StatusX.Init
+            || p.Status == Pack.StatusX.Delete
+            || p.Status == Pack.StatusX.Expire
+            || p.DeliverStatus == Pack.DeliverStatusX.Yes
+            || p.CollectedDate == null)
+        {
+            return;
+        }
+
+        TimeSpan ts = SystemBLL.GetExpire(p);
+
+        p.ExpiredDate = p.CollectedDate.Value.Add(ts);
+    }
+
     public static void UpdateTestResultStatus4Full(int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -849,19 +857,23 @@ public class PackBLL
         db.SubmitChanges();
     }
 
-    public static PackErr Extract(int autonum, List<int> to, string actor)
+    public static PackErr Extract(int autonum, List<int> to)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get4Extract(db, autonum, actor);
+        Pack p = Get4Extract(db, autonum);
+
+        p.CanExtractToList.Join(to, r => r, t => t, (r, t) => r);
+
+
 
         if (to.Count == 0) return PackErrList.SelectNoExtract;
-        if (p.CanExtractTo.Count == 0) return PackErrList.Invalid4Extract;
+        if (p.CanExtractToList.Count == 0) return PackErrList.Invalid4Extract;
 
         int count = 0;
         foreach (int item in to)
         {
-            if (p.CanExtractTo.Contains(item))
+            if (p.CanExtractToList.Contains(item))
             {
                 //Extract
                 Pack extractP = PackBLL.New(db, 1).First();
@@ -870,7 +882,7 @@ public class PackBLL
                 db.SubmitChanges();
 
                 extractP.Component = TestDefBLL.Get(db, item);
-                extractP.Actor = actor;
+                extractP.Actor = RedBloodSystem.CurrentActor;
                 //extractP.TestResultStatus = extractP.TestResultStatusRoot;
                 extractP.CollectedDate = DateTime.Now;
 
@@ -903,12 +915,12 @@ public class PackBLL
 
     }
 
-    public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut, string actor, string note)
+    public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut, string note)
     {
         List<Pack> pInList = new List<Pack>();
         foreach (int item in autonumListIn)
         {
-            Pack p = Get4Combined2Platelet(item, actor);
+            Pack p = Get4Combined2Platelet(item);
             if (p.Err == PackErrList.Valid4Platelet)
                 pInList.Add(p);
             else
@@ -916,7 +928,7 @@ public class PackBLL
         }
 
         RedBloodDataContext db = new RedBloodDataContext();
-        Pack pOut = Get4Combined2Platelet(db, autonumOut, actor);
+        Pack pOut = Get4Combined2Platelet(db, autonumOut);
         if (pOut.Err != PackErrList.Init4Platelet)
             return pOut.Err;
 
@@ -946,15 +958,15 @@ public class PackBLL
         return PackErrList.Non;
     }
 
-    public static Pack Get4Combined2Platelet(int autonum, string actor)
+    public static Pack Get4Combined2Platelet(int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get4Combined2Platelet(db, autonum, actor);
+        return Get4Combined2Platelet(db, autonum);
     }
 
-    public static Pack Get4Combined2Platelet(RedBloodDataContext db, int autonum, string actor)
+    public static Pack Get4Combined2Platelet(RedBloodDataContext db, int autonum)
     {
-        Pack p = GetCarefully(db, autonum, actor);
+        Pack p = GetCarefully(db, autonum);
 
         //if (p == null) throw new Exception("GetCarefully() catch Exception");
 

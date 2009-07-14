@@ -29,7 +29,7 @@ public class OrderBLL
         return db.Orders.Where(r => r.ID == ID).FirstOrDefault();
     }
 
-    public static PackErr Add(int ID, int autonum, string actor)
+    public static PackErr Add(int ID, int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -47,7 +47,7 @@ public class OrderBLL
             || p.DeliverStatus != Pack.DeliverStatusX.Non)
             return PackErrList.NonExist;
 
-        PackErr err = PackBLL.ValidateAndUpdateStatus(db, p, "Order");
+        PackErr err = PackBLL.ValidateAndUpdateStatus(db, p);
 
         if (!PackBLL.StatusList4Order().Contains(p.Status))
             return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
@@ -97,7 +97,7 @@ public class OrderBLL
         return err;
     }
 
-    public static void Remove(int packOrderID, string actor, string note)
+    public static void Remove(int packOrderID, string note)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -123,7 +123,7 @@ public class OrderBLL
 
 
         po.Status = PackOrder.StatusX.Return;
-        po.Actor = actor;
+        po.Actor = RedBloodSystem.CurrentActor;
         po.Note = note;
 
         po.Pack.DeliverStatus = Pack.DeliverStatusX.Non;
@@ -132,7 +132,7 @@ public class OrderBLL
 
         db.SubmitChanges();
 
-        PackErr err = PackBLL.ValidateAndUpdateStatus(db, po.Pack, actor);
+        PackErr err = PackBLL.ValidateAndUpdateStatus(db, po.Pack);
         db.SubmitChanges();
     }
 

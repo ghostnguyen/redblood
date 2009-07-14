@@ -77,7 +77,7 @@ public partial class Production_Extract : System.Web.UI.Page
 
     void LoadAutonum()
     {
-        Pack p = PackBLL.Get4Extract(Autonum, Page.User.Identity.Name);
+        Pack p = PackBLL.Get4Extract(Autonum);
 
         if (p == null
             ||
@@ -90,9 +90,9 @@ public partial class Production_Extract : System.Web.UI.Page
 
         Clear();
 
-        CheckBoxListExtractTo.DataSource = TestDefBLL.Get(p.CanExtractTo);
+        CheckBoxListExtractTo.DataSource = TestDefBLL.Get(p.CanExtractToList);
         CheckBoxListExtractTo.DataBind();
-        if (p.CanExtractTo.Count > 0)
+        if (p.CanExtractToList.Count > 0)
         {
             divExtract.Visible = true;
         }
@@ -148,7 +148,7 @@ public partial class Production_Extract : System.Web.UI.Page
             return;
         }
 
-        PackErr err = PackBLL.Extract(Autonum, l, Page.User.Identity.Name);
+        PackErr err = PackBLL.Extract(Autonum, l);
 
         if (err == PackErrList.Non)
         {
