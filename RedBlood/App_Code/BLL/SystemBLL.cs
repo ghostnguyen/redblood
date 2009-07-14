@@ -93,7 +93,7 @@ public class SystemBLL
 
         if (p.SubstanceRoot == null)
         {
-            return GetExpire(p.ComponentID.Value, TestDef.Substance._21days);
+            return GetExpire(p.ComponentID.Value, TestDef.Substance.for21days);
         }
         else
             return GetExpire(p.ComponentID.Value, p.SubstanceRoot.ID);
@@ -109,11 +109,11 @@ public class SystemBLL
 
         if (componentID == TestDef.Component.RBC)
         {
-            if (substanceID == TestDef.Substance._21days)
+            if (substanceID == TestDef.Substance.for21days)
                 return new TimeSpan(21, 0, 0, 0);
-            if (substanceID == TestDef.Substance._35days)
+            if (substanceID == TestDef.Substance.for35days)
                 return new TimeSpan(35, 0, 0, 0);
-            if (substanceID == TestDef.Substance._42days)
+            if (substanceID == TestDef.Substance.for42days)
                 return new TimeSpan(42, 0, 0, 0);
             else
                 return new TimeSpan(5, 0, 0, 0);

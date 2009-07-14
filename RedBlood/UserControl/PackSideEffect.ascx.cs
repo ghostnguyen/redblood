@@ -49,7 +49,7 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
 
         se.PackID = p.ID;
         se.SetSideEffect(txtSideEffect.Text.Trim());
-        se.Actor = Page.User.Identity.Name;
+        se.Actor = RedBloodSystem.CurrentActor;
         se.Date = DateTime.Now;
         se.Note = txtNote.Text.Trim();
 

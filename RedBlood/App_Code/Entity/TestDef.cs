@@ -75,9 +75,9 @@ public partial class TestDef
 
     public static class Substance
     {
-        public static int _21days = 49;
-        public static int _35days = 50;
-        public static int _42days = 51;
+        public static int for21days = 49;
+        public static int for35days = 50;
+        public static int for42days = 51;
     }
 
     public static class ABO    

@@ -283,7 +283,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
     void AddPack(int autonum)
     {
-        PackErr err = OrderBLL.Add(OrderID, autonum, Page.User.Identity.Name);
+        PackErr err = OrderBLL.Add(OrderID, autonum);
 
         if (err == null || err == PackErrList.Non)
         {
@@ -305,6 +305,6 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
     protected void GridViewPack_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        OrderBLL.Remove(e.Keys[0].ToInt(), Page.User.Identity.Name, txtRemoveNoteGlobal.Text.Trim());
+        OrderBLL.Remove(e.Keys[0].ToInt(), txtRemoveNoteGlobal.Text.Trim());
     }
 }

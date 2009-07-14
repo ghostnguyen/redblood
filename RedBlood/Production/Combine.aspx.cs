@@ -135,7 +135,7 @@ public partial class Production_Combine : System.Web.UI.Page
             return;
         }
 
-        PackErr err = PackBLL.Combine2Platelet(AutonumListIn, AutonumListOut[0], Page.User.Identity.Name, txtNote.Text);
+        PackErr err = PackBLL.Combine2Platelet(AutonumListIn, AutonumListOut[0], txtNote.Text);
         if (err == PackErrList.Non)
         {
             IsEditMode = false;
@@ -148,7 +148,7 @@ public partial class Production_Combine : System.Web.UI.Page
 
     private void CheckAutonum(int autonum)
     {
-        Pack p = PackBLL.Get4Combined2Platelet(autonum, Page.User.Identity.Name);
+        Pack p = PackBLL.Get4Combined2Platelet(autonum);
 
         if (p == null)
         {
@@ -231,7 +231,7 @@ public partial class Production_Combine : System.Web.UI.Page
 
     protected void btnLoad_Click(object sender, EventArgs e)
     {
-        Pack p = PackBLL.Get4Combined2Platelet(TempAutonum, Page.User.Identity.Name);
+        Pack p = PackBLL.Get4Combined2Platelet(TempAutonum);
 
         if (p == null)
         {

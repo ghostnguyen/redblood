@@ -51,8 +51,8 @@ public partial class UserControl_DeletePack : System.Web.UI.UserControl
         PackErr p_err = PackBLL.DeletePack(
             CampaignID,
             txtPackAutonum.Text.Trim().ToInt(),
-            txtDeleteNote.Text.Trim(),
-            Page.User.Identity.Name);
+            txtDeleteNote.Text.Trim()
+            );
 
 
         if (p_err != null)

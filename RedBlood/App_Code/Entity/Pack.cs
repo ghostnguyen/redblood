@@ -188,6 +188,14 @@ public partial class Pack
             return PackExtractsBySource.Select(r => r.ExtractPack).ToList();
         }
     }
+    
+    public List<Pack> RelatedPack
+    {
+        get
+        {
+            return PackBLL.GetRelatedPacks_AllLevel(this);
+        }
+    }
 
     public Pack.TestResultStatusX TestResultStatusRoot
     {
@@ -235,13 +243,19 @@ public partial class Pack
 
             foreach (TestDef item in l)
             {
-                if (item.ID == TestDef.Substance._35days)
+                if (item.ID == TestDef.Substance.for21days)
                     return item;
             }
 
             foreach (TestDef item in l)
             {
-                if (item.ID == TestDef.Substance._21days)
+                if (item.ID == TestDef.Substance.for35days)
+                    return item;
+            }
+
+            foreach (TestDef item in l)
+            {
+                if (item.ID == TestDef.Substance.for42days)
                     return item;
             }
 
@@ -277,56 +291,12 @@ public partial class Pack
     }
 
     public PackErr Err { get; set; }
-    public List<int> CanExtractTo { get; set; }
-    public List<Pack> RelatedPack
-    {
-        get
-        {
-            return PackBLL.GetRelatedPacks_AllLevel(this);
-        }
-    }
-
-
-
-    public Pack RBCPack
-    {
-        get
-        {
-            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.RBC).FirstOrDefault();
-        }
-    }
-
-    public Pack WBCPack
-    {
-        get
-        {
-            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.WBC).FirstOrDefault();
-        }
-    }
-
-    public Pack PlateletPack
-    {
-        get
-        {
-            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.Platelet).FirstOrDefault();
-        }
-    }
-
-    public Pack FFPlasmaPack
-    {
-        get
-        {
-            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.FFPlasma).FirstOrDefault();
-        }
-    }
-
-    public Pack FFPlasma_PoorPack
-    {
-        get
-        {
-            return ExtractedPacks.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor).FirstOrDefault();
-        }
-    }
-
-
+    
+    public List<int> CanExtractToList { get; set; }
+    public int? CanExtractToRBC { get; set; }
+    public int? CanExtractToWBC { get; set; }
+    public int? CanExtractToPlatelet { get; set; }
+    public int? CanExtractToFFPlasma { get; set; }
+    public int? CanExtractToFFPlasma_Poor { get; set; }
+    public int? CanExtractToFactorVIII { get; set; }
 }

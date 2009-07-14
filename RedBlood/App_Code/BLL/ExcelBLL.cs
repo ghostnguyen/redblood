@@ -178,7 +178,7 @@ public class ExcelBLL
             PackBLL.Update(db, p
                 , TestDef.Component.Full
                 , 250
-                , TestDef.Substance._21days);
+                , TestDef.Substance.for21days);
 
             PackBLL.Update(db, p, 2, ABOID, RHID, note);
 
