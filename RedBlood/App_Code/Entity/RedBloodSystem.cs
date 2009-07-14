@@ -24,6 +24,9 @@ public class RedBloodSystem
         }
     }
 
+    public static string RootUrl { get; set; }
+
+
 
     public RedBloodSystem()
     {

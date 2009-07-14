@@ -27,14 +27,13 @@ public partial class Production_ExtractInList : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            CheckBoxListExtractTo.DataSource =
-                TestDefBLL.Get(
-                new List<int> { TestDef.Component.RBC
-                    , TestDef.Component.WBC
-                    , TestDef.Component.Platelet
-                    , TestDef.Component.FFPlasma
-                    , TestDef.Component.FFPlasma_Poor
-                    });
+            CheckBoxListExtractTo.DataSource = new List<TestDef> { 
+                TestDefBLL.Get(TestDef.Component.RBC)
+                ,TestDefBLL.Get(TestDef.Component.WBC)
+            ,TestDefBLL.Get(TestDef.Component.Platelet)
+            ,TestDefBLL.Get(TestDef.Component.FFPlasma)
+            ,TestDefBLL.Get(TestDef.Component.FFPlasma_Poor)};
+
             CheckBoxListExtractTo.DataBind();
         }
 
@@ -49,9 +48,9 @@ public partial class Production_ExtractInList : System.Web.UI.Page
             {
                 Pack p = PackBLL.Get4Extract(CodabarBLL.ParsePackAutoNum(code));
 
-                if (p != null 
-                    && p.ComponentID == TestDef.Component.Full 
-                    && (p.Err == PackErrList.Valid4Extract || p.Err == PackErrList.Extracted))
+                if (p != null
+                    && p.ComponentID == TestDef.Component.Full
+                    && p.Err == PackErrList.Valid4Extract)
                 {
                     AutonumListIn.Add(CodabarBLL.ParsePackAutoNum(code));
                     LoadAutonum();
@@ -64,37 +63,58 @@ public partial class Production_ExtractInList : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Pack> l = PackBLL.Get(AutonumListIn).Where(r => r.ComponentID == TestDef.Component.Full).ToList();
+        List<Pack> l = PackBLL.Get4Extract(AutonumListIn).Where(r => r.ComponentID == TestDef.Component.Full).ToList();
 
-
+        GridViewFull.DataSource = l;
+        GridViewFull.DataKeyNames = new string[] { "Autonum" };
+        GridViewFull.DataBind();
     }
 
     protected void btnExtract_Click(object sender, EventArgs e)
     {
-        //List<int> l = new List<int>();
+        List<int> l = new List<int>();
 
-        //foreach (ListItem item in CheckBoxListExtractTo.Items)
-        //{
-        //    if (item.Selected)
-        //        l.Add(item.Value.ToInt());
-        //}
+        foreach (ListItem item in CheckBoxListExtractTo.Items)
+        {
+            if (item.Selected)
+                l.Add(item.Value.ToInt());
+        }
 
-        //if (l.Contains(TestDef.Component.FFPlasma)
-        //    && l.Contains(TestDef.Component.FFPlasma_Poor))
-        //{
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Chỉ được chọn 1 trong 2 loại huyết tương.');", true);
-        //    return;
-        //}
+        if (l.Contains(TestDef.Component.FFPlasma)
+            && l.Contains(TestDef.Component.FFPlasma_Poor))
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Chỉ được chọn 1 trong 2 loại huyết tương.');", true);
+            return;
+        }
 
-        //PackErr err = PackBLL.Extract(Autonum, l, Page.User.Identity.Name);
+        PackErr err = PackBLL.Extract(AutonumListIn, l);
 
-        //if (err == PackErrList.Non)
-        //{
-        //    LoadAutonum();
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);
-        //}
+        if (err == PackErrList.Non)
+        {
+            LoadAutonum();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);
+        }
         //else
         //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
 
+    }
+
+    protected void CheckBoxListExtractTo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        List<int> l = new List<int>();
+
+        for (int i = 0; i < CheckBoxListExtractTo.Items.Count; i++)
+        {
+            GridViewFull.Columns[i + 1].Visible = CheckBoxListExtractTo.Items[i].Selected;
+        }
+    }
+    
+    protected void GridViewFull_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "Remove")
+        {
+            AutonumListIn.Remove(e.CommandArgument.ToInt());
+            LoadAutonum();
+        }
     }
 }
