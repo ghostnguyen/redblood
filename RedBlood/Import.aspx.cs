@@ -10,6 +10,6 @@ public partial class Import : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         //PackBLL.New(30000);
-        //ExcelBLL.Import(User.Identity.Name);
+        ExcelBLL.Import(User.Identity.Name);
     }
 }
