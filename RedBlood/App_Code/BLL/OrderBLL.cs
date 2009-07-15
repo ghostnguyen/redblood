@@ -66,7 +66,7 @@ public class OrderBLL
 
             if (p.TestResultStatus == Pack.TestResultStatusX.Negative)
             {
-                List<Pack> l = PackBLL.GetSourcePacks_AllLevel(p)
+                List<Pack> l = p.SourcePacks_All
                     .Where(rp => rp.ComponentID == TestDef.Component.Full).ToList();
 
                 foreach (Pack item in l)

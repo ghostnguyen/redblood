@@ -146,7 +146,7 @@ public class CodabarBLL
         if (autonum == null) return "";
         return Url4Pack(autonum.Value);
     }
-    
+
     public static string Url4Pack(int autonum)
     {
         if (autonum == 0) return RedBloodSystem.RootUrl + "/Image/Icon/CanExtract.png";
@@ -156,11 +156,11 @@ public class CodabarBLL
 
         if (p == null) return "none";
 
-        string topleft ="";
-        string topright ="";
+        string topleft = "";
+        string topright = "";
         string top = "";
 
-        if(p.ComponentID == TestDef.Component.RBC
+        if (p.ComponentID == TestDef.Component.RBC
             || p.ComponentID == TestDef.Component.FFPlasma
             || p.ComponentID == TestDef.Component.FFPlasma_Poor
             || p.ComponentID == TestDef.Component.WBC
@@ -168,10 +168,16 @@ public class CodabarBLL
             || p.ComponentID == TestDef.Component.Platelet
             || p.ComponentID == TestDef.Component.PlateletApheresis)
         {
-            topleft = p.Component.Name;
-            PackExtract pe = p.PackExtractsByExtract.FirstOrDefault();
+            if (p.ComponentID == TestDef.Component.FFPlasma)
+                topleft = "HT tươi";
+            else if (p.ComponentID == TestDef.Component.FFPlasma_Poor)
+                topleft = "HT dự trữ";
+            else
+                topleft = p.Component.Name;
 
-            if (pe != null) topright = pe.SourcePack.Autonum.ToString();
+            Pack src = p.SourcePacks.FirstOrDefault();
+
+            if (src != null) topright = src.Autonum.ToString();
 
             top = "&topleft=" + topleft + "&topright=" + topright;
         }

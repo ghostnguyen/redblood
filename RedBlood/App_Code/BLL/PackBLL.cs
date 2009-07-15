@@ -669,45 +669,7 @@ public class PackBLL
         return new List<Pack>();
     }
 
-    public static List<Pack> GetSourcePacks_AllLevel(Pack p)
-    {
-        List<Pack> l = p.SourcePacks;
-
-        Pack[] temp = new Pack[l.Count];
-        l.CopyTo(temp);
-
-        foreach (Pack item in temp)
-        {
-            l.AddRange(GetSourcePacks_AllLevel(item));
-        }
-
-        l.Add(p);
-        return l.Distinct().ToList();
-    }
-
-    public static List<Pack> GetExtractPacks_AllLevel(Pack p)
-    {
-        List<Pack> l = p.ExtractedPacks;
-
-        Pack[] temp = new Pack[l.Count];
-        l.CopyTo(temp);
-
-        foreach (Pack item in temp)
-        {
-            l.AddRange(GetExtractPacks_AllLevel(item));
-        }
-
-        l.Add(p);
-        return l.Distinct().ToList();
-    }
-
-    public static List<Pack> GetRelatedPacks_AllLevel(Pack p)
-    {
-        List<Pack> l = new List<Pack>();
-        l.AddRange(GetSourcePacks_AllLevel(p));
-        l.AddRange(GetExtractPacks_AllLevel(p));
-        return l.Distinct().ToList();
-    }
+    
 
     public static PackErr Update(RedBloodDataContext db, Pack p, int componentID, int? volume, int substanceID)
     {
@@ -858,7 +820,7 @@ public class PackBLL
     /// <param name="srcP"></param>
     public static void UpdateTestResultStatus4Extracts(RedBloodDataContext db, Pack srcP)
     {
-        List<Pack> extractP = PackBLL.GetExtractPacks_AllLevel(srcP);
+        List<Pack> extractP = srcP.ExtractedPacks_All;
 
         foreach (Pack item in extractP)
         {

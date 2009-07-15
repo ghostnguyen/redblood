@@ -9,24 +9,26 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-        window.location = ("/RedBlood/Production/ExtractInList.aspx");
+            window.location = ("/RedBlood/Production/ExtractInList.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/Production/UpdateSubstance.aspx");
+            window.location = ("/RedBlood/Production/ExtractFFPlasmaInList.aspx");
+
         });
 
         //        $(document).bind('keydown', '9', function() {
-        //            window.location = ("/RedBlood/FindAndReport/PackOrderCount.aspx");
+        //            window.location = ("/RedBlood/Production/Extract.aspx");
         //        });
 
-        //        $(document).bind('keydown', '4', function() {
-        //            window.location = ("/RedBlood/Category/Org.aspx");
-        //        });
+        $(document).bind('keydown', '4', function() {
 
-        //        $(document).bind('keydown', '5', function() {
-        //            window.location.replace("/RedBlood/Codabar/Pack.aspx");
-        //        });
+            window.location = ("/RedBlood/Production/UpdateSubstance.aspx");
+        });
+
+        $(document).bind('keydown', '5', function() {
+            window.location = ("/RedBlood/Production/Extract.aspx");
+        });
     </script>
 
     <table width="100%">
@@ -45,7 +47,7 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Production/ExtractInList.aspx">Sản xuất</a>
+                                            <a href="/RedBlood/Production/ExtractInList.aspx">Sản xuất máu toàn phần</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -55,13 +57,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Production/UpdateSubstance.aspx">
+                                        <a href="/RedBlood/Production/ExtractFFPlasmaInList.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Production/UpdateSubstance.aspx">Cập nhật chất nuôi</a>
+                                            <a href="/RedBlood/Production/ExtractFFPlasmaInList.aspx">Sản xuất huyết tương tươi</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -71,13 +73,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/FindAndReport/PackOrderCount.aspx">
+                                        <a href="/RedBlood/Production/Extract.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/PackOrderCount.aspx">Cấp phát máu</a>
+                                            <a href="/RedBlood/Production/Extract.aspx">Tra cứu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -90,36 +92,36 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/Org.aspx">
+                                        <a href="/RedBlood/Production/UpdateSubstance.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/Org.aspx">Đơn vị</a>
+                                            <a href="/RedBlood/Production/UpdateSubstance.aspx">Cập nhật chất nuôi</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Codabar/Pack.aspx">
+                                        <a href="/RedBlood/Production/Extract.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Codabar/Pack.aspx">Tạo mã túi máu</a>
+                                            <a href="/RedBlood/Production/Extract.aspx">Tra cứu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Production_ExtractInList : System.Web.UI.Page
+public partial class Production_ExtractFFPlasmaInList : System.Web.UI.Page
 {
     public List<int> AutonumListIn
     {
@@ -28,11 +28,8 @@ public partial class Production_ExtractInList : System.Web.UI.Page
         if (!IsPostBack)
         {
             CheckBoxListExtractTo.DataSource = new List<TestDef> { 
-                TestDefBLL.Get(TestDef.Component.RBC)
-                ,TestDefBLL.Get(TestDef.Component.WBC)
-            ,TestDefBLL.Get(TestDef.Component.Platelet)
-            ,TestDefBLL.Get(TestDef.Component.FFPlasma)
-            ,TestDefBLL.Get(TestDef.Component.FFPlasma_Poor)};
+            TestDefBLL.Get(TestDef.Component.FactorVIII)
+                ,TestDefBLL.Get(TestDef.Component.FFPlasma_Poor)};
 
             CheckBoxListExtractTo.DataBind();
         }
@@ -49,7 +46,7 @@ public partial class Production_ExtractInList : System.Web.UI.Page
                 Pack p = PackBLL.Get4Extract(CodabarBLL.ParsePackAutoNum(code));
 
                 if (p != null
-                    && p.ComponentID == TestDef.Component.Full
+                    && p.ComponentID == TestDef.Component.FFPlasma
                     && p.Err == PackErrList.Valid4Extract)
                 {
                     AutonumListIn.Add(CodabarBLL.ParsePackAutoNum(code));
@@ -63,7 +60,7 @@ public partial class Production_ExtractInList : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Pack> l = PackBLL.Get4Extract(AutonumListIn).Where(r => r.ComponentID == TestDef.Component.Full).ToList();
+        List<Pack> l = PackBLL.Get4Extract(AutonumListIn).Where(r => r.ComponentID == TestDef.Component.FFPlasma).ToList();
 
         GridViewFull.DataSource = l;
         GridViewFull.DataBind();

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="PackManually.aspx.cs" Inherits="PackManually" MaintainScrollPositionOnPostback="true" %>
+    CodeFile="PackManually.aspx.cs" Inherits="TestResult_PackManually" MaintainScrollPositionOnPostback="true" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
@@ -271,9 +271,9 @@
                                 <asp:Label ID="Label2" runat="server" Text="RH" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodType2.ABO.Name") %>' />
+                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("ABO.Name") %>' />
                                 <br />
-                                <asp:Label ID="lblRH" runat="server" Text='<%# Eval("BloodType2.RH.Name") %>' />
+                                <asp:Label ID="lblRH" runat="server" Text='<%# Eval("RH.Name") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HIV">

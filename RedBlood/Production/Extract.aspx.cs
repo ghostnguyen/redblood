@@ -97,12 +97,9 @@ public partial class Production_Extract : System.Web.UI.Page
             divExtract.Visible = true;
         }
 
-        List<Pack> l = p.RelatedPack
-            .Where(r => r.ComponentID == TestDef.Component.Full)
-            .FirstOrDefault()
-            .RelatedPack;
+        List<Pack> l = p.RelatedPack;
 
-        DataListFull.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Full);
+        DataListFull.DataSource = new List<Pack> { p };
         DataListFull.DataBind();
 
         DataListRBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.RBC);
