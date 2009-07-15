@@ -3,8 +3,8 @@ truncate table PackResultHistory
 truncate table PackOrder
 truncate table PackExtract
 
-truncate table BloodType
-truncate table TestResult
+--truncate table BloodType
+--truncate table TestResult
 
 delete Pack
 DBCC CHECKIDENT (Pack, RESEED, 0)
@@ -38,6 +38,7 @@ truncate table [Log]
 --continue
 --end
 
+--update Excel set Imported = null 
 
 
 

@@ -239,7 +239,7 @@ public class PackBLL
         return;
     }
 
-    
+
     public static Pack Get4Extract(int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -669,7 +669,7 @@ public class PackBLL
         return new List<Pack>();
     }
 
-    
+
 
     public static PackErr Update(RedBloodDataContext db, Pack p, int componentID, int? volume, int substanceID)
     {
@@ -757,6 +757,7 @@ public class PackBLL
     public static void UpdateExpiredDate(Pack p)
     {
         if (p == null
+            || p.ComponentID == null
             || p.Status == Pack.StatusX.Init
             || p.Status == Pack.StatusX.Delete
             || p.Status == Pack.StatusX.Expire
@@ -768,7 +769,8 @@ public class PackBLL
 
         TimeSpan ts = SystemBLL.GetExpire(p);
 
-        p.ExpiredDate = p.CollectedDate.Value.Add(ts);
+        if (ts != TimeSpan.MinValue)
+            p.ExpiredDate = p.CollectedDate.Value.Add(ts);
     }
 
     public static void UpdateTestResultStatus4Full(int autonum)
@@ -843,7 +845,7 @@ public class PackBLL
     {
         foreach (int item in autonumList)
         {
-            Extract(item, to);            
+            Extract(item, to);
         }
 
         return PackErrList.Non;
@@ -866,7 +868,7 @@ public class PackBLL
 
             extractP.Component = TestDefBLL.Get(db, item);
             extractP.Actor = RedBloodSystem.CurrentActor;
-            extractP.CollectedDate = DateTime.Now;            
+            extractP.CollectedDate = DateTime.Now;
 
             PackStatusHistory h = ChangeStatus(db, extractP, Pack.StatusX.Production, "Extract");
 

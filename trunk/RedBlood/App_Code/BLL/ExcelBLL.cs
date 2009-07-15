@@ -171,9 +171,11 @@ public class ExcelBLL
             p.PeopleID = people.ID;
             p.CollectedDate = cam.Date;
             p.CampaignID = cam.ID;
+            
 
             PackStatusHistory his = PackBLL.ChangeStatus(db, p, Pack.StatusX.Collected, note);
-
+            
+            
 
             PackBLL.Update(db, p
                 , TestDef.Component.Full
@@ -189,6 +191,8 @@ public class ExcelBLL
                 , SyphilisID
                 , MalariaID
                 , note);
+
+            PackBLL.UpdateExpiredDate(p);
 
 
             p.HospitalID = new Guid("0D39EC10-B425-41ED-9210-28FF740AD80D");
