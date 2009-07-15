@@ -24,7 +24,7 @@ public class SystemBLL
         //
         // TODO: Add constructor logic here
         //
-        
+
     }
 
     public static void SOD()
@@ -89,54 +89,44 @@ public class SystemBLL
 
     public static TimeSpan GetExpire(Pack p)
     {
-        if (p.Component == null) return TimeSpan.MinValue;
+        if (p == null || p.Component == null) return TimeSpan.MinValue;
 
-        if (p.SubstanceRoot == null)
-        {
-            return GetExpire(p.ComponentID.Value, TestDef.Substance.for21days);
-        }
-        else
-            return GetExpire(p.ComponentID.Value, p.SubstanceRoot.ID);
-        
-    }
 
-    public static TimeSpan GetExpire(int componentID, int substanceID)
-    {
-        if (componentID == TestDef.Component.Full)
+        if (p.ComponentID == TestDef.Component.Full)
         {
             return new TimeSpan(35, 0, 0, 0);
         }
 
-        if (componentID == TestDef.Component.RBC)
+        if (p.ComponentID == TestDef.Component.RBC)
         {
-            if (substanceID == TestDef.Substance.for21days)
+            if (p.SubstanceRoot.ID == TestDef.Substance.for21days)
                 return new TimeSpan(21, 0, 0, 0);
-            if (substanceID == TestDef.Substance.for35days)
+            if (p.SubstanceRoot.ID == TestDef.Substance.for35days)
                 return new TimeSpan(35, 0, 0, 0);
-            if (substanceID == TestDef.Substance.for42days)
+            if (p.SubstanceRoot.ID == TestDef.Substance.for42days)
                 return new TimeSpan(42, 0, 0, 0);
             else
                 return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (componentID == TestDef.Component.WBC)
+        if (p.ComponentID == TestDef.Component.WBC)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (componentID == TestDef.Component.FactorVIII)
+        if (p.ComponentID == TestDef.Component.FactorVIII)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (componentID == TestDef.Component.Platelet
-            || componentID == TestDef.Component.PlateletApheresis)
+        if (p.ComponentID == TestDef.Component.Platelet
+            || p.ComponentID == TestDef.Component.PlateletApheresis)
         {
             return new TimeSpan(5, 0, 0, 0);
         }
 
-        if (componentID == TestDef.Component.FFPlasma
-            || componentID == TestDef.Component.FFPlasma_Poor)
+        if (p.ComponentID == TestDef.Component.FFPlasma
+            || p.ComponentID == TestDef.Component.FFPlasma_Poor)
         {
             return new TimeSpan(730, 0, 0, 0);
         }
@@ -144,7 +134,7 @@ public class SystemBLL
         return TimeSpan.MinValue;
     }
 
-    public static void Find(HttpResponse Response,TextBox txtCode)
+    public static void Find(HttpResponse Response, TextBox txtCode)
     {
         string key = txtCode.Text.Trim();
 

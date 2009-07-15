@@ -15,7 +15,7 @@
 
         $(document).bind('keydown', '8', function() {
             if (selectedInput) return;
-            window.location.replace("/RedBlood/PackManually.aspx");
+            window.location.replace("/RedBlood/TestResult/PackManually.aspx");
         });
 
         $(document).bind('keydown', '9', function() {
@@ -66,10 +66,10 @@
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="/RedBlood/PackManually.aspx">8. Nhập kết quả</a></h3>
+                                <a href="/RedBlood/TestResult/PackManually.aspx">8. Nhập kết quả</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/PackManually.aspx" />
+                            <a href="/RedBlood/TestResult/PackManually.aspx" />
                             <img src="Image/Icon/Colba.png" alt="" />
                         </td>
                         <td class="column next">
