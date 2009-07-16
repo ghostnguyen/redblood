@@ -42,6 +42,12 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
 
         if (p == null) return;
 
+        if (p.DeliverStatus != Pack.DeliverStatusX.Yes)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Túi máu chưa cấp phát.');", true);
+            return;
+        }
+
         if (string.IsNullOrEmpty(txtSideEffect.Text.Trim()))
             return;
 

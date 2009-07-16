@@ -92,13 +92,13 @@
                                 <asp:Label ID="Label2" runat="server" Text="RH" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodType2.ABO.Name") %>' />
+                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("ABO.Name") %>' />
                                 <br />
-                                <asp:Label ID="lblRH" runat="server" Text='<%# Eval("BloodType2.RH.Name") %>' />
+                                <asp:Label ID="lblRH" runat="server" Text='<%# Eval("RH.Name") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DropDownListABO" runat="server" DataSourceID="LinqDataSourceABO"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("BloodType2.ABO.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("ABO.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
@@ -107,7 +107,7 @@
                                 </asp:LinqDataSource>
                                 <br />
                                 <asp:DropDownList ID="DropDownListRH" runat="server" DataSourceID="LinqDataSourceRH"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("BloodType2.RH.ID") %>'
+                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("RH.ID") %>'
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>

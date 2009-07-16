@@ -66,37 +66,37 @@
                                     
                                     <asp:TemplateField HeaderText="ABO">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodType2.ABO.Name") %>' />
+                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("ABO.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Rhesus">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblRH" runat="server" Text='<%# Eval("BloodType2.RH.Name") %>' />
+                                            <asp:Label ID="lblRH" runat="server" Text='<%# Eval("RH.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HIV">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("TestResult2.HIV.Name") %>' />
+                                            <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("HIV.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HCV">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("TestResult2.HCV.Name") %>' />
+                                            <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("HCV.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HBsAg">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("TestResult2.HBsAg.Name") %>' />
+                                            <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("HBsAg.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Syphilis">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("TestResult2.Syphilis.Name") %>' />
+                                            <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Syphilis.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Malaria">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("TestResult2.Malaria.Name") %>' />
+                                            <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Malaria.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Địa chỉ">

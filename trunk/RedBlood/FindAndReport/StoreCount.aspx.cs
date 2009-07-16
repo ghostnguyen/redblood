@@ -116,12 +116,12 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
         {
             if (rh == TestDef.RH.Pos)
             {
-                return "Rh+ :" + count.ToString();
+                return count.ToString();
             }
 
             if (rh == TestDef.RH.Neg)
             {
-                return "Rh- :" + count.ToString();
+                return count.ToString("0 Rh-") ;
             }
         }
 

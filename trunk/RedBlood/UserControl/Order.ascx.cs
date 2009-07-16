@@ -291,7 +291,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         }
         else
         {
-            ScriptManager.RegisterStartupScript(btnUpdate, btnUpdate.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
         }
     }
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)

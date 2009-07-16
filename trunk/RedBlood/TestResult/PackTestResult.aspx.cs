@@ -70,11 +70,11 @@ public partial class PackTestResult : System.Web.UI.Page
         if (p != null)
         {
             PackBLL.Update(db, p, 2,
-               e.NewValues["TestResult2.HIV.ID"].ToInt(),
-               e.NewValues["TestResult2.HCV.ID"].ToInt(),
-               e.NewValues["TestResult2.HBsAg.ID"].ToInt(),
-                e.NewValues["TestResult2.Syphilis.ID"].ToInt(),
-               e.NewValues["TestResult2.Malaria.ID"].ToInt(),
+               e.NewValues["HIV.ID"].ToInt(),
+               e.NewValues["HCV.ID"].ToInt(),
+               e.NewValues["HBsAg.ID"].ToInt(),
+                e.NewValues["Syphilis.ID"].ToInt(),
+               e.NewValues["Malaria.ID"].ToInt(),
                 "");
 
             db.SubmitChanges();

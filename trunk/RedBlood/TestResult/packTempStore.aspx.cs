@@ -79,8 +79,8 @@ public partial class PackTempStore : System.Web.UI.Page
                e.NewValues["SubstanceID"].ToInt());
 
             PackBLL.Update(db, p, 2,
-                e.NewValues["BloodType2.ABO.ID"].ToInt(),
-                e.NewValues["BloodType2.RH.ID"].ToInt(),
+                e.NewValues["ABO.ID"].ToInt(),
+                e.NewValues["RH.ID"].ToInt(),
                 "");
 
             db.SubmitChanges();
