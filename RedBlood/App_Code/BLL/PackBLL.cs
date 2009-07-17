@@ -1007,33 +1007,7 @@ public class PackBLL
         return p;
     }
 
-    public static Pack IsExtracted(int autonum)
-    {
-        Pack p = Get(autonum);
-
-        if (p == null) return null;
-
-        if (p.ComponentID == TestDef.Component.Full)
-        {
-            if (p.PackExtractsBySource
-                .Where(r =>
-                    r.ExtractPack.ComponentID == TestDef.Component.RBC
-                    || r.ExtractPack.ComponentID == TestDef.Component.FFPlasma
-                    )
-                .Count() > 0)
-                return p;
-        }
-
-        if (p.ComponentID == TestDef.Component.RBC
-            || p.ComponentID == TestDef.Component.FFPlasma
-            )
-        {
-            return p;
-        }
-
-        return null;
-    }
-
+ 
     /// <summary>
     /// Lock All Test Result regarless of time
     /// </summary>
