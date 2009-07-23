@@ -101,7 +101,6 @@
       <Column Name="Code" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Hospital_People" Member="Peoples" ThisKey="ID" OtherKey="HopistalID" Type="People" />
       <Association Name="Hospital_Department" Member="Departments" ThisKey="ID" OtherKey="HospitalID" Type="Department" />
-      <Association Name="Hospital_Pack" Member="Packs" ThisKey="ID" OtherKey="HospitalID" Type="Pack" />
     </Type>
   </Table>
   <Table Name="dbo.TestDef" Member="TestDefs">
@@ -114,15 +113,6 @@
       <Association Name="TestDef_TestDef" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="TestDef" />
       <Association Name="TestDef_Campaign" Member="CampaignsBySource" ThisKey="ID" OtherKey="SourceID" Type="Campaign" />
       <Association Name="TestDef_PackResultHistory" Member="PackResultHistories" ThisKey="ID" OtherKey="TestDefID" Type="PackResultHistory" />
-      <Association Name="TestDef_Pack" Member="PacksByABO" ThisKey="ID" OtherKey="ABOID" Type="Pack" />
-      <Association Name="TestDef_Pack1" Member="PacksByComponent" ThisKey="ID" OtherKey="ComponentID" Type="Pack" />
-      <Association Name="TestDef_Pack2" Member="PacksByHBsAg" ThisKey="ID" OtherKey="HBsAgID" Type="Pack" />
-      <Association Name="TestDef_Pack3" Member="PacksByHCV" ThisKey="ID" OtherKey="HCVID" Type="Pack" />
-      <Association Name="TestDef_Pack4" Member="PacksByHIV" ThisKey="ID" OtherKey="HIVID" Type="Pack" />
-      <Association Name="TestDef_Pack5" Member="PacksByMalaria" ThisKey="ID" OtherKey="MalariaID" Type="Pack" />
-      <Association Name="TestDef_Pack6" Member="PacksByRh" ThisKey="ID" OtherKey="RhID" Type="Pack" />
-      <Association Name="TestDef_Pack7" Member="PacksBySubstance" ThisKey="ID" OtherKey="SubstanceID" Type="Pack" />
-      <Association Name="TestDef_Pack8" Member="PacksBySyphilis" ThisKey="ID" OtherKey="SyphilisID" Type="Pack" />
       <Association Name="TestDef_TestDef" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
     </Type>
   </Table>
@@ -152,7 +142,6 @@
       <Column Name="EnableMailingAddress" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="People_Order" Member="Orders" ThisKey="ID" OtherKey="PeopleID" Type="Order" />
-      <Association Name="People_Pack" Member="Packs" ThisKey="ID" OtherKey="PeopleID" Type="Pack" />
       <Association Name="Hospital_People" Member="Hospital" ThisKey="HopistalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="Geo_People" Member="MailingGeo1" Storage="_Geo" ThisKey="MailingGeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
       <Association Name="Geo_People1" Member="MailingGeo2" Storage="_Geo1" ThisKey="MailingGeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
@@ -172,7 +161,6 @@
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Pack_PackStatusHistory" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Org" Member="Orgs">
@@ -211,7 +199,6 @@
       <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Type" Type="Campaign.TypeX" DbType="Int" CanBeNull="true" />
       <Association Name="Campaign_CampaignStatusHistory" Member="CampaignStatusHistories" ThisKey="ID" OtherKey="CampaignID" Type="CampaignStatusHistory" />
-      <Association Name="Campaign_Pack" Member="Packs" ThisKey="ID" OtherKey="CampaignID" Type="Pack" />
       <Association Name="Org_Campaign" Member="CoopOrg" ThisKey="CoopOrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
       <Association Name="Org_Campaign1" Member="HostOrg" ThisKey="HostOrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
       <Association Name="TestDef_Campaign" Member="Source" ThisKey="SourceID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
@@ -248,7 +235,6 @@
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="TestDef_PackResultHistory" Member="TestDef" ThisKey="TestDefID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="Pack_PackResultHistory" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PackExtract" Member="PackExtracts">
@@ -257,8 +243,6 @@
       <Column Name="SourcePackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="ExtractPackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Pack_PackExtract" Member="SourcePack" ThisKey="SourcePackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
-      <Association Name="Pack_PackExtract1" Member="ExtractPack" ThisKey="ExtractPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PackOrder" Member="PackOrders">
@@ -270,7 +254,6 @@
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
-      <Association Name="Pack_PackOrder" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Excel" Member="Excels">
@@ -324,7 +307,6 @@
       <Association Name="SideEffect_PackSideEffect" Member="SideEffect1" ThisKey="SideEffectID1" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
       <Association Name="SideEffect_PackSideEffect1" Member="SideEffect2" ThisKey="SideEffectID2" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
       <Association Name="SideEffect_PackSideEffect2" Member="SideEffect3" ThisKey="SideEffectID3" OtherKey="ID" Type="SideEffect" IsForeignKey="true" />
-      <Association Name="Pack_PackSideEffect" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Department" Member="Departments">
@@ -371,51 +353,76 @@
       <Association Name="People_Order" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Pack" Member="Packs">
-    <Type Name="Pack">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Status" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
+  <Table Name="dbo.Facility" Member="Facilities">
+    <Type Name="Facility">
+      <Column Name="FIN" Type="System.String" DbType="NVarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Province" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CountingYY" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CountingNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Donation" Member="Donations">
+    <Type Name="Donation">
+      <Column Name="DIN" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CheckChar" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="CollectedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="HospitalID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Status" Type="Donation.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Autonum" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ComponentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="CampaignID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TestResultStatus" Type="Pack.TestResultStatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="SubstanceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DeliverStatus" Type="Pack.DeliverStatusX" DbType="Int" CanBeNull="true" />
       <Column Name="MSTM" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="MSNH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="HIVID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="HCVID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="HBsAgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SyphilisID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="MalariaID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ABOID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RhID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Collector" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="ExpiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
-      <Association Name="Pack_PackResultHistory" Member="PackResultHistories" ThisKey="ID" OtherKey="PackID" Type="PackResultHistory" />
-      <Association Name="Pack_PackExtract" Member="PackExtractsBySource" ThisKey="ID" OtherKey="SourcePackID" Type="PackExtract" />
-      <Association Name="Pack_PackExtract1" Member="PackExtractsByExtract" ThisKey="ID" OtherKey="ExtractPackID" Type="PackExtract" />
-      <Association Name="Pack_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="PackID" Type="PackOrder" />
-      <Association Name="Pack_PackSideEffect" Member="PackSideEffects" ThisKey="ID" OtherKey="PackID" Type="PackSideEffect" />
-      <Association Name="Campaign_Pack" Member="Campaign" ThisKey="CampaignID" OtherKey="ID" Type="Campaign" IsForeignKey="true" />
-      <Association Name="Hospital_Pack" Member="Hospital" ThisKey="HospitalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
-      <Association Name="People_Pack" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
-      <Association Name="TestDef_Pack" Member="ABO" ThisKey="ABOID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="TestDef_Pack1" Member="Component" ThisKey="ComponentID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="TestDef_Pack2" Member="HBsAg" ThisKey="HBsAgID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="TestDef_Pack3" Member="HCV" ThisKey="HCVID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="TestDef_Pack4" Member="HIV" ThisKey="HIVID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="TestDef_Pack5" Member="Malaria" ThisKey="MalariaID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="TestDef_Pack6" Member="Rh" ThisKey="RhID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="TestDef_Pack7" Member="Substance" ThisKey="SubstanceID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
-      <Association Name="TestDef_Pack8" Member="Syphilis" ThisKey="SyphilisID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
+      <Column Name="ABORhD" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ST010Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ST011" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ST012" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ST013" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ST014" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ST015" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ST016" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="InfectiousMarkers" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Donation_Pack" Member="Packs" ThisKey="DIN" OtherKey="DIN" Type="Pack" />
+      <Association Name="ST_General_Donation" Member="ST_General" ThisKey="ST010Code" OtherKey="Code" Type="ST_General" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Desciption" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RetiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Product_Pack" Member="Packs" ThisKey="Code" OtherKey="ProductCode" Type="Pack" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ST_General" Member="ST_Generals">
+    <Type Name="ST_General">
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RetiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="ST_General_Donation" Member="Donations" ThisKey="Code" OtherKey="ST010Code" Type="Donation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pack" Member="Packs">
+    <Type Name="Pack">
+      <Column Name="DIN" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExpirationDate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeliverStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
+      <Association Name="Product_Pack" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
