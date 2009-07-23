@@ -23,8 +23,10 @@ public partial class Pack
         Non = -2,
         All = -1,
         Init = 0,
+        
         Đã_thu = 1,
         Collected = 1,
+
         //CommitReceived = 2,
         Delete = 4,
         Hủy = 4,

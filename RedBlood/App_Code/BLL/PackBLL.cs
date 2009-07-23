@@ -346,34 +346,36 @@ public class PackBLL
 
 
 
-    public static Pack[] New(RedBloodDataContext db, int count)
-    {
-        Pack[] l = new Pack[count];
+    //public static Pack[] New(RedBloodDataContext db, int count)
+    //{
+    //    Pack[] l = new Pack[count];
 
-        for (int i = 0; i < l.Length; i++)
-        {
-            l[i] = new Pack();
-            l[i].Status = Pack.StatusX.Init;
-            l[i].TestResultStatus = Pack.TestResultStatusX.Non;
-            l[i].DeliverStatus = Pack.DeliverStatusX.Non;
-        }
+    //    for (int i = 0; i < l.Length; i++)
+    //    {
+    //        l[i] = new Pack();
+    //        l[i].Status = Pack.StatusX.Init;
+    //        l[i].TestResultStatus = Pack.TestResultStatusX.Non;
+    //        l[i].DeliverStatus = Pack.DeliverStatusX.Non;
+    //    }
 
-        db.Packs.InsertAllOnSubmit(l);
+    //    db.Packs.InsertAllOnSubmit(l);
 
-        return l;
-    }
+    //    return l;
+    //}
 
-    public static Pack[] New(int count)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
+    //public static Pack[] New(int count)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack[] l = New(db, count);
-        db.Packs.InsertAllOnSubmit(l);
+    //    Pack[] l = New(db, count);
+    //    db.Packs.InsertAllOnSubmit(l);
 
 
-        db.SubmitChanges();
-        return l;
-    }
+    //    db.SubmitChanges();
+    //    return l;
+    //}
+
+    
 
 
 
