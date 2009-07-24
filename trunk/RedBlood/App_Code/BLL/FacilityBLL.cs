@@ -24,11 +24,24 @@ public class FacilityBLL
                 select s).FirstOrDefault();
     }
 
-    public static Facility GetFirst()
+    public static Facility GetFirst(RedBloodDataContext db)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-
         return (from s in db.Facilities
                 select s).FirstOrDefault();
+    }
+
+    public static void ResetCounting()
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Facility f = GetFirst(db);
+        
+        string YY = DateTime.Now.Year.ToString().Substring(2, 2);
+
+        if (f.CountingYY != YY)
+        {
+            f.CountingYY = YY;
+            f.CountingNumber = 0;
+        }
+        db.SubmitChanges();
     }
 }
