@@ -391,6 +391,7 @@
       <Column Name="InfectiousMarkers" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Donation_Pack" Member="Packs" ThisKey="DIN" OtherKey="DIN" Type="Pack" />
+      <Association Name="Donation_DonationStatusLog" Member="DonationStatusLogs" ThisKey="DIN" OtherKey="DIN" Type="DonationStatusLog" />
       <Association Name="ST_General_Donation" Member="ST_General" ThisKey="ST010Code" OtherKey="Code" Type="ST_General" IsForeignKey="true" />
     </Type>
   </Table>
@@ -413,16 +414,40 @@
   </Table>
   <Table Name="dbo.Pack" Member="Packs">
     <Type Name="Pack">
-      <Column Name="DIN" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ExpirationDate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DeliverStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Pack_PackLink" Member="PackLinks" ThisKey="ID" OtherKey="FromPack" Type="PackLink" />
+      <Association Name="Pack_PackLink1" Member="PackLinks1" ThisKey="ID" OtherKey="ToPack" Type="PackLink" />
       <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
       <Association Name="Product_Pack" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackLink" Member="PackLinks">
+    <Type Name="PackLink">
+      <Column Name="FromPack" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ToPack" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Pack_PackLink" Member="Pack" ThisKey="FromPack" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+      <Association Name="Pack_PackLink1" Member="Pack1" ThisKey="ToPack" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DonationStatusLog" Member="DonationStatusLogs">
+    <Type Name="DonationStatusLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FromStatus" Type="Donation.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="ToStatus" Type="Donation.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Donation_DonationStatusLog" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -22,7 +22,7 @@ public partial class Donation
         Init = 0,
 
         Đã_thu = 1,
-        Collected = 1,
+        Assigned = 1,
 
         //CommitReceived = 2,
         Delete = 4,

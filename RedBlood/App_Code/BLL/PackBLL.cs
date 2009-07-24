@@ -302,47 +302,47 @@ public class PackBLL
         return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
     }
 
-    public static PackErr Assign(int autonum, Guid peopleID, int campaignID)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
+    //public static PackErr Assign(int autonum, Guid peopleID, int campaignID)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Pack> l = (from c in db.Packs
-                        where c.Autonum == autonum && c.PeopleID == null && c.CampaignID == null
-                        select c).ToList();
+    //    List<Pack> l = (from c in db.Packs
+    //                    where c.Autonum == autonum && c.PeopleID == null && c.CampaignID == null
+    //                    select c).ToList();
 
-        if (l.Count != 1)
-        {
-            return PackErrList.DataErr;
-        }
+    //    if (l.Count != 1)
+    //    {
+    //        return PackErrList.DataErr;
+    //    }
 
-        Pack p = l.First();
+    //    Pack p = l.First();
 
-        //PackErr err = Validate(p);
-        //if (!err.Equals(PackErrList.Non)) return err;
+    //    //PackErr err = Validate(p);
+    //    //if (!err.Equals(PackErrList.Non)) return err;
 
-        try
-        {
+    //    try
+    //    {
 
-            p.PeopleID = peopleID;
-            p.CollectedDate = DateTime.Now;
-            p.CampaignID = campaignID;
-            p.Substance = TestDefBLL.Get(db, TestDef.Substance.for21days);
-            p.Component = TestDefBLL.Get(db, TestDef.Component.Full);
-            UpdateExpiredDate(p);
+    //        p.PeopleID = peopleID;
+    //        p.CollectedDate = DateTime.Now;
+    //        p.CampaignID = campaignID;
+    //        p.Substance = TestDefBLL.Get(db, TestDef.Substance.for21days);
+    //        p.Component = TestDefBLL.Get(db, TestDef.Component.Full);
+    //        UpdateExpiredDate(p);
 
-            PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Collected, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
+    //        PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Collected, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
 
-            db.SubmitChanges();
+    //        db.SubmitChanges();
 
-            CampaignBLL.SetStatus(campaignID);
-        }
-        catch (Exception ex)
-        {
-            return new PackErr(ex.Message);
-        }
+    //        CampaignBLL.SetStatus(campaignID);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return new PackErr(ex.Message);
+    //    }
 
-        return PackErrList.Non;
-    }
+    //    return PackErrList.Non;
+    //}
 
 
 
@@ -375,44 +375,40 @@ public class PackBLL
     //    return l;
     //}
 
-    
+    //public static Pack GetEnterPackByPeopleID(Guid peopleID)
+    //{
+    //    return GetEnterPackByPeopleID(peopleID, null);
+    //}
 
+    //public static Pack GetEnterPackByPeopleID(Guid peopleID, PackErr err)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
+    //    var e = from c in db.Packs
+    //            where c.PeopleID == peopleID
+    //            && (c.Status == Pack.StatusX.Collected)
+    //            && (c.TestResultStatus == Pack.TestResultStatusX.Non)
 
-    public static Pack GetEnterPackByPeopleID(Guid peopleID)
-    {
-        return GetEnterPackByPeopleID(peopleID, null);
-    }
+    //            orderby c.Status descending, c.CollectedDate descending
+    //            select c;
 
-    public static Pack GetEnterPackByPeopleID(Guid peopleID, PackErr err)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
+    //    if (e.Count() == 1)
+    //    {
+    //        Pack p = e.First();
 
-        var e = from c in db.Packs
-                where c.PeopleID == peopleID
-                && (c.Status == Pack.StatusX.Collected)
-                && (c.TestResultStatus == Pack.TestResultStatusX.Non)
+    //        if (Validate(p) != null)
+    //            return p;
+    //        else
+    //            return null;
+    //    }
 
-                orderby c.Status descending, c.CollectedDate descending
-                select c;
+    //    if (e.Count() > 1)
+    //    {
+    //        err = PackErrList.EnterPackMulti;
+    //    }
 
-        if (e.Count() == 1)
-        {
-            Pack p = e.First();
-
-            if (Validate(p) != null)
-                return p;
-            else
-                return null;
-        }
-
-        if (e.Count() > 1)
-        {
-            err = PackErrList.EnterPackMulti;
-        }
-
-        return null;
-    }
+    //    return null;
+    //}
 
     //public static Pack[] GetEnterPackErr()
     //{
@@ -468,25 +464,25 @@ public class PackBLL
     //    return p;
     //}
 
-    public static PackStatusHistory ChangeStatus(RedBloodDataContext db, Pack p, Pack.StatusX to, string note)
-    {
-        return ChangeStatus(db, p, to, RedBloodSystem.CurrentActor, note);
-    }
+    //public static PackStatusHistory ChangeStatus(RedBloodDataContext db, Pack p, Pack.StatusX to, string note)
+    //{
+    //    return ChangeStatus(db, p, to, RedBloodSystem.CurrentActor, note);
+    //}
 
-    public static PackStatusHistory ChangeStatus(RedBloodDataContext db, Pack p, Pack.StatusX to, string actor, string note)
-    {
-        if (p.Status == to) return null;
+    //public static PackStatusHistory ChangeStatus(RedBloodDataContext db, Pack p, Pack.StatusX to, string actor, string note)
+    //{
+    //    if (p.Status == to) return null;
 
-        Pack.StatusX from = p.Status;
+    //    Pack.StatusX from = p.Status;
 
-        p.Status = to;
+    //    p.Status = to;
 
-        PackStatusHistory h = new PackStatusHistory(p, from, to, actor, note);
+    //    PackStatusHistory h = new PackStatusHistory(p, from, to, actor, note);
 
-        db.PackStatusHistories.InsertOnSubmit(h);
+    //    db.PackStatusHistories.InsertOnSubmit(h);
 
-        return h;
-    }
+    //    return h;
+    //}
 
     public static PackErr DeletePack(int? campaignID, int autonum, string note)
     {
