@@ -120,82 +120,40 @@
   <data name="campaignLength" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="campaignSSC" xml:space="preserve">
-    <value>ac</value>
-  </data>
-  <data name="campaignStartCode" xml:space="preserve">
-    <value>a</value>
-  </data>
-  <data name="campaignStopCode" xml:space="preserve">
-    <value>c</value>
-  </data>
   <data name="CMNDLength" xml:space="preserve">
     <value>9</value>
   </data>
   <data name="orgLength" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="orgSSC" xml:space="preserve">
-    <value>ae</value>
+  <data name="orgIdChar" xml:space="preserve">
+    <value>&amp;e</value>
   </data>
-  <data name="orgStartCode" xml:space="preserve">
-    <value>a</value>
+  <data name="productLength" xml:space="preserve">
+    <value>10</value>
   </data>
-  <data name="orgStopCode" xml:space="preserve">
-    <value>e</value>
-  </data>
-  <data name="packLength" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="packSSC" xml:space="preserve">
-    <value>ab</value>
-  </data>
-  <data name="packStarCode" xml:space="preserve">
-    <value>a</value>
-  </data>
-  <data name="packStopCode" xml:space="preserve">
-    <value>b</value>
+  <data name="productIdChar" xml:space="preserve">
+    <value>=&lt;</value>
   </data>
   <data name="peopleLength" xml:space="preserve">
     <value>36</value>
   </data>
-  <data name="peopleSSC" xml:space="preserve">
-    <value>aa</value>
-  </data>
-  <data name="peopleStarCode" xml:space="preserve">
-    <value>a</value>
-  </data>
-  <data name="peopleStopCode" xml:space="preserve">
-    <value>a</value>
-  </data>
-  <data name="testResultLength" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="testResultSSC" xml:space="preserve">
-    <value>at</value>
-  </data>
-  <data name="testResultStartCode" xml:space="preserve">
-    <value>a</value>
-  </data>
-  <data name="testResultStopCode" xml:space="preserve">
-    <value>t</value>
-  </data>
   <data name="orderLength" xml:space="preserve">
     <value>11</value>
-  </data>
-  <data name="orderSSC" xml:space="preserve">
-    <value>ad</value>
-  </data>
-  <data name="orderStartCode" xml:space="preserve">
-    <value>a</value>
-  </data>
-  <data name="orderStopCode" xml:space="preserve">
-    <value>d</value>
   </data>
   <data name="DINIdChar" xml:space="preserve">
     <value>=</value>
   </data>
   <data name="DINLength" xml:space="preserve">
     <value>16</value>
+  </data>
+  <data name="campaignIdChar" xml:space="preserve">
+    <value>&amp;c</value>
+  </data>
+  <data name="orderIdChar" xml:space="preserve">
+    <value>&amp;o</value>
+  </data>
+  <data name="peopleIdChar" xml:space="preserve">
+    <value>&amp;;</value>
   </data>
 </root>

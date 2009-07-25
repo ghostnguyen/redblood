@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class Collect_AssignDIN : System.Web.UI.Page
 {
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -52,40 +52,36 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
 
     protected void btnNew_Click(object sender, EventArgs e)
     {
-        ucPeople.New("");
+        //ucPeople.New("");
         //ucEnterPack.PeopleID = Guid.Empty;
     }
 
     private void DINEnter(string code)
     {
-        ucEnterPack.Assign(p.Autonum, CamDetailLeft.CampaignID);
+        if (ucPeople.PeopleID == Guid.Empty)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin người cho máu.');", true);
+            return;
+        }
+        if (CamDetailLeft.CampaignID == 0)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin đợt thu máu.');", true);
+            return;
+        }
 
-        //Pack p = PackBLL.GetByCode(code);
-        //if (p == null) return;
+        DonationErr err = DonationBLL.Assign(BarcodeBLL.ParseDIN(code), ucPeople.PeopleID, CamDetailLeft.CampaignID);
 
-        //Donation e = DonationBLL
-
-        //if (p.PeopleID == null && p.CampaignID == null)
-        //{
-        //    if (ucPeople.PeopleID == Guid.Empty)
-        //    {
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin người cho máu.');", true);
-        //        return;
-        //    }
-        //    if (CamDetailLeft.CampaignID == 0)
-        //    {
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin đợt thu máu.');", true);
-        //        return;
-        //    }
-
-            
-        //}
-        //else
-        //{
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-        //            "alert ('Túi máu: " + p.Status.ToString() + "');", true);
-        //    return;
-        //}
+        if (err != DonationErrEnum.Non)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+                        "alert ('Túi máu: " + err.Message + "');", true);
+        }
+        else
+        {
+            ucPDL.Load();
+        }
+        
+        return;
     }
 
     private void CampaignEnter(string code)

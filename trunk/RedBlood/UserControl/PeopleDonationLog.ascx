@@ -4,13 +4,8 @@
 <asp:GridView ID="GridView1" runat="server" DataSourceID="LinqDataSource1" AutoGenerateColumns="False"
     ShowHeader="false">
     <Columns>
-        <asp:BoundField DataField="Autonum" />
+        <asp:BoundField DataField="DIN" />
         <asp:BoundField DataField="CollectedDate" DataFormatString="{0:dd/MM/yyyy}" />
-        <asp:TemplateField>
-            <ItemTemplate>
-                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("Component.Name") %>' />
-            </ItemTemplate>
-        </asp:TemplateField>
         <asp:BoundField DataField="Note" />
     </Columns>
 </asp:GridView>

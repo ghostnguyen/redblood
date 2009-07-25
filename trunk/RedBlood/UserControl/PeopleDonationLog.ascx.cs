@@ -54,32 +54,32 @@ public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
                 orderby c.CollectedDate descending
                 select c;
 
-        foreach (Pack e in v)
-        {
-            if (e.Status == Pack.StatusX.DataErr)
-            {
-                e.Note = PackErrList.DataErr.Message;
-            }
-            else if (e.Status == Pack.StatusX.Delete)
-            {
-                if (e.PackStatusHistories.Count == 0)
-                    e.Note = "Unknown";
-                else
-                    e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note;
-            }
-            else if (e.Status == Pack.StatusX.Collected)
-            {
-                e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
-            }
-            else if (e.Status == Pack.StatusX.Expire)
-            {
-                e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expire).First().Note;
-            }
-            else
-            {
-                e.Note = e.Status.ToString();
-            }
-        }
+        //foreach (Pack e in v)
+        //{
+        //    if (e.Status == Pack.StatusX.DataErr)
+        //    {
+        //        e.Note = PackErrList.DataErr.Message;
+        //    }
+        //    else if (e.Status == Pack.StatusX.Delete)
+        //    {
+        //        if (e.PackStatusHistories.Count == 0)
+        //            e.Note = "Unknown";
+        //        else
+        //            e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note;
+        //    }
+        //    else if (e.Status == Pack.StatusX.Collected)
+        //    {
+        //        e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
+        //    }
+        //    else if (e.Status == Pack.StatusX.Expire)
+        //    {
+        //        e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expire).First().Note;
+        //    }
+        //    else
+        //    {
+        //        e.Note = e.Status.ToString();
+        //    }
+        //}
 
         return v;
     }
