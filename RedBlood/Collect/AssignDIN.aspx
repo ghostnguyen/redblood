@@ -3,9 +3,8 @@
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
-<%@ Register Src="~/UserControl/PeopleHistory.ascx" TagPrefix="uc" TagName="PeopleHistory" %>
-<%@ Register Src="~/UserControl/EnterPack.ascx" TagPrefix="uc" TagName="EnterPack" %>
 <%@ Register Src="~/UserControl/CampaignDetail.ascx" TagPrefix="uc" TagName="CamDetail" %>
+<%@ Register Src="~/UserControl/PeopleDonationLog.ascx" TagPrefix="uc" TagName="PeopleDonationLog" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <script type="text/javascript">
@@ -43,6 +42,8 @@
                     </td>
                     <td style="width: 300px;">
                         <%--<uc:EnterPack runat="server" ID="ucEnterPack" />--%>
+                        <uc:PeopleDonationLog runat="server" ID="ucPDL" />
+                        
                         
                         
                        <%-- <div class="part">
