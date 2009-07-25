@@ -29,7 +29,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Response.Redirect("~/Login.aspx");
 
         
-        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", CodabarBLL.JScript4Postback(), true);
+        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", BarcodeBLL.JScript4Postback(), true);
 
         if (!Request.Url.ToString().ToLower().Contains("default"))
         {

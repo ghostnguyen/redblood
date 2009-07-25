@@ -24,15 +24,15 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
             if (code.Length == 0) return;
 
-            if (CodabarBLL.IsValidPackCode(code))
+            if (BarcodeBLL.IsValidPackCode(code))
             {
                 PackCodeEnter(code);
             }
-            else if (CodabarBLL.IsValidTestResultCode(code))
+            else if (BarcodeBLL.IsValidTestResultCode(code))
             {
                 TestResultEnter(code);
             }
-            else if (CodabarBLL.IsValidCampaignCode(code))
+            else if (BarcodeBLL.IsValidCampaignCode(code))
             {
                 CampaignEnter(code);
             }
@@ -95,7 +95,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
     private void CampaignEnter(string code)
     {
-        CamDetailLeft.CampaignID = CodabarBLL.ParseCampaignID(code);
+        CamDetailLeft.CampaignID = BarcodeBLL.ParseCampaignID(code);
     }
 
 }

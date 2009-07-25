@@ -42,17 +42,17 @@ public partial class Production_ExtractInList : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
-        if (CodabarBLL.IsValidPackCode(code))
+        if (BarcodeBLL.IsValidPackCode(code))
         {
-            if (!AutonumListIn.Contains(CodabarBLL.ParsePackAutoNum(code)))
+            if (!AutonumListIn.Contains(BarcodeBLL.ParsePackAutoNum(code)))
             {
-                Pack p = PackBLL.Get4Extract(CodabarBLL.ParsePackAutoNum(code));
+                Pack p = PackBLL.Get4Extract(BarcodeBLL.ParsePackAutoNum(code));
 
                 if (p != null
                     && p.ComponentID == TestDef.Component.Full
                     && p.Err == PackErrList.Valid4Extract)
                 {
-                    AutonumListIn.Add(CodabarBLL.ParsePackAutoNum(code));
+                    AutonumListIn.Add(BarcodeBLL.ParsePackAutoNum(code));
                     LoadAutonum();
                 }
             }

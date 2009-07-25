@@ -143,7 +143,7 @@ public class SystemBLL
         string pattern = @"\d+";
         Regex regx = new Regex(pattern);
 
-        if (CodabarBLL.IsValidPeopleCode(key))
+        if (BarcodeBLL.IsValidPeopleCode(key))
         {
             People r = PeopleBLL.GetByCode(key);
             if (r != null)
@@ -151,25 +151,25 @@ public class SystemBLL
                 Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
             }
         }
-        else if (CodabarBLL.IsValidPackCode(key))
+        else if (BarcodeBLL.IsValidPackCode(key))
         {
-            Pack r = PackBLL.Get(CodabarBLL.ParsePackAutoNum(key));
+            Pack r = PackBLL.Get(BarcodeBLL.ParsePackAutoNum(key));
             if (r != null)
             {
                 Response.Redirect(SystemBLL.Url4PackDetail + "key=" + r.Autonum.ToString());
             }
         }
-        else if (CodabarBLL.IsValidCampaignCode(key))
+        else if (BarcodeBLL.IsValidCampaignCode(key))
         {
-            Campaign r = CampaignBLL.GetByID(CodabarBLL.ParseCampaignID(key));
+            Campaign r = CampaignBLL.GetByID(BarcodeBLL.ParseCampaignID(key));
             if (r != null)
             {
                 Response.Redirect(SystemBLL.Url4CampaignDetail + "key=" + r.ID.ToString());
             }
         }
-        else if (CodabarBLL.IsValidOrderCode(key))
+        else if (BarcodeBLL.IsValidOrderCode(key))
         {
-            Order r = OrderBLL.Get(CodabarBLL.ParseOrderID(key));
+            Order r = OrderBLL.Get(BarcodeBLL.ParseOrderID(key));
             if (r != null)
             {
                 Response.Redirect(SystemBLL.Url4OrderDetail + "key=" + r.ID.ToString());

@@ -84,9 +84,9 @@ public partial class Production_Combine : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
-        if (CodabarBLL.IsValidPackCode(code))
+        if (BarcodeBLL.IsValidPackCode(code))
         {
-            CheckAutonum(CodabarBLL.ParsePackAutoNum(code));
+            CheckAutonum(BarcodeBLL.ParsePackAutoNum(code));
         }
         else
         {

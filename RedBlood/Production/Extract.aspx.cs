@@ -37,9 +37,9 @@ public partial class Production_Extract : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
-        if (CodabarBLL.IsValidPackCode(code))
+        if (BarcodeBLL.IsValidPackCode(code))
         {
-            Autonum = CodabarBLL.ParsePackAutoNum(code);
+            Autonum = BarcodeBLL.ParsePackAutoNum(code);
             LoadAutonum();
         }
     }

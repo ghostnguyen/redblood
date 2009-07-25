@@ -9,7 +9,7 @@ using System.Globalization;
 public partial class UserControl_PeopleOrder : System.Web.UI.UserControl
 {
     GeoBLL geoBLL = new GeoBLL();
-    CodabarBLL codabarBLL = new CodabarBLL();
+    BarcodeBLL codabarBLL = new BarcodeBLL();
     PeopleBLL bll = new PeopleBLL();
 
     public event EventHandler PeopleChanged;

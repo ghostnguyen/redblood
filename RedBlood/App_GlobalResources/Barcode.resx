@@ -192,4 +192,10 @@
   <data name="orderStopCode" xml:space="preserve">
     <value>d</value>
   </data>
+  <data name="DINIdChar" xml:space="preserve">
+    <value>=</value>
+  </data>
+  <data name="DINLength" xml:space="preserve">
+    <value>16</value>
+  </data>
 </root>

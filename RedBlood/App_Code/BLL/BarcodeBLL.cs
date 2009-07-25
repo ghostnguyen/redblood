@@ -6,15 +6,15 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for CodabarBLL
+/// Summary description for BarcodeBLL
 /// </summary>
-public class CodabarBLL
+public class BarcodeBLL
 {
-    //http://localhost:8449/RedBlood/CodarBar/Image.aspx
-    public static string CodabarImgPage { get; set; }
+    //http://localhost:8449/RedBlood/Barcode/Image.aspx
+    public static string BarcodeImgPage { get; set; }
 
     static string hospitalCode;
-    public CodabarBLL()
+    public BarcodeBLL()
     {
         Hospital h = HospitalBLL.GetFirst();
         hospitalCode = h == null ? "00" : h.Code;
@@ -73,16 +73,10 @@ public class CodabarBLL
         return false;
     }
 
-    public static bool IsValidPackCode(string code)
+    public static bool IsValidDINCode(string code)
     {
-        string pattern = Resources.Codabar.packStarCode + "[0-9]{2}-[0-9]{" + Resources.Codabar.packLength.AddNumber(-5) + "}" + Resources.Codabar.packStopCode;
-        Regex regx = new Regex(pattern);
-        return regx.IsMatch(code);
-    }
+        string pattern = Resources.Barcode.DINIdChar + "[A-NP-Z1-9]{1}[0-9]{14}";
 
-    public static bool IsValidTestResultCode(string code)
-    {
-        string pattern = Resources.Codabar.testResultStartCode + "[0-9]{" + Resources.Codabar.packLength.AddNumber(-2) + "}" + Resources.Codabar.testResultStopCode;
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
     }
@@ -138,7 +132,7 @@ public class CodabarBLL
 
     public static string Url4People(Guid ID)
     {
-        return CodabarImgPage + "?code=" + GenStringCode(Resources.Codabar.peopleSSC, ID.ToString());
+        return BarcodeImgPage + "?code=" + GenStringCode(Resources.Codabar.peopleSSC, ID.ToString());
     }
 
     public static string Url4Pack(int? autonum)
@@ -182,22 +176,22 @@ public class CodabarBLL
             top = "&topleft=" + topleft + "&topright=" + topright;
         }
 
-        return CodabarImgPage + "?hasText=true&code=" + GenPackCode(autonum) + top + "&ssc";
+        return BarcodeImgPage + "?hasText=true&code=" + GenPackCode(autonum) + top + "&ssc";
     }
 
     public static string Url4Campaign(int ID)
     {
-        return CodabarImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.campaignSSC, ID.ToString());
+        return BarcodeImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.campaignSSC, ID.ToString());
     }
 
     public static string Url4Org(int ID)
     {
-        return CodabarImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orgSSC, ID.ToString());
+        return BarcodeImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orgSSC, ID.ToString());
     }
 
     public static string Url4Order(int ID)
     {
-        return CodabarImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orderSSC, ID.ToString());
+        return BarcodeImgPage + "?hasText=true&code=" + GenStringCode(Resources.Codabar.orderSSC, ID.ToString());
     }
 
     public static string JScript4Postback()

@@ -30,10 +30,10 @@ public partial class Collect_UpdateCollector : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
-        if (CodabarBLL.IsValidPackCode(code))
+        if (BarcodeBLL.IsValidPackCode(code))
         {
-            if (!AutonumListIn.Contains(CodabarBLL.ParsePackAutoNum(code)))
-                AutonumListIn.Add(CodabarBLL.ParsePackAutoNum(code));
+            if (!AutonumListIn.Contains(BarcodeBLL.ParsePackAutoNum(code)))
+                AutonumListIn.Add(BarcodeBLL.ParsePackAutoNum(code));
             GridView1.DataBind();
         }
     }

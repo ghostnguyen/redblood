@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class PackBLL
 {
-    CodabarBLL codabarBLL = new CodabarBLL();
+    BarcodeBLL codabarBLL = new BarcodeBLL();
     CampaignBLL campaignBLL = new CampaignBLL();
     public PackBLL()
     {
@@ -274,7 +274,7 @@ public class PackBLL
 
     public static Pack GetByCode(string code)
     {
-        return Get(CodabarBLL.ParsePackAutoNum(code));
+        return Get(BarcodeBLL.ParsePackAutoNum(code));
     }
 
     public static List<Pack> Get(RedBloodDataContext db, List<Pack.StatusX> status)

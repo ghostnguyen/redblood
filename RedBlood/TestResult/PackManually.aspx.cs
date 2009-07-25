@@ -15,7 +15,7 @@ public partial class TestResult_PackManually : System.Web.UI.Page
 
         if (Master.TextBoxCode.Text.Length == 0) return;
 
-        if (CodabarBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+        if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
         {
             CampaignEnter(Master.TextBoxCode.Text);
         }
@@ -30,11 +30,11 @@ public partial class TestResult_PackManually : System.Web.UI.Page
 
     private void CampaignEnter(string code)
     {
-        CampaignDetail1.CampaignID = CodabarBLL.ParseCampaignID(code);
+        CampaignDetail1.CampaignID = BarcodeBLL.ParseCampaignID(code);
         GridView1.DataBind();
         GridViewOtherPack.DataBind();
 
-        DeletePack1.CampaignID = CodabarBLL.ParseCampaignID(code);
+        DeletePack1.CampaignID = BarcodeBLL.ParseCampaignID(code);
     }
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)

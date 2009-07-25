@@ -29,7 +29,7 @@ public partial class Category_Org : System.Web.UI.Page
     }
 
     GeoBLL geoBLL = new GeoBLL();
-    CodabarBLL codabarBLL = new CodabarBLL();
+    BarcodeBLL codabarBLL = new BarcodeBLL();
     OrgBLL bll = new OrgBLL();
 
     string styleHidden = "visibility: hidden; height: 0px; width: 0px;";
@@ -74,7 +74,7 @@ public partial class Category_Org : System.Web.UI.Page
         { }
         else
         {
-            imgCodabar.ImageUrl = CodabarBLL.Url4Org(e.ID);
+            imgCodabar.ImageUrl = BarcodeBLL.Url4Org(e.ID);
             txtName.Text = e.Name;
 
             txtAddress.Text = e.Address;

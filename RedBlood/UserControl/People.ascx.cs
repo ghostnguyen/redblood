@@ -9,7 +9,7 @@ using System.Globalization;
 public partial class UserControl_People : System.Web.UI.UserControl
 {
     GeoBLL geoBLL = new GeoBLL();
-    CodabarBLL codabarBLL = new CodabarBLL();
+    BarcodeBLL codabarBLL = new BarcodeBLL();
     PeopleBLL bll = new PeopleBLL();
 
     public event EventHandler PeopleChanged;
@@ -48,13 +48,13 @@ public partial class UserControl_People : System.Web.UI.UserControl
         set
         {
             _code = value;
-            if (CodabarBLL.IsValidPackCode(Code))
+            if (BarcodeBLL.IsValidPackCode(Code))
             {
 
             }
-            else if (CodabarBLL.IsValidTestResultCode(Code))
+            else if (BarcodeBLL.IsValidTestResultCode(Code))
             { }
-            else if (CodabarBLL.IsValidPeopleCode(Code))
+            else if (BarcodeBLL.IsValidPeopleCode(Code))
             {
                 People r = PeopleBLL.GetByCode(Code);
                 if (r != null)
@@ -119,7 +119,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
         }
         else
         {
-            imgCodabar.ImageUrl = CodabarBLL.Url4People(e.ID);
+            imgCodabar.ImageUrl = BarcodeBLL.Url4People(e.ID);
 
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;

@@ -30,7 +30,7 @@ public partial class UserControl_InvitationLetter : System.Web.UI.UserControl
     {
         LabelName.Text = e.People.Name;
         LabelDOB.Text = e.People.DOB.ToStringVN();
-        LabelPackCode.Text = CodabarBLL.GenPackCode(e.Autonum);
+        LabelPackCode.Text = BarcodeBLL.GenPackCode(e.Autonum);
         LabelAddress.Text = e.People.FullResidentalAddress;
         LabelCollectedDate.Text = e.CollectedDate.ToStringVN();
         LabelDate.Text = DateTime.Now.AddMonthsAvoidWeekend(1).ToStringVN();

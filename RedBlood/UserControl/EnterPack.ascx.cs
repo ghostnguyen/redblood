@@ -61,7 +61,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
             {
                 Autonum = e.Autonum;
 
-                ImageCodabar.ImageUrl = CodabarBLL.Url4Pack(e.Autonum);
+                ImageCodabar.ImageUrl = BarcodeBLL.Url4Pack(e.Autonum);
 
                 if (e.ComponentID != null)
                     DropDownListComponent.SelectedValue = e.ComponentID.ToString();
