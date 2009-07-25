@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 public partial class UserControl_Campaign : System.Web.UI.UserControl
 {
     GeoBLL geoBLL = new GeoBLL();
-    CodabarBLL codabarBLL = new CodabarBLL();
+    BarcodeBLL codabarBLL = new BarcodeBLL();
     CampaignBLL bll = new CampaignBLL();
 
     public int CampaignID
@@ -104,7 +104,7 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
         }
         else
         {
-            imgCodabar.ImageUrl = CodabarBLL.Url4Campaign(e.ID);
+            imgCodabar.ImageUrl = BarcodeBLL.Url4Campaign(e.ID);
 
             txtName.Text = e.Name;
 

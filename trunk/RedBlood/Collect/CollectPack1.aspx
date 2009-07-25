@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeFile="~/Collect/CollectPack.aspx.cs" Inherits="Collect_CollectPack" MaintainScrollPositionOnPostback="true" %>
+    AutoEventWireup="true" CodeFile="~/Collect/CollectPack1.aspx.cs" Inherits="Collect_CollectPack" MaintainScrollPositionOnPostback="true" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>

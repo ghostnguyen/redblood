@@ -51,15 +51,15 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         set
         {
             string code = value.Trim();
-            if (CodabarBLL.IsValidPackCode(code))
+            if (BarcodeBLL.IsValidPackCode(code))
             {
-                AddPack(CodabarBLL.ParsePackAutoNum(code));
+                AddPack(BarcodeBLL.ParsePackAutoNum(code));
             }
-            else if (CodabarBLL.IsValidOrderCode(code))
+            else if (BarcodeBLL.IsValidOrderCode(code))
             {
-                OrderID = CodabarBLL.ParseOrderID(code);
+                OrderID = BarcodeBLL.ParseOrderID(code);
             }
-            else if (CodabarBLL.IsValidPeopleCode(code))
+            else if (BarcodeBLL.IsValidPeopleCode(code))
             {
                 People1.Code = code;
             }
@@ -241,7 +241,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         {
             OrderType = e.Type;
 
-            imgCodabar.ImageUrl = CodabarBLL.Url4Order(e.ID);
+            imgCodabar.ImageUrl = BarcodeBLL.Url4Order(e.ID);
 
             txtName.Text = e.Name;
             txtNote.Text = e.Note;

@@ -23,7 +23,7 @@
     void Session_Start(object sender, EventArgs e)
     {
         // Code that runs when a new session is started
-        if (string.IsNullOrEmpty(CodabarBLL.CodabarImgPage))
+        if (string.IsNullOrEmpty(BarcodeBLL.BarcodeImgPage))
         {
             //System.Web.VirtualPathUtility.
             string[] split = Request.Url.AbsoluteUri.Split('/');
@@ -31,7 +31,7 @@
             RedBloodSystem.RootUrl = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3];
             RedBloodSystem.RootUrl = RedBloodSystem.RootUrl.Replace("0.0.0.0", "localhost");
             
-            CodabarBLL.CodabarImgPage = RedBloodSystem.RootUrl + "/Codabar/Image.aspx";
+            BarcodeBLL.BarcodeImgPage = RedBloodSystem.RootUrl + "/Barcode/Image.aspx";
         }
     }
 

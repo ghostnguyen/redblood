@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class PeopleBLL
 {
-    CodabarBLL codabarBLL = new CodabarBLL();
+    BarcodeBLL codabarBLL = new BarcodeBLL();
     public PeopleBLL()
     {
         //
@@ -46,7 +46,7 @@ public class PeopleBLL
 
     public static People GetByCode(string code)
     {
-        Guid ID = CodabarBLL.ParsePeopleCode(code);
+        Guid ID = BarcodeBLL.ParsePeopleCode(code);
         return GetByID(ID);
     }
 

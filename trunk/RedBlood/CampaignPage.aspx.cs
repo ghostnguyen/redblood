@@ -15,17 +15,17 @@ public partial class CampaignPage : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
-        if (CodabarBLL.IsValidPackCode(code))
+        if (BarcodeBLL.IsValidPackCode(code))
         {
             
         }
-        else if (CodabarBLL.IsValidTestResultCode(code))
+        else if (BarcodeBLL.IsValidTestResultCode(code))
         {
             
         }
-        else if (CodabarBLL.IsValidCampaignCode(code))
+        else if (BarcodeBLL.IsValidCampaignCode(code))
         {
-            ucCampaign1.CampaignID = CodabarBLL.ParseCampaignID(code);
+            ucCampaign1.CampaignID = BarcodeBLL.ParseCampaignID(code);
         }
         else
         {

@@ -162,7 +162,7 @@ public partial class Pack
 
     public string Code
     {
-        get { return CodabarBLL.GenPackCode(Autonum); }
+        get { return BarcodeBLL.GenPackCode(Autonum); }
     }
 
     public string DeleteNote
