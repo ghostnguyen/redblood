@@ -81,8 +81,8 @@ public partial class Production_Extract : System.Web.UI.Page
 
         if (p == null
             ||
-            (p.Err != PackErrList.Valid4Extract
-            && p.Err != PackErrList.Extracted))
+            (p.Err != PackErrEnum.Valid4Extract
+            && p.Err != PackErrEnum.Extracted))
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum: " + p.Err.Message + "');", true);
             return;
@@ -147,7 +147,7 @@ public partial class Production_Extract : System.Web.UI.Page
 
         PackErr err = PackBLL.Extract(Autonum, l);
 
-        if (err == PackErrList.Non)
+        if (err == PackErrEnum.Non)
         {
             LoadAutonum();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);

@@ -47,10 +47,10 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
 
         if (PeopleID != Guid.Empty)
         {
-            PackErr err = PackErrList.Non;
+            PackErr err = PackErrEnum.Non;
             Pack e = PackBLL.GetEnterPackByPeopleID(PeopleID, err);
 
-            if (!err.Equals(PackErrList.Non))
+            if (!err.Equals(PackErrEnum.Non))
             {
                 lblPackMsg.Text = err.Message + " Không thể nhập túi máu mới.";
                 return;
@@ -107,7 +107,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     public void Assign(int autonum, int campaignID)
     {
         PackErr err = PackBLL.Assign(autonum, PeopleID, campaignID);
-        if (err == PackErrList.Non)
+        if (err == PackErrEnum.Non)
         {
             Load_EnterPack();
         }

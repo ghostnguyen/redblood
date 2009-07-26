@@ -47,7 +47,7 @@ public partial class Production_ExtractFFPlasmaInList : System.Web.UI.Page
 
                 if (p != null
                     && p.ComponentID == TestDef.Component.FFPlasma
-                    && p.Err == PackErrList.Valid4Extract)
+                    && p.Err == PackErrEnum.Valid4Extract)
                 {
                     AutonumListIn.Add(BarcodeBLL.ParsePackAutoNum(code));
                     LoadAutonum();
@@ -85,7 +85,7 @@ public partial class Production_ExtractFFPlasmaInList : System.Web.UI.Page
 
         PackErr err = PackBLL.Extract(AutonumListIn, l);
 
-        if (err == PackErrList.Non)
+        if (err == PackErrEnum.Non)
         {
             LoadAutonum();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);

@@ -7,6 +7,22 @@ using System.Web.UI.WebControls;
 
 public partial class Collect_AssignDIN : System.Web.UI.Page
 {
+    public string DIN
+    {
+        get
+        {
+            if (ViewState["DIN"] == null)
+            {
+                ViewState["DIN"] = "";
+            }
+            return (string)ViewState["DIN"];
+        }
+        set
+        {
+            ViewState["DIN"] = value;
+        }
+    }
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -31,6 +47,10 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
             else if (BarcodeBLL.IsValidCampaignCode(code))
             {
                 CampaignEnter(code);
+            }
+            else if (BarcodeBLL.IsValidProductCode(code))
+            {
+
             }
             else
             {
@@ -58,6 +78,27 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
 
     private void DINEnter(string code)
     {
+        string tempDIN = BarcodeBLL.ParseDIN(code);
+
+        RedBloodDataContext db = new RedBloodDataContext();
+        Donation d = DonationBLL.Get(tempDIN);
+
+        if (d == null)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('" + DonationErrEnum.NonExist.Message + "');", true);
+            return;
+        }
+
+        if (d.PeopleID != null)
+        {
+            DIN = tempDIN;
+            ucPeople.PeopleID = d.PeopleID;
+            CamDetailLeft.CampaignID = d.CampaignID;
+            imgPack.ImageUrl = BarcodeBLL.Url4Product(d.OrgPack.ProductCode);
+            ucPDL.Load();
+            return;
+        }
+
         if (ucPeople.PeopleID == Guid.Empty)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin người cho máu.');", true);
@@ -69,7 +110,9 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
             return;
         }
 
-        DonationErr err = DonationBLL.Assign(BarcodeBLL.ParseDIN(code), ucPeople.PeopleID, CamDetailLeft.CampaignID);
+        DIN = tempDIN;
+
+        DonationErr err = DonationBLL.Assign(DIN, ucPeople.PeopleID, CamDetailLeft.CampaignID);
 
         if (err != DonationErrEnum.Non)
         {
@@ -80,13 +123,18 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
         {
             ucPDL.Load();
         }
-        
+
         return;
     }
 
     private void CampaignEnter(string code)
     {
         CamDetailLeft.CampaignID = BarcodeBLL.ParseCampaignID(code);
+    }
+
+    private void ProductCodeEnter(string code)
+    {
+        
     }
 
 }

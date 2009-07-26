@@ -136,7 +136,7 @@ public partial class Production_Combine : System.Web.UI.Page
         }
 
         PackErr err = PackBLL.Combine2Platelet(AutonumListIn, AutonumListOut[0], txtNote.Text);
-        if (err == PackErrList.Non)
+        if (err == PackErrEnum.Non)
         {
             IsEditMode = false;
             LoadPack();
@@ -155,8 +155,8 @@ public partial class Production_Combine : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum');", true);
         }
 
-        if (p.Err == PackErrList.IsPlatelet
-        || p.Err == PackErrList.Combined2Platelet)
+        if (p.Err == PackErrEnum.IsPlatelet
+        || p.Err == PackErrEnum.Combined2Platelet)
         {
             TempAutonum = autonum;
 
@@ -187,7 +187,7 @@ public partial class Production_Combine : System.Web.UI.Page
             return;
         }
 
-        if (p.Err == PackErrList.Valid4Platelet)
+        if (p.Err == PackErrEnum.Valid4Platelet)
         {
             if (IsEditMode)
             {
@@ -206,7 +206,7 @@ public partial class Production_Combine : System.Web.UI.Page
             return;
         }
 
-        if (p.Err == PackErrList.Init4Platelet)
+        if (p.Err == PackErrEnum.Init4Platelet)
         {
             if (IsEditMode)
             {
@@ -238,8 +238,8 @@ public partial class Production_Combine : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum');", true);
         }
 
-        if (p.Err == PackErrList.IsPlatelet
-            || p.Err == PackErrList.Combined2Platelet)
+        if (p.Err == PackErrEnum.IsPlatelet
+            || p.Err == PackErrEnum.Combined2Platelet)
         {
             IsEditMode = false;
             CheckAutonum(TempAutonum);

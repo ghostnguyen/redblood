@@ -58,7 +58,7 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
         {
             if (e.Status == Pack.StatusX.DataErr)
             {
-                e.Note = PackErrList.DataErr.Message;
+                e.Note = PackErrEnum.DataErr.Message;
             }
             else if (e.Status == Pack.StatusX.Delete)
             {
@@ -71,9 +71,9 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
             {
                 e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
             }
-            else if (e.Status == Pack.StatusX.Expire)
+            else if (e.Status == Pack.StatusX.Expired)
             {
-                e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expire).First().Note;
+                e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expired).First().Note;
             }
             else
             {

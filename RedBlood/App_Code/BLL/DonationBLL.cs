@@ -48,6 +48,17 @@ public class DonationBLL
         return l;
     }
 
+    public static Donation Get(RedBloodDataContext db, string DIN)
+    {
+        return db.Donations.Where(r => r.DIN == DIN).FirstOrDefault();
+    }
+
+    public static Donation Get(string DIN)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return Get(db, DIN);
+    }
+
     public static DonationErr Assign(string DIN, Guid peopleID, int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();

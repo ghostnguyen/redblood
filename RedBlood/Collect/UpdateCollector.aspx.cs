@@ -7,19 +7,19 @@ using System.Web.UI.WebControls;
 
 public partial class Collect_UpdateCollector : System.Web.UI.Page
 {
-    public List<int> AutonumListIn
+    public List<string> DINList
     {
         get
         {
-            if (ViewState["AutonumListIn"] == null)
+            if (ViewState["DINList"] == null)
             {
-                ViewState["AutonumListIn"] = new List<int>();
+                ViewState["DINList"] = new List<string>();
             }
-            return (List<int>)ViewState["AutonumListIn"];
+            return (List<string>)ViewState["DINList"];
         }
         set
         {
-            ViewState["AutonumListIn"] = value;
+            ViewState["DINList"] = value;
         }
     }
 
@@ -30,10 +30,10 @@ public partial class Collect_UpdateCollector : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
-        if (BarcodeBLL.IsValidPackCode(code))
+        if (BarcodeBLL.IsValidDINCode(code))
         {
-            if (!AutonumListIn.Contains(BarcodeBLL.ParsePackAutoNum(code)))
-                AutonumListIn.Add(BarcodeBLL.ParsePackAutoNum(code));
+            if (!DINList.Contains(BarcodeBLL.ParseDIN(code)))
+                DINList.Add(BarcodeBLL.ParseDIN(code));
             GridView1.DataBind();
         }
     }
@@ -44,10 +44,9 @@ public partial class Collect_UpdateCollector : System.Web.UI.Page
         e.Result = Get(db);
     }
 
-    private List<Pack> Get(RedBloodDataContext db)
+    private List<Donation> Get(RedBloodDataContext db)
     {
-        return PackBLL.Get(db, AutonumListIn, new List<Pack.StatusX> { Pack.StatusX.Collected, Pack.StatusX.Produced })
-            .Where(r => r.ComponentID == TestDef.Component.Full).ToList();
+        return db.Donations.Where(r => DINList.Contains(r.DIN)).ToList();
     }
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
@@ -58,9 +57,9 @@ public partial class Collect_UpdateCollector : System.Web.UI.Page
 
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Pack> l = Get(db);
+        List<Donation> l = Get(db);
 
-        foreach (Pack item in l)
+        foreach (Donation item in l)
         {
             item.Collector = str;
         }
@@ -70,7 +69,7 @@ public partial class Collect_UpdateCollector : System.Web.UI.Page
     }
     protected void btnClear_Click(object sender, EventArgs e)
     {
-        AutonumListIn.Clear();
+        DINList.Clear();
         GridView1.DataBind();
     }
 }

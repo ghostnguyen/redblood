@@ -35,17 +35,17 @@ public class OrderBLL
 
         //Check order
         Order r = OrderBLL.Get(ID);
-        if (r == null) return PackErrList.NonExistOrder;
+        if (r == null) return PackErrEnum.NonExistOrder;
 
         if (r.Status == Order.StatusX.Done)
-            return PackErrList.OrderClose;
+            return PackErrEnum.OrderClose;
 
         //Check Pack
         Pack p = PackBLL.Get(db,autonum);
 
         if (p == null
             || p.DeliverStatus != Pack.DeliverStatusX.Non)
-            return PackErrList.NonExist;
+            return PackErrEnum.NonExist;
 
         PackErr err = PackBLL.ValidateAndUpdateStatus(db, p);
 

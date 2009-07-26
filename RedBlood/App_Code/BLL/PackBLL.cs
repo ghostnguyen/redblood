@@ -30,7 +30,7 @@ public class PackBLL
 
     public static Pack.StatusX[] StatusList4Order()
     {
-        return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.Production };
+        return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.Product };
     }
 
     /// <summary>
@@ -57,12 +57,12 @@ public class PackBLL
 
         if (p == null)
         {
-            pErr.Err = PackErrList.NonExist;
+            pErr.Err = PackErrEnum.NonExist;
             return pErr;
         }
 
         PackErr err = ValidateAndUpdateStatus(db, p);
-        if (err != PackErrList.Non)
+        if (err != PackErrEnum.Non)
         {
             db.SubmitChanges();
             pErr.Err = err;
@@ -144,7 +144,7 @@ public class PackBLL
         else
         {
             PackErr err = Validate(pList);
-            if (err == PackErrList.Non) return pList;
+            if (err == PackErrEnum.Non) return pList;
         }
 
         return new List<Pack>();
@@ -163,21 +163,21 @@ public class PackBLL
         p.CanExtractToFactorVIII = -1;
 
         if (p.Status == Pack.StatusX.Collected
-            || p.Status == Pack.StatusX.Production
+            || p.Status == Pack.StatusX.Product
             || p.Status == Pack.StatusX.Produced)
         { }
         else return;
 
         if (p.DeliverStatus == Pack.DeliverStatusX.Yes)
         {
-            p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.DeliverStatus);
+            p.Err = new PackErr(PackErrEnum.Invalid4Extract.Message + ".Túi máu: " + p.DeliverStatus);
             return;
         }
 
         if (p.TestResultStatus == Pack.TestResultStatusX.Positive
             || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
         {
-            p.Err = new PackErr(PackErrList.Invalid4Extract.Message + ".Túi máu: " + p.TestResultStatus);
+            p.Err = new PackErr(PackErrEnum.Invalid4Extract.Message + ".Túi máu: " + p.TestResultStatus);
             return;
         }
 
@@ -188,7 +188,7 @@ public class PackBLL
 
         //Load extract information
         List<Pack> l = p.ExtractedPacks;
-        p.Err = PackErrList.Valid4Extract;
+        p.Err = PackErrEnum.Valid4Extract;
 
         if (p.ComponentID == TestDef.Component.Full)
         {
@@ -492,11 +492,11 @@ public class PackBLL
 
         Pack p = Get(db, new List<int> { autonum }, new List<Pack.StatusX> { Pack.StatusX.All }, true).FirstOrDefault();
 
-        if (p == null) return PackErrList.NonExist;
+        if (p == null) return PackErrEnum.NonExist;
 
         if (campaignID != null)
         {
-            if (p.CampaignID != campaignID) return PackErrList.NonExistInCam;
+            if (p.CampaignID != campaignID) return PackErrEnum.NonExistInCam;
         }
 
         PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Delete, note);
@@ -540,7 +540,7 @@ public class PackBLL
     {
         PackErr err = Validate(p);
 
-        if (err != PackErrList.Non)
+        if (err != PackErrEnum.Non)
         {
             PackStatusHistory h = PackBLL.ChangeStatus(db, p, err.ToStatusX, actor, err.Message);
         }
@@ -554,20 +554,20 @@ public class PackBLL
         foreach (Pack p in pList)
         {
             PackErr err = Validate(p);
-            if (err != PackErrList.Non)
+            if (err != PackErrEnum.Non)
                 return err;
         }
-        return PackErrList.Non;
+        return PackErrEnum.Non;
     }
 
     public static PackErr Validate(Pack p)
     {
-        if (p == null) return PackErrList.Non;
+        if (p == null) return PackErrEnum.Non;
 
-        if (p.Status == Pack.StatusX.Expire
+        if (p.Status == Pack.StatusX.Expired
             || p.Status == Pack.StatusX.Delete)
         {
-            return PackErrList.Non;
+            return PackErrEnum.Non;
         }
 
         if (p.Status == Pack.StatusX.Init)
@@ -575,7 +575,7 @@ public class PackBLL
             if (p.PeopleID != null
                 || p.CollectedDate != null
                 || p.CampaignID != null)
-                return PackErrList.DataErr;
+                return PackErrEnum.DataErr;
         }
         else if (p.ComponentID == TestDef.Component.Full
             || p.ComponentID == TestDef.Component.PlateletApheresis)
@@ -584,22 +584,22 @@ public class PackBLL
                 || p.CampaignID == null
                 || p.CollectedDate == null
                 || p.CollectedDate >= DateTime.Now)
-                return PackErrList.DataErr;
+                return PackErrEnum.DataErr;
         }
 
         if (p.Status == Pack.StatusX.Collected)
         {
             if (p.ComponentID != TestDef.Component.Full
                 && p.ComponentID != TestDef.Component.PlateletApheresis)
-                return PackErrList.DataErr;
+                return PackErrEnum.DataErr;
         }
 
-        if (p.Status == Pack.StatusX.Production)
+        if (p.Status == Pack.StatusX.Product)
         {
             if (p.SourcePacks.Count() <= 0
                 || p.ExtractedPacks.Count() > 0)
             {
-                return PackErrList.DataErr;
+                return PackErrEnum.DataErr;
             }
         }
 
@@ -607,7 +607,7 @@ public class PackBLL
         {
             if (p.ExtractedPacks.Count() <= 0)
             {
-                return PackErrList.DataErr;
+                return PackErrEnum.DataErr;
             }
         }
 
@@ -619,7 +619,7 @@ public class PackBLL
     {
         if (p.DeliverStatus == Pack.DeliverStatusX.Yes
             || p.Status == Pack.StatusX.Produced)
-            return PackErrList.Non;
+            return PackErrEnum.Non;
 
         if (p.Component != null)
         {
@@ -627,16 +627,16 @@ public class PackBLL
             || p.CollectedDate >= DateTime.Now
                 || p.ExtractedPacks == null)
             {
-                return PackErrList.DataErr;
+                return PackErrEnum.DataErr;
             }
         }
 
         if (DateTime.Now >= p.ExpiredDate)
         {
-            return PackErrList.Expired;
+            return PackErrEnum.Expired;
         }
 
-        return PackErrList.Non;
+        return PackErrEnum.Non;
     }
 
     public static List<Pack> Get4Rpt(int campaignID, ReportType rptType)
@@ -671,18 +671,18 @@ public class PackBLL
 
     public static PackErr Update(RedBloodDataContext db, Pack p, int componentID, int? volume, int substanceID)
     {
-        if (p == null) return PackErrList.NonExist;
+        if (p == null) return PackErrEnum.NonExist;
 
         p.Component = TestDefBLL.Get(db, componentID);
         p.Volume = volume;
         p.Substance = TestDefBLL.Get(db, substanceID);
 
-        return PackErrList.Non;
+        return PackErrEnum.Non;
     }
 
     public static PackErr Update(RedBloodDataContext db, Pack p, int times, int ABOID, int RhID, string note)
     {
-        if (p == null || !p.CanUpdateTestResult) return PackErrList.NonExist;
+        if (p == null || !p.CanUpdateTestResult) return PackErrEnum.NonExist;
 
         if (p.ABOID != ABOID)
         {
@@ -696,14 +696,14 @@ public class PackBLL
             PackResultHistoryBLL.Insert(db, p, RhID, times, RedBloodSystem.CurrentActor, note);
         }
 
-        return PackErrList.Non;
+        return PackErrEnum.Non;
     }
 
     public static PackErr Update(RedBloodDataContext db, Pack p, int times,
        int HIVID, int HCVID, int HBsAgID, int SyphilisID, int MalariaID,
         string note)
     {
-        if (p == null || !p.CanUpdateTestResult) return PackErrList.NonExist;
+        if (p == null || !p.CanUpdateTestResult) return PackErrEnum.NonExist;
 
         if (p.HCVID != HIVID)
         {
@@ -735,7 +735,7 @@ public class PackBLL
             PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
         }
 
-        return PackErrList.Non;
+        return PackErrEnum.Non;
     }
 
     public void Update(string collector, List<int> autonumList)
@@ -758,7 +758,7 @@ public class PackBLL
             || p.ComponentID == null
             || p.Status == Pack.StatusX.Init
             || p.Status == Pack.StatusX.Delete
-            || p.Status == Pack.StatusX.Expire
+            || p.Status == Pack.StatusX.Expired
             || p.DeliverStatus == Pack.DeliverStatusX.Yes
             || p.CollectedDate == null)
         {
@@ -846,7 +846,7 @@ public class PackBLL
             Extract(item, to);
         }
 
-        return PackErrList.Non;
+        return PackErrEnum.Non;
     }
 
     public static PackErr Extract(int autonum, List<int> to)
@@ -860,7 +860,7 @@ public class PackBLL
         {
             //Extract
             Pack extractP = PackBLL.New(db, 1).First();
-            if (extractP == null) return PackErrList.DataErr;
+            if (extractP == null) return PackErrEnum.DataErr;
 
             db.SubmitChanges();
 
@@ -868,7 +868,7 @@ public class PackBLL
             extractP.Actor = RedBloodSystem.CurrentActor;
             extractP.CollectedDate = DateTime.Now;
 
-            PackStatusHistory h = ChangeStatus(db, extractP, Pack.StatusX.Production, "Extract");
+            PackStatusHistory h = ChangeStatus(db, extractP, Pack.StatusX.Product, "Extract");
 
             PackExtract pe = new PackExtract();
             pe.SourcePackID = p.ID;
@@ -887,11 +887,11 @@ public class PackBLL
             db.SubmitChanges();
 
             PackBLL.UpdateTestResultStatus4Extracts(p.Autonum);
-            return PackErrList.Non;
+            return PackErrEnum.Non;
         }
         else
         {
-            return PackErrList.DataErr;
+            return PackErrEnum.DataErr;
         }
     }
 
@@ -901,7 +901,7 @@ public class PackBLL
         foreach (int item in autonumListIn)
         {
             Pack p = Get4Combined2Platelet(item);
-            if (p.Err == PackErrList.Valid4Platelet)
+            if (p.Err == PackErrEnum.Valid4Platelet)
                 pInList.Add(p);
             else
                 return p.Err;
@@ -909,20 +909,20 @@ public class PackBLL
 
         RedBloodDataContext db = new RedBloodDataContext();
         Pack pOut = Get4Combined2Platelet(db, autonumOut);
-        if (pOut.Err != PackErrList.Init4Platelet)
+        if (pOut.Err != PackErrEnum.Init4Platelet)
             return pOut.Err;
 
         if (autonumListIn.Count != pInList.Count
             || pOut == null)
         {
-            return PackErrList.Invalid4Platelet;
+            return PackErrEnum.Invalid4Platelet;
         }
 
         pOut.ComponentID = TestDef.Component.Platelet;
         pOut.CollectedDate = DateTime.Now;
         pOut.Note = note;
 
-        PackStatusHistory h = ChangeStatus(db, pOut, Pack.StatusX.Production, "Combine2Platelet");
+        PackStatusHistory h = ChangeStatus(db, pOut, Pack.StatusX.Product, "Combine2Platelet");
 
 
         foreach (Pack item in pInList)
@@ -935,7 +935,7 @@ public class PackBLL
 
         db.SubmitChanges();
 
-        return PackErrList.Non;
+        return PackErrEnum.Non;
     }
 
     public static Pack Get4Combined2Platelet(int autonum)
@@ -1005,7 +1005,7 @@ public class PackBLL
         return p;
     }
 
- 
+
     /// <summary>
     /// Lock All Test Result regarless of time
     /// </summary>
@@ -1035,6 +1035,44 @@ public class PackBLL
             UpdateTestResultStatus4Extracts(db, item);
         }
         db.SubmitChanges();
+    }
+
+    public static PackErr Create(string DIN, string productCode, bool isCollect, int volumn)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Donation d = db.Donations.Where(r => r.DIN == DIN && r.PeopleID != null).FirstOrDefault();
+        Product p = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
+
+        if (d == null || p == null) return PackErrEnum.DataErr;
+
+        if (isCollect)
+        {
+            if (d.PackID != null) return PackErrEnum.DonationGotPack;
+        }
+
+        Pack pack = new Pack();
+
+        pack.DIN = DIN;
+        pack.ProductCode = productCode;
+        pack.Status == Pack.StatusX.Product;
+        pack.Date = DateTime.Now;
+        pack.Actor = RedBloodSystem.CurrentActor;
+        pack.Volume = volumn;
+
+        pack.ExpirationDate = DateTime.Now.Add(p.Duration - RedBloodSystem.RootTime);
+
+        db.Packs.InsertOnSubmit(pack);
+
+        db.SubmitChanges();
+
+        if (isCollect)
+        {
+            d.PackID = pack.ID;
+            db.SubmitChanges();
+        }
+
+        
     }
 }
 

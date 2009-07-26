@@ -22,10 +22,10 @@ public partial class Pack
     {
         Non = -2,
         All = -1,
-        Init = 0,
+        //Init = 0,
         
-        Đã_thu = 1,
-        Collected = 1,
+        //Đã_thu = 1,
+        //Collected = 1,
 
         //CommitReceived = 2,
         Delete = 4,
@@ -36,46 +36,24 @@ public partial class Pack
         //CommitTestResult = 8,
         //Đã_nhập = 8,
 
-        //Đã_cấp_phát = 9,
-        //Delivered = 9,
+        Đã_cấp_phát = 9,
+        Delivered = 9,
 
-        Production = 10,
+        Product = 10,
         Thành_phẩm = 10,
 
         Produced = 11,
         Đã_sản_xuất = 11,
 
 
-        Expire = 40,
+        Expired = 40,
         Quá_hạn = 40,
         //ExpireEnter = 41,
         //ExpireCommitReceived = 42,
         DataErr = 49
     }
 
-    public enum TestResultStatusX : int
-    {
-        Chưa_có = 0,
-        Non = 0,
-
-        Âm_tính = 1,
-        Negative = 1,
-
-        Dương_tính = 2,
-        Positive = 2,
-
-        Âm_tính_K = 3,
-        NegativeLocked = 3,
-
-        Dương_tính_K = 4,
-        PositiveLocked = 4
-    }
-
-    public enum DeliverStatusX : int
-    {
-        Non = 0,
-        Yes = 1
-    }
+    
 
 
     PackBLL bll = new PackBLL();

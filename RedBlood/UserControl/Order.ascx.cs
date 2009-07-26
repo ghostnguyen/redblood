@@ -285,7 +285,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         PackErr err = OrderBLL.Add(OrderID, autonum);
 
-        if (err == null || err == PackErrList.Non)
+        if (err == null || err == PackErrEnum.Non)
         {
             GridViewPack.DataBind();
         }

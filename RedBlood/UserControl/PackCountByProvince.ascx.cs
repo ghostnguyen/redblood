@@ -140,7 +140,7 @@ public partial class UserControl_PackCountByProvince : System.Web.UI.UserControl
             .Count().ToStringRemoveZero();
 
         lblExpire.Text = l.Where(r =>
-             r.Status == Pack.StatusX.Expire)
+             r.Status == Pack.StatusX.Expired)
             .Count().ToStringRemoveZero();
 
         lblDelete.Text = l.Where(r =>

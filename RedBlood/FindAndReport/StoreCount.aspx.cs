@@ -15,12 +15,12 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
     void Calc()
     {
         Calc4Component(TestDef.Component.Full, Pack.StatusX.Collected, lblFullNonTR, lblFullPos, lblFullNeg, lblFullDeliver, lblFullExpire, lblFullDelete);
-        Calc4Component(TestDef.Component.RBC, Pack.StatusX.Production, lblRBCNonTR, lblRBCPos, lblRBCNeg, lblRBCDeliver, lblRBCExpire, lblRBCDelete);
-        Calc4Component(TestDef.Component.WBC, Pack.StatusX.Production, lblWBCNonTR, lblWBCPos, lblWBCNeg, lblWBCDeliver, lblWBCExpire, lblWBCDelete);
-        Calc4Component(TestDef.Component.FFPlasma, Pack.StatusX.Production, lblFFPlasmaNonTR, lblFFPlasmaPos, lblFFPlasmaNeg, lblFFPlasmaDeliver, lblFFPlasmaExpire, lblFFPlasmaDelete);
-        Calc4Component(TestDef.Component.Platelet, Pack.StatusX.Production, lblPlateletNonTR, lblPlateletPos, lblPlateletNeg, lblPlateletDeliver, lblPlateletExpire, lblPlateletDelete);
-        Calc4Component(TestDef.Component.FactorVIII, Pack.StatusX.Production, lblFactorVIIINonTR, lblFactorVIIIPos, lblFactorVIIINeg, lblFactorVIIIDeliver, lblFactorVIIIExpire, lblFactorVIIIDelete);
-        Calc4Component(TestDef.Component.FFPlasma_Poor, Pack.StatusX.Production, lblFFPlasmaPoorNonTR, lblFFPlasmaPoorPos, lblFFPlasmaPoorNeg, lblFFPlasmaPoorDeliver, lblFFPlasmaPoorExpire, lblFFPlasmaPoorDelete);
+        Calc4Component(TestDef.Component.RBC, Pack.StatusX.Product, lblRBCNonTR, lblRBCPos, lblRBCNeg, lblRBCDeliver, lblRBCExpire, lblRBCDelete);
+        Calc4Component(TestDef.Component.WBC, Pack.StatusX.Product, lblWBCNonTR, lblWBCPos, lblWBCNeg, lblWBCDeliver, lblWBCExpire, lblWBCDelete);
+        Calc4Component(TestDef.Component.FFPlasma, Pack.StatusX.Product, lblFFPlasmaNonTR, lblFFPlasmaPos, lblFFPlasmaNeg, lblFFPlasmaDeliver, lblFFPlasmaExpire, lblFFPlasmaDelete);
+        Calc4Component(TestDef.Component.Platelet, Pack.StatusX.Product, lblPlateletNonTR, lblPlateletPos, lblPlateletNeg, lblPlateletDeliver, lblPlateletExpire, lblPlateletDelete);
+        Calc4Component(TestDef.Component.FactorVIII, Pack.StatusX.Product, lblFactorVIIINonTR, lblFactorVIIIPos, lblFactorVIIINeg, lblFactorVIIIDeliver, lblFactorVIIIExpire, lblFactorVIIIDelete);
+        Calc4Component(TestDef.Component.FFPlasma_Poor, Pack.StatusX.Product, lblFFPlasmaPoorNonTR, lblFFPlasmaPoorPos, lblFFPlasmaPoorNeg, lblFFPlasmaPoorDeliver, lblFFPlasmaPoorExpire, lblFFPlasmaPoorDelete);
         Calc4Component(TestDef.Component.PlateletApheresis, Pack.StatusX.Collected, lblPlateletApheresisNonTR, lblPlateletApheresisPos, lblPlateletApheresisNeg, lblPlateletApheresisDeliver, lblPlateletApheresisExpire, lblPlateletApheresisDelete);
     }
 
@@ -91,7 +91,7 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
             .Count().ToStringRemoveZero();
 
         lblExpire.Text = db.Packs.Where(r => r.ComponentID == componentID
-            && r.Status == Pack.StatusX.Expire)
+            && r.Status == Pack.StatusX.Expired)
             .Count().ToStringRemoveZero();
 
         lblDelete.Text = db.Packs.Where(r => r.ComponentID == componentID
