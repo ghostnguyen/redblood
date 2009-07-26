@@ -174,7 +174,7 @@
                     <Columns>
                         <asp:TemplateField HeaderText="Túi máu">
                             <ItemTemplate>
-                                <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack( Eval("Pack.Autonum") as int?) %>' />
+                               <%-- <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack( Eval("Pack.Autonum") as int?) %>' />--%>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Thành phần">

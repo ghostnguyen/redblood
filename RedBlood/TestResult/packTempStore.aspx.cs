@@ -18,11 +18,7 @@ public partial class PackTempStore : System.Web.UI.Page
 
         if (Master.TextBoxCode.Text.Length == 0) return;
 
-        if (BarcodeBLL.IsValidPackCode(Master.TextBoxCode.Text))
-        {
-            //PackCodeEnter(Master.TextBoxCode.Text);
-        }
-        else if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
         {
             CampaignEnter(Master.TextBoxCode.Text);
         }

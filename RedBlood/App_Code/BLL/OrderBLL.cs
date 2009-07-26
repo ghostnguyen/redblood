@@ -41,71 +41,68 @@ public class OrderBLL
             return PackErrEnum.OrderClose;
 
         //Check Pack
-        Pack p = PackBLL.Get(db,autonum);
+        Pack p = PackBLL.Get(db, autonum);
 
-        if (p == null
-            || p.DeliverStatus != Pack.DeliverStatusX.Non)
-            return PackErrEnum.NonExist;
+        //if (p == null
+        //    || p.DeliverStatus != Pack.DeliverStatusX.Non)
+        //    return PackErrEnum.NonExist;
 
-        PackErr err = PackBLL.ValidateAndUpdateStatus(db, p);
+        //PackErr err = PackBLL.ValidateAndUpdateStatus(db, p);
 
-        if (!PackBLL.StatusList4Order().Contains(p.Status))
-            return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
+        //if (!PackBLL.StatusList4Order().Contains(p.Status))
+        //    return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
 
-        //if (p.PackOrders.Count >= 1) return PackErrList.DataErr;
 
-        if (p.TestResultStatus == Pack.TestResultStatusX.Positive
-            || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked
-            || p.TestResultStatus == Pack.TestResultStatusX.Non)
-        {
-            return new PackErr("Không thể cấp phát. KQXN: " + p.TestResultStatus);
-        }
-        else
-        {
-            p.DeliverStatus = Pack.DeliverStatusX.Yes;
+        //if (p.TestResultStatus == Pack.TestResultStatusX.Positive
+        //    || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked
+        //    || p.TestResultStatus == Pack.TestResultStatusX.Non)
+        //{
+        //    return new PackErr("Không thể cấp phát. KQXN: " + p.TestResultStatus);
+        //}
+        //else
+        //{
+        //    p.DeliverStatus = Pack.DeliverStatusX.Yes;
 
-            if (p.TestResultStatus == Pack.TestResultStatusX.Negative)
-            {
-                List<Pack> l = p.SourcePacks_All
-                    .Where(rp => rp.ComponentID == TestDef.Component.Full).ToList();
+        //    if (p.TestResultStatus == Pack.TestResultStatusX.Negative)
+        //    {
+        //        List<Pack> l = p.SourcePacks_All
+        //            .Where(rp => rp.ComponentID == TestDef.Component.Full).ToList();
 
-                foreach (Pack item in l)
-                {
-                    if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
-                    {
-                        item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
-                        PackBLL.UpdateTestResultStatus4Extracts(db, item);
-                    }
-                }
+        //        foreach (Pack item in l)
+        //        {
+        //            if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
+        //            {
+        //                item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+        //                PackBLL.UpdateTestResultStatus4Extracts(db, item);
+        //            }
+        //        }
 
-                //p.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
-            }
+        //    }
 
-            PackOrder po = new PackOrder();
-            po.OrderID = r.ID;
-            po.PackID = p.ID;
-            po.Status = PackOrder.StatusX.Order;
+        //    PackOrder po = new PackOrder();
+        //    po.OrderID = r.ID;
+        //    po.PackID = p.ID;
+        //    po.Status = PackOrder.StatusX.Order;
 
-            db.PackOrders.InsertOnSubmit(po);
+        //    db.PackOrders.InsertOnSubmit(po);
 
-            //PackStatusHistory h = PackBLL.ChangeStatus(p, Pack.StatusX.Delivered, actor, "Add to Order: " + po.OrderID.Value.ToString());
-            //db.PackStatusHistories.InsertOnSubmit(h);
-        }
+        //}
 
         db.SubmitChanges();
 
-        return err;
+        //return err;
+        return null;
     }
 
     public static void Remove(int packOrderID, string note)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        //RedBloodDataContext db = new RedBloodDataContext();
 
-        PackOrder po = db.PackOrders.Where(r => r.ID == packOrderID).FirstOrDefault();
+        //PackOrder po = db.PackOrders.Where(r => r.ID == packOrderID).FirstOrDefault();
 
-        if (po == null
-            || po.Pack == null
-            || po.Order == null) return;
+        //if (po == null
+        //    || po.Pack == null
+        //    || po.Order == null) return;
 
         //PackStatusHistory h;
 
@@ -122,44 +119,46 @@ public class OrderBLL
         //db.PackStatusHistories.InsertOnSubmit(h);
 
 
-        po.Status = PackOrder.StatusX.Return;
-        po.Actor = RedBloodSystem.CurrentActor;
-        po.Note = note;
+        //po.Status = PackOrder.StatusX.Return;
+        //po.Actor = RedBloodSystem.CurrentActor;
+        //po.Note = note;
 
-        po.Pack.DeliverStatus = Pack.DeliverStatusX.Non;
+        //po.Pack.DeliverStatus = Pack.DeliverStatusX.Non;
 
-        //db.PackOrders.DeleteOnSubmit(po);
+        ////db.PackOrders.DeleteOnSubmit(po);
 
-        db.SubmitChanges();
+        //db.SubmitChanges();
 
-        PackErr err = PackBLL.ValidateAndUpdateStatus(db, po.Pack);
-        db.SubmitChanges();
+        //PackErr err = PackBLL.ValidateAndUpdateStatus(db, po.Pack);
+        //db.SubmitChanges();
     }
 
     public static void CloseOrder(RedBloodDataContext db)
     {
-        List<Order> r = db.Orders.Where(e => e.Status == Order.StatusX.Init).ToList();
+        //List<Order> r = db.Orders.Where(e => e.Status == Order.StatusX.Init).ToList();
 
-        foreach (Order item in r)
-        {
-            TimeSpan tsp = DateTime.Now.Date - item.Date.Value.Date;
-            if (tsp.Days > 0)
-                item.Status = Order.StatusX.Done;
-        }
+        //foreach (Order item in r)
+        //{
+        //    TimeSpan tsp = DateTime.Now.Date - item.Date.Value.Date;
+        //    if (tsp.Days > 0)
+        //        item.Status = Order.StatusX.Done;
+        //}
     }
 
     public static List<Order> Get(DateTime? from, DateTime? to, Order.TypeX type)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        //RedBloodDataContext db = new RedBloodDataContext();
 
-        //List<Guid> geoIDL = GeoBLL.Get(IDList, 1).Select(r => r.ID).ToList();
-        //if (geoIDL.Count == 0) return new List<Campaign>();
+        ////List<Guid> geoIDL = GeoBLL.Get(IDList, 1).Select(r => r.ID).ToList();
+        ////if (geoIDL.Count == 0) return new List<Campaign>();
 
-        return db.Orders.Where(r =>
-            r.Type == type
-            && r.Date != null
-            && (from == null || r.Date.Value.Date >= from.Value.Date)
-            && (to == null || r.Date.Value.Date <= to.Value.Date)
-            ).ToList();
+        //return db.Orders.Where(r =>
+        //    r.Type == type
+        //    && r.Date != null
+        //    && (from == null || r.Date.Value.Date >= from.Value.Date)
+        //    && (to == null || r.Date.Value.Date <= to.Value.Date)
+        //    ).ToList();
+        return null;
+
     }
 }

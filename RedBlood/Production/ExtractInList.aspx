@@ -25,7 +25,7 @@
                         <asp:GridView runat="server" ID="GridViewFull" AutoGenerateColumns="False" DataKeyNames="Autonum"
                             OnRowCommand="GridViewFull_RowCommand">
                             <Columns>
-                                <asp:TemplateField HeaderText="Toàn phần">
+                                <%--<asp:TemplateField HeaderText="Toàn phần">
                                     <ItemTemplate>
                                         <asp:Image ID="Image1" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
                                     </ItemTemplate>
@@ -60,7 +60,7 @@
                                         <asp:LinkButton ID="LinkButton1" runat="server" Text="Loại" CommandName="Remove"
                                             CommandArgument='<%# Eval("Autonum") %>'></asp:LinkButton>
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                             </Columns>
                         </asp:GridView>
                     </div>

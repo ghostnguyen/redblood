@@ -74,24 +74,24 @@ public partial class Production_Combine : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
+        //if (!IsPostBack)
+        //{
 
-        }
+        //}
 
-        string code = Master.TextBoxCode.Text.Trim();
-        Master.TextBoxCode.Text = "";
+        //string code = Master.TextBoxCode.Text.Trim();
+        //Master.TextBoxCode.Text = "";
 
-        if (code.Length == 0) return;
+        //if (code.Length == 0) return;
 
-        if (BarcodeBLL.IsValidPackCode(code))
-        {
-            CheckAutonum(BarcodeBLL.ParsePackAutoNum(code));
-        }
-        else
-        {
+        //if (BarcodeBLL.IsValidPackCode(code))
+        //{
+        //    CheckAutonum(BarcodeBLL.ParsePackAutoNum(code));
+        //}
+        //else
+        //{
 
-        }
+        //}
     }
 
     protected void LinqDataSourcePackIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -169,18 +169,18 @@ public partial class Production_Combine : System.Web.UI.Page
                 AutonumListIn.Clear();
                 AutonumListOut.Clear();
 
-                if (p.ComponentID == TestDef.Component.Full)
-                {
-                    PackExtract pe = p.PackExtractsBySource.Where(r => r.ExtractPack.ComponentID == TestDef.Component.Platelet).FirstOrDefault();
+                //if (p.ComponentID == TestDef.Component.Full)
+                //{
+                //    PackExtract pe = p.PackExtractsBySource.Where(r => r.ExtractPack.ComponentID == TestDef.Component.Platelet).FirstOrDefault();
 
-                    AutonumListIn = pe.ExtractPack.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
-                    AutonumListOut.Add(pe.ExtractPack.Autonum);
-                }
-                else if (p.ComponentID == TestDef.Component.Platelet)
-                {
-                    AutonumListIn = p.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
-                    AutonumListOut.Add(p.Autonum);
-                }
+                //    AutonumListIn = pe.ExtractPack.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
+                //    AutonumListOut.Add(pe.ExtractPack.Autonum);
+                //}
+                //else if (p.ComponentID == TestDef.Component.Platelet)
+                //{
+                //    AutonumListIn = p.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
+                //    AutonumListOut.Add(p.Autonum);
+                //}
 
                 LoadPack();
             }

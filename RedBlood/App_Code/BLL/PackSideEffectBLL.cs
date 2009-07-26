@@ -27,7 +27,9 @@ public class PackSideEffectBLL
 
     public static List<PackSideEffect> Get(int autonum)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-        return db.PackSideEffects.Where(r => r.Pack.Autonum == autonum).ToList();
+        //RedBloodDataContext db = new RedBloodDataContext();
+        //return db.PackSideEffects.Where(r => r.Pack.Autonum == autonum).ToList();
+
+        return null;
     }
 }

@@ -47,41 +47,42 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
     }
     public object GetByPeopleID4PackHistory(Guid peopleID)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        //RedBloodDataContext db = new RedBloodDataContext();
 
-        var v = from c in db.Packs
-                where c.PeopleID == peopleID
-                orderby c.Status descending, c.CollectedDate descending
-                select c;
+        //var v = from c in db.Packs
+        //        where c.PeopleID == peopleID
+        //        orderby c.Status descending, c.CollectedDate descending
+        //        select c;
 
-        foreach (Pack e in v)
-        {
-            if (e.Status == Pack.StatusX.DataErr)
-            {
-                e.Note = PackErrEnum.DataErr.Message;
-            }
-            else if (e.Status == Pack.StatusX.Delete)
-            {
-                if (e.PackStatusHistories.Count == 0)
-                    e.Note = "Unknown";
-                else
-                    e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note;
-            }
-            else if (e.Status == Pack.StatusX.Collected)
-            {
-                e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
-            }
-            else if (e.Status == Pack.StatusX.Expired)
-            {
-                e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expired).First().Note;
-            }
-            else
-            {
-                e.Note = e.Status.ToString();
-            }
-        }
+        //foreach (Pack e in v)
+        //{
+        //    if (e.Status == Pack.StatusX.DataErr)
+        //    {
+        //        e.Note = PackErrEnum.DataErr.Message;
+        //    }
+        //    else if (e.Status == Pack.StatusX.Delete)
+        //    {
+        //        if (e.PackStatusHistories.Count == 0)
+        //            e.Note = "Unknown";
+        //        else
+        //            e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note;
+        //    }
+        //    else if (e.Status == Pack.StatusX.Collected)
+        //    {
+        //        e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
+        //    }
+        //    else if (e.Status == Pack.StatusX.Expired)
+        //    {
+        //        e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expired).First().Note;
+        //    }
+        //    else
+        //    {
+        //        e.Note = e.Status.ToString();
+        //    }
+        //}
 
-        return v;
+        //return v;
+        return null;
     }
 
 }

@@ -35,7 +35,7 @@
                         runat="server">
                         <asp:DataList runat="server" ID="DataListFull" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+                                <%--<asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                 <br />
                                 Tên:
                                 <%# Eval("People.Name") %>
@@ -80,7 +80,7 @@
                         runat="server">
                         <asp:DataList runat="server" ID="DataListRBC" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+<%--                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                 <br />
                                 Ngày:
                                 <%# Eval("CollectedDate","{0:dd/MM/yyyy}") %>
@@ -94,7 +94,7 @@
                         ">
                         <asp:DataList runat="server" ID="DataListWBC" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+<%--                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                 <br />
                                 Ngày:
                                 <%# Eval("CollectedDate","{0:dd/MM/yyyy}") %>
@@ -108,7 +108,7 @@
                         ">
                         <asp:DataList runat="server" ID="DataListFFPlasma" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+<%--                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                 <br />
                                 Ngày:
                                 <%# Eval("CollectedDate","{0:dd/MM/yyyy}") %>
@@ -123,7 +123,7 @@
                         <asp:DataList runat="server" ID="DataListFFPlasma_Poor" AutoGenerateRows="False"
                             DataKeyNames="ID">
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+<%--                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                 <br />
                                 Ngày:
                                 <%# Eval("CollectedDate","{0:dd/MM/yyyy}") %>
@@ -137,7 +137,7 @@
                         ">
                         <asp:DataList runat="server" ID="DataListPlatelet" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+<%--                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                 <br />
                                 Ngày:
                                 <%# Eval("CollectedDate","{0:dd/MM/yyyy}") %>
@@ -151,7 +151,7 @@
                         ">
                         <asp:DataList runat="server" ID="DataListFactorVIII" AutoGenerateRows="False" DataKeyNames="ID">
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+<%--                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                 <br />
                                 Ngày:
                                 <%# Eval("CollectedDate","{0:dd/MM/yyyy}") %>
@@ -166,7 +166,7 @@
                         <asp:DataList runat="server" ID="DataListFFPlasma_Poor2" AutoGenerateRows="False"
                             DataKeyNames="ID">
                             <ItemTemplate>
-                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+<%--                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                 <br />
                                 Ngày:
                                 <%# Eval("CollectedDate","{0:dd/MM/yyyy}") %>

@@ -45,19 +45,19 @@ public partial class UserControl_PackOrderCountInternally : System.Web.UI.UserCo
 
     public void Count()
     {
-        List<int> orderIDL = OrderBLL.Get(From, To, Order.TypeX.ToPeople).Select(r => r.ID).ToList();
+        //List<int> orderIDL = OrderBLL.Get(From, To, Order.TypeX.ToPeople).Select(r => r.ID).ToList();
 
-        RedBloodDataContext db = new RedBloodDataContext();
-        var v = from o in db.Orders
-                from po in db.PackOrders
-                from p in db.Packs
-                where orderIDL.Contains(o.ID)
-                && o.ID == po.OrderID && po.PackID == p.ID
-                select new { o.FullDepartment, p.Autonum, Component = p.Component.Name, ml = p.Volume } 
-        ;
+        //RedBloodDataContext db = new RedBloodDataContext();
+        //var v = from o in db.Orders
+        //        from po in db.PackOrders
+        //        from p in db.Packs
+        //        where orderIDL.Contains(o.ID)
+        //        && o.ID == po.OrderID && po.PackID == p.ID
+        //        select new { o.FullDepartment, p.Autonum, Component = p.Component.Name, ml = p.Volume } 
+        //;
                 
 
-        GridView1.DataSource = v;
-        GridView1.DataBind();
+        //GridView1.DataSource = v;
+        //GridView1.DataBind();
     }
 }

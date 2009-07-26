@@ -129,11 +129,11 @@ public class CampaignBLL
 
         if (e.Type == Campaign.TypeX.Short_run)
         {
-            if (e.Status == Campaign.StatusX.Init && e.Packs.Count != 0)
-                e.Status = Campaign.StatusX.Assign;
+            //if (e.Status == Campaign.StatusX.Init && e.Packs.Count != 0)
+            //    e.Status = Campaign.StatusX.Assign;
 
-            if (e.Status == Campaign.StatusX.Assign && e.Packs.Count == 0)
-                e.Status = Campaign.StatusX.Init;
+            //if (e.Status == Campaign.StatusX.Assign && e.Packs.Count == 0)
+            //    e.Status = Campaign.StatusX.Init;
 
             db.SubmitChanges();
         }

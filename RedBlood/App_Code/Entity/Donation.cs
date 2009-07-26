@@ -28,7 +28,7 @@ public partial class Donation
         //Delete = 4,
         //Hủy = 4,
 
-        //DataErr = 49
+        DataErr = 49
     }
 
     public enum TestResultStatusX : int

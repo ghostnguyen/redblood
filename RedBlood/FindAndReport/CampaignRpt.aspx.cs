@@ -112,78 +112,78 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
         }
 
         string style = "font-weight:bolder";
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            foreach (TableCell cell in e.Row.Cells)
-            {
-                DataControlFieldCell item = cell as DataControlFieldCell;
+        //if (e.Row.RowType == DataControlRowType.DataRow)
+        //{
+        //    foreach (TableCell cell in e.Row.Cells)
+        //    {
+        //        DataControlFieldCell item = cell as DataControlFieldCell;
 
-                if (item.ContainingField.ToString() == "HIV")
-                {
-                    foreach (Control ctr in cell.Controls)
-                    {
-                        if (ctr is Label)
-                        {
-                            if (p.HIVID == TestDef.HIV.Pos)
-                            {
-                                cell.Attributes.Add("style", style);
-                                if (IsSpecialProvince()) (ctr as Label).Text = "XN lần 2";
-                            }
-                        }
-                    }
-                }
+        //        if (item.ContainingField.ToString() == "HIV")
+        //        {
+        //            foreach (Control ctr in cell.Controls)
+        //            {
+        //                if (ctr is Label)
+        //                {
+        //                    if (p.HIVID == TestDef.HIV.Pos)
+        //                    {
+        //                        cell.Attributes.Add("style", style);
+        //                        if (IsSpecialProvince()) (ctr as Label).Text = "XN lần 2";
+        //                    }
+        //                }
+        //            }
+        //        }
 
-                if (item.ContainingField.ToString() == "HCV")
-                {
-                    foreach (Control ctr in cell.Controls)
-                    {
-                        if (ctr is Label)
-                        {
-                            if (p.HCVID == TestDef.HCV.Pos)
-                                cell.Attributes.Add("style", style);
-                        }
-                    }
+        //        if (item.ContainingField.ToString() == "HCV")
+        //        {
+        //            foreach (Control ctr in cell.Controls)
+        //            {
+        //                if (ctr is Label)
+        //                {
+        //                    if (p.HCVID == TestDef.HCV.Pos)
+        //                        cell.Attributes.Add("style", style);
+        //                }
+        //            }
 
-                }
+        //        }
 
-                if (item.ContainingField.ToString() == "HBsAg")
-                {
-                    foreach (Control ctr in cell.Controls)
-                    {
-                        if (ctr is Label)
-                        {
-                            if (p.HBsAgID == TestDef.HBsAg.Pos)
-                                cell.Attributes.Add("style", style);
-                        }
-                    }
+        //        if (item.ContainingField.ToString() == "HBsAg")
+        //        {
+        //            foreach (Control ctr in cell.Controls)
+        //            {
+        //                if (ctr is Label)
+        //                {
+        //                    if (p.HBsAgID == TestDef.HBsAg.Pos)
+        //                        cell.Attributes.Add("style", style);
+        //                }
+        //            }
 
-                }
+        //        }
 
-                if (item.ContainingField.ToString() == "Syphilis")
-                {
-                    foreach (Control ctr in cell.Controls)
-                    {
-                        if (ctr is Label)
-                        {
-                            if (p.SyphilisID == TestDef.Syphilis.Pos)
-                                cell.Attributes.Add("style", style);
-                        }
-                    }
-                }
+        //        if (item.ContainingField.ToString() == "Syphilis")
+        //        {
+        //            foreach (Control ctr in cell.Controls)
+        //            {
+        //                if (ctr is Label)
+        //                {
+        //                    if (p.SyphilisID == TestDef.Syphilis.Pos)
+        //                        cell.Attributes.Add("style", style);
+        //                }
+        //            }
+        //        }
 
-                if (item.ContainingField.ToString() == "Malaria")
-                {
-                    foreach (Control ctr in cell.Controls)
-                    {
-                        if (ctr is Label)
-                        {
-                            if (p.MalariaID == TestDef.Malaria.Pos)
-                                cell.Attributes.Add("style", style);
-                        }
-                    }
-                }
-            }
-        }
+        //        if (item.ContainingField.ToString() == "Malaria")
+        //        {
+        //            foreach (Control ctr in cell.Controls)
+        //            {
+        //                if (ctr is Label)
+        //                {
+        //                    if (p.MalariaID == TestDef.Malaria.Pos)
+        //                        cell.Attributes.Add("style", style);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 
 }

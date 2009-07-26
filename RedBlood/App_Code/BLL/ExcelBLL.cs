@@ -29,239 +29,219 @@ public class ExcelBLL
     static string note = "Excel Import";
     public static void Import(string actor)
     {
-        RedBloodDataContext db1 = new RedBloodDataContext();
-
-        //List<Excel> l = db1.Excels.Where(r => r.Imported == null || r.Imported != Imported).OrderBy(r => r.ID).ToList();
-
-        List<Excel> l = (from r in db1.Excels
-                         where (r.Imported == null || r.Imported != Imported)
-                         orderby r.ID
-                         select r).ToList();
-
-        foreach (Excel item in l)
-        {
-            //if (item.ID < 1020) continue;
-            RedBloodDataContext db = new RedBloodDataContext();
-
-            //Pack p = db.Packs.Where(r => r.Status == Pack.StatusX.Init).FirstOrDefault();
-
-            Pack p = db.Packs.Where(r => r.Autonum == item.ID).FirstOrDefault();
-
-            if (p == null || p.Status != Pack.StatusX.Init)
-            {
-                continue;
-            }
-
-            //db.SubmitChanges();
-
-            if (string.IsNullOrEmpty(item.HoVaTen.Trim())
-                || string.IsNullOrEmpty(item.MSTM.Trim())
-                || string.IsNullOrEmpty(item.MSNH.Trim()))
-            {
-                continue;
-            }
-
-            string ABO = item.ABO.Trim();
-            string RH = item.RH.Trim();
-
-            int ABOID = 0;
-            int RHID = 0;
-
-            if (ABO.ToLower() == "AB".ToLower()) ABOID = TestDef.ABO.AB;
-            if (ABO.ToLower() == "A".ToLower()) ABOID = TestDef.ABO.A;
-            if (ABO.ToLower() == "B".ToLower()) ABOID = TestDef.ABO.B;
-            if (ABO.ToLower() == "O".ToLower()) ABOID = TestDef.ABO.O;
-
-            if (RH.ToLower() == "Rh(+)".ToLower()) RHID = TestDef.RH.Pos;
-            if (RH.ToLower() == "Rh(-)".ToLower()) RHID = TestDef.RH.Neg;
+        //RedBloodDataContext db1 = new RedBloodDataContext();
 
 
-            string HIV = item.HIV.Trim();
-            string HBsAg = item.HBsAg.Trim();
-            string HCV = item.HCV.Trim();
-            string Syphilis = item.Syphilis.Trim();
-            string Malaria = item.Malaria.Trim();
+        //List<Excel> l = (from r in db1.Excels
+        //                 where (r.Imported == null || r.Imported != Imported)
+        //                 orderby r.ID
+        //                 select r).ToList();
 
-            int HIVID = 0;
-            int HBsAgID = 0;
-            int HCVID = 0;
-            int SyphilisID = 0;
-            int MalariaID = 0;
-
-            if (HIV.ToLower() == ("Âm tính").ToLower()) HIVID = TestDef.HIV.Neg;
-            if (HIV.ToLower() == "Kiểm tra lần 2".ToLower()) HIVID = TestDef.HIV.Pos;
-            if (HIV.ToLower() == "Chưa xác định".ToLower()) HIVID = TestDef.HIV.NA;
-
-            if (HCV.ToLower() == "Âm tính".ToLower()) HCVID = TestDef.HCV.Neg;
-            if (HCV.ToLower() == "Dương tính".ToLower()) HCVID = TestDef.HCV.Pos;
-            if (HCV.ToLower() == "Chưa xác định".ToLower()) HCVID = TestDef.HCV.NA;
-
-            if (HBsAg.ToLower() == "Âm tính".ToLower()) HBsAgID = TestDef.HBsAg.Neg;
-            if (HBsAg.ToLower() == "Dương tính".ToLower()) HBsAgID = TestDef.HBsAg.Pos;
-            if (HBsAg.ToLower() == "Chưa xác định".ToLower()) HBsAgID = TestDef.HBsAg.NA;
-
-            if (Syphilis.ToLower() == "Âm tính".ToLower()) SyphilisID = TestDef.Syphilis.Neg;
-            if (Syphilis.ToLower() == "Dương tính".ToLower()) SyphilisID = TestDef.Syphilis.Pos;
-            if (Syphilis.ToLower() == "Chưa xác định".ToLower()) SyphilisID = TestDef.Syphilis.NA;
-
-            if (Malaria.ToLower() == "Âm tính".ToLower()) MalariaID = TestDef.Malaria.Neg;
-            if (Malaria.ToLower() == "Dương tính".ToLower()) MalariaID = TestDef.Malaria.Pos;
-            if (Malaria.ToLower() == "Chưa xác định".ToLower()) MalariaID = TestDef.Malaria.NA;
-
-            if (HIVID == 0 || HCVID == 0 || HBsAgID == 0 || SyphilisID == 0 || MalariaID == 0
-                || RHID == 0 || ABOID == 0)
-            {
-                continue;
-            }
-            Geo geo1 = null;
-            Geo geo2 = null;
-            Geo geo3 = null;
-
-            geo1 = GeoBLL.GetByName(item.Province, 1);
-
-            if (geo1 == null)
-            {
-                continue;
-            }
-
-            geo2 = geo1.Geos.Where(r => r.Name.ToLower() == item.District.ToLower()).FirstOrDefault();
-            if (geo2 != null)
-                geo3 = geo2.Geos.Where(r => r.Name.ToLower() == item.Ward.ToLower()).FirstOrDefault();
-
-            //Geo geo2 = GeoBLL.GetByName(item.District, 2);
-            //Geo geo3 = GeoBLL.GetByName(item.Ward, 3);
+        //foreach (Excel item in l)
+        //{
+        //    RedBloodDataContext db = new RedBloodDataContext();
 
 
+        //    Pack p = db.Packs.Where(r => r.Autonum == item.ID).FirstOrDefault();
 
-            Campaign cam = CampaignBLL.GetByID(item.CampaignID.ToInt());
-            if (cam == null || cam.Date == null)
-            {
-                continue;
-            }
-
-            People people = new People();
-
-            try
-            {
-                people.DOB = new DateTime(item.DOB.ToInt(), 1, 1);
-            }
-            catch (Exception)
-            {
-                people.DOB = new DateTime(1888, 1, 1);
-            }
+        //    if (p == null || p.Status != Pack.StatusX.Init)
+        //    {
+        //        continue;
+        //    }
 
 
-            people.Name = item.HoVaTen;
-            people.SexID = new Guid("582FCCF2-65A0-4162-BE24-B29E9C664262");
+        //    if (string.IsNullOrEmpty(item.HoVaTen.Trim())
+        //        || string.IsNullOrEmpty(item.MSTM.Trim())
+        //        || string.IsNullOrEmpty(item.MSNH.Trim()))
+        //    {
+        //        continue;
+        //    }
 
-            people.ResidentGeoID1 = geo1.ID;
+        //    string ABO = item.ABO.Trim();
+        //    string RH = item.RH.Trim();
 
-            if (geo2 != null) people.ResidentGeoID2 = geo2.ID;
-            if (geo3 != null) people.ResidentGeoID3 = geo3.ID;
-            people.ResidentAddress = item.Address;
+        //    int ABOID = 0;
+        //    int RHID = 0;
 
-            db.Peoples.InsertOnSubmit(people);
-            db.SubmitChanges();
+        //    if (ABO.ToLower() == "AB".ToLower()) ABOID = TestDef.ABO.AB;
+        //    if (ABO.ToLower() == "A".ToLower()) ABOID = TestDef.ABO.A;
+        //    if (ABO.ToLower() == "B".ToLower()) ABOID = TestDef.ABO.B;
+        //    if (ABO.ToLower() == "O".ToLower()) ABOID = TestDef.ABO.O;
+
+        //    if (RH.ToLower() == "Rh(+)".ToLower()) RHID = TestDef.RH.Pos;
+        //    if (RH.ToLower() == "Rh(-)".ToLower()) RHID = TestDef.RH.Neg;
+
+
+        //    string HIV = item.HIV.Trim();
+        //    string HBsAg = item.HBsAg.Trim();
+        //    string HCV = item.HCV.Trim();
+        //    string Syphilis = item.Syphilis.Trim();
+        //    string Malaria = item.Malaria.Trim();
+
+        //    int HIVID = 0;
+        //    int HBsAgID = 0;
+        //    int HCVID = 0;
+        //    int SyphilisID = 0;
+        //    int MalariaID = 0;
+
+        //    if (HIV.ToLower() == ("Âm tính").ToLower()) HIVID = TestDef.HIV.Neg;
+        //    if (HIV.ToLower() == "Kiểm tra lần 2".ToLower()) HIVID = TestDef.HIV.Pos;
+        //    if (HIV.ToLower() == "Chưa xác định".ToLower()) HIVID = TestDef.HIV.NA;
+
+        //    if (HCV.ToLower() == "Âm tính".ToLower()) HCVID = TestDef.HCV.Neg;
+        //    if (HCV.ToLower() == "Dương tính".ToLower()) HCVID = TestDef.HCV.Pos;
+        //    if (HCV.ToLower() == "Chưa xác định".ToLower()) HCVID = TestDef.HCV.NA;
+
+        //    if (HBsAg.ToLower() == "Âm tính".ToLower()) HBsAgID = TestDef.HBsAg.Neg;
+        //    if (HBsAg.ToLower() == "Dương tính".ToLower()) HBsAgID = TestDef.HBsAg.Pos;
+        //    if (HBsAg.ToLower() == "Chưa xác định".ToLower()) HBsAgID = TestDef.HBsAg.NA;
+
+        //    if (Syphilis.ToLower() == "Âm tính".ToLower()) SyphilisID = TestDef.Syphilis.Neg;
+        //    if (Syphilis.ToLower() == "Dương tính".ToLower()) SyphilisID = TestDef.Syphilis.Pos;
+        //    if (Syphilis.ToLower() == "Chưa xác định".ToLower()) SyphilisID = TestDef.Syphilis.NA;
+
+        //    if (Malaria.ToLower() == "Âm tính".ToLower()) MalariaID = TestDef.Malaria.Neg;
+        //    if (Malaria.ToLower() == "Dương tính".ToLower()) MalariaID = TestDef.Malaria.Pos;
+        //    if (Malaria.ToLower() == "Chưa xác định".ToLower()) MalariaID = TestDef.Malaria.NA;
+
+        //    if (HIVID == 0 || HCVID == 0 || HBsAgID == 0 || SyphilisID == 0 || MalariaID == 0
+        //        || RHID == 0 || ABOID == 0)
+        //    {
+        //        continue;
+        //    }
+        //    Geo geo1 = null;
+        //    Geo geo2 = null;
+        //    Geo geo3 = null;
+
+        //    geo1 = GeoBLL.GetByName(item.Province, 1);
+
+        //    if (geo1 == null)
+        //    {
+        //        continue;
+        //    }
+
+        //    geo2 = geo1.Geos.Where(r => r.Name.ToLower() == item.District.ToLower()).FirstOrDefault();
+        //    if (geo2 != null)
+        //        geo3 = geo2.Geos.Where(r => r.Name.ToLower() == item.Ward.ToLower()).FirstOrDefault();
+
+
+        //    Campaign cam = CampaignBLL.GetByID(item.CampaignID.ToInt());
+        //    if (cam == null || cam.Date == null)
+        //    {
+        //        continue;
+        //    }
+
+        //    People people = new People();
+
+        //    try
+        //    {
+        //        people.DOB = new DateTime(item.DOB.ToInt(), 1, 1);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        people.DOB = new DateTime(1888, 1, 1);
+        //    }
+
+
+        //    people.Name = item.HoVaTen;
+        //    people.SexID = new Guid("582FCCF2-65A0-4162-BE24-B29E9C664262");
+
+        //    people.ResidentGeoID1 = geo1.ID;
+
+        //    if (geo2 != null) people.ResidentGeoID2 = geo2.ID;
+        //    if (geo3 != null) people.ResidentGeoID3 = geo3.ID;
+        //    people.ResidentAddress = item.Address;
+
+        //    db.Peoples.InsertOnSubmit(people);
+        //    db.SubmitChanges();
 
 
 
-            p.MSTM = item.MSTM;
-            p.MSNH = item.MSNH;
+        //    p.MSTM = item.MSTM;
+        //    p.MSNH = item.MSNH;
 
-            p.PeopleID = people.ID;
-            p.CollectedDate = cam.Date;
-            p.CampaignID = cam.ID;
+        //    p.PeopleID = people.ID;
+        //    p.CollectedDate = cam.Date;
+        //    p.CampaignID = cam.ID;
             
 
-            PackStatusHistory his = PackBLL.ChangeStatus(db, p, Pack.StatusX.Collected, note);
+        //    PackStatusHistory his = PackBLL.ChangeStatus(db, p, Pack.StatusX.Collected, note);
             
             
 
-            PackBLL.Update(db, p
-                , TestDef.Component.Full
-                , 250
-                , TestDef.Substance.for21days);
+        //    PackBLL.Update(db, p
+        //        , TestDef.Component.Full
+        //        , 250
+        //        , TestDef.Substance.for21days);
 
-            PackBLL.Update(db, p, 2, ABOID, RHID, note);
+        //    PackBLL.Update(db, p, 2, ABOID, RHID, note);
 
-            PackBLL.Update(db, p, 2
-                , HIVID
-                , HCVID
-                , HBsAgID
-                , SyphilisID
-                , MalariaID
-                , note);
+        //    PackBLL.Update(db, p, 2
+        //        , HIVID
+        //        , HCVID
+        //        , HBsAgID
+        //        , SyphilisID
+        //        , MalariaID
+        //        , note);
 
-            PackBLL.UpdateExpiredDate(p);
-
-
-            p.HospitalID = new Guid("0D39EC10-B425-41ED-9210-28FF740AD80D");
-            p.Actor = actor;
-            p.Note = note;
+        //    PackBLL.UpdateExpiredDate(p);
 
 
+        //    p.HospitalID = new Guid("0D39EC10-B425-41ED-9210-28FF740AD80D");
+        //    p.Actor = actor;
+        //    p.Note = note;
 
 
-            try
-            {
-                // This trick help validate pack. Change Deliver Status later
-                p.DeliverStatus = Pack.DeliverStatusX.Yes;
 
-                db.SubmitChanges(ConflictMode.FailOnFirstConflict);
 
-                //UpdateDate(p.Autonum, cam.Date.Value);
+        //    try
+        //    {
+        //        // This trick help validate pack. Change Deliver Status later
+        //        p.DeliverStatus = Pack.DeliverStatusX.Yes;
 
-                PackBLL.UpdateTestResultStatus4Full(p.Autonum);
+        //        db.SubmitChanges(ConflictMode.FailOnFirstConflict);
 
-                PackBLL.LockEnterTestResult();
+        //        //UpdateDate(p.Autonum, cam.Date.Value);
 
-                UpdateDeliverStatus(p.Autonum, actor);
+        //        PackBLL.UpdateTestResultStatus4Full(p.Autonum);
 
-                item.Imported = 1;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+        //        PackBLL.LockEnterTestResult();
 
-            db1.SubmitChanges();
-        }
+        //        UpdateDeliverStatus(p.Autonum, actor);
+
+        //        item.Imported = 1;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+
+        //    db1.SubmitChanges();
+        //}
 
 
     }
 
-    //static void UpdateDate(int autonum, DateTime date)
-    //{
-    //    RedBloodDataContext db = new RedBloodDataContext();
-    //    Pack p = db.Packs.Where(r => r.Autonum == autonum).FirstOrDefault();
-
-    //    if (p == null) return;
-
-    //    p.TestResult2.CommitDate = date;
-
-    //    db.SubmitChanges();
-    //}
-
     static void UpdateDeliverStatus(int autonum, string actor)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = db.Packs.Where(r => r.Autonum == autonum).FirstOrDefault();
+        //RedBloodDataContext db = new RedBloodDataContext();
+        //Pack p = db.Packs.Where(r => r.Autonum == autonum).FirstOrDefault();
 
-        if (p == null) return;
+        //if (p == null) return;
 
-        if (p.TestResultStatus == Pack.TestResultStatusX.NegativeLocked)
-        {
-            p.DeliverStatus = Pack.DeliverStatusX.Yes;
-        }
+        //if (p.TestResultStatus == Pack.TestResultStatusX.NegativeLocked)
+        //{
+        //    p.DeliverStatus = Pack.DeliverStatusX.Yes;
+        //}
 
 
-        if (p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
-        {
-            p.DeliverStatus = Pack.DeliverStatusX.Non;
-            PackBLL.ChangeStatus(db, p, Pack.StatusX.Delete, "Excel Import Positive");
-        }
+        //if (p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
+        //{
+        //    p.DeliverStatus = Pack.DeliverStatusX.Non;
+        //    PackBLL.ChangeStatus(db, p, Pack.StatusX.Delete, "Excel Import Positive");
+        //}
 
-        db.SubmitChanges();
+        //db.SubmitChanges();
     }
 
 }

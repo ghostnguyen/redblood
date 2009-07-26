@@ -15,21 +15,13 @@ public partial class CampaignPage : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
-        if (BarcodeBLL.IsValidPackCode(code))
-        {
-            
-        }
-        else if (BarcodeBLL.IsValidTestResultCode(code))
-        {
-            
-        }
-        else if (BarcodeBLL.IsValidCampaignCode(code))
+        if (BarcodeBLL.IsValidCampaignCode(code))
         {
             ucCampaign1.CampaignID = BarcodeBLL.ParseCampaignID(code);
         }
         else
         {
-            
+
         }
 
     }
@@ -37,7 +29,7 @@ public partial class CampaignPage : System.Web.UI.Page
     {
         foreach (ListItem item in lbSource.Items)
         {
-            item.Selected = false;            
+            item.Selected = false;
         }
 
         lbSource.Items[e.Index].Selected = true;
@@ -46,7 +38,7 @@ public partial class CampaignPage : System.Web.UI.Page
         ListView1.DataBind();
         ucCampaign1.CampaignID = 0;
     }
-    
+
     protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
     {
         ucCampaign1.CampaignID = (int)ListView1.SelectedDataKey.Value;

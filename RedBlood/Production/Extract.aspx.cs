@@ -28,20 +28,20 @@ public partial class Production_Extract : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-        }
+        //if (!IsPostBack)
+        //{
+        //}
 
-        string code = Master.TextBoxCode.Text.Trim();
-        Master.TextBoxCode.Text = "";
+        //string code = Master.TextBoxCode.Text.Trim();
+        //Master.TextBoxCode.Text = "";
 
-        if (code.Length == 0) return;
+        //if (code.Length == 0) return;
 
-        if (BarcodeBLL.IsValidPackCode(code))
-        {
-            Autonum = BarcodeBLL.ParsePackAutoNum(code);
-            LoadAutonum();
-        }
+        //if (BarcodeBLL.IsValidPackCode(code))
+        //{
+        //    Autonum = BarcodeBLL.ParsePackAutoNum(code);
+        //    LoadAutonum();
+        //}
     }
 
     void Clear()
@@ -102,28 +102,28 @@ public partial class Production_Extract : System.Web.UI.Page
         DataListFull.DataSource = new List<Pack> { p };
         DataListFull.DataBind();
 
-        DataListRBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.RBC);
-        DataListRBC.DataBind();
+        //DataListRBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.RBC);
+        //DataListRBC.DataBind();
 
-        DataListFFPlasma.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma);
-        DataListFFPlasma.DataBind();
+        //DataListFFPlasma.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma);
+        //DataListFFPlasma.DataBind();
 
-        DataListFFPlasma_Poor.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor
-            && r.SourcePacks.Select(s => s.ComponentID).Contains(TestDef.Component.Full));
-        DataListFFPlasma_Poor.DataBind();
+        //DataListFFPlasma_Poor.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor
+        //    && r.SourcePacks.Select(s => s.ComponentID).Contains(TestDef.Component.Full));
+        //DataListFFPlasma_Poor.DataBind();
 
-        DataListWBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.WBC);
-        DataListWBC.DataBind();
+        //DataListWBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.WBC);
+        //DataListWBC.DataBind();
 
-        DataListPlatelet.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Platelet);
-        DataListPlatelet.DataBind();
+        //DataListPlatelet.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Platelet);
+        //DataListPlatelet.DataBind();
 
-        DataListFactorVIII.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII);
-        DataListFactorVIII.DataBind();
+        //DataListFactorVIII.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII);
+        //DataListFactorVIII.DataBind();
 
-        DataListFFPlasma_Poor2.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor
-            && r.SourcePacks.Select(s => s.ComponentID).Contains(TestDef.Component.FFPlasma));
-        DataListFFPlasma_Poor2.DataBind();
+        //DataListFFPlasma_Poor2.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor
+        //    && r.SourcePacks.Select(s => s.ComponentID).Contains(TestDef.Component.FFPlasma));
+        //DataListFFPlasma_Poor2.DataBind();
 
         Highlight_Div(p);
     }
