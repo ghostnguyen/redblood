@@ -56,62 +56,61 @@ public partial class Pack
     
 
 
-    PackBLL bll = new PackBLL();
-    CampaignBLL campaignBLL = new CampaignBLL();
+    
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
-        if (action == System.Data.Linq.ChangeAction.Insert)
-        {
-            if (Status == StatusX.Init)
-            {
-                //TestResultStatus = Pack.TestResultStatusX.Non;
-                //DeliverStatus = Pack.DeliverStatusX.Non;
-            }
-        }
+        //if (action == System.Data.Linq.ChangeAction.Insert)
+        //{
+        //    if (Status == StatusX.Init)
+        //    {
+        //        //TestResultStatus = Pack.TestResultStatusX.Non;
+        //        //DeliverStatus = Pack.DeliverStatusX.Non;
+        //    }
+        //}
     }
 
     partial void OnLoaded()
     {
     }
 
-    partial void OnPeopleIDChanging(Guid? value)
-    {
-        //Remove PeopleID
-        if (value == null)
-        {
-            if (Status == StatusX.Init || Status == StatusX.Collected)
-            { }
-            else
-            {
-                throw new Exception("Không thể đổi người cho máu.");
-            }
-        }
-        else
-        {
-            if (PeopleID != null)
-                throw new Exception("Túi máu đã có người.");
+    //partial void OnPeopleIDChanging(Guid? value)
+    //{
+    //    //Remove PeopleID
+    //    //if (value == null)
+    //    //{
+    //    //    if (Status == StatusX.Init || Status == StatusX.Collected)
+    //    //    { }
+    //    //    else
+    //    //    {
+    //    //        throw new Exception("Không thể đổi người cho máu.");
+    //    //    }
+    //    //}
+    //    //else
+    //    //{
+    //    //    if (PeopleID != null)
+    //    //        throw new Exception("Túi máu đã có người.");
 
-            Pack p = PackBLL.GetEnterPackByPeopleID(value.Value);
-            if (p != null)
-                throw new Exception("Người này có túi máu chưa xử lý.");
-        }
-    }
+    //    //    Pack p = PackBLL.GetEnterPackByPeopleID(value.Value);
+    //    //    if (p != null)
+    //    //        throw new Exception("Người này có túi máu chưa xử lý.");
+    //    //}
+    //}
 
-    partial void OnCampaignIDChanging(int? value)
-    {
-        if (value == null) return;
+    //partial void OnCampaignIDChanging(int? value)
+    //{
+    //    if (value == null) return;
 
-        Campaign c = CampaignBLL.GetByID(value.Value);
+    //    Campaign c = CampaignBLL.GetByID(value.Value);
 
-        if (c.Type == Campaign.TypeX.Short_run)
-        {
-            if (c.Status == Campaign.StatusX.Init
-                || c.Status == Campaign.StatusX.Assign)
-            { }
-            else
-                throw new Exception("Đợt thu máu kết thúc.");
-        }
-    }
+    //    if (c.Type == Campaign.TypeX.Short_run)
+    //    {
+    //        if (c.Status == Campaign.StatusX.Init
+    //            || c.Status == Campaign.StatusX.Assign)
+    //        { }
+    //        else
+    //            throw new Exception("Đợt thu máu kết thúc.");
+    //    }
+    //}
 
 
 
@@ -132,24 +131,31 @@ public partial class Pack
     {
         get
         {
-            return ComponentID != null
-                && ComponentID == TestDef.Component.Full
-                && PackBLL.AllowEnterTestResult().Contains(TestResultStatus);
+            //return ComponentID != null
+            //    && ComponentID == TestDef.Component.Full
+            //    && PackBLL.AllowEnterTestResult().Contains(TestResultStatus);
+            return false;
         }
     }
 
     public string Code
     {
-        get { return BarcodeBLL.GenPackCode(Autonum); }
+        get {
+            return null;
+        
+//            return BarcodeBLL.GenPackCode(Autonum); 
+        }
     }
 
     public string DeleteNote
     {
         get
         {
-            PackStatusHistory e = PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).FirstOrDefault();
-            if (e == null) return "";
-            else return e.Note;
+            //PackStatusHistory e = PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).FirstOrDefault();
+            //if (e == null) return "";
+            //else return e.Note;
+            return null;
+
         }
     }
 
@@ -160,7 +166,9 @@ public partial class Pack
     {
         get
         {
-            return PackExtractsByExtract.Select(r => r.SourcePack).ToList();
+            return null;
+
+//            return PackExtractsByExtract.Select(r => r.SourcePack).ToList();
         }
     }
 
@@ -181,7 +189,6 @@ public partial class Pack
                 l.Add(item);
                 l.AddRange(item.SourcePacks_All);
             }
-
             return l.Distinct().ToList();
         }
     }
@@ -190,7 +197,9 @@ public partial class Pack
     {
         get
         {
-            return PackExtractsBySource.Select(r => r.ExtractPack).ToList();
+            //return PackExtractsBySource.Select(r => r.ExtractPack).ToList();
+            return null;
+
         }
     }
 
@@ -224,50 +233,51 @@ public partial class Pack
         }
     }
 
-    public Pack.TestResultStatusX TestResultStatusRoot
-    {
-        get
-        {
-            //Get all packs related pack and each has componet is full
-            List<TestResultStatusX> l = SourcePacks_All
-                                            .Where(r => r.ComponentID == TestDef.Component.Full)
-                                            .Select(r => r.TestResultStatus)
-                                            .ToList();
+    //public Pack.TestResultStatusX TestResultStatusRoot
+    //{
+    //    get
+    //    {
+    //        //Get all packs related pack and each has componet is full
+    //        //List<TestResultStatusX> l = SourcePacks_All
+    //        //                                .Where(r => r.ComponentID == TestDef.Component.Full)
+    //        //                                .Select(r => r.TestResultStatus)
+    //        //                                .ToList();
 
-            foreach (TestResultStatusX item in l)
-            {
-                if (item == TestResultStatusX.Positive
-                    || item == TestResultStatusX.PositiveLocked)
-                    return item;
-            }
+    //        //foreach (TestResultStatusX item in l)
+    //        //{
+    //        //    if (item == TestResultStatusX.Positive
+    //        //        || item == TestResultStatusX.PositiveLocked)
+    //        //        return item;
+    //        //}
 
-            foreach (TestResultStatusX item in l)
-            {
-                if (item == TestResultStatusX.Non)
-                    return item;
-            }
+    //        //foreach (TestResultStatusX item in l)
+    //        //{
+    //        //    if (item == TestResultStatusX.Non)
+    //        //        return item;
+    //        //}
 
-            foreach (TestResultStatusX item in l)
-            {
-                if (item == TestResultStatusX.Negative
-                    || item == TestResultStatusX.NegativeLocked)
-                    return item;
-            }
+    //        //foreach (TestResultStatusX item in l)
+    //        //{
+    //        //    if (item == TestResultStatusX.Negative
+    //        //        || item == TestResultStatusX.NegativeLocked)
+    //        //        return item;
+    //        //}
 
-            return TestResultStatus;
-        }
-    }
+    //        //return TestResultStatus;
+
+    //    }
+    //}
 
     public TestDef SubstanceRoot
     {
         get
         {
             //Get all packs related pack and each has componet is full
-            List<TestDef> l = SourcePacks_All
-                                            .Where(r => r.ComponentID == TestDef.Component.Full)
-                                            .Select(r => r.Substance)
-                                            .ToList();
-
+            //List<TestDef> l = SourcePacks_All
+            //                                .Where(r => r.ComponentID == TestDef.Component.Full)
+            //                                .Select(r => r.Substance)
+            //                                .ToList();
+            List<TestDef> l = new List<TestDef>();
             foreach (TestDef item in l)
             {
                 if (item.ID == TestDef.Substance.for21days)
@@ -286,7 +296,8 @@ public partial class Pack
                     return item;
             }
 
-            return Substance;
+            //return Substance;
+            return null;
         }
     }
 
@@ -298,20 +309,20 @@ public partial class Pack
         //if (TestResultStatus == TestResultStatusX.Non)
         //    throw new Exception("Chưa nhập kết quả túi máu.");
 
-        if (HIVID == TestDef.HIV.Pos || HIVID == TestDef.HIV.NA)
-            r.Add(HIV);
+        //if (HIVID == TestDef.HIV.Pos || HIVID == TestDef.HIV.NA)
+        //    r.Add(HIV);
 
-        if (HBsAgID == TestDef.HBsAg.Pos || HBsAgID == TestDef.HBsAg.NA)
-            r.Add(HBsAg);
+        //if (HBsAgID == TestDef.HBsAg.Pos || HBsAgID == TestDef.HBsAg.NA)
+        //    r.Add(HBsAg);
 
-        if (HCVID == TestDef.HCV.Pos || HCVID == TestDef.HCV.NA)
-            r.Add(HCV);
+        //if (HCVID == TestDef.HCV.Pos || HCVID == TestDef.HCV.NA)
+        //    r.Add(HCV);
 
-        if (SyphilisID == TestDef.Syphilis.Pos || SyphilisID == TestDef.Syphilis.NA)
-            r.Add(Syphilis);
+        //if (SyphilisID == TestDef.Syphilis.Pos || SyphilisID == TestDef.Syphilis.NA)
+        //    r.Add(Syphilis);
 
-        if (MalariaID == TestDef.Malaria.Pos || MalariaID == TestDef.Malaria.NA)
-            r.Add(Malaria);
+        //if (MalariaID == TestDef.Malaria.Pos || MalariaID == TestDef.Malaria.NA)
+        //    r.Add(Malaria);
 
         return r;
 

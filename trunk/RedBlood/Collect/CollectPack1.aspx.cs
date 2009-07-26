@@ -16,30 +16,30 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
         else
         {
-            ucEnterPack.PlateletApheresisConfirmed += new EventHandler(ucEnterPack_PlateletApheresisConfirmed);
-            ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
+            //ucEnterPack.PlateletApheresisConfirmed += new EventHandler(ucEnterPack_PlateletApheresisConfirmed);
+            //ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
 
-            string code = Master.TextBoxCode.Text.Trim();
-            Master.TextBoxCode.Text = "";
+            //string code = Master.TextBoxCode.Text.Trim();
+            //Master.TextBoxCode.Text = "";
 
-            if (code.Length == 0) return;
+            //if (code.Length == 0) return;
 
-            if (BarcodeBLL.IsValidPackCode(code))
-            {
-                PackCodeEnter(code);
-            }
-            else if (BarcodeBLL.IsValidTestResultCode(code))
-            {
-                TestResultEnter(code);
-            }
-            else if (BarcodeBLL.IsValidCampaignCode(code))
-            {
-                CampaignEnter(code);
-            }
-            else
-            {
-                ucPeople.Code = code;
-            }
+            //if (BarcodeBLL.IsValidPackCode(code))
+            //{
+            //    PackCodeEnter(code);
+            //}
+            //else if (BarcodeBLL.IsValidTestResultCode(code))
+            //{
+            //    TestResultEnter(code);
+            //}
+            //else if (BarcodeBLL.IsValidCampaignCode(code))
+            //{
+            //    CampaignEnter(code);
+            //}
+            //else
+            //{
+            //    ucPeople.Code = code;
+            //}
         }
     }
 
@@ -65,27 +65,27 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         Pack p = PackBLL.GetByCode(code);
         if (p == null) return;
 
-        if (p.PeopleID == null && p.CampaignID == null)
-        {
-            if (ucPeople.PeopleID == Guid.Empty)
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin người cho máu.');", true);
-                return;
-            }
-            if (CamDetailLeft.CampaignID == 0)
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin đợt thu máu.');", true);
-                return;
-            }
+        //if (p.PeopleID == null && p.CampaignID == null)
+        //{
+        //    if (ucPeople.PeopleID == Guid.Empty)
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin người cho máu.');", true);
+        //        return;
+        //    }
+        //    if (CamDetailLeft.CampaignID == 0)
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin đợt thu máu.');", true);
+        //        return;
+        //    }
 
-            ucEnterPack.Assign(p.Autonum, CamDetailLeft.CampaignID);
-        }
-        else
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                    "alert ('Túi máu: " + p.Status.ToString() + "');", true);
-            return;
-        }
+        //    ucEnterPack.Assign(p.Autonum, CamDetailLeft.CampaignID);
+        //}
+        //else
+        //{
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+        //            "alert ('Túi máu: " + p.Status.ToString() + "');", true);
+        //    return;
+        //}
     }
 
     private void TestResultEnter(string code)

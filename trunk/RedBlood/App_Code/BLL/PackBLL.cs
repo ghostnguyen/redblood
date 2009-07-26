@@ -8,8 +8,7 @@ using System.Web;
 /// </summary>
 public class PackBLL
 {
-    BarcodeBLL codabarBLL = new BarcodeBLL();
-    CampaignBLL campaignBLL = new CampaignBLL();
+   
     public PackBLL()
     {
     }
@@ -20,7 +19,8 @@ public class PackBLL
     /// <returns></returns>
     public static Pack.StatusX[] StatusListAllowEnterTestResult()
     {
-        return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.Produced };
+        return new Pack.StatusX[] { };
+        //return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.Produced };
     }
 
     //public static Pack.StatusX[] StatusList4Production()
@@ -30,19 +30,21 @@ public class PackBLL
 
     public static Pack.StatusX[] StatusList4Order()
     {
-        return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.Product };
+        //return new Pack.StatusX[] { Pack.StatusX.Collected, Pack.StatusX.Product };
+        return new Pack.StatusX[] { };
     }
 
     /// <summary>
     /// Return the list of pack status which pack had entered test result
     /// </summary>
     /// <returns></returns>
-    public static Pack.TestResultStatusX[] AllowEnterTestResult()
-    {
-        return new Pack.TestResultStatusX[] { Pack.TestResultStatusX.Non, 
-            Pack.TestResultStatusX.Negative, 
-            Pack.TestResultStatusX.Positive};
-    }
+    //public static Pack.TestResultStatusX[] AllowEnterTestResult()
+    //{
+    //    return new Pack.StatusX[] { };
+    //    //return new Pack.TestResultStatusX[] { Pack.TestResultStatusX.Non, 
+    //    //    Pack.TestResultStatusX.Negative, 
+    //    //    Pack.TestResultStatusX.Positive};
+    //}
 
     /// <summary>
     /// Get pack -> Validate -> Change status if need
@@ -129,16 +131,16 @@ public class PackBLL
     {
         if (autonumList.Count == 0) return new List<Pack>();
 
-        List<Pack> pList;
+        List<Pack> pList = new List<Pack>();
 
-        if (statusList.Count() == 1 && statusList[0] == Pack.StatusX.All)
-        {
-            pList = db.Packs.Where(e => autonumList.Contains(e.Autonum)).ToList();
-        }
-        else
-        {
-            pList = db.Packs.Where(e => autonumList.Contains(e.Autonum) && statusList.Contains(e.Status)).ToList();
-        }
+        //if (statusList.Count() == 1 && statusList[0] == Pack.StatusX.All)
+        //{
+        //    pList = db.Packs.Where(e => autonumList.Contains(e.Autonum)).ToList();
+        //}
+        //else
+        //{
+        //    pList = db.Packs.Where(e => autonumList.Contains(e.Autonum) && statusList.Contains(e.Status)).ToList();
+        //}
 
         if (allowPackErr) return pList;
         else
@@ -154,87 +156,87 @@ public class PackBLL
     {
         if (p == null) return;
 
-        p.CanExtractToList = new List<int>();
-        p.CanExtractToRBC = -1;
-        p.CanExtractToWBC = -1;
-        p.CanExtractToPlatelet = -1;
-        p.CanExtractToFFPlasma = -1;
-        p.CanExtractToFFPlasma_Poor = -1;
-        p.CanExtractToFactorVIII = -1;
+        //p.CanExtractToList = new List<int>();
+        //p.CanExtractToRBC = -1;
+        //p.CanExtractToWBC = -1;
+        //p.CanExtractToPlatelet = -1;
+        //p.CanExtractToFFPlasma = -1;
+        //p.CanExtractToFFPlasma_Poor = -1;
+        //p.CanExtractToFactorVIII = -1;
 
-        if (p.Status == Pack.StatusX.Collected
-            || p.Status == Pack.StatusX.Product
-            || p.Status == Pack.StatusX.Produced)
-        { }
-        else return;
+        //if (p.Status == Pack.StatusX.Collected
+        //    || p.Status == Pack.StatusX.Product
+        //    || p.Status == Pack.StatusX.Produced)
+        //{ }
+        //else return;
 
-        if (p.DeliverStatus == Pack.DeliverStatusX.Yes)
-        {
-            p.Err = new PackErr(PackErrEnum.Invalid4Extract.Message + ".Túi máu: " + p.DeliverStatus);
-            return;
-        }
+        //if (p.DeliverStatus == Pack.DeliverStatusX.Yes)
+        //{
+        //    p.Err = new PackErr(PackErrEnum.Invalid4Extract.Message + ".Túi máu: " + p.DeliverStatus);
+        //    return;
+        //}
 
-        if (p.TestResultStatus == Pack.TestResultStatusX.Positive
-            || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
-        {
-            p.Err = new PackErr(PackErrEnum.Invalid4Extract.Message + ".Túi máu: " + p.TestResultStatus);
-            return;
-        }
+        //if (p.TestResultStatus == Pack.TestResultStatusX.Positive
+        //    || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked)
+        //{
+        //    p.Err = new PackErr(PackErrEnum.Invalid4Extract.Message + ".Túi máu: " + p.TestResultStatus);
+        //    return;
+        //}
 
-        if (p.ComponentID == TestDef.Component.Full
-            || p.ComponentID == TestDef.Component.FFPlasma)
-        { }
-        else return;
+        //if (p.ComponentID == TestDef.Component.Full
+        //    || p.ComponentID == TestDef.Component.FFPlasma)
+        //{ }
+        //else return;
 
-        //Load extract information
-        List<Pack> l = p.ExtractedPacks;
-        p.Err = PackErrEnum.Valid4Extract;
+        ////Load extract information
+        //List<Pack> l = p.ExtractedPacks;
+        //p.Err = PackErrEnum.Valid4Extract;
 
-        if (p.ComponentID == TestDef.Component.Full)
-        {
-            p.CanExtractToRBC = l.Where(r => r.ComponentID == TestDef.Component.RBC)
-                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
+        //if (p.ComponentID == TestDef.Component.Full)
+        //{
+        //    p.CanExtractToRBC = l.Where(r => r.ComponentID == TestDef.Component.RBC)
+        //        .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            p.CanExtractToWBC = l.Where(r => r.ComponentID == TestDef.Component.WBC)
-                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
+        //    p.CanExtractToWBC = l.Where(r => r.ComponentID == TestDef.Component.WBC)
+        //        .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            p.CanExtractToPlatelet = l.Where(r => r.ComponentID == TestDef.Component.Platelet)
-                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
+        //    p.CanExtractToPlatelet = l.Where(r => r.ComponentID == TestDef.Component.Platelet)
+        //        .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            p.CanExtractToFFPlasma_Poor = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor)
-                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
+        //    p.CanExtractToFFPlasma_Poor = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor)
+        //        .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            p.CanExtractToFFPlasma = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma)
-                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
+        //    p.CanExtractToFFPlasma = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma)
+        //        .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            if (p.CanExtractToFFPlasma == 0
-                && DateTime.Now - p.CollectedDate > SystemBLL.ExpTime4ProduceFFPlasma)
-            {
-                p.CanExtractToFFPlasma = -1;
-            }
+        //    if (p.CanExtractToFFPlasma == 0
+        //        && DateTime.Now - p.CollectedDate > SystemBLL.ExpTime4ProduceFFPlasma)
+        //    {
+        //        p.CanExtractToFFPlasma = -1;
+        //    }
 
-            if (p.CanExtractToFFPlasma_Poor > 0 && p.CanExtractToFFPlasma == 0)
-                p.CanExtractToFFPlasma = -1;
+        //    if (p.CanExtractToFFPlasma_Poor > 0 && p.CanExtractToFFPlasma == 0)
+        //        p.CanExtractToFFPlasma = -1;
 
-            if (p.CanExtractToFFPlasma_Poor == 0 && p.CanExtractToFFPlasma > 0)
-                p.CanExtractToFFPlasma_Poor = -1;
-        }
+        //    if (p.CanExtractToFFPlasma_Poor == 0 && p.CanExtractToFFPlasma > 0)
+        //        p.CanExtractToFFPlasma_Poor = -1;
+        //}
 
-        if (p.ComponentID == TestDef.Component.FFPlasma)
-        {
-            p.CanExtractToFactorVIII = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII)
-                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
+        //if (p.ComponentID == TestDef.Component.FFPlasma)
+        //{
+        //    p.CanExtractToFactorVIII = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII)
+        //        .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
 
-            p.CanExtractToFFPlasma_Poor = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor)
-                .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
-        }
+        //    p.CanExtractToFFPlasma_Poor = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor)
+        //        .Select(r => r.Autonum).DefaultIfEmpty(0).FirstOrDefault();
+        //}
 
-        if (p.CanExtractToRBC == 0) p.CanExtractToList.Add(TestDef.Component.RBC);
-        if (p.CanExtractToWBC == 0) p.CanExtractToList.Add(TestDef.Component.WBC);
-        if (p.CanExtractToPlatelet == 0) p.CanExtractToList.Add(TestDef.Component.Platelet);
-        if (p.CanExtractToFFPlasma == 0) p.CanExtractToList.Add(TestDef.Component.FFPlasma);
-        if (p.CanExtractToFFPlasma_Poor == 0) p.CanExtractToList.Add(TestDef.Component.FFPlasma_Poor);
-        if (p.CanExtractToFactorVIII == 0) p.CanExtractToList.Add(TestDef.Component.FactorVIII);
+        //if (p.CanExtractToRBC == 0) p.CanExtractToList.Add(TestDef.Component.RBC);
+        //if (p.CanExtractToWBC == 0) p.CanExtractToList.Add(TestDef.Component.WBC);
+        //if (p.CanExtractToPlatelet == 0) p.CanExtractToList.Add(TestDef.Component.Platelet);
+        //if (p.CanExtractToFFPlasma == 0) p.CanExtractToList.Add(TestDef.Component.FFPlasma);
+        //if (p.CanExtractToFFPlasma_Poor == 0) p.CanExtractToList.Add(TestDef.Component.FFPlasma_Poor);
+        //if (p.CanExtractToFactorVIII == 0) p.CanExtractToList.Add(TestDef.Component.FactorVIII);
 
         return;
     }
@@ -274,7 +276,8 @@ public class PackBLL
 
     public static Pack GetByCode(string code)
     {
-        return Get(BarcodeBLL.ParsePackAutoNum(code));
+        return null;
+        //return Get(BarcodeBLL.ParsePackAutoNum(code));
     }
 
     public static List<Pack> Get(RedBloodDataContext db, List<Pack.StatusX> status)
@@ -288,18 +291,21 @@ public class PackBLL
 
     public static List<Pack> GetByCampaign(int campaignID)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-        return db.Packs.Where(r => r.CampaignID == campaignID
-            && StatusListAllowEnterTestResult().Contains(r.Status)
-            && AllowEnterTestResult().Contains(r.TestResultStatus)
-            && r.ComponentID == TestDef.Component.Full
-            ).ToList();
+        //RedBloodDataContext db = new RedBloodDataContext();
+        //return db.Packs.Where(r => r.CampaignID == campaignID
+        //    && StatusListAllowEnterTestResult().Contains(r.Status)
+        //    && AllowEnterTestResult().Contains(r.TestResultStatus)
+        //    && r.ComponentID == TestDef.Component.Full
+        //    ).ToList();
+        return new List<Pack>();
     }
 
     public static List<Pack> GetByCampaign(int campaignID, List<Pack.StatusX> status)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-        return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
+        //RedBloodDataContext db = new RedBloodDataContext();
+        //return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
+        return new List<Pack>();
+
     }
 
     //public static PackErr Assign(int autonum, Guid peopleID, int campaignID)
@@ -494,12 +500,12 @@ public class PackBLL
 
         if (p == null) return PackErrEnum.NonExist;
 
-        if (campaignID != null)
-        {
-            if (p.CampaignID != campaignID) return PackErrEnum.NonExistInCam;
-        }
+        //if (campaignID != null)
+        //{
+        //    if (p.CampaignID != campaignID) return PackErrEnum.NonExistInCam;
+        //}
 
-        PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Delete, note);
+        //PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Delete, note);
 
         db.SubmitChanges();
 
@@ -513,18 +519,19 @@ public class PackBLL
 
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get(db, autonum, Pack.StatusX.Collected);
+        //Pack p = Get(db, autonum, Pack.StatusX.Collected);
+        Pack p = new Pack() ;
 
-        if (p == null && p.PeopleID != null) return p;
-        if (p.TestResultStatus != Pack.TestResultStatusX.Non) return p;
+        //if (p == null && p.PeopleID != null) return p;
+        //if (p.TestResultStatus != Pack.TestResultStatusX.Non) return p;
 
-        //remove people
-        p.PeopleID = null;
-        p.CollectedDate = null;
-        p.CampaignID = null;
+        ////remove people
+        //p.PeopleID = null;
+        //p.CollectedDate = null;
+        //p.CampaignID = null;
 
-        PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Init, "Remove peopleID=" + p.PeopleID.ToString() + "&CampaignID=" + p.CampaignID.ToString());
-        db.PackStatusHistories.InsertOnSubmit(h);
+        //PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Init, "Remove peopleID=" + p.PeopleID.ToString() + "&CampaignID=" + p.CampaignID.ToString());
+        //db.PackStatusHistories.InsertOnSubmit(h);
 
         db.SubmitChanges();
 
@@ -540,10 +547,10 @@ public class PackBLL
     {
         PackErr err = Validate(p);
 
-        if (err != PackErrEnum.Non)
-        {
-            PackStatusHistory h = PackBLL.ChangeStatus(db, p, err.ToStatusX, actor, err.Message);
-        }
+        //if (err != PackErrEnum.Non)
+        //{
+        //    PackStatusHistory h = PackBLL.ChangeStatus(db, p, err.ToStatusX, actor, err.Message);
+        //}
 
         return err;
     }
@@ -570,46 +577,46 @@ public class PackBLL
             return PackErrEnum.Non;
         }
 
-        if (p.Status == Pack.StatusX.Init)
-        {
-            if (p.PeopleID != null
-                || p.CollectedDate != null
-                || p.CampaignID != null)
-                return PackErrEnum.DataErr;
-        }
-        else if (p.ComponentID == TestDef.Component.Full
-            || p.ComponentID == TestDef.Component.PlateletApheresis)
-        {
-            if (p.PeopleID == null
-                || p.CampaignID == null
-                || p.CollectedDate == null
-                || p.CollectedDate >= DateTime.Now)
-                return PackErrEnum.DataErr;
-        }
+        //if (p.Status == Pack.StatusX.Init)
+        //{
+        //    if (p.PeopleID != null
+        //        || p.CollectedDate != null
+        //        || p.CampaignID != null)
+        //        return PackErrEnum.DataErr;
+        //}
+        //else if (p.ComponentID == TestDef.Component.Full
+        //    || p.ComponentID == TestDef.Component.PlateletApheresis)
+        //{
+        //    if (p.PeopleID == null
+        //        || p.CampaignID == null
+        //        || p.CollectedDate == null
+        //        || p.CollectedDate >= DateTime.Now)
+        //        return PackErrEnum.DataErr;
+        //}
 
-        if (p.Status == Pack.StatusX.Collected)
-        {
-            if (p.ComponentID != TestDef.Component.Full
-                && p.ComponentID != TestDef.Component.PlateletApheresis)
-                return PackErrEnum.DataErr;
-        }
+        //if (p.Status == Pack.StatusX.Collected)
+        //{
+        //    if (p.ComponentID != TestDef.Component.Full
+        //        && p.ComponentID != TestDef.Component.PlateletApheresis)
+        //        return PackErrEnum.DataErr;
+        //}
 
-        if (p.Status == Pack.StatusX.Product)
-        {
-            if (p.SourcePacks.Count() <= 0
-                || p.ExtractedPacks.Count() > 0)
-            {
-                return PackErrEnum.DataErr;
-            }
-        }
+        //if (p.Status == Pack.StatusX.Product)
+        //{
+        //    if (p.SourcePacks.Count() <= 0
+        //        || p.ExtractedPacks.Count() > 0)
+        //    {
+        //        return PackErrEnum.DataErr;
+        //    }
+        //}
 
-        if (p.Status == Pack.StatusX.Produced)
-        {
-            if (p.ExtractedPacks.Count() <= 0)
-            {
-                return PackErrEnum.DataErr;
-            }
-        }
+        //if (p.Status == Pack.StatusX.Produced)
+        //{
+        //    if (p.ExtractedPacks.Count() <= 0)
+        //    {
+        //        return PackErrEnum.DataErr;
+        //    }
+        //}
 
         //Check expired
         return CheckExpire(p);
@@ -617,24 +624,24 @@ public class PackBLL
 
     public static PackErr CheckExpire(Pack p)
     {
-        if (p.DeliverStatus == Pack.DeliverStatusX.Yes
-            || p.Status == Pack.StatusX.Produced)
-            return PackErrEnum.Non;
+        //if (p.DeliverStatus == Pack.DeliverStatusX.Yes
+        //    || p.Status == Pack.StatusX.Produced)
+        //    return PackErrEnum.Non;
 
-        if (p.Component != null)
-        {
-            if (p.CollectedDate == null
-            || p.CollectedDate >= DateTime.Now
-                || p.ExtractedPacks == null)
-            {
-                return PackErrEnum.DataErr;
-            }
-        }
+        //if (p.Component != null)
+        //{
+        //    if (p.CollectedDate == null
+        //    || p.CollectedDate >= DateTime.Now
+        //        || p.ExtractedPacks == null)
+        //    {
+        //        return PackErrEnum.DataErr;
+        //    }
+        //}
 
-        if (DateTime.Now >= p.ExpiredDate)
-        {
-            return PackErrEnum.Expired;
-        }
+        //if (DateTime.Now >= p.ExpiredDate)
+        //{
+        //    return PackErrEnum.Expired;
+        //}
 
         return PackErrEnum.Non;
     }
@@ -643,26 +650,26 @@ public class PackBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        var v = from r in db.Packs
-                where r.CampaignID == campaignID && r.TestResultStatus != Pack.TestResultStatusX.Non
-                select r;
+        //var v = from r in db.Packs
+        //        where r.CampaignID == campaignID && r.TestResultStatus != Pack.TestResultStatusX.Non
+        //        select r;
 
-        if (rptType == ReportType.NegInCam)
-        {
-            return v.ToList().Where(r => r.NonNegativeTestResult().Count() == 0).ToList();
-        }
+        //if (rptType == ReportType.NegInCam)
+        //{
+        //    return v.ToList().Where(r => r.NonNegativeTestResult().Count() == 0).ToList();
+        //}
 
-        if (rptType == ReportType.FourPosInCam)
-        {
-            return v.ToList().Where(r =>
-                r.NonNegativeTestResult().Count() > 0 &&
-                r.HIVID == TestDef.HIV.Neg).ToList();
-        }
+        //if (rptType == ReportType.FourPosInCam)
+        //{
+        //    return v.ToList().Where(r =>
+        //        r.NonNegativeTestResult().Count() > 0 &&
+        //        r.HIVID == TestDef.HIV.Neg).ToList();
+        //}
 
-        if (rptType == ReportType.HIVInCam)
-        {
-            return v.Where(r => r.HIVID == TestDef.HIV.Pos || r.HIVID == TestDef.HIV.NA).ToList();
-        }
+        //if (rptType == ReportType.HIVInCam)
+        //{
+        //    return v.Where(r => r.HIVID == TestDef.HIV.Pos || r.HIVID == TestDef.HIV.NA).ToList();
+        //}
 
         return new List<Pack>();
     }
@@ -673,9 +680,9 @@ public class PackBLL
     {
         if (p == null) return PackErrEnum.NonExist;
 
-        p.Component = TestDefBLL.Get(db, componentID);
-        p.Volume = volume;
-        p.Substance = TestDefBLL.Get(db, substanceID);
+        //p.Component = TestDefBLL.Get(db, componentID);
+        //p.Volume = volume;
+        //p.Substance = TestDefBLL.Get(db, substanceID);
 
         return PackErrEnum.Non;
     }
@@ -684,17 +691,17 @@ public class PackBLL
     {
         if (p == null || !p.CanUpdateTestResult) return PackErrEnum.NonExist;
 
-        if (p.ABOID != ABOID)
-        {
-            p.ABO = TestDefBLL.Get(db, ABOID);
-            PackResultHistoryBLL.Insert(db, p, ABOID, times, RedBloodSystem.CurrentActor, note);
-        }
+        //if (p.ABOID != ABOID)
+        //{
+        //    p.ABO = TestDefBLL.Get(db, ABOID);
+        //    PackResultHistoryBLL.Insert(db, p, ABOID, times, RedBloodSystem.CurrentActor, note);
+        //}
 
-        if (p.RhID != RhID)
-        {
-            p.Rh = TestDefBLL.Get(db, RhID);
-            PackResultHistoryBLL.Insert(db, p, RhID, times, RedBloodSystem.CurrentActor, note);
-        }
+        //if (p.RhID != RhID)
+        //{
+        //    p.Rh = TestDefBLL.Get(db, RhID);
+        //    PackResultHistoryBLL.Insert(db, p, RhID, times, RedBloodSystem.CurrentActor, note);
+        //}
 
         return PackErrEnum.Non;
     }
@@ -705,35 +712,35 @@ public class PackBLL
     {
         if (p == null || !p.CanUpdateTestResult) return PackErrEnum.NonExist;
 
-        if (p.HCVID != HIVID)
-        {
-            p.HIV = TestDefBLL.Get(db, HIVID);
-            PackResultHistoryBLL.Insert(db, p, HIVID, times, RedBloodSystem.CurrentActor, note);
-        }
+        //if (p.HCVID != HIVID)
+        //{
+        //    p.HIV = TestDefBLL.Get(db, HIVID);
+        //    PackResultHistoryBLL.Insert(db, p, HIVID, times, RedBloodSystem.CurrentActor, note);
+        //}
 
-        if (p.HCVID != HCVID)
-        {
-            p.HCV = TestDefBLL.Get(db, HCVID);
-            PackResultHistoryBLL.Insert(db, p, HCVID, times, RedBloodSystem.CurrentActor, note);
-        }
+        //if (p.HCVID != HCVID)
+        //{
+        //    p.HCV = TestDefBLL.Get(db, HCVID);
+        //    PackResultHistoryBLL.Insert(db, p, HCVID, times, RedBloodSystem.CurrentActor, note);
+        //}
 
-        if (p.HBsAgID != HBsAgID)
-        {
-            p.HBsAg = TestDefBLL.Get(db, HBsAgID);
-            PackResultHistoryBLL.Insert(db, p, HBsAgID, times, RedBloodSystem.CurrentActor, note);
-        }
+        //if (p.HBsAgID != HBsAgID)
+        //{
+        //    p.HBsAg = TestDefBLL.Get(db, HBsAgID);
+        //    PackResultHistoryBLL.Insert(db, p, HBsAgID, times, RedBloodSystem.CurrentActor, note);
+        //}
 
-        if (p.SyphilisID != SyphilisID)
-        {
-            p.Syphilis = TestDefBLL.Get(db, SyphilisID);
-            PackResultHistoryBLL.Insert(db, p, SyphilisID, times, RedBloodSystem.CurrentActor, note);
-        }
+        //if (p.SyphilisID != SyphilisID)
+        //{
+        //    p.Syphilis = TestDefBLL.Get(db, SyphilisID);
+        //    PackResultHistoryBLL.Insert(db, p, SyphilisID, times, RedBloodSystem.CurrentActor, note);
+        //}
 
-        if (p.MalariaID != MalariaID)
-        {
-            p.Malaria = TestDefBLL.Get(db, MalariaID);
-            PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
-        }
+        //if (p.MalariaID != MalariaID)
+        //{
+        //    p.Malaria = TestDefBLL.Get(db, MalariaID);
+        //    PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
+        //}
 
         return PackErrEnum.Non;
     }
@@ -744,31 +751,31 @@ public class PackBLL
 
         List<Pack> l = Get(db, autonumList);
 
-        foreach (Pack item in l)
-        {
-            item.Collector = collector;
-        }
+        //foreach (Pack item in l)
+        //{
+        //    item.Collector = collector;
+        //}
 
         db.SubmitChanges();
     }
 
     public static void UpdateExpiredDate(Pack p)
     {
-        if (p == null
-            || p.ComponentID == null
-            || p.Status == Pack.StatusX.Init
-            || p.Status == Pack.StatusX.Delete
-            || p.Status == Pack.StatusX.Expired
-            || p.DeliverStatus == Pack.DeliverStatusX.Yes
-            || p.CollectedDate == null)
-        {
-            return;
-        }
+        //if (p == null
+        //    || p.ComponentID == null
+        //    || p.Status == Pack.StatusX.Init
+        //    || p.Status == Pack.StatusX.Delete
+        //    || p.Status == Pack.StatusX.Expired
+        //    || p.DeliverStatus == Pack.DeliverStatusX.Yes
+        //    || p.CollectedDate == null)
+        //{
+        //    return;
+        //}
 
-        TimeSpan ts = SystemBLL.GetExpire(p);
+        //TimeSpan ts = SystemBLL.GetExpire(p);
 
-        if (ts != TimeSpan.MinValue)
-            p.ExpiredDate = p.CollectedDate.Value.Add(ts);
+        //if (ts != TimeSpan.MinValue)
+        //    p.ExpiredDate = p.CollectedDate.Value.Add(ts);
     }
 
     public static void UpdateTestResultStatus4Full(int autonum)
@@ -776,36 +783,36 @@ public class PackBLL
         RedBloodDataContext db = new RedBloodDataContext();
         Pack p = PackBLL.Get(db, autonum);
 
-        if (p == null
-            || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
-            || p.ComponentID == null
-            || p.ComponentID != TestDef.Component.Full)
-            return;
+        //if (p == null
+        //    || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
+        //    || p.ComponentID == null
+        //    || p.ComponentID != TestDef.Component.Full)
+        //    return;
 
-        if (p.Volume == null
-            || p.ABOID == null || p.RhID == null
-            || p.HIVID == null
-            || p.HCVID == null
-            || p.HBsAgID == null
-            || p.SyphilisID == null
-            || p.MalariaID == null)
-        {
-            p.TestResultStatus = Pack.TestResultStatusX.Non;
-        }
-        else
-        {
-            try
-            {
-                List<TestDef> l = p.NonNegativeTestResult();
-                if (l.Count == 0)
-                    p.TestResultStatus = Pack.TestResultStatusX.Negative;
-                else p.TestResultStatus = Pack.TestResultStatusX.Positive;
-            }
-            catch (Exception)
-            {
-                p.TestResultStatus = Pack.TestResultStatusX.Non;
-            }
-        }
+        //if (p.Volume == null
+        //    || p.ABOID == null || p.RhID == null
+        //    || p.HIVID == null
+        //    || p.HCVID == null
+        //    || p.HBsAgID == null
+        //    || p.SyphilisID == null
+        //    || p.MalariaID == null)
+        //{
+        //    p.TestResultStatus = Pack.TestResultStatusX.Non;
+        //}
+        //else
+        //{
+        //    try
+        //    {
+        //        List<TestDef> l = p.NonNegativeTestResult();
+        //        if (l.Count == 0)
+        //            p.TestResultStatus = Pack.TestResultStatusX.Negative;
+        //        else p.TestResultStatus = Pack.TestResultStatusX.Positive;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        p.TestResultStatus = Pack.TestResultStatusX.Non;
+        //    }
+        //}
 
         //Update for all related packs
         UpdateTestResultStatus4Extracts(db, p);
@@ -822,10 +829,10 @@ public class PackBLL
     {
         List<Pack> extractP = srcP.ExtractedPacks_All;
 
-        foreach (Pack item in extractP)
-        {
-            item.TestResultStatus = item.TestResultStatusRoot;
-        }
+        //foreach (Pack item in extractP)
+        //{
+        //    item.TestResultStatus = item.TestResultStatusRoot;
+        //}
     }
 
     public static void UpdateTestResultStatus4Extracts(int autonum)
@@ -859,16 +866,17 @@ public class PackBLL
         foreach (int item in p.CanExtractToList.Join(to, r => r, t => t, (r, t) => r))
         {
             //Extract
-            Pack extractP = PackBLL.New(db, 1).First();
+            //Pack extractP = PackBLL.New(db, 1).First();
+            Pack extractP = new Pack();
             if (extractP == null) return PackErrEnum.DataErr;
 
             db.SubmitChanges();
 
-            extractP.Component = TestDefBLL.Get(db, item);
-            extractP.Actor = RedBloodSystem.CurrentActor;
-            extractP.CollectedDate = DateTime.Now;
+            //extractP.Component = TestDefBLL.Get(db, item);
+            //extractP.Actor = RedBloodSystem.CurrentActor;
+            //extractP.CollectedDate = DateTime.Now;
 
-            PackStatusHistory h = ChangeStatus(db, extractP, Pack.StatusX.Product, "Extract");
+            //PackStatusHistory h = ChangeStatus(db, extractP, Pack.StatusX.Product, "Extract");
 
             PackExtract pe = new PackExtract();
             pe.SourcePackID = p.ID;
@@ -882,11 +890,11 @@ public class PackBLL
 
         if (count > 0)
         {
-            PackStatusHistory hi = ChangeStatus(db, p, Pack.StatusX.Produced, "Extract");
+            //PackStatusHistory hi = ChangeStatus(db, p, Pack.StatusX.Produced, "Extract");
 
-            db.SubmitChanges();
+            //db.SubmitChanges();
 
-            PackBLL.UpdateTestResultStatus4Extracts(p.Autonum);
+            //PackBLL.UpdateTestResultStatus4Extracts(p.Autonum);
             return PackErrEnum.Non;
         }
         else
@@ -918,11 +926,11 @@ public class PackBLL
             return PackErrEnum.Invalid4Platelet;
         }
 
-        pOut.ComponentID = TestDef.Component.Platelet;
-        pOut.CollectedDate = DateTime.Now;
-        pOut.Note = note;
+        //pOut.ComponentID = TestDef.Component.Platelet;
+        //pOut.CollectedDate = DateTime.Now;
+        //pOut.Note = note;
 
-        PackStatusHistory h = ChangeStatus(db, pOut, Pack.StatusX.Product, "Combine2Platelet");
+        //PackStatusHistory h = ChangeStatus(db, pOut, Pack.StatusX.Product, "Combine2Platelet");
 
 
         foreach (Pack item in pInList)
@@ -1016,24 +1024,24 @@ public class PackBLL
         //This tricky code help load static const in class TestDef.
         TestDef td = new TestDef();
 
-        List<Pack> l = db.Packs.Where(r =>
-            (r.TestResultStatus == Pack.TestResultStatusX.Negative
-            || r.TestResultStatus == Pack.TestResultStatusX.Positive)
-            && r.ComponentID == TestDef.Component.Full
-            ).ToList();
+        //List<Pack> l = db.Packs.Where(r =>
+        //    (r.TestResultStatus == Pack.TestResultStatusX.Negative
+        //    || r.TestResultStatus == Pack.TestResultStatusX.Positive)
+        //    && r.ComponentID == TestDef.Component.Full
+        //    ).ToList();
 
 
-        foreach (Pack item in l)
-        {
-            if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
-                item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+        //foreach (Pack item in l)
+        //{
+        //    if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
+        //        item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
 
-            if (item.TestResultStatus == Pack.TestResultStatusX.Positive)
-                item.TestResultStatus = Pack.TestResultStatusX.PositiveLocked;
+        //    if (item.TestResultStatus == Pack.TestResultStatusX.Positive)
+        //        item.TestResultStatus = Pack.TestResultStatusX.PositiveLocked;
 
-            //Update for all related packs
-            UpdateTestResultStatus4Extracts(db, item);
-        }
+        //    //Update for all related packs
+        //    UpdateTestResultStatus4Extracts(db, item);
+        //}
         db.SubmitChanges();
     }
 
@@ -1048,19 +1056,19 @@ public class PackBLL
 
         if (isCollect)
         {
-            if (d.PackID != null) return PackErrEnum.DonationGotPack;
+            if (d.OrgPackID != null) return PackErrEnum.DonationGotPack;
         }
 
         Pack pack = new Pack();
 
         pack.DIN = DIN;
         pack.ProductCode = productCode;
-        pack.Status == Pack.StatusX.Product;
+        pack.Status = Pack.StatusX.Product;
         pack.Date = DateTime.Now;
         pack.Actor = RedBloodSystem.CurrentActor;
         pack.Volume = volumn;
 
-        pack.ExpirationDate = DateTime.Now.Add(p.Duration - RedBloodSystem.RootTime);
+        pack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
 
         db.Packs.InsertOnSubmit(pack);
 
@@ -1068,10 +1076,11 @@ public class PackBLL
 
         if (isCollect)
         {
-            d.PackID = pack.ID;
+            d.OrgPackID = pack.ID;
             db.SubmitChanges();
         }
 
+        return PackErrEnum.Non;
         
     }
 }

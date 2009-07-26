@@ -3165,7 +3165,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -9130,7 +9130,7 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _Actor;
 	
-	private string _ExpirationDate;
+	private System.Nullable<System.DateTime> _ExpirationDate;
 	
 	private System.Nullable<int> _Volume;
 	
@@ -9162,7 +9162,7 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnNoteChanged();
     partial void OnActorChanging(string value);
     partial void OnActorChanged();
-    partial void OnExpirationDateChanging(string value);
+    partial void OnExpirationDateChanging(System.Nullable<System.DateTime> value);
     partial void OnExpirationDateChanged();
     partial void OnVolumeChanging(System.Nullable<int> value);
     partial void OnVolumeChanged();
@@ -9308,8 +9308,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_ExpirationDate", DbType="NVarChar(MAX)")]
-	public string ExpirationDate
+	[Column(Storage="_ExpirationDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> ExpirationDate
 	{
 		get
 		{

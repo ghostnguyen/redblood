@@ -27,17 +27,17 @@
                             <Columns>
                                 <asp:TemplateField HeaderText="Toàn phần">
                                     <ItemTemplate>
-                                        <asp:Image ID="Image1" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />
+<%--                                        <asp:Image ID="Image1" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Tủa lạnh">
                                     <ItemTemplate>
-                                        <asp:Image ID="Image2" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("CanExtractToFactorVIII") as int?) %>' />
+<%--                                        <asp:Image ID="Image2" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("CanExtractToFactorVIII") as int?) %>' />--%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Huyết tương dự trữ">
                                     <ItemTemplate>
-                                        <asp:Image ID="Image6" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("CanExtractToFFPlasma_Poor") as int?) %>' />
+<%--                                        <asp:Image ID="Image6" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("CanExtractToFFPlasma_Poor") as int?) %>' />--%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField>

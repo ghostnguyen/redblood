@@ -50,25 +50,25 @@ public partial class UserControl_Order : System.Web.UI.UserControl
     {
         set
         {
-            string code = value.Trim();
-            if (BarcodeBLL.IsValidPackCode(code))
-            {
-                AddPack(BarcodeBLL.ParsePackAutoNum(code));
-            }
-            else if (BarcodeBLL.IsValidOrderCode(code))
-            {
-                OrderID = BarcodeBLL.ParseOrderID(code);
-            }
-            else if (BarcodeBLL.IsValidPeopleCode(code))
-            {
-                People1.Code = code;
-            }
-            else if (code.Length >= 9)
-            {
-                People1.Code = code;
-            }
-            else
-            { }
+            //string code = value.Trim();
+            //if (BarcodeBLL.IsValidPackCode(code))
+            //{
+            //    AddPack(BarcodeBLL.ParsePackAutoNum(code));
+            //}
+            //else if (BarcodeBLL.IsValidOrderCode(code))
+            //{
+            //    OrderID = BarcodeBLL.ParseOrderID(code);
+            //}
+            //else if (BarcodeBLL.IsValidPeopleCode(code))
+            //{
+            //    People1.Code = code;
+            //}
+            //else if (code.Length >= 9)
+            //{
+            //    People1.Code = code;
+            //}
+            //else
+            //{ }
         }
     }
 

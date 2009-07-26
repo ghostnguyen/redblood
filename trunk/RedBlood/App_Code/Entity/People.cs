@@ -98,7 +98,7 @@ public partial class People
         }
         else
         {
-            if (value.Length < Resources.Codabar.CMNDLength.ToInt())
+            if (value.Length < BarcodeBLL.CMNDLength.ToInt())
             {
                 throw new Exception("Số CMND phải từ 9 số trở lên.");
             }

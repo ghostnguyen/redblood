@@ -78,7 +78,7 @@ public partial class TestResult_PackManually : System.Web.UI.Page
 
             db.SubmitChanges();
 
-            PackBLL.UpdateTestResultStatus4Full(p.Autonum);
+            //PackBLL.UpdateTestResultStatus4Full(p.Autonum);
         }
 
         e.Cancel = true;
@@ -97,16 +97,16 @@ public partial class TestResult_PackManually : System.Web.UI.Page
         }
         else
         {
-            RedBloodDataContext db = new RedBloodDataContext();
+            //RedBloodDataContext db = new RedBloodDataContext();
 
-            List<Pack.TestResultStatusX> trStatusL = new List<Pack.TestResultStatusX>();
-            trStatusL.Add(Pack.TestResultStatusX.NegativeLocked);
-            trStatusL.Add(Pack.TestResultStatusX.PositiveLocked);
+            //List<Pack.TestResultStatusX> trStatusL = new List<Pack.TestResultStatusX>();
+            //trStatusL.Add(Pack.TestResultStatusX.NegativeLocked);
+            //trStatusL.Add(Pack.TestResultStatusX.PositiveLocked);
 
 
-            e.Result = db.Packs.Where(r => r.CampaignID == CampaignDetail1.CampaignID
-                && trStatusL.Contains(r.TestResultStatus)
-                );
+            //e.Result = db.Packs.Where(r => r.CampaignID == CampaignDetail1.CampaignID
+            //    && trStatusL.Contains(r.TestResultStatus)
+            //    );
         }
     }
 }

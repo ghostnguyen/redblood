@@ -25,45 +25,45 @@ public partial class Production_ExtractFFPlasmaInList : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            CheckBoxListExtractTo.DataSource = new List<TestDef> { 
-            TestDefBLL.Get(TestDef.Component.FactorVIII)
-                ,TestDefBLL.Get(TestDef.Component.FFPlasma_Poor)};
+        //if (!IsPostBack)
+        //{
+        //    CheckBoxListExtractTo.DataSource = new List<TestDef> { 
+        //    TestDefBLL.Get(TestDef.Component.FactorVIII)
+        //        ,TestDefBLL.Get(TestDef.Component.FFPlasma_Poor)};
 
-            CheckBoxListExtractTo.DataBind();
-        }
+        //    CheckBoxListExtractTo.DataBind();
+        //}
 
-        string code = Master.TextBoxCode.Text.Trim();
-        Master.TextBoxCode.Text = "";
+        //string code = Master.TextBoxCode.Text.Trim();
+        //Master.TextBoxCode.Text = "";
 
-        if (code.Length == 0) return;
+        //if (code.Length == 0) return;
 
-        if (BarcodeBLL.IsValidPackCode(code))
-        {
-            if (!AutonumListIn.Contains(BarcodeBLL.ParsePackAutoNum(code)))
-            {
-                Pack p = PackBLL.Get4Extract(BarcodeBLL.ParsePackAutoNum(code));
+        //if (BarcodeBLL.IsValidPackCode(code))
+        //{
+        //    if (!AutonumListIn.Contains(BarcodeBLL.ParsePackAutoNum(code)))
+        //    {
+        //        Pack p = PackBLL.Get4Extract(BarcodeBLL.ParsePackAutoNum(code));
 
-                if (p != null
-                    && p.ComponentID == TestDef.Component.FFPlasma
-                    && p.Err == PackErrEnum.Valid4Extract)
-                {
-                    AutonumListIn.Add(BarcodeBLL.ParsePackAutoNum(code));
-                    LoadAutonum();
-                }
-            }
-        }
+        //        if (p != null
+        //            && p.ComponentID == TestDef.Component.FFPlasma
+        //            && p.Err == PackErrEnum.Valid4Extract)
+        //        {
+        //            AutonumListIn.Add(BarcodeBLL.ParsePackAutoNum(code));
+        //            LoadAutonum();
+        //        }
+        //    }
+        //}
     }
 
     void LoadAutonum()
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        //RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Pack> l = PackBLL.Get4Extract(AutonumListIn).Where(r => r.ComponentID == TestDef.Component.FFPlasma).ToList();
+        //List<Pack> l = PackBLL.Get4Extract(AutonumListIn).Where(r => r.ComponentID == TestDef.Component.FFPlasma).ToList();
 
-        GridViewFull.DataSource = l;
-        GridViewFull.DataBind();
+        //GridViewFull.DataSource = l;
+        //GridViewFull.DataBind();
     }
 
     protected void btnExtract_Click(object sender, EventArgs e)

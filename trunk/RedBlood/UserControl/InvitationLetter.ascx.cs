@@ -28,11 +28,11 @@ public partial class UserControl_InvitationLetter : System.Web.UI.UserControl
 
     public void Fill_Letter(Pack e)
     {
-        LabelName.Text = e.People.Name;
-        LabelDOB.Text = e.People.DOB.ToStringVN();
-        LabelPackCode.Text = BarcodeBLL.GenPackCode(e.Autonum);
-        LabelAddress.Text = e.People.FullResidentalAddress;
-        LabelCollectedDate.Text = e.CollectedDate.ToStringVN();
-        LabelDate.Text = DateTime.Now.AddMonthsAvoidWeekend(1).ToStringVN();
+        //LabelName.Text = e.People.Name;
+        //LabelDOB.Text = e.People.DOB.ToStringVN();
+        //LabelPackCode.Text = BarcodeBLL.GenPackCode(e.Autonum);
+        //LabelAddress.Text = e.People.FullResidentalAddress;
+        //LabelCollectedDate.Text = e.CollectedDate.ToStringVN();
+        //LabelDate.Text = DateTime.Now.AddMonthsAvoidWeekend(1).ToStringVN();
     }
 }

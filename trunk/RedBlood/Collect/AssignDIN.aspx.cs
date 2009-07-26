@@ -92,10 +92,10 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
         if (d.PeopleID != null)
         {
             DIN = tempDIN;
-            ucPeople.PeopleID = d.PeopleID;
-            CamDetailLeft.CampaignID = d.CampaignID;
-            imgPack.ImageUrl = BarcodeBLL.Url4Product(d.OrgPack.ProductCode);
-            ucPDL.Load();
+            //ucPeople.PeopleID = d.PeopleID;
+            //CamDetailLeft.CampaignID = d.CampaignID;
+            //imgPack.ImageUrl = BarcodeBLL.Url4Product(d.OrgPack.ProductCode);
+            //ucPDL.Load();
             return;
         }
 
@@ -121,7 +121,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
         }
         else
         {
-            ucPDL.Load();
+            //ucPDL.Load();
         }
 
         return;
