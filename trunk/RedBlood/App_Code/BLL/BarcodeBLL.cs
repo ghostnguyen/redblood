@@ -13,6 +13,24 @@ public class BarcodeBLL
     //http://localhost:8449/RedBlood/Barcode/Image.aspx
     public static string BarcodeImgPage { get; set; }
 
+    #region Constant
+
+    public const string campaignIdChar = "&c";
+    public const int campaignLength = 6;
+    public const int CMNDLength = 9;
+    public const string DINIdChar = "=";
+    public const int DINLength = 16;
+    public const string orderIdChar = "&o";
+    public const int orderLength = 11;
+    public const string orgIdChar = "&e";
+    public const int orgLength = 6;
+    public const string peopleIdChar = "&;";
+    public const int peopleLength = 38;
+    public const string productIdChar = "=<";
+    public const int productLength = 10;
+
+    #endregion
+
     public BarcodeBLL()
     {
     }
@@ -21,9 +39,9 @@ public class BarcodeBLL
 
     public static bool IsValidPeopleCode(string code)
     {
-        if (code.Length == Resources.Barcode.peopleLength.ToInt()
-            && code.Substring(0, 2) == Resources.Barcode.peopleIdChar
-            && code.Substring(2, Resources.Barcode.peopleLength.ToInt() - 2).ToGuid() != Guid.Empty)
+        if (code.Length == peopleLength
+            && code.Substring(0, 2) == peopleIdChar
+            && code.Substring(2, peopleLength - 2).ToGuid() != Guid.Empty)
         {
             return true;
         }
@@ -33,7 +51,7 @@ public class BarcodeBLL
 
     public static bool IsValidDINCode(string code)
     {
-        string pattern = Resources.Barcode.DINIdChar + "[A-NP-Z1-9]{1}[0-9]{14}";
+        string pattern = DINIdChar + "[A-NP-Z1-9]{1}[0-9]{14}";
 
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
@@ -41,18 +59,27 @@ public class BarcodeBLL
 
     public static bool IsValidCampaignCode(string code)
     {
-        if (code.Length != Resources.Barcode.campaignLength.ToInt()) return false;
+        if (code.Length != campaignLength) return false;
 
-        string pattern = Resources.Barcode.campaignIdChar + "[0-9]";
+        string pattern = campaignIdChar + "[0-9]";
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
     }
 
     public static bool IsValidOrderCode(string code)
     {
-        if (code.Length != Resources.Barcode.orderLength.ToInt()) return false;
+        if (code.Length != orderLength) return false;
 
-        string pattern = Resources.Barcode.orderIdChar + "[0-9]";
+        string pattern = orderIdChar + "[0-9]";
+        Regex regx = new Regex(pattern);
+        return regx.IsMatch(code);
+    }
+
+    public static bool IsValidProductCode(string code)
+    {
+        if (code.Length != productLength) return false;
+
+        string pattern = productIdChar + "[0-9]";
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
     }
@@ -64,7 +91,7 @@ public class BarcodeBLL
     public static Guid ParsePeopleCode(string code)
     {
         if (IsValidPeopleCode(code))
-            return code.Substring(2, Resources.Barcode.peopleLength.ToInt() - 2).ToGuid();
+            return code.Substring(2, peopleLength - 2).ToGuid();
         else
             return Guid.Empty;
     }
@@ -73,7 +100,7 @@ public class BarcodeBLL
     {
         if (IsValidDINCode(code))
             //=V01000912345600
-            return code.Substring(1, Resources.Barcode.DINLength.ToInt() - 3);
+            return code.Substring(1, DINLength - 3);
         else
             return "";
     }
@@ -82,7 +109,7 @@ public class BarcodeBLL
     {
         if (IsValidCampaignCode(code))
             //&c1234
-            return code.Substring(2, Resources.Barcode.campaignLength.ToInt() - 2).ToInt();
+            return code.Substring(2, campaignLength - 2).ToInt();
         else
             return 0;
     }
@@ -91,7 +118,7 @@ public class BarcodeBLL
     {
         if (IsValidOrderCode(code))
             //&o123456789
-            return code.Substring(1, Resources.Barcode.orderLength.ToInt() - 2).ToInt();
+            return code.Substring(2, orderLength - 2).ToInt();
         else
             return 0;
     }
@@ -102,27 +129,27 @@ public class BarcodeBLL
 
     public static string Url4People(Guid ID)
     {
-        return BarcodeImgPage + "?code=" + Resources.Barcode.productIdChar + ID.ToString();
+        return BarcodeImgPage + "?code=" + productIdChar + ID.ToString();
     }
 
     public static string Url4Product(string code)
     {
-        return BarcodeImgPage + "?code=" + Resources.Barcode.productIdChar + code;
+        return BarcodeImgPage + "?code=" + productIdChar + code;
     }
 
     public static string Url4Campaign(int ID)
     {
-        return BarcodeImgPage + "?hasText=true&code=";
+        return BarcodeImgPage + "?hasText=true&code=" + campaignIdChar + ID.ToString("D" + (campaignLength - 2).ToString());
     }
 
     public static string Url4Org(int ID)
     {
-        return BarcodeImgPage + "?hasText=true&code=";
+        return BarcodeImgPage + "?hasText=true&code=" + orderIdChar + ID.ToString("D" + (orderLength - 2).ToString());
     }
 
     public static string Url4Order(int ID)
     {
-        return BarcodeImgPage + "?hasText=true&code=";
+        return BarcodeImgPage + "?hasText=true&code=" + orderIdChar + ID.ToString("D" + (orderLength - 2).ToString());
     }
 
     #endregion

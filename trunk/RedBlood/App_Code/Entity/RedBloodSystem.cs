@@ -26,7 +26,7 @@ public class RedBloodSystem
 
     public static string RootUrl { get; set; }
 
-
+    public const DateTime RootTime = new DateTime(1900, 0, 0);
 
     public RedBloodSystem()
     {

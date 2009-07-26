@@ -42,7 +42,7 @@ public class SystemBLL
             RedBloodDataContext db = new RedBloodDataContext();
 
             List<Pack.StatusX> statusList = new List<Pack.StatusX> { 
-                Pack.StatusX.Collected, Pack.StatusX.Production};
+                Pack.StatusX.Collected, Pack.StatusX.Product};
 
             List<Pack> rs = PackBLL.Get(db, statusList).Where(r => r.DeliverStatus == Pack.DeliverStatusX.Non).ToList();
 

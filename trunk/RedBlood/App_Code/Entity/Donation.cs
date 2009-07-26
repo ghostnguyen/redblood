@@ -25,9 +25,27 @@ public partial class Donation
         Assigned = 1,
 
         //CommitReceived = 2,
-        Delete = 4,
-        Hủy = 4,
+        //Delete = 4,
+        //Hủy = 4,
 
-        DataErr = 49
-    }    
+        //DataErr = 49
+    }
+
+    public enum TestResultStatusX : int
+    {
+        Chưa_có = 0,
+        Non = 0,
+
+        Âm_tính = 1,
+        Negative = 1,
+
+        Dương_tính = 2,
+        Positive = 2,
+
+        Âm_tính_K = 3,
+        NegativeLocked = 3,
+
+        Dương_tính_K = 4,
+        PositiveLocked = 4
+    }
 }

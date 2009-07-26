@@ -1,5 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeFile="~/Collect/AssignDIN.aspx.cs" Inherits="Collect_AssignDIN" MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    CodeFile="~/Collect/AssignDIN.aspx.cs" Inherits="Collect_AssignDIN" MaintainScrollPositionOnPostback="true" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
@@ -41,12 +41,17 @@
                         <uc:People runat="server" ID="ucPeople" />
                     </td>
                     <td style="width: 300px;">
-                        <%--<uc:EnterPack runat="server" ID="ucEnterPack" />--%>
+                        <div class="part">
+                            <div class="partHeader">
+                                Thu máu
+                            </div>
+                            <div class="partLinkLast">
+                                <asp:Image runat="server" ID="imgProduct" ImageUrl="none" />
+                            </div>
+                        </div>
                         <uc:PeopleDonationLog runat="server" ID="ucPDL" />
-                        
-                        
-                        
-                       <%-- <div class="part">
+                        <%--<uc:EnterPack runat="server" ID="ucEnterPack" />--%>
+                        <%-- <div class="part">
                             <div class="partHeader">
                                 Tiểu sử cho máu
                             </div>
