@@ -24,7 +24,7 @@
         });
 
         $(document).bind('keydown', '5', function() {
-            window.location.replace("/RedBlood/Codabar/Pack.aspx");
+            window.location.replace("/RedBlood/Barcode/GenerateDIN.aspx");
         });
 
         $(document).bind('keydown', '6', function() {
@@ -116,13 +116,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Codabar/Pack.aspx">
+                                        <a href="/RedBlood/Barcode/GenerateDIN.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Codabar/Pack.aspx">Tạo mã túi máu</a>
+                                            <a href="/RedBlood/Barcode/GenerateDIN.aspx">Tạo mã thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>

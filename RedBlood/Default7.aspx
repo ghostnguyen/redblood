@@ -9,7 +9,7 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("/RedBlood/Collect/CollectPack.aspx");
+            window.location = ("/RedBlood/Collect/AssignDIN.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
@@ -38,13 +38,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/CollectPack.aspx">
+                                        <a href="/RedBlood/Collect/AssignDIN.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/CollectPack.aspx">Thu máu</a>
+                                            <a href="/RedBlood/Collect/AssignDIN.aspx">Thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>

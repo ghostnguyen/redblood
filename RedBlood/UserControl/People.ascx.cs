@@ -48,39 +48,25 @@ public partial class UserControl_People : System.Web.UI.UserControl
         set
         {
             _code = value;
-            //if (BarcodeBLL.IsValidPackCode(Code))
-            //{
+            if (BarcodeBLL.IsValidPeopleCode(Code))
+            {
+                 PeopleID = BarcodeBLL.ParsePeopleCode(Code);
+            }
+            else if (Code.Length >= 9)
+            {
+                People r = PeopleBLL.GetByCMND(Code);
+                if (r != null)
+                {
+                    PeopleID = r.ID;
+                }
+                else
+                {
+                    New(Code);
+                }
+            }
 
-            //}
-            //else if (BarcodeBLL.IsValidTestResultCode(Code))
-            //{ }
-            //else if (BarcodeBLL.IsValidPeopleCode(Code))
-            //{
-            //    People r = PeopleBLL.GetByCode(Code);
-            //    if (r != null)
-            //    {
-            //        PeopleID = r.ID;
-            //    }
-            //}
-            //else if (Code.ToGuid() != Guid.Empty)
-            //{
-            //    PeopleID = Code.ToGuid();
-            //}
-            //else if (Code.Length >= 9)
-            //{
-            //    People r = PeopleBLL.GetByCMND(Code);
-            //    if (r != null)
-            //    {
-            //        PeopleID = r.ID;
-            //    }
-            //    else
-            //    {
-            //        New(Code);
-            //    }
-            //}
-
-            //else
-            //{ }
+            else
+            { }
         }
     }
 

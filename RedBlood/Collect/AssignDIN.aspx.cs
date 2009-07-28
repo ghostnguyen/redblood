@@ -33,7 +33,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
         else
         {
             //ucEnterPack.PlateletApheresisConfirmed += new EventHandler(ucEnterPack_PlateletApheresisConfirmed);
-            //ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
+            ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
 
             string code = Master.TextBoxCode.Text.Trim();
             Master.TextBoxCode.Text = "";
@@ -68,12 +68,15 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
     {
         //ucEnterPack.PeopleID = (Guid)sender;
         //PeopleHistory1.PeopleID = (Guid)sender;
+        
+
     }
 
     protected void btnNew_Click(object sender, EventArgs e)
     {
         //ucPeople.New("");
         //ucEnterPack.PeopleID = Guid.Empty;
+        ucPDL.ShowLog();
     }
 
     private void DINEnter(string code)
@@ -95,7 +98,8 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
             //ucPeople.PeopleID = d.PeopleID;
             //CamDetailLeft.CampaignID = d.CampaignID;
             //imgPack.ImageUrl = BarcodeBLL.Url4Product(d.OrgPack.ProductCode);
-            //ucPDL.Load();
+            
+            ucPDL.ShowLog();
             return;
         }
 
