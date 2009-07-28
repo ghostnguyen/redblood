@@ -77,6 +77,7 @@ public class DonationBLL
             d.PeopleID = peopleID;
             d.CollectedDate = DateTime.Now;
             d.CampaignID = campaignID;
+            d.Actor = RedBloodSystem.CurrentActor;
             
             UpdateStatus(db, d, Donation.StatusX.Assigned, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
 

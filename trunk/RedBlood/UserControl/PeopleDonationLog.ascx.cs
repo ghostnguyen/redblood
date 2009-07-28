@@ -28,7 +28,7 @@ public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
 
     }
 
-    public void LoadPeople()
+    public void ShowLog()
     {
         GridView1.DataBind();
     }
@@ -43,7 +43,9 @@ public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
     }
     protected void LinqDataSource1_Selected(object sender, LinqDataSourceStatusEventArgs e)
     {
-        LabelTotal.Text = "TC: " + (e.Result as List<Pack>).Count.ToString();
+        List<Donation> l = (List<Donation>)e.Result;
+        if (l != null)
+            LabelTotal.Text = "TC: " + l.Count.ToString();
     }
     public object GetByPeopleID4PackHistory(Guid peopleID)
     {
