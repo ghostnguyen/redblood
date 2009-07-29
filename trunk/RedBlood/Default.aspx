@@ -50,6 +50,9 @@
         
     </script>
 
+    
+    <label style='font-family: "Code128"; font-size:xx-large;'>
+        W01000912345600</label>
     <table width="100%">
         <tr>
             <td align="center">

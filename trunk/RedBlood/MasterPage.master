@@ -9,6 +9,13 @@
     <link href="App_Themes/Default/DefaultPage.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <style type="text/css" media="screen, print">
+        @font-face
+        {
+            font-family: "Code128";
+            src: url("code128.ttf");
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
