@@ -16,7 +16,7 @@ public partial class Codabar_GenerateDIN : System.Web.UI.Page
         foreach (Donation r in l)
         {
             //string strCode = BarcodeBLL.GenStringCode(Resources.Codabar.packSSC, r.Autonum.ToString());
-            //r.Note = strCode;
+            r.Note = BarcodeLib.Code128.CalculateISO7064Mod37_2(BarcodeBLL.DINIdChar + r.DIN + "00").ToString();
         }
 
 

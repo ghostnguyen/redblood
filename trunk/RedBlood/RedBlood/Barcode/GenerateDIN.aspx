@@ -11,12 +11,11 @@
     <div>
         <asp:DataList ID="DataList1" runat="server">
             <ItemTemplate>
-                <asp:Panel runat="server" ID="Panel1" >
+                <asp:Panel runat="server" ID="Panel1">
                     <p class="PackLabel_Img">
                         <asp:Image runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN( Eval("DIN") as string, "00") %>' />
-                        <asp:TextBox ID="txtCheckChar" runat="server" Text="K" BorderStyle="Solid" BorderColor="Black" Width="10" BorderWidth="1"></asp:TextBox>
+                        <asp:TextBox ID="txtCheckChar" runat="server" Text='<%# Eval("Note") %>' CssClass="txtCheckChar" ></asp:TextBox>
                         <br />
-                        
                     </p>
                 </asp:Panel>
             </ItemTemplate>
