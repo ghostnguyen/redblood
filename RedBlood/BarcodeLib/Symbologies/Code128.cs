@@ -7,7 +7,7 @@ namespace BarcodeLib
 {
     class Code128 : BarcodeCommon, IBarcode
     {
-        public enum TYPES:int { DYNAMIC, A, B, C };
+        public enum TYPES : int { DYNAMIC, A, B, C };
         private DataTable C128_Code = new DataTable("C128");
         private List<string> _FormattedData = new List<string>();
         private List<string> _EncodedData = new List<string>();
@@ -39,7 +39,7 @@ namespace BarcodeLib
             //initialize datastructure to hold encoding information
             this.init_Code128();
 
-            return GetEncoding();            
+            return GetEncoding();
         }//Encode_Code128
         private void init_Code128()
         {
@@ -114,7 +114,7 @@ namespace BarcodeLib
             this.C128_Code.Rows.Add(new object[] { "57", "Y", "Y", "57", "11101101000" });
             this.C128_Code.Rows.Add(new object[] { "58", "Z", "U", "58", "11101100010" });
             this.C128_Code.Rows.Add(new object[] { "59", "[", "[", "59", "11100011010" });
-            this.C128_Code.Rows.Add(new object[] { "60",@"\",@"\", "60", "11101111010" });
+            this.C128_Code.Rows.Add(new object[] { "60", @"\", @"\", "60", "11101111010" });
             this.C128_Code.Rows.Add(new object[] { "61", "]", "]", "61", "11001000010" });
             this.C128_Code.Rows.Add(new object[] { "62", "^", "^", "62", "11110001010" });
             this.C128_Code.Rows.Add(new object[] { "63", "_", "_", "63", "10100110000" });
@@ -254,7 +254,7 @@ namespace BarcodeLib
 
                 uint value = UInt32.Parse(rows[0]["Value"].ToString());
                 uint addition = value * ((i == 0) ? 1 : i);
-                CheckSum +=  addition;
+                CheckSum += addition;
             }//for
 
             uint Remainder = (CheckSum % 103);
@@ -355,27 +355,27 @@ namespace BarcodeLib
                         if (CurrentCodeString == "" || !sameCodeSet)
                         {
                             CurrentCodeSet = tempStartChars[0];
-                            
-                                bool error = true;
-                                while (error)
-                                {
-                                    try
-                                    {
-                                        CurrentCodeString = CurrentCodeSet[col].ToString().Split(new char[] { '_' })[1];
-                                        error = false;
-                                    }//try
-                                    catch 
-                                    { 
-                                        error = true;
 
-                                        if (col++ > CurrentCodeSet.ItemArray.Length)
-                                            throw new Exception("No start character found in CurrentCodeSet.");
-                                    }//catch
-                                }//while
-                            
+                            bool error = true;
+                            while (error)
+                            {
+                                try
+                                {
+                                    CurrentCodeString = CurrentCodeSet[col].ToString().Split(new char[] { '_' })[1];
+                                    error = false;
+                                }//try
+                                catch
+                                {
+                                    error = true;
+
+                                    if (col++ > CurrentCodeSet.ItemArray.Length)
+                                        throw new Exception("No start character found in CurrentCodeSet.");
+                                }//catch
+                            }//while
+
                             _FormattedData.Insert(i++, CurrentCodeSet[col].ToString());
                         }//if
-                        
+
                     }//for
                 }//try
                 catch (Exception ex)
@@ -442,5 +442,40 @@ namespace BarcodeLib
         }
 
         #endregion
+
+        public static char CalculateISO7064Mod37_2(string inputString)
+        {
+            //int ch, sum, charValue, isDigit, isUpperAlpha;
+            //string iso7064ValueToCharTable = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*";
+            //// Read the characters from left to right. 
+
+            //int sum = 0;
+            ////for (sum = 0; ch = inputString; inputString++)
+            //foreach (char char in inputString)
+            //{
+            //    // Ignore invalid characters as per ISO 7064. 
+            //    bool isDigit = ((ch >= '0') && (ch <= '9'));
+            //    isUpperAlpha = ((ch >= 'A') && (ch <= 'Z'));
+            //    if (isDigit || isUpperAlpha)
+            //    {
+            //        // Convert the character to its ISO 7064 value. 
+            //        if (isDigit)
+            //            charValue = ch - '0';
+            //        else
+            //            charValue = ch - 'A' + 10;
+            //        // Add the character value to the accumulating sum, 
+            //        // multiply by two, and do an intermediate modulus to 
+            //        // prevent integer overflow. 
+            //        sum = ((sum + charValue) * 2) % 37;
+            //    }
+            //}
+            //// Find the value, that when added to the result of the above 
+            //// calculation, would result in a number who’s modulus 37 
+            //// result is equal to 1. 
+            //charValue = (38 - sum) % 37;
+            //// Convert the value to a character and return it. 
+            //return (iso7064ValueToCharTable[charValue]);
+        }
+
     }//class
 }//namespace

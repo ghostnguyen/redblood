@@ -25,9 +25,10 @@ namespace BarcodeLib
     /// <summary>
     /// This class was designed to give developers and easy way to generate a barcode image from a string of data.
     /// </summary>
-    public class Barcode: IDisposable
+    public class Barcode : IDisposable
     {
         #region Variables
+        private string ShowString = "";
         private string Raw_Data = "";
         private string Formatted_Data = "";
         private string Encoded_Value = "";
@@ -104,16 +105,16 @@ namespace BarcodeLib
         public TYPE EncodedType
         {
             set { Encoded_Type = value; }
-            get { return Encoded_Type;  }
+            get { return Encoded_Type; }
         }//EncodedType
         /// <summary>
         /// Gets the Image of the generated barcode.
         /// </summary>
         public Image EncodedImage
         {
-            get 
+            get
             {
-                return _Encoded_Image; 
+                return _Encoded_Image;
             }
         }//EncodedImage
         /// <summary>
@@ -169,11 +170,11 @@ namespace BarcodeLib
         /// </summary>
         public string XML
         {
-            get 
+            get
             {
                 if (_XML == "")
                     throw new Exception("EXML-1: XML property is empty.  (Was barcode encoded first?)");
-                return _XML; 
+                return _XML;
             }
         }
         /// <summary>
@@ -212,8 +213,9 @@ namespace BarcodeLib
         /// <param name="Width">Width of the resulting barcode.(pixels)</param>
         /// <param name="Height">Height of the resulting barcode.(pixels)</param>
         /// <returns>Image representing the barcode.</returns>
-        public Image Encode(TYPE iType, string StringToEncode, Color ForeColor, Color BackColor, int Width, int Height)
+        public Image Encode(TYPE iType, string StringToEncode, Color ForeColor, Color BackColor, int Width, int Height, string showString)
         {
+            this.ShowString = showString;
             this.Width = Width;
             this.Height = Height;
             return Encode(iType, StringToEncode, ForeColor, BackColor);
@@ -260,10 +262,10 @@ namespace BarcodeLib
             DateTime dtStartTime = DateTime.Now;
 
             //make sure there is something to encode
-            if (Raw_Data.Trim() == "") 
+            if (Raw_Data.Trim() == "")
                 throw new Exception("EENCODE-1: Input data not allowed to be blank.");
 
-            if (this.EncodedType == TYPE.UNSPECIFIED) 
+            if (this.EncodedType == TYPE.UNSPECIFIED)
                 throw new Exception("EENCODE-2: Symbology type not allowed to be unspecified.");
 
             this.Encoded_Value = "";
@@ -374,12 +376,12 @@ namespace BarcodeLib
             if (Encoded_Value == "") throw new Exception("EGENERATE_IMAGE-1: Must be encoded first.");
             Bitmap b = null;
 
-            switch(this.Encoded_Type)
+            switch (this.Encoded_Type)
             {
                 case TYPE.ITF14:
                     {
                         b = new Bitmap(Width, Height);
-                        
+
                         int bearerwidth = (int)((b.Width) / 12.05);
                         int iquietzone = Convert.ToInt32(b.Width * 0.05);
                         int iBarWidth = (b.Width - (bearerwidth * 2) - (iquietzone * 2)) / Encoded_Value.Length;
@@ -401,7 +403,7 @@ namespace BarcodeLib
                             pen.Alignment = PenAlignment.Right;
 
                             while (pos < Encoded_Value.Length)
-                            { 
+                            {
                                 //lines are 2px wide so draw the appropriate color line vertically
                                 if (Encoded_Value[pos] == '1')
                                     g.DrawLine(pen, new Point((pos * iBarWidth) + shiftAdjustment + bearerwidth + iquietzone, 0), new Point((pos * iBarWidth) + shiftAdjustment + bearerwidth + iquietzone, Height));
@@ -428,15 +430,15 @@ namespace BarcodeLib
                         b = new Bitmap(Encoded_Value.Length * 4, 20);
 
                         //draw image
-                        for (int y = b.Height-1; y > 0; y--)
+                        for (int y = b.Height - 1; y > 0; y--)
                         {
                             int x = 0;
                             if (y < b.Height / 2)
-                            { 
+                            {
                                 //top
                                 while (x < b.Width)
                                 {
-                                    if (Encoded_Value[x/4] == '1')
+                                    if (Encoded_Value[x / 4] == '1')
                                     {
                                         //draw bar
                                         b.SetPixel(x, y, ForeColor);
@@ -445,7 +447,7 @@ namespace BarcodeLib
                                         b.SetPixel(x + 3, y, BackColor);
                                     }//if
                                     else
-                                    { 
+                                    {
                                         //draw space
                                         b.SetPixel(x, y, BackColor);
                                         b.SetPixel(x + 1, y, BackColor);
@@ -456,16 +458,16 @@ namespace BarcodeLib
                                 }//while
                             }//if
                             else
-                            { 
-                               //bottom
-                               while (x < b.Width)
-                               {
-                                   b.SetPixel(x, y, ForeColor);
-                                   b.SetPixel(x + 1, y, ForeColor);
-                                   b.SetPixel(x + 2, y, BackColor);
-                                   b.SetPixel(x + 3, y, BackColor);
-                                   x += 4;
-                               }//while
+                            {
+                                //bottom
+                                while (x < b.Width)
+                                {
+                                    b.SetPixel(x, y, ForeColor);
+                                    b.SetPixel(x + 1, y, ForeColor);
+                                    b.SetPixel(x + 2, y, BackColor);
+                                    b.SetPixel(x + 3, y, BackColor);
+                                    x += 4;
+                                }//while
                             }//else 
                         }//for
 
@@ -521,7 +523,7 @@ namespace BarcodeLib
         public byte[] GetImageData(SaveTypes savetype)
         {
             byte[] imageData = null;
-              
+
             try
             {
                 if (_Encoded_Image != null)
@@ -566,7 +568,7 @@ namespace BarcodeLib
                     ((Bitmap)_Encoded_Image).Save(Filename, imageformat);
                 }//if
             }//try
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("ESAVEIMAGE-1: Could not save image.\n\n=======================\n\n" + ex.Message);
             }//catch
@@ -601,7 +603,7 @@ namespace BarcodeLib
             }//catch
         }//SaveImage(Stream, SaveTypes)
         #endregion
-        
+
         #region Label Generation
         private Image Label_ITF14(Image img)
         {
@@ -624,7 +626,10 @@ namespace BarcodeLib
                     //draw datastring under the barcode image
                     StringFormat f = new StringFormat();
                     f.Alignment = StringAlignment.Center;
-                    g.DrawString(this.Raw_Data, font, new SolidBrush(this.ForeColor), (float)(img.Width / 2), img.Height - 16, f);
+
+
+                    g.DrawString(ShowString.Trim(), font, new SolidBrush(this.ForeColor), (float)(img.Width / 2), img.Height - 16, f);
+
 
                     Pen pen = new Pen(ForeColor, (float)img.Height / 16);
                     pen.Alignment = PenAlignment.Inset;
@@ -663,7 +668,11 @@ namespace BarcodeLib
 
                     string strLabelText = (this.FormattedData.Trim() != "") ? this.FormattedData : this.RawData;
 
-                    g.DrawString(strLabelText, font, new SolidBrush(this.ForeColor), (float)(img.Width / 2), img.Height - 16, f);
+                    //g.DrawString(strLabelText, font, new SolidBrush(this.ForeColor), (float)(img.Width / 2), img.Height - 16, f);
+                    if (string.IsNullOrEmpty(ShowString.Trim()))
+                        g.DrawString(strLabelText, font, new SolidBrush(this.ForeColor), (float)(img.Width / 2), img.Height - 16, f);
+                    else
+                        g.DrawString(ShowString.Trim(), font, new SolidBrush(this.ForeColor), (float)(img.Width / 2), img.Height - 16, f);
 
                     g.Save();
                 }//using
@@ -686,10 +695,10 @@ namespace BarcodeLib
 
             //9223372036854775808 is the largest number a 64bit number(signed) can hold so ... make sure its less than that by one place
             int STRING_LENGTHS = 18;
-            
+
             string temp = Data;
-            string [] strings = new string[(Data.Length / STRING_LENGTHS) + ((Data.Length % STRING_LENGTHS == 0) ? 0 : 1)];
-            
+            string[] strings = new string[(Data.Length / STRING_LENGTHS) + ((Data.Length % STRING_LENGTHS == 0) ? 0 : 1)];
+
             int i = 0;
             while (i < strings.Length)
                 if (temp.Length >= STRING_LENGTHS)
@@ -866,7 +875,7 @@ namespace BarcodeLib
             using (Barcode b = new Barcode())
             {
                 b.IncludeLabel = IncludeLabel;
-                return b.Encode(iType, Data, DrawColor, BackColor, Width, Height);
+                return b.Encode(iType, Data, DrawColor, BackColor, Width, Height, "");
             }//using
         }
         /// <summary>
@@ -886,7 +895,7 @@ namespace BarcodeLib
             using (Barcode b = new Barcode())
             {
                 b.IncludeLabel = IncludeLabel;
-                Image i = b.Encode(iType, Data, DrawColor, BackColor, Width, Height);
+                Image i = b.Encode(iType, Data, DrawColor, BackColor, Width, Height, "");
                 XML = b.XML;
                 return i;
             }//using
