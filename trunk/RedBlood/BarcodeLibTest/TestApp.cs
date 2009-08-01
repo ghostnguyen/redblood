@@ -74,7 +74,7 @@ namespace BarcodeLibTest
                     b.IncludeLabel = this.chkGenerateLabel.Checked;
 
                     //===== Encoding performed here =====
-                    barcode.Image = b.Encode(type, this.txtData.Text.Trim(), this.btnForeColor.BackColor, this.btnBackColor.BackColor, W, H);
+                    barcode.Image = b.Encode(type, this.txtData.Text.Trim(), this.btnForeColor.BackColor, this.btnBackColor.BackColor, W, H,"");
                     //===================================
 
                     //show the encoding time
