@@ -1,0 +1,14 @@
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\bin\Debug\BarcodeLibTest.exe.manifest
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\bin\Debug\BarcodeLibTest.application
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\bin\Debug\BarcodeLibTest.exe
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\bin\Debug\BarcodeLibTest.pdb
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\bin\Debug\BarcodeLib.dll
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\bin\Debug\BarcodeLib.pdb
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\obj\Debug\BarcodeLibTest.TestApp.resources
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\obj\Debug\BarcodeLibTest.Properties.Resources.resources
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\obj\Debug\BarcodeLibTest.csproj.GenerateResource.Cache
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\obj\Debug\BarcodeLibTest.exe.manifest
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\obj\Debug\BarcodeLibTest.application
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\obj\Debug\BarcodeLibTest.exe
+C:\Documents and Settings\6465\Desktop\Barcode_src\BarcodeLibTest\obj\Debug\BarcodeLibTest.pdb
