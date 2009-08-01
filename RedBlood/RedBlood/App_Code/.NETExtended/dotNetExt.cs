@@ -85,7 +85,19 @@ public static class dotNetExt
 
     public static string ToURLCompatible(this string s)
     {
-        return s.Replace("+", "%2B");
+        //'	%27	Foot Sign
+        //"	%22	Quote
+        //#	%23	Number sign
+        //%	%25	Percent sign
+        //&	%26	Ampersand
+        //+	\%2B	Plus sign ¹
+        ///	%2F	Solidus (slash)
+        //:	%3A	Colon
+        //;	%3B	Semicolon
+        //<	%3C	Less than
+        //>	%3EGreater than
+        //?	%3F
+        return s.Replace("+", "%2B").Replace("&", "%26").Replace("=","%3D").Replace("<","%3C");
     }
 
 
@@ -251,5 +263,5 @@ public static class dotNetExt
         else return o.ToString().ToIntNullable();
     }
 
-    
+
 }

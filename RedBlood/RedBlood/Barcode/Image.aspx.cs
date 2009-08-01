@@ -12,7 +12,7 @@ public partial class GenCodabar : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        BarcodeLib.Barcode b = new BarcodeLib.Barcode();
+        
 
         string IdChar = "";
         bool checkChar = false;
@@ -76,19 +76,24 @@ public partial class GenCodabar : System.Web.UI.Page
 
         }
 
-
+        BarcodeLib.Barcode b = new BarcodeLib.Barcode();
         BarcodeLib.TYPE type = BarcodeLib.TYPE.CODE128;
 
         try
         {
             b.IncludeLabel = hasText;
             System.Drawing.Image img;
+
+            int width = 150;
+            //if (IdChar.Length + code.Length > 20)
+            //    width = 350;
+
             //===== Encoding performed here =====
             if (IdChar == BarcodeBLL.DINIdChar)
-                img = b.Encode(type, IdChar + code, Color.Black, Color.White, 150, 50, IdChar + code.Substring(0, 5) + " " + code.Substring(5, 2) + " " + code.Substring(7, 6) + " " + code.Substring(13, 2));
+                img = b.Encode(type, IdChar + code, Color.Black, Color.White, width, 50, IdChar + code.Substring(0, 5) + " " + code.Substring(5, 2) + " " + code.Substring(7, 6) + " " + code.Substring(13, 2));
                 //img = b.Encode(type, IdChar + code, Color.Black, Color.White, 150, 50, "afsdf");
             else
-                img = b.Encode(type, IdChar + code, Color.Black, Color.White, 150, 50, "");
+                img = b.Encode(type, IdChar + code, Color.Black, Color.White, width, 50, "");
             //===================================
 
             MemoryStream m = new MemoryStream();
