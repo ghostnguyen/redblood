@@ -10,7 +10,7 @@ namespace BarcodeLib
         public enum TYPES : int { DYNAMIC, A, B, C };
         private DataTable C128_Code = new DataTable("C128");
         private List<string> _FormattedData = new List<string>();
-        private List<string> _EncodedData = new List<string>();
+        //private List<string> _EncodedData = new List<string>();
         private DataRow StartCharacter = null;
         private TYPES type = TYPES.DYNAMIC;
 
@@ -45,6 +45,10 @@ namespace BarcodeLib
         {
             //set the table to case sensitive since there are upper and lower case values
             this.C128_Code.CaseSensitive = true;
+
+            //In case of debug, this segment is evaluated before point.
+            //Should empty table first
+            this.C128_Code = new DataTable();
 
             //set up columns
             this.C128_Code.Columns.Add("Value", typeof(string));
@@ -263,6 +267,10 @@ namespace BarcodeLib
         }
         private void BreakUpDataForEncoding()
         {
+            //Debug cause evaluated before break-point and increase value.
+            //Delete first
+            _FormattedData = new List<string>();
+            
             //breaking the raw data up for code A and code B will mess up the encoding
             if (this.type == TYPES.A || this.type == TYPES.B)
             {
@@ -395,6 +403,11 @@ namespace BarcodeLib
             string CheckDigit = CalculateCheckDigit();
 
             string Encoded_Data = "";
+
+            //Debug cause evaluated before break-point and increase value.
+            //Delete first
+            //_EncodedData = new List<string>();
+
             foreach (string s in _FormattedData)
             {
                 //handle exception with apostrophes in select statements
@@ -416,20 +429,20 @@ namespace BarcodeLib
                     throw new Exception("EC128-3: Could not find encoding of a value( " + s1 + " ) in the formatted data.");
 
                 Encoded_Data += E_Row[0]["Encoding"].ToString();
-                _EncodedData.Add(E_Row[0]["Encoding"].ToString());
+                //_EncodedData.Add(E_Row[0]["Encoding"].ToString());
             }//foreach
 
             //add the check digit
             Encoded_Data += CalculateCheckDigit();
-            _EncodedData.Add(CalculateCheckDigit());
+            //_EncodedData.Add(CalculateCheckDigit());
 
             //add the stop character
             Encoded_Data += this.C128_Code.Select("A = 'STOP'")[0]["Encoding"].ToString();
-            _EncodedData.Add(this.C128_Code.Select("A = 'STOP'")[0]["Encoding"].ToString());
+            //_EncodedData.Add(this.C128_Code.Select("A = 'STOP'")[0]["Encoding"].ToString());
 
             //add the termination bars
             Encoded_Data += "11";
-            _EncodedData.Add("11");
+            //_EncodedData.Add("11");
 
             return Encoded_Data;
         }
@@ -443,39 +456,39 @@ namespace BarcodeLib
 
         #endregion
 
-        public static char CalculateISO7064Mod37_2(string inputString)
-        {
-            //int ch, sum, charValue, isDigit, isUpperAlpha;
-            //string iso7064ValueToCharTable = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*";
-            //// Read the characters from left to right. 
+        //public static char CalculateISO7064Mod37_2(string inputString)
+        //{
+        //    //int ch, sum, charValue, isDigit, isUpperAlpha;
+        //    //string iso7064ValueToCharTable = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*";
+        //    //// Read the characters from left to right. 
 
-            //int sum = 0;
-            ////for (sum = 0; ch = inputString; inputString++)
-            //foreach (char char in inputString)
-            //{
-            //    // Ignore invalid characters as per ISO 7064. 
-            //    bool isDigit = ((ch >= '0') && (ch <= '9'));
-            //    isUpperAlpha = ((ch >= 'A') && (ch <= 'Z'));
-            //    if (isDigit || isUpperAlpha)
-            //    {
-            //        // Convert the character to its ISO 7064 value. 
-            //        if (isDigit)
-            //            charValue = ch - '0';
-            //        else
-            //            charValue = ch - 'A' + 10;
-            //        // Add the character value to the accumulating sum, 
-            //        // multiply by two, and do an intermediate modulus to 
-            //        // prevent integer overflow. 
-            //        sum = ((sum + charValue) * 2) % 37;
-            //    }
-            //}
-            //// Find the value, that when added to the result of the above 
-            //// calculation, would result in a number who’s modulus 37 
-            //// result is equal to 1. 
-            //charValue = (38 - sum) % 37;
-            //// Convert the value to a character and return it. 
-            //return (iso7064ValueToCharTable[charValue]);
-        }
+        //    //int sum = 0;
+        //    ////for (sum = 0; ch = inputString; inputString++)
+        //    //foreach (char char in inputString)
+        //    //{
+        //    //    // Ignore invalid characters as per ISO 7064. 
+        //    //    bool isDigit = ((ch >= '0') && (ch <= '9'));
+        //    //    isUpperAlpha = ((ch >= 'A') && (ch <= 'Z'));
+        //    //    if (isDigit || isUpperAlpha)
+        //    //    {
+        //    //        // Convert the character to its ISO 7064 value. 
+        //    //        if (isDigit)
+        //    //            charValue = ch - '0';
+        //    //        else
+        //    //            charValue = ch - 'A' + 10;
+        //    //        // Add the character value to the accumulating sum, 
+        //    //        // multiply by two, and do an intermediate modulus to 
+        //    //        // prevent integer overflow. 
+        //    //        sum = ((sum + charValue) * 2) % 37;
+        //    //    }
+        //    //}
+        //    //// Find the value, that when added to the result of the above 
+        //    //// calculation, would result in a number who’s modulus 37 
+        //    //// result is equal to 1. 
+        //    //charValue = (38 - sum) % 37;
+        //    //// Convert the value to a character and return it. 
+        //    //return (iso7064ValueToCharTable[charValue]);
+        //}
 
     }//class
 }//namespace

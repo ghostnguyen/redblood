@@ -135,7 +135,7 @@ public class BarcodeBLL
 
     public static string Url4People(Guid ID)
     {
-        return BarcodeImgPage + "?code=" + productIdChar.ToURLCompatible()  + ID.ToString("D");
+        return BarcodeImgPage + "?hasText=true&code=" + productIdChar.ToURLCompatible() + ID.ToString("D");
     }
 
     public static string Url4Product(string code)

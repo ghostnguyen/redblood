@@ -84,7 +84,7 @@ public partial class GenCodabar : System.Web.UI.Page
             b.IncludeLabel = hasText;
             System.Drawing.Image img;
 
-            int width = 150;
+            int width = 100;
             //if (IdChar.Length + code.Length > 20)
             //    width = 350;
 

@@ -475,6 +475,10 @@ namespace BarcodeLib
                     }//case
                 default:
                     {
+                        //if Width is too narrow (at less 1 px for 1 barcode), increase it
+                        if (Width / Encoded_Value.Length == 0)
+                            Width = Encoded_Value.Length;
+
                         b = new Bitmap(Width, Height);
 
                         int iBarWidth = Width / Encoded_Value.Length;

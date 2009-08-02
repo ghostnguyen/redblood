@@ -8,3 +8,8 @@ C:\Documents and Settings\6465\Desktop\MaHeo\RedBlood\BarcodeLib\bin\Debug\Barco
 C:\Documents and Settings\6465\Desktop\MaHeo\RedBlood\BarcodeLib\bin\Debug\BarcodeLib.pdb
 C:\Documents and Settings\6465\Desktop\MaHeo\RedBlood\BarcodeLib\obj\Debug\BarcodeLib.dll
 C:\Documents and Settings\6465\Desktop\MaHeo\RedBlood\BarcodeLib\obj\Debug\BarcodeLib.pdb
+C:\Documents and Settings\Administrator\Desktop\RedBlood\BarcodeLib\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\Desktop\RedBlood\BarcodeLib\obj\Debug\BarcodeLib.dll
+C:\Documents and Settings\Administrator\Desktop\RedBlood\BarcodeLib\bin\Debug\BarcodeLib.dll
+C:\Documents and Settings\Administrator\Desktop\RedBlood\BarcodeLib\bin\Debug\BarcodeLib.pdb
+C:\Documents and Settings\Administrator\Desktop\RedBlood\BarcodeLib\obj\Debug\BarcodeLib.pdb
