@@ -16,9 +16,10 @@
             window.location = ("/RedBlood/Collect/UpdateCollector.aspx");
         });
 
-        //        $(document).bind('keydown', '9', function() {
-        //            window.location = ("/RedBlood/FindAndReport/FindPeople.aspx");
-        //        });
+        $(document).bind('keydown', '9', function() {
+            window.location = ("/RedBlood/Collect/CollectPack.aspx");
+        });
+        
         //        $(document).bind('keydown', '4', function() {
         //            window.location = ("/RedBlood/Category/Org.aspx");
         //        });
@@ -44,7 +45,7 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/AssignDIN.aspx">Thu máu</a>
+                                            <a href="/RedBlood/Collect/AssignDIN.aspx">Thông tin người cho</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -60,27 +61,27 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/UpdateCollector.aspx">KTV lấy máu</a>
+                                            <a href="/RedBlood/Collect/UpdateCollector.aspx">Tên KTV</a>
                                         </h4>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/FindAndReport/FindPeople.aspx">
+                                        <a href="/RedBlood/Collect/CollectPack.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/FindPeople.aspx">Tìm người hiến máu</a>
+                                            <a href="/RedBlood/Collect/CollectPack.aspx">Thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>

@@ -44,8 +44,10 @@ public partial class UserControl_PeopleHistory : System.Web.UI.UserControl
     protected void LinqDataSource1_Selected(object sender, LinqDataSourceStatusEventArgs e)
     {
         List<Donation> l = (List<Donation>)e.Result;
-        if (l != null)
-            LabelTotal.Text = "TC: " + l.Count.ToString();
+        if (l != null && l.Count != 0)
+            LabelTotal.Text = "Tổng cộng: " + l.Count.ToString();
+        else
+            LabelTotal.Text = "";
     }
     public object GetByPeopleID4PackHistory(Guid peopleID)
     {

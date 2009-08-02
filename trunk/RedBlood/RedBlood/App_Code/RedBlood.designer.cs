@@ -10284,8 +10284,8 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnCreated();
     partial void OnCodeChanging(string value);
     partial void OnCodeChanged();
-    partial void OnDesciptionChanging(string value);
-    partial void OnDesciptionChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
     partial void OnDateChanging(System.Nullable<System.DateTime> value);
     partial void OnDateChanged();
     partial void OnRetiredDateChanging(System.Nullable<System.DateTime> value);
@@ -10321,7 +10321,7 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	[Column(Storage="_Desciption", DbType="NVarChar(MAX)")]
-	public string Desciption
+	public string Description
 	{
 		get
 		{
@@ -10331,11 +10331,11 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			if ((this._Desciption != value))
 			{
-				this.OnDesciptionChanging(value);
+				this.OnDescriptionChanging(value);
 				this.SendPropertyChanging();
 				this._Desciption = value;
-				this.SendPropertyChanged("Desciption");
-				this.OnDesciptionChanged();
+				this.SendPropertyChanged("Description");
+				this.OnDescriptionChanged();
 			}
 		}
 	}

@@ -34,6 +34,10 @@
         $(document).bind('keydown', '1', function() {
             window.location.replace("/RedBlood/Category/Department.aspx");
         });
+
+        $(document).bind('keydown', '2', function() {
+            window.location.replace("/RedBlood/Category/Product.aspx");
+        });
     </script>
 
     <table width="100%">
@@ -167,20 +171,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                        <a href="/RedBlood/Category/Product.aspx">
                                             <img src="Image/Icon/number2.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="/RedBlood/Category/Product.aspx">Danh mục sản phẩm</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<h3>

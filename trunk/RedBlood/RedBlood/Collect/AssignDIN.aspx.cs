@@ -28,11 +28,9 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //ucPeople.Code = Request.Params["key"].ToString();
         }
         else
         {
-            //ucEnterPack.PlateletApheresisConfirmed += new EventHandler(ucEnterPack_PlateletApheresisConfirmed);
             ucPeople.PeopleChanged += new EventHandler(ucPeople_PeopleChanged);
 
             string code = Master.TextBoxCode.Text.Trim();
@@ -59,24 +57,14 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
         }
     }
 
-    //void ucEnterPack_PlateletApheresisConfirmed(object sender, EventArgs e)
-    //{
-    //    PeopleHistory1.LoadPeople();
-    //}
-
     void ucPeople_PeopleChanged(object sender, EventArgs e)
     {
-        //ucEnterPack.PeopleID = (Guid)sender;
-        //PeopleHistory1.PeopleID = (Guid)sender;
         ucPDL.PeopleID = ucPeople.PeopleID;
-
     }
 
     protected void btnNew_Click(object sender, EventArgs e)
     {
-        //ucPeople.New("");
-        //ucEnterPack.PeopleID = Guid.Empty;
-        ucPDL.ShowLog();
+        ucPeople.New("");
     }
 
     private void DINEnter(string code)
@@ -95,12 +83,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
         if (d.PeopleID != null)
         {
             DIN = tempDIN;
-            //ucPeople.PeopleID = d.PeopleID;
-            //CamDetailLeft.CampaignID = d.CampaignID;
-            //imgPack.ImageUrl = BarcodeBLL.Url4Product(d.OrgPack.ProductCode);
-
             ucPDL.PeopleID = d.PeopleID.Value;
-            //ucPDL.ShowLog();
             return;
         }
 
@@ -126,7 +109,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
         }
         else
         {
-            //ucPDL.Load();
+            ucPDL.ShowLog();
         }
 
         return;
