@@ -27,7 +27,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             Clear();
 
             ViewState["PeopleID"] = value;
-            if (value == null)
+            if (PeopleID == Guid.Empty)
             { }
             else
             {
@@ -64,7 +64,6 @@ public partial class UserControl_People : System.Web.UI.UserControl
                     New(Code);
                 }
             }
-
             else
             { }
         }
@@ -102,10 +101,11 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
         if (e == null)
         {
+            
         }
         else
         {
-            imgCodabar.ImageUrl = BarcodeBLL.Url4People(e.ID);
+            //imgCodabar.ImageUrl = BarcodeBLL.Url4People(e.ID);
 
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;
@@ -144,7 +144,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
     public void Clear()
     {
-        ViewState["PeopleID"] = Guid.Empty;
+        //ViewState["PeopleID"] = Guid.Empty;
 
         imgCodabar.ImageUrl = "none";
 
@@ -177,7 +177,9 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
     public void New(string CMND)
     {
-        Clear();
+        //Clear();
+
+        PeopleID = Guid.Empty;
         txtCMND.Text = CMND;
         txtName.Focus();
     }

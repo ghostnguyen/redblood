@@ -43,22 +43,12 @@
                     <td style="width: 300px;">
                         <div class="part">
                             <div class="partHeader">
-                                Thu máu
+                                Mã số thu máu
                             </div>
                             <div class="partLinkLast">
-                                <asp:Image runat="server" ID="imgProduct" ImageUrl="none" />
+                                <uc:PeopleDonationLog runat="server" ID="ucPDL" />
                             </div>
                         </div>
-                        <uc:PeopleDonationLog runat="server" ID="ucPDL" />
-                        <%--<uc:EnterPack runat="server" ID="ucEnterPack" />--%>
-                        <%-- <div class="part">
-                            <div class="partHeader">
-                                Tiểu sử cho máu
-                            </div>
-                            <div class="partLinkLast">
-                                <uc:PeopleHistory runat="server" ID="PeopleHistory1" />
-                            </div>
-                        </div>--%>
                     </td>
                 </tr>
             </table>

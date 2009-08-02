@@ -135,17 +135,17 @@ public class BarcodeBLL
 
     public static string Url4People(Guid ID)
     {
-        return BarcodeImgPage + "?hasText=true&code=" + productIdChar.ToURLCompatible() + ID.ToString("D");
+        return (BarcodeImgPage + "?hasText=true&code=" + peopleIdChar.ToURLCompatible() + ID.ToString("D"));
     }
 
     public static string Url4Product(string code)
     {
-        return BarcodeImgPage + "?code=" + productIdChar + code;
+        return BarcodeImgPage + "?hasText=true&code=" + productIdChar.ToURLCompatible() + code;
     }
 
     public static string Url4Campaign(int ID)
     {
-        return BarcodeImgPage + "?hasText=true&code=" + campaignIdChar.ToURLCompatible() + ID.ToString("D" + (campaignLength - 2).ToString());
+        return (BarcodeImgPage + "?hasText=true&code=" + campaignIdChar.ToURLCompatible() + ID.ToString("D" + (campaignLength - 2).ToString()));
     }
 
     public static string Url4Org(int ID)
