@@ -68,7 +68,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
     {
         //ucEnterPack.PeopleID = (Guid)sender;
         //PeopleHistory1.PeopleID = (Guid)sender;
-        
+        ucPDL.PeopleID = ucPeople.PeopleID;
 
     }
 
@@ -98,8 +98,9 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
             //ucPeople.PeopleID = d.PeopleID;
             //CamDetailLeft.CampaignID = d.CampaignID;
             //imgPack.ImageUrl = BarcodeBLL.Url4Product(d.OrgPack.ProductCode);
-            
-            ucPDL.ShowLog();
+
+            ucPDL.PeopleID = d.PeopleID.Value;
+            //ucPDL.ShowLog();
             return;
         }
 
