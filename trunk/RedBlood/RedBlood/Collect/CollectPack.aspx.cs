@@ -7,6 +7,23 @@ using System.Web.UI.WebControls;
 
 public partial class Collect_CollectPack : System.Web.UI.Page
 {
+    public string DIN
+    {
+        get
+        {
+            if (ViewState["DIN"] == null)
+            {
+                ViewState["DIN"] = "";
+            }
+            return (string)ViewState["DIN"];
+        }
+        set
+        {
+            ViewState["DIN"] = value;
+            LoadDIN();
+        }
+    }
+
     public List<string> DINList
     {
         get
@@ -32,9 +49,16 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
         if (BarcodeBLL.IsValidDINCode(code))
         {
-            if (!DINList.Contains(BarcodeBLL.ParseDIN(code)))
-                DINList.Add(BarcodeBLL.ParseDIN(code));
-            GridView1.DataBind();
+            DIN = BarcodeBLL.ParseDIN(code);
+
+            //if (!DINList.Contains(BarcodeBLL.ParseDIN(code)))
+            //    DINList.Add(BarcodeBLL.ParseDIN(code));
+            //GridView1.DataBind();
+            //GridView1.EditIndex = 0;
+        }
+        else if (BarcodeBLL.IsValidProductCode(code))
+        {
+
         }
     }
 
@@ -71,5 +95,48 @@ public partial class Collect_CollectPack : System.Web.UI.Page
     {
         DINList.Clear();
         GridView1.DataBind();
+    }
+
+    public void LoadDIN()
+    {
+        Donation e = DonationBLL.Get(DIN);
+
+
+        if (e == null)
+        {
+            Clear();
+        }
+        else
+        {
+            lblName.Text = e.People.Name;
+
+            imgDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN, "00");
+            lblDate.Text = e.CollectedDate.ToStringVN_Hour();
+
+            if (e.Pack != null)
+                imgProduct.ImageUrl = BarcodeBLL.Url4Product(e.Pack.Product.Code);
+            else
+                imgProduct.ImageUrl = "none";
+
+            txtVolume.Text = e.Volume.ToString();
+            txtCollector.Text = e.Collector;
+            txtNote.Text = e.Note;
+        }
+
+    }
+
+    private void Clear()
+    {
+        lblName.Text = "";
+        imgDIN.ImageUrl = "none";
+        lblDate.Text = "";
+        imgProduct.ImageUrl = "none";
+        txtVolume.Text = "";
+        txtCollector.Text = "";
+        txtNote.Text = "";
+    }
+    protected void txtSave_Click(object sender, EventArgs e)
+    {
+
     }
 }
