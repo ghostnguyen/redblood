@@ -142,6 +142,7 @@
       <Column Name="EnableMailingAddress" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="People_Order" Member="Orders" ThisKey="ID" OtherKey="PeopleID" Type="Order" />
+      <Association Name="People_Donation" Member="Donations" ThisKey="ID" OtherKey="PeopleID" Type="Donation" />
       <Association Name="Hospital_People" Member="Hospital" ThisKey="HopistalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="Geo_People" Member="MailingGeo1" Storage="_Geo" ThisKey="MailingGeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
       <Association Name="Geo_People1" Member="MailingGeo2" Storage="_Geo1" ThisKey="MailingGeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
@@ -411,8 +412,18 @@
       <Association Name="Pack_PackLink" Member="PackLinks" ThisKey="ID" OtherKey="FromPack" Type="PackLink" />
       <Association Name="Pack_PackLink1" Member="PackLinks1" ThisKey="ID" OtherKey="ToPack" Type="PackLink" />
       <Association Name="Pack_Donation" Member="Donations" ThisKey="ID" OtherKey="OrgPackID" Type="Donation" />
-      <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
       <Association Name="Product_Pack" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
+      <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Storage="_Desciption" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RetiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Duration" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Product_Pack" Member="Packs" ThisKey="Code" OtherKey="ProductCode" Type="Pack" />
     </Type>
   </Table>
   <Table Name="dbo.Donation" Member="Donations">
@@ -437,23 +448,14 @@
       <Column Name="ST016" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="InfectiousMarkers" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OrgPackID" Storage="_PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OrgPackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="TestResultStatus" Type="Donation.TestResultStatusX" DbType="Int" CanBeNull="true" />
       <Column Name="Collector" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Donation_DonationStatusLog" Member="DonationStatusLogs" ThisKey="DIN" OtherKey="DIN" Type="DonationStatusLog" />
       <Association Name="Donation_Pack" Member="Packs" ThisKey="DIN" OtherKey="DIN" Type="Pack" />
-      <Association Name="Pack_Donation" Member="OrgPack" Storage="_Pack" ThisKey="OrgPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+      <Association Name="Pack_Donation" Member="Pack" ThisKey="OrgPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+      <Association Name="People_Donation" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
       <Association Name="ST_General_Donation" Member="ST_General" ThisKey="ST010Code" OtherKey="Code" Type="ST_General" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Product" Member="Products">
-    <Type Name="Product">
-      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Description" Storage="_Desciption" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="RetiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Duration" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Product_Pack" Member="Packs" ThisKey="Code" OtherKey="ProductCode" Type="Pack" />
     </Type>
   </Table>
 </Database>

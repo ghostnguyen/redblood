@@ -12,16 +12,16 @@
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="DIN"
         DataSourceID="LinqDataSource1">
         <Columns>
-            <asp:BoundField DataField="DIN" InsertVisible="False" SortExpression="DIN" />
+            <asp:BoundField DataField="DIN" HeaderText="Mã"  SortExpression="DIN" />
             <asp:TemplateField HeaderText="Tên">
                 <ItemTemplate>
                     <asp:Label Text='<%# Eval("People.Name") %>' runat="server"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" SortExpression="CollectedDate"
+            <asp:BoundField DataField="CollectedDate" HeaderText="Ngày" SortExpression="CollectedDate"
                 DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:BoundField DataField="Collector" HeaderText="KTV thu máu" SortExpression="Collector" />
-            <asp:BoundField DataField="Note" HeaderText="Note" SortExpression="Note" />
+            <asp:BoundField DataField="Collector" HeaderText="KTV" SortExpression="Collector" />
+            <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
         </Columns>
     </asp:GridView>
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"

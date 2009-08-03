@@ -5,23 +5,26 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <h4>
+        Thông tin mặc định
+    </h4>
     Tên KTV:
-    <asp:TextBox ID="txtCollector" runat="server" Width="390"> </asp:TextBox>
+    <asp:TextBox ID="txtCollector" runat="server" Width="250"> </asp:TextBox>
     <br />
     <br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="DIN"
         DataSourceID="LinqDataSource1">
         <Columns>
-            <asp:BoundField DataField="DIN" InsertVisible="False" SortExpression="DIN" />
+            <asp:BoundField DataField="DIN" InsertVisible="False" SortExpression="DIN" HeaderText="Mã" />
             <asp:TemplateField HeaderText="Tên">
                 <ItemTemplate>
                     <asp:Label Text='<%# Eval("People.Name") %>' runat="server"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" SortExpression="CollectedDate"
+            <asp:BoundField DataField="CollectedDate" HeaderText="Ngày" SortExpression="CollectedDate"
                 DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:BoundField DataField="Collector" HeaderText="KTV thu máu" SortExpression="Collector" />
-            <asp:BoundField DataField="Note" HeaderText="Note" SortExpression="Note" />
+            <asp:BoundField DataField="Collector" HeaderText="KTV" SortExpression="Collector" />
+            <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
         </Columns>
     </asp:GridView>
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"

@@ -1,39 +1,25 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="ProductPrint.aspx.cs" Inherits="Category_ProductPrint" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ProductPrint.aspx.cs" Inherits="Category_ProductPrint" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-            <div class="mainContent">
-                <h4>
-                    Danh mục sản phẩm
-                </h4>
-                <div class="leftBigPart">
-                    <div class="part">
-                        <div class="partHeader">
-                            Tạo mới
-                        </div>
-                        <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
-                        <asp:Button ID="ButtonNew" runat="server" Text="Tạo" OnClick="ButtonNew_Click" />
-                    </div>
-                </div>
-                <div id="Div1" runat="server" class="rightBigPart">
-                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                        DataSourceID="LinqDataSource1">
-                        <Columns>
-                            <asp:CommandField ShowEditButton="True" ButtonType="Link" EditImageUrl="~/Image/Icon/Edit.png"
-                                UpdateImageUrl="~/Image/Icon/Update.png" CancelImageUrl="~/Image/Icon/Cancel.png"
-                                EditText="<%$ Resources:Resource,Edit %>" UpdateText="<%$ Resources:Resource,Update %>"
-                                CancelText="<%$ Resources:Resource,Cancel %>" ShowDeleteButton="True" DeleteText="<%$ Resources:Resource,Delete %>" />
-                            <asp:BoundField DataField="Name" HeaderText="Tên" SortExpression="Name" />
-                        </Columns>
-                    </asp:GridView>
-                    <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
-                        EnableDelete="True" EnableInsert="True" EnableUpdate="True" TableName="Sexes"
-                        OrderBy="Name">
-                    </asp:LinqDataSource>
-                </div>
-            </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-</asp:Content>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:DataList ID="DataList1" runat="server">
+            <ItemTemplate>
+                <asp:Panel runat="server" ID="Panel1" CssClass="PackLabel_PannelBorder">
+                    <p class="PackLabel_Img">
+                        <asp:Image runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("Code") as string) %>' />
+                        <br />
+                        <asp:Label runat="server" ID="Label2" Text='<%# Eval("Description")  %>' CssClass="PackLabel_Name" />
+                    </p>
+                </asp:Panel>
+            </ItemTemplate>
+        </asp:DataList>
+    </div>
+    </form>
+</body>
+</html>
