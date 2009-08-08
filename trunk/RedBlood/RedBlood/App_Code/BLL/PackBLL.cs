@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class PackBLL
 {
-   
+
     public PackBLL()
     {
     }
@@ -520,7 +520,7 @@ public class PackBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         //Pack p = Get(db, autonum, Pack.StatusX.Collected);
-        Pack p = new Pack() ;
+        Pack p = new Pack();
 
         //if (p == null && p.PeopleID != null) return p;
         //if (p.TestResultStatus != Pack.TestResultStatusX.Non) return p;
@@ -1045,7 +1045,7 @@ public class PackBLL
         db.SubmitChanges();
     }
 
-    public static PackErr Create(string DIN, string productCode, bool isCollect, int volumn)
+    public static PackErr Create(string DIN, string productCode, bool isCollect, int volumn, int defaultVolume)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -1054,8 +1054,15 @@ public class PackBLL
 
         if (d == null || p == null) return PackErrEnum.DataErr;
 
+        int countPack = db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).Count();
+
+        if (countPack > 0) return PackErrEnum.Existed;
+
         if (isCollect)
         {
+            //Check to see valid product code in collection
+            //Code will be here
+            
             if (d.OrgPackID != null) return PackErrEnum.DonationGotPack;
         }
 
@@ -1066,7 +1073,29 @@ public class PackBLL
         pack.Status = Pack.StatusX.Product;
         pack.Date = DateTime.Now;
         pack.Actor = RedBloodSystem.CurrentActor;
-        pack.Volume = volumn;
+
+        if (isCollect)
+        {
+            if (d.Volume != null && d.Volume.Value > 0) return PackErrEnum.DataErr; 
+
+            if (d.Volume == null || d.Volume.Value < 0)
+            {
+                if (p.OriginalVolume != null && p.OriginalVolume.Value > 0)
+                {
+                    d.Volume = p.OriginalVolume;
+                    pack.Volume = p.OriginalVolume;
+                }
+                else
+                {
+                    if (defaultVolume > 0)
+                    {
+                        d.Volume = defaultVolume;
+                        pack.Volume = defaultVolume;
+                    }
+                }
+            }
+        }
+        else pack.Volume = volumn;
 
         pack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
 
@@ -1081,7 +1110,7 @@ public class PackBLL
         }
 
         return PackErrEnum.Non;
-        
+
     }
 }
 

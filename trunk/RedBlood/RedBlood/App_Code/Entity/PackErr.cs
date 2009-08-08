@@ -34,7 +34,14 @@ public class PackErrEnum
     //public static PackErr EnterPackExp = new PackErr("Có túi máu đã nhập nhưng chưa xử lý.", Pack.StatusX.ExpireEnter);
     public static PackErr Expired = new PackErr("Túi máu quá hạn sử dụng.", Pack.StatusX.Expired);
     public static PackErr Deleted = new PackErr("Túi máu đã hủy.");
+    public static PackErr Existed = new PackErr("Túi máu đã nhập.");
 
+    
+    
+    
+    
+    
+    
     public static PackErr CanNotOrder = new PackErr("Không thể cấp phát.");
     public static PackErr Positive = new PackErr("Không thể cấp phát. Có kết quả dương tính.");
     public static PackErr Ordering = new PackErr("Đang cấp phát.");
