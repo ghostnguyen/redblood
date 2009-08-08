@@ -24,10 +24,6 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
     }
 
-
-
-
-
     protected void Page_Load(object sender, EventArgs e)
     {
         string code = Master.TextBoxCode.Text.Trim();
@@ -41,8 +37,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
         else if (BarcodeBLL.IsValidProductCode(code))
         {
-            UpdateProductCode(BarcodeBLL.ParseDIN
-            
+            EnterProductCode(BarcodeBLL.ParseProductCode(code));
         }
     }
 
@@ -58,7 +53,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
         else
         {
-            Donation temp = DonationBLL.UpdateDefault(DIN, txtCollector.Text.Trim());
+            Donation temp = DonationBLL.UpdateDefault(DIN, txtDefaultCollector.Text.Trim());
             if (temp != null) e = temp;
 
             lblName.Text = e.People.Name;
@@ -88,13 +83,39 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         txtNote.Text = "";
     }
 
-    void UpdateProductCode(string productCode)
+    void EnterProductCode(string productCode)
     {
- 
+        PackErr err = PackBLL.Create(DIN, productCode, true, 0, txtDefaultVolume.Text.ToInt());
+        if (err != PackErrEnum.Non)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+                    "alert (" + err.Message + ");", true);
+        }
+        else
+        {
+            LoadDIN();
+        }
     }
 
     protected void txtSave_Click(object sender, EventArgs e)
     {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Donation d = DonationBLL.Get(db, DIN);
+
+        if (d == null)
+        {
+            //Clear();
+        }
+        else
+        {
+            d.Volume = txtVolume.Text.ToInt();
+            d.Pack.Volume = txtVolume.Text.ToInt();
+
+            d.Collector = txtCollector.Text;
+
+            db.SubmitChanges();
+        }
 
     }
 }
