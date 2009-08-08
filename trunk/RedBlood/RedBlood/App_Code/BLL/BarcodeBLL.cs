@@ -123,6 +123,15 @@ public class BarcodeBLL
             return 0;
     }
 
+    public static string ParseProductCode(string code)
+    {
+        if (IsValidProductCode(code))
+            //&o123456789
+            return code.Substring(2, orderLength - 2).ToInt();
+        else
+            return 0;
+    }
+
     #endregion
 
     #region Url
