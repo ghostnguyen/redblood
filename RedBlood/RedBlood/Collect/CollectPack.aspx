@@ -85,22 +85,6 @@
             </td>
         </tr>
     </table>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="DIN"
-        DataSourceID="LinqDataSource1">
-        <Columns>
-            <asp:BoundField DataField="DIN" InsertVisible="False" SortExpression="DIN" HeaderText="Mã" />
-            <asp:TemplateField HeaderText="Tên">
-                <ItemTemplate>
-                    <asp:Label Text='<%# Eval("People.Name") %>' runat="server"></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:BoundField DataField="CollectedDate" HeaderText="Ngày" SortExpression="CollectedDate"
-                DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:BoundField DataField="Volume" HeaderText="(ml)" />
-            <asp:BoundField DataField="Collector" HeaderText="KTV" SortExpression="Collector" />
-            <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
-        </Columns>
-    </asp:GridView>
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
         TableName="Donations" OnSelecting="LinqDataSource1_Selecting" EnableUpdate="True">
     </asp:LinqDataSource>

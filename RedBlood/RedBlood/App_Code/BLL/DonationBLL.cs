@@ -113,5 +113,52 @@ public class DonationBLL
         return l;
     }
 
+    public static Donation UpdateDefault(string DIN,string collector)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Donation e = Get(db,DIN);
+
+        if (e == null) return null;
+
+        if (string.IsNullOrEmpty(e.Collector.Trim())
+            && !string.IsNullOrEmpty(collector.Trim()))
+        {
+            e.Collector = collector;
+            db.SubmitChanges();
+            return e;
+        }
+
+        return null;
+    }
+
+    public static void UpdateDefault(string DIN,string productCode,int defaultVolume)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Donation e = Get(db, DIN);
+        if (e == null) return;
+
+        Product p = ProductBLL.Get(productCode);
+        if (p == null) return;
+
+        if (e.Volume != null && e.Volume.Value > 0) return;
+
+        if (e.Volume == null || e.Volume.Value <= 0)
+        {
+            if (p.OriginalVolume != null && p.OriginalVolume.Value > 0)
+            {
+                e.Volume = p.OriginalVolume;
+            }
+            else
+            {
+                if (defaultVolume > 0)
+                    e.Volume = defaultVolume;
+            }
+
+            db.SubmitChanges();
+        }
+    }
+    
+
     
 }
