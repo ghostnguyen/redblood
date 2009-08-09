@@ -289,24 +289,24 @@ public class PackBLL
         return rs.ToList();
     }
 
-    public static List<Pack> GetByCampaign(int campaignID)
-    {
-        //RedBloodDataContext db = new RedBloodDataContext();
-        //return db.Packs.Where(r => r.CampaignID == campaignID
-        //    && StatusListAllowEnterTestResult().Contains(r.Status)
-        //    && AllowEnterTestResult().Contains(r.TestResultStatus)
-        //    && r.ComponentID == TestDef.Component.Full
-        //    ).ToList();
-        return new List<Pack>();
-    }
+    //public static List<Pack> GetByCampaign(int campaignID)
+    //{
+    //    //RedBloodDataContext db = new RedBloodDataContext();
+    //    //return db.Packs.Where(r => r.CampaignID == campaignID
+    //    //    && StatusListAllowEnterTestResult().Contains(r.Status)
+    //    //    && AllowEnterTestResult().Contains(r.TestResultStatus)
+    //    //    && r.ComponentID == TestDef.Component.Full
+    //    //    ).ToList();
+    //    return new List<Pack>();
+    //}
 
-    public static List<Pack> GetByCampaign(int campaignID, List<Pack.StatusX> status)
-    {
-        //RedBloodDataContext db = new RedBloodDataContext();
-        //return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
-        return new List<Pack>();
+    //public static List<Pack> GetByCampaign(int campaignID, List<Pack.StatusX> status)
+    //{
+    //    //RedBloodDataContext db = new RedBloodDataContext();
+    //    //return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
+    //    return new List<Pack>();
 
-    }
+    //}
 
     //public static PackErr Assign(int autonum, Guid peopleID, int campaignID)
     //{
@@ -1045,7 +1045,7 @@ public class PackBLL
         db.SubmitChanges();
     }
 
-    public static PackErr Create(string DIN, string productCode, bool isCollect, int volumn, int defaultVolume)
+    public static PackErr CreateOriginal(string DIN, string productCode, int defaultVolume)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -1058,13 +1058,11 @@ public class PackBLL
 
         if (countPack > 0) return PackErrEnum.Existed;
 
-        if (isCollect)
-        {
-            //Check to see valid product code in collection
-            //Code will be here
-            
-            if (d.OrgPackID != null) return PackErrEnum.DonationGotPack;
-        }
+
+        //Check to see valid product code in collection
+        //Code will be here
+
+        if (d.OrgPackID != null) return PackErrEnum.DonationGotPack;
 
         Pack pack = new Pack();
 
@@ -1074,28 +1072,27 @@ public class PackBLL
         pack.Date = DateTime.Now;
         pack.Actor = RedBloodSystem.CurrentActor;
 
-        if (isCollect)
-        {
-            if (d.Volume != null && d.Volume.Value > 0) return PackErrEnum.DataErr; 
+        if (d.Volume != null && d.Volume.Value > 0) return PackErrEnum.DataErr;
 
-            if (d.Volume == null || d.Volume.Value < 0)
+        if (d.Volume == null || d.Volume.Value < 0)
+        {
+            if (p.OriginalVolume != null && p.OriginalVolume.Value > 0)
             {
-                if (p.OriginalVolume != null && p.OriginalVolume.Value > 0)
+                d.Volume = p.OriginalVolume;
+                pack.Volume = p.OriginalVolume;
+            }
+            else
+            {
+                if (defaultVolume > 0)
                 {
-                    d.Volume = p.OriginalVolume;
-                    pack.Volume = p.OriginalVolume;
-                }
-                else
-                {
-                    if (defaultVolume > 0)
-                    {
-                        d.Volume = defaultVolume;
-                        pack.Volume = defaultVolume;
-                    }
+                    d.Volume = defaultVolume;
+                    pack.Volume = defaultVolume;
                 }
             }
         }
-        else pack.Volume = volumn;
+
+        //Check to see if the pack is collector too late
+        //Code check will be here.
 
         pack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
 
@@ -1103,11 +1100,46 @@ public class PackBLL
 
         db.SubmitChanges();
 
-        if (isCollect)
-        {
-            d.OrgPackID = pack.ID;
-            db.SubmitChanges();
-        }
+        d.OrgPackID = pack.ID;
+        db.SubmitChanges();
+
+        return PackErrEnum.Non;
+
+    }
+
+    public static PackErr Create(string DIN, string productCode, int volume)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Donation d = db.Donations.Where(r => r.DIN == DIN && r.PeopleID != null).FirstOrDefault();
+        Product p = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
+
+        if (d == null || p == null) return PackErrEnum.DataErr;
+
+        int countPack = db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).Count();
+
+        if (countPack > 0) return PackErrEnum.Existed;
+
+        Pack pack = new Pack();
+
+        pack.DIN = DIN;
+        pack.ProductCode = productCode;
+        pack.Status = Pack.StatusX.Product;
+        pack.Date = DateTime.Now;
+        pack.Actor = RedBloodSystem.CurrentActor;
+
+        pack.Volume = volume;
+
+        //Check to see if the pack is collector too late
+        //Code check will be here.
+
+        pack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
+
+        db.Packs.InsertOnSubmit(pack);
+
+        db.SubmitChanges();
+
+
 
         return PackErrEnum.Non;
 

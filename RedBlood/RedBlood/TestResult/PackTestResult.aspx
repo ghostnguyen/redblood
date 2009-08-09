@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeFile="PackTestResult.aspx.cs" Inherits="PackTestResult"
-    MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    CodeFile="PackTestResult.aspx.cs" Inherits="PackTestResult" MaintainScrollPositionOnPostback="true" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
@@ -15,10 +14,11 @@
         <tr>
             <td>
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
-                    DataKeyNames="Autonum" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating"
+                    DataKeyNames="DIN" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating"
                     OnRowUpdated="GridView1_RowUpdated">
                     <Columns>
-                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu" HeaderStyle-Width="80" />
+                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu"
+                            HeaderStyle-Width="80" />
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="Label3" runat="server" Text="Túi máu" />
@@ -26,7 +26,7 @@
                                 <asp:Label ID="Label4" runat="server" Text="Tình trạng" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("Autonum") %>' />
+                                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("DIN") %>' />
                                 <br />
                                 <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' />
                             </ItemTemplate>
@@ -43,31 +43,25 @@
                                 <asp:Label ID="lblDate" runat="server" Text='<%# Eval("CollectedDate","{0:dd/MM/yyyy HH:mm}") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderStyle-Width="100">
-                            <HeaderTemplate>
-                                <asp:Label ID="Label5" runat="server" Text="Thành phần" />
-                                <br />
-                                <asp:Label ID="Label7" runat="server" Text="Thể tích (ml)" />
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblComponent" runat="server" Text='<%# Eval("Component.Name") %>' />
-                                <br />
-                                <asp:Label ID="lblVolume" runat="server" Text='<%# Eval("Volume") %>' />
-                            </ItemTemplate>
-                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="ABO" HeaderStyle-Width="60">
                             <HeaderTemplate>
                                 <asp:Label ID="Label1" runat="server" Text="ABO" />
-                                <br />
-                                <asp:Label ID="Label2" runat="server" Text="RH" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("ABO.Name") %>' />
-                                <br />
-                                <asp:Label ID="lblRH" runat="server" Text='<%# Eval("RH.Name") %>' />
+                                <asp:Label ID="lblABO" runat="server" Text='<%# BloodGroupBLL.GetDescription(Eval("BloodGroup") as string) %>' />
                             </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:DropDownList ID="ddlBloodGroup" runat="server" DataSource='<%# BloodGroup.BloodGroupList %>'
+                                    DataTextField="Description" DataValueField="Code" SelectedValue='<%# Bind("BloodGroup") %>'
+                                    AppendDataBoundItems="true">
+                                    <asp:ListItem Text="" Value="" />
+                                </asp:DropDownList>
+                                <asp:LinqDataSource ID="LinqDataSourceHIV" runat="server" ContextTypeName="RedBloodDataContext"
+                                    TableName="TestDefs" Where="ParentID == 18">
+                                </asp:LinqDataSource>
+                            </EditItemTemplate>
                         </asp:TemplateField>
-                          <asp:TemplateField HeaderText="HIV">
+                        <asp:TemplateField HeaderText="HIV">
                             <ItemTemplate>
                                 <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("HIV.Name") %>' />
                             </ItemTemplate>
@@ -142,12 +136,13 @@
                                 </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu" HeaderStyle-Width="80" />
+                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu"
+                            HeaderStyle-Width="80" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
-                    EnableUpdate="True" OnSelecting="LinqDataSourcePack_Selecting" TableName="Packs"
-                    OrderBy="Autonum desc" EnableDelete="True">
+                    EnableUpdate="True" OnSelecting="LinqDataSourcePack_Selecting" TableName="Donations"
+                    OrderBy="DIN" EnableDelete="True">
                 </asp:LinqDataSource>
                 <br />
             </td>
@@ -155,7 +150,7 @@
         <tr>
             <td>
                 <hr />
-                <uc:DeletePack runat="server" ID="DeletePack1" />
+               <%-- <uc:DeletePack runat="server" ID="DeletePack1" />--%>
             </td>
         </tr>
     </table>

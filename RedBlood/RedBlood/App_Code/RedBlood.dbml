@@ -200,6 +200,7 @@
       <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Type" Type="Campaign.TypeX" DbType="Int" CanBeNull="true" />
       <Association Name="Campaign_CampaignStatusHistory" Member="CampaignStatusHistories" ThisKey="ID" OtherKey="CampaignID" Type="CampaignStatusHistory" />
+      <Association Name="Campaign_Donation" Member="Donations" ThisKey="ID" OtherKey="CampaignID" Type="Donation" />
       <Association Name="Org_Campaign" Member="CoopOrg" ThisKey="CoopOrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
       <Association Name="Org_Campaign1" Member="HostOrg" ThisKey="HostOrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
       <Association Name="TestDef_Campaign" Member="Source" ThisKey="SourceID" OtherKey="ID" Type="TestDef" IsForeignKey="true" />
@@ -428,7 +429,7 @@
       <Column Name="CampaignID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MSTM" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="MSNH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="ABORhD" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BloodGroup" Storage="_ABORhD" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ST010Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ST011" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ST012" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
@@ -446,6 +447,7 @@
       <Association Name="Pack_Donation" Member="Pack" ThisKey="OrgPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
       <Association Name="People_Donation" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
       <Association Name="ST_General_Donation" Member="ST_General" ThisKey="ST010Code" OtherKey="Code" Type="ST_General" IsForeignKey="true" />
+      <Association Name="Campaign_Donation" Member="Campaign" ThisKey="CampaignID" OtherKey="ID" Type="Campaign" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Product" Member="Products">

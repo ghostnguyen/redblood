@@ -16,13 +16,21 @@
     <br />
     <hr />
     <br />
-    <table>
+    <table >
         <tr>
             <td>
                 Tên
             </td>
             <td>
                 <asp:Label ID="lblName" Text="" runat="server"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ngày đăng kí
+            </td>
+            <td>
+                <asp:Label ID="lblDINDate" Text="" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -35,7 +43,7 @@
         </tr>
         <tr>
             <td>
-                Ngày
+                Ngày thu
             </td>
             <td>
                 <asp:Label ID="lblDate" Text="" runat="server"></asp:Label>
@@ -43,12 +51,12 @@
         </tr>
         <tr>
             <td>
-                Thu máu
+                Sản phẩm
             </td>
             <td>
                 <asp:Image ID="imgProduct" runat="server" />
                 <br />
-                <asp:Label ID="lblDesc" runat="server"></asp:Label>
+                <asp:Label ID="lblProductDesc" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -77,22 +85,12 @@
         </tr>
         <tr>
             <td>
-             
             </td>
             <td>
-                <asp:Button ID="txtSave" Text='<%$ Resources:Resource,Update %>' runat="server" 
-                    onclick="txtSave_Click" />
+                <asp:Button ID="txtSave" Text='<%$ Resources:Resource,Update %>' runat="server" OnClick="txtSave_Click" />
             </td>
         </tr>
     </table>
-    <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
-        TableName="Donations" OnSelecting="LinqDataSource1_Selecting" EnableUpdate="True">
-    </asp:LinqDataSource>
-    <br />
-    <%--<asp:Button ID="btnUpdate" runat="server" Text='<%$ Resources:Resource,Update %>'
-        OnClick="btnUpdate_Click" />
-    <asp:Button ID="btnClear" runat="server" Text="Xóa danh sách" OnClick="btnClear_Click"
-        BorderStyle="Solid" />--%>
     <br />
     <br />
 </asp:Content>

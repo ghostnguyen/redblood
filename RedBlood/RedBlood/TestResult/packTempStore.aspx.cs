@@ -52,7 +52,7 @@ if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
         }
         else
         {
-            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID);
+            //e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID);
         }
     }
 
