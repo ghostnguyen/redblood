@@ -46,7 +46,7 @@ public partial class TestResult_PackManually : System.Web.UI.Page
         }
         else
         {
-            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID);
+            //e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID);
         }
     }
 

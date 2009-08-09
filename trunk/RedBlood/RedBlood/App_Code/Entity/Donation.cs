@@ -48,4 +48,14 @@ public partial class Donation
         Dương_tính_K = 4,
         PositiveLocked = 4
     }
+
+    public string TR_HIV
+    {
+        get {
+            if (string.IsNullOrEmpty(this.InfectiousMarkers))
+                return "";
+            else
+                return InfectiousMarkerBLL.DecodeHIV(this.InfectiousMarkers);
+            }
+    }
 }

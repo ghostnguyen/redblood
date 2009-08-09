@@ -12,19 +12,15 @@ public partial class PackTestResult : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        DeletePack1.PackDeleted += new EventHandler(DeletePack1_PackDeleted);
+        //DeletePack1.PackDeleted += new EventHandler(DeletePack1_PackDeleted);
 
         Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
 
         if (Master.TextBoxCode.Text.Length == 0) return;
 
-         if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+        if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
         {
             CampaignEnter(Master.TextBoxCode.Text);
-        }
-        else
-        {
-            //ucPeople.Code = Master.TextBoxCode.Text;
         }
 
         Master.TextBoxCode.Text = "";
@@ -40,7 +36,7 @@ public partial class PackTestResult : System.Web.UI.Page
         CampaignDetail1.CampaignID = BarcodeBLL.ParseCampaignID(code);
         GridView1.DataBind();
 
-        DeletePack1.CampaignID = BarcodeBLL.ParseCampaignID(code);
+        //DeletePack1.CampaignID = BarcodeBLL.ParseCampaignID(code);
     }
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -53,7 +49,7 @@ public partial class PackTestResult : System.Web.UI.Page
         else
         {
             //e.Result = PackBLL.GetByCampaingID4Manually(CampaignDetail1.CampaignID);
-            e.Result = PackBLL.GetByCampaign(CampaignDetail1.CampaignID);
+            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID);
         }
     }
 

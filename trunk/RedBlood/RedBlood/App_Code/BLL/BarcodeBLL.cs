@@ -28,6 +28,9 @@ public class BarcodeBLL
     public const int peopleLength = 38;
     public const string productIdChar = "=<";
     public const int productLength = 10;
+    public const int InfectiousMarkersLength = 20;
+    public const string InfectiousMarkersIdChar = "&\"";
+
 
     #endregion
 
@@ -79,7 +82,16 @@ public class BarcodeBLL
     {
         if (code.Length != productLength) return false;
 
-        string pattern = productIdChar + "[0-9]";
+        string pattern = productIdChar + "[A-DE-Z1-9]{1}[0-9]{4}[A-Za-z0-9]{1}[A-Z0-9]{1}[a-z0-9]{1}";
+        Regex regx = new Regex(pattern);
+        return regx.IsMatch(code);
+    }
+
+    public static bool IsValidInfectiousMarkersCode(string code)
+    {
+        if (code.Length != InfectiousMarkersLength) return false;
+
+        string pattern = InfectiousMarkersIdChar + "[0-9]";
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
     }
@@ -127,6 +139,14 @@ public class BarcodeBLL
     {
         if (IsValidProductCode(code))
             return code.Substring(2, productLength - 2);
+        else
+            return "";
+    }
+
+    public static string ParseInfectiousMakersCode(string code)
+    {
+        if (IsValidInfectiousMarkersCode(code))
+            return code.Substring(2, InfectiousMarkersLength - 2);
         else
             return "";
     }

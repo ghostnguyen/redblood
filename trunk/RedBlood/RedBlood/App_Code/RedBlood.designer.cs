@@ -3168,7 +3168,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -4502,6 +4502,8 @@ public partial class Campaign : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<CampaignStatusHistory> _CampaignStatusHistories;
 	
+	private EntitySet<Donation> _Donations;
+	
 	private EntityRef<Org> _CoopOrg;
 	
 	private EntityRef<Org> _HostOrg;
@@ -4545,6 +4547,7 @@ public partial class Campaign : INotifyPropertyChanging, INotifyPropertyChanged
 	public Campaign()
 	{
 		this._CampaignStatusHistories = new EntitySet<CampaignStatusHistory>(new Action<CampaignStatusHistory>(this.attach_CampaignStatusHistories), new Action<CampaignStatusHistory>(this.detach_CampaignStatusHistories));
+		this._Donations = new EntitySet<Donation>(new Action<Donation>(this.attach_Donations), new Action<Donation>(this.detach_Donations));
 		this._CoopOrg = default(EntityRef<Org>);
 		this._HostOrg = default(EntityRef<Org>);
 		this._Source = default(EntityRef<TestDef>);
@@ -4856,6 +4859,19 @@ public partial class Campaign : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="Campaign_Donation", Storage="_Donations", ThisKey="ID", OtherKey="CampaignID")]
+	public EntitySet<Donation> Donations
+	{
+		get
+		{
+			return this._Donations;
+		}
+		set
+		{
+			this._Donations.Assign(value);
+		}
+	}
+	
 	[Association(Name="Org_Campaign", Storage="_CoopOrg", ThisKey="CoopOrgID", OtherKey="ID", IsForeignKey=true)]
 	public Org CoopOrg
 	{
@@ -4985,6 +5001,18 @@ public partial class Campaign : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_CampaignStatusHistories(CampaignStatusHistory entity)
+	{
+		this.SendPropertyChanging();
+		entity.Campaign = null;
+	}
+	
+	private void attach_Donations(Donation entity)
+	{
+		this.SendPropertyChanging();
+		entity.Campaign = this;
+	}
+	
+	private void detach_Donations(Donation entity)
 	{
 		this.SendPropertyChanging();
 		entity.Campaign = null;
@@ -9622,6 +9650,8 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntityRef<ST_General> _ST_General;
 	
+	private EntityRef<Campaign> _Campaign;
+	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -9646,8 +9676,8 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnMSTMChanged();
     partial void OnMSNHChanging(string value);
     partial void OnMSNHChanged();
-    partial void OnABORhDChanging(string value);
-    partial void OnABORhDChanged();
+    partial void OnBloodGroupChanging(string value);
+    partial void OnBloodGroupChanged();
     partial void OnST010CodeChanging(string value);
     partial void OnST010CodeChanged();
     partial void OnST011Changing(string value);
@@ -9681,6 +9711,7 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 		this._Pack = default(EntityRef<Pack>);
 		this._People = default(EntityRef<People>);
 		this._ST_General = default(EntityRef<ST_General>);
+		this._Campaign = default(EntityRef<Campaign>);
 		OnCreated();
 	}
 	
@@ -9839,6 +9870,10 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			if ((this._CampaignID != value))
 			{
+				if (this._Campaign.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
 				this.OnCampaignIDChanging(value);
 				this.SendPropertyChanging();
 				this._CampaignID = value;
@@ -9889,7 +9924,7 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	[Column(Storage="_ABORhD", DbType="NVarChar(MAX)")]
-	public string ABORhD
+	public string BloodGroup
 	{
 		get
 		{
@@ -9899,11 +9934,11 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			if ((this._ABORhD != value))
 			{
-				this.OnABORhDChanging(value);
+				this.OnBloodGroupChanging(value);
 				this.SendPropertyChanging();
 				this._ABORhD = value;
-				this.SendPropertyChanged("ABORhD");
-				this.OnABORhDChanged();
+				this.SendPropertyChanged("BloodGroup");
+				this.OnBloodGroupChanged();
 			}
 		}
 	}
@@ -10280,6 +10315,40 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 					this._ST010Code = default(string);
 				}
 				this.SendPropertyChanged("ST_General");
+			}
+		}
+	}
+	
+	[Association(Name="Campaign_Donation", Storage="_Campaign", ThisKey="CampaignID", OtherKey="ID", IsForeignKey=true)]
+	public Campaign Campaign
+	{
+		get
+		{
+			return this._Campaign.Entity;
+		}
+		set
+		{
+			Campaign previousValue = this._Campaign.Entity;
+			if (((previousValue != value) 
+						|| (this._Campaign.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Campaign.Entity = null;
+					previousValue.Donations.Remove(this);
+				}
+				this._Campaign.Entity = value;
+				if ((value != null))
+				{
+					value.Donations.Add(this);
+					this._CampaignID = value.ID;
+				}
+				else
+				{
+					this._CampaignID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Campaign");
 			}
 		}
 	}

@@ -47,11 +47,8 @@ public partial class Collect_CollectPack : System.Web.UI.Page
     {
         Donation e = DonationBLL.Get(DIN);
 
-        if (e == null)
-        {
-            Clear();
-        }
-        else
+        Clear();
+        if (e != null)
         {
             Donation temp = DonationBLL.UpdateDefault(DIN, txtDefaultCollector.Text.Trim());
             if (temp != null) e = temp;
@@ -59,12 +56,17 @@ public partial class Collect_CollectPack : System.Web.UI.Page
             lblName.Text = e.People.Name;
 
             imgDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN, "00");
-            lblDate.Text = e.CollectedDate.ToStringVN_Hour();
+
+            lblDINDate.Text = e.CollectedDate.ToStringVN();
+
 
             if (e.Pack != null)
+            {
                 imgProduct.ImageUrl = BarcodeBLL.Url4Product(e.Pack.Product.Code);
-            else
-                imgProduct.ImageUrl = "none";
+                lblProductDesc.Text = e.Pack.Product.Description;
+
+                lblDate.Text = e.Pack.Date.ToStringVN_Hour();
+            }
 
             txtVolume.Text = e.Volume.ToString();
             txtCollector.Text = e.Collector;
@@ -76,20 +78,23 @@ public partial class Collect_CollectPack : System.Web.UI.Page
     {
         lblName.Text = "";
         imgDIN.ImageUrl = "none";
+        lblDINDate.Text = "";
         lblDate.Text = "";
         imgProduct.ImageUrl = "none";
+        lblProductDesc.Text = "";
         txtVolume.Text = "";
         txtCollector.Text = "";
         txtNote.Text = "";
+
     }
 
     void EnterProductCode(string productCode)
     {
-        PackErr err = PackBLL.Create(DIN, productCode, true, 0, txtDefaultVolume.Text.ToInt());
+        PackErr err = PackBLL.CreateOriginal(DIN, productCode, txtDefaultVolume.Text.ToInt());
         if (err != PackErrEnum.Non)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                    "alert (" + err.Message + ");", true);
+                    "alert ('" + err.Message + "');", true);
         }
         else
         {
@@ -109,12 +114,23 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
         else
         {
-            d.Volume = txtVolume.Text.ToInt();
-            d.Pack.Volume = txtVolume.Text.ToInt();
+            // Check to see too late to update
+            // Code check will be here
 
-            d.Collector = txtCollector.Text;
+            d.Collector = txtCollector.Text.Trim();
+
+            if (d.Pack != null)
+            {
+                d.Volume = txtVolume.Text.ToInt();
+                d.Pack.Volume = txtVolume.Text.ToInt();
+
+                d.Note = txtNote.Text.Trim();
+            }
 
             db.SubmitChanges();
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+                    "alert ('Lưu thành công.');", true);
         }
 
     }

@@ -64,8 +64,8 @@ public class DonationBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         Donation d = (from c in db.Donations
-                        where c.DIN == DIN && c.PeopleID == null && c.CampaignID == null
-                        select c).FirstOrDefault();
+                      where c.DIN == DIN && c.PeopleID == null && c.CampaignID == null
+                      select c).FirstOrDefault();
 
         if (d == null)
         {
@@ -78,7 +78,7 @@ public class DonationBLL
             d.CollectedDate = DateTime.Now;
             d.CampaignID = campaignID;
             d.Actor = RedBloodSystem.CurrentActor;
-            
+
             UpdateStatus(db, d, Donation.StatusX.Assigned, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
 
             db.SubmitChanges();
@@ -113,21 +113,43 @@ public class DonationBLL
         return l;
     }
 
-    public static Donation UpdateDefault(string DIN,string collector)
+    public static Donation UpdateDefault(string DIN, string collector)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        Donation e = Get(db,DIN);
+        Donation e = Get(db, DIN);
 
         if (e == null) return null;
 
-        if (string.IsNullOrEmpty(e.Collector.Trim())
-            && !string.IsNullOrEmpty(collector.Trim()))
+        if (e.Collector == null || string.IsNullOrEmpty(e.Collector.Trim()))
         {
-            e.Collector = collector;
-            db.SubmitChanges();
-            return e;
+            if (!string.IsNullOrEmpty(collector.Trim()))
+            {
+                e.Collector = collector;
+                db.SubmitChanges();
+                return e;
+            }
         }
 
         return null;
     }
+
+    public static List<Donation> Get(int campaignID)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        //return db.Packs.Where(r => r.CampaignID == campaignID
+        //    && StatusListAllowEnterTestResult().Contains(r.Status)
+        //    && AllowEnterTestResult().Contains(r.TestResultStatus)
+        //    && r.ComponentID == TestDef.Component.Full
+        //    ).ToList();
+        return db.Donations.Where(r => r.CampaignID == campaignID).ToList();
+        
+    }
+
+    //public static List<Pack> GetByCampaign(int campaignID, List<Pack.StatusX> status)
+    //{
+    //    //RedBloodDataContext db = new RedBloodDataContext();
+    //    //return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
+    //    return new List<Pack>();
+
+    //}
 }
