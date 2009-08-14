@@ -17,14 +17,11 @@ public class InfectiousMarker
         //
     }
 
-
-
 }
 
 public class TR
 {
     public string Name { get; set; }
-
 
     public static TR na = new TR() { Name = "na" };
     public static TR neg = new TR() { Name = "neg" };
@@ -39,7 +36,7 @@ public class Value2TR
     public TR Result { get; set; }
 
     public static List<Value2TR> Value2TRTemplate1 = new List<Value2TR>() { 
-            new Value2TR() { Value = 0, Result = TR.na }
+              new Value2TR() { Value = 0, Result = TR.na }
             , new Value2TR() { Value = 1, Result = TR.na }
             , new Value2TR() { Value = 2, Result = TR.na }
             , new Value2TR() { Value = 3, Result = TR.neg }
@@ -51,14 +48,14 @@ public class Value2TR
 
 
     public static List<Value2TR> Value2TRTemplate2 = new List<Value2TR>() { 
-            new Value2TR() { Value = 0, Result = TR.na }
-            , new Value2TR() { Value = 1, Result = TR.na }
-            , new Value2TR() { Value = 2, Result = TR.na }
-            , new Value2TR() { Value = 3, Result = TR.neg }
+              new Value2TR() { Value = 0, Result = TR.na }
+            , new Value2TR() { Value = 1, Result = TR.neg }
+            , new Value2TR() { Value = 2, Result = TR.pos }
+            , new Value2TR() { Value = 3, Result = TR.na }
             , new Value2TR() { Value = 4, Result = TR.neg }
-            , new Value2TR() { Value = 5, Result = TR.neg }
-            , new Value2TR() { Value = 6, Result = TR.pos }
-            , new Value2TR() { Value = 7, Result = TR.pos }
+            , new Value2TR() { Value = 5, Result = TR.pos }
+            , new Value2TR() { Value = 6, Result = TR.na }
+            , new Value2TR() { Value = 7, Result = TR.neg }
             , new Value2TR() { Value = 8, Result = TR.pos } };
 }
 
@@ -68,12 +65,50 @@ public class Infection
     public int Index { get; set; }
     public List<Value2TR> value2TR { get; set; }
 
+    public Infection Coop
+    {
+        get
+        {
+            return Infection.InfectionList.Where(r => r.Index == Index && r.Name != Name).FirstOrDefault();
+        }
+    }
+
+    public TR Decode(InfectiousMarker marker)
+    {
+        if (marker == null
+            || string.IsNullOrEmpty(marker.Code))
+            return null;
+
+        int value = marker.Code.Substring(this.Index, 1).ToInt();
+
+        return this.value2TR.Where(r => r.Value == value).Select(r => r.Result).FirstOrDefault();
+    }
+
+    public string Encode(InfectiousMarker marker, TR result)
+    {
+        if (marker == null || string.IsNullOrEmpty(marker.Code))
+            return null;
+
+        TR coopTR;
+
+        if (Coop == null) return marker.Code;
+        else coopTR = Coop.Decode(marker);
+
+        int value = value2TR.Where(r => r.Result.Name == result.Name)
+            .Join(Coop.value2TR.Where(r => r.Result.Name == coopTR.Name),
+                    r1 => r1.Result.Name,
+                    r2 => r2.Result.Name,
+                    (r1, r2) => r1.Value).FirstOrDefault();
+
+        return marker.Code;
+    }
+
     public static Infection HIV_Ab = new Infection()
-{
-    Name = "HIV_Ab",
-    Index = 1 - 1,
-    value2TR = Value2TR.Value2TRTemplate1
-};
+    {
+        Name = "HIV_Ab",
+        Index = 1 - 1,
+        value2TR = Value2TR.Value2TRTemplate1
+    };
 
     public static Infection HIV_Ag = new Infection()
     {
@@ -199,6 +234,13 @@ public class Infection
         Name = "Malaria",
         Index = 18 - 1,
         value2TR = Value2TR.Value2TRTemplate1
+    };
+
+    public static Infection TBD = new Infection()
+    {
+        Name = "TBD",
+        Index = 18 - 1,
+        value2TR = Value2TR.Value2TRTemplate2
     };
 
     public static List<Infection> InfectionList = new List<Infection>() 
