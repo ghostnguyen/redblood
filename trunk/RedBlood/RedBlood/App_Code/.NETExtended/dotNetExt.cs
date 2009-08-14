@@ -154,6 +154,15 @@ public static class dotNetExt
         }
     }
 
+    public static string Replace(this string s,int index,char c)
+    {
+        string sub = s.Substring(index, 1);
+        
+        if (string.IsNullOrEmpty(sub)) return s;
+
+        return s.Substring(0, index) + c.ToString() + s.Substring(index + 1);
+    }
+
 
 
     #endregion
