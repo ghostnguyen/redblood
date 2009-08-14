@@ -49,13 +49,81 @@ public partial class Donation
         PositiveLocked = 4
     }
 
-    public string TR_HIV
+    public string HIV_Ag_Ab
     {
-        get {
+        get
+        {
             if (string.IsNullOrEmpty(this.InfectiousMarkers))
                 return "";
             else
-                return InfectiousMarkerBLL.DecodeHIV(this.InfectiousMarkers);
-            }
+                return InfectiousMarkerBLL.DecodeHIV_Ag_Ab(this.InfectiousMarkers);
+        }
+        set
+        {
+            this.InfectiousMarkers = 
+        }
     }
+
+    public string HCV_Ab
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(this.InfectiousMarkers))
+                return "";
+            else
+                return InfectiousMarkerBLL.DecodeHCV_Ab(this.InfectiousMarkers);
+        }
+        set
+        {
+
+        }
+    }
+
+    public string HBsAg
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(this.InfectiousMarkers))
+                return "";
+            else
+                return InfectiousMarkerBLL.DecodeHBsAg(this.InfectiousMarkers);
+        }
+        set
+        {
+
+        }
+    }
+
+    public string Syphilis
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(this.InfectiousMarkers))
+                return "";
+            else
+                return InfectiousMarkerBLL.DecodeSyphilis(this.InfectiousMarkers);
+        }
+        set
+        {
+
+        }
+    }
+
+    public string Malaria
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(this.InfectiousMarkers))
+                return "";
+            else
+                return InfectiousMarkerBLL.DecodeMalaria(this.InfectiousMarkers);
+        }
+        set
+        {
+
+        }
+    }
+
+
+
 }
