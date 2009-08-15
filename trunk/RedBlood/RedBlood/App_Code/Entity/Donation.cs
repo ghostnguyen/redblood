@@ -15,6 +15,9 @@ using System.Xml.Linq;
 /// </summary>
 public partial class Donation
 {
+
+    
+
     public enum StatusX : int
     {
         Non = -2,
@@ -49,80 +52,37 @@ public partial class Donation
         PositiveLocked = 4
     }
 
-    public string HIV_Ag_Ab
-    {
+   
+
+    private InfectiousMarker _markers;
+    public InfectiousMarker Markers 
+    { 
         get
         {
-            if (string.IsNullOrEmpty(this.InfectiousMarkers))
-                return "";
-            else
-                return InfectiousMarkerBLL.DecodeHIV_Ag_Ab(this.InfectiousMarkers);
-        }
-        set
-        {
-            this.InfectiousMarkers = 
+            if (_markers == null)
+                _markers = new InfectiousMarker() { donation = this };
+            
+            return _markers;
         }
     }
 
-    public string HCV_Ab
+    partial void OnLoaded()
     {
-        get
-        {
-            if (string.IsNullOrEmpty(this.InfectiousMarkers))
-                return "";
-            else
-                return InfectiousMarkerBLL.DecodeHCV_Ab(this.InfectiousMarkers);
-        }
-        set
-        {
-
-        }
+        Markers.Decode();
+    }
+    
+    partial void OnInfectiousMarkersChanged()
+    {
+        Markers.Decode();
     }
 
-    public string HBsAg
+    partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
-        get
-        {
-            if (string.IsNullOrEmpty(this.InfectiousMarkers))
-                return "";
-            else
-                return InfectiousMarkerBLL.DecodeHBsAg(this.InfectiousMarkers);
-        }
-        set
-        {
-
-        }
+        
+        
     }
 
-    public string Syphilis
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(this.InfectiousMarkers))
-                return "";
-            else
-                return InfectiousMarkerBLL.DecodeSyphilis(this.InfectiousMarkers);
-        }
-        set
-        {
 
-        }
-    }
-
-    public string Malaria
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(this.InfectiousMarkers))
-                return "";
-            else
-                return InfectiousMarkerBLL.DecodeMalaria(this.InfectiousMarkers);
-        }
-        set
-        {
-
-        }
-    }
 
 
 

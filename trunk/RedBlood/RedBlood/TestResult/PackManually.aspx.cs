@@ -68,13 +68,13 @@ public partial class TestResult_PackManually : System.Web.UI.Page
                 e.NewValues["RH.ID"].ToInt(),
                 "");
 
-            PackBLL.Update(db, p, 2,
-                e.NewValues["HIV.ID"].ToInt(),
-                e.NewValues["HCV.ID"].ToInt(),
-                e.NewValues["HBsAg.ID"].ToInt(),
-                 e.NewValues["Syphilis.ID"].ToInt(),
-                e.NewValues["Malaria.ID"].ToInt(),
-                 "");
+            //PackBLL.Update(db, p, 2,
+            //    e.NewValues["HIV.ID"].ToInt(),
+            //    e.NewValues["HCV.ID"].ToInt(),
+            //    e.NewValues["HBsAg.ID"].ToInt(),
+            //     e.NewValues["Syphilis.ID"].ToInt(),
+            //    e.NewValues["Malaria.ID"].ToInt(),
+            //     "");
 
             db.SubmitChanges();
 

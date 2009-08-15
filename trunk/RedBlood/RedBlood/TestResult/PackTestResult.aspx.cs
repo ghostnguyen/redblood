@@ -57,16 +57,15 @@ public partial class PackTestResult : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get(db, (int)e.Keys[0]);
+        Donation p = DonationBLL.Get(db, (string)e.Keys[0]);
 
         if (p != null)
         {
-            PackBLL.Update(db, p, 2,
-               e.NewValues["HIV.ID"].ToInt(),
-               e.NewValues["HCV.ID"].ToInt(),
-               e.NewValues["HBsAg.ID"].ToInt(),
-                e.NewValues["Syphilis.ID"].ToInt(),
-               e.NewValues["Malaria.ID"].ToInt(),
+            DonationBLL.Update(db, p, e.NewValues["Markers.HIV"].ToString(),
+               e.NewValues["Markers.HCV_Ab"].ToString(),
+               e.NewValues["Markers.HBs_Ag"].ToString(),
+                e.NewValues["Markers.Syphilis"].ToString(),
+               e.NewValues["Markers.Malaria"].ToString(),
                 "");
 
             db.SubmitChanges();

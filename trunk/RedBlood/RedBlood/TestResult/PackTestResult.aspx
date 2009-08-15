@@ -63,77 +63,52 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HIV">
                             <ItemTemplate>
-                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("HIV.Name") %>' />
+                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("Markers.HIV") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListHIV" runat="server" DataSourceID="LinqDataSourceHIV"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("HIV.ID") %>'
-                                    AppendDataBoundItems="true">
-                                    <asp:ListItem Text="" Value="" />
+                                <asp:DropDownList ID="DropDownListHIV" runat="server" DataSource='<%# TR.TRList %>'
+                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HIV") %>'>
                                 </asp:DropDownList>
-                                <asp:LinqDataSource ID="LinqDataSourceHIV" runat="server" ContextTypeName="RedBloodDataContext"
-                                    TableName="TestDefs" Where="ParentID == 18">
-                                </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HCV">
+                      <asp:TemplateField HeaderText="HCV">
                             <ItemTemplate>
-                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("HCV.Name") %>' />
+                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListHCV" runat="server" DataSourceID="LinqDataSourceHCV"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("HCV.ID") %>'
-                                    AppendDataBoundItems="true">
-                                    <asp:ListItem Text="" Value="" />
+                                <asp:DropDownList ID="DropDownListHCV" runat="server" DataSource='<%# TR.TRList %>'
+                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HCV_Ab") %>'>
                                 </asp:DropDownList>
-                                <asp:LinqDataSource ID="LinqDataSourceHCV" runat="server" ContextTypeName="RedBloodDataContext"
-                                    TableName="TestDefs" Where="ParentID == 15">
-                                </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HBsAg">
+                        <asp:TemplateField HeaderText="HBs_Ag">
                             <ItemTemplate>
-                                <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("HBsAg.Name") %>' />
+                                <asp:Label ID="lblHBs_Ag" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListHBsAg" runat="server" DataSourceID="LinqDataSourceHBsAg"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("HBsAg.ID") %>'
-                                    AppendDataBoundItems="true">
-                                    <asp:ListItem Text="" Value="" />
+                                <asp:DropDownList ID="DropDownListHBs_Ag" runat="server" DataSource='<%# TR.TRList %>'
+                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HBs_Ag") %>'>
                                 </asp:DropDownList>
-                                <asp:LinqDataSource ID="LinqDataSourceHBsAg" runat="server" ContextTypeName="RedBloodDataContext"
-                                    TableName="TestDefs" Where="ParentID == 12">
-                                </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Syphilis">
                             <ItemTemplate>
-                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Syphilis.Name") %>' />
+                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Markers.Syphilis") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListSyphilis" runat="server" DataSourceID="LinqDataSourceSyphilis"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("Syphilis.ID") %>'
-                                    AppendDataBoundItems="true">
-                                    <asp:ListItem Text="" Value="" />
+                                <asp:DropDownList ID="DropDownListSyphilis" runat="server" DataSource='<%# TR.TRList %>'
+                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.Syphilis") %>'>
                                 </asp:DropDownList>
-                                <asp:LinqDataSource ID="LinqDataSourceSyphilis" runat="server" ContextTypeName="RedBloodDataContext"
-                                    TableName="TestDefs" Where="ParentID == 9">
-                                </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Malaria">
                             <ItemTemplate>
-                                <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Malaria.Name") %>' />
+                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("Markers.Malaria") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListMalaria" runat="server" DataSourceID="LinqDataSourceMalaria"
-                                    DataTextField="Name" DataValueField="ID" SelectedValue='<%# Bind("Malaria.ID") %>'
-                                    AppendDataBoundItems="true">
-                                    <asp:ListItem Text="" Value="" />
+                                <asp:DropDownList ID="DropDownListMalaria" runat="server" DataSource='<%# TR.TRList %>'
+                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.Malaria") %>'>
                                 </asp:DropDownList>
-                                <asp:LinqDataSource ID="LinqDataSourceMalaria" runat="server" ContextTypeName="RedBloodDataContext"
-                                    TableName="TestDefs" Where="ParentID == 21">
-                                </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu"
@@ -150,7 +125,7 @@
         <tr>
             <td>
                 <hr />
-               <%-- <uc:DeletePack runat="server" ID="DeletePack1" />--%>
+                <%-- <uc:DeletePack runat="server" ID="DeletePack1" />--%>
             </td>
         </tr>
     </table>

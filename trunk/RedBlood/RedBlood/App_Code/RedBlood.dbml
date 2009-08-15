@@ -444,6 +444,7 @@
       <Column Name="Collector" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Donation_DonationStatusLog" Member="DonationStatusLogs" ThisKey="DIN" OtherKey="DIN" Type="DonationStatusLog" />
       <Association Name="Donation_Pack" Member="Packs" ThisKey="DIN" OtherKey="DIN" Type="Pack" />
+      <Association Name="Donation_DonationTestHistory" Member="DonationTestHistories" ThisKey="DIN" OtherKey="DIN" Type="DonationTestHistory" />
       <Association Name="Pack_Donation" Member="Pack" ThisKey="OrgPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
       <Association Name="People_Donation" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
       <Association Name="ST_General_Donation" Member="ST_General" ThisKey="ST010Code" OtherKey="Code" Type="ST_General" IsForeignKey="true" />
@@ -461,6 +462,18 @@
       <Column Name="StoredTemperature" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="AdditiveSolution" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Product_Pack" Member="Packs" ThisKey="Code" OtherKey="ProductCode" Type="Pack" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DonationTestHistory" Member="DonationTestHistories">
+    <Type Name="DonationTestHistory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ResultType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Donation_DonationTestHistory" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

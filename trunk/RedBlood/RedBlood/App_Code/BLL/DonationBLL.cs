@@ -15,6 +15,20 @@ public class DonationBLL
         //
     }
 
+    public static bool IsTRLocked(Donation e)
+    {
+        return !(new Donation.TestResultStatusX[] { Donation.TestResultStatusX.Non, 
+            Donation.TestResultStatusX.Negative, 
+            Donation.TestResultStatusX.Positive}).Contains(e.TestResultStatus);
+    }
+
+    public static bool CanUpdateTestResult(Donation e)
+    {
+        return e.Pack != null
+            //Need TR product: && ComponentID == TestDef.Component.Full
+            && !IsTRLocked(e);
+    }
+
     public static List<Donation> New(RedBloodDataContext db, int count)
     {
         Facility f = FacilityBLL.GetFirst(db);
@@ -29,6 +43,8 @@ public class DonationBLL
             autonum++;
             l[i].DIN = f.FIN + f.CountingYY + autonum.ToString("D6");
             l[i].Status = Donation.StatusX.Init;
+            l[i].InfectiousMarkers = 0.ToString("D" + BarcodeBLL.InfectiousMarkersLength.ToString());
+
         }
 
         f.CountingNumber = autonum;
@@ -133,6 +149,31 @@ public class DonationBLL
         return null;
     }
 
+    public static DonationErr Update(RedBloodDataContext db, Donation e,
+       string HIV, string HCV_Ab, string HBs_Ag, string Syphilis, string Malaria,
+        string note)
+    {
+        if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
+
+        string old = e.InfectiousMarkers;
+
+        e.Markers.HIV = TR.GetDefault(HIV).Name;
+        e.Markers.HCV_Ab = TR.GetDefault(HCV_Ab).Name;
+        e.Markers.HBs_Ag = TR.GetDefault(HBs_Ag).Name;
+        e.Markers.Syphilis = TR.GetDefault(Syphilis).Name;
+        e.Markers.Malaria = TR.GetDefault(Malaria).Name;
+
+        if (old != e.InfectiousMarkers)
+        {
+            //Keep track
+            //PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
+            DonationTestHistoryBLL.Insert(db, e, typeof(InfectiousMarker), note);
+
+        }
+
+        return DonationErrEnum.Non;
+    }
+
     public static List<Donation> Get(int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -142,7 +183,7 @@ public class DonationBLL
         //    && r.ComponentID == TestDef.Component.Full
         //    ).ToList();
         return db.Donations.Where(r => r.CampaignID == campaignID).ToList();
-        
+
     }
 
     //public static List<Pack> GetByCampaign(int campaignID, List<Pack.StatusX> status)
