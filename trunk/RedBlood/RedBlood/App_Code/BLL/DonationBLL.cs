@@ -167,8 +167,7 @@ public class DonationBLL
         {
             //Keep track
             //PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
-            DonationTestHistoryBLL.Insert(db, e, typeof(InfectiousMarker), note);
-
+            DonationTestLogBLL.Insert(db, e, typeof(InfectiousMarker), note);
         }
 
         return DonationErrEnum.Non;

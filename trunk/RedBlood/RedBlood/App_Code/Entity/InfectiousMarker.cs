@@ -38,6 +38,12 @@ public class InfectiousMarker
         //
     }
 
+    public override string ToString()
+    {
+        return Code;
+        //return base.ToString();
+    }
+
     private string _HIV;
     public string HIV
     {

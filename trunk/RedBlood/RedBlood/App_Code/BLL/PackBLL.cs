@@ -77,6 +77,12 @@ public class PackBLL
         }
     }
 
+    public static Pack Get(string DIN, string productCode)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).FirstOrDefault();
+    }
+
     public static Pack Get(int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -1139,10 +1145,7 @@ public class PackBLL
 
         db.SubmitChanges();
 
-
-
         return PackErrEnum.Non;
-
     }
 }
 
