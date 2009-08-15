@@ -689,7 +689,7 @@ public class PackBLL
 
     public static PackErr Update(RedBloodDataContext db, Pack p, int times, int ABOID, int RhID, string note)
     {
-        if (p == null || !p.CanUpdateTestResult) return PackErrEnum.NonExist;
+        //if (p == null || !p.CanUpdateTestResult) return PackErrEnum.NonExist;
 
         //if (p.ABOID != ABOID)
         //{
@@ -706,44 +706,44 @@ public class PackBLL
         return PackErrEnum.Non;
     }
 
-    public static PackErr Update(RedBloodDataContext db, Pack p, int times,
-       int HIVID, int HCVID, int HBsAgID, int SyphilisID, int MalariaID,
-        string note)
-    {
-        if (p == null || !p.CanUpdateTestResult) return PackErrEnum.NonExist;
+    //public static PackErr Update(RedBloodDataContext db, Pack p, int times,
+    //   int HIVID, int HCVID, int HBsAgID, int SyphilisID, int MalariaID,
+    //    string note)
+    //{
+    //    if (p == null || !p.CanUpdateTestResult) return PackErrEnum.NonExist;
 
-        //if (p.HCVID != HIVID)
-        //{
-        //    p.HIV = TestDefBLL.Get(db, HIVID);
-        //    PackResultHistoryBLL.Insert(db, p, HIVID, times, RedBloodSystem.CurrentActor, note);
-        //}
+    //    //if (p.HCVID != HIVID)
+    //    //{
+    //    //    p.HIV = TestDefBLL.Get(db, HIVID);
+    //    //    PackResultHistoryBLL.Insert(db, p, HIVID, times, RedBloodSystem.CurrentActor, note);
+    //    //}
 
-        //if (p.HCVID != HCVID)
-        //{
-        //    p.HCV = TestDefBLL.Get(db, HCVID);
-        //    PackResultHistoryBLL.Insert(db, p, HCVID, times, RedBloodSystem.CurrentActor, note);
-        //}
+    //    //if (p.HCVID != HCVID)
+    //    //{
+    //    //    p.HCV = TestDefBLL.Get(db, HCVID);
+    //    //    PackResultHistoryBLL.Insert(db, p, HCVID, times, RedBloodSystem.CurrentActor, note);
+    //    //}
 
-        //if (p.HBsAgID != HBsAgID)
-        //{
-        //    p.HBsAg = TestDefBLL.Get(db, HBsAgID);
-        //    PackResultHistoryBLL.Insert(db, p, HBsAgID, times, RedBloodSystem.CurrentActor, note);
-        //}
+    //    //if (p.HBsAgID != HBsAgID)
+    //    //{
+    //    //    p.HBsAg = TestDefBLL.Get(db, HBsAgID);
+    //    //    PackResultHistoryBLL.Insert(db, p, HBsAgID, times, RedBloodSystem.CurrentActor, note);
+    //    //}
 
-        //if (p.SyphilisID != SyphilisID)
-        //{
-        //    p.Syphilis = TestDefBLL.Get(db, SyphilisID);
-        //    PackResultHistoryBLL.Insert(db, p, SyphilisID, times, RedBloodSystem.CurrentActor, note);
-        //}
+    //    //if (p.SyphilisID != SyphilisID)
+    //    //{
+    //    //    p.Syphilis = TestDefBLL.Get(db, SyphilisID);
+    //    //    PackResultHistoryBLL.Insert(db, p, SyphilisID, times, RedBloodSystem.CurrentActor, note);
+    //    //}
 
-        //if (p.MalariaID != MalariaID)
-        //{
-        //    p.Malaria = TestDefBLL.Get(db, MalariaID);
-        //    PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
-        //}
+    //    //if (p.MalariaID != MalariaID)
+    //    //{
+    //    //    p.Malaria = TestDefBLL.Get(db, MalariaID);
+    //    //    PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
+    //    //}
 
-        return PackErrEnum.Non;
-    }
+    //    return PackErrEnum.Non;
+    //}
 
     public void Update(string collector, List<int> autonumList)
     {

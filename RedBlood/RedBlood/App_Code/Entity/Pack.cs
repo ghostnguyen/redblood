@@ -127,16 +127,16 @@ public partial class Pack
     //    }
     //}
 
-    public bool CanUpdateTestResult
-    {
-        get
-        {
-            //return ComponentID != null
-            //    && ComponentID == TestDef.Component.Full
-            //    && PackBLL.AllowEnterTestResult().Contains(TestResultStatus);
-            return false;
-        }
-    }
+    //public bool CanUpdateTestResult
+    //{
+    //    get
+    //    {
+    //        //return ComponentID != null
+    //        //    && ComponentID == TestDef.Component.Full
+    //        //    && PackBLL.AllowEnterTestResult().Contains(TestResultStatus);
+    //        return false;
+    //    }
+    //}
 
     public string Code
     {

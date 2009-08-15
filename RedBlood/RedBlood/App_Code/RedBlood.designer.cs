@@ -116,6 +116,9 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertProduct(Product instance);
   partial void UpdateProduct(Product instance);
   partial void DeleteProduct(Product instance);
+  partial void InsertDonationTestHistory(DonationTestHistory instance);
+  partial void UpdateDonationTestHistory(DonationTestHistory instance);
+  partial void DeleteDonationTestHistory(DonationTestHistory instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -377,6 +380,14 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Product>();
+		}
+	}
+	
+	public System.Data.Linq.Table<DonationTestHistory> DonationTestHistories
+	{
+		get
+		{
+			return this.GetTable<DonationTestHistory>();
 		}
 	}
 }
@@ -9644,6 +9655,8 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<Pack> _Packs;
 	
+	private EntitySet<DonationTestHistory> _DonationTestHistories;
+	
 	private EntityRef<Pack> _Pack;
 	
 	private EntityRef<People> _People;
@@ -9708,6 +9721,7 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this._DonationStatusLogs = new EntitySet<DonationStatusLog>(new Action<DonationStatusLog>(this.attach_DonationStatusLogs), new Action<DonationStatusLog>(this.detach_DonationStatusLogs));
 		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
+		this._DonationTestHistories = new EntitySet<DonationTestHistory>(new Action<DonationTestHistory>(this.attach_DonationTestHistories), new Action<DonationTestHistory>(this.detach_DonationTestHistories));
 		this._Pack = default(EntityRef<Pack>);
 		this._People = default(EntityRef<People>);
 		this._ST_General = default(EntityRef<ST_General>);
@@ -10217,6 +10231,19 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="Donation_DonationTestHistory", Storage="_DonationTestHistories", ThisKey="DIN", OtherKey="DIN")]
+	public EntitySet<DonationTestHistory> DonationTestHistories
+	{
+		get
+		{
+			return this._DonationTestHistories;
+		}
+		set
+		{
+			this._DonationTestHistories.Assign(value);
+		}
+	}
+	
 	[Association(Name="Pack_Donation", Storage="_Pack", ThisKey="OrgPackID", OtherKey="ID", IsForeignKey=true)]
 	public Pack Pack
 	{
@@ -10392,6 +10419,18 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_Packs(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Donation = null;
+	}
+	
+	private void attach_DonationTestHistories(DonationTestHistory entity)
+	{
+		this.SendPropertyChanging();
+		entity.Donation = this;
+	}
+	
+	private void detach_DonationTestHistories(DonationTestHistory entity)
 	{
 		this.SendPropertyChanging();
 		entity.Donation = null;
@@ -10653,6 +10692,253 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Product = null;
+	}
+}
+
+[Table(Name="dbo.DonationTestHistory")]
+public partial class DonationTestHistory : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private string _DIN;
+	
+	private string _ResultType;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private string _Actor;
+	
+	private string _Note;
+	
+	private string _Value;
+	
+	private EntityRef<Donation> _Donation;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnDINChanging(string value);
+    partial void OnDINChanged();
+    partial void OnResultTypeChanging(string value);
+    partial void OnResultTypeChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnActorChanging(string value);
+    partial void OnActorChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    partial void OnValueChanging(string value);
+    partial void OnValueChanged();
+    #endregion
+	
+	public DonationTestHistory()
+	{
+		this._Donation = default(EntityRef<Donation>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_DIN", DbType="NVarChar(50)")]
+	public string DIN
+	{
+		get
+		{
+			return this._DIN;
+		}
+		set
+		{
+			if ((this._DIN != value))
+			{
+				if (this._Donation.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnDINChanging(value);
+				this.SendPropertyChanging();
+				this._DIN = value;
+				this.SendPropertyChanged("DIN");
+				this.OnDINChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ResultType", DbType="NVarChar(MAX)")]
+	public string ResultType
+	{
+		get
+		{
+			return this._ResultType;
+		}
+		set
+		{
+			if ((this._ResultType != value))
+			{
+				this.OnResultTypeChanging(value);
+				this.SendPropertyChanging();
+				this._ResultType = value;
+				this.SendPropertyChanged("ResultType");
+				this.OnResultTypeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
+	public string Actor
+	{
+		get
+		{
+			return this._Actor;
+		}
+		set
+		{
+			if ((this._Actor != value))
+			{
+				this.OnActorChanging(value);
+				this.SendPropertyChanging();
+				this._Actor = value;
+				this.SendPropertyChanged("Actor");
+				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Value", DbType="NVarChar(MAX)")]
+	public string Value
+	{
+		get
+		{
+			return this._Value;
+		}
+		set
+		{
+			if ((this._Value != value))
+			{
+				this.OnValueChanging(value);
+				this.SendPropertyChanging();
+				this._Value = value;
+				this.SendPropertyChanged("Value");
+				this.OnValueChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Donation_DonationTestHistory", Storage="_Donation", ThisKey="DIN", OtherKey="DIN", IsForeignKey=true)]
+	public Donation Donation
+	{
+		get
+		{
+			return this._Donation.Entity;
+		}
+		set
+		{
+			Donation previousValue = this._Donation.Entity;
+			if (((previousValue != value) 
+						|| (this._Donation.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Donation.Entity = null;
+					previousValue.DonationTestHistories.Remove(this);
+				}
+				this._Donation.Entity = value;
+				if ((value != null))
+				{
+					value.DonationTestHistories.Add(this);
+					this._DIN = value.DIN;
+				}
+				else
+				{
+					this._DIN = default(string);
+				}
+				this.SendPropertyChanged("Donation");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
 #pragma warning restore 1591

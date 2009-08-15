@@ -8,7 +8,28 @@ using System.Web;
 /// </summary>
 public class InfectiousMarker
 {
-    public string Code { get; set; }
+    public Donation donation { get; set; }
+    
+    public string Code
+    {
+        get
+        {
+            return donation.InfectiousMarkers;
+        }
+        private set
+        {
+            donation.InfectiousMarkers = value;
+        }
+    }
+
+    public void Decode()
+    {
+        _HIV = Infection.HIV_Ab.Decode(this);
+        _HCV_Ab = Infection.HCV_Ab.Decode(this);
+        _HBs_Ag = Infection.HBs_Ag.Decode(this);
+        _Syphilis = Infection.Syphilis.Decode(this);
+        _Malaria = Infection.Malaria.Decode(this);
+    }
 
     public InfectiousMarker()
     {
@@ -17,6 +38,71 @@ public class InfectiousMarker
         //
     }
 
+    private string _HIV;
+    public string HIV
+    {
+        get
+        {
+            return _HIV;
+        }
+        set
+        {
+            Code = Infection.HIV_Ab.Encode(this, value);
+            Code = Infection.HIV_Ag.Encode(this, value);
+        }
+    }
+
+    private string _HCV_Ab;
+    public string HCV_Ab
+    {
+        get
+        {
+            return _HCV_Ab;
+        }
+        set
+        {
+            Code = Infection.HCV_Ab.Encode(this, value);
+        }
+    }
+
+    private string _HBs_Ag;
+    public string HBs_Ag
+    {
+        get
+        {
+            return _HBs_Ag;
+        }
+        set
+        {
+            Code = Infection.HBs_Ag.Encode(this, value);
+        }
+    }
+
+    private string _Syphilis;
+    public string Syphilis
+    {
+        get
+        {
+            return _Syphilis;
+        }
+        set
+        {
+            Code = Infection.Syphilis.Encode(this, value);
+        }
+    }
+
+    private string _Malaria;
+    public string Malaria
+    {
+        get
+        {
+            return _Malaria;
+        }
+        set
+        {
+            Code = Infection.Malaria.Encode(this, value);
+        }
+    }
 }
 
 public class TR
@@ -28,6 +114,13 @@ public class TR
     public static TR pos = new TR() { Name = "pos" };
 
     public static List<TR> TRList = new List<TR>() { na, neg, pos };
+
+    public static TR GetDefault(string name)
+    {
+        TR tr = TRList.Where(r => r.Name == name.Trim()).FirstOrDefault();
+
+        return tr == null ? na : tr;
+    }
 }
 
 public class Value2TR
@@ -73,7 +166,7 @@ public class Infection
         }
     }
 
-    public TR Decode(InfectiousMarker marker)
+    public string Decode(InfectiousMarker marker)
     {
         if (marker == null
             || string.IsNullOrEmpty(marker.Code))
@@ -81,7 +174,18 @@ public class Infection
 
         int value = marker.Code.Substring(this.Index, 1).ToInt();
 
-        return this.value2TR.Where(r => r.Value == value).Select(r => r.Result).FirstOrDefault();
+        return this.value2TR.Where(r => r.Value == value).Select(r => r.Result.Name).FirstOrDefault();
+    }
+
+    public string Encode(InfectiousMarker marker, string resultName)
+    {
+        if (marker == null || string.IsNullOrEmpty(marker.Code))
+            return null;
+
+        TR tr = TR.TRList.Where(r => r.Name == resultName).FirstOrDefault();
+
+        if (tr == null) return marker.Code;
+        else return Encode(marker, tr);
     }
 
     public string Encode(InfectiousMarker marker, TR result)
@@ -89,18 +193,17 @@ public class Infection
         if (marker == null || string.IsNullOrEmpty(marker.Code))
             return null;
 
-        TR coopTR;
-
         if (Coop == null) return marker.Code;
-        else coopTR = Coop.Decode(marker);
+
+        string coopTRName = Coop.Decode(marker);
 
         int value = value2TR.Where(r => r.Result.Name == result.Name)
-            .Join(Coop.value2TR.Where(r => r.Result.Name == coopTR.Name),
-                    r1 => r1.Result.Name,
-                    r2 => r2.Result.Name,
+            .Join(Coop.value2TR.Where(r => r.Result.Name == coopTRName),
+                    r1 => r1.Value,
+                    r2 => r2.Value,
                     (r1, r2) => r1.Value).FirstOrDefault();
 
-        return marker.Code;
+        return marker.Code.Substring(0, Index) + value.ToString() + marker.Code.Substring(Index + 1);
     }
 
     public static Infection HIV_Ab = new Infection()
@@ -254,7 +357,7 @@ public class Infection
         CMV_Gen,EBV_Gen,
         WNV,ParvoB19_Ab,
         ParvoB19_Gen,Chagas,
-        Malaria
+        Malaria,TBD
     };
 
 }
