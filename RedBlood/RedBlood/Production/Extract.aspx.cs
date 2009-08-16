@@ -7,163 +7,174 @@ using System.Web.UI.WebControls;
 
 public partial class Production_Extract : System.Web.UI.Page
 {
-    public int Autonum
+    public List<string> ProductCodeList
     {
         get
         {
-            if (ViewState["Autonum"] == null)
+            if (ViewState["ProductCodeList"] == null)
             {
-                return 0;
+                ViewState["ProductCodeList"] = new List<string>();
             }
-            return (int)ViewState["Autonum"];
+            return (List<string>)ViewState["ProductCodeList"];
         }
         set
         {
-            ViewState["Autonum"] = value;
+            ViewState["ProductCodeList"] = value;
         }
     }
 
-    string style_non = "";
-    string style_select = "border:ridge 5px red";
+    public List<Guid> PackInList
+    {
+        get
+        {
+            if (ViewState["PackInList"] == null)
+            {
+                ViewState["PackInList"] = new List<Guid>();
+            }
+            return (List<Guid>)ViewState["PackInList"];
+        }
+        set
+        {
+            ViewState["PackInList"] = value;
+        }
+    }
+
+    public string DIN
+    {
+        get
+        {
+            if (ViewState["DIN"] == null)
+            {
+                ViewState["DIN"] = "";
+            }
+            return (string)ViewState["DIN"];
+        }
+        set
+        {
+            ViewState["DIN"] = value;
+        }
+    }
+
+    public string Code
+    {
+        get
+        {
+            if (ViewState["Code"] == null)
+            {
+                ViewState["Code"] = "";
+            }
+            return (string)ViewState["Code"];
+        }
+        set
+        {
+            ViewState["Code"] = value;
+        }
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!IsPostBack)
-        //{
-        //}
+        string code = Master.TextBoxCode.Text.Trim();
+        Master.TextBoxCode.Text = "";
 
-        //string code = Master.TextBoxCode.Text.Trim();
-        //Master.TextBoxCode.Text = "";
+        if (code.Length == 0) return;
 
-        //if (code.Length == 0) return;
+        if (BarcodeBLL.IsValidDINCode(code))
+        {
+            if (RadioButtonList1.SelectedValue.ToInt() == 2)
+            {
+                Donation d = DonationBLL.Get(BarcodeBLL.ParseDIN(code));
+                if (d == null) return;
 
-        //if (BarcodeBLL.IsValidPackCode(code))
-        //{
-        //    Autonum = BarcodeBLL.ParsePackAutoNum(code);
-        //    LoadAutonum();
-        //}
+                RedBloodDataContext db = new RedBloodDataContext();
+
+                if (db.Packs.Where(r => r.DIN == d.DIN && ProductCodeList.Contains(r.ProductCode)).Count() > 0)
+                    return;
+                
+                if (db.Packs.Where(r => r.DIN == d.DIN && PackInList.Contains(r.ID)).Count() > 0)
+                    return;
+                
+                DIN = d.DIN;
+
+                ImageCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(DIN, "00");
+            }
+        }
+        else if (BarcodeBLL.IsValidProductCode(code))
+        {
+            if (RadioButtonList1.SelectedValue.ToInt() == 1)
+            {
+                EnterProductCode(BarcodeBLL.ParseProductCode(code));
+            }
+            if (RadioButtonList1.SelectedValue.ToInt() == 2)
+            {
+                EnterProductCode2(BarcodeBLL.ParseProductCode(code));
+            }
+        }
     }
 
-    void Clear()
+    private void Clear()
     {
-        CheckBoxListExtractTo.Items.Clear();
-
-        DataListFull.DataSource = null;
-        DataListFull.DataBind();
-
-        DataListRBC.DataSource = null;
-        DataListRBC.DataBind();
-
-        DataListWBC.DataSource = null;
-        DataListWBC.DataBind();
-
-        DataListFFPlasma_Poor.DataSource = null;
-        DataListFFPlasma_Poor.DataBind();
-
-        DataListFFPlasma.DataSource = null;
-        DataListFFPlasma.DataBind();
-
-        DataListPlatelet.DataSource = null;
-        DataListPlatelet.DataBind();
-
-        DataListFactorVIII.DataSource = null;
-        DataListFactorVIII.DataBind();
-
-        DataListFFPlasma_Poor2.DataSource = null;
-        DataListFFPlasma_Poor2.DataBind();
-
-        divExtract.Visible = false;
-    }
-
-    void LoadAutonum()
-    {
-        Pack p = PackBLL.Get4Extract(Autonum);
-
-        if (p == null
-            ||
-            (p.Err != PackErrEnum.Valid4Extract
-            && p.Err != PackErrEnum.Extracted))
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum: " + p.Err.Message + "');", true);
-            return;
-        }
-
-        Clear();
-
-        CheckBoxListExtractTo.DataSource = TestDefBLL.Get(p.CanExtractToList);
-        CheckBoxListExtractTo.DataBind();
-        if (p.CanExtractToList.Count > 0)
-        {
-            divExtract.Visible = true;
-        }
-
-        List<Pack> l = p.RelatedPack;
-
-        DataListFull.DataSource = new List<Pack> { p };
-        DataListFull.DataBind();
-
-        //DataListRBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.RBC);
-        //DataListRBC.DataBind();
-
-        //DataListFFPlasma.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma);
-        //DataListFFPlasma.DataBind();
-
-        //DataListFFPlasma_Poor.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor
-        //    && r.SourcePacks.Select(s => s.ComponentID).Contains(TestDef.Component.Full));
-        //DataListFFPlasma_Poor.DataBind();
-
-        //DataListWBC.DataSource = l.Where(r => r.ComponentID == TestDef.Component.WBC);
-        //DataListWBC.DataBind();
-
-        //DataListPlatelet.DataSource = l.Where(r => r.ComponentID == TestDef.Component.Platelet);
-        //DataListPlatelet.DataBind();
-
-        //DataListFactorVIII.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FactorVIII);
-        //DataListFactorVIII.DataBind();
-
-        //DataListFFPlasma_Poor2.DataSource = l.Where(r => r.ComponentID == TestDef.Component.FFPlasma_Poor
-        //    && r.SourcePacks.Select(s => s.ComponentID).Contains(TestDef.Component.FFPlasma));
-        //DataListFFPlasma_Poor2.DataBind();
-
-        Highlight_Div(p);
-    }
-
-    protected void btnExtract_Click(object sender, EventArgs e)
-    {
-        List<int> l = new List<int>();
-
-        foreach (ListItem item in CheckBoxListExtractTo.Items)
-        {
-            if (item.Selected)
-                l.Add(item.Value.ToInt());
-        }
-
-        if (l.Contains(TestDef.Component.FFPlasma)
-            && l.Contains(TestDef.Component.FFPlasma_Poor))
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Chỉ được chọn 1 trong 2 loại huyết tương.');", true);
-            return;
-        }
-
-        PackErr err = PackBLL.Extract(Autonum, l);
-
-        if (err == PackErrEnum.Non)
-        {
-            LoadAutonum();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);
-        }
-        else
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
 
     }
 
-    void Highlight_Div(Pack p)
+    void EnterProductCode(string productCode)
     {
-        //if (p.ComponentID == TestDef.Component.Full)
-        //{
-        //    divFull.Attributes.CssStyle.Add("border", "groove white");
-        //}
-        //else
-        //    divFull.Attributes.CssStyle.Add("border", "");
+        if (!ProductCodeList.Contains(productCode))
+        {
+            Product e = ProductBLL.Get(productCode);
+            if (e == null) return;
+
+            ProductCodeList.Add(productCode);
+            DataListProduct.DataBind();
+        }
+    }
+
+    void EnterProductCode2(string code)
+    {
+        if (string.IsNullOrEmpty(DIN)) return;
+
+        if (ProductCodeList.Contains(code)) return;
+
+        Pack p = PackBLL.Get(DIN, code);
+
+        if (p == null) return;
+
+        if (PackInList.Contains(p.ID)) return;
+
+        PackInList.Add(p.ID);
+
+        DIN = "";
+        ImageCurrentDIN.ImageUrl = "none";
+
+        DataListPack.DataBind();
+    }
+
+
+    protected void LinqDataSourceProduct_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        e.Result = db.Products.Where(r => ProductCodeList.Contains(r.Code));
+    }
+
+    protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        e.Result = db.Packs.Where(r => PackInList.Contains(r.ID));
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        DIN = "";
+        ImageCurrentDIN.ImageUrl = "none";
+
+        ProductCodeList.Clear();
+        DataListProduct.DataBind();
+
+        PackInList.Clear();
+        DataListPack.DataBind();
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        PackBLL.Extract(PackInList, ProductCodeList);
     }
 }
