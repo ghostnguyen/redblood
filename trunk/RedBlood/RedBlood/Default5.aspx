@@ -9,11 +9,11 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("/RedBlood/Production/ExtractInList.aspx");
+            window.location = ("/RedBlood/Production/Extract.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/Production/ExtractFFPlasmaInList.aspx");
+            window.location = ("/RedBlood/Production/Devide.aspx");
 
         });
 
@@ -21,14 +21,14 @@
         //            window.location = ("/RedBlood/Production/Extract.aspx");
         //        });
 
-        $(document).bind('keydown', '4', function() {
+//        $(document).bind('keydown', '4', function() {
 
-            window.location = ("/RedBlood/Production/UpdateSubstance.aspx");
-        });
+//            window.location = ("/RedBlood/Production/UpdateSubstance.aspx");
+//        });
 
-        $(document).bind('keydown', '5', function() {
-            window.location = ("/RedBlood/Production/Extract.aspx");
-        });
+//        $(document).bind('keydown', '5', function() {
+//            window.location = ("/RedBlood/Production/Extract.aspx");
+//        });
     </script>
 
     <table width="100%">
@@ -41,13 +41,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Production/ExtractInList.aspx">
+                                        <a href="/RedBlood/Production/Extract.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Production/ExtractInList.aspx">Sản xuất máu toàn phần</a>
+                                            <a href="/RedBlood/Production/Extract.aspx">Sản xuất</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -57,13 +57,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Production/ExtractFFPlasmaInList.aspx">
+                                        <a href="/RedBlood/Production/Divide.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Production/ExtractFFPlasmaInList.aspx">Sản xuất huyết tương tươi</a>
+                                            <a href="/RedBlood/Production/Divide.aspx">Chia túi</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="/RedBlood/Production/UpdateSubstance.aspx">
@@ -105,10 +105,10 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="/RedBlood/Production/Extract.aspx">
@@ -121,7 +121,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <%--<table>

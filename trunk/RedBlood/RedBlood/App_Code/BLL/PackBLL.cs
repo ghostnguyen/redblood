@@ -852,61 +852,102 @@ public class PackBLL
         db.SubmitChanges();
     }
 
-    public static PackErr Extract(List<int> autonumList, List<int> to)
+    public static PackStatusHistory Update(Pack p, Pack.StatusX to, string note)
     {
-        foreach (int item in autonumList)
-        {
-            Extract(item, to);
-        }
+        if (p.Status == to) return null;
 
-        return PackErrEnum.Non;
+        PackStatusHistory e = new PackStatusHistory();
+
+        e.PackID = p.ID;
+        e.FromStatus = p.Status;
+        e.ToStatus = to;
+        e.Actor = RedBloodSystem.CurrentActor;
+        e.Note = note;
+        e.Date = DateTime.Now;
+
+        p.Status = to;
+        return e;
     }
 
-    public static PackErr Extract(int autonum, List<int> to)
+    //public static PackErr Extract(List<int> autonumList, List<int> to)
+    //{
+    //    foreach (int item in autonumList)
+    //    {
+    //        Extract(item, to);
+    //    }
+
+    //    return PackErrEnum.Non;
+    //}
+
+
+
+    //public static PackErr Extract(int autonum, List<int> to)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
+
+    //    Pack p = Get4Extract(db, autonum);
+
+    //    int count = 0;
+    //    foreach (int item in p.CanExtractToList.Join(to, r => r, t => t, (r, t) => r))
+    //    {
+    //        //Extract
+    //        //Pack extractP = PackBLL.New(db, 1).First();
+    //        Pack extractP = new Pack();
+    //        if (extractP == null) return PackErrEnum.DataErr;
+
+    //        db.SubmitChanges();
+
+    //        //extractP.Component = TestDefBLL.Get(db, item);
+    //        //extractP.Actor = RedBloodSystem.CurrentActor;
+    //        //extractP.CollectedDate = DateTime.Now;
+
+    //        //PackStatusHistory h = ChangeStatus(db, extractP, Pack.StatusX.Product, "Extract");
+
+    //        PackExtract pe = new PackExtract();
+    //        pe.SourcePackID = p.ID;
+    //        pe.ExtractPackID = extractP.ID;
+    //        db.PackExtracts.InsertOnSubmit(pe);
+
+    //        UpdateExpiredDate(extractP);
+
+    //        count++;
+    //    }
+
+    //    if (count > 0)
+    //    {
+    //        //PackStatusHistory hi = ChangeStatus(db, p, Pack.StatusX.Produced, "Extract");
+
+    //        //db.SubmitChanges();
+
+    //        //PackBLL.UpdateTestResultStatus4Extracts(p.Autonum);
+    //        return PackErrEnum.Non;
+    //    }
+    //    else
+    //    {
+    //        return PackErrEnum.DataErr;
+    //    }
+    //}
+
+    public static PackErr Extract(List<Guid> packIDList, List<string> productCodeList)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get4Extract(db, autonum);
+        List<Pack> packList = db.Packs.Where(r => packIDList.Contains(r.ID)).ToList();
 
-        int count = 0;
-        foreach (int item in p.CanExtractToList.Join(to, r => r, t => t, (r, t) => r))
+        foreach (Pack item in packList)
         {
-            //Extract
-            //Pack extractP = PackBLL.New(db, 1).First();
-            Pack extractP = new Pack();
-            if (extractP == null) return PackErrEnum.DataErr;
+            foreach (string code in productCodeList)
+            {
+                PackBLL.Create(item.DIN, code, 0);
+            }
+
+            PackStatusHistory h = Update(item, Pack.StatusX.Produced, "");
+            if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
 
             db.SubmitChanges();
-
-            //extractP.Component = TestDefBLL.Get(db, item);
-            //extractP.Actor = RedBloodSystem.CurrentActor;
-            //extractP.CollectedDate = DateTime.Now;
-
-            //PackStatusHistory h = ChangeStatus(db, extractP, Pack.StatusX.Product, "Extract");
-
-            PackExtract pe = new PackExtract();
-            pe.SourcePackID = p.ID;
-            pe.ExtractPackID = extractP.ID;
-            db.PackExtracts.InsertOnSubmit(pe);
-
-            UpdateExpiredDate(extractP);
-
-            count++;
         }
 
-        if (count > 0)
-        {
-            //PackStatusHistory hi = ChangeStatus(db, p, Pack.StatusX.Produced, "Extract");
-
-            //db.SubmitChanges();
-
-            //PackBLL.UpdateTestResultStatus4Extracts(p.Autonum);
-            return PackErrEnum.Non;
-        }
-        else
-        {
-            return PackErrEnum.DataErr;
-        }
+        return PackErrEnum.Non;
     }
 
     public static PackErr Combine2Platelet(List<int> autonumListIn, int autonumOut, string note)
@@ -1122,9 +1163,7 @@ public class PackBLL
 
         if (d == null || p == null) return PackErrEnum.DataErr;
 
-        int countPack = db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).Count();
-
-        if (countPack > 0) return PackErrEnum.Existed;
+        if (PackBLL.Get(DIN, productCode) != null) return PackErrEnum.Existed;
 
         Pack pack = new Pack();
 

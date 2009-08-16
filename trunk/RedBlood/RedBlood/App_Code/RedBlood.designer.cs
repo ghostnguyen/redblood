@@ -56,9 +56,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPeople(People instance);
   partial void UpdatePeople(People instance);
   partial void DeletePeople(People instance);
-  partial void InsertPackStatusHistory(PackStatusHistory instance);
-  partial void UpdatePackStatusHistory(PackStatusHistory instance);
-  partial void DeletePackStatusHistory(PackStatusHistory instance);
   partial void InsertOrg(Org instance);
   partial void UpdateOrg(Org instance);
   partial void DeleteOrg(Org instance);
@@ -119,6 +116,9 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertDonationTestLog(DonationTestLog instance);
   partial void UpdateDonationTestLog(DonationTestLog instance);
   partial void DeleteDonationTestLog(DonationTestLog instance);
+  partial void InsertPackStatusHistory(PackStatusHistory instance);
+  partial void UpdatePackStatusHistory(PackStatusHistory instance);
+  partial void DeletePackStatusHistory(PackStatusHistory instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -220,14 +220,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<People>();
-		}
-	}
-	
-	public System.Data.Linq.Table<PackStatusHistory> PackStatusHistories
-	{
-		get
-		{
-			return this.GetTable<PackStatusHistory>();
 		}
 	}
 	
@@ -388,6 +380,14 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<DonationTestLog>();
+		}
+	}
+	
+	public System.Data.Linq.Table<PackStatusHistory> PackStatusHistories
+	{
+		get
+		{
+			return this.GetTable<PackStatusHistory>();
 		}
 	}
 }
@@ -3179,7 +3179,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -3807,212 +3807,6 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.People = null;
-	}
-}
-
-[Table(Name="dbo.PackStatusHistory")]
-public partial class PackStatusHistory : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _ID;
-	
-	private System.Nullable<System.Guid> _PackID;
-	
-	private Pack.StatusX _FromStatus;
-	
-	private Pack.StatusX _ToStatus;
-	
-	private string _Actor;
-	
-	private System.Nullable<System.DateTime> _Date;
-	
-	private string _Note;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
-    partial void OnPackIDChanged();
-    partial void OnFromStatusChanging(Pack.StatusX value);
-    partial void OnFromStatusChanged();
-    partial void OnToStatusChanging(Pack.StatusX value);
-    partial void OnToStatusChanged();
-    partial void OnActorChanging(string value);
-    partial void OnActorChanged();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    #endregion
-	
-	public PackStatusHistory()
-	{
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> PackID
-	{
-		get
-		{
-			return this._PackID;
-		}
-		set
-		{
-			if ((this._PackID != value))
-			{
-				this.OnPackIDChanging(value);
-				this.SendPropertyChanging();
-				this._PackID = value;
-				this.SendPropertyChanged("PackID");
-				this.OnPackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_FromStatus", DbType="Int", CanBeNull=true)]
-	public Pack.StatusX FromStatus
-	{
-		get
-		{
-			return this._FromStatus;
-		}
-		set
-		{
-			if ((this._FromStatus != value))
-			{
-				this.OnFromStatusChanging(value);
-				this.SendPropertyChanging();
-				this._FromStatus = value;
-				this.SendPropertyChanged("FromStatus");
-				this.OnFromStatusChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ToStatus", DbType="Int", CanBeNull=true)]
-	public Pack.StatusX ToStatus
-	{
-		get
-		{
-			return this._ToStatus;
-		}
-		set
-		{
-			if ((this._ToStatus != value))
-			{
-				this.OnToStatusChanging(value);
-				this.SendPropertyChanging();
-				this._ToStatus = value;
-				this.SendPropertyChanged("ToStatus");
-				this.OnToStatusChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
-	public string Actor
-	{
-		get
-		{
-			return this._Actor;
-		}
-		set
-		{
-			if ((this._Actor != value))
-			{
-				this.OnActorChanging(value);
-				this.SendPropertyChanging();
-				this._Actor = value;
-				this.SendPropertyChanged("Actor");
-				this.OnActorChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Date", DbType="DateTime")]
-	public System.Nullable<System.DateTime> Date
-	{
-		get
-		{
-			return this._Date;
-		}
-		set
-		{
-			if ((this._Date != value))
-			{
-				this.OnDateChanging(value);
-				this.SendPropertyChanging();
-				this._Date = value;
-				this.SendPropertyChanged("Date");
-				this.OnDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this.OnNoteChanging(value);
-				this.SendPropertyChanging();
-				this._Note = value;
-				this.SendPropertyChanged("Note");
-				this.OnNoteChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
 	}
 }
 
@@ -9209,6 +9003,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<Donation> _Donations;
 	
+	private EntitySet<PackStatusHistory> _PackStatusHistories;
+	
 	private EntityRef<Donation> _Donation;
 	
 	private EntityRef<Product> _Product;
@@ -9242,6 +9038,7 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		this._PackLinks = new EntitySet<PackLink>(new Action<PackLink>(this.attach_PackLinks), new Action<PackLink>(this.detach_PackLinks));
 		this._PackLinks1 = new EntitySet<PackLink>(new Action<PackLink>(this.attach_PackLinks1), new Action<PackLink>(this.detach_PackLinks1));
 		this._Donations = new EntitySet<Donation>(new Action<Donation>(this.attach_Donations), new Action<Donation>(this.detach_Donations));
+		this._PackStatusHistories = new EntitySet<PackStatusHistory>(new Action<PackStatusHistory>(this.attach_PackStatusHistories), new Action<PackStatusHistory>(this.detach_PackStatusHistories));
 		this._Donation = default(EntityRef<Donation>);
 		this._Product = default(EntityRef<Product>);
 		OnCreated();
@@ -9474,6 +9271,19 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="Pack_PackStatusHistory", Storage="_PackStatusHistories", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackStatusHistory> PackStatusHistories
+	{
+		get
+		{
+			return this._PackStatusHistories;
+		}
+		set
+		{
+			this._PackStatusHistories.Assign(value);
+		}
+	}
+	
 	[Association(Name="Donation_Pack", Storage="_Donation", ThisKey="DIN", OtherKey="DIN", IsForeignKey=true)]
 	public Donation Donation
 	{
@@ -9593,6 +9403,18 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_Donations(Donation entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackStatusHistories(PackStatusHistory entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackStatusHistories(PackStatusHistory entity)
 	{
 		this.SendPropertyChanging();
 		entity.Pack = null;
@@ -10917,6 +10739,253 @@ public partial class DonationTestLog : INotifyPropertyChanging, INotifyPropertyC
 					this._DIN = default(string);
 				}
 				this.SendPropertyChanged("Donation");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.PackStatusHistory")]
+public partial class PackStatusHistory : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private System.Nullable<System.Guid> _PackID;
+	
+	private Pack.StatusX _FromStatus;
+	
+	private Pack.StatusX _ToStatus;
+	
+	private string _Actor;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private string _Note;
+	
+	private EntityRef<Pack> _Pack;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
+    partial void OnPackIDChanged();
+    partial void OnFromStatusChanging(Pack.StatusX value);
+    partial void OnFromStatusChanged();
+    partial void OnToStatusChanging(Pack.StatusX value);
+    partial void OnToStatusChanged();
+    partial void OnActorChanging(string value);
+    partial void OnActorChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    #endregion
+	
+	public PackStatusHistory()
+	{
+		this._Pack = default(EntityRef<Pack>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> PackID
+	{
+		get
+		{
+			return this._PackID;
+		}
+		set
+		{
+			if ((this._PackID != value))
+			{
+				if (this._Pack.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnPackIDChanging(value);
+				this.SendPropertyChanging();
+				this._PackID = value;
+				this.SendPropertyChanged("PackID");
+				this.OnPackIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_FromStatus", DbType="Int", CanBeNull=true)]
+	public Pack.StatusX FromStatus
+	{
+		get
+		{
+			return this._FromStatus;
+		}
+		set
+		{
+			if ((this._FromStatus != value))
+			{
+				this.OnFromStatusChanging(value);
+				this.SendPropertyChanging();
+				this._FromStatus = value;
+				this.SendPropertyChanged("FromStatus");
+				this.OnFromStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ToStatus", DbType="Int", CanBeNull=true)]
+	public Pack.StatusX ToStatus
+	{
+		get
+		{
+			return this._ToStatus;
+		}
+		set
+		{
+			if ((this._ToStatus != value))
+			{
+				this.OnToStatusChanging(value);
+				this.SendPropertyChanging();
+				this._ToStatus = value;
+				this.SendPropertyChanged("ToStatus");
+				this.OnToStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
+	public string Actor
+	{
+		get
+		{
+			return this._Actor;
+		}
+		set
+		{
+			if ((this._Actor != value))
+			{
+				this.OnActorChanging(value);
+				this.SendPropertyChanging();
+				this._Actor = value;
+				this.SendPropertyChanged("Actor");
+				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackStatusHistory", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.PackStatusHistories.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.PackStatusHistories.Add(this);
+					this._PackID = value.ID;
+				}
+				else
+				{
+					this._PackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
 			}
 		}
 	}

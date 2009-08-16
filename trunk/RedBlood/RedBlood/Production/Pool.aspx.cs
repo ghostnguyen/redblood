@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
 
-public partial class Production_Combine : System.Web.UI.Page
+public partial class Production_Pool : System.Web.UI.Page
 {
     public List<int> AutonumListOut
     {

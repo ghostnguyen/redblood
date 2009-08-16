@@ -237,6 +237,11 @@ public static class dotNetExt
         return dt.Year - dt.Year % 10;
     }
 
+    public static int DurationInDays(this DateTime dt)
+    {
+        return (dt - RedBloodSystem.RootTime).Days;
+    }
+
     #endregion
 
     public static void SelectByText(this DropDownList ddl, string text)

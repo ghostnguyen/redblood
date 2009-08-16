@@ -153,17 +153,6 @@
       <Association Name="Sex_People" Member="Sex" ThisKey="SexID" OtherKey="ID" Type="Sex" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PackStatusHistory" Member="PackStatusHistories">
-    <Type Name="PackStatusHistory">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="FromStatus" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="ToStatus" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Org" Member="Orgs">
     <Type Name="Org">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -413,6 +402,7 @@
       <Association Name="Pack_PackLink" Member="PackLinks" ThisKey="ID" OtherKey="FromPack" Type="PackLink" />
       <Association Name="Pack_PackLink1" Member="PackLinks1" ThisKey="ID" OtherKey="ToPack" Type="PackLink" />
       <Association Name="Pack_Donation" Member="Donations" ThisKey="ID" OtherKey="OrgPackID" Type="Donation" />
+      <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
       <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
       <Association Name="Product_Pack" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
     </Type>
@@ -474,6 +464,18 @@
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Donation_DonationTestLog" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackStatusHistory" Member="PackStatusHistories">
+    <Type Name="PackStatusHistory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="FromStatus" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="ToStatus" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Pack_PackStatusHistory" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

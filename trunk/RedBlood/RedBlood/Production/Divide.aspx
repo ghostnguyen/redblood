@@ -1,7 +1,7 @@
 ﻿<%@ MasterType VirtualPath="~/MasterPage.master" %>
 
 <%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeFile="Combine.aspx.cs" Inherits="Production_Combine" %>
+    AutoEventWireup="true" CodeFile="Divide.aspx.cs" Inherits="Production_Divide" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
