@@ -18,9 +18,9 @@ public partial class FindAndReport_InvitationLetter : System.Web.UI.Page
 
         ReportType type = (ReportType)rptType.ToInt();
 
-        List<Pack> p = PackBLL.Get4Rpt(campID, type);
+        List<Donation> p = DonationBLL.Get(campID, type);
 
-        foreach (Pack item in p) 
+        foreach (Donation item in p) 
         {
             UserControl_InvitationLetter uc = new UserControl_InvitationLetter();
             uc = (UserControl_InvitationLetter)LoadControl("~/UserControl/InvitationLetter.ascx");

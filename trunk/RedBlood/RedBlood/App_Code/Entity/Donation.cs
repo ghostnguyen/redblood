@@ -74,6 +74,7 @@ public partial class Donation
     partial void OnInfectiousMarkersChanged()
     {
         Markers.Decode();
+        
     }
 
     partial void OnValidate(System.Data.Linq.ChangeAction action)

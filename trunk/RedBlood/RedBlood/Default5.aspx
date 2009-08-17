@@ -12,23 +12,23 @@
             window.location = ("/RedBlood/Production/Extract.aspx");
         });
 
-        $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/Production/Devide.aspx");
+        //        $(document).bind('keydown', '8', function() {
+        //            window.location = ("/RedBlood/Production/Devide.aspx");
 
-        });
+        //        });
 
         //        $(document).bind('keydown', '9', function() {
         //            window.location = ("/RedBlood/Production/Extract.aspx");
         //        });
 
-//        $(document).bind('keydown', '4', function() {
+        $(document).bind('keydown', '4', function() {
 
-//            window.location = ("/RedBlood/Production/UpdateSubstance.aspx");
-//        });
+            window.location = ("/RedBlood/FindAndReport/ProductionDailyRpt.aspx");
+        });
 
-//        $(document).bind('keydown', '5', function() {
-//            window.location = ("/RedBlood/Production/Extract.aspx");
-//        });
+        //        $(document).bind('keydown', '5', function() {
+        //            window.location = ("/RedBlood/Production/Extract.aspx");
+        //        });
     </script>
 
     <table width="100%">
@@ -54,7 +54,7 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="/RedBlood/Production/Divide.aspx">
@@ -67,7 +67,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <%--<table>
@@ -92,20 +92,20 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Production/UpdateSubstance.aspx">
+                                        <a href="/RedBlood/FindAndReport/ProductionDailyRpt.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Production/UpdateSubstance.aspx">Cập nhật chất nuôi</a>
+                                            <a href="/RedBlood/FindAndReport/ProductionDailyRpt.aspx">Báo cáo ngày</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>

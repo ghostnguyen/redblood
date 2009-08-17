@@ -29,6 +29,16 @@ public class DonationBLL
             && !IsTRLocked(e);
     }
 
+    public static List<Donation> New(int count)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        List<Donation> l = New(db, count);
+
+        db.SubmitChanges();
+        return l;
+    }
+
     public static List<Donation> New(RedBloodDataContext db, int count)
     {
         Facility f = FacilityBLL.GetFirst(db);
@@ -54,15 +64,7 @@ public class DonationBLL
         return l.ToList();
     }
 
-    public static List<Donation> New(int count)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Donation> l = New(db, count);
-
-        db.SubmitChanges();
-        return l;
-    }
 
     public static Donation Get(RedBloodDataContext db, string DIN)
     {
@@ -165,13 +167,15 @@ public class DonationBLL
 
         if (old != e.InfectiousMarkers)
         {
-            //Keep track
-            //PackResultHistoryBLL.Insert(db, p, MalariaID, times, RedBloodSystem.CurrentActor, note);
             DonationTestLogBLL.Insert(db, e, typeof(InfectiousMarker), note);
         }
 
+        e.TestResultStatus = e.Markers.Status;
+
         return DonationErrEnum.Non;
     }
+
+
 
     public static List<Donation> Get(int campaignID)
     {
@@ -183,6 +187,37 @@ public class DonationBLL
         //    ).ToList();
         return db.Donations.Where(r => r.CampaignID == campaignID).ToList();
 
+    }
+
+    public static List<Donation> Get(int campaignID, ReportType rptType)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        List<Donation> v = (from r in db.Donations
+                where r.CampaignID == campaignID && r.TestResultStatus != Donation.TestResultStatusX.Non
+                select r).ToList();
+
+        if (rptType == ReportType.NegInCam)
+        {
+            return v.ToList().Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative
+                || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked).ToList();
+        }
+
+        if (rptType == ReportType.FourPosInCam)
+        {
+            return v.ToList().Where(r =>
+                (r.TestResultStatus == Donation.TestResultStatusX.Positive
+                || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
+                &&
+                r.Markers.HIV == TR.neg.Name).ToList();
+        }
+
+        if (rptType == ReportType.HIVInCam)
+        {
+            return v.Where(r => r.Markers.HIV == TR.pos.Name).ToList();
+        }
+
+        return new List<Donation>();
     }
 
     //public static List<Pack> GetByCampaign(int campaignID, List<Pack.StatusX> status)

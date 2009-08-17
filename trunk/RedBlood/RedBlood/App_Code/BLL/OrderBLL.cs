@@ -135,14 +135,13 @@ public class OrderBLL
 
     public static void CloseOrder(RedBloodDataContext db)
     {
-        //List<Order> r = db.Orders.Where(e => e.Status == Order.StatusX.Init).ToList();
+        List<Order> r = db.Orders.Where(e => e.Status == Order.StatusX.Init).ToList();
 
-        //foreach (Order item in r)
-        //{
-        //    TimeSpan tsp = DateTime.Now.Date - item.Date.Value.Date;
-        //    if (tsp.Days > 0)
-        //        item.Status = Order.StatusX.Done;
-        //}
+        foreach (Order item in r)
+        {
+            if (DateTime.Now.Date > item.Date.Value.Date)
+                item.Status = Order.StatusX.Done;
+        }
     }
 
     public static List<Order> Get(DateTime? from, DateTime? to, Order.TypeX type)

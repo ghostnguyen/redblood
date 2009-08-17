@@ -46,6 +46,6 @@ public partial class FindAndReport_CampaignDetail : System.Web.UI.Page
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        //e.Result = db.Packs.Where(r => r.CampaignID == CampaignDetail1.CampaignID).OrderBy(r => r.Autonum).ToList();
+        e.Result = db.Donations.Where(r => r.CampaignID == CampaignDetail1.CampaignID).OrderBy(r => r.DIN).ToList();
     }
 }
