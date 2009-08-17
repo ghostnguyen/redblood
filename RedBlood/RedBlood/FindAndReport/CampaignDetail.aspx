@@ -34,62 +34,51 @@
                 </asp:HyperLink>
             </td>
         </tr>
-        <asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="False" DataKeyNames="ID"
+        <asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="False" DataKeyNames="DIN"
             DataSourceID="LinqDataSource1">
             <Columns>
-                <asp:BoundField DataField="Autonum" HeaderText="Túi máu" />
+                <asp:BoundField DataField="DIN" HeaderText="Túi máu" />
                 <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-                <asp:BoundField DataField="Status" HeaderText="Tình trạng" />
-                <asp:BoundField DataField="Volume" HeaderText="(ml)" SortExpression="Volume" />
+                
                 <asp:TemplateField HeaderText="Thành phần">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Pack.Product.Description") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="ABO">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("ABO.Name") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="ABO">
-                    <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("ABO.Name") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="RH">
-                    <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("RH.Name") %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("BloodGroup") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="HIV">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("HIV.Name") %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.HIV") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="HCV">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("HCV.Name") %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="HBsAg">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("HBsAg.Name") %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Syphilis">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Syphilis.Name") %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.Syphilis") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Malaria">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Malaria.Name") %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.Malaria") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
-            OnSelecting="LinqDataSource1_Selecting" TableName="Packs">
+            OnSelecting="LinqDataSource1_Selecting" TableName="Donations">
         </asp:LinqDataSource>
     </table>
 </asp:Content>

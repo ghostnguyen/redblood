@@ -44,10 +44,10 @@
                     <tr>
                         <td>
                             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-                                DataKeyNames="Autonum" DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller"
+                                DataKeyNames="DIN" DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller"
                                 OnRowDataBound="GridView1_RowDataBound">
                                 <Columns>
-                                    <asp:BoundField DataField="Autonum" HeaderText="Túi máu" />                                    
+                                    <asp:BoundField DataField="DIN" HeaderText="Túi máu" />                                    
                                     <asp:TemplateField HeaderText="CMND">
                                         <ItemTemplate>
                                             <asp:Label ID="Label1" runat="server" Text='<%# Eval("People.CMND") %>' />
@@ -66,37 +66,32 @@
                                     
                                     <asp:TemplateField HeaderText="ABO">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("ABO.Name") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Rhesus">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblRH" runat="server" Text='<%# Eval("RH.Name") %>' />
+                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroup") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HIV">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("HIV.Name") %>' />
+                                            <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("Markers.HIV") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HCV">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("HCV.Name") %>' />
+                                            <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HBsAg">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("HBsAg.Name") %>' />
+                                            <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Syphilis">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Syphilis.Name") %>' />
+                                            <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Markers.Syphilis") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Malaria">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Malaria.Name") %>' />
+                                            <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Markers.Malaria") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Địa chỉ">
@@ -117,8 +112,8 @@
                                 </Columns>
                             </asp:GridView>
                             <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
-                                EnableUpdate="True" OnSelecting="LinqDataSource1_Selecting" TableName="Packs"
-                                OrderBy="Autonum" EnableDelete="True" OnSelected="LinqDataSource1_Selected">
+                                EnableUpdate="True" OnSelecting="LinqDataSource1_Selecting" TableName="Donations"
+                                OrderBy="DIN" EnableDelete="True" OnSelected="LinqDataSource1_Selected">
                             </asp:LinqDataSource>
                         </td>
                     </tr>

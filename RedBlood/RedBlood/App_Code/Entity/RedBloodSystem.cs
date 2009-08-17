@@ -28,10 +28,20 @@ public class RedBloodSystem
 
     public static DateTime RootTime = new DateTime(1900, 1, 1);
 
+    public static List<Infection> checkingInfection = new List<Infection>() { 
+          Infection.HIV_Ab
+        , Infection.HIV_Ag
+        , Infection.HCV_Ab
+        , Infection.HBs_Ag
+        , Infection.Syphilis
+        , Infection.Malaria
+    };
+
     public RedBloodSystem()
     {
         //
         // TODO: Add constructor logic here
         //
     }
+
 }

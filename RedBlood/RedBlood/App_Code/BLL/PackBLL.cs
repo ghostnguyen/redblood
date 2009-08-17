@@ -652,33 +652,33 @@ public class PackBLL
         return PackErrEnum.Non;
     }
 
-    public static List<Pack> Get4Rpt(int campaignID, ReportType rptType)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
+    //public static List<Pack> Get4Rpt(int campaignID, ReportType rptType)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        //var v = from r in db.Packs
-        //        where r.CampaignID == campaignID && r.TestResultStatus != Pack.TestResultStatusX.Non
-        //        select r;
+    //    //var v = from r in db.Packs
+    //    //        where r.CampaignID == campaignID && r.TestResultStatus != Pack.TestResultStatusX.Non
+    //    //        select r;
 
-        //if (rptType == ReportType.NegInCam)
-        //{
-        //    return v.ToList().Where(r => r.NonNegativeTestResult().Count() == 0).ToList();
-        //}
+    //    //if (rptType == ReportType.NegInCam)
+    //    //{
+    //    //    return v.ToList().Where(r => r.NonNegativeTestResult().Count() == 0).ToList();
+    //    //}
 
-        //if (rptType == ReportType.FourPosInCam)
-        //{
-        //    return v.ToList().Where(r =>
-        //        r.NonNegativeTestResult().Count() > 0 &&
-        //        r.HIVID == TestDef.HIV.Neg).ToList();
-        //}
+    //    //if (rptType == ReportType.FourPosInCam)
+    //    //{
+    //    //    return v.ToList().Where(r =>
+    //    //        r.NonNegativeTestResult().Count() > 0 &&
+    //    //        r.HIVID == TestDef.HIV.Neg).ToList();
+    //    //}
 
-        //if (rptType == ReportType.HIVInCam)
-        //{
-        //    return v.Where(r => r.HIVID == TestDef.HIV.Pos || r.HIVID == TestDef.HIV.NA).ToList();
-        //}
+    //    //if (rptType == ReportType.HIVInCam)
+    //    //{
+    //    //    return v.Where(r => r.HIVID == TestDef.HIV.Pos || r.HIVID == TestDef.HIV.NA).ToList();
+    //    //}
 
-        return new List<Pack>();
-    }
+    //    return new List<Pack>();
+    //}
 
 
 
@@ -852,7 +852,7 @@ public class PackBLL
         db.SubmitChanges();
     }
 
-    public static PackStatusHistory Update(Pack p, Pack.StatusX to, string note)
+    public static PackStatusHistory Update(Pack p, Pack.StatusX to, string actor, string note)
     {
         if (p.Status == to) return null;
 
@@ -861,12 +861,18 @@ public class PackBLL
         e.PackID = p.ID;
         e.FromStatus = p.Status;
         e.ToStatus = to;
-        e.Actor = RedBloodSystem.CurrentActor;
+        e.Actor = actor;
         e.Note = note;
         e.Date = DateTime.Now;
 
         p.Status = to;
         return e;
+    }
+
+
+    public static PackStatusHistory Update(Pack p, Pack.StatusX to, string note)
+    {
+        return Update(p, to, RedBloodSystem.CurrentActor, note);
     }
 
     //public static PackErr Extract(List<int> autonumList, List<int> to)
@@ -1064,31 +1070,55 @@ public class PackBLL
     /// <summary>
     /// Lock All Test Result regarless of time
     /// </summary>
+    //public static void LockEnterTestResult()
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
+
+    //    //This tricky code help load static const in class TestDef.
+    //    TestDef td = new TestDef();
+
+    //    //List<Pack> l = db.Packs.Where(r =>
+    //    //    (r.TestResultStatus == Pack.TestResultStatusX.Negative
+    //    //    || r.TestResultStatus == Pack.TestResultStatusX.Positive)
+    //    //    && r.ComponentID == TestDef.Component.Full
+    //    //    ).ToList();
+
+
+    //    //foreach (Pack item in l)
+    //    //{
+    //    //    if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
+    //    //        item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+
+    //    //    if (item.TestResultStatus == Pack.TestResultStatusX.Positive)
+    //    //        item.TestResultStatus = Pack.TestResultStatusX.PositiveLocked;
+
+    //    //    //Update for all related packs
+    //    //    UpdateTestResultStatus4Extracts(db, item);
+    //    //}
+    //    db.SubmitChanges();
+    //}
+
+
     public static void LockEnterTestResult()
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        //This tricky code help load static const in class TestDef.
-        TestDef td = new TestDef();
+        IQueryable<Donation> l = db.Donations.Where(r =>
+            (r.TestResultStatus == Donation.TestResultStatusX.Negative
+            || r.TestResultStatus == Donation.TestResultStatusX.Positive));
 
-        //List<Pack> l = db.Packs.Where(r =>
-        //    (r.TestResultStatus == Pack.TestResultStatusX.Negative
-        //    || r.TestResultStatus == Pack.TestResultStatusX.Positive)
-        //    && r.ComponentID == TestDef.Component.Full
-        //    ).ToList();
+        foreach (Donation item in l)
+        {
+            if (item.TestResultStatus == Donation.TestResultStatusX.Negative)
+                item.TestResultStatus = Donation.TestResultStatusX.NegativeLocked;
 
+            if (item.TestResultStatus == Donation.TestResultStatusX.Positive)
+                item.TestResultStatus = Donation.TestResultStatusX.PositiveLocked;
 
-        //foreach (Pack item in l)
-        //{
-        //    if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
-        //        item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
+            ////Update for all related packs
+            //UpdateTestResultStatus4Extracts(db, item);
+        }
 
-        //    if (item.TestResultStatus == Pack.TestResultStatusX.Positive)
-        //        item.TestResultStatus = Pack.TestResultStatusX.PositiveLocked;
-
-        //    //Update for all related packs
-        //    UpdateTestResultStatus4Extracts(db, item);
-        //}
         db.SubmitChanges();
     }
 

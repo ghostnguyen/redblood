@@ -9,7 +9,7 @@ using System.Web;
 public class InfectiousMarker
 {
     public Donation donation { get; set; }
-    
+
     public string Code
     {
         get
@@ -29,6 +29,31 @@ public class InfectiousMarker
         _HBs_Ag = Infection.HBs_Ag.Decode(this);
         _Syphilis = Infection.Syphilis.Decode(this);
         _Malaria = Infection.Malaria.Decode(this);
+
+        CalcStatus();
+    }
+
+    private void CalcStatus()
+    {
+        foreach (Infection item in Infection.InfectionList)
+        {
+            if (item.Decode(Code) == TR.pos.Name)
+            {
+                _Status = Donation.TestResultStatusX.Positive;
+                return;
+            }
+        }
+
+        foreach (Infection item in RedBloodSystem.checkingInfection)
+        {
+            if (item.Decode(Code) == TR.na.Name)
+            {
+                _Status = Donation.TestResultStatusX.Non;
+                return;
+            }
+        }
+
+        _Status = Donation.TestResultStatusX.Negative;
     }
 
     public InfectiousMarker()
@@ -43,6 +68,17 @@ public class InfectiousMarker
         return Code;
         //return base.ToString();
     }
+
+
+    private Donation.TestResultStatusX _Status;
+    public Donation.TestResultStatusX Status
+    {
+        get
+        {
+            return _Status;
+        }
+    }
+    
 
     private string _HIV;
     public string HIV
@@ -174,34 +210,40 @@ public class Infection
 
     public string Decode(InfectiousMarker marker)
     {
-        if (marker == null
-            || string.IsNullOrEmpty(marker.Code))
-            return null;
+        if (marker == null)
+            return "";
+        else return Decode(marker.Code);
+    }
 
-        int value = marker.Code.Substring(this.Index, 1).ToInt();
+    public string Decode(string markerStr)
+    {
+        if (string.IsNullOrEmpty(markerStr))
+            return markerStr;
+
+        int value = markerStr.Substring(this.Index, 1).ToInt();
 
         return this.value2TR.Where(r => r.Value == value).Select(r => r.Result.Name).FirstOrDefault();
     }
 
     public string Encode(InfectiousMarker marker, string resultName)
     {
-        if (marker == null || string.IsNullOrEmpty(marker.Code))
-            return null;
+        if (marker == null)
+            return "";
 
         TR tr = TR.TRList.Where(r => r.Name == resultName).FirstOrDefault();
 
         if (tr == null) return marker.Code;
-        else return Encode(marker, tr);
+        else return Encode(marker.Code, tr);
     }
 
-    public string Encode(InfectiousMarker marker, TR result)
+    public string Encode(string markerStr, TR result)
     {
-        if (marker == null || string.IsNullOrEmpty(marker.Code))
-            return null;
+        if (string.IsNullOrEmpty(markerStr))
+            return markerStr;
 
-        if (Coop == null) return marker.Code;
+        if (Coop == null) return markerStr;
 
-        string coopTRName = Coop.Decode(marker);
+        string coopTRName = Coop.Decode(markerStr);
 
         int value = value2TR.Where(r => r.Result.Name == result.Name)
             .Join(Coop.value2TR.Where(r => r.Result.Name == coopTRName),
@@ -209,7 +251,7 @@ public class Infection
                     r2 => r2.Value,
                     (r1, r2) => r1.Value).FirstOrDefault();
 
-        return marker.Code.Substring(0, Index) + value.ToString() + marker.Code.Substring(Index + 1);
+        return markerStr.Substring(0, Index) + value.ToString() + markerStr.Substring(Index + 1);
     }
 
     public static Infection HIV_Ab = new Infection()

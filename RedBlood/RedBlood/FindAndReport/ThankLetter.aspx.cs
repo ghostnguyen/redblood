@@ -18,9 +18,9 @@ public partial class FindAndReport_ThankLetter : System.Web.UI.Page
 
         ReportType type = (ReportType)rptType.ToInt();
 
-        List<Pack> p = PackBLL.Get4Rpt(campID, type);
+        List<Donation> p = DonationBLL.Get(campID, type);
 
-        foreach (Pack item in p)
+        foreach (Donation item in p)
         {
             UserControl_ThanksLetter uc = new UserControl_ThanksLetter();
             uc = (UserControl_ThanksLetter)LoadControl("~/UserControl/ThanksLetter.ascx");

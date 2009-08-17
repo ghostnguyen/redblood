@@ -8,9 +8,9 @@
     <script type="text/javascript">
         // Your code goes here
 
-        $(document).bind('keydown', '7', function() {
-            window.location = ("/RedBlood/FindAndReport/FindPeople.aspx");
-        });
+//        $(document).bind('keydown', '7', function() {
+//            window.location = ("/RedBlood/FindAndReport/FindPeople.aspx");
+//        });
 
 //        $(document).bind('keydown', '8', function() {
 //            window.location = ("/RedBlood/FindAndReport/FindCampaign.aspx");
@@ -35,7 +35,7 @@
                 <table id="menu_lvl2">
                     <tr>
                         <td class="column">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="/RedBlood/FindAndReport/FindPeople.aspx">
@@ -48,7 +48,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <%--<table>

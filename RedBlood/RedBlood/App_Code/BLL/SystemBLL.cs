@@ -39,21 +39,22 @@ public class SystemBLL
     {
         if (!isSOD || !LogBLL.IsLog(Task.TaskX.ScanExp))
         {
-            //RedBloodDataContext db = new RedBloodDataContext();
+            RedBloodDataContext db = new RedBloodDataContext();
 
-            //List<Pack.StatusX> statusList = new List<Pack.StatusX> { 
-            //    Pack.StatusX.Collected, Pack.StatusX.Product};
+            List<Pack.StatusX> statusList = new List<Pack.StatusX> { Pack.StatusX.Product };
 
-            //List<Pack> rs = PackBLL.Get(db, statusList).Where(r => r.DeliverStatus == Pack.DeliverStatusX.Non).ToList();
+            IQueryable<Pack> rs = db.Packs.Where(r => statusList.Contains(r.Status) && r.ExpirationDate < DateTime.Now.Date);
 
-            //foreach (Pack r in rs)
-            //{
-            //    PackBLL.ValidateAndUpdateStatus(db, r, RedBloodSystem.SODActor);
-            //}
+            foreach (Pack r in rs)
+            {
+                PackStatusHistory h = PackBLL.Update(r, Pack.StatusX.Expired, RedBloodSystem.SODActor, "");
 
-            //LogBLL.Add(db, Task.TaskX.ScanExp);
+                if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
+            }
 
-            //db.SubmitChanges();
+            LogBLL.Add(db, Task.TaskX.ScanExp);
+
+            db.SubmitChanges();
         }
     }
 
@@ -87,53 +88,6 @@ public class SystemBLL
         }
     }
 
-    public static TimeSpan GetExpire(Pack p)
-    {
-        //if (p == null || p.Component == null) return TimeSpan.MinValue;
-
-
-        //if (p.ComponentID == TestDef.Component.Full)
-        //{
-        //    return new TimeSpan(35, 0, 0, 0);
-        //}
-
-        //if (p.ComponentID == TestDef.Component.RBC)
-        //{
-        //    if (p.SubstanceRoot.ID == TestDef.Substance.for21days)
-        //        return new TimeSpan(21, 0, 0, 0);
-        //    if (p.SubstanceRoot.ID == TestDef.Substance.for35days)
-        //        return new TimeSpan(35, 0, 0, 0);
-        //    if (p.SubstanceRoot.ID == TestDef.Substance.for42days)
-        //        return new TimeSpan(42, 0, 0, 0);
-        //    else
-        //        return new TimeSpan(5, 0, 0, 0);
-        //}
-
-        //if (p.ComponentID == TestDef.Component.WBC)
-        //{
-        //    return new TimeSpan(5, 0, 0, 0);
-        //}
-
-        //if (p.ComponentID == TestDef.Component.FactorVIII)
-        //{
-        //    return new TimeSpan(5, 0, 0, 0);
-        //}
-
-        //if (p.ComponentID == TestDef.Component.Platelet
-        //    || p.ComponentID == TestDef.Component.PlateletApheresis)
-        //{
-        //    return new TimeSpan(5, 0, 0, 0);
-        //}
-
-        //if (p.ComponentID == TestDef.Component.FFPlasma
-        //    || p.ComponentID == TestDef.Component.FFPlasma_Poor)
-        //{
-        //    return new TimeSpan(730, 0, 0, 0);
-        //}
-
-        return TimeSpan.MinValue;
-    }
-
     public static void Find(HttpResponse Response, TextBox txtCode)
     {
         string key = txtCode.Text.Trim();
@@ -159,33 +113,33 @@ public class SystemBLL
         //        Response.Redirect(SystemBLL.Url4PackDetail + "key=" + r.Autonum.ToString());
         //    }
         //}
-        //else if (BarcodeBLL.IsValidCampaignCode(key))
+        else if (BarcodeBLL.IsValidCampaignCode(key))
+        {
+            Campaign r = CampaignBLL.GetByID(BarcodeBLL.ParseCampaignID(key));
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4CampaignDetail + "key=" + r.ID.ToString());
+            }
+        }
+        else if (BarcodeBLL.IsValidOrderCode(key))
+        {
+            Order r = OrderBLL.Get(BarcodeBLL.ParseOrderID(key));
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4OrderDetail + "key=" + r.ID.ToString());
+            }
+        }
+        else if (regx.IsMatch(key) && key.Length >= BarcodeBLL.CMNDLength.ToInt())
+        {
+            People r = PeopleBLL.GetByCMND(key);
+            if (r != null)
+            {
+                Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
+            }
+        }
+        //else if (key.length > 1)
         //{
-        //    Campaign r = CampaignBLL.GetByID(BarcodeBLL.ParseCampaignID(key));
-        //    if (r != null)
-        //    {
-        //        Response.Redirect(SystemBLL.Url4CampaignDetail + "key=" + r.ID.ToString());
-        //    }
-        //}
-        //else if (BarcodeBLL.IsValidOrderCode(key))
-        //{
-        //    Order r = OrderBLL.Get(BarcodeBLL.ParseOrderID(key));
-        //    if (r != null)
-        //    {
-        //        Response.Redirect(SystemBLL.Url4OrderDetail + "key=" + r.ID.ToString());
-        //    }
-        //}
-        //else if (regx.IsMatch(key) && key.Length >= Resources.Codabar.CMNDLength.ToInt())
-        //{
-        //    People r = PeopleBLL.GetByCMND(key);
-        //    if (r != null)
-        //    {
-        //        Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
-        //    }
-        //}
-        //else if (key.Length > 1)
-        //{
-        //    Response.Redirect(SystemBLL.Url4FindPeople + "key=" + key);
+        //    response.redirect(systembll.url4findpeople + "key=" + key);
         //}
 
         txtCode.Text = "";
