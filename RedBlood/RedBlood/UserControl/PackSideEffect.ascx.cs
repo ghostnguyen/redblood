@@ -9,25 +9,79 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
 {
     public event EventHandler PackDeleted;
 
-    public int Autonum
+    public string Code
     {
-        get
-        {
-            if (ViewState["Autonum"] == null)
-                return 0;
-            return (int)ViewState["Autonum"];
-        }
         set
         {
-            ViewState["Autonum"] = value;
-            if (value == 0)
-            { }
-            else
+            string code = value.Trim();
+            if (BarcodeBLL.IsValidDINCode(code))
             {
-                GridViewSideEffect.DataBind();
+                LoadCurrentDIN(BarcodeBLL.ParseDIN(code));
+            }
+            else if (BarcodeBLL.IsValidProductCode(code))
+            {
+                LoadPack(BarcodeBLL.ParseProductCode(code));
             }
         }
     }
+
+    public string CurrentDIN
+    {
+        get
+        {
+            if (ViewState["CurrentDIN"] == null)
+                return "";
+            return (string)ViewState["CurrentDIN"];
+        }
+        set
+        {
+            ViewState["CurrentDIN"] = value;
+        }
+    }
+
+    public Guid PackID
+    {
+        get
+        {
+            if (ViewState["PackID"] == null)
+                return Guid.Empty;
+            return (Guid)ViewState["PackID"];
+        }
+        set
+        {
+            ViewState["PackID"] = value;
+        }
+    }
+
+    void LoadCurrentDIN(string code)
+    {
+        Donation e = DonationBLL.Get(code);
+        if (e == null) return;
+
+        CurrentDIN = e.DIN;
+        ImageCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN);
+
+        PackID = Guid.Empty;
+        ImageProduct.ImageUrl = "none";
+    }
+
+    void LoadPack(string productCode)
+    {
+        //Check Pack
+        Pack p = PackBLL.Get(CurrentDIN, productCode);
+
+        if (p == null) return;
+        if (p.Status != Pack.StatusX.Delivered)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Túi máu chưa cấp phát.');", true);
+            return;
+        }
+
+        PackID = p.ID;
+
+        ImageProduct.ImageUrl = BarcodeBLL.Url4Product(p.ProductCode);
+    }
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -38,15 +92,15 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get(db,Autonum);
+        Pack p = PackBLL.Get(PackID);
 
         if (p == null) return;
 
-        //if (p.DeliverStatus != Pack.DeliverStatusX.Yes)
-        //{
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Túi máu chưa cấp phát.');", true);
-        //    return;
-        //}
+        if (p.Status != Pack.StatusX.Delivered)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Túi máu chưa cấp phát.');", true);
+            return;
+        }
 
         if (string.IsNullOrEmpty(txtSideEffect.Text.Trim()))
             return;
@@ -70,6 +124,6 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
 
     protected void LinqDataSourceSideEffect_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        e.Result = PackSideEffectBLL.Get(Autonum);
+        e.Result = PackSideEffectBLL.Get(PackID);
     }
 }

@@ -52,37 +52,37 @@ public partial class TestResult_PackManually : System.Web.UI.Page
 
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        //RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get(db, (int)e.Keys[0]);
+        //Pack p = PackBLL.Get(db, (int)e.Keys[0]);
 
-        if (p != null)
-        {
-            PackBLL.Update(db, p,
-                e.NewValues["ComponentID"].ToInt(),
-                e.NewValues["Volume"].ToIntNullable(),
-                e.NewValues["SubstanceID"].ToInt());
+        //if (p != null)
+        //{
+        //    PackBLL.Update(db, p,
+        //        e.NewValues["ComponentID"].ToInt(),
+        //        e.NewValues["Volume"].ToIntNullable(),
+        //        e.NewValues["SubstanceID"].ToInt());
 
-            PackBLL.Update(db, p, 2,
-                e.NewValues["ABO.ID"].ToInt(),
-                e.NewValues["RH.ID"].ToInt(),
-                "");
+        //    PackBLL.Update(db, p, 2,
+        //        e.NewValues["ABO.ID"].ToInt(),
+        //        e.NewValues["RH.ID"].ToInt(),
+        //        "");
 
-            //PackBLL.Update(db, p, 2,
-            //    e.NewValues["HIV.ID"].ToInt(),
-            //    e.NewValues["HCV.ID"].ToInt(),
-            //    e.NewValues["HBsAg.ID"].ToInt(),
-            //     e.NewValues["Syphilis.ID"].ToInt(),
-            //    e.NewValues["Malaria.ID"].ToInt(),
-            //     "");
+        //    //PackBLL.Update(db, p, 2,
+        //    //    e.NewValues["HIV.ID"].ToInt(),
+        //    //    e.NewValues["HCV.ID"].ToInt(),
+        //    //    e.NewValues["HBsAg.ID"].ToInt(),
+        //    //     e.NewValues["Syphilis.ID"].ToInt(),
+        //    //    e.NewValues["Malaria.ID"].ToInt(),
+        //    //     "");
 
-            db.SubmitChanges();
+        //    db.SubmitChanges();
 
-            //PackBLL.UpdateTestResultStatus4Full(p.Autonum);
-        }
+        //    //PackBLL.UpdateTestResultStatus4Full(p.Autonum);
+        //}
 
-        e.Cancel = true;
-        GridView1.EditIndex = -1;
+        //e.Cancel = true;
+        //GridView1.EditIndex = -1;
     }
     protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
     {

@@ -10,8 +10,8 @@ public partial class Order
 {
     public enum TypeX : int    
     { 
-        ToOrg = 1,
-        ToPeople = 2
+        ForOrg = 1,
+        ForPeople = 2
     }
 
     public enum StatusX : int

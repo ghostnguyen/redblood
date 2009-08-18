@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PeopleDonationLog.ascx.cs"
-    Inherits="UserControl_PeopleHistory" %>
+    Inherits="UserControl_PeopleDonationLog" %>
 <asp:Label runat="server" ID="LabelTotal"></asp:Label>
 <asp:GridView ID="GridView1" runat="server" DataSourceID="LinqDataSource1" AutoGenerateColumns="False"
     ShowHeader="false">
