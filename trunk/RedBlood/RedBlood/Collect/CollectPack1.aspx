@@ -3,7 +3,7 @@
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
-<%@ Register Src="~/UserControl/PeopleHistory.ascx" TagPrefix="uc" TagName="PeopleHistory" %>
+<%@ Register Src="~/UserControl/PeopleHistory.ascx" TagPrefix="uc" TagName="PeopleHistory12" %>
 <%@ Register Src="~/UserControl/EnterPack.ascx" TagPrefix="uc" TagName="EnterPack" %>
 <%@ Register Src="~/UserControl/CampaignDetail.ascx" TagPrefix="uc" TagName="CamDetail" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -48,7 +48,7 @@
                                 Tiểu sử cho máu
                             </div>
                             <div class="partLinkLast">
-                                <uc:PeopleHistory runat="server" ID="PeopleHistory1" />
+                                <uc:PeopleHistory12 runat="server" ID="PeopleHistory1" />
                             </div>
                         </div>
                     </td>

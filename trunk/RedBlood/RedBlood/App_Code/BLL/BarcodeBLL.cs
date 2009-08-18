@@ -155,6 +155,11 @@ public class BarcodeBLL
 
     #region Url
 
+    public static string Url4DIN(string DIN)
+    {
+        return Url4DIN(DIN, "00");
+    }
+
     public static string Url4DIN(string DIN, string flag)
     {
         return BarcodeImgPage + "?hasText=true&checkChar=true&IdChar=" + DINIdChar + "&code=" + DIN + flag;

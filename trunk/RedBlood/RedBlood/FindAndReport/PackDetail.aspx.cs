@@ -27,32 +27,32 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
             Autonum = Request.Params["key"].ToInt();
 
             DetailView1.DataBind();
-            PSE1.Autonum = Autonum;
+            //PSE1.Autonum = Autonum;
         }
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        Pack p = PackBLL.Get(Autonum);
-        if (p == null)
-        {
-            e.Result = null;
-            e.Cancel = true;
-        }
-        else
-            e.Result = p;
+        //Pack p = PackBLL.Get(Autonum);
+        //if (p == null)
+        //{
+        //    e.Result = null;
+        //    e.Cancel = true;
+        //}
+        //else
+        //    e.Result = p;
     }
 
     protected void LinqDataSourcePackRelative_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         
-        Pack p = PackBLL.Get(Autonum);
+        //Pack p = PackBLL.Get(Autonum);
 
-        if (p == null)
-        {
-            e.Result = null;
-            e.Cancel = true;
-            return;
-        }
+        //if (p == null)
+        //{
+        //    e.Result = null;
+        //    e.Cancel = true;
+        //    return;
+        //}
 
         //if (p.ComponentID == TestDef.Component.Full)
         //{

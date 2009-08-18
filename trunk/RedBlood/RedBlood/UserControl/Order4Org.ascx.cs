@@ -5,23 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class UserControl_Order : System.Web.UI.UserControl
+public partial class UserControl_Order4Org : System.Web.UI.UserControl
 {
     public event EventHandler OrderChanged;
 
-    public Order.TypeX OrderType
-    {
-        get
-        {
-            if (ViewState["OrderType"] == null)
-                return 0;
-            return (Order.TypeX)ViewState["OrderType"];
-        }
-        set
-        {
-            ViewState["OrderType"] = value;
-        }
-    }
+    public Order.TypeX OrderType = Order.TypeX.ForOrg;
+
     public int OrderID
     {
         get
@@ -46,40 +35,42 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         }
     }
 
+    public string CurrentDIN
+    {
+        get
+        {
+            if (ViewState["CurrentDIN"] == null)
+                return "";
+            return (string)ViewState["CurrentDIN"];
+        }
+        set
+        {
+            ViewState["CurrentDIN"] = value;
+        }
+    }
+
     public string Code
     {
         set
         {
-            //string code = value.Trim();
-            //if (BarcodeBLL.IsValidPackCode(code))
-            //{
-            //    AddPack(BarcodeBLL.ParsePackAutoNum(code));
-            //}
-            //else if (BarcodeBLL.IsValidOrderCode(code))
-            //{
-            //    OrderID = BarcodeBLL.ParseOrderID(code);
-            //}
-            //else if (BarcodeBLL.IsValidPeopleCode(code))
-            //{
-            //    People1.Code = code;
-            //}
-            //else if (code.Length >= 9)
-            //{
-            //    People1.Code = code;
-            //}
-            //else
-            //{ }
+            string code = value.Trim();
+            if (BarcodeBLL.IsValidDINCode(code))
+            {
+                LoadCurrentDIN(BarcodeBLL.ParseDIN(code));
+            }
+            else if (BarcodeBLL.IsValidOrderCode(code))
+            {
+                OrderID = BarcodeBLL.ParseOrderID(code);
+            }
+            else if (BarcodeBLL.IsValidProductCode(code))
+            {
+                AddPack(BarcodeBLL.ParseProductCode(code));
+            }
         }
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            rowOrg.Attributes.Add("style", "visibility:collapse;");
-
-            OrderType = Order.TypeX.ForPeople;
-        }
 
     }
 
@@ -117,7 +108,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             else return;
         }
 
-        ScriptManager.RegisterStartupScript(btnUpdate, btnUpdate.GetType(), "SaveDone", "alert ('Lưu thành công.');", true);
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "SaveDone", "alert ('Lưu thành công.');", true);
     }
 
 
@@ -157,20 +148,24 @@ public partial class UserControl_Order : System.Web.UI.UserControl
             }
         }
 
-        if (OrderType == Order.TypeX.ForPeople)
+        return isDone;
+    }
+
+    void LoadCurrentDIN(string code)
+    {
+        Donation e = DonationBLL.Get(code);
+        if (e == null) return;
+
+        if (e.TestResultStatus == Donation.TestResultStatusX.Negative
+            || e.TestResultStatus == Donation.TestResultStatusX.NegativeLocked)
+        { }
+        else
         {
-            p.PeopleID = People1.PeopleID;
-            
-            p.SetDepartment(txtDept.Text.Trim());
-            
-            p.Room = txtRoom.Text.Trim();
-            p.Bed = txtBed.Text.Trim();
-            p.Diagnosis = txtDiagnosis.Text.Trim();
-            p.PatientCode = txtPatientCode.Text.Trim();
-            p.TransfusionNote = txtTransfusionNote.Text.Trim();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "", "alert ('Túi máu " + e.TestResultStatus + "');", true);
         }
 
-        return isDone;
+        CurrentDIN = e.DIN;
+        ImageCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN);
     }
 
     protected void btnDelete_Click(object sender, EventArgs e)
@@ -200,8 +195,7 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
         OrderType = type;
         txtName.Focus();
-        btnUpdate.Enabled = true;
-        SwitchGUI();
+        //btnUpdate.Enabled = true;
     }
     public void Clear()
     {
@@ -214,18 +208,8 @@ public partial class UserControl_Order : System.Web.UI.UserControl
         txtDate.Text = "";
         txtNote.Text = "";
         txtOrgName.Text = "";
-        txtDept.Text = "";
-        txtRoom.Text = "";
-        txtBed.Text = "";
-        txtDiagnosis.Text = "";
-        txtPatientCode.Text = "";
-        txtTransfusionNote.Text = "";
-        People1.PeopleID = Guid.Empty;
 
         divErrName.Attributes["class"] = "hidden";
-
-        rowOrg.Attributes.Remove("style");
-        rowPeople.Visible = true;
 
         GridViewPack.DataBind();
     }
@@ -254,41 +238,22 @@ public partial class UserControl_Order : System.Web.UI.UserControl
                 txtOrgName.Text = e.Org.Name;
             }
 
-            if (OrderType == Order.TypeX.ForPeople && e.People != null)
-            {
-                People1.PeopleID = e.PeopleID.GetValueOrDefault();
-                txtDept.Text = e.FullDepartment;
-                txtRoom.Text = e.Room;
-                txtBed.Text = e.Bed;
-                txtDiagnosis.Text = e.Diagnosis;
-                txtPatientCode.Text = e.PatientCode;
-                txtTransfusionNote.Text = e.TransfusionNote;
-            }
-
             GridViewPack.DataBind();
-            SwitchGUI();
 
-            btnUpdate.Enabled = e.Status == Order.StatusX.Init;
+            //btnUpdate.Enabled = e.Status == Order.StatusX.Init;
         }
     }
 
-    void SwitchGUI()
+    void AddPack(string productCode)
     {
-        if (OrderType == Order.TypeX.ForOrg)
-            rowPeople.Visible = false;
-
-        if (OrderType == Order.TypeX.ForPeople)
-            rowOrg.Attributes.Add("style", "visibility:collapse;");
-    }
-
-    void AddPack(int autonum)
-    {
-        //PackErr err = OrderBLL.Add(OrderID, autonum);
-        PackErr err = new PackErr("");
+        PackErr err = OrderBLL.Add(OrderID, CurrentDIN, productCode);
 
         if (err == null || err == PackErrEnum.Non)
         {
             GridViewPack.DataBind();
+
+            CurrentDIN = "";
+            ImageCurrentDIN.ImageUrl = "none";
         }
         else
         {
@@ -306,6 +271,6 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
     protected void GridViewPack_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        OrderBLL.Remove(e.Keys[0].ToInt(), txtRemoveNoteGlobal.Text.Trim());
+        //OrderBLL.Remove(e.Keys[0].ToInt(), txtRemoveNoteGlobal.Text.Trim());
     }
 }

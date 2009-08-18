@@ -55,26 +55,28 @@ public class PackBLL
     {
         Pack pErr = new Pack();
 
-        Pack p = Get(db, autonum);
+        //Pack p = Get(db, autonum);
 
-        if (p == null)
-        {
-            pErr.Err = PackErrEnum.NonExist;
-            return pErr;
-        }
+        //if (p == null)
+        //{
+        //    pErr.Err = PackErrEnum.NonExist;
+        //    return pErr;
+        //}
 
-        PackErr err = ValidateAndUpdateStatus(db, p);
-        if (err != PackErrEnum.Non)
-        {
-            db.SubmitChanges();
-            pErr.Err = err;
-            return pErr;
-        }
-        else
-        {
-            p.Err = err;
-            return p;
-        }
+        //PackErr err = ValidateAndUpdateStatus(db, p);
+        //if (err != PackErrEnum.Non)
+        //{
+        //    db.SubmitChanges();
+        //    pErr.Err = err;
+        //    return pErr;
+        //}
+        //else
+        //{
+        //    p.Err = err;
+        //    return p;
+        //}
+
+        return pErr;
     }
 
     public static Pack Get(string DIN, string productCode)
@@ -83,15 +85,10 @@ public class PackBLL
         return db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).FirstOrDefault();
     }
 
-    public static Pack Get(int autonum)
+    public static Pack Get(Guid ID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return Get(db, autonum);
-    }
-
-    public static Pack Get(RedBloodDataContext db, int autonum)
-    {
-        return Get(db, new List<int> { autonum }).FirstOrDefault();
+        return db.Packs.Where(r => r.ID == ID).FirstOrDefault();
     }
 
     public static Pack Get(int autonum, Pack.StatusX status)
@@ -787,7 +784,7 @@ public class PackBLL
     public static void UpdateTestResultStatus4Full(int autonum)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        Pack p = PackBLL.Get(db, autonum);
+        //Pack p = PackBLL.Get(db, autonum);
 
         //if (p == null
         //    || !PackBLL.AllowEnterTestResult().Contains(p.TestResultStatus)
@@ -821,7 +818,7 @@ public class PackBLL
         //}
 
         //Update for all related packs
-        UpdateTestResultStatus4Extracts(db, p);
+        //UpdateTestResultStatus4Extracts(db, p);
 
         db.SubmitChanges();
     }
@@ -841,16 +838,16 @@ public class PackBLL
         //}
     }
 
-    public static void UpdateTestResultStatus4Extracts(int autonum)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
+    //public static void UpdateTestResultStatus4Extracts(int autonum)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get(db, autonum);
+    //    Pack p = PackBLL.Get(db, autonum);
 
-        UpdateTestResultStatus4Extracts(db, p);
+    //    UpdateTestResultStatus4Extracts(db, p);
 
-        db.SubmitChanges();
-    }
+    //    db.SubmitChanges();
+    //}
 
     public static PackStatusHistory Update(Pack p, Pack.StatusX to, string actor, string note)
     {

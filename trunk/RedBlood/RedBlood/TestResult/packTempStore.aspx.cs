@@ -18,7 +18,7 @@ public partial class PackTempStore : System.Web.UI.Page
 
         if (Master.TextBoxCode.Text.Length == 0) return;
 
-if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+        if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
         {
             CampaignEnter(Master.TextBoxCode.Text);
         }
@@ -60,7 +60,8 @@ if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get(db, (int)e.Keys[0]);
+        //Pack p = PackBLL.Get(db, (int)e.Keys[0]);
+        Pack p = new Pack();
 
         if (p != null)
         {

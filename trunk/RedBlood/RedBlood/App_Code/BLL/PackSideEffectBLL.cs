@@ -25,11 +25,9 @@ public class PackSideEffectBLL
         //
     }
 
-    public static List<PackSideEffect> Get(int autonum)
+    public static List<PackSideEffect> Get(Guid packID)
     {
-        //RedBloodDataContext db = new RedBloodDataContext();
-        //return db.PackSideEffects.Where(r => r.Pack.Autonum == autonum).ToList();
-
-        return null;
+        RedBloodDataContext db = new RedBloodDataContext();
+        return db.PackSideEffects.Where(r => r.PackID == packID).ToList();
     }
 }

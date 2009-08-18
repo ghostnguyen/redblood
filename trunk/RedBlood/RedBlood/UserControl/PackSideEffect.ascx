@@ -6,6 +6,9 @@
         <h4>
             Phản ứng truyền máu
         </h4>
+        <asp:Image ID="ImageCurrentDIN" runat="server" ImageUrl="none" />
+        <asp:Image ID="ImageProduct" runat="server" ImageUrl="none" />
+        <br />
         Triệu chứng
         <br />
         <asp:TextBox runat="server" ID="txtSideEffect" Width="420px"></asp:TextBox>
