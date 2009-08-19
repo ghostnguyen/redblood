@@ -21,8 +21,6 @@ public class OrderBLL
         return Get(ID, db);
     }
 
-
-
     public static Order Get(int ID, RedBloodDataContext db)
     {
         if (db == null) return null;
@@ -128,52 +126,38 @@ public class OrderBLL
         po.Status = PackOrder.StatusX.Order;
 
         db.PackOrders.InsertOnSubmit(po);
-        
+
         db.Packs.Attach(p);
         p.Status = Pack.StatusX.Delivered;
 
         db.SubmitChanges();
 
+        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out, System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return PackErrEnum.Non;
     }
 
-    public static void Remove(int packOrderID, string note)
+    public static void Return(int packOrderID, string note)
     {
-        //RedBloodDataContext db = new RedBloodDataContext();
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        //PackOrder po = db.PackOrders.Where(r => r.ID == packOrderID).FirstOrDefault();
+        PackOrder po = db.PackOrders.Where(r => r.ID == packOrderID).FirstOrDefault();
 
-        //if (po == null
-        //    || po.Pack == null
-        //    || po.Order == null) return;
+        if (po == null
+            || po.Pack == null
+            || po.Order == null) return;
 
-        //PackStatusHistory h;
+        PackBLL.Update(db, po.Pack, Pack.StatusX.Product, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
 
-        //if (po.Pack.ComponentID == (int)TestDef.Component.Full
-        //    || po.Pack.ComponentID == (int)TestDef.Component.PlateletApheresis)
-        //{
-        //    h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Collected, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
-        //}
-        //else
-        //{
-        //    h = PackBLL.ChangeStatus(po.Pack, Pack.StatusX.Production, actor, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
-        //}
+        po.Status = PackOrder.StatusX.Return;
+        po.Actor = RedBloodSystem.CurrentActor;
+        po.ReturnDate = DateTime.Now;
+        po.Note = note;
 
-        //db.PackStatusHistories.InsertOnSubmit(h);
+        db.SubmitChanges();
 
+        PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In, System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-        //po.Status = PackOrder.StatusX.Return;
-        //po.Actor = RedBloodSystem.CurrentActor;
-        //po.Note = note;
-
-        //po.Pack.DeliverStatus = Pack.DeliverStatusX.Non;
-
-        ////db.PackOrders.DeleteOnSubmit(po);
-
-        //db.SubmitChanges();
-
-        //PackErr err = PackBLL.ValidateAndUpdateStatus(db, po.Pack);
-        //db.SubmitChanges();
     }
 
     public static void CloseOrder(RedBloodDataContext db)
@@ -189,18 +173,16 @@ public class OrderBLL
 
     public static List<Order> Get(DateTime? from, DateTime? to, Order.TypeX type)
     {
-        //RedBloodDataContext db = new RedBloodDataContext();
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        ////List<Guid> geoIDL = GeoBLL.Get(IDList, 1).Select(r => r.ID).ToList();
-        ////if (geoIDL.Count == 0) return new List<Campaign>();
+        //List<Guid> geoIDL = GeoBLL.Get(IDList, 1).Select(r => r.ID).ToList();
+        //if (geoIDL.Count == 0) return new List<Campaign>();
 
-        //return db.Orders.Where(r =>
-        //    r.Type == type
-        //    && r.Date != null
-        //    && (from == null || r.Date.Value.Date >= from.Value.Date)
-        //    && (to == null || r.Date.Value.Date <= to.Value.Date)
-        //    ).ToList();
-        return null;
-
+        return db.Orders.Where(r =>
+            r.Type == type
+            && r.Date != null
+            && (from == null || r.Date.Value.Date >= from.Value.Date)
+            && (to == null || r.Date.Value.Date <= to.Value.Date)
+            ).ToList();
     }
 }

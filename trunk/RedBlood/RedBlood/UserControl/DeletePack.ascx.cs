@@ -48,11 +48,13 @@ public partial class UserControl_DeletePack : System.Web.UI.UserControl
             err += "Nhập lý do hủy. ";
         }
 
-        PackErr p_err = PackBLL.DeletePack(
-            CampaignID,
-            txtPackAutonum.Text.Trim().ToInt(),
-            txtDeleteNote.Text.Trim()
-            );
+        
+        //PackErr p_err = PackBLL.DeletePack(
+        //    CampaignID,
+        //    txtPackAutonum.Text.Trim().ToInt(),
+        //    txtDeleteNote.Text.Trim()
+        //    );
+        PackErr p_err = new PackErr("");
 
 
         if (p_err != null)

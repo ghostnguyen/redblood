@@ -74,9 +74,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackExtract(PackExtract instance);
   partial void UpdatePackExtract(PackExtract instance);
   partial void DeletePackExtract(PackExtract instance);
-  partial void InsertPackOrder(PackOrder instance);
-  partial void UpdatePackOrder(PackOrder instance);
-  partial void DeletePackOrder(PackOrder instance);
   partial void InsertExcel(Excel instance);
   partial void UpdateExcel(Excel instance);
   partial void DeleteExcel(Excel instance);
@@ -89,9 +86,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertDepartment(Department instance);
   partial void UpdateDepartment(Department instance);
   partial void DeleteDepartment(Department instance);
-  partial void InsertOrder(Order instance);
-  partial void UpdateOrder(Order instance);
-  partial void DeleteOrder(Order instance);
   partial void InsertFacility(Facility instance);
   partial void UpdateFacility(Facility instance);
   partial void DeleteFacility(Facility instance);
@@ -119,6 +113,15 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackStatusHistory(PackStatusHistory instance);
   partial void UpdatePackStatusHistory(PackStatusHistory instance);
   partial void DeletePackStatusHistory(PackStatusHistory instance);
+  partial void InsertOrder(Order instance);
+  partial void UpdateOrder(Order instance);
+  partial void DeleteOrder(Order instance);
+  partial void InsertPackTransaction(PackTransaction instance);
+  partial void UpdatePackTransaction(PackTransaction instance);
+  partial void DeletePackTransaction(PackTransaction instance);
+  partial void InsertPackOrder(PackOrder instance);
+  partial void UpdatePackOrder(PackOrder instance);
+  partial void DeletePackOrder(PackOrder instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -271,14 +274,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<PackOrder> PackOrders
-	{
-		get
-		{
-			return this.GetTable<PackOrder>();
-		}
-	}
-	
 	public System.Data.Linq.Table<Excel> Excels
 	{
 		get
@@ -308,14 +303,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Department>();
-		}
-	}
-	
-	public System.Data.Linq.Table<Order> Orders
-	{
-		get
-		{
-			return this.GetTable<Order>();
 		}
 	}
 	
@@ -388,6 +375,30 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<PackStatusHistory>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Order> Orders
+	{
+		get
+		{
+			return this.GetTable<Order>();
+		}
+	}
+	
+	public System.Data.Linq.Table<PackTransaction> PackTransactions
+	{
+		get
+		{
+			return this.GetTable<PackTransaction>();
+		}
+	}
+	
+	public System.Data.Linq.Table<PackOrder> PackOrders
+	{
+		get
+		{
+			return this.GetTable<PackOrder>();
 		}
 	}
 }
@@ -2888,9 +2899,9 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _NameNoDiacritics;
 	
-	private EntitySet<Order> _Orders;
-	
 	private EntitySet<Donation> _Donations;
+	
+	private EntitySet<Order> _Orders;
 	
 	private EntityRef<Hospital> _Hospital;
 	
@@ -2962,8 +2973,8 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public People()
 	{
-		this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
 		this._Donations = new EntitySet<Donation>(new Action<Donation>(this.attach_Donations), new Action<Donation>(this.detach_Donations));
+		this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
 		this._Hospital = default(EntityRef<Hospital>);
 		this._Geo = default(EntityRef<Geo>);
 		this._Geo1 = default(EntityRef<Geo>);
@@ -3467,19 +3478,6 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="People_Order", Storage="_Orders", ThisKey="ID", OtherKey="PeopleID")]
-	public EntitySet<Order> Orders
-	{
-		get
-		{
-			return this._Orders;
-		}
-		set
-		{
-			this._Orders.Assign(value);
-		}
-	}
-	
 	[Association(Name="People_Donation", Storage="_Donations", ThisKey="ID", OtherKey="PeopleID")]
 	public EntitySet<Donation> Donations
 	{
@@ -3490,6 +3488,19 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._Donations.Assign(value);
+		}
+	}
+	
+	[Association(Name="People_Order", Storage="_Orders", ThisKey="ID", OtherKey="PeopleID")]
+	public EntitySet<Order> Orders
+	{
+		get
+		{
+			return this._Orders;
+		}
+		set
+		{
+			this._Orders.Assign(value);
 		}
 	}
 	
@@ -3785,18 +3796,6 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	private void attach_Orders(Order entity)
-	{
-		this.SendPropertyChanging();
-		entity.People = this;
-	}
-	
-	private void detach_Orders(Order entity)
-	{
-		this.SendPropertyChanging();
-		entity.People = null;
-	}
-	
 	private void attach_Donations(Donation entity)
 	{
 		this.SendPropertyChanging();
@@ -3804,6 +3803,18 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_Donations(Donation entity)
+	{
+		this.SendPropertyChanging();
+		entity.People = null;
+	}
+	
+	private void attach_Orders(Order entity)
+	{
+		this.SendPropertyChanging();
+		entity.People = this;
+	}
+	
+	private void detach_Orders(Order entity)
 	{
 		this.SendPropertyChanging();
 		entity.People = null;
@@ -5610,229 +5621,6 @@ public partial class PackExtract : INotifyPropertyChanging, INotifyPropertyChang
 	}
 }
 
-[Table(Name="dbo.PackOrder")]
-public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _ID;
-	
-	private System.Nullable<System.Guid> _PackID;
-	
-	private System.Nullable<int> _OrderID;
-	
-	private PackOrder.StatusX _Status;
-	
-	private string _Actor;
-	
-	private string _Note;
-	
-	private EntityRef<Order> _Order;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
-    partial void OnPackIDChanged();
-    partial void OnOrderIDChanging(System.Nullable<int> value);
-    partial void OnOrderIDChanged();
-    partial void OnStatusChanging(PackOrder.StatusX value);
-    partial void OnStatusChanged();
-    partial void OnActorChanging(string value);
-    partial void OnActorChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    #endregion
-	
-	public PackOrder()
-	{
-		this._Order = default(EntityRef<Order>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> PackID
-	{
-		get
-		{
-			return this._PackID;
-		}
-		set
-		{
-			if ((this._PackID != value))
-			{
-				this.OnPackIDChanging(value);
-				this.SendPropertyChanging();
-				this._PackID = value;
-				this.SendPropertyChanged("PackID");
-				this.OnPackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_OrderID", DbType="Int")]
-	public System.Nullable<int> OrderID
-	{
-		get
-		{
-			return this._OrderID;
-		}
-		set
-		{
-			if ((this._OrderID != value))
-			{
-				if (this._Order.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnOrderIDChanging(value);
-				this.SendPropertyChanging();
-				this._OrderID = value;
-				this.SendPropertyChanged("OrderID");
-				this.OnOrderIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
-	public PackOrder.StatusX Status
-	{
-		get
-		{
-			return this._Status;
-		}
-		set
-		{
-			if ((this._Status != value))
-			{
-				this.OnStatusChanging(value);
-				this.SendPropertyChanging();
-				this._Status = value;
-				this.SendPropertyChanged("Status");
-				this.OnStatusChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
-	public string Actor
-	{
-		get
-		{
-			return this._Actor;
-		}
-		set
-		{
-			if ((this._Actor != value))
-			{
-				this.OnActorChanging(value);
-				this.SendPropertyChanging();
-				this._Actor = value;
-				this.SendPropertyChanged("Actor");
-				this.OnActorChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this.OnNoteChanging(value);
-				this.SendPropertyChanging();
-				this._Note = value;
-				this.SendPropertyChanged("Note");
-				this.OnNoteChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Order_PackOrder", Storage="_Order", ThisKey="OrderID", OtherKey="ID", IsForeignKey=true)]
-	public Order Order
-	{
-		get
-		{
-			return this._Order.Entity;
-		}
-		set
-		{
-			Order previousValue = this._Order.Entity;
-			if (((previousValue != value) 
-						|| (this._Order.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Order.Entity = null;
-					previousValue.PackOrders.Remove(this);
-				}
-				this._Order.Entity = value;
-				if ((value != null))
-				{
-					value.PackOrders.Add(this);
-					this._OrderID = value.ID;
-				}
-				else
-				{
-					this._OrderID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Order");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
 [Table(Name="dbo.Excel")]
 public partial class Excel : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -7266,7 +7054,7 @@ public partial class Department : INotifyPropertyChanging, INotifyPropertyChange
 	}
 	
 	[Association(Name="Department_Order2", Storage="_OrdersByDepartment3", ThisKey="ID", OtherKey="DepartmentID3")]
-	public new EntitySet<Order> OrdersByDepartment3
+	public EntitySet<Order> OrdersByDepartment3
 	{
 		get
 		{
@@ -7412,685 +7200,6 @@ public partial class Department : INotifyPropertyChanging, INotifyPropertyChange
 	{
 		this.SendPropertyChanging();
 		entity.Department3 = null;
-	}
-}
-
-[Table(Name="dbo.[Order]")]
-public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _ID;
-	
-	private string _Name;
-	
-	private System.Nullable<int> _OrgID;
-	
-	private System.Nullable<System.Guid> _PeopleID;
-	
-	private string _Note;
-	
-	private string _Actor;
-	
-	private System.Nullable<System.DateTime> _Date;
-	
-	private Order.TypeX _Type;
-	
-	private Order.StatusX _Status;
-	
-	private System.Nullable<System.Guid> _DepartmentID1;
-	
-	private System.Nullable<System.Guid> _DepartmentID2;
-	
-	private System.Nullable<System.Guid> _DepartmentID3;
-	
-	private string _Room;
-	
-	private string _Bed;
-	
-	private string _Diagnosis;
-	
-	private string _PatientCode;
-	
-	private string _TransfusionNote;
-	
-	private EntitySet<PackOrder> _PackOrders;
-	
-	private EntityRef<Department> _Department1;
-	
-	private EntityRef<Department> _Department2;
-	
-	private EntityRef<Department> _Department3;
-	
-	private EntityRef<Org> _Org;
-	
-	private EntityRef<People> _People;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnOrgIDChanging(System.Nullable<int> value);
-    partial void OnOrgIDChanged();
-    partial void OnPeopleIDChanging(System.Nullable<System.Guid> value);
-    partial void OnPeopleIDChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    partial void OnActorChanging(string value);
-    partial void OnActorChanged();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateChanged();
-    partial void OnTypeChanging(Order.TypeX value);
-    partial void OnTypeChanged();
-    partial void OnStatusChanging(Order.StatusX value);
-    partial void OnStatusChanged();
-    partial void OnDepartmentID1Changing(System.Nullable<System.Guid> value);
-    partial void OnDepartmentID1Changed();
-    partial void OnDepartmentID2Changing(System.Nullable<System.Guid> value);
-    partial void OnDepartmentID2Changed();
-    partial void OnDepartmentID3Changing(System.Nullable<System.Guid> value);
-    partial void OnDepartmentID3Changed();
-    partial void OnRoomChanging(string value);
-    partial void OnRoomChanged();
-    partial void OnBedChanging(string value);
-    partial void OnBedChanged();
-    partial void OnDiagnosisChanging(string value);
-    partial void OnDiagnosisChanged();
-    partial void OnPatientCodeChanging(string value);
-    partial void OnPatientCodeChanged();
-    partial void OnTransfusionNoteChanging(string value);
-    partial void OnTransfusionNoteChanged();
-    #endregion
-	
-	public Order()
-	{
-		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
-		this._Department1 = default(EntityRef<Department>);
-		this._Department2 = default(EntityRef<Department>);
-		this._Department3 = default(EntityRef<Department>);
-		this._Org = default(EntityRef<Org>);
-		this._People = default(EntityRef<People>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Name", DbType="NVarChar(MAX)")]
-	public string Name
-	{
-		get
-		{
-			return this._Name;
-		}
-		set
-		{
-			if ((this._Name != value))
-			{
-				this.OnNameChanging(value);
-				this.SendPropertyChanging();
-				this._Name = value;
-				this.SendPropertyChanged("Name");
-				this.OnNameChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_OrgID", DbType="Int")]
-	public System.Nullable<int> OrgID
-	{
-		get
-		{
-			return this._OrgID;
-		}
-		set
-		{
-			if ((this._OrgID != value))
-			{
-				if (this._Org.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnOrgIDChanging(value);
-				this.SendPropertyChanging();
-				this._OrgID = value;
-				this.SendPropertyChanged("OrgID");
-				this.OnOrgIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PeopleID", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> PeopleID
-	{
-		get
-		{
-			return this._PeopleID;
-		}
-		set
-		{
-			if ((this._PeopleID != value))
-			{
-				if (this._People.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnPeopleIDChanging(value);
-				this.SendPropertyChanging();
-				this._PeopleID = value;
-				this.SendPropertyChanged("PeopleID");
-				this.OnPeopleIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this.OnNoteChanging(value);
-				this.SendPropertyChanging();
-				this._Note = value;
-				this.SendPropertyChanged("Note");
-				this.OnNoteChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
-	public string Actor
-	{
-		get
-		{
-			return this._Actor;
-		}
-		set
-		{
-			if ((this._Actor != value))
-			{
-				this.OnActorChanging(value);
-				this.SendPropertyChanging();
-				this._Actor = value;
-				this.SendPropertyChanged("Actor");
-				this.OnActorChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Date", DbType="DateTime")]
-	public System.Nullable<System.DateTime> Date
-	{
-		get
-		{
-			return this._Date;
-		}
-		set
-		{
-			if ((this._Date != value))
-			{
-				this.OnDateChanging(value);
-				this.SendPropertyChanging();
-				this._Date = value;
-				this.SendPropertyChanged("Date");
-				this.OnDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Type", DbType="Int", CanBeNull=true)]
-	public Order.TypeX Type
-	{
-		get
-		{
-			return this._Type;
-		}
-		set
-		{
-			if ((this._Type != value))
-			{
-				this.OnTypeChanging(value);
-				this.SendPropertyChanging();
-				this._Type = value;
-				this.SendPropertyChanged("Type");
-				this.OnTypeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
-	public Order.StatusX Status
-	{
-		get
-		{
-			return this._Status;
-		}
-		set
-		{
-			if ((this._Status != value))
-			{
-				this.OnStatusChanging(value);
-				this.SendPropertyChanging();
-				this._Status = value;
-				this.SendPropertyChanged("Status");
-				this.OnStatusChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_DepartmentID1", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> DepartmentID1
-	{
-		get
-		{
-			return this._DepartmentID1;
-		}
-		set
-		{
-			if ((this._DepartmentID1 != value))
-			{
-				if (this._Department1.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnDepartmentID1Changing(value);
-				this.SendPropertyChanging();
-				this._DepartmentID1 = value;
-				this.SendPropertyChanged("DepartmentID1");
-				this.OnDepartmentID1Changed();
-			}
-		}
-	}
-	
-	[Column(Storage="_DepartmentID2", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> DepartmentID2
-	{
-		get
-		{
-			return this._DepartmentID2;
-		}
-		set
-		{
-			if ((this._DepartmentID2 != value))
-			{
-				if (this._Department2.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnDepartmentID2Changing(value);
-				this.SendPropertyChanging();
-				this._DepartmentID2 = value;
-				this.SendPropertyChanged("DepartmentID2");
-				this.OnDepartmentID2Changed();
-			}
-		}
-	}
-	
-	[Column(Storage="_DepartmentID3", DbType="UniqueIdentifier")]
-	public System.Nullable<System.Guid> DepartmentID3
-	{
-		get
-		{
-			return this._DepartmentID3;
-		}
-		set
-		{
-			if ((this._DepartmentID3 != value))
-			{
-				if (this._Department3.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnDepartmentID3Changing(value);
-				this.SendPropertyChanging();
-				this._DepartmentID3 = value;
-				this.SendPropertyChanged("DepartmentID3");
-				this.OnDepartmentID3Changed();
-			}
-		}
-	}
-	
-	[Column(Storage="_Room", DbType="NVarChar(MAX)")]
-	public string Room
-	{
-		get
-		{
-			return this._Room;
-		}
-		set
-		{
-			if ((this._Room != value))
-			{
-				this.OnRoomChanging(value);
-				this.SendPropertyChanging();
-				this._Room = value;
-				this.SendPropertyChanged("Room");
-				this.OnRoomChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Bed", DbType="NVarChar(MAX)")]
-	public string Bed
-	{
-		get
-		{
-			return this._Bed;
-		}
-		set
-		{
-			if ((this._Bed != value))
-			{
-				this.OnBedChanging(value);
-				this.SendPropertyChanging();
-				this._Bed = value;
-				this.SendPropertyChanged("Bed");
-				this.OnBedChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Diagnosis", DbType="NVarChar(MAX)")]
-	public string Diagnosis
-	{
-		get
-		{
-			return this._Diagnosis;
-		}
-		set
-		{
-			if ((this._Diagnosis != value))
-			{
-				this.OnDiagnosisChanging(value);
-				this.SendPropertyChanging();
-				this._Diagnosis = value;
-				this.SendPropertyChanged("Diagnosis");
-				this.OnDiagnosisChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PatientCode", DbType="NVarChar(MAX)")]
-	public string PatientCode
-	{
-		get
-		{
-			return this._PatientCode;
-		}
-		set
-		{
-			if ((this._PatientCode != value))
-			{
-				this.OnPatientCodeChanging(value);
-				this.SendPropertyChanging();
-				this._PatientCode = value;
-				this.SendPropertyChanged("PatientCode");
-				this.OnPatientCodeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TransfusionNote", DbType="NVarChar(MAX)")]
-	public string TransfusionNote
-	{
-		get
-		{
-			return this._TransfusionNote;
-		}
-		set
-		{
-			if ((this._TransfusionNote != value))
-			{
-				this.OnTransfusionNoteChanging(value);
-				this.SendPropertyChanging();
-				this._TransfusionNote = value;
-				this.SendPropertyChanged("TransfusionNote");
-				this.OnTransfusionNoteChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Order_PackOrder", Storage="_PackOrders", ThisKey="ID", OtherKey="OrderID")]
-	public EntitySet<PackOrder> PackOrders
-	{
-		get
-		{
-			return this._PackOrders;
-		}
-		set
-		{
-			this._PackOrders.Assign(value);
-		}
-	}
-	
-	[Association(Name="Department_Order", Storage="_Department1", ThisKey="DepartmentID1", OtherKey="ID", IsForeignKey=true)]
-	public Department Department1
-	{
-		get
-		{
-			return this._Department1.Entity;
-		}
-		set
-		{
-			Department previousValue = this._Department1.Entity;
-			if (((previousValue != value) 
-						|| (this._Department1.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Department1.Entity = null;
-					previousValue.OrdersByDepartment1.Remove(this);
-				}
-				this._Department1.Entity = value;
-				if ((value != null))
-				{
-					value.OrdersByDepartment1.Add(this);
-					this._DepartmentID1 = value.ID;
-				}
-				else
-				{
-					this._DepartmentID1 = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Department1");
-			}
-		}
-	}
-	
-	[Association(Name="Department_Order1", Storage="_Department2", ThisKey="DepartmentID2", OtherKey="ID", IsForeignKey=true)]
-	public Department Department2
-	{
-		get
-		{
-			return this._Department2.Entity;
-		}
-		set
-		{
-			Department previousValue = this._Department2.Entity;
-			if (((previousValue != value) 
-						|| (this._Department2.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Department2.Entity = null;
-					previousValue.OrdersByDepartment2.Remove(this);
-				}
-				this._Department2.Entity = value;
-				if ((value != null))
-				{
-					value.OrdersByDepartment2.Add(this);
-					this._DepartmentID2 = value.ID;
-				}
-				else
-				{
-					this._DepartmentID2 = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Department2");
-			}
-		}
-	}
-	
-	[Association(Name="Department_Order2", Storage="_Department3", ThisKey="DepartmentID3", OtherKey="ID", IsForeignKey=true)]
-	public Department Department3
-	{
-		get
-		{
-			return this._Department3.Entity;
-		}
-		set
-		{
-			Department previousValue = this._Department3.Entity;
-			if (((previousValue != value) 
-						|| (this._Department3.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Department3.Entity = null;
-					previousValue.OrdersByDepartment3.Remove(this);
-				}
-				this._Department3.Entity = value;
-				if ((value != null))
-				{
-					value.OrdersByDepartment3.Add(this);
-					this._DepartmentID3 = value.ID;
-				}
-				else
-				{
-					this._DepartmentID3 = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Department3");
-			}
-		}
-	}
-	
-	[Association(Name="Org_Order", Storage="_Org", ThisKey="OrgID", OtherKey="ID", IsForeignKey=true)]
-	public Org Org
-	{
-		get
-		{
-			return this._Org.Entity;
-		}
-		set
-		{
-			Org previousValue = this._Org.Entity;
-			if (((previousValue != value) 
-						|| (this._Org.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Org.Entity = null;
-					previousValue.Orders.Remove(this);
-				}
-				this._Org.Entity = value;
-				if ((value != null))
-				{
-					value.Orders.Add(this);
-					this._OrgID = value.ID;
-				}
-				else
-				{
-					this._OrgID = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("Org");
-			}
-		}
-	}
-	
-	[Association(Name="People_Order", Storage="_People", ThisKey="PeopleID", OtherKey="ID", IsForeignKey=true)]
-	public People People
-	{
-		get
-		{
-			return this._People.Entity;
-		}
-		set
-		{
-			People previousValue = this._People.Entity;
-			if (((previousValue != value) 
-						|| (this._People.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._People.Entity = null;
-					previousValue.Orders.Remove(this);
-				}
-				this._People.Entity = value;
-				if ((value != null))
-				{
-					value.Orders.Add(this);
-					this._PeopleID = value.ID;
-				}
-				else
-				{
-					this._PeopleID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("People");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_PackOrders(PackOrder entity)
-	{
-		this.SendPropertyChanging();
-		entity.Order = this;
-	}
-	
-	private void detach_PackOrders(PackOrder entity)
-	{
-		this.SendPropertyChanging();
-		entity.Order = null;
 	}
 }
 
@@ -9005,6 +8114,10 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<PackStatusHistory> _PackStatusHistories;
 	
+	private EntitySet<PackTransaction> _PackTransactions;
+	
+	private EntitySet<PackOrder> _PackOrders;
+	
 	private EntityRef<Donation> _Donation;
 	
 	private EntityRef<Product> _Product;
@@ -9039,6 +8152,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		this._PackLinks1 = new EntitySet<PackLink>(new Action<PackLink>(this.attach_PackLinks1), new Action<PackLink>(this.detach_PackLinks1));
 		this._Donations = new EntitySet<Donation>(new Action<Donation>(this.attach_Donations), new Action<Donation>(this.detach_Donations));
 		this._PackStatusHistories = new EntitySet<PackStatusHistory>(new Action<PackStatusHistory>(this.attach_PackStatusHistories), new Action<PackStatusHistory>(this.detach_PackStatusHistories));
+		this._PackTransactions = new EntitySet<PackTransaction>(new Action<PackTransaction>(this.attach_PackTransactions), new Action<PackTransaction>(this.detach_PackTransactions));
+		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
 		this._Donation = default(EntityRef<Donation>);
 		this._Product = default(EntityRef<Product>);
 		OnCreated();
@@ -9284,6 +8399,32 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="Pack_PackTransaction", Storage="_PackTransactions", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackTransaction> PackTransactions
+	{
+		get
+		{
+			return this._PackTransactions;
+		}
+		set
+		{
+			this._PackTransactions.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackOrder", Storage="_PackOrders", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackOrder> PackOrders
+	{
+		get
+		{
+			return this._PackOrders;
+		}
+		set
+		{
+			this._PackOrders.Assign(value);
+		}
+	}
+	
 	[Association(Name="Donation_Pack", Storage="_Donation", ThisKey="DIN", OtherKey="DIN", IsForeignKey=true)]
 	public Donation Donation
 	{
@@ -9415,6 +8556,30 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_PackStatusHistories(PackStatusHistory entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackTransactions(PackTransaction entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackTransactions(PackTransaction entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackOrders(PackOrder entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackOrders(PackOrder entity)
 	{
 		this.SendPropertyChanging();
 		entity.Pack = null;
@@ -10979,6 +10144,1172 @@ public partial class PackStatusHistory : INotifyPropertyChanging, INotifyPropert
 				if ((value != null))
 				{
 					value.PackStatusHistories.Add(this);
+					this._PackID = value.ID;
+				}
+				else
+				{
+					this._PackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.[Order]")]
+public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private string _Name;
+	
+	private System.Nullable<int> _OrgID;
+	
+	private System.Nullable<System.Guid> _PeopleID;
+	
+	private string _Note;
+	
+	private string _Actor;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private Order.TypeX _Type;
+	
+	private Order.StatusX _Status;
+	
+	private System.Nullable<System.Guid> _DepartmentID1;
+	
+	private System.Nullable<System.Guid> _DepartmentID2;
+	
+	private System.Nullable<System.Guid> _DepartmentID3;
+	
+	private string _Room;
+	
+	private string _Bed;
+	
+	private string _Diagnosis;
+	
+	private string _PatientCode;
+	
+	private string _TransfusionNote;
+	
+	private EntitySet<PackOrder> _PackOrders;
+	
+	private EntityRef<Department> _Department1;
+	
+	private EntityRef<Department> _Department2;
+	
+	private EntityRef<Department> _Department3;
+	
+	private EntityRef<Org> _Org;
+	
+	private EntityRef<People> _People;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnOrgIDChanging(System.Nullable<int> value);
+    partial void OnOrgIDChanged();
+    partial void OnPeopleIDChanging(System.Nullable<System.Guid> value);
+    partial void OnPeopleIDChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    partial void OnActorChanging(string value);
+    partial void OnActorChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnTypeChanging(Order.TypeX value);
+    partial void OnTypeChanged();
+    partial void OnStatusChanging(Order.StatusX value);
+    partial void OnStatusChanged();
+    partial void OnDepartmentID1Changing(System.Nullable<System.Guid> value);
+    partial void OnDepartmentID1Changed();
+    partial void OnDepartmentID2Changing(System.Nullable<System.Guid> value);
+    partial void OnDepartmentID2Changed();
+    partial void OnDepartmentID3Changing(System.Nullable<System.Guid> value);
+    partial void OnDepartmentID3Changed();
+    partial void OnRoomChanging(string value);
+    partial void OnRoomChanged();
+    partial void OnBedChanging(string value);
+    partial void OnBedChanged();
+    partial void OnDiagnosisChanging(string value);
+    partial void OnDiagnosisChanged();
+    partial void OnPatientCodeChanging(string value);
+    partial void OnPatientCodeChanged();
+    partial void OnTransfusionNoteChanging(string value);
+    partial void OnTransfusionNoteChanged();
+    #endregion
+	
+	public Order()
+	{
+		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
+		this._Department1 = default(EntityRef<Department>);
+		this._Department2 = default(EntityRef<Department>);
+		this._Department3 = default(EntityRef<Department>);
+		this._Org = default(EntityRef<Org>);
+		this._People = default(EntityRef<People>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Name", DbType="NVarChar(MAX)")]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this.OnNameChanging(value);
+				this.SendPropertyChanging();
+				this._Name = value;
+				this.SendPropertyChanged("Name");
+				this.OnNameChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_OrgID", DbType="Int")]
+	public System.Nullable<int> OrgID
+	{
+		get
+		{
+			return this._OrgID;
+		}
+		set
+		{
+			if ((this._OrgID != value))
+			{
+				if (this._Org.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnOrgIDChanging(value);
+				this.SendPropertyChanging();
+				this._OrgID = value;
+				this.SendPropertyChanged("OrgID");
+				this.OnOrgIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_PeopleID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> PeopleID
+	{
+		get
+		{
+			return this._PeopleID;
+		}
+		set
+		{
+			if ((this._PeopleID != value))
+			{
+				if (this._People.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnPeopleIDChanging(value);
+				this.SendPropertyChanging();
+				this._PeopleID = value;
+				this.SendPropertyChanged("PeopleID");
+				this.OnPeopleIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
+	public string Actor
+	{
+		get
+		{
+			return this._Actor;
+		}
+		set
+		{
+			if ((this._Actor != value))
+			{
+				this.OnActorChanging(value);
+				this.SendPropertyChanging();
+				this._Actor = value;
+				this.SendPropertyChanged("Actor");
+				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Type", DbType="Int", CanBeNull=true)]
+	public Order.TypeX Type
+	{
+		get
+		{
+			return this._Type;
+		}
+		set
+		{
+			if ((this._Type != value))
+			{
+				this.OnTypeChanging(value);
+				this.SendPropertyChanging();
+				this._Type = value;
+				this.SendPropertyChanged("Type");
+				this.OnTypeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public Order.StatusX Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_DepartmentID1", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> DepartmentID1
+	{
+		get
+		{
+			return this._DepartmentID1;
+		}
+		set
+		{
+			if ((this._DepartmentID1 != value))
+			{
+				if (this._Department1.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnDepartmentID1Changing(value);
+				this.SendPropertyChanging();
+				this._DepartmentID1 = value;
+				this.SendPropertyChanged("DepartmentID1");
+				this.OnDepartmentID1Changed();
+			}
+		}
+	}
+	
+	[Column(Storage="_DepartmentID2", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> DepartmentID2
+	{
+		get
+		{
+			return this._DepartmentID2;
+		}
+		set
+		{
+			if ((this._DepartmentID2 != value))
+			{
+				if (this._Department2.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnDepartmentID2Changing(value);
+				this.SendPropertyChanging();
+				this._DepartmentID2 = value;
+				this.SendPropertyChanged("DepartmentID2");
+				this.OnDepartmentID2Changed();
+			}
+		}
+	}
+	
+	[Column(Storage="_DepartmentID3", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> DepartmentID3
+	{
+		get
+		{
+			return this._DepartmentID3;
+		}
+		set
+		{
+			if ((this._DepartmentID3 != value))
+			{
+				if (this._Department3.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnDepartmentID3Changing(value);
+				this.SendPropertyChanging();
+				this._DepartmentID3 = value;
+				this.SendPropertyChanged("DepartmentID3");
+				this.OnDepartmentID3Changed();
+			}
+		}
+	}
+	
+	[Column(Storage="_Room", DbType="NVarChar(MAX)")]
+	public string Room
+	{
+		get
+		{
+			return this._Room;
+		}
+		set
+		{
+			if ((this._Room != value))
+			{
+				this.OnRoomChanging(value);
+				this.SendPropertyChanging();
+				this._Room = value;
+				this.SendPropertyChanged("Room");
+				this.OnRoomChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Bed", DbType="NVarChar(MAX)")]
+	public string Bed
+	{
+		get
+		{
+			return this._Bed;
+		}
+		set
+		{
+			if ((this._Bed != value))
+			{
+				this.OnBedChanging(value);
+				this.SendPropertyChanging();
+				this._Bed = value;
+				this.SendPropertyChanged("Bed");
+				this.OnBedChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Diagnosis", DbType="NVarChar(MAX)")]
+	public string Diagnosis
+	{
+		get
+		{
+			return this._Diagnosis;
+		}
+		set
+		{
+			if ((this._Diagnosis != value))
+			{
+				this.OnDiagnosisChanging(value);
+				this.SendPropertyChanging();
+				this._Diagnosis = value;
+				this.SendPropertyChanged("Diagnosis");
+				this.OnDiagnosisChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_PatientCode", DbType="NVarChar(MAX)")]
+	public string PatientCode
+	{
+		get
+		{
+			return this._PatientCode;
+		}
+		set
+		{
+			if ((this._PatientCode != value))
+			{
+				this.OnPatientCodeChanging(value);
+				this.SendPropertyChanging();
+				this._PatientCode = value;
+				this.SendPropertyChanged("PatientCode");
+				this.OnPatientCodeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_TransfusionNote", DbType="NVarChar(MAX)")]
+	public string TransfusionNote
+	{
+		get
+		{
+			return this._TransfusionNote;
+		}
+		set
+		{
+			if ((this._TransfusionNote != value))
+			{
+				this.OnTransfusionNoteChanging(value);
+				this.SendPropertyChanging();
+				this._TransfusionNote = value;
+				this.SendPropertyChanged("TransfusionNote");
+				this.OnTransfusionNoteChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Order_PackOrder", Storage="_PackOrders", ThisKey="ID", OtherKey="OrderID")]
+	public EntitySet<PackOrder> PackOrders
+	{
+		get
+		{
+			return this._PackOrders;
+		}
+		set
+		{
+			this._PackOrders.Assign(value);
+		}
+	}
+	
+	[Association(Name="Department_Order", Storage="_Department1", ThisKey="DepartmentID1", OtherKey="ID", IsForeignKey=true)]
+	public Department Department1
+	{
+		get
+		{
+			return this._Department1.Entity;
+		}
+		set
+		{
+			Department previousValue = this._Department1.Entity;
+			if (((previousValue != value) 
+						|| (this._Department1.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Department1.Entity = null;
+					previousValue.OrdersByDepartment1.Remove(this);
+				}
+				this._Department1.Entity = value;
+				if ((value != null))
+				{
+					value.OrdersByDepartment1.Add(this);
+					this._DepartmentID1 = value.ID;
+				}
+				else
+				{
+					this._DepartmentID1 = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Department1");
+			}
+		}
+	}
+	
+	[Association(Name="Department_Order1", Storage="_Department2", ThisKey="DepartmentID2", OtherKey="ID", IsForeignKey=true)]
+	public Department Department2
+	{
+		get
+		{
+			return this._Department2.Entity;
+		}
+		set
+		{
+			Department previousValue = this._Department2.Entity;
+			if (((previousValue != value) 
+						|| (this._Department2.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Department2.Entity = null;
+					previousValue.OrdersByDepartment2.Remove(this);
+				}
+				this._Department2.Entity = value;
+				if ((value != null))
+				{
+					value.OrdersByDepartment2.Add(this);
+					this._DepartmentID2 = value.ID;
+				}
+				else
+				{
+					this._DepartmentID2 = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Department2");
+			}
+		}
+	}
+	
+	[Association(Name="Department_Order2", Storage="_Department3", ThisKey="DepartmentID3", OtherKey="ID", IsForeignKey=true)]
+	public Department Department3
+	{
+		get
+		{
+			return this._Department3.Entity;
+		}
+		set
+		{
+			Department previousValue = this._Department3.Entity;
+			if (((previousValue != value) 
+						|| (this._Department3.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Department3.Entity = null;
+					previousValue.OrdersByDepartment3.Remove(this);
+				}
+				this._Department3.Entity = value;
+				if ((value != null))
+				{
+					value.OrdersByDepartment3.Add(this);
+					this._DepartmentID3 = value.ID;
+				}
+				else
+				{
+					this._DepartmentID3 = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Department3");
+			}
+		}
+	}
+	
+	[Association(Name="Org_Order", Storage="_Org", ThisKey="OrgID", OtherKey="ID", IsForeignKey=true)]
+	public Org Org
+	{
+		get
+		{
+			return this._Org.Entity;
+		}
+		set
+		{
+			Org previousValue = this._Org.Entity;
+			if (((previousValue != value) 
+						|| (this._Org.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Org.Entity = null;
+					previousValue.Orders.Remove(this);
+				}
+				this._Org.Entity = value;
+				if ((value != null))
+				{
+					value.Orders.Add(this);
+					this._OrgID = value.ID;
+				}
+				else
+				{
+					this._OrgID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Org");
+			}
+		}
+	}
+	
+	[Association(Name="People_Order", Storage="_People", ThisKey="PeopleID", OtherKey="ID", IsForeignKey=true)]
+	public People People
+	{
+		get
+		{
+			return this._People.Entity;
+		}
+		set
+		{
+			People previousValue = this._People.Entity;
+			if (((previousValue != value) 
+						|| (this._People.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._People.Entity = null;
+					previousValue.Orders.Remove(this);
+				}
+				this._People.Entity = value;
+				if ((value != null))
+				{
+					value.Orders.Add(this);
+					this._PeopleID = value.ID;
+				}
+				else
+				{
+					this._PeopleID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("People");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_PackOrders(PackOrder entity)
+	{
+		this.SendPropertyChanging();
+		entity.Order = this;
+	}
+	
+	private void detach_PackOrders(PackOrder entity)
+	{
+		this.SendPropertyChanging();
+		entity.Order = null;
+	}
+}
+
+[Table(Name="dbo.PackTransaction")]
+public partial class PackTransaction : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private System.Nullable<System.Guid> _PackID;
+	
+	private PackTransaction.TypeX _Type;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private string _Note;
+	
+	private EntityRef<Pack> _Pack;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
+    partial void OnPackIDChanged();
+    partial void OnTypeChanging(PackTransaction.TypeX value);
+    partial void OnTypeChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    #endregion
+	
+	public PackTransaction()
+	{
+		this._Pack = default(EntityRef<Pack>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> PackID
+	{
+		get
+		{
+			return this._PackID;
+		}
+		set
+		{
+			if ((this._PackID != value))
+			{
+				if (this._Pack.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnPackIDChanging(value);
+				this.SendPropertyChanging();
+				this._PackID = value;
+				this.SendPropertyChanged("PackID");
+				this.OnPackIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Type", DbType="Int", CanBeNull=true)]
+	public PackTransaction.TypeX Type
+	{
+		get
+		{
+			return this._Type;
+		}
+		set
+		{
+			if ((this._Type != value))
+			{
+				this.OnTypeChanging(value);
+				this.SendPropertyChanging();
+				this._Type = value;
+				this.SendPropertyChanged("Type");
+				this.OnTypeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackTransaction", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.PackTransactions.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.PackTransactions.Add(this);
+					this._PackID = value.ID;
+				}
+				else
+				{
+					this._PackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.PackOrder")]
+public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private System.Nullable<System.Guid> _PackID;
+	
+	private System.Nullable<int> _OrderID;
+	
+	private PackOrder.StatusX _Status;
+	
+	private string _Actor;
+	
+	private string _Note;
+	
+	private System.Nullable<System.DateTime> _ReturnDate;
+	
+	private EntityRef<Order> _Order;
+	
+	private EntityRef<Pack> _Pack;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
+    partial void OnPackIDChanged();
+    partial void OnOrderIDChanging(System.Nullable<int> value);
+    partial void OnOrderIDChanged();
+    partial void OnStatusChanging(PackOrder.StatusX value);
+    partial void OnStatusChanged();
+    partial void OnActorChanging(string value);
+    partial void OnActorChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    partial void OnReturnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnReturnDateChanged();
+    #endregion
+	
+	public PackOrder()
+	{
+		this._Order = default(EntityRef<Order>);
+		this._Pack = default(EntityRef<Pack>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> PackID
+	{
+		get
+		{
+			return this._PackID;
+		}
+		set
+		{
+			if ((this._PackID != value))
+			{
+				if (this._Pack.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnPackIDChanging(value);
+				this.SendPropertyChanging();
+				this._PackID = value;
+				this.SendPropertyChanged("PackID");
+				this.OnPackIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_OrderID", DbType="Int")]
+	public System.Nullable<int> OrderID
+	{
+		get
+		{
+			return this._OrderID;
+		}
+		set
+		{
+			if ((this._OrderID != value))
+			{
+				if (this._Order.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnOrderIDChanging(value);
+				this.SendPropertyChanging();
+				this._OrderID = value;
+				this.SendPropertyChanged("OrderID");
+				this.OnOrderIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public PackOrder.StatusX Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
+	public string Actor
+	{
+		get
+		{
+			return this._Actor;
+		}
+		set
+		{
+			if ((this._Actor != value))
+			{
+				this.OnActorChanging(value);
+				this.SendPropertyChanging();
+				this._Actor = value;
+				this.SendPropertyChanged("Actor");
+				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ReturnDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> ReturnDate
+	{
+		get
+		{
+			return this._ReturnDate;
+		}
+		set
+		{
+			if ((this._ReturnDate != value))
+			{
+				this.OnReturnDateChanging(value);
+				this.SendPropertyChanging();
+				this._ReturnDate = value;
+				this.SendPropertyChanged("ReturnDate");
+				this.OnReturnDateChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Order_PackOrder", Storage="_Order", ThisKey="OrderID", OtherKey="ID", IsForeignKey=true)]
+	public Order Order
+	{
+		get
+		{
+			return this._Order.Entity;
+		}
+		set
+		{
+			Order previousValue = this._Order.Entity;
+			if (((previousValue != value) 
+						|| (this._Order.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Order.Entity = null;
+					previousValue.PackOrders.Remove(this);
+				}
+				this._Order.Entity = value;
+				if ((value != null))
+				{
+					value.PackOrders.Add(this);
+					this._OrderID = value.ID;
+				}
+				else
+				{
+					this._OrderID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Order");
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackOrder", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.PackOrders.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.PackOrders.Add(this);
 					this._PackID = value.ID;
 				}
 				else

@@ -493,24 +493,22 @@ public class PackBLL
     //    return h;
     //}
 
-    public static PackErr DeletePack(int? campaignID, int autonum, string note)
+    //public static PackErr DeletePack(int? campaignID, int autonum, string note)
+    public static PackErr Delete(Guid ID, string note)
     {
-        if (autonum == 0) return null;
-
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = Get(db, new List<int> { autonum }, new List<Pack.StatusX> { Pack.StatusX.All }, true).FirstOrDefault();
+        Pack p = Get(ID);
 
         if (p == null) return PackErrEnum.NonExist;
 
-        //if (campaignID != null)
-        //{
-        //    if (p.CampaignID != campaignID) return PackErrEnum.NonExistInCam;
-        //}
+        db.Packs.Attach(p);
 
-        //PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Delete, note);
+        PackStatusHistory h = Update(db, p, Pack.StatusX.Delete, note);
 
         db.SubmitChanges();
+
+        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out, System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         return null;
     }
@@ -849,7 +847,7 @@ public class PackBLL
     //    db.SubmitChanges();
     //}
 
-    public static PackStatusHistory Update(Pack p, Pack.StatusX to, string actor, string note)
+    public static PackStatusHistory Update(RedBloodDataContext db, Pack p, Pack.StatusX to, string actor, string note)
     {
         if (p.Status == to) return null;
 
@@ -863,14 +861,16 @@ public class PackBLL
         e.Date = DateTime.Now;
 
         p.Status = to;
+
+        db.PackStatusHistories.InsertOnSubmit(e);
         return e;
     }
 
-
-    public static PackStatusHistory Update(Pack p, Pack.StatusX to, string note)
+    public static PackStatusHistory Update(RedBloodDataContext db, Pack p, Pack.StatusX to, string note)
     {
-        return Update(p, to, RedBloodSystem.CurrentActor, note);
+        return Update(db, p, to, RedBloodSystem.CurrentActor, note);
     }
+
 
     //public static PackErr Extract(List<int> autonumList, List<int> to)
     //{
@@ -944,8 +944,8 @@ public class PackBLL
                 PackBLL.Create(item.DIN, code, 0);
             }
 
-            PackStatusHistory h = Update(item, Pack.StatusX.Produced, "");
-            if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
+            PackStatusHistory h = Update(db,item, Pack.StatusX.Produced, "");
+            //if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
 
             db.SubmitChanges();
         }
@@ -1177,6 +1177,8 @@ public class PackBLL
         d.OrgPackID = pack.ID;
         db.SubmitChanges();
 
+        PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.In, System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return PackErrEnum.Non;
 
     }
@@ -1210,6 +1212,8 @@ public class PackBLL
         db.Packs.InsertOnSubmit(pack);
 
         db.SubmitChanges();
+
+        PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.In, System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         return PackErrEnum.Non;
     }

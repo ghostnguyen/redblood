@@ -306,6 +306,6 @@ public partial class UserControl_Order : System.Web.UI.UserControl
 
     protected void GridViewPack_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        OrderBLL.Remove(e.Keys[0].ToInt(), txtRemoveNoteGlobal.Text.Trim());
+        OrderBLL.Return(e.Keys[0].ToInt(), txtRemoveNoteGlobal.Text.Trim());
     }
 }

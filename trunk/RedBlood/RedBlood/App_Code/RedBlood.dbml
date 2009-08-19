@@ -141,8 +141,8 @@
       <Column Name="MailingGeoID3" Storage="_MailingGeo3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="EnableMailingAddress" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="NameNoDiacritics" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="People_Order" Member="Orders" ThisKey="ID" OtherKey="PeopleID" Type="Order" />
       <Association Name="People_Donation" Member="Donations" ThisKey="ID" OtherKey="PeopleID" Type="Donation" />
+      <Association Name="People_Order" Member="Orders" ThisKey="ID" OtherKey="PeopleID" Type="Order" />
       <Association Name="Hospital_People" Member="Hospital" ThisKey="HopistalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
       <Association Name="Geo_People" Member="MailingGeo1" Storage="_Geo" ThisKey="MailingGeoID1" OtherKey="ID" Type="Geo" IsForeignKey="true" />
       <Association Name="Geo_People1" Member="MailingGeo2" Storage="_Geo1" ThisKey="MailingGeoID2" OtherKey="ID" Type="Geo" IsForeignKey="true" />
@@ -236,17 +236,6 @@
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PackOrder" Member="PackOrders">
-    <Type Name="PackOrder">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="OrderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Status" Type="PackOrder.StatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Excel" Member="Excels">
     <Type Name="Excel">
       <Column Name="STT" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
@@ -312,36 +301,9 @@
       <Association Name="Department_Department" Member="ChildDepartments" ThisKey="ID" OtherKey="ParentID" Type="Department" />
       <Association Name="Department_Order" Member="OrdersByDepartment1" ThisKey="ID" OtherKey="DepartmentID1" Type="Order" />
       <Association Name="Department_Order1" Member="OrdersByDepartment2" ThisKey="ID" OtherKey="DepartmentID2" Type="Order" />
-      <Association Name="Department_Order2" Member="OrdersByDepartment3" Modifier="New" ThisKey="ID" OtherKey="DepartmentID3" Type="Order" />
+      <Association Name="Department_Order2" Member="OrdersByDepartment3" ThisKey="ID" OtherKey="DepartmentID3" Type="Order" />
       <Association Name="Department_Department" Member="ParentDepartment" ThisKey="ParentID" OtherKey="ID" Type="Department" IsForeignKey="true" />
       <Association Name="Hospital_Department" Member="Hospital" ThisKey="HospitalID" OtherKey="ID" Type="Hospital" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.[Order]" Member="Orders">
-    <Type Name="Order">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Type" Type="Order.TypeX" DbType="Int" CanBeNull="true" />
-      <Column Name="Status" Type="Order.StatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="DepartmentID1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="DepartmentID2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="DepartmentID3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Room" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Bed" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Diagnosis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="PatientCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="TransfusionNote" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Order_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="OrderID" Type="PackOrder" />
-      <Association Name="Department_Order" Member="Department1" ThisKey="DepartmentID1" OtherKey="ID" Type="Department" IsForeignKey="true" />
-      <Association Name="Department_Order1" Member="Department2" ThisKey="DepartmentID2" OtherKey="ID" Type="Department" IsForeignKey="true" />
-      <Association Name="Department_Order2" Member="Department3" ThisKey="DepartmentID3" OtherKey="ID" Type="Department" IsForeignKey="true" />
-      <Association Name="Org_Order" Member="Org" ThisKey="OrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
-      <Association Name="People_Order" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Facility" Member="Facilities">
@@ -403,6 +365,8 @@
       <Association Name="Pack_PackLink1" Member="PackLinks1" ThisKey="ID" OtherKey="ToPack" Type="PackLink" />
       <Association Name="Pack_Donation" Member="Donations" ThisKey="ID" OtherKey="OrgPackID" Type="Donation" />
       <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
+      <Association Name="Pack_PackTransaction" Member="PackTransactions" ThisKey="ID" OtherKey="PackID" Type="PackTransaction" />
+      <Association Name="Pack_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="PackID" Type="PackOrder" />
       <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
       <Association Name="Product_Pack" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
     </Type>
@@ -476,6 +440,56 @@
       <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Pack_PackStatusHistory" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PeopleID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Type" Type="Order.TypeX" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="Order.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="DepartmentID1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="DepartmentID2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="DepartmentID3" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Room" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Bed" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Diagnosis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PatientCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TransfusionNote" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Order_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="OrderID" Type="PackOrder" />
+      <Association Name="Department_Order" Member="Department1" ThisKey="DepartmentID1" OtherKey="ID" Type="Department" IsForeignKey="true" />
+      <Association Name="Department_Order1" Member="Department2" ThisKey="DepartmentID2" OtherKey="ID" Type="Department" IsForeignKey="true" />
+      <Association Name="Department_Order2" Member="Department3" ThisKey="DepartmentID3" OtherKey="ID" Type="Department" IsForeignKey="true" />
+      <Association Name="Org_Order" Member="Org" ThisKey="OrgID" OtherKey="ID" Type="Org" IsForeignKey="true" />
+      <Association Name="People_Order" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackTransaction" Member="PackTransactions">
+    <Type Name="PackTransaction">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Type" Type="PackTransaction.TypeX" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Pack_PackTransaction" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackOrder" Member="PackOrders">
+    <Type Name="PackOrder">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="PackOrder.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
+      <Association Name="Pack_PackOrder" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
