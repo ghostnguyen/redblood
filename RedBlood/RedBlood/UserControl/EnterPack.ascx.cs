@@ -258,7 +258,7 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     }
     protected void btnDelete_Click(object sender, EventArgs e)
     {
-        PackBLL.DeletePack(null, Autonum, "DeleteEnterPack");
+        //PackBLL.DeletePack(null, Autonum, "DeleteEnterPack");
         Load_EnterPack();
     }
     protected void btnRemove_Click(object sender, EventArgs e)

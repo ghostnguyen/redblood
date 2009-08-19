@@ -47,7 +47,7 @@ public class SystemBLL
 
             foreach (Pack r in rs)
             {
-                PackStatusHistory h = PackBLL.Update(r, Pack.StatusX.Expired, RedBloodSystem.SODActor, "");
+                PackStatusHistory h = PackBLL.Update(db,r, Pack.StatusX.Expired, RedBloodSystem.SODActor, "");
 
                 if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
             }
