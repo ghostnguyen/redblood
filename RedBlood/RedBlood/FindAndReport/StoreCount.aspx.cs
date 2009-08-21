@@ -7,6 +7,11 @@ using System.Web.UI.WebControls;
 
 public partial class FindAndReport_StoreCount : System.Web.UI.Page
 {
+    List<vw_ProductCount> list = new List<vw_ProductCount>();
+
+    List<Product> wholeBloodproductList = new List<Product>();
+       
+
     protected void Page_Load(object sender, EventArgs e)
     {
         Calc();
@@ -14,7 +19,18 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
 
     void Calc()
     {
-        //Calc4Component(TestDef.Component.Full, Pack.StatusX.Collected, lblFullNonTR, lblFullPos, lblFullNeg, lblFullDeliver, lblFullExpire, lblFullDelete);
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        List<Pack.StatusX> statusList = new List<Pack.StatusX>() { Pack.StatusX.Expired, Pack.StatusX.Product };
+
+        List<vw_ProductCount> list = db.vw_ProductCounts.Where(r => statusList.Contains(r.Status)).ToList();
+
+        wholeBloodproductList.Add(new Product() { Code = "E0009V00" });
+        wholeBloodproductList.Add(new Product() { Code = "E0023V00" });
+        wholeBloodproductList.Add(new Product() { Code = "E0037V00" });
+        wholeBloodproductList.Add(new Product() { Code = "E0052V00" });
+
+        Calc4Product(wholeBloodproductList, lblFullNonTR, lblFullPos, lblFullNeg, lblFullExpire);
         //Calc4Component(TestDef.Component.RBC, Pack.StatusX.Product, lblRBCNonTR, lblRBCPos, lblRBCNeg, lblRBCDeliver, lblRBCExpire, lblRBCDelete);
         //Calc4Component(TestDef.Component.WBC, Pack.StatusX.Product, lblWBCNonTR, lblWBCPos, lblWBCNeg, lblWBCDeliver, lblWBCExpire, lblWBCDelete);
         //Calc4Component(TestDef.Component.FFPlasma, Pack.StatusX.Product, lblFFPlasmaNonTR, lblFFPlasmaPos, lblFFPlasmaNeg, lblFFPlasmaDeliver, lblFFPlasmaExpire, lblFFPlasmaDelete);
@@ -24,82 +40,66 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
         //Calc4Component(TestDef.Component.PlateletApheresis, Pack.StatusX.Collected, lblPlateletApheresisNonTR, lblPlateletApheresisPos, lblPlateletApheresisNeg, lblPlateletApheresisDeliver, lblPlateletApheresisExpire, lblPlateletApheresisDelete);
     }
 
-    void Calc4Component(int componentID, Pack.StatusX status, Label lblNonTR, Label lblPos, Label lblNeg, Label lblDeliver, Label lblExpire, Label lblDelete)
+    void Calc4Product(List<Product> productList, Label lblNonTR, Label lblPos, Label lblNeg, Label lblExpire)
     {
-        //RedBloodDataContext db = new RedBloodDataContext();
+        List<vw_ProductCount> listNonExpire = list.Where(r => r.Status == Pack.StatusX.Product).ToList();
 
-        //lblNonTR.Text = db.Packs.Where(r => r.ComponentID == componentID
-        //    && r.DeliverStatus == Pack.DeliverStatusX.Non
-        //    && r.Status == status
-        //    && r.TestResultStatus == Pack.TestResultStatusX.Non)
-        //    .Count().ToStringRemoveZero();
+        lblNonTR.Text = listNonExpire.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Non).Count().ToStringRemoveZero();
+        
+        lblPos.Text = listNonExpire.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Positive
+            || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked).Count().ToStringRemoveZero();
 
-        //lblPos.Text = db.Packs.Where(r => r.ComponentID == componentID
-        //    && r.DeliverStatus == Pack.DeliverStatusX.Non
-        //    && r.Status == status
-        //    &&
-        //        (r.TestResultStatus == Pack.TestResultStatusX.Positive
-        //        || r.TestResultStatus == Pack.TestResultStatusX.PositiveLocked))
-        //    .Count().ToStringRemoveZero();
+        lblNeg.Text = listNonExpire.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative
+            || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked).Count().ToStringRemoveZero();
 
-        //lblNeg.Text = db.Packs.Where(r => r.ComponentID == componentID
-        //    && r.DeliverStatus == Pack.DeliverStatusX.Non
-        //    && r.Status == status
-        //    &&
-        //        (r.TestResultStatus == Pack.TestResultStatusX.Negative
-        //        || r.TestResultStatus == Pack.TestResultStatusX.NegativeLocked))
-        //    .Count().ToStringRemoveZero();
+        if (productList == wholeBloodproductList)
+        {
+            //250
+            lblFull250_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 250);
+            lblFull250_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 250);
+            lblFull250_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 250);
+            lblFull250_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 250);
 
-        //if (componentID == TestDef.Component.Full)
-        //{
-        //    //250
-        //    lblFull250_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 250);
-        //    lblFull250_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 250);
-        //    lblFull250_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 250);
-        //    lblFull250_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 250);
+            lblFull250_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 250);
+            lblFull250_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 250);
+            lblFull250_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 250);
+            lblFull250_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 250);
 
-        //    lblFull250_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 250);
-        //    lblFull250_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 250);
-        //    lblFull250_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 250);
-        //    lblFull250_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 250);
+            //350
+            lblFull350_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 350);
+            lblFull350_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 350);
+            lblFull350_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 350);
+            lblFull350_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 350);
 
-        //    //350
-        //    lblFull350_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 350);
-        //    lblFull350_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 350);
-        //    lblFull350_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 350);
-        //    lblFull350_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 350);
+            lblFull350_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 350);
+            lblFull350_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 350);
+            lblFull350_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 350);
+            lblFull350_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 350);
 
-        //    lblFull350_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 350);
-        //    lblFull350_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 350);
-        //    lblFull350_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 350);
-        //    lblFull350_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 350);
+            //450
+            lblFull450_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 450);
+            lblFull450_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 450);
+            lblFull450_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 450);
+            lblFull450_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 450);
 
-        //    //450
-        //    lblFull450_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 450);
-        //    lblFull450_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 450);
-        //    lblFull450_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 450);
-        //    lblFull450_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 450);
-
-        //    lblFull450_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 450);
-        //    lblFull450_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 450);
-        //    lblFull450_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 450);
-        //    lblFull450_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 450);
-        //}
+            lblFull450_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 450);
+            lblFull450_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 450);
+            lblFull450_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 450);
+            lblFull450_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 450);
+        }
 
         //lblDeliver.Text = db.Packs.Where(r => r.ComponentID == componentID
         //    && r.DeliverStatus == Pack.DeliverStatusX.Yes)
         //    .Count().ToStringRemoveZero();
 
-        //lblExpire.Text = db.Packs.Where(r => r.ComponentID == componentID
-        //    && r.Status == Pack.StatusX.Expired)
-        //    .Count().ToStringRemoveZero();
+        lblExpire.Text = list.Where(r => r.Status == Pack.StatusX.Expired).Count().ToStringRemoveZero();
 
         //lblDelete.Text = db.Packs.Where(r => r.ComponentID == componentID
         //    && r.Status == Pack.StatusX.Delete)
         //    .Count().ToStringRemoveZero();
     }
 
-    string Calc_ABO_Rh(RedBloodDataContext db, int componentID, Pack.StatusX status, int abo, int rh, int volume)
+    string Calc_ABO_Rh(List<vw_ProductCount> listNonExpire, int componentID, Pack.StatusX status, int abo, int rh, int volume)
     {
         //int count = db.Packs.Where(r => r.ComponentID == componentID
         //   && r.DeliverStatus == Pack.DeliverStatusX.Non

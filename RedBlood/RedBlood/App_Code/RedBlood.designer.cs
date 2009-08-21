@@ -401,6 +401,14 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 			return this.GetTable<PackOrder>();
 		}
 	}
+	
+	public System.Data.Linq.Table<vw_ProductCount> vw_ProductCounts
+	{
+		get
+		{
+			return this.GetTable<vw_ProductCount>();
+		}
+	}
 }
 
 [Table(Name="dbo.aspnet_UserProfiles")]
@@ -11338,6 +11346,141 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 		if ((this.PropertyChanged != null))
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.vw_ProductCount")]
+public partial class vw_ProductCount
+{
+	
+	private string _Code;
+	
+	private string _Description;
+	
+	private Pack.StatusX _Status;
+	
+	private string _BloodGroup;
+	
+	private Donation.TestResultStatusX _TestResultStatus;
+	
+	private System.Nullable<int> _Count;
+	
+	private System.Nullable<int> _Volume;
+	
+	public vw_ProductCount()
+	{
+	}
+	
+	[Column(Storage="_Code", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+	public string Code
+	{
+		get
+		{
+			return this._Code;
+		}
+		set
+		{
+			if ((this._Code != value))
+			{
+				this._Code = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Description", DbType="NVarChar(MAX)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public Pack.StatusX Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this._Status = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_BloodGroup", DbType="NVarChar(MAX)")]
+	public string BloodGroup
+	{
+		get
+		{
+			return this._BloodGroup;
+		}
+		set
+		{
+			if ((this._BloodGroup != value))
+			{
+				this._BloodGroup = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_TestResultStatus", DbType="Int", CanBeNull=true)]
+	public Donation.TestResultStatusX TestResultStatus
+	{
+		get
+		{
+			return this._TestResultStatus;
+		}
+		set
+		{
+			if ((this._TestResultStatus != value))
+			{
+				this._TestResultStatus = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Count", DbType="Int")]
+	public System.Nullable<int> Count
+	{
+		get
+		{
+			return this._Count;
+		}
+		set
+		{
+			if ((this._Count != value))
+			{
+				this._Count = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Volume", DbType="Int")]
+	public System.Nullable<int> Volume
+	{
+		get
+		{
+			return this._Volume;
+		}
+		set
+		{
+			if ((this._Volume != value))
+			{
+				this._Volume = value;
+			}
 		}
 	}
 }

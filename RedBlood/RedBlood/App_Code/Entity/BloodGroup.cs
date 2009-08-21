@@ -34,23 +34,37 @@ public class BloodGroup
         Description = description;
     }
 
-    public static List<BloodGroup> BloodGroupList = new List<BloodGroup>(){
-        new BloodGroup("9500", "O RhD negative")
-        , new BloodGroup("5100", "O RhD positive")
-        , new BloodGroup("0600", "A RhD negative")
-        , new BloodGroup("6200", "A RhD positive")
-        , new BloodGroup("1700", "B RhD negative")
-        , new BloodGroup("7300", "B RhD Positive")
-        , new BloodGroup("2800", "AB RhD negative")
-        , new BloodGroup("8400", "AB RhD positive")
-        , new BloodGroup("5500", "O")
-        , new BloodGroup("6600", "A")
-        , new BloodGroup("7700", "B")
-        , new BloodGroup("8800", "AB")
-        , new BloodGroup("D600", "para-Bombay, RhD negative")
-        , new BloodGroup("E600", "para-Bombay, RhD positive")
-        , new BloodGroup("G600", "Bombay, RhD negative")
-        , new BloodGroup("H600", "Bombay, RhD positive")
-
+    public static List<BloodGroup> BloodGroupList = new List<BloodGroup>()
+    {
+        O_RhD_negative,O_RhD_positive,A_RhD_negative,A_RhD_positive,
+        B_RhD_negative,B_RhD_positive,AB_RhD_negative,AB_RhD_positive,
+        O,A,B,AB,
+        para_Bombay_RhD_negative,para_Bombay_RhD_positive,
+        Bombay_RhD_negative,Bombay_RhD_positive
     };
+
+    public static BloodGroup O_RhD_negative = new BloodGroup("9500", "O RhD negative");
+    public static BloodGroup O_RhD_positive = new BloodGroup("5100", "O RhD positive");
+
+    public static BloodGroup A_RhD_negative = new BloodGroup("0600", "A RhD negative");
+    public static BloodGroup A_RhD_positive = new BloodGroup("6200", "A RhD positive");
+
+
+    public static BloodGroup B_RhD_negative = new BloodGroup("1700", "B RhD negative");
+    public static BloodGroup B_RhD_positive = new BloodGroup("7300", "B RhD Positive");
+
+    public static BloodGroup AB_RhD_negative = new BloodGroup("2800", "AB RhD negative");
+    public static BloodGroup AB_RhD_positive = new BloodGroup("8400", "AB RhD positive");
+
+    public static BloodGroup O = new BloodGroup("5500", "O");
+    public static BloodGroup A = new BloodGroup("6600", "A");
+    public static BloodGroup B = new BloodGroup("7700", "B");
+    public static BloodGroup AB = new BloodGroup("8800", "AB");
+
+    public static BloodGroup para_Bombay_RhD_negative = new BloodGroup("D600", "para-Bombay, RhD negative");
+    public static BloodGroup para_Bombay_RhD_positive = new BloodGroup("E600", "para-Bombay, RhD positive");
+    public static BloodGroup Bombay_RhD_negative = new BloodGroup("G600", "Bombay, RhD negative");
+    public static BloodGroup Bombay_RhD_positive = new BloodGroup("H600", "Bombay, RhD positive");
+
+
 }
