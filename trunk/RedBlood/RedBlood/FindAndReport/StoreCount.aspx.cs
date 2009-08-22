@@ -7,14 +7,158 @@ using System.Web.UI.WebControls;
 
 public partial class FindAndReport_StoreCount : System.Web.UI.Page
 {
-    List<vw_ProductCount> list = new List<vw_ProductCount>();
+    class BGCount
+    {
+        public List<vw_ProductCount> _availableList;
+        public List<vw_ProductCount> availableList
+        {
+            get
+            {
+                if (_availableList == null) _availableList = new List<vw_ProductCount>();
+                return _availableList;
+            }
+            set
+            {
+                _availableList = value;
 
-    List<Product> wholeBloodproductList = new List<Product>();
-       
+                O_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.O_RhD_positive.Code
+                    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                O_RhD_Neg = availableList.Where(r => r.BloodGroup == BloodGroup.O_RhD_negative.Code
+                    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                A_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.A_RhD_positive.Code
+                    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                A_RhD_Neg = availableList.Where(r => r.BloodGroup == BloodGroup.A_RhD_negative.Code
+                    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                B_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.B_RhD_positive.Code
+                    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                B_RhD_Neg = availableList.Where(r => r.BloodGroup == BloodGroup.B_RhD_negative.Code
+                    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                AB_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.AB_RhD_positive.Code
+                    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                AB_RhD_Neg = availableList.Where(r => r.BloodGroup == BloodGroup.AB_RhD_negative.Code
+                    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                //O_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.O_RhD_positive.Code
+                //    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+            }
+        }
+
+        public int Volume { get; set; }
+        public string VolumeText
+        {
+            get
+            {
+                if (Volume == 0) return "";
+                else return Volume.ToString();
+            }
+        }
+        public string O_RhD_Pos { get; set; }
+        public string O_RhD_Neg { get; set; }
+        public string A_RhD_Pos { get; set; }
+        public string A_RhD_Neg { get; set; }
+        public string B_RhD_Pos { get; set; }
+        public string B_RhD_Neg { get; set; }
+        public string AB_RhD_Pos { get; set; }
+        public string AB_RhD_Neg { get; set; }
+        public string Others { get; set; }
+    }
+
+    class ProductCount
+    {
+        private List<vw_ProductCount> _availableList;
+        public List<vw_ProductCount> availableList
+        {
+            get
+            {
+                if (_availableList == null) _availableList = new List<vw_ProductCount>();
+                return _availableList;
+            }
+            set
+            {
+                _availableList = value;
+
+                TRNon = availableList.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Non).Count().ToStringRemoveZero();
+                TRPos = availableList.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Positive
+                        || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked).Count().ToStringRemoveZero();
+
+                negList = availableList.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative
+                        || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked).ToList();
+            }
+        }
+
+        private List<vw_ProductCount> _negList;
+        public List<vw_ProductCount> negList
+        {
+            get
+            {
+                if (_negList == null) return _negList = new List<vw_ProductCount>();
+                else return _negList;
+            }
+            set
+            {
+                _negList = value;
+
+                TRNeg = negList.Count().ToStringRemoveZero();
+
+                bgCountList = new List<BGCount>();
+
+                if (volumeList == null || volumeList.Count == 0)
+                {
+                    volumeList = new List<int>();
+                    volumeList.Add(0);
+                }
+
+                foreach (int item in volumeList)
+                {
+                    BGCount bgCount = new BGCount();
+                    bgCount.Volume = item;
+                    bgCount.availableList = negList;
+
+                    bgCountList.Add(bgCount);
+                }
+            }
+        }
+
+        private List<vw_ProductCount> _expireList;
+        public List<vw_ProductCount> expireList
+        {
+            get
+            {
+                if (_expireList == null) _expireList = new List<vw_ProductCount>();
+                return _expireList;
+            }
+            set
+            {
+                _expireList = value;
+
+                Expire = expireList.Count.ToStringRemoveZero();
+            }
+        }
+
+        public string Name { get; set; }
+        public string TRNon { get; set; }
+        public string TRPos { get; set; }
+        public string TRNeg { get; set; }
+        public string Expire { get; set; }
+        public List<int> volumeList { get; set; }
+        public List<BGCount> bgCountList { get; set; }
+    }
+
+    List<vw_ProductCount> list = new List<vw_ProductCount>();
+    List<ProductCount> countList = new List<ProductCount>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         Calc();
+        GridView1.DataSource = countList;
+        GridView1.DataBind();
     }
 
     void Calc()
@@ -22,109 +166,70 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
         RedBloodDataContext db = new RedBloodDataContext();
 
         List<Pack.StatusX> statusList = new List<Pack.StatusX>() { Pack.StatusX.Expired, Pack.StatusX.Product };
+        list = db.vw_ProductCounts.Where(r => statusList.Contains(r.Status)).ToList();
 
-        List<vw_ProductCount> list = db.vw_ProductCounts.Where(r => statusList.Contains(r.Status)).ToList();
+        List<Product> bloodProductList = new List<Product>();
 
-        wholeBloodproductList.Add(new Product() { Code = "E0009V00" });
-        wholeBloodproductList.Add(new Product() { Code = "E0023V00" });
-        wholeBloodproductList.Add(new Product() { Code = "E0037V00" });
-        wholeBloodproductList.Add(new Product() { Code = "E0052V00" });
+        //whole blood
+        bloodProductList = new List<Product>();
+        bloodProductList.Add(new Product() { Code = "E0009V00" });
+        bloodProductList.Add(new Product() { Code = "E0023V00" });
+        bloodProductList.Add(new Product() { Code = "E0037V00" });
+        bloodProductList.Add(new Product() { Code = "E0052V00" });
+        countList.Add(Calc4Product(bloodProductList, "Toàn phần", new List<int>() { 250, 350, 450 }));
 
-        Calc4Product(wholeBloodproductList, lblFullNonTR, lblFullPos, lblFullNeg, lblFullExpire);
-        //Calc4Component(TestDef.Component.RBC, Pack.StatusX.Product, lblRBCNonTR, lblRBCPos, lblRBCNeg, lblRBCDeliver, lblRBCExpire, lblRBCDelete);
-        //Calc4Component(TestDef.Component.WBC, Pack.StatusX.Product, lblWBCNonTR, lblWBCPos, lblWBCNeg, lblWBCDeliver, lblWBCExpire, lblWBCDelete);
-        //Calc4Component(TestDef.Component.FFPlasma, Pack.StatusX.Product, lblFFPlasmaNonTR, lblFFPlasmaPos, lblFFPlasmaNeg, lblFFPlasmaDeliver, lblFFPlasmaExpire, lblFFPlasmaDelete);
-        //Calc4Component(TestDef.Component.Platelet, Pack.StatusX.Product, lblPlateletNonTR, lblPlateletPos, lblPlateletNeg, lblPlateletDeliver, lblPlateletExpire, lblPlateletDelete);
-        //Calc4Component(TestDef.Component.FactorVIII, Pack.StatusX.Product, lblFactorVIIINonTR, lblFactorVIIIPos, lblFactorVIIINeg, lblFactorVIIIDeliver, lblFactorVIIIExpire, lblFactorVIIIDelete);
-        //Calc4Component(TestDef.Component.FFPlasma_Poor, Pack.StatusX.Product, lblFFPlasmaPoorNonTR, lblFFPlasmaPoorPos, lblFFPlasmaPoorNeg, lblFFPlasmaPoorDeliver, lblFFPlasmaPoorExpire, lblFFPlasmaPoorDelete);
-        //Calc4Component(TestDef.Component.PlateletApheresis, Pack.StatusX.Collected, lblPlateletApheresisNonTR, lblPlateletApheresisPos, lblPlateletApheresisNeg, lblPlateletApheresisDeliver, lblPlateletApheresisExpire, lblPlateletApheresisDelete);
+        //RBC
+        bloodProductList = new List<Product>();
+        bloodProductList.Add(new Product() { Code = "E0150V00" });
+        bloodProductList.Add(new Product() { Code = "E0195V00" });
+        bloodProductList.Add(new Product() { Code = "E0244V00" });
+        bloodProductList.Add(new Product() { Code = "E5017V00" });
+        bloodProductList.Add(new Product() { Code = "E6051V00" });
+        countList.Add(Calc4Product(bloodProductList, "HCL", new List<int>() { }));
+
+        //FFP
+        bloodProductList = new List<Product>();
+        bloodProductList.Add(new Product() { Code = "E0701V00" });
+        countList.Add(Calc4Product(bloodProductList, "HT Tươi", new List<int>() { }));
+
+        //Plasma
+        bloodProductList = new List<Product>();
+        bloodProductList.Add(new Product() { Code = "E2528V00" });
+        countList.Add(Calc4Product(bloodProductList, "HT dự trữ", new List<int>() { }));
+
+        //Platelet
+        bloodProductList = new List<Product>();
+        bloodProductList.Add(new Product() { Code = "E2807V00" });
+        countList.Add(Calc4Product(bloodProductList, "Tiểu cầu", new List<int>() { }));
+
+        //Apheresis Platelet
+        bloodProductList = new List<Product>();
+        bloodProductList.Add(new Product() { Code = "E2940V00" });
+        countList.Add(Calc4Product(bloodProductList, "Tiểu cầu Apheresis", new List<int>() { }));
+
+        //Leukocytes
+        bloodProductList = new List<Product>();
+        bloodProductList.Add(new Product() { Code = "E3702V00" });
+        countList.Add(Calc4Product(bloodProductList, "Bạch cầu", new List<int>() { }));
+
+        //Cryoprecipitate
+        bloodProductList = new List<Product>();
+        bloodProductList.Add(new Product() { Code = "E5165V00" });
+        countList.Add(Calc4Product(bloodProductList, "Kit tủa lạnh", new List<int>() { }));
     }
 
-    void Calc4Product(List<Product> productList, Label lblNonTR, Label lblPos, Label lblNeg, Label lblExpire)
+    ProductCount Calc4Product(List<Product> productList, string name, List<int> volList)
     {
-        List<vw_ProductCount> listNonExpire = list.Where(r => r.Status == Pack.StatusX.Product).ToList();
+        ProductCount productCount = new ProductCount();
 
-        lblNonTR.Text = listNonExpire.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Non).Count().ToStringRemoveZero();
-        
-        lblPos.Text = listNonExpire.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Positive
-            || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked).Count().ToStringRemoveZero();
+        productCount.Name = name;
+        productCount.volumeList = volList;
 
-        lblNeg.Text = listNonExpire.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative
-            || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked).Count().ToStringRemoveZero();
+        productCount.availableList = list.Where(r => productList.Select(r1 => r1.Code).Contains(r.Code) && r.Status == Pack.StatusX.Product).ToList();
+        productCount.expireList = list.Where(r => productList.Select(r1 => r1.Code).Contains(r.Code) && r.Status == Pack.StatusX.Expired).ToList();
 
-        if (productList == wholeBloodproductList)
-        {
-            //250
-            lblFull250_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 250);
-            lblFull250_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 250);
-            lblFull250_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 250);
-            lblFull250_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 250);
-
-            lblFull250_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 250);
-            lblFull250_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 250);
-            lblFull250_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 250);
-            lblFull250_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 250);
-
-            //350
-            lblFull350_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 350);
-            lblFull350_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 350);
-            lblFull350_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 350);
-            lblFull350_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 350);
-
-            lblFull350_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 350);
-            lblFull350_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 350);
-            lblFull350_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 350);
-            lblFull350_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 350);
-
-            //450
-            lblFull450_AB_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Pos, 450);
-            lblFull450_A_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Pos, 450);
-            lblFull450_B_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Pos, 450);
-            lblFull450_O_RhPos.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Pos, 450);
-
-            lblFull450_AB_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.AB, TestDef.RH.Neg, 450);
-            lblFull450_A_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.A, TestDef.RH.Neg, 450);
-            lblFull450_B_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.B, TestDef.RH.Neg, 450);
-            lblFull450_O_RhNeg.Text = Calc_ABO_Rh(db, componentID, status, TestDef.ABO.O, TestDef.RH.Neg, 450);
-        }
-
-        //lblDeliver.Text = db.Packs.Where(r => r.ComponentID == componentID
-        //    && r.DeliverStatus == Pack.DeliverStatusX.Yes)
-        //    .Count().ToStringRemoveZero();
-
-        lblExpire.Text = list.Where(r => r.Status == Pack.StatusX.Expired).Count().ToStringRemoveZero();
-
-        //lblDelete.Text = db.Packs.Where(r => r.ComponentID == componentID
-        //    && r.Status == Pack.StatusX.Delete)
-        //    .Count().ToStringRemoveZero();
-    }
-
-    string Calc_ABO_Rh(List<vw_ProductCount> listNonExpire, int componentID, Pack.StatusX status, int abo, int rh, int volume)
-    {
-        //int count = db.Packs.Where(r => r.ComponentID == componentID
-        //   && r.DeliverStatus == Pack.DeliverStatusX.Non
-        //   && r.Status == status
-        //   && r.Volume == volume
-        //   &&
-        //       (r.TestResultStatus == Pack.TestResultStatusX.Negative
-        //       || r.TestResultStatus == Pack.TestResultStatusX.NegativeLocked)
-        //   && r.RhID == rh
-        //   && r.ABOID == abo)
-        //   .Count();
-
-        //if (count > 0)
-        //{
-        //    if (rh == TestDef.RH.Pos)
-        //    {
-        //        return count.ToString();
-        //    }
-
-        //    if (rh == TestDef.RH.Neg)
-        //    {
-        //        return count.ToString("0 Rh-") ;
-        //    }
-        //}
-
-        return "";
+        return productCount;
     }
 }
+
+

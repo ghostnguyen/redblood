@@ -64,8 +64,6 @@ public class DonationBLL
         return l.ToList();
     }
 
-
-
     public static Donation Get(RedBloodDataContext db, string DIN)
     {
         return db.Donations.Where(r => r.DIN == DIN).FirstOrDefault();
@@ -175,7 +173,28 @@ public class DonationBLL
         return DonationErrEnum.Non;
     }
 
+    public static DonationErr Update(RedBloodDataContext db, Donation e,
+       string bloodGroup, string note)
+    {
+        if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
 
+        string old = e.InfectiousMarkers;
+
+        e.Markers.HIV = TR.GetDefault(HIV).Name;
+        e.Markers.HCV_Ab = TR.GetDefault(HCV_Ab).Name;
+        e.Markers.HBs_Ag = TR.GetDefault(HBs_Ag).Name;
+        e.Markers.Syphilis = TR.GetDefault(Syphilis).Name;
+        e.Markers.Malaria = TR.GetDefault(Malaria).Name;
+
+        if (old != e.InfectiousMarkers)
+        {
+            DonationTestLogBLL.Insert(db, e, typeof(InfectiousMarker), note);
+        }
+
+        e.TestResultStatus = e.Markers.Status;
+
+        return DonationErrEnum.Non;
+    }
 
     public static List<Donation> Get(int campaignID)
     {
@@ -186,7 +205,6 @@ public class DonationBLL
         //    && r.ComponentID == TestDef.Component.Full
         //    ).ToList();
         return db.Donations.Where(r => r.CampaignID == campaignID).ToList();
-
     }
 
     public static List<Donation> Get(int campaignID, ReportType rptType)
@@ -219,12 +237,4 @@ public class DonationBLL
 
         return new List<Donation>();
     }
-
-    //public static List<Pack> GetByCampaign(int campaignID, List<Pack.StatusX> status)
-    //{
-    //    //RedBloodDataContext db = new RedBloodDataContext();
-    //    //return db.Packs.Where(r => r.CampaignID == campaignID && status.Contains(r.Status)).ToList();
-    //    return new List<Pack>();
-
-    //}
 }
