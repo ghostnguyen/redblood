@@ -16,14 +16,14 @@ public class DonationTestLogBLL
         //
     }
 
-    public static void Insert(RedBloodDataContext db, Donation p, Type type, string note)
+    public static void Insert(RedBloodDataContext db, Donation p, string propertyName, string note)
     {
         DonationTestLog e = new DonationTestLog();
 
         e.DIN = p.DIN;
-        e.Type = type.Name;
+        e.Type = propertyName;
 
-        PropertyInfo prop = p.GetType().GetProperties().Where(r => r.PropertyType == type).FirstOrDefault();
+        PropertyInfo prop = e.GetType().GetProperty(propertyName);
 
         if (prop != null)
         {
@@ -36,4 +36,6 @@ public class DonationTestLogBLL
 
         db.DonationTestLogs.InsertOnSubmit(e);
     }
+
+
 }
