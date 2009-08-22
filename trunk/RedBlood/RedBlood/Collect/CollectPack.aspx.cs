@@ -39,6 +39,10 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         {
             EnterProductCode(BarcodeBLL.ParseProductCode(code));
         }
+        else if (BarcodeBLL.IsValidBloodGroupCode(code))
+        {
+            EnterBloodGroup(BarcodeBLL.ParseBloodGroupCode(code));
+        }
     }
 
 
@@ -66,11 +70,21 @@ public partial class Collect_CollectPack : System.Web.UI.Page
                 lblProductDesc.Text = e.Pack.Product.Description;
 
                 lblDate.Text = e.Pack.Date.ToStringVN_Hour();
+
+                txtVolume.Text = e.Volume.ToString();
+
+                if (!string.IsNullOrEmpty(e.BloodGroup))
+                {
+                    ImageBloodGroup.ImageUrl = BarcodeBLL.Url4BloodGroup(e.BloodGroup);
+                    lblBloodGroup.Text = BloodGroupBLL.GetDescription(e.BloodGroup);
+                }
+
+                txtCollector.Text = e.Collector;
             }
 
-            txtVolume.Text = e.Volume.ToString();
-            txtCollector.Text = e.Collector;
             txtNote.Text = e.Note;
+
+            btnSave.Enabled = !DonationBLL.IsTRLocked(e);
         }
     }
 
@@ -83,9 +97,11 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         imgProduct.ImageUrl = "none";
         lblProductDesc.Text = "";
         txtVolume.Text = "";
+        ImageBloodGroup.ImageUrl = "none";
+        lblBloodGroup.Text = "";
         txtCollector.Text = "";
         txtNote.Text = "";
-
+        btnSave.Enabled = false;
     }
 
     void EnterProductCode(string productCode)
@@ -102,7 +118,27 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
     }
 
-    protected void txtSave_Click(object sender, EventArgs e)
+    void EnterBloodGroup(string bloodGroupCode)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Donation p = DonationBLL.Get(db, DIN);
+
+        if (p == null) return;
+        DonationErr err = DonationBLL.Update(db, p, bloodGroupCode, "");
+
+        if (err != DonationErrEnum.Non)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+                    "alert ('" + err.Message + "');", true);
+        }
+        else
+        {
+            LoadDIN();
+        }
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 

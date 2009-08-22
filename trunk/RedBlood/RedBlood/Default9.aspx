@@ -38,6 +38,10 @@
         $(document).bind('keydown', '2', function() {
             window.location.replace("/RedBlood/Category/Product.aspx");
         });
+
+        $(document).bind('keydown', '3', function() {
+            window.location.replace("/RedBlood/Category/BloodGroup.aspx");
+        });
     </script>
 
     <table width="100%">
@@ -187,12 +191,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<h3>
-                                <a href="/RedBlood/PackManually.aspx">3. Thêm</a></h3>
-                            <p>
-                            </p>
-                            <a href="/RedBlood/PackManually.aspx" />
-                            <img src="Image/Icon/books-256.png" alt="" />--%>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/Category/BloodGroup.aspx">
+                                            <img src="Image/Icon/number3.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/Category/BloodGroup.aspx">Nhóm máu</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

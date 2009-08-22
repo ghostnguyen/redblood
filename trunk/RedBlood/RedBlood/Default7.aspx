@@ -13,12 +13,12 @@
         });
 
         $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/Collect/UpdateCollector.aspx");
+        window.location = ("/RedBlood/Collect/CollectPack.aspx");
         });
 
-        $(document).bind('keydown', '9', function() {
-            window.location = ("/RedBlood/Collect/CollectPack.aspx");
-        });
+//        $(document).bind('keydown', '9', function() {
+//            window.location = ("/RedBlood/Collect/UpdateBloodGroup.aspx");
+//        });
         
         //        $(document).bind('keydown', '4', function() {
         //            window.location = ("/RedBlood/Category/Org.aspx");
@@ -55,24 +55,8 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/UpdateCollector.aspx">
-                                            <img src="Image/Icon/number8.gif" alt="" />
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            <a href="/RedBlood/Collect/UpdateCollector.aspx">Tên KTV</a>
-                                        </h4>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="column next">
-                            <table>
-                                <tr>
-                                    <td>
                                         <a href="/RedBlood/Collect/CollectPack.aspx">
-                                            <img src="Image/Icon/number9.gif" alt="" />
+                                            <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
@@ -82,6 +66,22 @@
                                     </td>
                                 </tr>
                             </table>
+                        </td>
+                        <td class="column next">
+                            <%--<table>
+                                <tr>
+                                    <td>
+                                        <a href="/RedBlood/Collect/UpdadeBloodGroup.aspx">
+                                            <img src="Image/Icon/number9.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="/RedBlood/Collect/UpdateBloodGroup.aspx">Nhóm máu</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>--%>
                         </td>
                     </tr>
                     <tr>
