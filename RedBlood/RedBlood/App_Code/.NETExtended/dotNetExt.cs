@@ -99,7 +99,7 @@ public static class dotNetExt
         //<	%3C	Less than
         //>	%3EGreater than
         //?	%3F
-        return s.Replace("+", "%2B").Replace("&", "%26").Replace("=","%3D").Replace("<","%3C");
+        return s.Replace("%","%25").Replace("+", "%2B").Replace("&", "%26").Replace("=","%3D").Replace("<","%3C");
 
 
         //return HttpServerUtility.UrlTokenEncode(System.Text.ASCIIEncoding.ASCII.GetBytes(s));

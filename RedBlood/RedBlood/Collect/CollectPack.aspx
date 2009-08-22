@@ -69,6 +69,16 @@
         </tr>
         <tr>
             <td>
+                Nhóm máu
+            </td>
+            <td>
+                <asp:Image ID="ImageBloodGroup" runat="server" />
+                <br />
+                <asp:Label runat="server" ID="lblBloodGroup"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 KTV
             </td>
             <td>
@@ -87,7 +97,7 @@
             <td>
             </td>
             <td>
-                <asp:Button ID="txtSave" Text='<%$ Resources:Resource,Update %>' runat="server" OnClick="txtSave_Click" />
+                <asp:Button ID="btnSave" Text='<%$ Resources:Resource,Update %>' runat="server" OnClick="btnSave_Click" />
             </td>
         </tr>
     </table>

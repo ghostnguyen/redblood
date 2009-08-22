@@ -34,15 +34,6 @@ public class BloodGroup
         Description = description;
     }
 
-    public static List<BloodGroup> BloodGroupList = new List<BloodGroup>()
-    {
-        O_RhD_negative,O_RhD_positive,A_RhD_negative,A_RhD_positive,
-        B_RhD_negative,B_RhD_positive,AB_RhD_negative,AB_RhD_positive,
-        O,A,B,AB,
-        para_Bombay_RhD_negative,para_Bombay_RhD_positive,
-        Bombay_RhD_negative,Bombay_RhD_positive
-    };
-
     public static BloodGroup O_RhD_negative = new BloodGroup("9500", "O RhD negative");
     public static BloodGroup O_RhD_positive = new BloodGroup("5100", "O RhD positive");
 
@@ -66,5 +57,13 @@ public class BloodGroup
     public static BloodGroup Bombay_RhD_negative = new BloodGroup("G600", "Bombay, RhD negative");
     public static BloodGroup Bombay_RhD_positive = new BloodGroup("H600", "Bombay, RhD positive");
 
+    public static List<BloodGroup> BloodGroupList = new List<BloodGroup>()
+    {
+        O_RhD_negative,O_RhD_positive,A_RhD_negative,A_RhD_positive,
+        B_RhD_negative,B_RhD_positive,AB_RhD_negative,AB_RhD_positive,
+        O,A,B,AB,
+        para_Bombay_RhD_negative,para_Bombay_RhD_positive,
+        Bombay_RhD_negative,Bombay_RhD_positive
+    };
 
 }

@@ -202,6 +202,11 @@ public class BarcodeBLL
         return BarcodeImgPage + "?hasText=true&code=" + productIdChar.ToURLCompatible() + code;
     }
 
+    public static string Url4BloodGroup(string code)
+    {
+        return BarcodeImgPage + "?hasText=true&code=" + bloodGroupIdChar.ToURLCompatible() + code;
+    }
+
     public static string Url4Campaign(int ID)
     {
         return (BarcodeImgPage + "?hasText=true&code=" + campaignIdChar.ToURLCompatible() + ID.ToString("D" + (campaignLength - 2).ToString()));
