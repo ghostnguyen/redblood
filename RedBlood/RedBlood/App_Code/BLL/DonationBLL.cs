@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Reflection;
+using System.Linq.Expressions;
 
 /// <summary>
 /// Summary description for DonationBLL
@@ -165,33 +167,37 @@ public class DonationBLL
 
         if (old != e.InfectiousMarkers)
         {
-            DonationTestLogBLL.Insert(db, e, typeof(InfectiousMarker), note);
+            DonationTestLogBLL.Insert(db, e, Nameof<Donation>.Property(r => r.Markers), note);
         }
 
-        e.TestResultStatus = e.Markers.Status;
+        UpdateTestResultStatus(e);
 
         return DonationErrEnum.Non;
     }
 
-    public static DonationErr Update(RedBloodDataContext db, Donation e,
-       string bloodGroup, string note)
+    public static DonationErr Update(RedBloodDataContext db, Donation e, string bloodGroup, string note)
     {
         if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
 
-        string old = e.InfectiousMarkers;
-
-        e.Markers.HIV = TR.GetDefault(HIV).Name;
-        e.Markers.HCV_Ab = TR.GetDefault(HCV_Ab).Name;
-        e.Markers.HBs_Ag = TR.GetDefault(HBs_Ag).Name;
-        e.Markers.Syphilis = TR.GetDefault(Syphilis).Name;
-        e.Markers.Malaria = TR.GetDefault(Malaria).Name;
-
-        if (old != e.InfectiousMarkers)
+        if (bloodGroup.Trim() != e.BloodGroup)
         {
-            DonationTestLogBLL.Insert(db, e, typeof(InfectiousMarker), note);
+            e.BloodGroup = bloodGroup;
+            DonationTestLogBLL.Insert(db, e, Nameof<Donation>.Property(r => r.BloodGroup), note);
         }
 
-        e.TestResultStatus = e.Markers.Status;
+        UpdateTestResultStatus(e);
+
+        return DonationErrEnum.Non;
+    }
+
+    public static DonationErr UpdateTestResultStatus(Donation e)
+    {
+        if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
+
+        if (string.IsNullOrEmpty(e.BloodGroup.Trim()))
+            e.TestResultStatus = Donation.TestResultStatusX.Non;
+        else
+            e.TestResultStatus = e.Markers.Status;
 
         return DonationErrEnum.Non;
     }
@@ -212,8 +218,8 @@ public class DonationBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         List<Donation> v = (from r in db.Donations
-                where r.CampaignID == campaignID && r.TestResultStatus != Donation.TestResultStatusX.Non
-                select r).ToList();
+                            where r.CampaignID == campaignID && r.TestResultStatus != Donation.TestResultStatusX.Non
+                            select r).ToList();
 
         if (rptType == ReportType.NegInCam)
         {

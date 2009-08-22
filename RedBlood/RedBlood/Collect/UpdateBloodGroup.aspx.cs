@@ -45,33 +45,31 @@ public partial class Collect_UpdateBloodGroup : System.Web.UI.Page
 
     public void LoadDIN()
     {
+        RedBloodDataContext db = new RedBloodDataContext();
+
         Donation e = DonationBLL.Get(DIN);
+        if (e == null) return;
 
         Clear();
-        if (e != null)
+
+        lblName.Text = e.People.Name;
+
+        imgDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN, "00");
+
+        lblDINDate.Text = e.CollectedDate.ToStringVN();
+
+
+        if (e.Pack != null)
         {
-            Donation temp = DonationBLL.UpdateDefault(DIN, txtDefaultCollector.Text.Trim());
-            if (temp != null) e = temp;
+            imgProduct.ImageUrl = BarcodeBLL.Url4Product(e.Pack.Product.Code);
+            lblProductDesc.Text = e.Pack.Product.Description;
 
-            lblName.Text = e.People.Name;
-
-            imgDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN, "00");
-
-            lblDINDate.Text = e.CollectedDate.ToStringVN();
-
-
-            if (e.Pack != null)
-            {
-                imgProduct.ImageUrl = BarcodeBLL.Url4Product(e.Pack.Product.Code);
-                lblProductDesc.Text = e.Pack.Product.Description;
-
-                lblDate.Text = e.Pack.Date.ToStringVN_Hour();
-            }
-
-            txtVolume.Text = e.Volume.ToString();
-            txtCollector.Text = e.Collector;
-            txtNote.Text = e.Note;
+            lblDate.Text = e.Pack.Date.ToStringVN_Hour();
         }
+
+        txtVolume.Text = e.Volume.ToString();
+        txtCollector.Text = e.Collector;
+        txtNote.Text = e.Note;
     }
 
     private void Clear()
@@ -88,12 +86,16 @@ public partial class Collect_UpdateBloodGroup : System.Web.UI.Page
 
     }
 
-    void EnterBloodGroup(string productCode)
+    void EnterBloodGroup(string bloodGroupCode)
     {
-        Donation e = DonationBLL.Get(DIN); 
+        RedBloodDataContext db = new RedBloodDataContext();
 
+        Donation p = DonationBLL.Get(db, DIN);
 
-        if (err != PackErrEnum.Non)
+        if (p == null) return;
+        DonationErr err = DonationBLL.Update(db, p, bloodGroupCode, "");
+
+        if (err != DonationErrEnum.Non)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
                     "alert ('" + err.Message + "');", true);
