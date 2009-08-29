@@ -3,6 +3,10 @@ truncate table PackResultHistory
 truncate table PackOrder
 truncate table PackExtract
 
+
+select * from PackExtract
+select * from PackLink
+
 --truncate table BloodType
 --truncate table TestResult
 

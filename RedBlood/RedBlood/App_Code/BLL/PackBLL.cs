@@ -983,13 +983,13 @@ public class PackBLL
         //PackStatusHistory h = ChangeStatus(db, pOut, Pack.StatusX.Product, "Combine2Platelet");
 
 
-        foreach (Pack item in pInList)
-        {
-            PackExtract pe = new PackExtract();
-            pe.SourcePackID = item.ID;
-            pe.ExtractPackID = pOut.ID;
-            db.PackExtracts.InsertOnSubmit(pe);
-        }
+        //foreach (Pack item in pInList)
+        //{
+        //    PackExtract pe = new PackExtract();
+        //    pe.SourcePackID = item.ID;
+        //    pe.ExtractPackID = pOut.ID;
+        //    db.PackExtracts.InsertOnSubmit(pe);
+        //}
 
         db.SubmitChanges();
 
