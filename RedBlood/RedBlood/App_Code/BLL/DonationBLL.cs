@@ -194,7 +194,7 @@ public class DonationBLL
     {
         if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
 
-        if (string.IsNullOrEmpty(e.BloodGroup.Trim()))
+        if (string.IsNullOrEmpty(e.BloodGroup))
             e.TestResultStatus = Donation.TestResultStatusX.Non;
         else
             e.TestResultStatus = e.Markers.Status;

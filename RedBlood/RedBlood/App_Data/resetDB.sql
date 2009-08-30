@@ -1,32 +1,34 @@
+update Facility set CountingYY = '09', CountingNumber = 0
+
 truncate table PackStatusHistory
-truncate table PackResultHistory
+truncate table PackSideEffect
+
 truncate table PackOrder
-truncate table PackExtract
+truncate table PackLink
 
-
-select * from PackExtract
-select * from PackLink
-
---truncate table BloodType
---truncate table TestResult
+truncate table PackTransaction
 
 delete Pack
-DBCC CHECKIDENT (Pack, RESEED, 0)
+
+truncate table DonationStatusLog
+truncate table DonationTestLog
+
+delete Donation
 
 delete [Order]
 DBCC CHECKIDENT ([Order], RESEED, 0)
 
-truncate table CampaignStatusHistory
-
-delete [Campaign]
-DBCC CHECKIDENT ([Campaign], RESEED, 0)
-
+-- truncate table CampaignStatusHistory
+--delete [Campaign]
+--DBCC CHECKIDENT ([Campaign], RESEED, 0)
 
 delete [People]
 
-delete Org
-DBCC CHECKIDENT ([Org], RESEED, 0)
-truncate table [Log]
+--delete Org
+--DBCC CHECKIDENT ([Org], RESEED, 0)
+
+
+
 
 
 

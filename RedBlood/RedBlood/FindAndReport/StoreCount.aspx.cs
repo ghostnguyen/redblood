@@ -27,11 +27,15 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
                 O_RhD_Neg = availableList.Where(r => r.BloodGroup == BloodGroup.O_RhD_negative.Code
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
 
+                if (!string.IsNullOrEmpty(O_RhD_Neg)) O_RhD_Neg += " (neg)";
+
                 A_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.A_RhD_positive.Code
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
 
                 A_RhD_Neg = availableList.Where(r => r.BloodGroup == BloodGroup.A_RhD_negative.Code
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                if (!string.IsNullOrEmpty(A_RhD_Neg)) A_RhD_Neg += " (neg)";
 
                 B_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.B_RhD_positive.Code
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
@@ -39,11 +43,15 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
                 B_RhD_Neg = availableList.Where(r => r.BloodGroup == BloodGroup.B_RhD_negative.Code
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
 
+                if (!string.IsNullOrEmpty(B_RhD_Neg)) B_RhD_Neg += " (neg)";
+                
                 AB_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.AB_RhD_positive.Code
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
 
                 AB_RhD_Neg = availableList.Where(r => r.BloodGroup == BloodGroup.AB_RhD_negative.Code
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
+
+                if (!string.IsNullOrEmpty(AB_RhD_Neg)) AB_RhD_Neg += " (neg)";
 
                 //O_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.O_RhD_positive.Code
                 //    && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();

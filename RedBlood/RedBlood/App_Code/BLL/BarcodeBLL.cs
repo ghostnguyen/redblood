@@ -17,21 +17,21 @@ public class BarcodeBLL
 
     public const string campaignIdChar = "&c";
     public const int campaignLength = 6;
-    
+
     public const int CMNDLength = 9;
-    
+
     public const string DINIdChar = "=";
     public const int DINLength = 16;
-    
+
     public const string orderIdChar = "&o";
     public const int orderLength = 11;
-    
+
     public const string orgIdChar = "&e";
     public const int orgLength = 6;
-    
+
     public const string peopleIdChar = "&;";
     public const int peopleLength = 38;
-    
+
     public const string productIdChar = "=<";
     public const int productLength = 10;
 
@@ -100,7 +100,7 @@ public class BarcodeBLL
     {
         if (code.Length != bloodGroupLength) return false;
 
-        string pattern = productIdChar + "[A-Za-a0-9]{2}[A-Z0-9]{2}";
+        string pattern = bloodGroupIdChar + "[A-Za-a0-9]{2}[A-Z0-9]{2}";
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
     }
@@ -164,7 +164,7 @@ public class BarcodeBLL
     public static string ParseBloodGroupCode(string code)
     {
         if (IsValidBloodGroupCode(code))
-            return code.Substring(2, productLength - 2);
+            return code.Substring(2, bloodGroupLength - 2);
         else
             return "";
     }

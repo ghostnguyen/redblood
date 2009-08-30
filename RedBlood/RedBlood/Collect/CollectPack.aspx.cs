@@ -127,6 +127,8 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         if (p == null) return;
         DonationErr err = DonationBLL.Update(db, p, bloodGroupCode, "");
 
+
+
         if (err != DonationErrEnum.Non)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
@@ -134,6 +136,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
         else
         {
+            db.SubmitChanges();
             LoadDIN();
         }
     }

@@ -43,7 +43,7 @@
                                 <asp:Label ID="lblDate" runat="server" Text='<%# Eval("CollectedDate","{0:dd/MM/yyyy HH:mm}") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="ABO" HeaderStyle-Width="60">
+                        <asp:TemplateField HeaderText="ABO" HeaderStyle-Width="190">
                             <HeaderTemplate>
                                 <asp:Label ID="Label1" runat="server" Text="ABO" />
                             </HeaderTemplate>
