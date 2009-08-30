@@ -80,19 +80,32 @@ public partial class Production_Extract : System.Web.UI.Page
 
         if (BarcodeBLL.IsValidDINCode(code))
         {
+            if (RadioButtonList1.SelectedValue.ToInt() == 1)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "",
+                    "alert ('Chuyển sang: Nhập mã chính.');", true);
+            }
             if (RadioButtonList1.SelectedValue.ToInt() == 2)
             {
                 Donation d = DonationBLL.Get(BarcodeBLL.ParseDIN(code));
                 if (d == null) return;
 
+                if (d.TestResultStatus == Donation.TestResultStatusX.Positive
+                    || d.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+                    "alert ('Túi máu KQXN: Positive');", true);
+                    return;
+                }
+
                 RedBloodDataContext db = new RedBloodDataContext();
 
                 if (db.Packs.Where(r => r.DIN == d.DIN && ProductCodeList.Contains(r.ProductCode)).Count() > 0)
                     return;
-                
+
                 if (db.Packs.Where(r => r.DIN == d.DIN && PackInList.Contains(r.ID)).Count() > 0)
                     return;
-                
+
                 DIN = d.DIN;
 
                 ImageCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(DIN, "00");
@@ -161,10 +174,12 @@ public partial class Production_Extract : System.Web.UI.Page
         e.Result = db.Packs.Where(r => PackInList.Contains(r.ID));
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void btnReset_Click(object sender, EventArgs e)
     {
         DIN = "";
         ImageCurrentDIN.ImageUrl = "none";
+
+        RadioButtonList1.SelectedValue = "1";
 
         ProductCodeList.Clear();
         DataListProduct.DataBind();
@@ -175,6 +190,18 @@ public partial class Production_Extract : System.Web.UI.Page
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        PackBLL.Extract(PackInList, ProductCodeList);
+        PackErr err = PackBLL.Extract(PackInList, ProductCodeList);
+
+        if (err != PackErrEnum.Non)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+                    "alert ('" + err.Message + "');", true);
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "",
+                    "alert ('Lưu thành công.');", true);
+        }
+
     }
 }

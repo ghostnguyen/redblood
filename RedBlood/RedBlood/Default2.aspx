@@ -12,13 +12,13 @@
             window.location = ("/RedBlood/FindAndReport/StoreCount.aspx");
         });
 
-        $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/FindAndReport/FindCampaign.aspx");
-        });
+//        $(document).bind('keydown', '8', function() {
+//            window.location = ("/RedBlood/FindAndReport/FindCampaign.aspx");
+//        });
 
-        $(document).bind('keydown', '9', function() {
-            window.location = ("/RedBlood/FindAndReport/PackOrderCount.aspx");
-        });
+//        $(document).bind('keydown', '9', function() {
+//            window.location = ("/RedBlood/FindAndReport/PackOrderCount.aspx");
+//        });
         
         //        $(document).bind('keydown', '4', function() {
         //            window.location = ("/RedBlood/Category/Org.aspx");
@@ -52,7 +52,7 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <table>
+                          <%--  <table>
                                 <tr>
                                     <td>
                                         <a href="/RedBlood/FindAndReport/FindCampaign.aspx">
@@ -65,10 +65,10 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="/RedBlood/FindAndReport/PackOrderCount.aspx">
@@ -81,7 +81,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                     </tr>
                     <tr>

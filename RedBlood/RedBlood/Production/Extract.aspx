@@ -15,7 +15,7 @@
         <asp:ListItem Text="Nhập mã chính" Value="2">
         </asp:ListItem>
     </asp:RadioButtonList>
-    <asp:Button ID="Button1" runat="server" Text="Đợt mới" OnClick="Button1_Click" />
+    <asp:Button ID="btnReset" runat="server" Text="Đợt mới" OnClick="btnReset_Click" />
     <hr />
     <h4>
         Danh sách sản phẩm đầu ra
@@ -50,6 +50,8 @@
             <asp:TemplateField HeaderText="Mã sản phẩm gốc">
                 <ItemTemplate>
                     <asp:Image ID="Image2" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("ProductCode") as string) %>' />
+                    <br />
+                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Product.Description") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Ghi chú">
