@@ -115,7 +115,7 @@ public class OrderBLL
         }
 
         //Check Pack
-        Pack p = PackBLL.Get(DIN, productCode);
+        Pack p = PackBLL.Get(db, DIN, productCode);
 
         if (p == null) return PackErrEnum.NonExist;
         if (p.Status != Pack.StatusX.Product) return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
@@ -126,8 +126,7 @@ public class OrderBLL
         po.Status = PackOrder.StatusX.Order;
 
         db.PackOrders.InsertOnSubmit(po);
-
-        db.Packs.Attach(p);
+        
         p.Status = Pack.StatusX.Delivered;
 
         db.SubmitChanges();

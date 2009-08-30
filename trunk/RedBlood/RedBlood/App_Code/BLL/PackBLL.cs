@@ -79,10 +79,15 @@ public class PackBLL
         return pErr;
     }
 
+    public static Pack Get(RedBloodDataContext db, string DIN, string productCode)
+    {
+        return db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).FirstOrDefault();
+    }
+
     public static Pack Get(string DIN, string productCode)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).FirstOrDefault();
+        return Get(db, DIN, productCode);
     }
 
     public static Pack Get(Guid ID)
@@ -944,7 +949,7 @@ public class PackBLL
                 PackBLL.Create(item.DIN, code, 0);
             }
 
-            PackStatusHistory h = Update(db,item, Pack.StatusX.Produced, "");
+            PackStatusHistory h = Update(db, item, Pack.StatusX.Produced, "");
             //if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
 
             db.SubmitChanges();
@@ -1191,6 +1196,12 @@ public class PackBLL
         Product p = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
 
         if (d == null || p == null) return PackErrEnum.DataErr;
+
+        if (d.TestResultStatus == Donation.TestResultStatusX.Positive
+            || d.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
+        {
+            return PackErrEnum.Positive;
+        }
 
         if (PackBLL.Get(DIN, productCode) != null) return PackErrEnum.Existed;
 

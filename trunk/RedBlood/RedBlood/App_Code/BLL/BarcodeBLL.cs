@@ -214,12 +214,12 @@ public class BarcodeBLL
 
     public static string Url4Org(int ID)
     {
-        return BarcodeImgPage + "?hasText=true&code=" + orderIdChar + ID.ToString("D" + (orderLength - 2).ToString());
+        return BarcodeImgPage + "?hasText=true&code=" + orgIdChar.ToURLCompatible() + ID.ToString("D" + (orderLength - 2).ToString());
     }
 
     public static string Url4Order(int ID)
     {
-        return BarcodeImgPage + "?hasText=true&code=" + orderIdChar + ID.ToString("D" + (orderLength - 2).ToString());
+        return BarcodeImgPage + "?hasText=true&code=" + orderIdChar.ToURLCompatible() + ID.ToString("D" + (orderLength - 2).ToString());
     }
 
     #endregion

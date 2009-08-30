@@ -116,17 +116,14 @@ public partial class UserControl_Order4Org : System.Web.UI.UserControl
     {
         bool isDone = true;
 
-        try
-        {
-            p.Name = txtName.Text.Trim();
-            divErrName.Attributes["class"] = "hidden";
-        }
-        catch (Exception ex)
-        {
-            divErrName.InnerText = ex.Message;
-            divErrName.Attributes["class"] = "err";
-            isDone = false;
-        }
+        //try
+        //{
+        //    p.Name = txtName.Text.Trim();
+        //}
+        //catch (Exception ex)
+        //{
+        //    isDone = false;
+        //}
 
         if (p.Date == null) p.Date = DateTime.Now;
 
@@ -162,6 +159,7 @@ public partial class UserControl_Order4Org : System.Web.UI.UserControl
         else
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "", "alert ('Túi máu " + e.TestResultStatus + "');", true);
+            return;
         }
 
         CurrentDIN = e.DIN;
@@ -194,7 +192,8 @@ public partial class UserControl_Order4Org : System.Web.UI.UserControl
         Clear();
 
         OrderType = type;
-        txtName.Focus();
+        //txtName.Focus();
+        txtOrgName.Focus();
         //btnUpdate.Enabled = true;
     }
     public void Clear()
@@ -204,12 +203,13 @@ public partial class UserControl_Order4Org : System.Web.UI.UserControl
         //imgCodabar.Attributes.Add("src", "none");
         imgCodabar.ImageUrl = "none";
 
-        txtName.Text = "";
+        ImageCurrentDIN.ImageUrl = "none";
+
+        //txtName.Text = "";
         txtDate.Text = "";
         txtNote.Text = "";
         txtOrgName.Text = "";
 
-        divErrName.Attributes["class"] = "hidden";
 
         GridViewPack.DataBind();
     }
@@ -227,7 +227,7 @@ public partial class UserControl_Order4Org : System.Web.UI.UserControl
 
             imgCodabar.ImageUrl = BarcodeBLL.Url4Order(e.ID);
 
-            txtName.Text = e.Name;
+            //txtName.Text = e.Name;
             txtNote.Text = e.Note;
 
             if (e.Date != null)
@@ -240,7 +240,7 @@ public partial class UserControl_Order4Org : System.Web.UI.UserControl
 
             GridViewPack.DataBind();
 
-            //btnUpdate.Enabled = e.Status == Order.StatusX.Init;
+            btnUpdate.Enabled = e.Status == Order.StatusX.Init;
         }
     }
 
@@ -273,4 +273,6 @@ public partial class UserControl_Order4Org : System.Web.UI.UserControl
     {
         //OrderBLL.Remove(e.Keys[0].ToInt(), txtRemoveNoteGlobal.Text.Trim());
     }
+
+
 }

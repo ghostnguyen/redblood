@@ -27,58 +27,54 @@
         
     </script>
 
-    <asp:TextBox ID="txtRemoveNoteGlobal" runat="server" Style="visibility: collapse;"></asp:TextBox>
+    <%--<asp:TextBox ID="txtRemoveNoteGlobal" runat="server" Style="visibility: collapse;"></asp:TextBox>--%>
     <table>
         <tr valign="top">
             <td>
-                <div class="img_codabar" style="width: 120px;">
+                <div class="img_codabar" style="width: 190px;">
                     <asp:Image ID="imgCodabar" runat="server" ImageUrl="none" />
                 </div>
             </td>
             <td>
                 <table>
-                    <tr>
-                        <td colspan="2">
-                            <div>
-                                <span style="float: left;">Tên&nbsp;</span>
-                                <asp:TextBox ID="txtName" runat="server" Width="290" Style="float: left;" />
-                                <div id="divErrName" runat="server" class="hidden" style="float: left;" />
-                                <span style="float: left;">Ngày giờ&nbsp;</span>
-                                <asp:TextBox ID="txtDate" runat="server" ReadOnly="true" Width="100" Style="float: left;" />
-                            </div>
+                    <%-- <tr>
+                        <td>
+                            Tên
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtName" runat="server" Width="290" />
+                        </td>
+                    </tr>--%>
+                    <tr runat="server" id="rowOrg">
+                        <td>
+                            Đơn vị nhận
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtOrgName" runat="server" CssClass="campaign_cellvalue" autocomplete="off" />
+                            <ajk:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtOrgName"
+                                ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListOrg" MinimumPrefixLength="3"
+                                CompletionSetCount="15" EnableCaching="true">
+                            </ajk:AutoCompleteExtender>
+                            <div id="divErrOrgName" runat="server" class="hidden" />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div>
-                                <div id="divErrDate" runat="server" class="hidden" />
-                            </div>
+                            Ghi chú
                         </td>
                         <td>
-                            <div>
-                                Ghi chú
-                                <asp:TextBox ID="txtNote" runat="server" Width="250" />
-                            </div>
+                            <asp:TextBox ID="txtNote" runat="server" Width="250" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ngày giờ
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtDate" runat="server" ReadOnly="true" Width="100" />
                         </td>
                     </tr>
                 </table>
-            </td>
-        </tr>
-        <tr>
-            <td class="dotLineBottom" colspan="2">
-            </td>
-        </tr>
-        <tr runat="server" id="rowOrg">
-            <td>
-                Đơn vị nhận
-            </td>
-            <td>
-                <asp:TextBox ID="txtOrgName" runat="server" CssClass="campaign_cellvalue" autocomplete="off" />
-                <ajk:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtOrgName"
-                    ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListOrg" MinimumPrefixLength="3"
-                    CompletionSetCount="15" EnableCaching="true">
-                </ajk:AutoCompleteExtender>
-                <div id="divErrOrgName" runat="server" class="hidden" />
             </td>
         </tr>
         <tr>
@@ -95,12 +91,12 @@
                     <Columns>
                         <asp:TemplateField HeaderText="Túi máu">
                             <ItemTemplate>
-                                 <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN( Eval("DIN") as string) %>' />
+                                <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN( Eval("Pack.DIN") as string) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Sản phẩm">
                             <ItemTemplate>
-                                <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("ProductCode") as string) %>' />
+                                <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("Pack.ProductCode") as string) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -117,7 +113,8 @@
         </tr>
         <tr>
             <td>
-                
+                <asp:Button ID="btnUpdate" runat="server" Text="<%$ Resources:Resource,Update %>"
+                    OnClick="btnUpdate_Click" />
             </td>
         </tr>
         <%--        <tr>

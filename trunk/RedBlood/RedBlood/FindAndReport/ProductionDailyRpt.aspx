@@ -24,8 +24,6 @@
             <asp:TemplateField HeaderText="Mã gốc">
                 <ItemTemplate>
                     <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("DIN") as string) %>' />
-                    <br />
-                    <asp:Label ID="TextBox1" runat="server" Text='<%# Eval("Product.Description") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Ghi chú">

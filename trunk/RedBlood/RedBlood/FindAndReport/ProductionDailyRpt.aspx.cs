@@ -28,7 +28,8 @@ public partial class FindAndReport_ProductionDailyRpt : System.Web.UI.Page
 
         RedBloodDataContext db = new RedBloodDataContext();
 
-        GridView1.DataSource = db.Packs.Where(r => r.Date.Value.Date == dt).OrderBy(r => r.ProductCode);
+        GridView1.DataSource = db.Packs.Where(r => r.Date.Value.Date == dt
+            && r.Donation.OrgPackID != r.ID).OrderBy(r => r.ProductCode);
         GridView1.DataBind();
     }
 
