@@ -205,11 +205,6 @@ public class DonationBLL
     public static List<Donation> Get(int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        //return db.Packs.Where(r => r.CampaignID == campaignID
-        //    && StatusListAllowEnterTestResult().Contains(r.Status)
-        //    && AllowEnterTestResult().Contains(r.TestResultStatus)
-        //    && r.ComponentID == TestDef.Component.Full
-        //    ).ToList();
         return db.Donations.Where(r => r.CampaignID == campaignID).ToList();
     }
 

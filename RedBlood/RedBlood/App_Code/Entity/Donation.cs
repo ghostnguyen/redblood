@@ -15,9 +15,6 @@ using System.Xml.Linq;
 /// </summary>
 public partial class Donation
 {
-
-    
-
     public enum StatusX : int
     {
         Non = -2,
@@ -52,16 +49,22 @@ public partial class Donation
         PositiveLocked = 4
     }
 
-   
+    public string ProductDesc
+    {
+        get 
+        {
+            
+        }
+    }
 
     private InfectiousMarker _markers;
-    public InfectiousMarker Markers 
-    { 
+    public InfectiousMarker Markers
+    {
         get
         {
             if (_markers == null)
                 _markers = new InfectiousMarker() { donation = this };
-            
+
             return _markers;
         }
     }
@@ -70,17 +73,19 @@ public partial class Donation
     {
         Markers.Decode();
     }
-    
+
     partial void OnInfectiousMarkersChanged()
     {
         Markers.Decode();
-        
+
     }
+
+
 
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
-        
-        
+
+
     }
 
 
