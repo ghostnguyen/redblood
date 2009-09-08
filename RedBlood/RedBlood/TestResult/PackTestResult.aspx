@@ -26,7 +26,8 @@
                                 <asp:Label ID="Label4" runat="server" Text="Tình trạng" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("DIN") %>' />
+                                <%--<asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("DIN") %>' />--%>
+                                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("DIN") %>' Visible='<%# Eval("IsTRLocked") %>' />
                                 <br />
                                 <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' />
                             </ItemTemplate>
@@ -71,7 +72,7 @@
                                 </asp:DropDownList>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                      <asp:TemplateField HeaderText="HCV">
+                        <asp:TemplateField HeaderText="HCV">
                             <ItemTemplate>
                                 <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>' />
                             </ItemTemplate>
@@ -111,7 +112,7 @@
                                 </asp:DropDownList>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu"
+                        <asp:CommandField ShowEditButton="true" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu"
                             HeaderStyle-Width="80" />
                     </Columns>
                 </asp:GridView>
