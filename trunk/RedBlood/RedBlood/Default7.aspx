@@ -16,9 +16,9 @@
         window.location = ("/RedBlood/Collect/CollectPack.aspx");
         });
 
-//        $(document).bind('keydown', '9', function() {
-//            window.location = ("/RedBlood/Collect/UpdateBloodGroup.aspx");
-//        });
+        $(document).bind('keydown', '9', function() {
+        window.location = ("/RedBlood/Collect/Rpt_Campaign.aspx");
+        });
         
         //        $(document).bind('keydown', '4', function() {
         //            window.location = ("/RedBlood/Category/Org.aspx");
@@ -68,20 +68,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/UpdadeBloodGroup.aspx">
+                                        <a href="/RedBlood/Collect/Rpt_Campaign.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/UpdateBloodGroup.aspx">Nhóm máu</a>
+                                            <a href="/RedBlood/Collect/Rpt_Campaign.aspx">Báo cáo thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>

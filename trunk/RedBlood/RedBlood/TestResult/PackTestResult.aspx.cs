@@ -48,7 +48,7 @@ public partial class PackTestResult : System.Web.UI.Page
         }
         else
         {
-            //e.Result = PackBLL.GetByCampaingID4Manually(CampaignDetail1.CampaignID);
+            //e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID != null);
             e.Result = DonationBLL.Get(CampaignDetail1.CampaignID);
         }
     }

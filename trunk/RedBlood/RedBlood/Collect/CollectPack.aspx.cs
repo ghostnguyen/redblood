@@ -149,7 +149,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
         if (d == null)
         {
-            //Clear();
+            Clear();
         }
         else
         {
@@ -163,14 +163,15 @@ public partial class Collect_CollectPack : System.Web.UI.Page
                 d.Volume = txtVolume.Text.ToInt();
                 d.Pack.Volume = txtVolume.Text.ToInt();
 
-                d.Note = txtNote.Text.Trim();
+                d.Pack.Note = txtNote.Text.Trim();
             }
+
+            d.Note = txtNote.Text.Trim();
 
             db.SubmitChanges();
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
                     "alert ('Lưu thành công.');", true);
         }
-
     }
 }

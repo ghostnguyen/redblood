@@ -49,12 +49,39 @@ public partial class Donation
         PositiveLocked = 4
     }
 
-    public string ProductDesc
+    public bool IsTRLocked
+    {
+        get
+        {
+            return DonationBLL.CanUpdateTestResult(this);
+        }
+    }
+        
+        
+
+    public string BloodGroupDesc
+    {
+        get
+        {
+            return BloodGroupBLL.GetDescription(this.BloodGroup);
+        }
+    }
+
+    public string OrgProductDesc
     {
         get 
         {
             if (this.Pack == null) return "";
-            else return this.Pack.ProductCode;
+            else return this.Pack.Product.Description;
+        }
+    }
+
+    public string OrgVolume
+    {
+        get
+        {
+            if (this.Pack == null) return "";
+            else return this.Pack.Volume.ToString();
         }
     }
 

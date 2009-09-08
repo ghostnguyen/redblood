@@ -44,7 +44,7 @@
                     <tr>
                         <td>
                             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="DIN"
-                                DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller" OnRowDataBound="GridView1_RowDataBound">
+                                DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller">
                                 <Columns>
                                     <asp:BoundField DataField="DIN" HeaderText="Túi máu" />
                                     <asp:TemplateField HeaderText="CMND">
@@ -77,9 +77,30 @@
                                             <asp:Label ID="lblGeo2" runat="server" Text='<%# Eval("People.ResidentGeo2.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="ABO">
+                                    <asp:TemplateField HeaderText="Tỉnh/thành">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroup") %>' />
+                                            <asp:Label ID="lblGeo2" runat="server" Text='<%# Eval("People.ResidentGeo1.Name") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Nhóm máu">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%--<asp:TemplateField HeaderText="Thu máu">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblOrgProductDesc" runat="server" Text='<%# Eval("OrgProductDesc") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>--%>
+                                    <asp:TemplateField HeaderText="Thể tích">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblOrgVolume" runat="server" Text='<%# Eval("OrgVolume") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                     <asp:TemplateField HeaderText="Ghi chú">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblOrgVolume" runat="server" Text='<%# Eval("Note") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -114,7 +135,7 @@
                         </td>
                     </tr>
                 </table>
-                <div runat="server" id="divNote" style="float: left; width: 450px; font-size: small;
+               <%-- <div runat="server" id="divNote" style="float: left; width: 450px; font-size: small;
                     text-align: left;">
                     <span style="text-decoration: underline;">Ghi chú:</span> - Trên đây là kết quả
                     xét nghiệm lần 1 từ mẫu máu của người cho máu.
@@ -122,7 +143,7 @@
                     <span style="text-decoration: underline;">Đề nghị:</span> - Quí cơ quan chuyên môn
                     của Tỉnh xét nghiệm lần 2 và thực hiện tiếp tục các quy dịnh theo luật Phòng chống
                     HIV/AIDS và Nghị định số 108/2007/NĐ-CP của Bộ Y tế và Chính phủ.
-                </div>
+                </div>--%>
             </td>
         </tr>
         <tr>
