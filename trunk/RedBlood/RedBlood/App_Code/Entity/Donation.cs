@@ -53,7 +53,8 @@ public partial class Donation
     {
         get 
         {
-            
+            if (this.Pack == null) return "";
+            else return this.Pack.ProductCode;
         }
     }
 
