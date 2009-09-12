@@ -23,7 +23,7 @@
 
         $(document).bind('keydown', '4', function() {
 
-            window.location = ("/RedBlood/FindAndReport/ProductionDailyRpt.aspx");
+        window.location = ("/RedBlood/Production/Rpt_ExtractByDay.aspx");
         });
 
         //        $(document).bind('keydown', '5', function() {
@@ -95,13 +95,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/FindAndReport/ProductionDailyRpt.aspx">
+                                        <a href="/RedBlood/Production/Rpt_ExtractByDay.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/ProductionDailyRpt.aspx">Báo cáo ngày</a>
+                                            <a href="/RedBlood/Production/Rpt_ExtractByDay.aspx">Báo cáo ngày</a>
                                         </h4>
                                     </td>
                                 </tr>
