@@ -513,7 +513,7 @@ public class PackBLL
 
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out, System.Reflection.MethodBase.GetCurrentMethod().Name);
+        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out_Delete, System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         return null;
     }
@@ -946,13 +946,8 @@ public class PackBLL
         {
             foreach (string code in productCodeList)
             {
-                PackBLL.Create(item.DIN, code, 0);
+                PackBLL.Extract(item.ID, code, 0);
             }
-
-            PackStatusHistory h = Update(db, item, Pack.StatusX.Produced, "");
-            //if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
-
-            db.SubmitChanges();
         }
 
         return PackErrEnum.Non;
@@ -1182,49 +1177,56 @@ public class PackBLL
         d.OrgPackID = pack.ID;
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.In, System.Reflection.MethodBase.GetCurrentMethod().Name);
+        PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.In_Collect, System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         return PackErrEnum.Non;
 
     }
 
-    public static PackErr Create(string DIN, string productCode, int volume)
+    public static PackErr Extract(Guid srcPackID, string productCode, int volume)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Donation d = db.Donations.Where(r => r.DIN == DIN && r.PeopleID != null).FirstOrDefault();
+        Pack pack = db.Packs.Where(r => r.ID == srcPackID).FirstOrDefault();
         Product p = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
 
-        if (d == null || p == null) return PackErrEnum.DataErr;
+        //Validate
+        if (pack == null || p == null) return PackErrEnum.DataErr;
 
-        if (d.TestResultStatus == Donation.TestResultStatusX.Positive
-            || d.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
+        if (pack.Donation.TestResultStatus == Donation.TestResultStatusX.Positive
+            || pack.Donation.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
         {
             return PackErrEnum.Positive;
         }
 
-        if (PackBLL.Get(DIN, productCode) != null) return PackErrEnum.Existed;
+        if (PackBLL.Get(pack.DIN, productCode) != null) return PackErrEnum.Existed;
 
-        Pack pack = new Pack();
+            //Check to see if the pack is collector too late
+            //Code check will be here.
 
-        pack.DIN = DIN;
-        pack.ProductCode = productCode;
-        pack.Status = Pack.StatusX.Product;
-        pack.Date = DateTime.Now;
-        pack.Actor = RedBloodSystem.CurrentActor;
+        //Create new
+        Pack toPack = new Pack();
 
-        pack.Volume = volume;
-
-        //Check to see if the pack is collector too late
-        //Code check will be here.
-
-        pack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
+        toPack.DIN = pack.DIN;
+        toPack.ProductCode = productCode;
+        toPack.Status = Pack.StatusX.Product;
+        toPack.Date = DateTime.Now;
+        toPack.Actor = RedBloodSystem.CurrentActor;
+        toPack.Volume = volume;
+        toPack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
 
         db.Packs.InsertOnSubmit(pack);
-
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.In, System.Reflection.MethodBase.GetCurrentMethod().Name);
+        PackTransactionBLL.Add(toPack.ID, PackTransaction.TypeX.In_Product, System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+        //Update fromPack
+        PackStatusHistory h = Update(db, pack, Pack.StatusX.Produced, "");
+        if (h != null)
+        {
+            db.SubmitChanges();
+            PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.Out_Product, System.Reflection.MethodBase.GetCurrentMethod().Name);
+        }
 
         return PackErrEnum.Non;
     }
