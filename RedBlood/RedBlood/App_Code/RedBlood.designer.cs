@@ -116,6 +116,12 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackLink(PackLink instance);
   partial void UpdatePackLink(PackLink instance);
   partial void DeletePackLink(PackLink instance);
+  partial void InsertPackRemainDaily(PackRemainDaily instance);
+  partial void UpdatePackRemainDaily(PackRemainDaily instance);
+  partial void DeletePackRemainDaily(PackRemainDaily instance);
+  partial void InsertStoreFinalize(StoreFinalize instance);
+  partial void UpdateStoreFinalize(StoreFinalize instance);
+  partial void DeleteStoreFinalize(StoreFinalize instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -385,6 +391,22 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<PackLink>();
+		}
+	}
+	
+	public System.Data.Linq.Table<PackRemainDaily> PackRemainDailies
+	{
+		get
+		{
+			return this.GetTable<PackRemainDaily>();
+		}
+	}
+	
+	public System.Data.Linq.Table<StoreFinalize> StoreFinalizes
+	{
+		get
+		{
+			return this.GetTable<StoreFinalize>();
 		}
 	}
 }
@@ -3113,7 +3135,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -7453,6 +7475,8 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<PackLink> _PackLinksByTo;
 	
+	private EntitySet<PackRemainDaily> _PackRemainDailies;
+	
 	private EntityRef<Donation> _Donation;
 	
 	private EntityRef<Product> _Product;
@@ -7490,6 +7514,7 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
 		this._PackLinksByFrom = new EntitySet<PackLink>(new Action<PackLink>(this.attach_PackLinksByFrom), new Action<PackLink>(this.detach_PackLinksByFrom));
 		this._PackLinksByTo = new EntitySet<PackLink>(new Action<PackLink>(this.attach_PackLinksByTo), new Action<PackLink>(this.detach_PackLinksByTo));
+		this._PackRemainDailies = new EntitySet<PackRemainDaily>(new Action<PackRemainDaily>(this.attach_PackRemainDailies), new Action<PackRemainDaily>(this.detach_PackRemainDailies));
 		this._Donation = default(EntityRef<Donation>);
 		this._Product = default(EntityRef<Product>);
 		OnCreated();
@@ -7774,6 +7799,19 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="Pack_PackRemainDaily", Storage="_PackRemainDailies", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackRemainDaily> PackRemainDailies
+	{
+		get
+		{
+			return this._PackRemainDailies;
+		}
+		set
+		{
+			this._PackRemainDailies.Assign(value);
+		}
+	}
+	
 	[Association(Name="Donation_Pack", Storage="_Donation", ThisKey="DIN", OtherKey="DIN", IsForeignKey=true)]
 	public Donation Donation
 	{
@@ -7944,6 +7982,18 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.ToPack = null;
+	}
+	
+	private void attach_PackRemainDailies(PackRemainDaily entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackRemainDailies(PackRemainDaily entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
 	}
 }
 
@@ -11029,6 +11079,363 @@ public partial class PackLink : INotifyPropertyChanging, INotifyPropertyChanged
 					this._ToPackID = default(System.Guid);
 				}
 				this.SendPropertyChanged("ToPack");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.PackRemainDaily")]
+public partial class PackRemainDaily : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private System.Nullable<System.Guid> _PackID;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private Pack.StatusX _Status;
+	
+	private System.Nullable<System.DateTime> _Note;
+	
+	private EntityRef<Pack> _Pack;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnPackIDChanging(System.Nullable<System.Guid> value);
+    partial void OnPackIDChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnStatusChanging(Pack.StatusX value);
+    partial void OnStatusChanged();
+    partial void OnNoteChanging(System.Nullable<System.DateTime> value);
+    partial void OnNoteChanged();
+    #endregion
+	
+	public PackRemainDaily()
+	{
+		this._Pack = default(EntityRef<Pack>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_PackID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> PackID
+	{
+		get
+		{
+			return this._PackID;
+		}
+		set
+		{
+			if ((this._PackID != value))
+			{
+				if (this._Pack.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnPackIDChanging(value);
+				this.SendPropertyChanging();
+				this._PackID = value;
+				this.SendPropertyChanged("PackID");
+				this.OnPackIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public Pack.StatusX Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackRemainDaily", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.PackRemainDailies.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.PackRemainDailies.Add(this);
+					this._PackID = value.ID;
+				}
+				else
+				{
+					this._PackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.StoreFinalize")]
+public partial class StoreFinalize : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private System.Nullable<int> _Type;
+	
+	private System.Nullable<int> _Count;
+	
+	private string _Note;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnTypeChanging(System.Nullable<int> value);
+    partial void OnTypeChanged();
+    partial void OnCountChanging(System.Nullable<int> value);
+    partial void OnCountChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    #endregion
+	
+	public StoreFinalize()
+	{
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Type", DbType="Int")]
+	public System.Nullable<int> Type
+	{
+		get
+		{
+			return this._Type;
+		}
+		set
+		{
+			if ((this._Type != value))
+			{
+				this.OnTypeChanging(value);
+				this.SendPropertyChanging();
+				this._Type = value;
+				this.SendPropertyChanged("Type");
+				this.OnTypeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Count", DbType="Int")]
+	public System.Nullable<int> Count
+	{
+		get
+		{
+			return this._Count;
+		}
+		set
+		{
+			if ((this._Count != value))
+			{
+				this.OnCountChanging(value);
+				this.SendPropertyChanging();
+				this._Count = value;
+				this.SendPropertyChanged("Count");
+				this.OnCountChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
 			}
 		}
 	}

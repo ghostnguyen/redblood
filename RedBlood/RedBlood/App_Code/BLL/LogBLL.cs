@@ -28,6 +28,13 @@ public class LogBLL
         return e.Count() != 0;
     }
 
+    public static void Add(Task.TaskX task, string actor, string note)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Add(db, task, actor, note);
+        db.SubmitChanges();
+    }
+
     public static void Add(Task.TaskX task)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -37,13 +44,18 @@ public class LogBLL
 
     public static void Add(RedBloodDataContext db, Task.TaskX task)
     {
+        Add(db, task, RedBloodSystem.SODActor, "");
+    }
+
+    public static void Add(RedBloodDataContext db, Task.TaskX task, string actor, string note)
+    {
         if (!IsLog(task))
         {
             Log e = new Log();
             e.TaskID = task;
             e.Date = DateTime.Now;
             e.Actor = RedBloodSystem.SODActor;
-
+            e.Note = note;
             db.Logs.InsertOnSubmit(e);
         }
     }

@@ -16,6 +16,14 @@ public class RedBloodSystem
         }
     }
 
+    public static string EODActor
+    {
+        get
+        {
+            return "EOD";
+        }
+    }
+
     public static string CurrentActor
     {
         get
