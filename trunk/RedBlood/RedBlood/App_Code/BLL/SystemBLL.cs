@@ -27,6 +27,8 @@ public class SystemBLL
 
     }
 
+
+
     public static void SOD()
     {
         ScanExp(true);
@@ -47,7 +49,7 @@ public class SystemBLL
 
             foreach (Pack r in rs)
             {
-                PackStatusHistory h = PackBLL.Update(db,r, Pack.StatusX.Expired, RedBloodSystem.SODActor, "");
+                PackStatusHistory h = PackBLL.Update(db, r, Pack.StatusX.Expired, RedBloodSystem.SODActor, "");
 
                 if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
             }
@@ -86,6 +88,103 @@ public class SystemBLL
 
             db.SubmitChanges();
         }
+    }
+
+    public static void EOD()
+    {
+        BackupPackRemain();
+        FinalizeStore();
+    }
+
+    public static void BackupPackRemain()
+    {
+        //Validation
+        //Newer data in DB. Data error or system datetime error
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        if (db.PackRemainDailies.Where(r => r.Date > DateTime.Now.Date).Count() > 0
+            || db.StoreFinalizes.Where(r => r.Date > DateTime.Now.Date).Count() > 0)
+        {
+            LogBLL.Add(Task.TaskX.BackupPackRemain, RedBloodSystem.EODActor, "DataErr. Newer data in DB.");
+            return;
+        }
+
+        if (db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
+        {
+            //Remove current date data
+            db.PackRemainDailies.DeleteAllOnSubmit(db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date));
+
+            db.SubmitChanges();
+
+            LogBLL.Add(Task.TaskX.BackupPackRemain, RedBloodSystem.EODActor, "Remove current date data.");
+        }
+
+        IQueryable<Pack> rows = db.Packs.Where(r => r.Status == Pack.StatusX.Product ||
+            r.Status == Pack.StatusX.Expired);
+
+        //Insert
+        foreach (Pack item in rows)
+        {
+            PackRemainDaily r = new PackRemainDaily();
+            r.PackID = item.ID;
+            r.Status = item.Status;
+            r.Date = DateTime.Now.Date;
+
+            db.PackRemainDailies.InsertOnSubmit(r);
+        }
+
+        LogBLL.Add(Task.TaskX.BackupPackRemain, RedBloodSystem.EODActor, "Done.");
+
+        db.SubmitChanges();
+    }
+
+    public static void FinalizeStore()
+    {
+        //Validation
+        //Newer data in DB. Data error or system datetime error
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        if (db.PackRemainDailies.Where(r => r.Date > DateTime.Now.Date).Count() > 0
+            || db.StoreFinalizes.Where(r => r.Date > DateTime.Now.Date).Count() > 0)
+        {
+            LogBLL.Add(Task.TaskX.FinalizeStore, RedBloodSystem.EODActor, "DataErr. Newer data in DB.");
+            return;
+        }
+
+        if (db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
+        {
+            //Remove current date data
+            db.StoreFinalizes.DeleteAllOnSubmit(db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date));
+
+            db.SubmitChanges();
+
+            LogBLL.Add(Task.TaskX.FinalizeStore, RedBloodSystem.EODActor, "Remove current date data.");
+        }
+
+        //db.PackTransactions.Where(r => r.Date.Value.Date == DateTime.Now.Date).GroupBy(r => r.Type)
+        //    .Select(r => new {r.Count(),r.
+
+        //var rows = from r in db.PackTransactions
+        //           group r by r.Type into rows
+        //           where  r.Date.Value.Date == DateTime.Now.Date
+                   
+        //           select new { r. };
+
+        ////Insert
+        //foreach (Pack item in rows)
+        //{
+        //    PackRemainDaily r = new PackRemainDaily();
+        //    r.PackID = item.ID;
+        //    r.Status = item.Status;
+        //    r.Date = DateTime.Now.Date;
+
+        //    db.PackRemainDailies.InsertOnSubmit(r);
+        //}
+
+        //LogBLL.Add(Task.TaskX.BackupPackRemain, RedBloodSystem.EODActor, "Done.");
+
+        //db.SubmitChanges();
+
     }
 
     public static void Find(HttpResponse Response, TextBox txtCode)
