@@ -131,7 +131,7 @@ public class OrderBLL
 
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out, System.Reflection.MethodBase.GetCurrentMethod().Name);
+        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out_Order, System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         return PackErrEnum.Non;
     }
@@ -155,7 +155,7 @@ public class OrderBLL
 
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In, System.Reflection.MethodBase.GetCurrentMethod().Name);
+        PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In_Return, System.Reflection.MethodBase.GetCurrentMethod().Name);
 
     }
 

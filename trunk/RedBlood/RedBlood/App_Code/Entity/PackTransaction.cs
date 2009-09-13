@@ -10,7 +10,13 @@ public partial class PackTransaction
 {
     public enum TypeX : int
     {
-        In = 1,
-        Out = 2
+        In_Collect = 10,
+        In_Product = 11,
+        In_Return = 12,
+        Out_Order = 20,
+        Out_Product = 21,
+        //22
+        //23
+        Out_Delete = 24
     }
 }
