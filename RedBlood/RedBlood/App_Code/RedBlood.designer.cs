@@ -11313,7 +11313,7 @@ public partial class StoreFinalize : INotifyPropertyChanging, INotifyPropertyCha
 	
 	private System.Nullable<System.DateTime> _Date;
 	
-	private System.Nullable<int> _Type;
+	private PackTransaction.TypeX _Type;
 	
 	private System.Nullable<int> _Count;
 	
@@ -11327,7 +11327,7 @@ public partial class StoreFinalize : INotifyPropertyChanging, INotifyPropertyCha
     partial void OnIDChanged();
     partial void OnDateChanging(System.Nullable<System.DateTime> value);
     partial void OnDateChanged();
-    partial void OnTypeChanging(System.Nullable<int> value);
+    partial void OnTypeChanging(PackTransaction.TypeX value);
     partial void OnTypeChanged();
     partial void OnCountChanging(System.Nullable<int> value);
     partial void OnCountChanged();
@@ -11380,8 +11380,8 @@ public partial class StoreFinalize : INotifyPropertyChanging, INotifyPropertyCha
 		}
 	}
 	
-	[Column(Storage="_Type", DbType="Int")]
-	public System.Nullable<int> Type
+	[Column(Storage="_Type", DbType="Int", CanBeNull=true)]
+	public PackTransaction.TypeX Type
 	{
 		get
 		{
