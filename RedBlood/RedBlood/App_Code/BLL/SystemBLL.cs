@@ -96,27 +96,16 @@ public class SystemBLL
         FinalizeStore();
     }
 
-    public static void BackupPackRemain()
+    
+    private static void BackupPackRemain(DateTime date, bool isForcedClearOldData)
     {
-        //Validation
-        //Newer data in DB. Data error or system datetime error
         RedBloodDataContext db = new RedBloodDataContext();
-
-        if (db.PackRemainDailies.Where(r => r.Date > DateTime.Now.Date).Count() > 0
-            || db.StoreFinalizes.Where(r => r.Date > DateTime.Now.Date).Count() > 0)
-        {
-            LogBLL.Add(Task.TaskX.BackupPackRemain, RedBloodSystem.EODActor, "DataErr. Newer data in DB.");
-            return;
-        }
 
         if (db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
         {
-            //Remove current date data
-            db.PackRemainDailies.DeleteAllOnSubmit(db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date));
+            if (!isForcedClearOldData) return;
 
-            db.SubmitChanges();
-
-            LogBLL.Add(Task.TaskX.BackupPackRemain, RedBloodSystem.EODActor, "Remove current date data.");
+           
         }
 
         IQueryable<Pack> rows = db.Packs.Where(r => r.Status == Pack.StatusX.Product ||
@@ -138,23 +127,53 @@ public class SystemBLL
         db.SubmitChanges();
     }
 
-    public static void FinalizeStore()
+    public static string FinalizeStore(bool overwriteFinalized, bool finalizeIfEmpty)
     {
-        //Validation
-        //Newer data in DB. Data error or system datetime error
         RedBloodDataContext db = new RedBloodDataContext();
 
+        //Validation
+        //Newer data in DB. Data error or system datetime error
         if (db.PackRemainDailies.Where(r => r.Date > DateTime.Now.Date).Count() > 0
             || db.StoreFinalizes.Where(r => r.Date > DateTime.Now.Date).Count() > 0)
         {
-            LogBLL.Add(Task.TaskX.FinalizeStore, RedBloodSystem.EODActor, "DataErr. Newer data in DB.");
-            return;
+            //LogBLL.Add(Task.TaskX.FinalizeStore, RedBloodSystem.EODActor, "DataErr. Newer data in DB.");
+            return "DataErr. Newer data in DB.";
         }
+
+        //Finalize last previous day if not yet
+        
+
+        //If today has finalized store
+        if (db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
+        {
+            if (overwriteFinalized)
+            {
+                //Remove current date data
+                db.PackRemainDailies.DeleteAllOnSubmit(db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date));
+                db.StoreFinalizes.DeleteAllOnSubmit(db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date));
+
+                db.SubmitChanges();
+                LogBLL.Add(Task.TaskX.DeleteOldDataForFinalizeStore, RedBloodSystem.CurrentActor, "Remove of date: " + DateTime.Now.ToString());
+            }
+            else
+            {
+                return "Already Finalize.";
+            }
+        }
+        else
+        {
+
+        }
+
+
+
+
+
 
         if (db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
         {
             //Remove current date data
-            db.StoreFinalizes.DeleteAllOnSubmit(db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date));
+
 
             db.SubmitChanges();
 
@@ -167,7 +186,7 @@ public class SystemBLL
         //var rows = from r in db.PackTransactions
         //           group r by r.Type into rows
         //           where  r.Date.Value.Date == DateTime.Now.Date
-                   
+
         //           select new { r. };
 
         ////Insert
@@ -186,6 +205,8 @@ public class SystemBLL
         //db.SubmitChanges();
 
     }
+
+    
 
     public static void Find(HttpResponse Response, TextBox txtCode)
     {

@@ -13,8 +13,12 @@ public class Task
         ScanExp = 1,
         CloseOrder = 2,
         LockEnterTestResult = 3,
+        
+        
         BackupPackRemain = 4,
-        FinalizeStore = 5
+        FinalizeStore = 5,
+
+        DeleteOldDataForFinalizeStore = 6
     }
 
     public Task()
