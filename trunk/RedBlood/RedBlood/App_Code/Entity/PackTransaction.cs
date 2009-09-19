@@ -17,6 +17,7 @@ public partial class PackTransaction
         Out_Product = 21,
         //22
         //23
-        Out_Delete = 24
+        Out_Delete = 24,
+        Remain = 99
     }
 }

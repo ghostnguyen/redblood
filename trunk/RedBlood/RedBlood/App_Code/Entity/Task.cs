@@ -16,9 +16,15 @@ public class Task
         
         
         BackupPackRemain = 4,
-        FinalizeStore = 5,
+        DeleteBackupPackRemain = 5,
 
-        DeleteOldDataForFinalizeStore = 6
+        CountStore = 6,
+        DeleteCountStore = 7,
+
+        CountStoreRemain = 8,
+        DeleteCountStoreRemain = 9
+
+
     }
 
     public Task()
