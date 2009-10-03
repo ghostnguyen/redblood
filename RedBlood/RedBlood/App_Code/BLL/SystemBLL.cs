@@ -21,19 +21,23 @@ public class SystemBLL
 
     public SystemBLL()
     {
+
+
         //
         // TODO: Add constructor logic here
         //
-
     }
 
+    public static void EOD()
+    {
 
+    }
 
     public static void SOD()
     {
         ScanExp(true);
         CloseOrder(true);
-        LockEnterTestResult(true);
+        LockTestResult(true);
     }
 
     //isSOD: isStartOfDate
@@ -76,7 +80,7 @@ public class SystemBLL
     }
 
     //isSOD: isStartOfDate
-    public static void LockEnterTestResult(bool isSOD)
+    public static void LockTestResult(bool isSOD)
     {
         if (!isSOD || !LogBLL.IsLog(Task.TaskX.LockEnterTestResult))
         {
@@ -90,55 +94,11 @@ public class SystemBLL
         }
     }
 
-    public static void EOD()
+
+    private static void CountPackTransaction(DateTime date, bool overwrite, string username)
     {
+        if (date.Date > DateTime.Now.Date) return;
 
-    }
-
-
-    private static void BackupPackRemain(bool overwrite)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        var v = db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date);
-        if (v.Count() > 0)
-        {
-            if (overwrite)
-            {
-                db.PackRemainDailies.DeleteAllOnSubmit(v);
-                db.SubmitChanges();
-
-                LogBLL.Add(Task.TaskX.DeleteBackupPackRemain, RedBloodSystem.CurrentActor, "");
-            }
-            else
-            {
-                return;
-            }
-        }
-
-        IQueryable<Pack> rows = db.Packs.Where(r =>
-            (r.Status == Pack.StatusX.Product || r.Status == Pack.StatusX.Expired)
-            && r.Date == date.Date
-            );
-
-        //Insert
-        foreach (Pack item in rows)
-        {
-            PackRemainDaily r = new PackRemainDaily();
-            r.PackID = item.ID;
-            r.Status = item.Status;
-            r.Date = DateTime.Now.Date;
-
-            db.PackRemainDailies.InsertOnSubmit(r);
-        }
-
-        db.SubmitChanges();
-
-        LogBLL.Add(Task.TaskX.BackupPackRemain, RedBloodSystem.EODActor, date.ToString());
-    }
-
-    private static void CountStore(DateTime date, bool overwrite)
-    {
         RedBloodDataContext db = new RedBloodDataContext();
         var v = db.StoreFinalizes.Where(r => r.Date == date.Date);
 
@@ -149,7 +109,7 @@ public class SystemBLL
                 db.StoreFinalizes.DeleteAllOnSubmit(v);
                 db.SubmitChanges();
 
-                LogBLL.Add(Task.TaskX.DeleteCountStore, RedBloodSystem.CurrentActor, date.ToString());
+                LogBLL.Add(Task.TaskX.DeleteCountPackTransaction, username, date.ToString());
             }
             else
                 return;
@@ -177,84 +137,203 @@ public class SystemBLL
         }
 
         db.SubmitChanges();
-        LogBLL.Add(Task.TaskX.CountStore, RedBloodSystem.CurrentActor, date.ToString());
+        LogBLL.Add(Task.TaskX.CountPackTransaction, username, date.ToString());
     }
 
-    private static void CountStoreRemain(bool overwrite)
+    private static void CountPackRemain(DateTime date, bool overwrite, string username)
+    {
+        if (date.Date > DateTime.Now.Date) return;
+
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        DateTime? lastPackTransactionDate = db.PackTransactions.Select(r => r.Date).LastOrDefault();
+
+        //if true, count remaining packs directly in store
+        //else count by sum up the remaining of previous date and total transaction in day
+        bool isCountDirectly = false;
+
+        //new system, no data
+        if (db.PackTransactions.Count() == 0)
+            isCountDirectly = true;
+        else
+        {
+            if (lastPackTransactionDate == null) return;
+            else
+            {
+                //All pack transactions were in the previous of the date.
+                if (lastPackTransactionDate.Value.Date <= date.Date)
+                    isCountDirectly = true;
+            }
+        }
+
+        if (isCountDirectly)
+        {
+            if (date.Date > DateTime.Now.Date) return;
+
+            var v = db.StoreFinalizes.Where(r => r.Date == date.Date
+                && r.Type == PackTransaction.TypeX.Remain);
+
+            if (v.Count() > 0)
+            {
+                if (overwrite)
+                {
+                    db.StoreFinalizes.DeleteAllOnSubmit(v);
+                    db.SubmitChanges();
+
+                    LogBLL.Add(Task.TaskX.DeleteCountPackRemain, username, date.ToString());
+                }
+                else
+                    return;
+            }
+
+            IQueryable<Pack> rows = db.Packs.Where(r =>
+                (r.Status == Pack.StatusX.Product || r.Status == Pack.StatusX.Expired)
+                );
+
+            //Insert 
+            StoreFinalize s = new StoreFinalize();
+            s.Date = date;
+            s.Type = PackTransaction.TypeX.Remain;
+            s.Count = rows.Count();
+
+            db.StoreFinalizes.InsertOnSubmit(s);
+
+            db.SubmitChanges();
+
+            LogBLL.Add(Task.TaskX.CountPackRemain, username, date.ToString());
+        }
+        else
+        {
+            DateTime previousDate = date.Date.AddDays(-1);
+
+            var pv = db.StoreFinalizes.Where(r => r.Date == previousDate.Date
+                && r.Type == PackTransaction.TypeX.Remain);
+
+            //if the previous day have NO data. Exit code.
+            if (pv.Count() != 1 || pv.FirstOrDefault().Count == null) return;
+
+            //check the date has data
+            var v = db.StoreFinalizes.Where(r => r.Date == date.Date
+                && r.Type == PackTransaction.TypeX.Remain);
+
+            if (v.Count() > 0)
+            {
+                if (overwrite)
+                {
+                    db.StoreFinalizes.DeleteAllOnSubmit(v);
+                    db.SubmitChanges();
+
+                    LogBLL.Add(Task.TaskX.DeleteCountPackRemain, username, date.ToString());
+                }
+                else
+                    return;
+            }
+
+            //Count remaining based on IN and OUT in the date and the remaining of the previous date.
+            int remaingOfPreDate = pv.FirstOrDefault().Count.Value;
+            var v1 = db.StoreFinalizes.Where(r => r.Date == date.Date);
+
+            foreach (StoreFinalize item in v1)
+            {
+                if (item.Type > 0)
+                {
+                    remaingOfPreDate += item.Count == null ? 0 : item.Count.Value;
+                }
+                else if (item.Type < 0)
+                {
+                    remaingOfPreDate -= item.Count == null ? 0 : item.Count.Value;
+                }
+            }
+
+            //Insert 
+            StoreFinalize s = new StoreFinalize();
+            s.Date = date;
+            s.Type = PackTransaction.TypeX.Remain;
+            s.Count = remaingOfPreDate;
+
+            db.StoreFinalizes.InsertOnSubmit(s);
+
+            db.SubmitChanges();
+
+            LogBLL.Add(Task.TaskX.CountPackRemain, username, date.ToString());
+        }
+    }
+
+    private static void BackupPackRemain(bool overwrite, string username)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        var v = db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date
-            && r.Type == PackTransaction.TypeX.Remain);
+
+        var v = db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date);
 
         if (v.Count() > 0)
         {
             if (overwrite)
             {
-                db.StoreFinalizes.DeleteAllOnSubmit(v);
+                db.PackRemainDailies.DeleteAllOnSubmit(v);
                 db.SubmitChanges();
 
-                LogBLL.Add(Task.TaskX.DeleteCountStoreRemain, RedBloodSystem.CurrentActor, date.ToString());
+                LogBLL.Add(Task.TaskX.DeleteBackupPackRemain, username, "");
             }
             else
+            {
                 return;
+            }
         }
 
+        IQueryable<Pack> rows = db.Packs.Where(r =>
+            (r.Status == Pack.StatusX.Product || r.Status == Pack.StatusX.Expired)
+            //&& r.Date == DateTime.Now.Date
+            );
 
-
-        foreach (PackTransaction.TypeX item in Enum.GetValues(typeof(PackTransaction.TypeX)))
+        //Insert
+        foreach (Pack item in rows)
         {
-            if (item != PackTransaction.TypeX.Remain)
-            {
-                //Insert 
-                StoreFinalize r = new StoreFinalize();
-                r.Date = date;
-                r.Type = item;
+            PackRemainDaily r = new PackRemainDaily();
+            r.PackID = item.ID;
+            r.Status = item.Status;
+            r.Date = DateTime.Now.Date;
 
-                int? count = trans.Where(rs => rs.Key == item).Select(rs => rs.Count).FirstOrDefault();
-                r.Count = count != null ? count.Value : 0;
-
-                db.StoreFinalizes.InsertOnSubmit(r);
-            }
+            db.PackRemainDailies.InsertOnSubmit(r);
         }
 
         db.SubmitChanges();
-        LogBLL.Add(Task.TaskX.FinalizeStore, RedBloodSystem.CurrentActor, date.ToString());
 
+        LogBLL.Add(Task.TaskX.BackupPackRemain, username, "");
     }
 
-    public static string DoFinalizeStore(bool overwriteFinalized, bool finalizeIfEmpty)
+    public static string DoFinalizeStore(bool overwrite, string username)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        DateTime? lastFinalizeDate = db.StoreFinalizes.Select(r => r.Date).Last();
-        DateTime? lastPackTransactionDate = db.PackTransactions.Select(r => r.Date).Last();
-        DateTime? lastPackRemainDate = db.PackRemainDailies.Select(r => r.Date).Last();
+        DateTime? lastFinalizeDate = db.StoreFinalizes.Select(r => r.Date).LastOrDefault();
+        DateTime? lastPackTransactionDate = db.PackTransactions.Select(r => r.Date).LastOrDefault();
+        DateTime? lastBackupPackRemainDate = db.PackRemainDailies.Select(r => r.Date).LastOrDefault();
 
         //Validation
         //Newer data in DB. Data error or system datetime error
-        if ((lastFinalizeDate != null && lastFinalizeDate.Value.Date > DateTime.Now.Date)
+        if (
+            (lastFinalizeDate != null && lastFinalizeDate.Value.Date > DateTime.Now.Date)
             || (lastPackTransactionDate != null && lastPackTransactionDate.Value.Date > DateTime.Now.Date)
-            || (lastPackRemainDate != null && lastPackRemainDate.Value.Date > DateTime.Now.Date)
+            || (lastBackupPackRemainDate != null && lastBackupPackRemainDate.Value.Date > DateTime.Now.Date)
            )
         {
-            LogBLL.Add(Task.TaskX.FinalizeStore, RedBloodSystem.EODActor, "DataErr. Newer data in DB.");
-            return "DataErr. Newer data in DB.";
+            string err = "DataErr. Newer data in DB.";
+            LogBLL.Add(Task.TaskX.DoFinalizeStore, username, err);
+            return err;
         }
 
-        //Finalize last previous day if not yet
+        //Finalize all previous days if not yet
         for (DateTime i = lastFinalizeDate.Value.Date.AddDays(1);
             i <= lastPackTransactionDate.Value.Date;
             i = i.AddDays(1))
         {
-            //Finaliza
+            //Finalize
         }
 
         if (lastFinalizeDate != null && lastFinalizeDate.Value.Date != DateTime.Now.Date)
         {
 
         }
-
-
 
         //If today has finalized store
         if (db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
@@ -278,11 +357,6 @@ public class SystemBLL
 
         }
 
-
-
-
-
-
         if (db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
         {
             //Remove current date data
@@ -292,9 +366,6 @@ public class SystemBLL
 
             LogBLL.Add(Task.TaskX.FinalizeStore, RedBloodSystem.EODActor, "Remove current date data.");
         }
-
-
-
     }
 
 
