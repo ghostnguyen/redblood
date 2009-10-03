@@ -14,17 +14,16 @@ public class Task
         CloseOrder = 2,
         LockEnterTestResult = 3,
         
-        
-        BackupPackRemain = 4,
-        DeleteBackupPackRemain = 5,
+        DoFinalizeStore = 10,
 
-        CountStore = 6,
-        DeleteCountStore = 7,
+        BackupPackRemain = 12,
+        DeleteBackupPackRemain = 13,
 
-        CountStoreRemain = 8,
-        DeleteCountStoreRemain = 9
+        CountPackTransaction = 14,
+        DeleteCountPackTransaction = 15,
 
-
+        CountPackRemain = 16,
+        DeleteCountPackRemain = 17
     }
 
     public Task()
