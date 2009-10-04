@@ -483,16 +483,6 @@
       <Association Name="Pack_PackLink1" Member="ToPack" ThisKey="ToPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PackRemainDaily" Member="PackRemainDailies">
-    <Type Name="PackRemainDaily">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Status" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="Note" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Pack_PackRemainDaily" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.StoreFinalize" Member="StoreFinalizes">
     <Type Name="StoreFinalize">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -500,6 +490,16 @@
       <Column Name="Type" Type="PackTransaction.TypeX" DbType="Int" CanBeNull="true" />
       <Column Name="Count" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackRemainDaily" Member="PackRemainDailies">
+    <Type Name="PackRemainDaily">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Pack_PackRemainDaily" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
