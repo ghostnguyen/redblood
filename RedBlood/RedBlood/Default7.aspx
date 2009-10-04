@@ -17,7 +17,7 @@
         });
 
         $(document).bind('keydown', '9', function() {
-        window.location = ("/RedBlood/Collect/Rpt_Campaign.aspx");
+        window.location = ("/RedBlood/Collect/SelectCampaignToRpt.aspx");
         });
         
         //        $(document).bind('keydown', '4', function() {
@@ -77,7 +77,7 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/Rpt_Campaign.aspx">Báo cáo thu máu</a>
+                                            <a href="/RedBlood/Collect/SelectCampaignToRpt.aspx">Báo cáo</a>
                                         </h4>
                                     </td>
                                 </tr>

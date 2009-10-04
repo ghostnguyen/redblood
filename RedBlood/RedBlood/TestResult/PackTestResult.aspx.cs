@@ -68,7 +68,10 @@ public partial class PackTestResult : System.Web.UI.Page
                e.NewValues["Markers.Malaria"].ToString(),
                 "");
 
-            DonationBLL.Update(db, p, e.NewValues["BloodGroup"].ToString(), "");
+            if (e.NewValues["BloodGroup"] != null)
+            {
+                DonationBLL.Update(db, p, e.NewValues["BloodGroup"].ToString(), "");
+            }
 
             db.SubmitChanges();
         }

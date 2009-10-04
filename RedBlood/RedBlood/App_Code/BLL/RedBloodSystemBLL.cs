@@ -9,15 +9,9 @@ using System.Web.UI.WebControls;
 /// <summary>
 /// Summary description for SystemBLL
 /// </summary>
-public class SystemBLL
+public class RedBloodSystemBLL
 {
-    public static string Url4CampaignDetail = "~/FindAndReport/CampaignDetail.aspx?";
-    public static string Url4PackDetail = "~/FindAndReport/PackDetail.aspx?";
-    public static string Url4PeopleDetail = "~/FindAndReport/PeopleDetail.aspx?";
-    public static string Url4OrderDetail = "~/Order/Order.aspx?";
-    public static string Url4FindPeople = "~/FindAndReport/FindPeople.aspx?";
-
-    public static TimeSpan ExpTime4ProduceFFPlasma = new TimeSpan(0, 18, 0, 0);
+    
 
     static DateTime? lastFinalizeDate;
     static DateTime? lastPackTransactionDate;
@@ -27,17 +21,17 @@ public class SystemBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        lastFinalizeDate = db.StoreFinalizes.Select(r => r.Date).LastOrDefault();
-        lastPackTransactionDate = db.PackTransactions.Select(r => r.Date).LastOrDefault();
-        lastBackupPackRemainDate = db.PackRemainDailies.Select(r => r.Date).LastOrDefault();
+        lastFinalizeDate = db.StoreFinalizes.OrderByDescending(r => r.Date).Select(r => r.Date).FirstOrDefault();
+        lastPackTransactionDate = db.PackTransactions.OrderByDescending(r => r.Date).Select(r => r.Date).FirstOrDefault();
+        lastBackupPackRemainDate = db.PackRemainDailies.OrderByDescending(r => r.Date).Select(r => r.Date).FirstOrDefault();
     }
 
-    public static SystemBLL()
+    static RedBloodSystemBLL()
     {
         GetLastTransactionDate();
     }
 
-    public SystemBLL()
+    public RedBloodSystemBLL()
     {
     }
 
@@ -48,6 +42,7 @@ public class SystemBLL
 
     public static void SOD()
     {
+        DoFinalizeStore(DateTime.Now.Date, false, RedBloodSystem.SODActor);
         ScanExp(true);
         CloseOrder(true);
         LockTestResult(true);
@@ -113,7 +108,7 @@ public class SystemBLL
     /// </summary>
     /// <param name="date"></param>
     /// <returns></returns>
-    public static bool IsCountDirectly(DateTime date)
+    static bool IsCountDirectly(DateTime date)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -138,7 +133,7 @@ public class SystemBLL
     }
 
 
-    private static void CountPackTransaction(DateTime date, bool overwrite, string username)
+    static void CountPackTransaction(DateTime date, bool overwrite, string username)
     {
         if (date.Date > DateTime.Now.Date) return;
 
@@ -183,7 +178,7 @@ public class SystemBLL
         LogBLL.Add(Task.TaskX.CountPackTransaction, username, date.ToString());
     }
 
-    private static void CountPackRemain(DateTime date, bool overwrite, string username)
+    static void CountPackRemain(DateTime date, bool overwrite, string username)
     {
         if (date.Date > DateTime.Now.Date) return;
 
@@ -282,7 +277,7 @@ public class SystemBLL
         }
     }
 
-    private static void BackupPackRemain(bool overwrite, string username, DateTime date)
+    static void BackupPackRemain(DateTime date, bool overwrite, string username)
     {
         if (date.Date > DateTime.Now.Date) return;
 
@@ -333,8 +328,10 @@ public class SystemBLL
         LogBLL.Add(Task.TaskX.BackupPackRemain, username, "");
     }
 
-    public static string DoFinalizeStore(bool overwrite, string username,string date)
+    public static string DoFinalizeStore(DateTime date, bool overwrite, string username)
     {
+        if (date.Date > DateTime.Now.Date) return "Can not finalize day is in future.";
+
         RedBloodDataContext db = new RedBloodDataContext();
 
         GetLastTransactionDate();
@@ -352,53 +349,28 @@ public class SystemBLL
             return err;
         }
 
-        //Finalize all previous days if not yet
-        for (DateTime i = lastFinalizeDate.Value.Date.AddDays(1);
-            i <= lastPackTransactionDate.Value.Date;
-            i = i.AddDays(1))
+        if (lastFinalizeDate != null)
         {
-            //Finalize
-        }
-
-        if (lastFinalizeDate != null && lastFinalizeDate.Value.Date != DateTime.Now.Date)
-        {
-
-        }
-
-        //If today has finalized store
-        if (db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
-        {
-            if (overwriteFinalized)
+            //Finalize all previous days if not yet
+            for (DateTime i = lastFinalizeDate.Value.Date.AddDays(1);
+                i < date.Date;
+                i = i.AddDays(1))
             {
-                //Remove current date data
-                db.PackRemainDailies.DeleteAllOnSubmit(db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date));
-                db.StoreFinalizes.DeleteAllOnSubmit(db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date));
-
-                db.SubmitChanges();
-                LogBLL.Add(Task.TaskX.DeleteOldDataForFinalizeStore, RedBloodSystem.CurrentActor, "Remove of date: " + DateTime.Now.ToString());
-            }
-            else
-            {
-                return "Already Finalize.";
+                CountPackTransaction(i, false, username);
+                CountPackRemain(i, false, username);
+                BackupPackRemain(i, false, username);
             }
         }
-        else
-        {
 
-        }
+        //Finalize the date.
+        CountPackTransaction(date, overwrite, username);
+        CountPackRemain(date, overwrite, username);
+        BackupPackRemain(date, overwrite, username);
 
-        if (db.StoreFinalizes.Where(r => r.Date == DateTime.Now.Date).Count() > 0)
-        {
-            //Remove current date data
+        LogBLL.Add(Task.TaskX.DoFinalizeStore, username, date.ToString());
 
-
-            db.SubmitChanges();
-
-            LogBLL.Add(Task.TaskX.FinalizeStore, RedBloodSystem.EODActor, "Remove current date data.");
-        }
+        return "";
     }
-
-
 
     public static void Find(HttpResponse Response, TextBox txtCode)
     {
@@ -414,7 +386,7 @@ public class SystemBLL
             People r = PeopleBLL.GetByCode(key);
             if (r != null)
             {
-                Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
+                Response.Redirect(RedBloodSystem.Url4PeopleDetail + "key=" + r.ID.ToString());
             }
         }
         //else if (BarcodeBLL.IsValidPackCode(key))
@@ -430,7 +402,7 @@ public class SystemBLL
             Campaign r = CampaignBLL.GetByID(BarcodeBLL.ParseCampaignID(key));
             if (r != null)
             {
-                Response.Redirect(SystemBLL.Url4CampaignDetail + "key=" + r.ID.ToString());
+                Response.Redirect(RedBloodSystem.Url4CampaignDetail + "key=" + r.ID.ToString());
             }
         }
         else if (BarcodeBLL.IsValidOrderCode(key))
@@ -438,7 +410,7 @@ public class SystemBLL
             Order r = OrderBLL.Get(BarcodeBLL.ParseOrderID(key));
             if (r != null)
             {
-                Response.Redirect(SystemBLL.Url4OrderDetail + "key=" + r.ID.ToString());
+                Response.Redirect(RedBloodSystem.Url4OrderDetail + "key=" + r.ID.ToString());
             }
         }
         else if (regx.IsMatch(key) && key.Length >= BarcodeBLL.CMNDLength.ToInt())
@@ -446,7 +418,7 @@ public class SystemBLL
             People r = PeopleBLL.GetByCMND(key);
             if (r != null)
             {
-                Response.Redirect(SystemBLL.Url4PeopleDetail + "key=" + r.ID.ToString());
+                Response.Redirect(RedBloodSystem.Url4PeopleDetail + "key=" + r.ID.ToString());
             }
         }
         //else if (key.length > 1)
