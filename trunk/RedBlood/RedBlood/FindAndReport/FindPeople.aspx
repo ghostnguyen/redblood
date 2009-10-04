@@ -52,7 +52,7 @@
                     <Columns>
                         <asp:TemplateField HeaderText="Name">
                             <ItemTemplate>
-                                <asp:HyperLink ID="Label1" runat="server" Text='<%# Eval("Name")%>' NavigateUrl='<%# SystemBLL.Url4PeopleDetail + "key=" + Eval("ID")  %>'></asp:HyperLink>
+                                <asp:HyperLink ID="Label1" runat="server" Text='<%# Eval("Name")%>' NavigateUrl='<%# RedBloodSystem.Url4PeopleDetail + "key=" + Eval("ID")  %>'></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="CMND" HeaderText="CMND" SortExpression="CMND" />

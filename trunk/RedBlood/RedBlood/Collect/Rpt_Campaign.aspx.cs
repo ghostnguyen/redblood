@@ -49,6 +49,8 @@ public partial class Collect_Rpt_Campaign : System.Web.UI.Page
             e.Result = DonationBLL.Get(CampaignDetail1.CampaignID);
             if (e.Result == null)
                 e.Cancel = true;
+
+
         }
 
     }

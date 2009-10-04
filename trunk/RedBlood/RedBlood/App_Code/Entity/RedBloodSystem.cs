@@ -8,6 +8,17 @@ using System.Web;
 /// </summary>
 public class RedBloodSystem
 {
+
+    public static string Url4CampaignDetail = "~/FindAndReport/CampaignDetail.aspx?";
+    public static string Url4PackDetail = "~/FindAndReport/PackDetail.aspx?";
+    public static string Url4PeopleDetail = "~/FindAndReport/PeopleDetail.aspx?";
+    public static string Url4OrderDetail = "~/Order/Order.aspx?";
+    public static string Url4FindPeople = "~/FindAndReport/FindPeople.aspx?";
+
+    public static string Url4Collect4Rpt_Campaign = "~/Collect/Rpt_Campaign.aspx?";
+
+    public static TimeSpan ExpTime4ProduceFFPlasma = new TimeSpan(0, 18, 0, 0);
+
     public static string SODActor
     {
         get

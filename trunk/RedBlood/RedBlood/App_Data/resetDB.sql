@@ -7,6 +7,8 @@ truncate table PackOrder
 truncate table PackLink
 
 truncate table PackTransaction
+truncate table PackRemainDaily
+truncate table StoreFinalize
 
 delete Pack
 
