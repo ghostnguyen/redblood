@@ -19,13 +19,26 @@ public class SystemBLL
 
     public static TimeSpan ExpTime4ProduceFFPlasma = new TimeSpan(0, 18, 0, 0);
 
+    static DateTime? lastFinalizeDate;
+    static DateTime? lastPackTransactionDate;
+    static DateTime? lastBackupPackRemainDate;
+
+    public static void GetLastTransactionDate()
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        lastFinalizeDate = db.StoreFinalizes.Select(r => r.Date).LastOrDefault();
+        lastPackTransactionDate = db.PackTransactions.Select(r => r.Date).LastOrDefault();
+        lastBackupPackRemainDate = db.PackRemainDailies.Select(r => r.Date).LastOrDefault();
+    }
+
+    public static SystemBLL()
+    {
+        GetLastTransactionDate();
+    }
+
     public SystemBLL()
     {
-
-
-        //
-        // TODO: Add constructor logic here
-        //
     }
 
     public static void EOD()
@@ -94,6 +107,36 @@ public class SystemBLL
         }
     }
 
+    /// <summary>
+    /// if true, count remaining packs directly in store
+    /// else count by sum up the remaining of previous date and total transaction in day
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    public static bool IsCountDirectly(DateTime date)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        bool isCountDirectly = false;
+
+        //new system, no data
+        if (db.PackTransactions.Count() == 0)
+            isCountDirectly = true;
+        else
+        {
+            if (lastPackTransactionDate == null) throw new Exception("");
+            else
+            {
+                GetLastTransactionDate();
+
+                //All pack transactions were in the previous of the date.
+                if (lastPackTransactionDate.Value.Date <= date.Date)
+                    isCountDirectly = true;
+            }
+        }
+        return isCountDirectly;
+    }
+
 
     private static void CountPackTransaction(DateTime date, bool overwrite, string username)
     {
@@ -146,27 +189,7 @@ public class SystemBLL
 
         RedBloodDataContext db = new RedBloodDataContext();
 
-        DateTime? lastPackTransactionDate = db.PackTransactions.Select(r => r.Date).LastOrDefault();
-
-        //if true, count remaining packs directly in store
-        //else count by sum up the remaining of previous date and total transaction in day
-        bool isCountDirectly = false;
-
-        //new system, no data
-        if (db.PackTransactions.Count() == 0)
-            isCountDirectly = true;
-        else
-        {
-            if (lastPackTransactionDate == null) return;
-            else
-            {
-                //All pack transactions were in the previous of the date.
-                if (lastPackTransactionDate.Value.Date <= date.Date)
-                    isCountDirectly = true;
-            }
-        }
-
-        if (isCountDirectly)
+        if (IsCountDirectly(date))
         {
             if (date.Date > DateTime.Now.Date) return;
 
@@ -259,11 +282,19 @@ public class SystemBLL
         }
     }
 
-    private static void BackupPackRemain(bool overwrite, string username)
+    private static void BackupPackRemain(bool overwrite, string username, DateTime date)
     {
+        if (date.Date > DateTime.Now.Date) return;
+
         RedBloodDataContext db = new RedBloodDataContext();
 
-        var v = db.PackRemainDailies.Where(r => r.Date == DateTime.Now.Date);
+        if (IsCountDirectly(date)
+            //Have pack transaction. Remain transaction is NOT real transaction
+            && db.PackTransactions.Where(r => r.Date.Value.Date == date.Date
+                && r.Type != PackTransaction.TypeX.Remain).Count() != 0) { }
+        else return;
+
+        var v = db.PackRemainDailies.Where(r => r.Date == date);
 
         if (v.Count() > 0)
         {
@@ -291,7 +322,8 @@ public class SystemBLL
             PackRemainDaily r = new PackRemainDaily();
             r.PackID = item.ID;
             r.Status = item.Status;
-            r.Date = DateTime.Now.Date;
+            r.Date = date;
+            r.Note = date.Date == DateTime.Now.Date ? "" : DateTime.Now.Date.ToString();
 
             db.PackRemainDailies.InsertOnSubmit(r);
         }
@@ -301,13 +333,11 @@ public class SystemBLL
         LogBLL.Add(Task.TaskX.BackupPackRemain, username, "");
     }
 
-    public static string DoFinalizeStore(bool overwrite, string username)
+    public static string DoFinalizeStore(bool overwrite, string username,string date)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        DateTime? lastFinalizeDate = db.StoreFinalizes.Select(r => r.Date).LastOrDefault();
-        DateTime? lastPackTransactionDate = db.PackTransactions.Select(r => r.Date).LastOrDefault();
-        DateTime? lastBackupPackRemainDate = db.PackRemainDailies.Select(r => r.Date).LastOrDefault();
+        GetLastTransactionDate();
 
         //Validation
         //Newer data in DB. Data error or system datetime error
