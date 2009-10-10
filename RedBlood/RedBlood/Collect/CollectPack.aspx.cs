@@ -120,14 +120,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
     void EnterBloodGroup(string bloodGroupCode)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        Donation p = DonationBLL.Get(db, DIN);
-
-        if (p == null) return;
-        DonationErr err = DonationBLL.Update(db, p, bloodGroupCode, "");
-
-
+        DonationErr err = DonationBLL.Update(DIN, bloodGroupCode, "");
 
         if (err != DonationErrEnum.Non)
         {
@@ -136,7 +129,6 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
         else
         {
-            db.SubmitChanges();
             LoadDIN();
         }
     }

@@ -151,10 +151,14 @@ public class DonationBLL
         return null;
     }
 
-    public static DonationErr Update(RedBloodDataContext db, Donation e,
+    public static DonationErr Update(string DIN,
        string HIV, string HCV_Ab, string HBs_Ag, string Syphilis, string Malaria,
         string note)
     {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Donation e = DonationBLL.Get(db, DIN);
+
         if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
 
         string old = e.InfectiousMarkers;
@@ -172,11 +176,17 @@ public class DonationBLL
 
         UpdateTestResultStatus(e);
 
+        db.SubmitChanges();
+
         return DonationErrEnum.Non;
     }
 
-    public static DonationErr Update(RedBloodDataContext db, Donation e, string bloodGroup, string note)
+    public static DonationErr Update(string DIN, string bloodGroup, string note)
     {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Donation e = DonationBLL.Get(db, DIN);
+
         if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
 
         if (bloodGroup.Trim() != e.BloodGroup)
@@ -186,6 +196,8 @@ public class DonationBLL
         }
 
         UpdateTestResultStatus(e);
+        
+        db.SubmitChanges();
 
         return DonationErrEnum.Non;
     }
@@ -202,10 +214,15 @@ public class DonationBLL
         return DonationErrEnum.Non;
     }
 
-    public static List<Donation> Get(int campaignID)
+    public static void UpdateNegative(string DIN)
+    {
+        Update(DIN, TR.neg.Name, TR.neg.Name, TR.neg.Name, TR.neg.Name, TR.neg.Name, "UpdateNegative");
+    }
+
+    public static IQueryable<Donation> Get(int campaignID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        return db.Donations.Where(r => r.CampaignID == campaignID).ToList();
+        return db.Donations.Where(r => r.CampaignID == campaignID);
     }
 
     public static List<Donation> Get(int campaignID, ReportType rptType)
