@@ -35,6 +35,7 @@ public partial class PackTestResult : System.Web.UI.Page
     {
         CampaignDetail1.CampaignID = BarcodeBLL.ParseCampaignID(code);
         GridView1.DataBind();
+        GridViewLock.DataBind();
 
         //DeletePack1.CampaignID = BarcodeBLL.ParseCampaignID(code);
     }
@@ -48,32 +49,45 @@ public partial class PackTestResult : System.Web.UI.Page
         }
         else
         {
-            //e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID != null);
-            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID);
+            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID != null
+                && (r.TestResultStatus == Donation.TestResultStatusX.Negative
+                || r.TestResultStatus == Donation.TestResultStatusX.Positive
+                || r.TestResultStatus == Donation.TestResultStatusX.Non)
+                );
+        }
+    }
+
+    protected void LinqDataSourcePackLock_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        if (CampaignDetail1.CampaignID == 0)
+        {
+            e.Result = null;
+            e.Cancel = true;
+        }
+        else
+        {
+            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID == null
+                || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked
+                || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked
+                );
         }
     }
 
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        string DIN = (string)e.Keys[0];
 
-        Donation p = DonationBLL.Get(db, (string)e.Keys[0]);
+        DonationBLL.Update(DIN, e.NewValues["Markers.HIV"].ToString(),
+           e.NewValues["Markers.HCV_Ab"].ToString(),
+           e.NewValues["Markers.HBs_Ag"].ToString(),
+            e.NewValues["Markers.Syphilis"].ToString(),
+           e.NewValues["Markers.Malaria"].ToString(),
+            "");
 
-        if (p != null)
+        // It will be null if the groupbloodis NOT enter when collect blood.
+        if (e.NewValues["BloodGroup"] != null)
         {
-            DonationBLL.Update(db, p, e.NewValues["Markers.HIV"].ToString(),
-               e.NewValues["Markers.HCV_Ab"].ToString(),
-               e.NewValues["Markers.HBs_Ag"].ToString(),
-                e.NewValues["Markers.Syphilis"].ToString(),
-               e.NewValues["Markers.Malaria"].ToString(),
-                "");
-
-            if (e.NewValues["BloodGroup"] != null)
-            {
-                DonationBLL.Update(db, p, e.NewValues["BloodGroup"].ToString(), "");
-            }
-
-            db.SubmitChanges();
+            DonationBLL.Update(DIN, e.NewValues["BloodGroup"].ToString(), "");
         }
 
         e.Cancel = true;
@@ -85,4 +99,12 @@ public partial class PackTestResult : System.Web.UI.Page
     }
 
 
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "SetNegative")
+        {
+            DonationBLL.UpdateNegative(e.CommandArgument.ToString());
+            GridView1.DataBind();
+        }
+    }
 }
