@@ -12,14 +12,16 @@
             window.location = ("/RedBlood/FindAndReport/StoreCount.aspx");
         });
 
-//        $(document).bind('keydown', '8', function() {
-//            window.location = ("/RedBlood/FindAndReport/FindCampaign.aspx");
-//        });
+        $(document).bind('keydown', '8', function() {
+            window.location = ("/RedBlood/FindAndReport/CampaignDetail.aspx");
+        });
 
-//        $(document).bind('keydown', '9', function() {
-//            window.location = ("/RedBlood/FindAndReport/PackOrderCount.aspx");
-//        });
-        
+
+
+        //        $(document).bind('keydown', '9', function() {
+        //            window.location = ("/RedBlood/FindAndReport/PackOrderCount.aspx");
+        //        });
+
         //        $(document).bind('keydown', '4', function() {
         //            window.location = ("/RedBlood/Category/Org.aspx");
         //        });
@@ -52,20 +54,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                          <%--  <table>
+                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/FindAndReport/FindCampaign.aspx">
+                                        <a href="/RedBlood/FindAndReport/CampaignDetail.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/FindCampaign.aspx">Thu máu</a>
+                                            <a href="/RedBlood/FindAndReport/CampaignDetail.aspx">In danh sách</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>
