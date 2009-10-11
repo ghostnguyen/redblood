@@ -174,8 +174,10 @@ public class DonationBLL
             DonationTestLogBLL.Insert(db, e, Nameof<Donation>.Property(r => r.Markers), note);
         }
 
-        UpdateTestResultStatus(e);
+        //Have to save before updaye TestResult Status
+        db.SubmitChanges();
 
+        UpdateTestResultStatus(e);
         db.SubmitChanges();
 
         return DonationErrEnum.Non;
@@ -195,8 +197,10 @@ public class DonationBLL
             DonationTestLogBLL.Insert(db, e, Nameof<Donation>.Property(r => r.BloodGroup), note);
         }
 
+        //Have to save before updaye TestResult Status
+        db.SubmitChanges();
+
         UpdateTestResultStatus(e);
-        
         db.SubmitChanges();
 
         return DonationErrEnum.Non;
@@ -204,6 +208,10 @@ public class DonationBLL
 
     public static DonationErr UpdateTestResultStatus(Donation e)
     {
+        //RedBloodDataContext db = new RedBloodDataContext();
+
+        //Donation e = Get(db, DIN);
+        
         if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
 
         if (string.IsNullOrEmpty(e.BloodGroup))
