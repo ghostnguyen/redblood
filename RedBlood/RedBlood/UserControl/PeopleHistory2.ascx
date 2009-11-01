@@ -3,27 +3,22 @@
 <asp:Label runat="server" ID="LabelTotal"></asp:Label>
 <asp:GridView ID="GridView1" runat="server" DataSourceID="LinqDataSource1" AutoGenerateColumns="False">
     <Columns>
-        <asp:BoundField DataField="Autonum" />
-        <asp:BoundField DataField="CollectedDate" DataFormatString="{0:dd/MM/yyyy}" />
-        <asp:TemplateField>
-            <ItemTemplate>
-                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("Component.Name") %>' />
-            </ItemTemplate>
-        </asp:TemplateField>
-        <asp:BoundField DataField="Volume" />
+        <asp:BoundField DataField="DIN" HeaderText="DIN" />
         <asp:TemplateField>
             <HeaderTemplate>
-                <asp:Label ID="Label1" runat="server" Text="ABO" />
+                <asp:Label ID="Label1" runat="server" Text="Sản phẩm"></asp:Label>
                 <br />
-                <asp:Label ID="lblAutonum" runat="server" Text="RH" />
+                <asp:Label ID="Label2" runat="server" Text="Nhóm máu"></asp:Label>
             </HeaderTemplate>
             <ItemTemplate>
-                <asp:Label ID="Label1" runat="server" Text='<%# Eval("ABO.Name") %>' />
+                <asp:Label ID="Label1" runat="server" Text='<%# Eval("ProductDesc") %>'></asp:Label>
                 <br />
-                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("RH.Name") %>' />
+                <asp:Label ID="Label3" runat="server" Text='<%# Eval("BloodGroupDesc") %>'></asp:Label>
             </ItemTemplate>
         </asp:TemplateField>
-        <asp:BoundField DataField="Note" />
+        <asp:BoundField DataField="CollectedDate" DataFormatString="{0:dd/MM/yyyy}" HeaderText="Ngày thu" />
+        <asp:BoundField DataField="Volume" HeaderText="(ml)" />
+        <asp:BoundField DataField="Note" HeaderText="Ghi chú" />
     </Columns>
 </asp:GridView>
 <asp:LinqDataSource ID="LinqDataSource1" runat="server" OnSelecting="LinqDataSource1_Selecting"

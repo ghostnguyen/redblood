@@ -10,6 +10,7 @@
     <ajk:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDate"
         Format="dd/MM/yyyy">
     </ajk:CalendarExtender>
+    <asp:Button ID="btnView" runat="server" Text="Xem" onclick="btnView_Click" />
     <br />
     <asp:ListView ID="ListView1" runat="server">
         <LayoutTemplate>
