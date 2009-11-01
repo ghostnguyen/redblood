@@ -7,7 +7,7 @@
     <table>
         <tr valign="top">
             <td>
-                <uc:People runat="server" ID="People1" ReadOnly="true" />
+                <uc:People runat="server" ID="People1" />
             </td>
             <td>
                 <uc:PeopleHistory2 runat="server" ID="PeopleHistory1" />

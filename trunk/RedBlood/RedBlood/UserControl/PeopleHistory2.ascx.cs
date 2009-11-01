@@ -43,46 +43,46 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
     }
     protected void LinqDataSource1_Selected(object sender, LinqDataSourceStatusEventArgs e)
     {
-        LabelTotal.Text = "TC: " + (e.Result as List<Pack>).Count.ToString();
+        //LabelTotal.Text = "TC: " + (e.Result as List<Pack>).Count.ToString();
     }
     public object GetByPeopleID4PackHistory(Guid peopleID)
     {
-        //RedBloodDataContext db = new RedBloodDataContext();
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        //var v = from c in db.Packs
-        //        where c.PeopleID == peopleID
-        //        orderby c.Status descending, c.CollectedDate descending
-        //        select c;
+        var v = from c in db.Donations
+                where c.PeopleID == peopleID
+                orderby c.Status descending, c.CollectedDate descending
+                select new { c.DIN, c.Status, c.CollectedDate, c.Note, c.BloodGroupDesc, PackStatus = c.Pack.Status, ProductDesc = c.Pack.Product.Description,c.Pack.Volume };
 
-        //foreach (Pack e in v)
+        //foreach (var e in v)
         //{
-        //    if (e.Status == Pack.StatusX.DataErr)
-        //    {
-        //        e.Note = PackErrEnum.DataErr.Message;
-        //    }
-        //    else if (e.Status == Pack.StatusX.Delete)
-        //    {
-        //        if (e.PackStatusHistories.Count == 0)
-        //            e.Note = "Unknown";
-        //        else
-        //            e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note;
-        //    }
-        //    else if (e.Status == Pack.StatusX.Collected)
-        //    {
-        //        e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
-        //    }
-        //    else if (e.Status == Pack.StatusX.Expired)
-        //    {
-        //        e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expired).First().Note;
-        //    }
+        //if (e.Status == Donation.StatusX.DataErr)
+        //{
+        //    e.Note = PackErrEnum.DataErr.Message;
+        //}
+        //else if (e.Status == Donation.StatusX.Delete)
+        //{
+        //    if (e.PackStatusHistories.Count == 0)
+        //        e.Note = "Unknown";
         //    else
-        //    {
-        //        e.Note = e.Status.ToString();
-        //    }
+        //        e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Delete).First().Note;
+        //}
+        //else if (e.Status == Donation.StatusX.Assigned)
+        //{
+        //    e.Note = e.Status.ToString() + ": " + e.TestResultStatus.ToString();
+        //}
+        //else if (e.Status == Pack.StatusX.Expired)
+        //{
+        //    e.Note = e.Note = e.Status.ToString() + ": " + e.PackStatusHistories.Where(h => h.ToStatus == Pack.StatusX.Expired).First().Note;
+        //}
+        //else
+        //{
+        //    e.Note = e.Status.ToString();
+        //}
         //}
 
-        //return v;
-        return null;
+        return v;
+
     }
 
 }
