@@ -25,13 +25,15 @@
         // Code that runs when a new session is started
         if (string.IsNullOrEmpty(BarcodeBLL.BarcodeImgPage))
         {
-            //System.Web.VirtualPathUtility.
-            string[] split = Request.Url.AbsoluteUri.Split('/');
+            ////System.Web.VirtualPathUtility.
+            //string[] split = Request.Url.AbsoluteUri.Split('/');
 
-            RedBloodSystem.RootUrl = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3];
-            RedBloodSystem.RootUrl = RedBloodSystem.RootUrl.Replace("0.0.0.0", "localhost");
+            //RedBloodSystem.RootUrl = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3];
+            //RedBloodSystem.RootUrl = RedBloodSystem.RootUrl.Replace("0.0.0.0", "localhost");
             
-            BarcodeBLL.BarcodeImgPage = RedBloodSystem.RootUrl + "/Barcode/Image.aspx";
+            //BarcodeBLL.BarcodeImgPage = RedBloodSystem.RootUrl + "/Barcode/Image.aspx";
+
+            BarcodeBLL.BarcodeImgPage = System.Web.VirtualPathUtility.ToAbsolute("~/Barcode/Image.aspx");
         }
     }
 

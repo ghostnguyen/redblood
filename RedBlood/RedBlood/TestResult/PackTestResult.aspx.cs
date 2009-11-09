@@ -36,6 +36,7 @@ public partial class PackTestResult : System.Web.UI.Page
         CampaignDetail1.CampaignID = BarcodeBLL.ParseCampaignID(code);
         GridView1.DataBind();
         GridViewLock.DataBind();
+        GridViewUnCollect.DataBind();
 
         //DeletePack1.CampaignID = BarcodeBLL.ParseCampaignID(code);
     }
@@ -66,10 +67,23 @@ public partial class PackTestResult : System.Web.UI.Page
         }
         else
         {
-            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID == null
-                || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked
-                || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked
+            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID != null
+                && (r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked
+                || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
                 );
+        }
+    }
+
+    protected void LinqDataSourceUnCollect_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        if (CampaignDetail1.CampaignID == 0)
+        {
+            e.Result = null;
+            e.Cancel = true;
+        }
+        else
+        {
+            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID == null);
         }
     }
 
