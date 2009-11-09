@@ -67,6 +67,6 @@ public partial class UserControl_ThanksLetter : System.Web.UI.UserControl
         else
             LabelSyphilis.Text = e.Markers.Syphilis;
 
-        LabelABO_Rh.Text = e.BloodGroup;
+        LabelABO_Rh.Text = BloodGroupBLL.GetDescription(e.BloodGroup);
     }
 }

@@ -13,16 +13,16 @@
         });
 
         $(document).bind('keydown', '8', function() {
-        window.location = ("/RedBlood/Collect/CollectPack.aspx");
+            window.location = ("/RedBlood/Collect/CollectPack.aspx");
         });
 
         $(document).bind('keydown', '9', function() {
-        window.location = ("/RedBlood/Collect/SelectCampaignToRpt.aspx");
+            window.location = ("/RedBlood/Collect/SelectCampaignToRpt.aspx");
         });
-        
-        //        $(document).bind('keydown', '4', function() {
-        //            window.location = ("/RedBlood/Category/Org.aspx");
-        //        });
+
+        $(document).bind('keydown', '4', function() {
+            window.location = ("/RedBlood/Collect/Rpt2Org.aspx");
+        });
 
         //        $(document).bind('keydown', '5', function() {
         //            window.location.replace("/RedBlood/Codabar/Pack.aspx");
@@ -45,7 +45,7 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/AssignDIN.aspx">Thông tin người cho</a>
+                                            <a href="/RedBlood/Collect/AssignDIN.aspx">Nhập thông tin người cho và cấp mã số</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -61,7 +61,7 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/CollectPack.aspx">Thu máu</a>
+                                            <a href="/RedBlood/Collect/CollectPack.aspx">Nhập túi máu và thể tích thu được</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -71,13 +71,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/Rpt_Campaign.aspx">
+                                        <a href="/RedBlood/Collect/SelectCampaignToRpt.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/SelectCampaignToRpt.aspx">Báo cáo</a>
+                                            <a href="/RedBlood/Collect/SelectCampaignToRpt.aspx">Tổng kết từng đợt thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -90,20 +90,20 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/Org.aspx">
+                                        <a href="/RedBlood/Collect/Rpt2Org.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/Org.aspx">Đơn vị</a>
+                                            <a href="/RedBlood/Collect/Rpt2Org.aspx">In kết quả trả địa phương</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>
