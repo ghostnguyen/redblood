@@ -13,58 +13,27 @@ public partial class UserControl_Envelop : System.Web.UI.UserControl
 
     }
 
-    public class EnvelopTemplate : System.Web.UI.ITemplate
+    public void Fill_Letter(People e)
     {
-        System.Web.UI.WebControls.ListItemType templateType;
-        public EnvelopTemplate(System.Web.UI.WebControls.ListItemType type)
-        {
-            templateType = type;
-        }
+        EnvelopSettingBLL.Reload();
 
-        public void InstantiateIn(System.Web.UI.Control container)
-        {
-            PlaceHolder ph = new PlaceHolder();
-            Label item1 = new Label();
-            Label item2 = new Label();
-            item1.ID = "item1";
-            item2.ID = "item2";
+        lblName.Text = e.Name;
+        lblName.Style.Add("top", EnvelopSettingBLL.Name.Top.ToString());
+        lblName.Style.Add("left", EnvelopSettingBLL.Name.Left.ToString());
+        lblName.Style.Add("font", EnvelopSettingBLL.Name.Font);
+        lblName.Style.Add("font-size", EnvelopSettingBLL.Name.Size.ToString());
 
-            switch (templateType)
-            {
-                case ListItemType.Header:
-                    ph.Controls.Add(new LiteralControl("<table border=\"1\">" +
-                        "<tr><td><b>Category ID</b></td>" +
-                        "<td><b>Category Name</b></td></tr>"));
-                    break;
-                case ListItemType.Item:
-                    ph.Controls.Add(new LiteralControl("<tr><td>"));
-                    ph.Controls.Add(item1);
-                    ph.Controls.Add(new LiteralControl("</td><td>"));
-                    ph.Controls.Add(item2);
-                    ph.Controls.Add(new LiteralControl("</td></tr>"));
-                    //ph.DataBinding += new EventHandler(Item_DataBinding);
-                    break;
-                case ListItemType.AlternatingItem:
-                    ph.Controls.Add(new LiteralControl("<tr bgcolor=\"lightblue\"><td>"));
-                    ph.Controls.Add(item1);
-                    ph.Controls.Add(new LiteralControl("</td><td>"));
-                    ph.Controls.Add(item2);
-                    ph.Controls.Add(new LiteralControl("</td></tr>"));
-                    //ph.DataBinding += new EventHandler(Item_DataBinding);
-                    break;
-                case ListItemType.Footer:
-                    ph.Controls.Add(new LiteralControl("</table>"));
-                    break;
-            }
-            container.Controls.Add(ph);
-        }
-    }
-
-
-
-    public void Fill_Letter(Donation e)
-    {
-        //FormView1.ItemTemplate = new 
+        lblAddress.Text = e.ResidentAddress;
+        lblAddress.Style.Add("top", EnvelopSettingBLL.Address.Top.ToString());
+        lblAddress.Style.Add("left", EnvelopSettingBLL.Address.Left.ToString());
+        lblAddress.Style.Add("font", EnvelopSettingBLL.Address.Font);
+        lblAddress.Style.Add("font-size", EnvelopSettingBLL.Address.Size.ToString());
+        
+        lblGeo.Text = e.FullResidentalGeo;
+        lblGeo.Style.Add("top", EnvelopSettingBLL.Geo.Top.ToString());
+        lblGeo.Style.Add("left", EnvelopSettingBLL.Geo.Left.ToString());
+        lblGeo.Style.Add("font", EnvelopSettingBLL.Geo.Font);
+        lblGeo.Style.Add("font-size", EnvelopSettingBLL.Geo.Size.ToString());
 
 
         //LabelName.Text = e.People.Name;
