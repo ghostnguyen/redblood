@@ -6,17 +6,20 @@ using System.Web;
 /// <summary>
 /// Summary description for EnvelopSettingBLL
 /// </summary>
-public class EnvelopSettingBLL
+public class EnvelopeSettingBLL
 {
-    public static EnvelopSetting Name { get; set; }
-    public static EnvelopSetting Address { get; set; }
-    public static EnvelopSetting Geo { get; set; }
-    
-        
+    public static EnvelopeSetting Name { get; set; }
+    public static EnvelopeSetting Address { get; set; }
+    public static EnvelopeSetting Geo { get; set; }
 
-    public EnvelopSettingBLL()
+    static EnvelopeSettingBLL()
     {
         Reload();
+    }
+
+    public EnvelopeSettingBLL()
+    {
+       
         //
         // TODO: Add constructor logic here
         //
@@ -26,7 +29,7 @@ public class EnvelopSettingBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<EnvelopSetting> list = db.EnvelopSettings.ToList();
+        List<EnvelopeSetting> list = db.EnvelopeSettings.ToList();
 
         Name = list.Where(r => r.Name == "Name").FirstOrDefault();
         Address = list.Where(r => r.Name == "Address").FirstOrDefault();

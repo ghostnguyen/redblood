@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class UserControl_Envelop : System.Web.UI.UserControl
+public partial class UserControl_Envelope : System.Web.UI.UserControl
 {
 
     protected void Page_Load(object sender, EventArgs e)
@@ -15,25 +15,23 @@ public partial class UserControl_Envelop : System.Web.UI.UserControl
 
     public void Fill_Letter(People e)
     {
-        EnvelopSettingBLL.Reload();
-
         lblName.Text = e.Name;
-        lblName.Style.Add("top", EnvelopSettingBLL.Name.Top.ToString());
-        lblName.Style.Add("left", EnvelopSettingBLL.Name.Left.ToString());
-        lblName.Style.Add("font", EnvelopSettingBLL.Name.Font);
-        lblName.Style.Add("font-size", EnvelopSettingBLL.Name.Size.ToString());
+        lblName.Style.Add("top", EnvelopeSettingBLL.Name.Top);
+        lblName.Style.Add("left", EnvelopeSettingBLL.Name.Left);
+        lblName.Style.Add("font", EnvelopeSettingBLL.Name.Font);
+        lblName.Style.Add("font-size", EnvelopeSettingBLL.Name.Size);
 
         lblAddress.Text = e.ResidentAddress;
-        lblAddress.Style.Add("top", EnvelopSettingBLL.Address.Top.ToString());
-        lblAddress.Style.Add("left", EnvelopSettingBLL.Address.Left.ToString());
-        lblAddress.Style.Add("font", EnvelopSettingBLL.Address.Font);
-        lblAddress.Style.Add("font-size", EnvelopSettingBLL.Address.Size.ToString());
-        
+        lblAddress.Style.Add("top", EnvelopeSettingBLL.Address.Top);
+        lblAddress.Style.Add("left", EnvelopeSettingBLL.Address.Left);
+        lblAddress.Style.Add("font", EnvelopeSettingBLL.Address.Font);
+        lblAddress.Style.Add("font-size", EnvelopeSettingBLL.Address.Size);
+
         lblGeo.Text = e.FullResidentalGeo;
-        lblGeo.Style.Add("top", EnvelopSettingBLL.Geo.Top.ToString());
-        lblGeo.Style.Add("left", EnvelopSettingBLL.Geo.Left.ToString());
-        lblGeo.Style.Add("font", EnvelopSettingBLL.Geo.Font);
-        lblGeo.Style.Add("font-size", EnvelopSettingBLL.Geo.Size.ToString());
+        lblGeo.Style.Add("top", EnvelopeSettingBLL.Geo.Top);
+        lblGeo.Style.Add("left", EnvelopeSettingBLL.Geo.Left);
+        lblGeo.Style.Add("font", EnvelopeSettingBLL.Geo.Font);
+        lblGeo.Style.Add("font-size", EnvelopeSettingBLL.Geo.Size);
 
 
         //LabelName.Text = e.People.Name;

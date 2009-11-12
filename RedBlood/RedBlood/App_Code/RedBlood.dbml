@@ -502,14 +502,14 @@
       <Association Name="Pack_PackRemainDaily" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.EnvelopSetting" Member="EnvelopSettings">
-    <Type Name="EnvelopSetting">
+  <Table Name="dbo.EnvelopeSetting" Member="EnvelopeSettings">
+    <Type Name="EnvelopeSetting">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="[Top]" Member="Top" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="[Left]" Member="Left" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Top]" Member="Top" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="[Left]" Member="Left" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Font" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Size" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Size" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

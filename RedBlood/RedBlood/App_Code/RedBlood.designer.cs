@@ -122,9 +122,9 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackRemainDaily(PackRemainDaily instance);
   partial void UpdatePackRemainDaily(PackRemainDaily instance);
   partial void DeletePackRemainDaily(PackRemainDaily instance);
-  partial void InsertEnvelopSetting(EnvelopSetting instance);
-  partial void UpdateEnvelopSetting(EnvelopSetting instance);
-  partial void DeleteEnvelopSetting(EnvelopSetting instance);
+  partial void InsertEnvelopeSetting(EnvelopeSetting instance);
+  partial void UpdateEnvelopeSetting(EnvelopeSetting instance);
+  partial void DeleteEnvelopeSetting(EnvelopeSetting instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -413,11 +413,11 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<EnvelopSetting> EnvelopSettings
+	public System.Data.Linq.Table<EnvelopeSetting> EnvelopeSettings
 	{
 		get
 		{
-			return this.GetTable<EnvelopSetting>();
+			return this.GetTable<EnvelopeSetting>();
 		}
 	}
 }
@@ -3146,7 +3146,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -11472,8 +11472,8 @@ public partial class PackRemainDaily : INotifyPropertyChanging, INotifyPropertyC
 	}
 }
 
-[Table(Name="dbo.EnvelopSetting")]
-public partial class EnvelopSetting : INotifyPropertyChanging, INotifyPropertyChanged
+[Table(Name="dbo.EnvelopeSetting")]
+public partial class EnvelopeSetting : INotifyPropertyChanging, INotifyPropertyChanged
 {
 	
 	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -11482,13 +11482,13 @@ public partial class EnvelopSetting : INotifyPropertyChanging, INotifyPropertyCh
 	
 	private string _Name;
 	
-	private System.Nullable<int> _Top;
+	private string _Top;
 	
-	private System.Nullable<int> _Left;
+	private string _Left;
 	
 	private string _Font;
 	
-	private System.Nullable<int> _Size;
+	private string _Size;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -11498,17 +11498,17 @@ public partial class EnvelopSetting : INotifyPropertyChanging, INotifyPropertyCh
     partial void OnIDChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
-    partial void OnTopChanging(System.Nullable<int> value);
+    partial void OnTopChanging(string value);
     partial void OnTopChanged();
-    partial void OnLeftChanging(System.Nullable<int> value);
+    partial void OnLeftChanging(string value);
     partial void OnLeftChanged();
     partial void OnFontChanging(string value);
     partial void OnFontChanged();
-    partial void OnSizeChanging(System.Nullable<int> value);
+    partial void OnSizeChanging(string value);
     partial void OnSizeChanged();
     #endregion
 	
-	public EnvelopSetting()
+	public EnvelopeSetting()
 	{
 		OnCreated();
 	}
@@ -11553,8 +11553,8 @@ public partial class EnvelopSetting : INotifyPropertyChanging, INotifyPropertyCh
 		}
 	}
 	
-	[Column(Name="[Top]", Storage="_Top", DbType="Int")]
-	public System.Nullable<int> Top
+	[Column(Name="[Top]", Storage="_Top", DbType="NVarChar(MAX)")]
+	public string Top
 	{
 		get
 		{
@@ -11573,8 +11573,8 @@ public partial class EnvelopSetting : INotifyPropertyChanging, INotifyPropertyCh
 		}
 	}
 	
-	[Column(Name="[Left]", Storage="_Left", DbType="Int")]
-	public System.Nullable<int> Left
+	[Column(Name="[Left]", Storage="_Left", DbType="NVarChar(MAX)")]
+	public string Left
 	{
 		get
 		{
@@ -11613,8 +11613,8 @@ public partial class EnvelopSetting : INotifyPropertyChanging, INotifyPropertyCh
 		}
 	}
 	
-	[Column(Storage="_Size", DbType="Int")]
-	public System.Nullable<int> Size
+	[Column(Storage="_Size", DbType="NVarChar(MAX)")]
+	public string Size
 	{
 		get
 		{
