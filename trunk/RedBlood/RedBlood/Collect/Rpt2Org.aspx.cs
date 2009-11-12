@@ -50,9 +50,9 @@ public partial class Collect_Rpt2Org : System.Web.UI.Page
             HyperLinkNegThankLetter.NavigateUrl = "../FindAndReport/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
             HyperLinkPosThankLetter.NavigateUrl = "../FindAndReport/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
 
-            HyperLinkNegEnvolope.NavigateUrl = "../FindAndReport/Envelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
-            HyperLinkPosEnvelope.NavigateUrl = "../FindAndReport/Envelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            HyperLinkHIVEnvelope.NavigateUrl = "../FindAndReport/Envelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+            HyperLinkNegEnvolope.NavigateUrl = "../FindAndReport/PrintEnvelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
+            HyperLinkPosEnvelope.NavigateUrl = "../FindAndReport/PrintEnvelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+            HyperLinkHIVEnvelope.NavigateUrl = "../FindAndReport/PrintEnvelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
             HyperLinkHIVInvitationLetter.NavigateUrl = "../FindAndReport/InvitationLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
         }

@@ -6,10 +6,12 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class FindAndReport_PrintEnvelop : System.Web.UI.Page
+public partial class FindAndReport_PrintEnvelope : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        EnvelopeSettingBLL.Reload();
+
         int campID = Request["CampaignID"].ToInt();
         string rptType = Request["RptType"];
 
@@ -22,8 +24,8 @@ public partial class FindAndReport_PrintEnvelop : System.Web.UI.Page
 
         foreach (Donation item in p)
         {
-            UserControl_Envelop uc = new UserControl_Envelop();
-            uc = (UserControl_Envelop)LoadControl("~/UserControl/Envelop.ascx");
+            UserControl_Envelope uc = new UserControl_Envelope();
+            uc = (UserControl_Envelope)LoadControl("~/UserControl/Envelope.ascx");
             uc.Fill_Letter(item.People);
 
             divCon.Controls.Add(uc);
