@@ -99,7 +99,7 @@ public static class dotNetExt
         //<	%3C	Less than
         //>	%3EGreater than
         //?	%3F
-        return s.Replace("%","%25").Replace("+", "%2B").Replace("&", "%26").Replace("=","%3D").Replace("<","%3C");
+        return s.Replace("%", "%25").Replace("+", "%2B").Replace("&", "%26").Replace("=", "%3D").Replace("<", "%3C");
 
 
         //return HttpServerUtility.UrlTokenEncode(System.Text.ASCIIEncoding.ASCII.GetBytes(s));
@@ -156,10 +156,10 @@ public static class dotNetExt
         }
     }
 
-    public static string Replace(this string s,int index,char c)
+    public static string Replace(this string s, int index, char c)
     {
         string sub = s.Substring(index, 1);
-        
+
         if (string.IsNullOrEmpty(sub)) return s;
 
         return s.Substring(0, index) + c.ToString() + s.Substring(index + 1);
@@ -282,6 +282,22 @@ public static class dotNetExt
         else return o.ToString().ToIntNullable();
     }
 
-   
+    public static void Apply(this CssStyleCollection style, PrintSetting setting)
+    {
+        style.Add("top", setting.Top);
+        style.Add("left", setting.Left);
+        style.Add("font", setting.Font);
+        style.Add("font-size", setting.Size);
+    }
+
+    public static void Visibility(this CssStyleCollection style, bool visibility)
+    {
+        style.Remove("visibility");
+        
+        if (visibility)
+            style.Add("visibility", "visible");
+        else
+            style.Add("visibility", "hidden");
+    }
 
 }

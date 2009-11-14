@@ -10,7 +10,7 @@ public partial class FindAndReport_PrintEnvelope : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        EnvelopeSettingBLL.Reload();
+        PrintSettingBLL.Reload();
 
         int campID = Request["CampaignID"].ToInt();
         string rptType = Request["RptType"];
