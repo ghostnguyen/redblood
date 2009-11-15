@@ -49,12 +49,16 @@ public partial class Collect_Rpt2Org : System.Web.UI.Page
 
             HyperLinkNegThankLetter.NavigateUrl = "../FindAndReport/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
             HyperLinkPosThankLetter.NavigateUrl = "../FindAndReport/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+            HyperLinkHIVInvitationLetter.NavigateUrl = "../FindAndReport/InvitationLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
             HyperLinkNegEnvolope.NavigateUrl = "../FindAndReport/PrintEnvelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
             HyperLinkPosEnvelope.NavigateUrl = "../FindAndReport/PrintEnvelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
             HyperLinkHIVEnvelope.NavigateUrl = "../FindAndReport/PrintEnvelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
-            HyperLinkHIVInvitationLetter.NavigateUrl = "../FindAndReport/InvitationLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+            HyperLinkNegCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
+            HyperLinkPosCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+            HyperLinkHIVCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+            
         }
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
