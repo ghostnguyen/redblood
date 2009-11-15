@@ -27,6 +27,10 @@
         //        $(document).bind('keydown', '5', function() {
         //            window.location.replace("/RedBlood/Codabar/Pack.aspx");
         //        });
+
+        $(document).bind('keydown', '3', function() {
+            window.location = ("/RedBlood/Collect/PrintSetting.aspx");
+        });
     </script>
 
     <table width="100%">
@@ -139,25 +143,25 @@
                         </td>
                     </tr>
                     <tr>
-                        <%-- <td colspan="3" class="rowline">
-                        </td>--%>
+                        <td colspan="3" class="rowline">
+                        </td>
                     </tr>
                     <tr>
                         <td class="column">
-                            <%-- <table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                        <a href="/RedBlood/Collect/PrintSetting.aspx">
                                             <img src="Image/Icon/number3.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="/RedBlood/Collect/PrintSetting.aspx">Canh chỉnh vị trí dòng in.</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>

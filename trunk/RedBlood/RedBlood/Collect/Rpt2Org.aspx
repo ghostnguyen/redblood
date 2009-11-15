@@ -26,6 +26,10 @@
                             <asp:HyperLink runat="server" Text="In bìa thư" ID="HyperLinkNegEnvolope">                
                             </asp:HyperLink>
                         </td>
+                        <td>
+                            <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkNegCard">                
+                            </asp:HyperLink>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -40,6 +44,10 @@
                             <asp:HyperLink runat="server" Text="In bìa thư" ID="HyperLinkPosEnvelope">                
                             </asp:HyperLink>
                         </td>
+                        <td>
+                            <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkPosCard">                
+                            </asp:HyperLink>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -52,6 +60,10 @@
                         </td>
                         <td>
                             <asp:HyperLink runat="server" Text="In bìa thư" ID="HyperLinkHIVEnvelope">                
+                            </asp:HyperLink>
+                        </td>
+                        <td>
+                            <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkHIVCard">                
                             </asp:HyperLink>
                         </td>
                     </tr>

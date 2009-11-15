@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true"
-    CodeFile="PrintEnvelope.aspx.cs" Inherits="FindAndReport_PrintEnvelope" %>
+    CodeFile="PrintCard.aspx.cs" Inherits="FindAndReport_PrintCard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
