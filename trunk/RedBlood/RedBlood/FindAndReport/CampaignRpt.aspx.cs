@@ -96,7 +96,8 @@ public partial class FindAndReport_CampaignRpt : System.Web.UI.Page
     }
     protected void LinqDataSource1_Selected(object sender, LinqDataSourceStatusEventArgs e)
     {
-        LableCount.Text = "Tổng cộng: " + e.TotalRowCount.ToString();
+        if (e.Result != null && e.Result is List<Donation>)
+            LableCount.Text = "Tổng cộng: " + ((List<Donation>)e.Result).Count.ToString();
     }
 
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)

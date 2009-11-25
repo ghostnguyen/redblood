@@ -12,8 +12,6 @@ public partial class GenCodabar : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-
         string IdChar = "";
         bool checkChar = false;
         string code = "";
