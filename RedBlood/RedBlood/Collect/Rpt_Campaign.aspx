@@ -114,6 +114,8 @@
                     <tr align="right">
                         <td>
                             <asp:Label runat="server" ID="LableCount"></asp:Label>
+                            
+                            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
                         </td>
                     </tr>
                     <tr>

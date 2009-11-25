@@ -20,10 +20,8 @@ public partial class Codabar_GenerateDIN : System.Web.UI.Page
             r.Note = "K";
         }
 
-
-
         DataList1.DataSource = l;
         DataList1.DataBind();
     }
-   
+
 }
