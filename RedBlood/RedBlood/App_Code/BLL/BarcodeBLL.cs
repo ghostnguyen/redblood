@@ -269,4 +269,42 @@ public class BarcodeBLL
 
         return script.ToString();
     }
+
+
+    public static string CalculateISO7064Mod37_2(string inputString)
+    {
+        int sum, charValue;
+        bool isDigit, isUpperAlpha;
+        string iso7064ValueToCharTable = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*";
+        // Read the characters from left to right. 
+        sum = 0;
+        foreach (char ch in inputString)
+        {
+            // Ignore invalid characters as per ISO 7064. 
+            isDigit = ((ch >= '0') && (ch <= '9'));
+
+            isUpperAlpha = ((ch >= 'A') && (ch <= 'Z'));
+            if (isDigit || isUpperAlpha)
+            {
+                // Convert the character to its ISO 7064 value. 
+                if (isDigit)
+                    charValue = ch - '0';
+                else
+                    charValue = ch - 'A' + 10;
+                // Add the character value to the accumulating sum, 
+                // multiply by two, and do an intermediate modulus to 
+                // prevent integer overflow. 
+                sum = ((sum + charValue) * 2) % 37;
+            }
+        }
+        // Find the value, that when added to the result of the above 
+        // calculation, would result in a number who’s modulus 37 
+        // result is equal to 1. 
+        charValue = (38 - sum) % 37;
+
+        // Convert the value to a character and return it. 
+        return (iso7064ValueToCharTable[charValue]).ToString();
+    }
+
+
 }

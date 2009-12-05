@@ -11,7 +11,8 @@ public partial class PrintSetting
     public enum TypeX : int
     {
         Envelope = 1,
-        Card = 2
+        Card = 2,
+        DINLabel = 3
     }
 
    

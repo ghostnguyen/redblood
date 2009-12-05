@@ -23,6 +23,12 @@ public class PrintSettingBLL
         public static PrintSetting Date1 { get; set; }
     }
 
+    public class DINLable
+    {
+        public static PrintSetting ImageDIN { get; set; }
+        public static PrintSetting CheckChar { get; set; }
+    }
+
 
 
 
@@ -58,5 +64,10 @@ public class PrintSettingBLL
         Card.Autonum = card.Where(r => r.Name == "Autonum").FirstOrDefault();
         Card.lbl1 = card.Where(r => r.Name == "lbl1").FirstOrDefault();
         Card.Date1 = card.Where(r => r.Name == "Date1").FirstOrDefault();
+
+        //DINLabel
+        List<PrintSetting> DINLableList  = list.Where(r => r.Type == PrintSetting.TypeX.DINLabel).ToList();
+        DINLable.ImageDIN = DINLableList.Where(r => r.Name == "ImageDIN").FirstOrDefault();
+        DINLable.CheckChar = DINLableList.Where(r => r.Name == "CheckChar").FirstOrDefault();
     }
 }

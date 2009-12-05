@@ -80,6 +80,7 @@ public partial class GenCodabar : System.Web.UI.Page
         try
         {
             b.IncludeLabel = hasText;
+            
             System.Drawing.Image img;
 
             int width = 100;
