@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Web.UI.HtmlControls;
 
 public partial class Category_ProductPrint : System.Web.UI.Page
 {
@@ -36,22 +37,26 @@ public partial class Category_ProductPrint : System.Web.UI.Page
 
         if (p == null) return;
 
-        DataTable t = new DataTable();
-        t.Columns.Add("ID");
-        t.Columns.Add("Code");
-        t.Columns.Add("Description");
+        PrintSettingBLL.Reload();
 
         for (int i = 0; i < count; i++)
         {
-            DataRow r = t.NewRow();
-            r.ItemArray = new object[] {i,p.Code,p.Description};
-            t.Rows.Add(r);
+
+            UserControl_ProductLabel uc = new UserControl_ProductLabel();
+            uc = (UserControl_ProductLabel)LoadControl("~/UserControl/ProductLabel.ascx");
+            uc.Fill_Letter(p.Code, p.Description);
+
+            divCon.Controls.Add(uc);
+
+            HtmlGenericControl gen = new HtmlGenericControl();
+            gen.TagName = "div";
+            gen.Attributes.Add("style", "page-break-after:always;");
+            divCon.Controls.Add(gen);
+
         }
 
-        DataList1.DataSource = t;
-        DataList1.DataBind();
 
-        
+
     }
 
 

@@ -50,7 +50,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             _code = value;
             if (BarcodeBLL.IsValidPeopleCode(Code))
             {
-                 PeopleID = BarcodeBLL.ParsePeopleCode(Code);
+                PeopleID = BarcodeBLL.ParsePeopleCode(Code);
             }
             else if (Code.Length >= 9)
             {
@@ -101,7 +101,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
         if (e == null)
         {
-            
+
         }
         else
         {
@@ -110,8 +110,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;
 
-            if (e.DOB != null)
-                txtDOB.Text = e.DOB.ToStringVN();
+            txtDOB.Text = e.DOBToString();
 
             if (ddlSex.Items.Count == 1)
                 ddlSex.DataBind();
@@ -238,7 +237,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
         try
         {
-            p.SetDOBFromVNFormat(txtDOB.Text.Trim());
+            p.SetDOBFromVNFormat(txtDOB.Text.Trim(), true);
             divErrDOB.Attributes["class"] = "hidden";
         }
         catch (Exception ex)

@@ -30,6 +30,10 @@
                             <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkNegCard">                
                             </asp:HyperLink>
                         </td>
+                        <td>
+                            <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkDINCert">                
+                            </asp:HyperLink>
+                        </td>
                     </tr>
                     <tr>
                         <td>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Web.UI.HtmlControls;
 
 public partial class Category_BloodGroupPrint : System.Web.UI.Page
 {
@@ -35,21 +36,21 @@ public partial class Category_BloodGroupPrint : System.Web.UI.Page
 
         string desc = BloodGroupBLL.GetDescription(code);
 
-
-        DataTable t = new DataTable();
-        t.Columns.Add("ID");
-        t.Columns.Add("Code");
-        t.Columns.Add("Description");
+        PrintSettingBLL.Reload();
 
         for (int i = 0; i < count; i++)
         {
-            DataRow r = t.NewRow();
-            r.ItemArray = new object[] { i, code, desc };
-            t.Rows.Add(r);
-        }
+            UserControl_BloodGroupLabel uc = new UserControl_BloodGroupLabel();
+            uc = (UserControl_BloodGroupLabel)LoadControl("~/UserControl/BloodGroupLabel.ascx");
+            uc.Fill_Letter(code,desc);
 
-        DataList1.DataSource = t;
-        DataList1.DataBind();
+            divCon.Controls.Add(uc);
+
+            HtmlGenericControl gen = new HtmlGenericControl();
+            gen.TagName = "div";
+            gen.Attributes.Add("style", "page-break-after:always;");
+            divCon.Controls.Add(gen);
+        }
     }
 
 

@@ -2862,6 +2862,8 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private int _Autonum;
 	
+	private System.Nullable<int> _DOBYear;
+	
 	private EntitySet<Donation> _Donations;
 	
 	private EntitySet<Order> _Orders;
@@ -2930,6 +2932,8 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnNameNoDiacriticsChanged();
     partial void OnAutonumChanging(int value);
     partial void OnAutonumChanged();
+    partial void OnDOBYearChanging(System.Nullable<int> value);
+    partial void OnDOBYearChanged();
     #endregion
 	
 	public People()
@@ -3150,7 +3154,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -3430,6 +3434,26 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 				this._Autonum = value;
 				this.SendPropertyChanged("Autonum");
 				this.OnAutonumChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_DOBYear", DbType="Int")]
+	public System.Nullable<int> DOBYear
+	{
+		get
+		{
+			return this._DOBYear;
+		}
+		set
+		{
+			if ((this._DOBYear != value))
+			{
+				this.OnDOBYearChanging(value);
+				this.SendPropertyChanging();
+				this._DOBYear = value;
+				this.SendPropertyChanged("DOBYear");
+				this.OnDOBYearChanged();
 			}
 		}
 	}

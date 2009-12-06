@@ -284,6 +284,8 @@ public static class dotNetExt
 
     public static void Apply(this CssStyleCollection style, PrintSetting setting)
     {
+        if (setting == null) return;
+
         style.Add("top", setting.Top);
         style.Add("left", setting.Left);
         style.Add("font", setting.Font);
