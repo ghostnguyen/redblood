@@ -37,7 +37,7 @@ public partial class Category_Product : System.Web.UI.Page
             
             
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                        "window.open('" + RedBloodSystem.RootUrl + "/Category/ProductPrint.aspx" + "?count=" + count.ToString() + "&code=" + GridView1.SelectedValue.ToString() + "');", true);
+                        "window.open('" + System.Web.VirtualPathUtility.ToAbsolute("~/Category/ProductPrint.aspx") + "?count=" + count.ToString() + "&code=" + GridView1.SelectedValue.ToString() + "');", true);
         }
         catch (Exception)
         {

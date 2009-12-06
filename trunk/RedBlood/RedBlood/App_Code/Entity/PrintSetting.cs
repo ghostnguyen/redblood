@@ -12,7 +12,10 @@ public partial class PrintSetting
     {
         Envelope = 1,
         Card = 2,
-        DINLabel = 3
+        DINLabel = 3,
+        ProductLabel = 5,
+        BloodGroupLabel = 6,
+        DINCertificate = 7
     }
 
    

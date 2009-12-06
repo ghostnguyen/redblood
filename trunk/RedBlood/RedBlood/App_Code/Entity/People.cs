@@ -60,6 +60,8 @@ public partial class People
         NameNoDiacritics = Name.RemoveDiacritics();
     }
 
+
+
     public void SetDOBFromVNFormat(string dd, string mm, string yyyy)
     {
         dd = dd.Trim();
@@ -67,7 +69,7 @@ public partial class People
         yyyy = yyyy.Trim();
     }
 
-    public void SetDOBFromVNFormat(string value)
+    public void SetDOBFromVNFormat(string value, bool allowYearOnly)
     {
         value = value.Trim();
 
@@ -81,9 +83,19 @@ public partial class People
             if (value.IsValidDOB())
             {
                 DOB = value.ToDatetimeFromVNFormat();
+                DOBYear = null;
             }
             else
             {
+                if (allowYearOnly)
+                {
+                    if (value.ToInt() > 1900 && value.ToInt() <= DateTime.Now.Year)
+                    {
+                        DOB = null;
+                        DOBYear = value.ToInt();
+                        return;
+                    }
+                }
                 throw new Exception("Nhập sai ngày tháng năm (dd/mm/yyyy)");
             }
         }
@@ -249,5 +261,19 @@ public partial class People
             string r = MailingAddress + ", " + FullMaillingGeo;
             return r.Trim(',', ' ');
         }
+    }
+
+    public string DOBToString()
+    {
+        if (DOB != null)
+        {
+            return DOB.ToStringVN();
+        }
+        else if (DOBYear != null)
+        {
+            return DOBYear.ToString();
+        }
+
+        return string.Empty;
     }
 }

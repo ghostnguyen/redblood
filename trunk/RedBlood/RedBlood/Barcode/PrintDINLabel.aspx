@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ProductPrint.aspx.cs" Inherits="Category_ProductPrint" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PrintDINLabel.aspx.cs" Inherits="Barcode_PrintDINLabel" %>
 
-<%@ Register Src="~/UserControl/ProductLabel.ascx" TagPrefix="uc" TagName="ProductLabel" %>
+<%@ Register Src="~/UserControl/DINLabel.ascx" TagPrefix="uc" TagName="DINLabel" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%--<link href="../App_Themes/Default/PackLabel.css" rel="stylesheet" type="text/css" />--%>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
+<head runat="server">
     <title></title>
 </head>
 <body>

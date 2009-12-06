@@ -17,7 +17,7 @@ public partial class UserControl_ThanksLetter : System.Web.UI.UserControl
     public void Fill_Letter(Donation e)
     {
         LabelName.Text = e.People.Name;
-        LabelDOB.Text = e.People.DOB.ToStringVN();
+        LabelDOB.Text = e.People.DOBToString();
 
         LabelPackCode.Text = e.DIN;
         LabelAddress.Text = e.People.FullResidentalAddress;

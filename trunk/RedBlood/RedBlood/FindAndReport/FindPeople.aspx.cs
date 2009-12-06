@@ -72,7 +72,7 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
         Keyword = Master.TextBoxCode.Text;
 
         GridView1.DataBind();
-        
+
         Master.TextBoxCode.Text = "";
     }
 
@@ -97,7 +97,7 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
 
         List<People> filter = r.ToList().Where(g => (g.Sex.Name == SexName || string.IsNullOrEmpty(SexName))
             && (g.ResidentGeo1.Name == Geo1Name || string.IsNullOrEmpty(Geo1Name))
-            && (g.DOB.Value.Decade() == DOBYear.ToInt() || string.IsNullOrEmpty(DOBYear))).ToList();
+            && (g.DOB.Value.Decade() == DOBYear.ToInt() || (g.DOBYear != null && g.DOBYear.ToString() == DOBYear) || string.IsNullOrEmpty(DOBYear))).ToList();
         e.Result = filter;
         LoadFilter(filter);
     }
@@ -121,8 +121,10 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
 
         //DOB
         BulletedListDOB.Items.Clear();
-        BulletedListDOB.DataSource = rs.Where(e => e.DOB != null)
+        BulletedListDOB.DataSource = rs.Where(e => e.DOB != null || e.DOBYear != null)
             //.GroupBy(e => (e.DOB.Value.Year - (e.DOB.Value.Year % 10)))
+            .ToList()
+            //TODO: GroupBy DOBYear Only
             .GroupBy(e => e.DOB.Value.Decade())
             //.Select(g => new { ID = g.Key, Name = g.Key.ToString() + " - " + (g.Key + 9).ToString() + " (" + g.Count().ToString() + ")" })
             .Select(g => new { ID = g.Key, Name = g.Key.ToString() + "s" + " (" + g.Count().ToString() + ")" })

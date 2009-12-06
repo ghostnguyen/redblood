@@ -58,6 +58,8 @@ public partial class Collect_Rpt2Org : System.Web.UI.Page
             HyperLinkNegCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
             HyperLinkPosCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
             HyperLinkHIVCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+
+            HyperLinkDINCert.NavigateUrl = "../Collect/PrintDINCert.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
             
         }
     }

@@ -25,8 +25,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Request.IsAuthenticated)
-            Response.Redirect("~/Login.aspx");
+        //if (!Request.IsAuthenticated)
+        //    Response.Redirect("~/Login.aspx");
 
         
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", BarcodeBLL.JScript4Postback(), true);
