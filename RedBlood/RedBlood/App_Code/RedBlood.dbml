@@ -514,6 +514,8 @@
       <Column Name="Size" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Type" Type="PrintSetting.TypeX" DbType="Int" CanBeNull="true" />
+      <Column Name="Width" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Height" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

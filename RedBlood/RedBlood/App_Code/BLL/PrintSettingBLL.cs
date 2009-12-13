@@ -23,10 +23,13 @@ public class PrintSettingBLL
         public static PrintSetting Date1 { get; set; }
     }
 
-    public class DINLable
+    public class DINLabel
     {
         public static PrintSetting ImageDIN { get; set; }
         public static PrintSetting CheckChar { get; set; }
+        public static PrintSetting Label1 { get; set; }
+        public static PrintSetting Label2 { get; set; }
+
     }
 
     public class ProductLabel
@@ -102,8 +105,11 @@ public class PrintSettingBLL
 
         //DINLabel
         List<PrintSetting> DINLableList = list.Where(r => r.Type == PrintSetting.TypeX.DINLabel).ToList();
-        DINLable.ImageDIN = DINLableList.Where(r => r.Name == "ImageDIN").FirstOrDefault();
-        DINLable.CheckChar = DINLableList.Where(r => r.Name == "CheckChar").FirstOrDefault();
+        DINLabel.ImageDIN = DINLableList.Where(r => r.Name == "ImageDIN").FirstOrDefault();
+        DINLabel.CheckChar = DINLableList.Where(r => r.Name == "CheckChar").FirstOrDefault();
+        DINLabel.Label1 = DINLableList.Where(r => r.Name == "Label1").FirstOrDefault();
+        DINLabel.Label2 = DINLableList.Where(r => r.Name == "Label2").FirstOrDefault();
+
 
         //Product
         List<PrintSetting> productLableList = list.Where(r => r.Type == PrintSetting.TypeX.ProductLabel).ToList();
