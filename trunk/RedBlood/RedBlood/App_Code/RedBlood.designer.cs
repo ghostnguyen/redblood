@@ -11542,6 +11542,10 @@ public partial class PrintSetting : INotifyPropertyChanging, INotifyPropertyChan
 	
 	private PrintSetting.TypeX _Type;
 	
+	private string _Width;
+	
+	private string _Height;
+	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -11562,6 +11566,10 @@ public partial class PrintSetting : INotifyPropertyChanging, INotifyPropertyChan
     partial void OnNoteChanged();
     partial void OnTypeChanging(PrintSetting.TypeX value);
     partial void OnTypeChanged();
+    partial void OnWidthChanging(string value);
+    partial void OnWidthChanged();
+    partial void OnHeightChanging(string value);
+    partial void OnHeightChanged();
     #endregion
 	
 	public PrintSetting()
@@ -11725,6 +11733,46 @@ public partial class PrintSetting : INotifyPropertyChanging, INotifyPropertyChan
 				this._Type = value;
 				this.SendPropertyChanged("Type");
 				this.OnTypeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Width", DbType="NVarChar(MAX)")]
+	public string Width
+	{
+		get
+		{
+			return this._Width;
+		}
+		set
+		{
+			if ((this._Width != value))
+			{
+				this.OnWidthChanging(value);
+				this.SendPropertyChanging();
+				this._Width = value;
+				this.SendPropertyChanged("Width");
+				this.OnWidthChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Height", DbType="NVarChar(MAX)")]
+	public string Height
+	{
+		get
+		{
+			return this._Height;
+		}
+		set
+		{
+			if ((this._Height != value))
+			{
+				this.OnHeightChanging(value);
+				this.SendPropertyChanging();
+				this._Height = value;
+				this.SendPropertyChanged("Height");
+				this.OnHeightChanged();
 			}
 		}
 	}

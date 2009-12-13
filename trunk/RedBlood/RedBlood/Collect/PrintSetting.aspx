@@ -16,6 +16,8 @@
             <asp:BoundField DataField="Left" HeaderText="Left" SortExpression="Left" />
             <asp:BoundField DataField="Font" HeaderText="Font" SortExpression="Font" />
             <asp:BoundField DataField="Size" HeaderText="Size" SortExpression="Size" />
+            <asp:BoundField DataField="Height" HeaderText="Height" SortExpression="Height" />
+            <asp:BoundField DataField="Width" HeaderText="Width" SortExpression="Width" />
         </Columns>
     </asp:GridView>
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"

@@ -290,6 +290,9 @@ public static class dotNetExt
         style.Add("left", setting.Left);
         style.Add("font", setting.Font);
         style.Add("font-size", setting.Size);
+        style.Add("width", setting.Width);
+        style.Add("height", setting.Height);
+
     }
 
     public static void Visibility(this CssStyleCollection style, bool visibility)

@@ -30,13 +30,21 @@ public partial class Barcode_PrintDINLabel : System.Web.UI.Page
 
         foreach (Donation item in l)
         {
-            for (int i = 0; i < numOfCopy; i++)
+            for (int i = 0; i < (numOfCopy / 2 + 1); i++)
             {
                 UserControl_DINLabel uc = new UserControl_DINLabel();
                 uc = (UserControl_DINLabel)LoadControl("~/UserControl/DINLabel.ascx");
                 uc.Fill_Letter(item.DIN);
+                uc.ResizeLabel1();
 
                 divCon.Controls.Add(uc);
+
+                UserControl_DINLabel uc2 = new UserControl_DINLabel();
+                uc2 = (UserControl_DINLabel)LoadControl("~/UserControl/DINLabel.ascx");
+                uc2.Fill_Letter(item.DIN);
+                uc2.ResizeLabel2();
+
+                divCon.Controls.Add(uc2);
 
                 HtmlGenericControl gen = new HtmlGenericControl();
                 gen.TagName = "div";

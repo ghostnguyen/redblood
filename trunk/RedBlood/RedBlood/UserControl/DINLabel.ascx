@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DINLabel.ascx.cs" Inherits="UserControl_DINLabel" %>
-<div style="clear: both; height: 150px; width: 100%">
+<div runat="server" id="divLabel" style="position: relative;">
     <asp:Image ID="Image1" runat="server" Style="position: relative;" />
-    <asp:TextBox ID="txtCheckChar" runat="server" CssClass="txtCheckChar"
-        Style="position: relative;"></asp:TextBox>
+    <asp:TextBox ID="txtCheckChar" runat="server" Style="position: relative;" CssClass="txtCheckChar"></asp:TextBox>
 </div>
