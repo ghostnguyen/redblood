@@ -31,6 +31,19 @@ public class PeopleBLL
         //else return e.First();
     }
 
+    public static People GetByID(int autonum)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        var e = from c in db.Peoples
+                where c.Autonum == autonum
+                select c;
+
+
+        if (e.Count() != 1) return null;
+        else return e.First();
+    }
+    
     public static People GetByID(Guid ID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -46,7 +59,7 @@ public class PeopleBLL
 
     public static People GetByCode(string code)
     {
-        Guid ID = BarcodeBLL.ParsePeopleCode(code);
+        int ID = BarcodeBLL.ParsePeopleCode(code);
         return GetByID(ID);
     }
 

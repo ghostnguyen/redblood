@@ -80,7 +80,7 @@ public partial class GenCodabar : System.Web.UI.Page
         try
         {
             b.IncludeLabel = hasText;
-            
+
             System.Drawing.Image img;
 
             int width = 100;
@@ -88,11 +88,18 @@ public partial class GenCodabar : System.Web.UI.Page
             //    width = 350;
 
             //===== Encoding performed here =====
+
+            string showString = "";
             if (IdChar == BarcodeBLL.DINIdChar)
-                img = b.Encode(type, IdChar + code, Color.Black, Color.White, width, 50, IdChar + code.Substring(0, 5) + " " + code.Substring(5, 2) + " " + code.Substring(7, 6) + " " + code.Substring(13, 2));
-                //img = b.Encode(type, IdChar + code, Color.Black, Color.White, 150, 50, "afsdf");
-            else
-                img = b.Encode(type, IdChar + code, Color.Black, Color.White, width, 50, "");
+            {
+                showString = IdChar + code.Substring(0, 5) + " " + code.Substring(5, 2) + " " + code.Substring(7, 6) + " " + code.Substring(13, 2);
+            }
+            else if (IdChar == BarcodeBLL.peopleIdChar)
+            {
+                showString = IdChar + code.Substring(0, 4) + " " + code.Substring(4, 4) + " " + code.Substring(8, 4) + " " + code.Substring(12, 4); 
+            }
+
+            img = b.Encode(type, IdChar + code, Color.Black, Color.White, width, 50, showString);
             //===================================
 
             MemoryStream m = new MemoryStream();

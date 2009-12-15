@@ -30,7 +30,7 @@ public class BarcodeBLL
     public const int orgLength = 6;
 
     public const string peopleIdChar = "&;";
-    public const int peopleLength = 38;
+    public const int peopleLength = 18;
 
     public const string productIdChar = "=<";
     public const int productLength = 10;
@@ -53,7 +53,7 @@ public class BarcodeBLL
     {
         if (code.Length == peopleLength
             && code.Substring(0, 2) == peopleIdChar
-            && code.Substring(2, peopleLength - 2).ToGuid() != Guid.Empty)
+            && code.Substring(2, peopleLength - 2).ToInt() != 0)
         {
             return true;
         }
@@ -118,12 +118,12 @@ public class BarcodeBLL
 
     #region ParseCode
 
-    public static Guid ParsePeopleCode(string code)
+    public static int ParsePeopleCode(string code)
     {
         if (IsValidPeopleCode(code))
-            return code.Substring(2, peopleLength - 2).ToGuid();
+            return code.Substring(2, peopleLength - 2).ToInt();
         else
-            return Guid.Empty;
+            return 0;
     }
 
     public static string ParseDIN(string code)
@@ -192,9 +192,9 @@ public class BarcodeBLL
     }
 
 
-    public static string Url4People(Guid ID)
+    public static string Url4People(int autonum)
     {
-        return (BarcodeImgPage + "?hasText=true&code=" + peopleIdChar.ToURLCompatible() + ID.ToString("D"));
+        return BarcodeImgPage + "?hasText=true&checkChar=true&IdChar=" + peopleIdChar.ToURLCompatible() + "&code=" + autonum.ToString("D" + (peopleLength - 2).ToString());
     }
 
     public static string Url4Product(string code)
@@ -230,44 +230,35 @@ public class BarcodeBLL
 
         script.Append("function checkLength(text) \n");
         script.Append("{ \n");
+
         script.Append("var len = text.length;  \n");
 
-        //script.Append("if (len == "
-        //    + Resources.Barcode.testResultLength
-        //    + " && text[0] == "
-        //    + "\"" + Resources.Codabar.testResultStartCode + "\""
-        //    + " && text[len - 1] == "
-        //    + "\"" + Resources.Codabar.testResultStopCode + "\""
-        //    + ") \n");
-        //script.Append("{ \n");
-        //script.Append("document.forms[0].submit(); \n");
-        //script.Append("} \n");
-
-        //script.Append("if (len == "
-        //    + Resources.Barcode.productLength
-        //    + " && text[0] == "
-        //    + "\"" + Resources.Barcode.packStarCode + "\""
-        //    + " && text[len - 1] == "
-        //    + "\"" + Resources.Barcode.packStopCode + "\""
-        //    + ") \n");
-        //script.Append("{ \n");
-        //script.Append("document.forms[0].submit(); \n");
-        //script.Append("} \n");
-
-        //script.Append("if (len == "
-        //    + Resources.Codabar.peopleLength
-        //    + " && text[0] == "
-        //    + "\"" + Resources.Codabar.peopleStarCode + "\""
-        //    + " && text[len - 1] == "
-        //    + "\"" + Resources.Codabar.peopleStopCode + "\""
-        //    + ") \n");
-        //script.Append("{ \n");
-        //script.Append("document.forms[0].submit(); \n");
-        //script.Append("} \n");
+        JScript4Postback4EachElement(script, BarcodeBLL.DINLength, BarcodeBLL.DINIdChar);
+        JScript4Postback4EachElement(script, BarcodeBLL.peopleLength, BarcodeBLL.productIdChar);
+        JScript4Postback4EachElement(script, BarcodeBLL.bloodGroupLength, BarcodeBLL.bloodGroupIdChar);
+        JScript4Postback4EachElement(script, BarcodeBLL.campaignLength, BarcodeBLL.campaignIdChar);
+        JScript4Postback4EachElement(script, BarcodeBLL.InfectiousMarkersLength, BarcodeBLL.InfectiousMarkersIdChar);
+        JScript4Postback4EachElement(script, BarcodeBLL.orderLength, BarcodeBLL.orgIdChar);
+        JScript4Postback4EachElement(script, BarcodeBLL.productLength, BarcodeBLL.productIdChar);
+        JScript4Postback4EachElement(script, BarcodeBLL.CMNDLength, "");
 
         script.Append("} \n");
 
         return script.ToString();
+    }
+
+    private static void JScript4Postback4EachElement(StringBuilder script, int length, string IdChar)
+    {
+        script.Append("if (len == "
+            + length
+            + " && text.substring(" + IdChar.Length + ") == "
+            //+ "\"" + IdChar + "\""
+            + "'" + IdChar + "'"
+            + ") \n");
+        script.Append("{ \n");
+        script.Append("alert('sdf'); \n");
+        script.Append("document.forms[0].submit(); \n");
+        script.Append("} \n");
     }
 
 

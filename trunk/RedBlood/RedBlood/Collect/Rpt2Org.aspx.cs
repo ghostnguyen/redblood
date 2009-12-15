@@ -60,7 +60,10 @@ public partial class Collect_Rpt2Org : System.Web.UI.Page
             HyperLinkHIVCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
             HyperLinkDINCert.NavigateUrl = "../Collect/PrintDINCert.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
-            
+            HyperLinkPosDINCert.NavigateUrl = "../Collect/PrintDINCert.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+            HyperLinkHIV_DINCert.NavigateUrl = "../Collect/PrintDINCert.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+
+
         }
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)

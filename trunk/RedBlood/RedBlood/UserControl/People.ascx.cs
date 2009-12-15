@@ -50,7 +50,12 @@ public partial class UserControl_People : System.Web.UI.UserControl
             _code = value;
             if (BarcodeBLL.IsValidPeopleCode(Code))
             {
-                PeopleID = BarcodeBLL.ParsePeopleCode(Code);
+                int autonum = BarcodeBLL.ParsePeopleCode(Code);
+                People p = PeopleBLL.GetByID(autonum);
+                if (p != null)
+                    PeopleID = p.ID;
+                else
+                    PeopleID = Guid.Empty; 
             }
             else if (Code.Length >= 9)
             {
@@ -105,7 +110,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
         }
         else
         {
-            //imgCodabar.ImageUrl = BarcodeBLL.Url4People(e.ID);
+            imgCodabar.ImageUrl = BarcodeBLL.Url4People(e.Autonum);
 
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;
