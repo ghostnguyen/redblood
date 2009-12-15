@@ -18,8 +18,15 @@ public partial class UserControl_DonationCard : System.Web.UI.UserControl
         lblName.Text = e.People.Name;
         lblName.Style.Apply(PrintSettingBLL.Card.Name);
 
-        lblAutoNum.Text = e.People.Autonum.ToString();
-        lblAutoNum.Style.Apply(PrintSettingBLL.Card.Autonum);
+        imgAutonum.ImageUrl = BarcodeBLL.Url4People(e.People.Autonum);
+        imgAutonum.Style.Apply(PrintSettingBLL.Card.Autonum);
+
+        lblBloodGroup.Text = e.BloodGroupDesc;
+        lblBloodGroup.Style.Apply(PrintSettingBLL.Card.BloodGroup);
+
+        lblAddress.Text = e.People.FullResidentalAddress;
+        lblAddress.Style.Apply(PrintSettingBLL.Card.Address);
+
 
         lblDonation1.Style.Apply(PrintSettingBLL.Card.lbl1);
 

@@ -52,6 +52,10 @@
                             <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkPosCard">                
                             </asp:HyperLink>
                         </td>
+                         <td>
+                            <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkPosDINCert">                
+                            </asp:HyperLink>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -68,6 +72,10 @@
                         </td>
                         <td>
                             <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkHIVCard">                
+                            </asp:HyperLink>
+                        </td>
+                         <td>
+                            <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkHIV_DINCert">                
                             </asp:HyperLink>
                         </td>
                     </tr>

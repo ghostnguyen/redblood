@@ -19,6 +19,8 @@ public class PrintSettingBLL
     {
         public static PrintSetting Name { get; set; }
         public static PrintSetting Autonum { get; set; }
+        public static PrintSetting BloodGroup { get; set; }
+        public static PrintSetting Address { get; set; }
         public static PrintSetting lbl1 { get; set; }
         public static PrintSetting Date1 { get; set; }
     }
@@ -100,6 +102,8 @@ public class PrintSettingBLL
         List<PrintSetting> card = list.Where(r => r.Type == PrintSetting.TypeX.Card).ToList();
         Card.Name = card.Where(r => r.Name == "Name").FirstOrDefault();
         Card.Autonum = card.Where(r => r.Name == "Autonum").FirstOrDefault();
+        Card.BloodGroup = card.Where(r => r.Name == "BloodGroup").FirstOrDefault();
+        Card.Address = card.Where(r => r.Name == "Address").FirstOrDefault();
         Card.lbl1 = card.Where(r => r.Name == "lbl1").FirstOrDefault();
         Card.Date1 = card.Where(r => r.Name == "Date1").FirstOrDefault();
 
