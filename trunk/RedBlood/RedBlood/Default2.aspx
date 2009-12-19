@@ -9,25 +9,25 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("/RedBlood/FindAndReport/StoreCount.aspx");
+            window.location = ("FindAndReport/StoreCount.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/FindAndReport/CampaignDetail.aspx");
+            window.location = ("FindAndReport/CampaignDetail.aspx");
         });
 
 
 
         //        $(document).bind('keydown', '9', function() {
-        //            window.location = ("/RedBlood/FindAndReport/PackOrderCount.aspx");
+        //            window.location = ("FindAndReport/PackOrderCount.aspx");
         //        });
 
         //        $(document).bind('keydown', '4', function() {
-        //            window.location = ("/RedBlood/Category/Org.aspx");
+        //            window.location = ("Category/Org.aspx");
         //        });
 
         //        $(document).bind('keydown', '5', function() {
-        //            window.location.replace("/RedBlood/Codabar/Pack.aspx");
+        //            window.location = ("Codabar/Pack.aspx");
         //        });
     </script>
 
@@ -41,13 +41,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/FindAndReport/StoreCount.aspx">
+                                        <a href="FindAndReport/StoreCount.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/StoreCount.aspx">Thống kê kho</a>
+                                            <a href="FindAndReport/StoreCount.aspx">Thống kê kho</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -57,13 +57,13 @@
                              <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/FindAndReport/CampaignDetail.aspx">
+                                        <a href="FindAndReport/CampaignDetail.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/CampaignDetail.aspx">In danh sách</a>
+                                            <a href="FindAndReport/CampaignDetail.aspx">In danh sách</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -73,13 +73,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/FindAndReport/PackOrderCount.aspx">
+                                        <a href="FindAndReport/PackOrderCount.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/FindAndReport/PackOrderCount.aspx">Cấp phát máu</a>
+                                            <a href="FindAndReport/PackOrderCount.aspx">Cấp phát máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -95,13 +95,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/Org.aspx">
+                                        <a href="Category/Org.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/Org.aspx">Đơn vị</a>
+                                            <a href="Category/Org.aspx">Đơn vị</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -111,13 +111,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Codabar/Pack.aspx">
+                                        <a href="Codabar/Pack.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Codabar/Pack.aspx">Tạo mã túi máu</a>
+                                            <a href="Codabar/Pack.aspx">Tạo mã túi máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -127,13 +127,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                        <a href="ReceiveBlood.aspx">
                                             <img src="Image/Icon/number6.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="ReceiveBlood.aspx"></a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -149,13 +149,13 @@
                             <%-- <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                        <a href="ReceiveBlood.aspx">
                                             <img src="Image/Icon/number3.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="ReceiveBlood.aspx"></a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -165,13 +165,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                        <a href="ReceiveBlood.aspx">
                                             <img src="Image/Icon/number2.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="ReceiveBlood.aspx"></a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -179,10 +179,10 @@
                         </td>
                         <td class="column next">
                             <%--<h3>
-                                <a href="/RedBlood/PackManually.aspx">3. Thêm</a></h3>
+                                <a href="PackManually.aspx">3. Thêm</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/PackManually.aspx" />
+                            <a href="PackManually.aspx" />
                             <img src="Image/Icon/books-256.png" alt="" />--%>
                         </td>
                     </tr>

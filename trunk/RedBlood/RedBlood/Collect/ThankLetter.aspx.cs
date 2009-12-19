@@ -6,12 +6,10 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class Collect_PrintDINCert : System.Web.UI.Page
+public partial class Collect_ThankLetter : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        PrintSettingBLL.Reload();
-
         int campID = Request["CampaignID"].ToInt();
         string rptType = Request["RptType"];
 
@@ -24,8 +22,9 @@ public partial class Collect_PrintDINCert : System.Web.UI.Page
 
         foreach (Donation item in p)
         {
-            UserControl_DINCert uc = new UserControl_DINCert();
-            uc = (UserControl_DINCert)LoadControl("~/UserControl/DINCert.ascx");
+
+            ThanksLetterUserControl uc = new ThanksLetterUserControl();
+            uc = (ThanksLetterUserControl)LoadControl("~/Collect/ThanksLetter.ascx");
             uc.Fill_Letter(item);
 
             divCon.Controls.Add(uc);

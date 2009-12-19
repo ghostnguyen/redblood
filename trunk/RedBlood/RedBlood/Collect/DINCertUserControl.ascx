@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DINCert.ascx.cs" Inherits="UserControl_DINCert" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DINCertUserControl.ascx.cs" Inherits="DINCertUserControl" %>
 <div style="clear: both; height: 300px; width: 100%">
     <asp:Label ID="lblProvince1" Style="position: relative;" runat="server"></asp:Label>
     <asp:Label ID="lblName" Style="position: relative;" runat="server"></asp:Label>

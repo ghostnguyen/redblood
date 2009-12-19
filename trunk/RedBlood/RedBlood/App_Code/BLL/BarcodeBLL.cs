@@ -232,7 +232,7 @@ public class BarcodeBLL
         script.Append("{ \n");
 
         script.Append("var len = text.length;  \n");
-
+        
         JScript4Postback4EachElement(script, BarcodeBLL.DINLength, BarcodeBLL.DINIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.peopleLength, BarcodeBLL.productIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.bloodGroupLength, BarcodeBLL.bloodGroupIdChar);
@@ -240,7 +240,7 @@ public class BarcodeBLL
         JScript4Postback4EachElement(script, BarcodeBLL.InfectiousMarkersLength, BarcodeBLL.InfectiousMarkersIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.orderLength, BarcodeBLL.orgIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.productLength, BarcodeBLL.productIdChar);
-        JScript4Postback4EachElement(script, BarcodeBLL.CMNDLength, "");
+        //JScript4Postback4EachElement(script, BarcodeBLL.CMNDLength, "");
 
         script.Append("} \n");
 
@@ -251,12 +251,12 @@ public class BarcodeBLL
     {
         script.Append("if (len == "
             + length
-            + " && text.substring(" + IdChar.Length + ") == "
+            + " && text.substring(0," + IdChar.Length + ") == "
             //+ "\"" + IdChar + "\""
             + "'" + IdChar + "'"
             + ") \n");
         script.Append("{ \n");
-        script.Append("alert('sdf'); \n");
+        //script.Append("alert('sdf'); \n");
         script.Append("document.forms[0].submit(); \n");
         script.Append("} \n");
     }

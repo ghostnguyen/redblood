@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ThanksLetter.ascx.cs"
-    Inherits="UserControl_ThanksLetter" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ThanksLetterUserControl.ascx.cs"
+    Inherits="ThanksLetterUserControl" %>
 <div style="clear: both;width:650px;">
     <table style="width: 100%;">
         <tr>

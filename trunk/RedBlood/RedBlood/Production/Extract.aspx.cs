@@ -101,10 +101,17 @@ public partial class Production_Extract : System.Web.UI.Page
                 RedBloodDataContext db = new RedBloodDataContext();
 
                 if (db.Packs.Where(r => r.DIN == d.DIN && ProductCodeList.Contains(r.ProductCode)).Count() > 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo",
+                    "alert ('Đã có sản phẩm này');", true);
                     return;
+                }
 
                 if (db.Packs.Where(r => r.DIN == d.DIN && PackInList.Contains(r.ID)).Count() > 0)
+                {
+                    //TODO: Thông báo
                     return;
+                }
 
                 DIN = d.DIN;
 

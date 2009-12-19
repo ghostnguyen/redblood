@@ -946,7 +946,7 @@ public class PackBLL
         {
             foreach (string code in productCodeList)
             {
-                PackBLL.Extract(item.ID, code, 0);
+                PackBLL.Extract(item.ID, code);
             }
         }
 
@@ -1183,7 +1183,7 @@ public class PackBLL
 
     }
 
-    public static PackErr Extract(Guid srcPackID, string productCode, int volume)
+    public static PackErr Extract(Guid srcPackID, string productCode)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -1201,8 +1201,8 @@ public class PackBLL
 
         if (PackBLL.Get(pack.DIN, productCode) != null) return PackErrEnum.Existed;
 
-            //Check to see if the pack is collector too late
-            //Code check will be here.
+        //TODO: Check to see if the pack is collector too late
+        //Code check will be here.
 
         //Create new
         Pack toPack = new Pack();
@@ -1212,10 +1212,10 @@ public class PackBLL
         toPack.Status = Pack.StatusX.Product;
         toPack.Date = DateTime.Now;
         toPack.Actor = RedBloodSystem.CurrentActor;
-        toPack.Volume = volume;
+        //toPack.Volume = p.OriginalVolume;
         toPack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
 
-        db.Packs.InsertOnSubmit(pack);
+        db.Packs.InsertOnSubmit(toPack);
         db.SubmitChanges();
 
         PackTransactionBLL.Add(toPack.ID, PackTransaction.TypeX.In_Product, System.Reflection.MethodBase.GetCurrentMethod().Name);

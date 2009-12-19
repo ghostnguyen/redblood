@@ -41,6 +41,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
         else if (BarcodeBLL.IsValidBloodGroupCode(code))
         {
+            //TODO: ProductCode must enter before BloodGroup
             EnterBloodGroup(BarcodeBLL.ParseBloodGroupCode(code));
         }
     }

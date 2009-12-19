@@ -25,7 +25,7 @@
     <script type="text/javascript">
         // Your code goes here
         jQuery(document).bind('keydown', 'esc', function(evt) {
-            window.location.replace("/RedBlood/Default.aspx"); return false;
+            window.location = ("Default.aspx"); return false;
         });
         var selectedInput = false;
 

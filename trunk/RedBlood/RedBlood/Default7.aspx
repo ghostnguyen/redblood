@@ -9,27 +9,27 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("/RedBlood/Collect/AssignDIN.aspx");
+            window.location = ("Collect/AssignDIN.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/Collect/CollectPack.aspx");
+            window.location = ("Collect/CollectPack.aspx");
         });
 
         $(document).bind('keydown', '9', function() {
-            window.location = ("/RedBlood/Collect/SelectCampaignToRpt.aspx");
+            window.location = ("Collect/SelectCampaignToRpt.aspx");
         });
 
         $(document).bind('keydown', '4', function() {
-            window.location = ("/RedBlood/Collect/Rpt2Org.aspx");
+            window.location = ("Collect/Rpt2Org.aspx");
         });
 
         //        $(document).bind('keydown', '5', function() {
-        //            window.location.replace("/RedBlood/Codabar/Pack.aspx");
+        //            window.location = ("Codabar/Pack.aspx");
         //        });
 
         $(document).bind('keydown', '3', function() {
-            window.location = ("/RedBlood/Collect/PrintSetting.aspx");
+            window.location = ("Collect/PrintSetting.aspx");
         });
     </script>
 
@@ -43,13 +43,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/AssignDIN.aspx">
+                                        <a href="Collect/AssignDIN.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/AssignDIN.aspx">Nhập thông tin người cho và cấp mã số</a>
+                                            <a href="Collect/AssignDIN.aspx">Nhập thông tin người cho và cấp mã số</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -59,13 +59,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/CollectPack.aspx">
+                                        <a href="Collect/CollectPack.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/CollectPack.aspx">Nhập túi máu và thể tích thu được</a>
+                                            <a href="Collect/CollectPack.aspx">Nhập túi máu và thể tích thu được</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -75,13 +75,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/SelectCampaignToRpt.aspx">
+                                        <a href="Collect/SelectCampaignToRpt.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/SelectCampaignToRpt.aspx">Tổng kết từng đợt thu máu</a>
+                                            <a href="Collect/SelectCampaignToRpt.aspx">Tổng kết từng đợt thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -97,13 +97,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/Rpt2Org.aspx">
+                                        <a href="Collect/Rpt2Org.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/Rpt2Org.aspx">In kết quả trả địa phương</a>
+                                            <a href="Collect/Rpt2Org.aspx">In kết quả trả địa phương</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -113,13 +113,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Codabar/Pack.aspx">
+                                        <a href="Codabar/Pack.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Codabar/Pack.aspx">Tạo mã túi máu</a>
+                                            <a href="Codabar/Pack.aspx">Tạo mã túi máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -129,13 +129,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                        <a href="ReceiveBlood.aspx">
                                             <img src="Image/Icon/number6.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="ReceiveBlood.aspx"></a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -151,13 +151,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Collect/PrintSetting.aspx">
+                                        <a href="Collect/PrintSetting.aspx">
                                             <img src="Image/Icon/number3.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Collect/PrintSetting.aspx">Canh chỉnh vị trí dòng in.</a>
+                                            <a href="Collect/PrintSetting.aspx">Canh chỉnh vị trí dòng in.</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -167,13 +167,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/ReceiveBlood.aspx">
+                                        <a href="ReceiveBlood.aspx">
                                             <img src="Image/Icon/number2.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/ReceiveBlood.aspx"></a>
+                                            <a href="ReceiveBlood.aspx"></a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -181,10 +181,10 @@
                         </td>
                         <td class="column next">
                             <%--<h3>
-                                <a href="/RedBlood/PackManually.aspx">3. Thêm</a></h3>
+                                <a href="PackManually.aspx">3. Thêm</a></h3>
                             <p>
                             </p>
-                            <a href="/RedBlood/PackManually.aspx" />
+                            <a href="PackManually.aspx" />
                             <img src="Image/Icon/books-256.png" alt="" />--%>
                         </td>
                     </tr>

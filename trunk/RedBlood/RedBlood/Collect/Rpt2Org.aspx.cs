@@ -43,13 +43,13 @@ public partial class Collect_Rpt2Org : System.Web.UI.Page
 
         if (CampaignDetail1.CampaignID != 0)
         {
-            HyperLinkNeg.NavigateUrl = "../FindAndReport/CampaignRpt.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
-            HyperLinkPos.NavigateUrl = "../FindAndReport/CampaignRpt.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            HyperLinkHIV.NavigateUrl = "../FindAndReport/CampaignRpt.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+            HyperLinkNeg.NavigateUrl = "../Collect/CampaignRpt.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
+            HyperLinkPos.NavigateUrl = "../Collect/CampaignRpt.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+            HyperLinkHIV.NavigateUrl = "../Collect/CampaignRpt.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
-            HyperLinkNegThankLetter.NavigateUrl = "../FindAndReport/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
-            HyperLinkPosThankLetter.NavigateUrl = "../FindAndReport/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            HyperLinkHIVInvitationLetter.NavigateUrl = "../FindAndReport/InvitationLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+            HyperLinkNegThankLetter.NavigateUrl = "../Collect/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
+            HyperLinkPosThankLetter.NavigateUrl = "../Collect/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+            HyperLinkHIVInvitationLetter.NavigateUrl = "../Collect/InvitationLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
             HyperLinkNegEnvolope.NavigateUrl = "../FindAndReport/PrintEnvelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
             HyperLinkPosEnvelope.NavigateUrl = "../FindAndReport/PrintEnvelope.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
@@ -59,9 +59,9 @@ public partial class Collect_Rpt2Org : System.Web.UI.Page
             HyperLinkPosCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
             HyperLinkHIVCard.NavigateUrl = "../FindAndReport/PrintCard.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
-            HyperLinkDINCert.NavigateUrl = "../Collect/PrintDINCert.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
-            HyperLinkPosDINCert.NavigateUrl = "../Collect/PrintDINCert.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            HyperLinkHIV_DINCert.NavigateUrl = "../Collect/PrintDINCert.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+            HyperLinkDINCert.NavigateUrl = "../Collect/DINCertPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
+            HyperLinkPosDINCert.NavigateUrl = "../Collect/DINCertPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+            HyperLinkHIV_DINCert.NavigateUrl = "../Collect/DINCertPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
 
         }
