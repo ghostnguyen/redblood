@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Collections;
 using System.Web.UI.HtmlControls;
 
-public partial class Barcode_PrintDINLabel : System.Web.UI.Page
+public partial class Category_DINPrintLabel : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -32,15 +32,15 @@ public partial class Barcode_PrintDINLabel : System.Web.UI.Page
         {
             for (int i = 0; i < (numOfCopy / 2 + 1); i++)
             {
-                UserControl_DINLabel uc = new UserControl_DINLabel();
-                uc = (UserControl_DINLabel)LoadControl("~/UserControl/DINLabel.ascx");
+                DINLabelUserControl uc = new DINLabelUserControl();
+                uc = (DINLabelUserControl)LoadControl("~/Category/DINLabelUserControl.ascx");
                 uc.Fill_Letter(item.DIN);
                 uc.ResizeLabel1();
 
                 divCon.Controls.Add(uc);
 
-                UserControl_DINLabel uc2 = new UserControl_DINLabel();
-                uc2 = (UserControl_DINLabel)LoadControl("~/UserControl/DINLabel.ascx");
+                DINLabelUserControl uc2 = new DINLabelUserControl();
+                uc2 = (DINLabelUserControl)LoadControl("~/Category/DINLabelUserControl.ascx");
                 uc2.Fill_Letter(item.DIN);
                 uc2.ResizeLabel2();
 

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true"
-    CodeFile="PrintDINCert.aspx.cs" Inherits="Collect_PrintDINCert" %>
-<%@ Register Src="~/UserControl/DINCert.ascx" TagPrefix="uc" TagName="DINCert" %>
+    CodeFile="DINCertPrint.aspx.cs" Inherits="Collect_DINCertPrint" %>
+<%@ Register Src="~/Collect/DINCertUserControl.ascx" TagPrefix="uc" TagName="DINCert" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">

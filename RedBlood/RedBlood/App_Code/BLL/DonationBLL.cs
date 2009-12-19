@@ -189,7 +189,7 @@ public class DonationBLL
 
         Donation e = DonationBLL.Get(db, DIN);
 
-        if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
+        if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.Unknown;
 
         if (bloodGroup.Trim() != e.BloodGroup)
         {

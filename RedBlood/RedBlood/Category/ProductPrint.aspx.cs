@@ -39,14 +39,22 @@ public partial class Category_ProductPrint : System.Web.UI.Page
 
         PrintSettingBLL.Reload();
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < count / 2 + 1; i++)
         {
 
-            UserControl_ProductLabel uc = new UserControl_ProductLabel();
-            uc = (UserControl_ProductLabel)LoadControl("~/UserControl/ProductLabel.ascx");
+            Category_ProductLabelUserControl uc = new Category_ProductLabelUserControl();
+            uc = (Category_ProductLabelUserControl)LoadControl("~/Category/ProductLabelUserControl.ascx");
             uc.Fill_Letter(p.Code, p.Description);
+            uc.ResizeLabel1();
 
             divCon.Controls.Add(uc);
+
+            Category_ProductLabelUserControl uc2 = new Category_ProductLabelUserControl();
+            uc2 = (Category_ProductLabelUserControl)LoadControl("~/Category/ProductLabelUserControl.ascx");
+            uc2.Fill_Letter(p.Code, p.Description);
+            uc2.ResizeLabel2();
+
+            divCon.Controls.Add(uc2);
 
             HtmlGenericControl gen = new HtmlGenericControl();
             gen.TagName = "div";

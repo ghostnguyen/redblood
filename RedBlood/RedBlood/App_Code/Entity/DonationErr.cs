@@ -29,6 +29,7 @@ public class DonationErrEnum
     public static DonationErr Non = new DonationErr("");
     public static DonationErr NonExist = new DonationErr("Không tìm thấy túi máu.");
     public static DonationErr TRLocked = new DonationErr("Đã có KQNX.");
+    public static DonationErr Unknown = new DonationErr("Có lỗi.");
     
     //public static DonationErr NonExistInCam = new DonationErr("Không tìm thấy túi máu trong đợt thu này.");
     public static DonationErr DataErr = new DonationErr("Lỗi dữ liệu.", Donation.StatusX.DataErr);

@@ -9,38 +9,38 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("/RedBlood/Category/Geo.aspx");
+            window.location = ("Category/Geo.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
-            window.location = ("/RedBlood/Category/Sex.aspx");
+            window.location = ("Category/Sex.aspx");
         });
 
         $(document).bind('keydown', '9', function() {
-            window.location = ("/RedBlood/Category/TestDef.aspx");
+            window.location = ("Category/TestDef.aspx");
         });
         $(document).bind('keydown', '4', function() {
-            window.location = ("/RedBlood/Category/Org.aspx");
+            window.location = ("Category/Org.aspx");
         });
 
         $(document).bind('keydown', '5', function() {
-            window.location.replace("/RedBlood/Barcode/GenerateDIN.aspx");
+            window.location = ("Category/DIN.aspx");
         });
 
         $(document).bind('keydown', '6', function() {
-            window.location.replace("/RedBlood/Category/SideEffect.aspx");
+            window.location = ("Category/SideEffect.aspx");
         });
 
         $(document).bind('keydown', '1', function() {
-            window.location.replace("/RedBlood/Category/Department.aspx");
+            window.location = ("Category/Department.aspx");
         });
 
         $(document).bind('keydown', '2', function() {
-            window.location.replace("/RedBlood/Category/Product.aspx");
+            window.location = ("Category/Product.aspx");
         });
 
         $(document).bind('keydown', '3', function() {
-            window.location.replace("/RedBlood/Category/BloodGroup.aspx");
+            window.location = ("Category/BloodGroup.aspx");
         });
     </script>
 
@@ -54,13 +54,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/Geo.aspx">
+                                        <a href="Category/Geo.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/Geo.aspx">Địa chính</a>
+                                            <a href="Category/Geo.aspx">Địa chính</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -70,13 +70,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/Sex.aspx">
+                                        <a href="Category/Sex.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/Sex.aspx">Giới tính</a>
+                                            <a href="Category/Sex.aspx">Giới tính</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -86,13 +86,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/TestDef.aspx">
+                                        <a href="Category/TestDef.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/TestDef.aspx">Kết quả xét nghiệm</a>
+                                            <a href="Category/TestDef.aspx">Kết quả xét nghiệm</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -108,13 +108,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/Org.aspx">
+                                        <a href="Category/Org.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/Org.aspx">Đơn vị</a>
+                                            <a href="Category/Org.aspx">Đơn vị</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -124,13 +124,14 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Barcode/GenerateDIN.aspx">
+                                        <a href="/Category/DIN.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Barcode/GenerateDIN.aspx">Tạo mã thu máu</a>
+                                            <%--<a id="A1" href="~/Category/DIN.aspx" runat="server">Tạo mã thu máu</a>--%>
+                                            <a href="Category/DIN.aspx">Tạo mã thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -140,13 +141,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/SideEffect.aspx">
+                                        <a href="Category/SideEffect.aspx">
                                             <img src="Image/Icon/number6.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/SideEffect.aspx">Phản ứng truyền máu</a>
+                                            <a href="Category/SideEffect.aspx">Phản ứng truyền máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -159,16 +160,16 @@
                     </tr>
                     <tr>
                         <td class="column">
-                           <table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/Department.aspx">
+                                        <a href="Category/Department.aspx">
                                             <img src="Image/Icon/number1.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/Department.aspx">Danh mục khoa</a>
+                                            <a href="Category/Department.aspx">Danh mục khoa</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -178,13 +179,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/Product.aspx">
+                                        <a href="Category/Product.aspx">
                                             <img src="Image/Icon/number2.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/Product.aspx">Danh mục sản phẩm</a>
+                                            <a href="Category/Product.aspx">Danh mục sản phẩm</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -194,13 +195,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/RedBlood/Category/BloodGroup.aspx">
+                                        <a href="Category/BloodGroup.aspx">
                                             <img src="Image/Icon/number3.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="/RedBlood/Category/BloodGroup.aspx">Nhóm máu</a>
+                                            <a href="Category/BloodGroup.aspx">Nhóm máu</a>
                                         </h4>
                                     </td>
                                 </tr>

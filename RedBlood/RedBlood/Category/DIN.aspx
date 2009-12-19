@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="GenerateDIN.aspx.cs" Inherits="Barcode_GenerateDIN" %>
+    CodeFile="DIN.aspx.cs" Inherits="Category_DIN" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

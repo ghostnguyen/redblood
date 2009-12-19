@@ -38,13 +38,17 @@ public class PrintSettingBLL
     {
         public static PrintSetting Barcode { get; set; }
         public static PrintSetting Note { get; set; }
-
+        public static PrintSetting Label1 { get; set; }
+        public static PrintSetting Label2 { get; set; }
     }
 
     public class BloodGroupLabel
     {
         public static PrintSetting Barcode { get; set; }
         public static PrintSetting Note { get; set; }
+        public static PrintSetting Label1 { get; set; }
+        public static PrintSetting Label2 { get; set; }
+        public static PrintSetting Label3 { get; set; }
     }
 
     public class DINCert
@@ -119,11 +123,16 @@ public class PrintSettingBLL
         List<PrintSetting> productLableList = list.Where(r => r.Type == PrintSetting.TypeX.ProductLabel).ToList();
         ProductLabel.Barcode = productLableList.Where(r => r.Name == "ProductBarcode").FirstOrDefault();
         ProductLabel.Note = productLableList.Where(r => r.Name == "ProductDesc").FirstOrDefault();
+        ProductLabel.Label1 = productLableList.Where(r => r.Name == "Label1").FirstOrDefault();
+        ProductLabel.Label2 = productLableList.Where(r => r.Name == "Label2").FirstOrDefault();
 
         //BloodGroup
         List<PrintSetting> bloodGroupLableList = list.Where(r => r.Type == PrintSetting.TypeX.BloodGroupLabel).ToList();
         BloodGroupLabel.Barcode = bloodGroupLableList.Where(r => r.Name == "BloodGroupBardcode").FirstOrDefault();
         BloodGroupLabel.Note = bloodGroupLableList.Where(r => r.Name == "BloodGroupDesc").FirstOrDefault();
+        BloodGroupLabel.Label1 = bloodGroupLableList.Where(r => r.Name == "Label1").FirstOrDefault();
+        BloodGroupLabel.Label2 = bloodGroupLableList.Where(r => r.Name == "Label2").FirstOrDefault();
+        BloodGroupLabel.Label3 = bloodGroupLableList.Where(r => r.Name == "Label3").FirstOrDefault();
 
         //DINCert
         List<PrintSetting> DINCertList = list.Where(r => r.Type == PrintSetting.TypeX.DINCertificate).ToList();
