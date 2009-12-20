@@ -47,14 +47,36 @@
 {
 	width: 185px;
 }
+
+#menu_lvl2 .column .icon
+{
+	height: 125px;
+	padding: 0 25px 25px 25px;
+}
+
 #menu_lvl2 .column.next
 {
 	
 }
+
 #menu_lvl2 .column img
 {
 	border-style: none;
 }
+
+#menu_lvl2 .column .iconImg
+{
+	border-style: none;
+	width: 64px;
+	height: 64px;
+}
+
+#menu_lvl2 h3 a
+{
+	text-decoration: none;
+	color: #000;
+}
+
 #menu_lvl2 h4 a
 {
 	text-decoration: none;

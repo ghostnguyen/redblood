@@ -96,27 +96,30 @@ public partial class Production_Divide : System.Web.UI.Page
 
     protected void LinqDataSourcePackIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        List<Pack> l = PackBLL.Get(AutonumListIn);
-        if (l.Count == 0)
-        {
-            e.Result = null;
-            e.Cancel = true;
-        }
-        else e.Result = l;
+        //RedBloodDataContext db = new RedBloodDataContext();
+
+        //List<Pack> l = PackBLL.Get(AutonumListIn);
+
+        //if (l.Count == 0)
+        //{
+        //    e.Result = null;
+        //    e.Cancel = true;
+        //}
+        //else e.Result = l;
     }
     protected void LinqDataSourcePackOut_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        Pack p = PackBLL.Get(AutonumListOut).FirstOrDefault();
-        if (p != null)
-        {
-            e.Result = p;
-            txtNote.Text = p.Note;
-        }
-        else
-        {
-            e.Result = null;
-            e.Cancel = true;
-        }
+        //Pack p = PackBLL.Get(AutonumListOut).FirstOrDefault();
+        //if (p != null)
+        //{
+        //    e.Result = p;
+        //    txtNote.Text = p.Note;
+        //}
+        //else
+        //{
+        //    e.Result = null;
+        //    e.Cancel = true;
+        //}
     }
 
     protected void GridViewPackIn_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -135,7 +138,8 @@ public partial class Production_Divide : System.Web.UI.Page
             return;
         }
 
-        PackErr err = PackBLL.Combine2Platelet(AutonumListIn, AutonumListOut[0], txtNote.Text);
+        //PackErr err = PackBLL.Combine2Platelet(AutonumListIn, AutonumListOut[0], txtNote.Text);
+        PackErr err = PackErrEnum.Non;
         if (err == PackErrEnum.Non)
         {
             IsEditMode = false;
@@ -148,7 +152,8 @@ public partial class Production_Divide : System.Web.UI.Page
 
     private void CheckAutonum(int autonum)
     {
-        Pack p = PackBLL.Get4Combined2Platelet(autonum);
+        //Pack p = PackBLL.Get4Combined2Platelet(autonum);
+        Pack p = null;
 
         if (p == null)
         {
@@ -231,7 +236,8 @@ public partial class Production_Divide : System.Web.UI.Page
 
     protected void btnLoad_Click(object sender, EventArgs e)
     {
-        Pack p = PackBLL.Get4Combined2Platelet(TempAutonum);
+        //Pack p = PackBLL.Get4Combined2Platelet(TempAutonum);
+        Pack p = null;
 
         if (p == null)
         {

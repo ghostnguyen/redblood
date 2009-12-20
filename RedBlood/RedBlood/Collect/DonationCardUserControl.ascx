@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DonationCard.ascx.cs"
-    Inherits="UserControl_DonationCard" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DonationCardUserControl.ascx.cs"
+    Inherits="DonationCardUserControl" %>
 <div style="clear: both; height: 300px; width: 100%">
     <asp:Label ID="lblName" Style="position: relative;" runat="server"></asp:Label>
     <asp:Image ID="imgAutonum" runat="server" />

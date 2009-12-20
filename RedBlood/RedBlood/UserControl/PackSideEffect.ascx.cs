@@ -68,7 +68,8 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
     void LoadPack(string productCode)
     {
         //Check Pack
-        Pack p = PackBLL.Get(CurrentDIN, productCode);
+        RedBloodDataContext db = new RedBloodDataContext();
+        Pack p = db.Packs.Where(r => r.DIN == CurrentDIN && r.ProductCode == productCode).FirstOrDefault();
 
         if (p == null) return;
         if (p.Status != Pack.StatusX.Delivered)
@@ -92,7 +93,7 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack p = PackBLL.Get(PackID);
+        Pack p = db.Packs.Where(r => r.ID == PackID).FirstOrDefault();
 
         if (p == null) return;
 

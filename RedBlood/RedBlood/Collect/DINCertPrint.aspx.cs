@@ -25,7 +25,7 @@ public partial class Collect_DINCertPrint : System.Web.UI.Page
         foreach (Donation item in p)
         {
             DINCertUserControl uc = new DINCertUserControl();
-            uc = (DINCertUserControl)LoadControl("~/Category/DINCertUserControl.ascx");
+            uc = (DINCertUserControl)LoadControl("~/Collect/DINCertUserControl.ascx");
             uc.Fill_Letter(item);
 
             divCon.Controls.Add(uc);

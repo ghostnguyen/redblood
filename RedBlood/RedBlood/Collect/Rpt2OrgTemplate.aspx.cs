@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Collect_CampaignRpt : System.Web.UI.Page
+public partial class Collect_Rpt2OrgTemplate : System.Web.UI.Page
 {
     public ReportType RptType { get; set; }
     public Campaign Camp { get; set; }

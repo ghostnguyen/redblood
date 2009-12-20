@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class FindAndReport_PrintCard : System.Web.UI.Page
+public partial class Collect_EnvelopePrint : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,9 +24,9 @@ public partial class FindAndReport_PrintCard : System.Web.UI.Page
 
         foreach (Donation item in p)
         {
-            UserControl_DonationCard uc = new UserControl_DonationCard();
-            uc = (UserControl_DonationCard)LoadControl("~/UserControl/DonationCard.ascx");
-            uc.Fill_Letter(item);
+            EnvelopeUserControl uc = new EnvelopeUserControl();
+            uc = (EnvelopeUserControl)LoadControl("~/Collect/EnvelopeUserControl.ascx");
+            uc.Fill_Letter(item.People);
 
             divCon.Controls.Add(uc);
 

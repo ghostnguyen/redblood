@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Collect_Rpt_Campaign : System.Web.UI.Page
+public partial class Collect_CollectDetailRpt : System.Web.UI.Page
 {
     public Campaign Camp { get; set; }
     public Guid CoopOrgGeo1ID { get; set; }

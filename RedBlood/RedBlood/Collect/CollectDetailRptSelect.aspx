@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="SelectCampaignToRpt.aspx.cs" Inherits="Collect_SelectCampaignToRpt" %>
+    CodeFile="CollectDetailRptSelect.aspx.cs" Inherits="Collect_CollectDetailRptSelect" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
