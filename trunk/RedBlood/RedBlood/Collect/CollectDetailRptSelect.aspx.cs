@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Collect_SelectCampaignToRpt : System.Web.UI.Page
+public partial class Collect_CollectDetailRptSelect : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -20,7 +20,7 @@ public partial class Collect_SelectCampaignToRpt : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
         DateTime? dt = txtDate.Text.ToDatetimeFromVNFormat();
-        string url = RedBloodSystem.Url4Collect4Rpt_Campaign;
+        string url = RedBloodSystem.Url4CollectDetailRpt;
 
         var v = from r in db.Donations
                 where r.CollectedDate.Value.Date == dt.Value.Date

@@ -24,7 +24,7 @@ public partial class Collect_ThankLetter : System.Web.UI.Page
         {
 
             ThanksLetterUserControl uc = new ThanksLetterUserControl();
-            uc = (ThanksLetterUserControl)LoadControl("~/Collect/ThanksLetter.ascx");
+            uc = (ThanksLetterUserControl)LoadControl("~/Collect/ThanksLetterUserControl.ascx");
             uc.Fill_Letter(item);
 
             divCon.Controls.Add(uc);

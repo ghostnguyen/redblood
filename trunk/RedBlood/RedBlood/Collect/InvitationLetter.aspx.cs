@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class FindAndReport_InvitationLetter : System.Web.UI.Page
+public partial class Collect_InvitationLetter : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -22,8 +22,8 @@ public partial class FindAndReport_InvitationLetter : System.Web.UI.Page
 
         foreach (Donation item in p) 
         {
-            UserControl_InvitationLetter uc = new UserControl_InvitationLetter();
-            uc = (UserControl_InvitationLetter)LoadControl("~/UserControl/InvitationLetter.ascx");
+            InvitationLetterUserControl uc = new InvitationLetterUserControl();
+            uc = (InvitationLetterUserControl)LoadControl("~/Collect/InvitationLetterUserControl.ascx");
             uc.Fill_Letter(item);
 
             divCon.Controls.Add(uc);

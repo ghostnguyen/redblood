@@ -15,7 +15,7 @@ public class RedBloodSystem
     public static string Url4OrderDetail = "~/Order/Order.aspx?";
     public static string Url4FindPeople = "~/FindAndReport/FindPeople.aspx?";
 
-    public static string Url4Collect4Rpt_Campaign = "~/Collect/Rpt_Campaign.aspx?";
+    public static string Url4CollectDetailRpt = "~/Collect/CollectDetailRpt.aspx?";
 
     public static TimeSpan ExpTime4ProduceFFPlasma = new TimeSpan(0, 18, 0, 0);
 

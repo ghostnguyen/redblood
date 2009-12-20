@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="Rpt2Org.aspx.cs" Inherits="Collect_Rpt2Org" %>
+    CodeFile="Rpt2OrgMenu.aspx.cs" Inherits="Collect_Rpt2OrgMenu" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true"
-    CodeFile="Rpt_Campaign.aspx.cs" Inherits="Collect_Rpt_Campaign" %>
+    CodeFile="CollectDetailRpt.aspx.cs" Inherits="Collect_CollectDetailRpt" %>
 
 <%@ Register Src="~/UserControl/CampaignDetail4Rpt.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">

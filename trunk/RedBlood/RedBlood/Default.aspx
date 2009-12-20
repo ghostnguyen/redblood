@@ -28,10 +28,10 @@
             window.location = ("CampaignPage.aspx");
         });
 
-        $(document).bind('keydown', '5', function() {
-            if (selectedInput) return;
-            window.location = ("Default5.aspx");
-        });
+//        $(document).bind('keydown', '5', function() {
+//            if (selectedInput) return;
+//            window.location = ("Default5.aspx");
+//        });
 
         $(document).bind('keydown', '6', function() {
             if (selectedInput) return;
@@ -87,12 +87,12 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <h3>
+                            <%--<h3>
                                 <a href="CampaignPage.aspx">4. Đợt thu máu</a></h3>
                             <p>
                             </p>
                             <a href="CampaignPage.aspx" />
-                            <img src="Image/Icon/Ambulance.png" alt="" />
+                            <img src="Image/Icon/Ambulance.png" alt="" />--%>
                         </td>
                         <td class="column next">
                             <h3>

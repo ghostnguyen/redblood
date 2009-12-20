@@ -154,7 +154,9 @@ public partial class Production_Extract : System.Web.UI.Page
 
         if (ProductCodeList.Contains(code)) return;
 
-        Pack p = PackBLL.Get(DIN, code);
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Pack p = db.Packs.Where(r => r.DIN == DIN && r.ProductCode == code).FirstOrDefault();
 
         if (p == null) return;
 
