@@ -13,6 +13,6 @@ public partial class Category_DIN : System.Web.UI.Page
     }
     protected void btnGen_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Cateory/DINPrintLabel.aspx?numOfDIN=" + txtNumOfDIN.Text + "&numOfCopy=" + txtNumOfCopy.Text, true);
+        Response.Redirect("~/Category/DINPrintLabel.aspx?numOfDIN=" + txtNumOfDIN.Text + "&numOfCopy=" + txtNumOfCopy.Text, true);
     }
 }

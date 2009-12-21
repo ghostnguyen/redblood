@@ -12,9 +12,9 @@
             window.location = ("FindAndReport/StoreCount.aspx");
         });
 
-        $(document).bind('keydown', '8', function() {
-            window.location = ("FindAndReport/CampaignDetail.aspx");
-        });
+//        $(document).bind('keydown', '8', function() {
+//            window.location = ("FindAndReport/CampaignDetail.aspx");
+//        });
 
 
 
@@ -54,7 +54,7 @@
                             </table>
                         </td>
                         <td class="column next">
-                             <table>
+                             <%--<table>
                                 <tr>
                                     <td>
                                         <a href="FindAndReport/CampaignDetail.aspx">
@@ -67,7 +67,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <%--<table>
