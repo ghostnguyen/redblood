@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="Default9.aspx.cs" Inherits="Default9" Title="Default" %>
+    CodeFile="Default6.aspx.cs" Inherits="Default6" Title="Default" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
@@ -23,9 +23,9 @@
             window.location = ("Category/Org.aspx");
         });
 
-        $(document).bind('keydown', '5', function() {
-            window.location = ("Category/DIN.aspx");
-        });
+//        $(document).bind('keydown', '5', function() {
+//            window.location = ("Category/DIN.aspx");
+//        });
 
         $(document).bind('keydown', '6', function() {
             window.location = ("Category/SideEffect.aspx");
@@ -121,7 +121,7 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <table>
+                      <%--      <table>
                                 <tr>
                                     <td>
                                         <a href="/Category/DIN.aspx">
@@ -130,12 +130,11 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <%--<a id="A1" href="~/Category/DIN.aspx" runat="server">Tạo mã thu máu</a>--%>
                                             <a href="Category/DIN.aspx">Tạo mã thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <table>

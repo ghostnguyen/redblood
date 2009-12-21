@@ -15,7 +15,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.IO;
 
-public partial class Default9 : System.Web.UI.Page
+public partial class Default6 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

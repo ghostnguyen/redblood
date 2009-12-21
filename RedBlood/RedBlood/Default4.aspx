@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="Default5.aspx.cs" Inherits="Default5" Title="Default" %>
+    CodeFile="Default4.aspx.cs" Inherits="Default4" Title="Default" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
@@ -9,25 +9,25 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("Production/Extract.aspx");
+            window.location = ("FindAndReport/StoreCount.aspx");
         });
 
-        //        $(document).bind('keydown', '8', function() {
-        //            window.location = ("Production/Devide.aspx");
+//        $(document).bind('keydown', '8', function() {
+//            window.location = ("FindAndReport/CampaignDetail.aspx");
+//        });
 
-        //        });
+
 
         //        $(document).bind('keydown', '9', function() {
-        //            window.location = ("Production/Extract.aspx");
+        //            window.location = ("FindAndReport/PackOrderCount.aspx");
         //        });
 
-        $(document).bind('keydown', '4', function() {
-
-        window.location = ("Production/Rpt_ExtractByDay.aspx");
-        });
+        //        $(document).bind('keydown', '4', function() {
+        //            window.location = ("Category/Org.aspx");
+        //        });
 
         //        $(document).bind('keydown', '5', function() {
-        //            window.location = ("Production/Extract.aspx");
+        //            window.location = ("Codabar/Pack.aspx");
         //        });
     </script>
 
@@ -41,29 +41,29 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="Production/Extract.aspx">
+                                        <a href="FindAndReport/StoreCount.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Production/Extract.aspx">Sản xuất</a>
+                                            <a href="FindAndReport/StoreCount.aspx">Thống kê kho</a>
                                         </h4>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="Production/Divide.aspx">
+                                        <a href="FindAndReport/CampaignDetail.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Production/Divide.aspx">Chia túi</a>
+                                            <a href="FindAndReport/CampaignDetail.aspx">In danh sách</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -73,13 +73,13 @@
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="Production/Extract.aspx">
+                                        <a href="FindAndReport/PackOrderCount.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Production/Extract.aspx">Tra cứu</a>
+                                            <a href="FindAndReport/PackOrderCount.aspx">Cấp phát máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -92,32 +92,32 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="Production/Rpt_ExtractByDay.aspx">
+                                        <a href="Category/Org.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Production/Rpt_ExtractByDay.aspx">Báo cáo ngày</a>
+                                            <a href="Category/Org.aspx">Đơn vị</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="Production/Extract.aspx">
+                                        <a href="Codabar/Pack.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Production/Extract.aspx">Tra cứu</a>
+                                            <a href="Codabar/Pack.aspx">Tạo mã túi máu</a>
                                         </h4>
                                     </td>
                                 </tr>

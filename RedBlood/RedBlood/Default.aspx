@@ -15,28 +15,37 @@
 
         $(document).bind('keydown', '8', function() {
             if (selectedInput) return;
-            window.location = ("TestResult/PackTestResult.aspx");
+            window.location = ("Default8.aspx");
         });
 
         $(document).bind('keydown', '9', function() {
             if (selectedInput) return;
-            window.location = ("Default9.aspx");
+            window.location = ("TestResult/PackTestResult.aspx");
+        });
+
+
+        $(document).bind('keydown', '5', function() {
+            if (selectedInput) return;
+            window.location = ("Order/Order.aspx");
+        });
+
+
+        $(document).bind('keydown', '6', function() {
+            if (selectedInput) return;
+            window.location = ("Default6.aspx");
         });
 
         $(document).bind('keydown', '4', function() {
             if (selectedInput) return;
-            window.location = ("CampaignPage.aspx");
+            window.location = ("Default4.aspx");
         });
 
-//        $(document).bind('keydown', '5', function() {
-//            if (selectedInput) return;
-//            window.location = ("Default5.aspx");
-//        });
+        //        $(document).bind('keydown', '5', function() {
+        //            if (selectedInput) return;
+        //            window.location = ("Default5.aspx");
+        //        });
 
-        $(document).bind('keydown', '6', function() {
-            if (selectedInput) return;
-            window.location = ("Order/Order.aspx");
-        });
+
 
         $(document).bind('keydown', '1', function() {
             if (selectedInput) return;
@@ -66,19 +75,19 @@
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="TestResult/PackTestResult.aspx">8. Nhập kết quả</a></h3>
+                                <a href="Default8.aspx">8. Sản xuất</a></h3>
+                            <p>
+                            </p>
+                            <a href="Default8.aspx" />
+                            <img src="Image/Icon/extract.png" alt="" />
+                        </td>
+                        <td class="column next">
+                            <h3>
+                                <a href="TestResult/PackTestResult.aspx">9. Sàng lọc</a></h3>
                             <p>
                             </p>
                             <a href="TestResult/PackTestResult.aspx" />
                             <img src="Image/Icon/Colba.png" alt="" />
-                        </td>
-                        <td class="column next">
-                            <h3>
-                                <a href="Default9.aspx" id="link9">9. Danh mục</a></h3>
-                            <p>
-                            </p>
-                            <a href="Default9.aspx" />
-                            <img src="Image/Icon/books-256.png" alt="" />
                         </td>
                     </tr>
                     <tr>
@@ -87,28 +96,28 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%--<h3>
-                                <a href="CampaignPage.aspx">4. Đợt thu máu</a></h3>
+                            <h3>
+                                <a href="Default4.aspx">4. Kho lưu trữ</a></h3>
                             <p>
                             </p>
-                            <a href="CampaignPage.aspx" />
-                            <img src="Image/Icon/Ambulance.png" alt="" />--%>
+                            <a href="Default4.aspx" />
+                            <img src="Image/Icon/Shopcart-Add_128.png" alt="" />
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="Default5.aspx">5. Sản xuất</a></h3>
-                            <p>
-                            </p>
-                            <a href="Default5.aspx" />
-                            <img src="Image/Icon/extract.png" alt="" />
-                        </td>
-                        <td class="column next">
-                            <h3>
-                                <a href="Order/Order.aspx">6. Cấp phát</a></h3>
+                                <a href="Order/Order.aspx">5. Cấp phát</a></h3>
                             <p>
                             </p>
                             <a href="Order/Order.aspx" />
                             <img src="Image/Icon/Shopcart-Add_128.png" alt="" />
+                        </td>
+                        <td class="column next">
+                            <h3>
+                                <a href="Default6.aspx" id="link9">6. Danh mục</a></h3>
+                            <p>
+                            </p>
+                            <a href="Default6.aspx" />
+                            <img src="Image/Icon/books-256.png" alt="" />
                         </td>
                     </tr>
                     <tr>

@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="Default7.aspx.cs" Inherits="Default1" Title="Default" %>
+    CodeFile="Default8.aspx.cs" Inherits="Default8" Title="Default" %>
 
-<%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -10,38 +9,14 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("Category/DIN.aspx");
+            window.location = ("Production/Extract.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
-            window.location = ("Collect/CampaignPage.aspx");
+            window.location = ("Production/Rpt_ExtractByDay.aspx");
         });
 
-        $(document).bind('keydown', '9', function() {
-            window.location = ("Collect/AssignDIN.aspx");
-        });
-
-        $(document).bind('keydown', '4', function() {
-            window.location = ("Collect/CollectPack.aspx");
-        });
-
-        $(document).bind('keydown', '5', function() {
-            window.location = ("Collect/CollectDetailRptSelect.aspx");
-        });
-
-        $(document).bind('keydown', '6', function() {
-            window.location = ("Collect/Rpt2OrgMenu.aspx");
-        });
-
-        //        $(document).bind('keydown', '5', function() {
-        //            window.location = ("Codabar/Pack.aspx");
-        //        });
-
-
-
-        $(document).bind('keydown', '1', function() {
-            window.location = ("Collect/PrintSetting.aspx");
-        });
+       
     </script>
 
     <table width="100%">
@@ -54,55 +29,49 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/Category/DIN.aspx">
+                                        <a href="Production/Extract.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Category/DIN.aspx">Tạo mã thu máu</a>
+                                            <a href="Production/Extract.aspx">Sản xuất</a>
                                         </h4>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                         <td class="column next">
-                            <table>
+                             <table>
                                 <tr>
                                     <td>
-                                        <a href="Collect/AssignDIN.aspx">
+                                        <a href="Production/Rpt_ExtractByDay.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Collect/AssignDIN.aspx">Tạo đợt thu máu</a>
+                                            <a href="Production/Rpt_ExtractByDay.aspx">Báo cáo ngày</a>
                                         </h4>
                                     </td>
                                 </tr>
-                                <%--  <tr>
-                                    <td class="column icon" colspan="2">
-                                        <a href="Collect/CampaignPage.aspx" />
-                                        <img src="Image/Icon/Ambulance.png" alt="" class="iconImg" />
-                                    </td>
-                                </tr>--%>
                             </table>
                         </td>
                         <td class="column next">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="Collect/AssignDIN.aspx">
+                                        <a href="Production/Extract.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Collect/AssignDIN.aspx">Nhập thông tin người cho máu và cấp mã số</a>
+                                            <a href="Production/Extract.aspx">Tra cứu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                     </tr>
                     <tr>
@@ -111,74 +80,61 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <a href="Collect/CollectPack.aspx">
-                                            <img src="Image/Icon/number4.gif" alt="" />
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            <a href="Collect/CollectPack.aspx">Nhập loại túi máu, nhóm máu và thể tích máu</a>
-                                        </h4>
-                                    </td>
-                                </tr>
-                            </table>
+                           
                         </td>
                         <td class="column next">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="Collect/CollectDetailRptSelect.aspx">
+                                        <a href="Production/Extract.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Collect/CollectDetailRptSelect.aspx">Tổng kết từng đợt thu máu</a>
+                                            <a href="Production/Extract.aspx">Tra cứu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
-                                        <a href="Collect/Rpt2OrgMenu.aspx">
+                                        <a href="ReceiveBlood.aspx">
                                             <img src="Image/Icon/number6.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Collect/Rpt2OrgMenu.aspx">In kết quả trả địa phương</a>
+                                            <a href="ReceiveBlood.aspx"></a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="rowline">
-                        </td>
+                        <%-- <td colspan="3" class="rowline">
+                        </td>--%>
                     </tr>
                     <tr>
                         <td class="column">
-                            <table>
+                            <%-- <table>
                                 <tr>
                                     <td>
-                                        <a href="Collect/PrintSetting.aspx">
-                                            <img src="Image/Icon/number1.gif" alt="" />
+                                        <a href="ReceiveBlood.aspx">
+                                            <img src="Image/Icon/number3.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Collect/PrintSetting.aspx">Canh chỉnh vị trí dòng in.</a>
+                                            <a href="ReceiveBlood.aspx"></a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <%--<table>
@@ -197,6 +153,12 @@
                             </table>--%>
                         </td>
                         <td class="column next">
+                            <%--<h3>
+                                <a href="PackManually.aspx">3. Thêm</a></h3>
+                            <p>
+                            </p>
+                            <a href="PackManually.aspx" />
+                            <img src="Image/Icon/books-256.png" alt="" />--%>
                         </td>
                     </tr>
                 </table>
