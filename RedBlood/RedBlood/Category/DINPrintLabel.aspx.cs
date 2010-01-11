@@ -30,7 +30,7 @@ public partial class Category_DINPrintLabel : System.Web.UI.Page
 
         foreach (Donation item in l)
         {
-            for (int i = 0; i < (numOfCopy / 2 + 1); i++)
+            for (int i = 0; i < (numOfCopy +1 ) / 2 ; i++)
             {
                 DINLabelUserControl uc = new DINLabelUserControl();
                 uc = (DINLabelUserControl)LoadControl("~/Category/DINLabelUserControl.ascx");

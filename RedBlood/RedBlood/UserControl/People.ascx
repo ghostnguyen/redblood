@@ -40,7 +40,7 @@
                 </tr>
                 <tr>
                     <td class="people_cellheader">
-                        Ngày sinh
+                        <asp:Literal style="color: Red;">*</asp:Literal>Ngày sinh
                     </td>
                     <td>
                         <asp:TextBox ID="txtDOB" runat="server" />
@@ -182,7 +182,7 @@
                     </td>
                     <td>
                         <asp:Button ID="btnUpdate" runat="server" Text="<%$ Resources:Resource,Update %>"
-                            OnClick="btnUpdate_Click" ToolTip="Ctrl+S" />
+                            OnClick="btnUpdate_Click" ToolTip="Ctrl+L" />
                     </td>
                 </tr>
             </table>
