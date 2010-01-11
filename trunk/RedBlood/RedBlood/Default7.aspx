@@ -70,13 +70,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="Collect/AssignDIN.aspx">
+                                        <a href="Collect/CampaignPage.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Collect/AssignDIN.aspx">Tạo đợt thu máu</a>
+                                            <a href="Collect/CampaignPage.aspx">Tạo đợt thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
