@@ -53,7 +53,7 @@
         – Truyền Máu, Bệnh viện Chợ Rẫy, số 201B Nguyễn Chí Thanh, Q5, TP.HCM, vào lúc 08
         giờ ngày
         <asp:Label ID="LabelDate" runat="server"></asp:Label>, xin liên hệ trước qua số
-        điện thoại: 08.8554137 – Xin số 157.
+        điện thoại: 08.8554137 – Xin số 157. Xin trách các ngày nghỉ, ngày lễ và Tết.
         <br />
         Trân trọng kính chào.
         <br />
@@ -65,9 +65,9 @@
             năm
             <%= DateTime.Now.Year %>
             <br />
-            Khoa Huyết học - Truyền máu
+            <%= Resources.Resource.HdrLine4 %>
             <br />
-            Trưởng khoa
+            <%= Resources.Resource.FooterLine1 %>
         </div>
     </div>
 </div>

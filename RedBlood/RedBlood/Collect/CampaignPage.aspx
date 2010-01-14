@@ -1,9 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeFile="CampaignPage.aspx.cs" Inherits="Collect_CampaignPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    CodeFile="CampaignPage.aspx.cs" Inherits="Collect_CampaignPage" %>
 
 <%@ Register Src="~/UserControl/Campaign.ascx" TagPrefix="uc" TagName="Campaign" %>
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <script type="text/javascript">
+        // Your code goes here
+        $(document).bind('keydown', 'Ctrl+m', function() {
+            $("input[id*='btnNew']").click();
+        });
+
+    </script>
+
     <table width="100%">
         <tr valign="top">
             <td style="width: 210px;">
@@ -12,8 +21,7 @@
                         Nguồn thu
                     </div>
                     <div class="partLink">
-                        <asp:LinkButton ID="btnNew" runat="server" Text="Thêm đợt thu máu" 
-                            onclick="btnNew_Click" />
+                        <asp:Button ID="btnNew" runat="server" Text="Thêm đợt thu máu" OnClick="btnNew_Click" />
                     </div>
                     <div class="partLinkLast">
                         <asp:BulletedList runat="server" ID="lbSource" DataSourceID="LinqDataSourceSrc" DataTextField="Name"
@@ -30,7 +38,7 @@
                     OnSelectedIndexChanged="ListView1_SelectedIndexChanged">
                     <ItemTemplate>
                         <span>
-                            <div style="border-bottom:dotted 1px;">
+                            <div style="border-bottom: dotted 1px;">
                                 <asp:Label ID="IDLabel" runat="server" Text='<%# Eval("ID") %>' />
                                 -
                                 <asp:LinkButton ID="NameLabel" runat="server" Text='<%# Eval("Name") %>' CommandName="Select" />
@@ -68,11 +76,10 @@
                     </LayoutTemplate>
                 </asp:ListView>
                 <asp:LinqDataSource ID="LinqDataSourceCampaign" runat="server" ContextTypeName="RedBloodDataContext"
-                    TableName="Campaigns" OrderBy="Date desc,ID desc" EnableUpdate="True" 
-                    Where="SourceID == @SourceID">
+                    TableName="Campaigns" OrderBy="Date desc,ID desc" EnableUpdate="True" Where="SourceID == @SourceID">
                     <WhereParameters>
-                        <asp:ControlParameter ControlID="lbSource" DefaultValue="0" 
-                            Name="SourceID" PropertyName="SelectedValue" Type="Int32" />
+                        <asp:ControlParameter ControlID="lbSource" DefaultValue="0" Name="SourceID" PropertyName="SelectedValue"
+                            Type="Int32" />
                     </WhereParameters>
                 </asp:LinqDataSource>
             </td>

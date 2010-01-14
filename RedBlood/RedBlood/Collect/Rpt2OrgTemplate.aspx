@@ -6,24 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%" style="size: landscape;">
-        <tr>
-            <td>
-                <div style="width: 100%; clear: both;">
-                    <div style="float: left; text-align: center;">
-                        <%= Resources.Resource.HdrLine3 %>
-                        <br />
-                        <%= Resources.Resource.HdrLine4 %>
-                    </div>
-                    <div style="float: right; text-align: center;">
-                        <%= Resources.Resource.HdrLine1 %>
-                        <br />
-                        <%= Resources.Resource.HdrLine2 %>
-                        <br />
-                        ------o0o------
-                    </div>
-                </div>
-            </td>
-        </tr>
+        
         <tr valign="top">
             <td align="center">
                 <h3>
@@ -58,7 +41,7 @@
                                             <asp:Label runat="server" Text='<%# Eval("People.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Họ & Tên">
+                                    <asp:TemplateField HeaderText="Ngày sinh">
                                         <ItemTemplate>
                                             <asp:Label ID="Label2" runat="server" Text='<%# Eval("People.DOB","{0:dd/MM/yyyy}") %>'  />
                                         </ItemTemplate>
@@ -66,7 +49,7 @@
                                     
                                     <asp:TemplateField HeaderText="ABO">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroup") %>' />
+                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HIV">
@@ -134,9 +117,9 @@
                                 năm
                                 <%= DateTime.Now.Year %>
                                 <br />
-                                Khoa Huyết học - Truyền máu
+                                <%= Resources.Resource.HdrLine4 %>
                                 <br />
-                                Trưởng khoa
+                                <%= Resources.Resource.FooterLine1 %>
                             </div>
                         </td>
                     </tr>

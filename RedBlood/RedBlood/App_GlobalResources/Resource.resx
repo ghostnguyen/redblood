@@ -144,6 +144,9 @@
   <data name="Find" xml:space="preserve">
     <value>Tìm</value>
   </data>
+  <data name="FooterLine1" xml:space="preserve">
+    <value>Giám Đốc</value>
+  </data>
   <data name="HdrLine1" xml:space="preserve">
     <value>Cộng Hòa Xã Hội Chủ Nghĩa Việt Nam</value>
   </data>
@@ -154,7 +157,7 @@
     <value>Bệnh viện Chợ Rẫy</value>
   </data>
   <data name="HdrLine4" xml:space="preserve">
-    <value>Khoa Huyết học - Truyền máu</value>
+    <value>Trung tâm Truyền máu Chợ Rẫy</value>
   </data>
   <data name="Lock" xml:space="preserve">
     <value>Khóa</value>

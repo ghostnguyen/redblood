@@ -5,6 +5,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <script type="text/javascript">
+        // Your code goes here
+        $(document).bind('keydown', 'Ctrl+l', function(evt) {
+            $("input[id*='btnSave']").click();
+            evt.stopPropagation();
+            evt.preventDefault();
+        });
+
+    </script>
+
     <h4>
         Thông tin mặc định
     </h4>
@@ -16,7 +27,7 @@
     <br />
     <hr />
     <br />
-    <table >
+    <table>
         <tr>
             <td>
                 Tên

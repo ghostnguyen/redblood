@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ThanksLetterUserControl.ascx.cs"
     Inherits="ThanksLetterUserControl" %>
-<div style="clear: both;width:650px;">
+<div style="clear: both; width: 650px;">
     <table style="width: 100%;">
         <tr>
             <td>
@@ -120,9 +120,9 @@
             năm
             <%= DateTime.Now.Year %>
             <br />
-            Khoa Huyết học - Truyền máu
+            <%= Resources.Resource.HdrLine4 %>
             <br />
-            Trưởng khoa
+            <%= Resources.Resource.FooterLine1 %>
         </div>
     </div>
 </div>

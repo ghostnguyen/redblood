@@ -30,7 +30,7 @@ public partial class Collect_CollectDetailRpt : System.Web.UI.Page
 
                 CampaignDetail1.CampaignID = Camp.ID;
 
-                LabelTitle1.Text = "Danh sách thu máu";
+                LabelTitle1.Text = "Danh sách hiến máu";
 
                 GridView1.DataBind();
             }
