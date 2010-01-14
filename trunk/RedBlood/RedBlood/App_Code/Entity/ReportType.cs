@@ -10,5 +10,6 @@ public enum ReportType
 {
     NegInCam = 1,
     FourPosInCam = 2,
-    HIVInCam = 3
+    HIVInCam = 3,
+    All = 9
 }

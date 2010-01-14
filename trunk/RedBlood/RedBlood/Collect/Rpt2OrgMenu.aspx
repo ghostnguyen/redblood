@@ -26,12 +26,12 @@
                             <asp:HyperLink runat="server" Text="In bìa thư" ID="HyperLinkNegEnvolope">                
                             </asp:HyperLink>
                         </td>
-                        <td>
-                            <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkNegCard">                
+                        <td rowspan="3">
+                            <asp:HyperLink runat="server" Text="In thẻ cho tất cả" ID="HyperLinkAllCard">                
                             </asp:HyperLink>
                         </td>
-                        <td>
-                            <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkDINCert">                
+                        <td rowspan="3">
+                            <asp:HyperLink runat="server" Text="In Giấy chứng nhận cho tất cả" ID="HyperLinkAllDINCert">                
                             </asp:HyperLink>
                         </td>
                     </tr>
@@ -49,12 +49,12 @@
                             </asp:HyperLink>
                         </td>
                         <td>
-                            <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkPosCard">                
-                            </asp:HyperLink>
+                           <%-- <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkPosCard">                
+                            </asp:HyperLink>--%>
                         </td>
-                         <td>
-                            <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkPosDINCert">                
-                            </asp:HyperLink>
+                        <td>
+                            <%--<asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkPosDINCert">                
+                            </asp:HyperLink>--%>
                         </td>
                     </tr>
                     <tr>
@@ -71,12 +71,12 @@
                             </asp:HyperLink>
                         </td>
                         <td>
-                            <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkHIVCard">                
-                            </asp:HyperLink>
+                           <%-- <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkHIVCard">                
+                            </asp:HyperLink>--%>
                         </td>
-                         <td>
-                            <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkHIV_DINCert">                
-                            </asp:HyperLink>
+                        <td>
+                          <%--  <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkHIV_DINCert">                
+                            </asp:HyperLink>--%>
                         </td>
                     </tr>
                 </table>

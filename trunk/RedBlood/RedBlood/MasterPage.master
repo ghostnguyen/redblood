@@ -28,7 +28,18 @@
             window.location = ("/RedBlood/Default.aspx"); return false;
         });
         var selectedInput = false;
-
+        
+        //trim11
+        function trim(str) {
+            str = str.replace(/^\s+/, '');
+            for (var i = str.length - 1; i >= 0; i--) {
+                if (/\S/.test(str.charAt(i))) {
+                    str = str.substring(0, i + 1);
+                    break;
+                }
+            }
+            return str;
+        }
     </script>
 
     <table style="width: 100%;">
@@ -47,9 +58,8 @@
                                     </td>
                                     <td align="center">
                                         <span class="Title">Trung tâm truyền máu Chợ Rẫy</span>
-                                        <br />                                                        
-                                        <asp:TextBox ID="txtCode" runat="server" Width="299" 
-                                        onkeyup="checkLength(this.value);"
+                                        <br />
+                                        <asp:TextBox ID="txtCode" runat="server" Width="299" onkeyup="checkLength(this.value);"
                                             onfocus="selectedInput = true;" onblur="selectedInput = false;"></asp:TextBox>
                                         <asp:Button ID="btnOk" runat="server" Text="Ok" />
                                     </td>

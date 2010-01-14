@@ -6,24 +6,6 @@
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%" style="size: landscape;">
-        <tr>
-            <td>
-                <div style="width: 100%; clear: both;">
-                    <div style="float: left; text-align: center;">
-                        <%= Resources.Resource.HdrLine3 %>
-                        <br />
-                        <%= Resources.Resource.HdrLine4 %>
-                    </div>
-                    <div style="float: right; text-align: center;">
-                        <%= Resources.Resource.HdrLine1 %>
-                        <br />
-                        <%= Resources.Resource.HdrLine2 %>
-                        <br />
-                        ------o0o------
-                    </div>
-                </div>
-            </td>
-        </tr>
         <tr valign="top">
             <td align="center">
                 <h3>
@@ -62,6 +44,16 @@
                                             <asp:Label ID="Label2" runat="server" Text='<%# Eval("People.DOB","{0:dd/MM/yyyy}") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Nhóm máu">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Thể tích">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblOrgVolume" runat="server" Text='<%# Eval("OrgVolume") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Địa chỉ">
                                         <ItemTemplate>
                                             <asp:Label ID="lblAddress" runat="server" Text='<%# Eval("People.ResidentAddress") %>' />
@@ -82,23 +74,7 @@
                                             <asp:Label ID="lblGeo2" runat="server" Text='<%# Eval("People.ResidentGeo1.Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Nhóm máu">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%--<asp:TemplateField HeaderText="Thu máu">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblOrgProductDesc" runat="server" Text='<%# Eval("OrgProductDesc") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="Thể tích">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblOrgVolume" runat="server" Text='<%# Eval("OrgVolume") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    
-                                     <asp:TemplateField HeaderText="Ghi chú">
+                                    <asp:TemplateField HeaderText="Ghi chú">
                                         <ItemTemplate>
                                             <asp:Label ID="lblOrgVolume" runat="server" Text='<%# Eval("Note") %>' />
                                         </ItemTemplate>
@@ -114,7 +90,6 @@
                     <tr align="right">
                         <td>
                             <asp:Label runat="server" ID="LableCount"></asp:Label>
-                            
                             <asp:Literal ID="Literal1" runat="server"></asp:Literal>
                         </td>
                     </tr>
@@ -130,14 +105,14 @@
                                 năm
                                 <%= DateTime.Now.Year %>
                                 <br />
-                                Khoa Huyết học - Truyền máu
+                                <%= Resources.Resource.HdrLine4 %>
                                 <br />
-                                Trưởng khoa
+                                <%= Resources.Resource.FooterLine1 %>
                             </div>
                         </td>
                     </tr>
                 </table>
-               <%-- <div runat="server" id="divNote" style="float: left; width: 450px; font-size: small;
+                <%-- <div runat="server" id="divNote" style="float: left; width: 450px; font-size: small;
                     text-align: left;">
                     <span style="text-decoration: underline;">Ghi chú:</span> - Trên đây là kết quả
                     xét nghiệm lần 1 từ mẫu máu của người cho máu.

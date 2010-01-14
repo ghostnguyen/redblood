@@ -151,9 +151,9 @@ public class TR
 {
     public string Name { get; set; }
 
-    public static TR na = new TR() { Name = "na" };
-    public static TR neg = new TR() { Name = "neg" };
-    public static TR pos = new TR() { Name = "pos" };
+    public static TR na = new TR() { Name = "Chưa xác định" };
+    public static TR neg = new TR() { Name = "Âm tính" };
+    public static TR pos = new TR() { Name = "Dương tính" };
 
     public static List<TR> TRList = new List<TR>() { na, neg, pos };
 

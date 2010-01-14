@@ -12,16 +12,15 @@ public partial class FindAndReport_CampaignDetail : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //int campaignID = Request.Params["key"].ToInt();
+            int campaignID = Request.Params["key"].ToInt();
 
-            //if (campaignID != 0)
-            //{
-            //    CampaignEnter(campaignID);
-            //}
-
-            //Master.TextBoxCode.Text;
-
-
+            if (campaignID != 0)
+            {
+                Master.TextBoxCode.Text = campaignID.ToString();
+                //TODO:Clear params
+                Request.Params.Clear();
+                    
+            }
         }
 
         string code = Master.TextBoxCode.Text.Trim();

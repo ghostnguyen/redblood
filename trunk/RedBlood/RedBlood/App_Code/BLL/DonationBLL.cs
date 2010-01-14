@@ -211,7 +211,7 @@ public class DonationBLL
         //RedBloodDataContext db = new RedBloodDataContext();
 
         //Donation e = Get(db, DIN);
-        
+
         if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.TRLocked;
 
         if (string.IsNullOrEmpty(e.BloodGroup))
@@ -237,19 +237,27 @@ public class DonationBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Donation> v = (from r in db.Donations
-                            where r.CampaignID == campaignID && r.TestResultStatus != Donation.TestResultStatusX.Non
-                            select r).ToList();
+        IQueryable<Donation> v = from r in db.Donations
+                                 where r.CampaignID == campaignID
+                                     && r.Pack != null
+                                 select r;
+
+        if (rptType == ReportType.All)
+        {
+            return v.ToList();
+        }
+
+        List<Donation> l = v.Where(r => r.TestResultStatus != Donation.TestResultStatusX.Non).ToList();
 
         if (rptType == ReportType.NegInCam)
         {
-            return v.ToList().Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative
+            return l.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative
                 || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked).ToList();
         }
 
         if (rptType == ReportType.FourPosInCam)
         {
-            return v.ToList().Where(r =>
+            return l.Where(r =>
                 (r.TestResultStatus == Donation.TestResultStatusX.Positive
                 || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
                 &&
@@ -258,7 +266,7 @@ public class DonationBLL
 
         if (rptType == ReportType.HIVInCam)
         {
-            return v.Where(r => r.Markers.HIV == TR.pos.Name).ToList();
+            return l.Where(r => r.Markers.HIV == TR.pos.Name).ToList();
         }
 
         return new List<Donation>();
