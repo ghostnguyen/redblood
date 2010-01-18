@@ -115,7 +115,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;
 
-            txtDOB.Text = e.DOBToString();
+            txtDOB.Text = e.DOBToString;
 
             if (ddlSex.Items.Count == 1)
                 ddlSex.DataBind();

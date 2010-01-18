@@ -9,6 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 /// <summary>
 /// Summary description for Campaign
@@ -131,12 +132,19 @@ public partial class Campaign
             throw new Exception("Nhập nguồn thu máu.");
     }
 
+    public List<Pack> Packs
+    {
+        get
+        {
+            return Donations.Where(r => r.Pack != null).Select(r => r.Pack).ToList();
+        }
+    }
+
     public int CountPack
     {
         get
         {
-            return 0;
-            //return this.Packs.Count();
+            return Packs.Count();
         }
     }
 
@@ -144,25 +152,21 @@ public partial class Campaign
     {
         get
         {
-            return 0;
-
-            //return this.Packs.Where(r => r.Volume == 450).Count();
+            return Packs.Where(r => r.Volume == 450).Count();
         }
     }
     public int CountPack350
     {
         get
         {
-            //return this.Packs.Where(r => r.Volume == 350).Count();
-            return 0;
+            return Packs.Where(r => r.Volume == 350).Count();
         }
     }
     public int CountPack250
     {
         get
         {
-            //return this.Packs.Where(r => r.Volume == 250).Count();
-            return 0;
+            return Packs.Where(r => r.Volume == 250).Count();
         }
     }
 }

@@ -12,9 +12,9 @@
 //            window.location = ("FindAndReport/FindPeople.aspx");
 //        });
 
-//        $(document).bind('keydown', '8', function() {
-//            window.location = ("FindAndReport/FindCampaign.aspx");
-//        });
+        $(document).bind('keydown', '8', function() {
+            window.location = ("FindAndReport/FindCampaign.aspx");
+        });
 
         $(document).bind('keydown', '9', function() {
             window.location = ("FindAndReport/FindPeople.aspx");
@@ -51,7 +51,7 @@
                             </table>--%>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
                                         <a href="FindAndReport/FindCampaign.aspx">
@@ -60,11 +60,11 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="FindAndReport/FindCampaign.aspx">Tìm chiến dịch</a>
+                                            <a href="FindAndReport/FindCampaign.aspx">Tìm đợt hiến máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <table>

@@ -55,7 +55,7 @@ public partial class UserControl_PeopleOrder : System.Web.UI.UserControl
             txtName.Text = e.Name;
             txtCMND.Text = e.CMND;
 
-            txtDOB.Text = e.DOBToString();
+            txtDOB.Text = e.DOBToString;
 
             ddlSex.SelectedValue = e.SexID.ToString();
 

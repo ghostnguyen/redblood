@@ -54,7 +54,7 @@
                 </div>
             </td>
             <td>
-                <%-- <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
+                <%--<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
                     DataSourceID="LinqDataSource1">
                     <Columns>
                         <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" InsertVisible="False"
@@ -74,9 +74,9 @@
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <HeaderTemplate>
-                                <asp:Label ID="Label4" runat="server" Text="ĐVPH"></asp:Label>
+                                <asp:Label ID="Label4" runat="server" Text="ĐV Phối Hợp"></asp:Label>
                                 <br />
-                                <asp:Label ID="Label3" runat="server" Text="ĐVTC"></asp:Label>
+                                <asp:Label ID="Label3" runat="server" Text="ĐV Tổ Chức"></asp:Label>
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="Label4" runat="server" Text='<%# Eval("CoopOrg.Name") %>'></asp:Label>
@@ -85,21 +85,22 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="Est" HeaderText="Dự kiến" SortExpression="Est" />
-                        <asp:BoundField DataField="CountPack" HeaderText="TC" />
                         <asp:BoundField DataField="CountPack450" HeaderText="450" />
                         <asp:BoundField DataField="CountPack350" HeaderText="350" />
                         <asp:BoundField DataField="CountPack250" HeaderText="250" />
+                        <asp:BoundField DataField="CountPack" HeaderText="TC" />
                         <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
-                        
                     </Columns>
-                </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+                </asp:GridView>--%>
+               <%-- <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
                     EnableUpdate="True" TableName="Campaigns" OnSelecting="LinqDataSource1_Selecting">
                 </asp:LinqDataSource>--%>
                 <asp:DataList runat="server" ID="DataList1">
                     <ItemTemplate>
-                        <uc:CampaignListByProvince runat="server" From='<%# Eval("From") %>' To='<%# Eval("To") %>' ProvinceIDList='<%# Eval("ProvinceIDList") %>' />
-                        <uc:PackCountByProvince ID="PackCountByProvince1" runat="server" From='<%# Eval("From") %>' To='<%# Eval("To") %>' ProvinceIDList='<%# Eval("ProvinceIDList") %>' />
+                        <uc:CampaignListByProvince runat="server" From='<%# Eval("From") %>' To='<%# Eval("To") %>'
+                            ProvinceIDList='<%# Eval("ProvinceIDList") %>' />
+                        <uc:PackCountByProvince ID="PackCountByProvince1" runat="server" From='<%# Eval("From") %>'
+                            To='<%# Eval("To") %>' ProvinceIDList='<%# Eval("ProvinceIDList") %>' />
                     </ItemTemplate>
                 </asp:DataList>
             </td>
