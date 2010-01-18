@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 /// </summary>
 public class RedBloodSystemBLL
 {
-    
+
 
     static DateTime? lastFinalizeDate;
     static DateTime? lastPackTransactionDate;
@@ -413,6 +413,11 @@ public class RedBloodSystemBLL
                 Response.Redirect(RedBloodSystem.Url4OrderDetail + "key=" + r.ID.ToString());
             }
         }
+        //TODO: Search by name
+        else if (key.Substring(0, 3) == "/n:" && key.Length > 3)
+        {
+            Response.Redirect(RedBloodSystem.Url4FindPeople + "key=" + key.Substring(3).Trim());
+        }
         else if (regx.IsMatch(key) && key.Length >= BarcodeBLL.CMNDLength.ToInt())
         {
             People r = PeopleBLL.GetByCMND(key);
@@ -421,10 +426,6 @@ public class RedBloodSystemBLL
                 Response.Redirect(RedBloodSystem.Url4PeopleDetail + "key=" + r.ID.ToString());
             }
         }
-        //else if (key.length > 1)
-        //{
-        //    response.redirect(systembll.url4findpeople + "key=" + key);
-        //}
 
         txtCode.Text = "";
     }

@@ -9,7 +9,7 @@ using System.Web;
 public class RedBloodSystem
 {
 
-    public static string Url4CampaignDetail = "~/FindAndReport/CampaignDetail.aspx?";
+    public static string Url4CampaignDetail = "~/Collect/Rpt2OrgMenu.aspx?";
     public static string Url4PackDetail = "~/FindAndReport/PackDetail.aspx?";
     public static string Url4PeopleDetail = "~/FindAndReport/PeopleDetail.aspx?";
     public static string Url4OrderDetail = "~/Order/Order.aspx?";

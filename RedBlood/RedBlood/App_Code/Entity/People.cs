@@ -263,17 +263,37 @@ public partial class People
         }
     }
 
-    public string DOBToString()
+    public string DOBToString
     {
-        if (DOB != null)
+        get
         {
-            return DOB.ToStringVN();
-        }
-        else if (DOBYear != null)
-        {
-            return DOBYear.ToString();
-        }
+            if (DOB != null)
+            {
+                return DOB.ToStringVN();
+            }
+            else if (DOBYear != null)
+            {
+                return DOBYear.ToString();
+            }
 
-        return string.Empty;
+            return string.Empty;
+        }
+    }
+
+    public int DOBInDecade
+    {
+        get
+        {
+            if (DOB != null)
+            {
+                return DOB.Value.Decade();
+            }
+            else if (DOBYear != null)
+            {
+                return (new DateTime(DOBYear.Value, 1, 1)).Decade();
+            }
+
+            return 0;
+        }
     }
 }

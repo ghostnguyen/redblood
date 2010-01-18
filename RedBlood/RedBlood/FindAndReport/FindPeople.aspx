@@ -48,16 +48,16 @@
             </td>
             <td>
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSource1">
+                    DataSourceID="LinqDataSource1" AllowSorting="true">
                     <Columns>
-                        <asp:TemplateField HeaderText="Name">
+                        <asp:TemplateField HeaderText="Name" SortExpression="Name">
                             <ItemTemplate>
                                 <asp:HyperLink ID="Label1" runat="server" Text='<%# Eval("Name")%>' NavigateUrl='<%# RedBloodSystem.Url4PeopleDetail + "key=" + Eval("ID")  %>'></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="CMND" HeaderText="CMND" SortExpression="CMND" />
-                        <asp:BoundField DataField="DOB" HeaderText="Năm sinh" SortExpression="DOB" DataFormatString="{0:dd/MM/yyyy}" />
-                        <asp:TemplateField HeaderText="Giới tính">
+                        <asp:BoundField DataField="DOBToString" HeaderText="Năm sinh" SortExpression="DOB" DataFormatString="{0:dd/MM/yyyy}" />
+                        <asp:TemplateField HeaderText="Giới tính" SortExpression="Sex.Name">
                             <ItemTemplate>
                                 <asp:Label ID="Label1" runat="server" Text='<%# Eval("Sex.Name")%>'></asp:Label>
                             </ItemTemplate>
@@ -66,7 +66,7 @@
                         <asp:BoundField DataField="FullResidentalAddress" HeaderText="Địa chỉ" ReadOnly="True"
                             SortExpression="FullResidentalAddress" />
                         <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
-                        <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
+                        <asp:BoundField DataField="Autonum" HeaderText="STT" SortExpression="Autonum" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"

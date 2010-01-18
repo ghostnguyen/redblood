@@ -65,15 +65,22 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
+        if (!IsPostBack)
+        {
+            Keyword = Request.Params["key"];
+            GridView1.DataBind();
+        }
+        else
+        {
+            Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
 
-        if (Master.TextBoxCode.Text.Length == 0) return;
-
-        Keyword = Master.TextBoxCode.Text;
-
-        GridView1.DataBind();
-
-        Master.TextBoxCode.Text = "";
+            if (Master.TextBoxCode.Text.Length != 0)
+            {
+                Keyword = Master.TextBoxCode.Text;
+                GridView1.DataBind();
+                Master.TextBoxCode.Text = "";
+            }
+        }
     }
 
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -95,9 +102,13 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
 
         //LoadFilter(r.ToList());
 
-        List<People> filter = r.ToList().Where(g => (g.Sex.Name == SexName || string.IsNullOrEmpty(SexName))
-            && (g.ResidentGeo1.Name == Geo1Name || string.IsNullOrEmpty(Geo1Name))
-            && (g.DOB.Value.Decade() == DOBYear.ToInt() || (g.DOBYear != null && g.DOBYear.ToString() == DOBYear) || string.IsNullOrEmpty(DOBYear))).ToList();
+        List<People> filter = r.ToList().Where(g =>
+            (string.IsNullOrEmpty(SexName) || (g.Sex != null && g.Sex.Name == SexName))
+            && (string.IsNullOrEmpty(Geo1Name) || g.ResidentGeo1.Name == Geo1Name)
+                //&& (string.IsNullOrEmpty(DOBYear) || (g.DOB != null && g.DOB.Value.Decade() == DOBYear.ToInt()
+                //    || (g.DOBYear != null && g.DOBYear.ToString() == DOBYear)))
+            && (string.IsNullOrEmpty(DOBYear) || g.DOBInDecade == DOBYear.ToInt())
+                ).ToList();
         e.Result = filter;
         LoadFilter(filter);
     }
@@ -121,11 +132,11 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
 
         //DOB
         BulletedListDOB.Items.Clear();
-        BulletedListDOB.DataSource = rs.Where(e => e.DOB != null || e.DOBYear != null)
+        BulletedListDOB.DataSource = rs.Where(e => e.DOBInDecade != 0)
             //.GroupBy(e => (e.DOB.Value.Year - (e.DOB.Value.Year % 10)))
             .ToList()
             //TODO: GroupBy DOBYear Only
-            .GroupBy(e => e.DOB.Value.Decade())
+            .GroupBy(e => e.DOBInDecade)
             //.Select(g => new { ID = g.Key, Name = g.Key.ToString() + " - " + (g.Key + 9).ToString() + " (" + g.Count().ToString() + ")" })
             .Select(g => new { ID = g.Key, Name = g.Key.ToString() + "s" + " (" + g.Count().ToString() + ")" })
             .OrderBy(j => j.Name);

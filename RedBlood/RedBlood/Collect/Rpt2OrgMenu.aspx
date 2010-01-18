@@ -94,7 +94,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="ABO">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("BloodGroup") %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("BloodGroupDesc") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="HIV">

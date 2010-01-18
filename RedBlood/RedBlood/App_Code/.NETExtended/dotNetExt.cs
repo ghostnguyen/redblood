@@ -241,6 +241,11 @@ public static class dotNetExt
         return temp;
     }
 
+    /// <summary>
+    /// Ex: 1970, 1980, 1990.
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <returns></returns>
     public static int Decade(this DateTime dt)
     {
         return dt.Year - dt.Year % 10;

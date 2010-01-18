@@ -12,26 +12,25 @@ public partial class Collect_Rpt2OrgMenu : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //int campaignID = Request.Params["key"].ToInt();
+            int campaignID = Request.Params["key"].ToInt();
 
-            //if (campaignID != 0)
-            //{
-            //    CampaignEnter(campaignID);
-            //}
-
-            //Master.TextBoxCode.Text;
-
-
+            if (campaignID != 0)
+            {
+                CampaignEnter(campaignID);
+            }
         }
-
-        string code = Master.TextBoxCode.Text.Trim();
-        Master.TextBoxCode.Text = "";
-
-        if (code.Length == 0) return;
-
-        if (BarcodeBLL.IsValidCampaignCode(code))
+        else
         {
-            CampaignEnter(BarcodeBLL.ParseCampaignID(code));
+
+            string code = Master.TextBoxCode.Text.Trim();
+            Master.TextBoxCode.Text = "";
+
+            if (code.Length == 0) return;
+
+            if (BarcodeBLL.IsValidCampaignCode(code))
+            {
+                CampaignEnter(BarcodeBLL.ParseCampaignID(code));
+            }
         }
     }
 
