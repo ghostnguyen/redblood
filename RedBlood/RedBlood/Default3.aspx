@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="Default4.aspx.cs" Inherits="Default4" Title="Default" %>
+    CodeFile="Default3.aspx.cs" Inherits="Default3" Title="Default" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
@@ -9,26 +9,39 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("FindAndReport/StoreCount.aspx");
+            window.location = ("Category/Geo.aspx");
         });
 
-//        $(document).bind('keydown', '8', function() {
-//            window.location = ("FindAndReport/CampaignDetail.aspx");
+        $(document).bind('keydown', '8', function() {
+            window.location = ("Category/Sex.aspx");
+        });
+
+        $(document).bind('keydown', '9', function() {
+            window.location = ("Category/TestDef.aspx");
+        });
+        $(document).bind('keydown', '4', function() {
+            window.location = ("Category/Org.aspx");
+        });
+
+//        $(document).bind('keydown', '5', function() {
+//            window.location = ("Category/DIN.aspx");
 //        });
 
+        $(document).bind('keydown', '6', function() {
+            window.location = ("Category/SideEffect.aspx");
+        });
 
+        $(document).bind('keydown', '1', function() {
+            window.location = ("Category/Department.aspx");
+        });
 
-        //        $(document).bind('keydown', '9', function() {
-        //            window.location = ("FindAndReport/PackOrderCount.aspx");
-        //        });
+        $(document).bind('keydown', '2', function() {
+            window.location = ("Category/Product.aspx");
+        });
 
-        //        $(document).bind('keydown', '4', function() {
-        //            window.location = ("Category/Org.aspx");
-        //        });
-
-        //        $(document).bind('keydown', '5', function() {
-        //            window.location = ("Codabar/Pack.aspx");
-        //        });
+        $(document).bind('keydown', '3', function() {
+            window.location = ("Category/BloodGroup.aspx");
+        });
     </script>
 
     <table width="100%">
@@ -41,49 +54,49 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="FindAndReport/StoreCount.aspx">
+                                        <a href="Category/Geo.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="FindAndReport/StoreCount.aspx">Thống kê kho</a>
+                                            <a href="Category/Geo.aspx">Địa chính</a>
                                         </h4>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                         <td class="column next">
-                             <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="FindAndReport/CampaignDetail.aspx">
+                                        <a href="Category/Sex.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="FindAndReport/CampaignDetail.aspx">In danh sách</a>
+                                            <a href="Category/Sex.aspx">Giới tính</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="FindAndReport/PackOrderCount.aspx">
+                                        <a href="Category/TestDef.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="FindAndReport/PackOrderCount.aspx">Cấp phát máu</a>
+                                            <a href="Category/TestDef.aspx">Kết quả xét nghiệm</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>
@@ -92,7 +105,7 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
                                         <a href="Category/Org.aspx">
@@ -105,85 +118,93 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                      <%--      <table>
                                 <tr>
                                     <td>
-                                        <a href="Codabar/Pack.aspx">
+                                        <a href="/Category/DIN.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Codabar/Pack.aspx">Tạo mã túi máu</a>
+                                            <a href="Category/DIN.aspx">Tạo mã thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
                             </table>--%>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
+                                        <a href="Category/SideEffect.aspx">
                                             <img src="Image/Icon/number6.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Category/SideEffect.aspx">Phản ứng truyền máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>
-                        <%-- <td colspan="3" class="rowline">
-                        </td>--%>
+                        <td colspan="3" class="rowline">
+                        </td>
                     </tr>
                     <tr>
                         <td class="column">
-                            <%-- <table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
-                                            <img src="Image/Icon/number3.gif" alt="" />
+                                        <a href="Category/Department.aspx">
+                                            <img src="Image/Icon/number1.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Category/Department.aspx">Danh mục khoa</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
+                                        <a href="Category/Product.aspx">
                                             <img src="Image/Icon/number2.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Category/Product.aspx">Danh mục sản phẩm</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
-                            <%--<h3>
-                                <a href="PackManually.aspx">3. Thêm</a></h3>
-                            <p>
-                            </p>
-                            <a href="PackManually.aspx" />
-                            <img src="Image/Icon/books-256.png" alt="" />--%>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="Category/BloodGroup.aspx">
+                                            <img src="Image/Icon/number3.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="Category/BloodGroup.aspx">Nhóm máu</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

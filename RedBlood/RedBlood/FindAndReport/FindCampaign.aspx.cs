@@ -105,66 +105,8 @@ public partial class FindAndReport_FindCampaign : System.Web.UI.Page
         }
     }
 
-    void LoadFilter(List<People> rs)
-    {
-        //Geo1
-        //BulletedListGeo1.Items.Clear();
-        //BulletedListGeo1.DataSource = rs.Where(e => e.ResidentGeoID1 != null).GroupBy(e => e.ResidentGeo1.Name).Select(g => new { ID = g.Key, Name = g.Key + " (" + g.Count().ToString() + ")" });
-        //BulletedListGeo1.DataTextField = "Name";
-        //BulletedListGeo1.DataValueField = "ID";
-        //BulletedListGeo1.DataBind();
-    }
-    protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
-    {
-        DateTime? from = txtFrom.Text.ToDatetimeFromVNFormat();
-        DateTime? to = txtTo.Text.ToDatetimeFromVNFormat();
-
-        if (from == null || to == null)
-        {
-            e.Result = null;
-            e.Cancel = true;
-            return;
-        }
-
-        List<Guid> geo1List = new List<Guid>();
-        foreach (ListItem item in CheckBoxListGeo1.Items)
-        {
-            if (item.Selected) geo1List.Add(item.Value.ToGuid());
-        }
-
-        List<int> sourceList = new List<int>();
-        foreach (ListItem item in CheckBoxListSource.Items)
-        {
-            if (item.Selected) sourceList.Add(item.Value.ToInt());
-        }
-
-        RedBloodDataContext db = new RedBloodDataContext();
-        
-        DataLoadOptions dlo = new DataLoadOptions();
-        dlo.LoadWith<Campaign>(r => r.Donations);
-        dlo.LoadWith<Donation>(r => r.Pack);
-
-        db.LoadOptions = dlo;
-
-        List<Campaign> l = 
-            db.Campaigns.Where(r => from.Value.Date <= r.Date.Value.Date
-            && to.Value.Date >= r.Date.Value.Date
-            && geo1List.Contains(r.CoopOrg.GeoID1.Value)
-            && sourceList.Contains(r.SourceID.Value)
-            ).ToList();
-
-        if (l.Count == 0)
-        {
-            e.Result = null;
-            e.Cancel = true;
-        }
-        else
-            e.Result = l;
-    }
     protected void btnFind_Click(object sender, EventArgs e)
     {
-        //GridView1.DataBind();
-
         DateTime? from = txtFrom.Text.ToDatetimeFromVNFormat();
         DateTime? to = txtTo.Text.ToDatetimeFromVNFormat();
 
@@ -174,17 +116,11 @@ public partial class FindAndReport_FindCampaign : System.Web.UI.Page
             if (item.Selected) geo1List.Add(item.Value.ToGuid());
         }
 
-        var v = geo1List.Select(r => new { From = from, To = to, ProvinceIDList = ToList(r) });
+        var v = geo1List.Select(r => new { From = from, To = to, ProvinceID = r });
 
-        DataList1.DataSource = v;
+        ListView1.DataSource = v;
 
-        DataList1.DataBind();
+        ListView1.DataBind();
     }
 
-    List<Guid> ToList(Guid g)
-    {
-        List<Guid> l = new List<Guid>();
-        l.Add(g);
-        return l;
-    }
 }

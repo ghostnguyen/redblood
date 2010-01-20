@@ -7,18 +7,18 @@ using System.Web.UI.WebControls;
 
 public partial class UserControl_PackCountByProvince : System.Web.UI.UserControl
 {
-    public List<Guid> ProvinceIDList
+    public Guid ProvinceID
     {
         get
         {
-            if (ViewState["ProvinceIDList"] == null)
-                return new List<Guid>();
+            if (ViewState["ProvinceID"] == null)
+                return new Guid();
             else
-                return (List<Guid>)ViewState["ProvinceIDList"];
+                return (Guid)ViewState["ProvinceID"];
         }
         set
         {
-            ViewState["ProvinceIDList"] = value;
+            ViewState["ProvinceID"] = value;
         }
     }
 
@@ -58,7 +58,8 @@ public partial class UserControl_PackCountByProvince : System.Web.UI.UserControl
 
     public void Count()
     {
-        List<int> camIDL = CampaignBLL.Get(ProvinceIDList, From, To, Campaign.TypeX.Short_run).Select(r => r.ID).ToList();
+        List<int> camIDL = CampaignBLL.Get(new List<Guid>() { ProvinceID }, From, To, Campaign.TypeX.Short_run).Select(r => r.ID).ToList();
+        this.Visible = camIDL.Count != 0;
 
         //Calc4Component(camIDL, TestDef.Component.Full, Pack.StatusX.Collected, lblFullNonTR, lblFullPos, lblFullNeg, lblFullDeliver, lblFullExpire, lblFullDelete);
         //Calc4Component(camIDL, TestDef.Component.PlateletApheresis, Pack.StatusX.Collected, lblPlateletApheresisNonTR, lblPlateletApheresisPos, lblPlateletApheresisNeg, lblPlateletApheresisDeliver, lblPlateletApheresisExpire, lblPlateletApheresisDelete);
@@ -68,7 +69,9 @@ public partial class UserControl_PackCountByProvince : System.Web.UI.UserControl
     {
         //RedBloodDataContext db = new RedBloodDataContext();
 
-        //List<Pack> l = db.Packs.Where(r => r.ComponentID == componentID
+
+
+        //List<Pack> l = db.Packs.Where(r => r.ComponentID == componentID && r.NonNegativeTestResult
         //    && camIDL.Contains(r.CampaignID.Value)
         //    ).ToList();
 

@@ -389,14 +389,10 @@ public class RedBloodSystemBLL
                 Response.Redirect(RedBloodSystem.Url4PeopleDetail + "key=" + r.ID.ToString());
             }
         }
-        //else if (BarcodeBLL.IsValidPackCode(key))
-        //{
-        //    Pack r = PackBLL.Get(BarcodeBLL.ParsePackAutoNum(key));
-        //    if (r != null)
-        //    {
-        //        Response.Redirect(SystemBLL.Url4PackDetail + "key=" + r.Autonum.ToString());
-        //    }
-        //}
+        else if (BarcodeBLL.IsValidDINCode(key))
+        {
+            Response.Redirect(RedBloodSystem.Url4PackDetail + "key=" + BarcodeBLL.ParseDIN(key));
+        }
         else if (BarcodeBLL.IsValidCampaignCode(key))
         {
             Campaign r = CampaignBLL.GetByID(BarcodeBLL.ParseCampaignID(key));
