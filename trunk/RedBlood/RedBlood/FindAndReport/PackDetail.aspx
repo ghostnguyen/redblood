@@ -6,35 +6,26 @@
     <table>
         <tr valign="top">
             <td>
-                <asp:DetailsView runat="server" ID="DetailView1" AutoGenerateRows="False" DataKeyNames="ID"
+                <asp:DetailsView runat="server" ID="DetailView1" AutoGenerateRows="False" DataKeyNames="DIN"
                     DataSourceID="LinqDataSource1">
                     <Fields>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <%--<asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
+                                <asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string,"00") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Thành phần">
+                        <asp:TemplateField HeaderText="Tên">
                             <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Component.Name") %>'></asp:Label>
+                                <asp:Label ID="lblName" runat="server" Text='<%# Eval("People.Name") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:BoundField DataField="OrgProductDesc" HeaderText="Sản phẩm" />
                         <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-                        <asp:BoundField DataField="Status" HeaderText="Tình trạng" />
+                        <asp:BoundField DataField="OrgVolume" HeaderText="Thể tích (ml)"  />
+                        <asp:BoundField DataField="BloodGroupDesc" HeaderText="Nhóm máu" />
                         <asp:BoundField DataField="TestResultStatus" HeaderText="KQXN" />
-                        <asp:BoundField DataField="DeliverStatus" HeaderText="Cấp phát" />
-                        <asp:BoundField DataField="Volume" HeaderText="(ml)" SortExpression="Volume" />
-                        <asp:TemplateField HeaderText="ABO">
-                            <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("ABO.Name") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="RH">
-                            <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("RH.Name") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HBsAg">
+                       
+                       <%-- <asp:TemplateField HeaderText="HBsAg">
                             <ItemTemplate>
                                 <asp:Label ID="Label1" runat="server" Text='<%# Eval("HBsAg.Name") %>'></asp:Label>
                             </ItemTemplate>
@@ -58,7 +49,7 @@
                             <ItemTemplate>
                                 <asp:Label ID="Label1" runat="server" Text='<%# Eval("Malaria.Name") %>'></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                         <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
                     </Fields>
                 </asp:DetailsView>
@@ -70,11 +61,6 @@
                 <asp:GridView runat="server" ID="GridViewRelative" AutoGenerateRows="False" DataKeyNames="ID"
                     DataSourceID="LinqDataSourcePackRelative" AutoGenerateColumns="false">
                     <Columns>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <%--<asp:Image ID="ImageCodabar" runat="server" ImageUrl='<%# CodabarBLL.Url4Pack(Eval("Autonum") as int?) %>' />--%>
-                            </ItemTemplate>
-                        </asp:TemplateField>
                         <asp:BoundField DataField="Status" HeaderText="Tình trạng" />
                         <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
                         <asp:BoundField DataField="Volume" HeaderText="(ml)" SortExpression="Volume" />
@@ -125,7 +111,7 @@
                     OnSelecting="LinqDataSourcePackRelative_Selecting" TableName="Packs">
                 </asp:LinqDataSource>
                 <br />
-                <uc:PSE runat="server" ID="PSE1" />
+                <%--<uc:PSE runat="server" ID="PSE1" />--%>
             </td>
         </tr>
     </table>

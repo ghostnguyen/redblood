@@ -31,7 +31,11 @@
             </ItemTemplate>
         </asp:TemplateField>
         <asp:BoundField DataField="Est" HeaderText="Dự kiến" SortExpression="Est" />
-        <asp:BoundField DataField="CountPack" HeaderText="TC" />
+        <asp:TemplateField HeaderText="TC">
+            <ItemTemplate>
+                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Packs.Count") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
         <asp:BoundField DataField="CountPack450" HeaderText="450" />
         <asp:BoundField DataField="CountPack350" HeaderText="350" />
         <asp:BoundField DataField="CountPack250" HeaderText="250" />

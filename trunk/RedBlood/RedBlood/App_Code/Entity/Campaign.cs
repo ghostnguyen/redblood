@@ -140,14 +140,6 @@ public partial class Campaign
         }
     }
 
-    public int CountPack
-    {
-        get
-        {
-            return Packs.Count();
-        }
-    }
-
     public int CountPack450
     {
         get

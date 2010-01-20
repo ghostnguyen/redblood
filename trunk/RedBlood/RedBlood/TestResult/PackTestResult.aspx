@@ -49,7 +49,7 @@
                                 <asp:Label ID="Label1" runat="server" Text="ABO" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblABO" runat="server" Text='<%# BloodGroupBLL.GetDescription(Eval("BloodGroup") as string) %>' />
+                                <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc")  %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="ddlBloodGroup" runat="server" DataSource='<%# BloodGroup.BloodGroupList %>'

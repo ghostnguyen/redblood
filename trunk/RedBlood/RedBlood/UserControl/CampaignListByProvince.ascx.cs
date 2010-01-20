@@ -7,18 +7,18 @@ using System.Web.UI.WebControls;
 
 public partial class UserControl_CampaignListByProvince : System.Web.UI.UserControl
 {
-    public List<Guid> ProvinceIDList
+    public Guid ProvinceID
     {
         get
         {
-            if (ViewState["ProvinceIDList"] == null)
-                return new List<Guid>();
+            if (ViewState["ProvinceID"] == null)
+                return new Guid();
             else
-                return (List<Guid>)ViewState["ProvinceIDList"];
+                return (Guid)ViewState["ProvinceID"];
         }
         set
         {
-            ViewState["ProvinceIDList"] = value;
+            ViewState["ProvinceID"] = value;
         }
     }
 
@@ -64,11 +64,11 @@ public partial class UserControl_CampaignListByProvince : System.Web.UI.UserCont
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
     }
 
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        e.Result = CampaignBLL.Get(ProvinceIDList, From, To, Campaign.TypeX.Short_run);
+        e.Result = CampaignBLL.Get(new List<Guid>() { ProvinceID }, From, To, Campaign.TypeX.Short_run);
     }
 }

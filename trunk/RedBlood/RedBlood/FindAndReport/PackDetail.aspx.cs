@@ -7,16 +7,15 @@ using System.Web.UI.WebControls;
 
 public partial class FindAndReport_PackDetail : System.Web.UI.Page
 {
-    public int Autonum
+    public string DIN
     {
         get
         {
-            if (ViewState["Autonum"] == null) return 0;
-            return (int)ViewState["Autonum"];
+            return (string)ViewState["DIN"];
         }
         set
         {
-            ViewState["Autonum"] = value;
+            ViewState["DIN"] = value;
         }
     }
 
@@ -24,27 +23,26 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            Autonum = Request.Params["key"].ToInt();
-
+            DIN = Request.Params["key"];
             DetailView1.DataBind();
-            //PSE1.Autonum = Autonum;
         }
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        //Pack p = PackBLL.Get(Autonum);
-        //if (p == null)
-        //{
-        //    e.Result = null;
-        //    e.Cancel = true;
-        //}
-        //else
-        //    e.Result = p;
+        Donation d = DonationBLL.Get(DIN);
+
+        if (d == null || d.Pack == null)
+        {
+            e.Result = null;
+            e.Cancel = true;
+        }
+        else
+            e.Result = d;
     }
 
     protected void LinqDataSourcePackRelative_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        
+
         //Pack p = PackBLL.Get(Autonum);
 
         //if (p == null)

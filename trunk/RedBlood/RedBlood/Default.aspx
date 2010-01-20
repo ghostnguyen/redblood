@@ -29,23 +29,10 @@
             window.location = ("Order/Order.aspx");
         });
 
-
         $(document).bind('keydown', '6', function() {
             if (selectedInput) return;
             window.location = ("Default6.aspx");
         });
-
-        $(document).bind('keydown', '4', function() {
-            if (selectedInput) return;
-            window.location = ("Default4.aspx");
-        });
-
-        //        $(document).bind('keydown', '5', function() {
-        //            if (selectedInput) return;
-        //            window.location = ("Default5.aspx");
-        //        });
-
-
 
         $(document).bind('keydown', '1', function() {
             if (selectedInput) return;
@@ -55,6 +42,11 @@
         $(document).bind('keydown', '2', function() {
             if (selectedInput) return;
             window.location = ("Default2.aspx");
+        });
+
+        $(document).bind('keydown', '3', function() {
+            if (selectedInput) return;
+            window.location = ("Default3.aspx");
         });
         
     </script>
@@ -96,12 +88,12 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <h3>
+                          <%--  <h3>
                                 <a href="Default4.aspx">4. Kho lưu trữ</a></h3>
                             <p>
                             </p>
                             <a href="Default4.aspx" />
-                            <img src="Image/Icon/Shopcart-Add_128.png" alt="" />
+                            <img src="Image/Icon/Shopcart-Add_128.png" alt="" />--%>
                         </td>
                         <td class="column next">
                             <h3>
@@ -112,12 +104,12 @@
                             <img src="Image/Icon/Shopcart-Add_128.png" alt="" />
                         </td>
                         <td class="column next">
-                            <h3>
-                                <a href="Default6.aspx" id="link9">6. Danh mục</a></h3>
+                             <h3>
+                                <a href="Default6.aspx">6. Kho lưu trữ</a></h3>
                             <p>
                             </p>
                             <a href="Default6.aspx" />
-                            <img src="Image/Icon/books-256.png" alt="" />
+                            <img src="Image/Icon/Shopcart-Add_128.png" alt="" />
                         </td>
                     </tr>
                     <tr>
@@ -142,12 +134,12 @@
                             <img src="Image/Icon/Medical-invoice-information.png" alt="" />
                         </td>
                         <td class="column next">
-                            <%--<h3>
-                                <a href="PackManually.aspx">3. Thêm</a></h3>
+                           <h3>
+                                <a href="Default3.aspx" id="link9">3. Danh mục</a></h3>
                             <p>
                             </p>
-                            <a href="PackManually.aspx" />
-                            <img src="Image/Icon/books-256.png" alt="" />--%>
+                            <a href="Default3.aspx" />
+                            <img src="Image/Icon/books-256.png" alt="" />
                         </td>
                     </tr>
                 </table>
