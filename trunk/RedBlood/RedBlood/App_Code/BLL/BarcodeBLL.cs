@@ -233,7 +233,7 @@ public class BarcodeBLL
         script.Append("text = trim(text);  \n");
         script.Append("var len = text.length;  \n");
 
-        JScript4Postback4EachElement(script, BarcodeBLL.DINLength - 2, BarcodeBLL.DINIdChar);
+        //JScript4Postback4EachElement(script, BarcodeBLL.DINLength - 2, BarcodeBLL.DINIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.DINLength, BarcodeBLL.DINIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.peopleLength, BarcodeBLL.productIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.bloodGroupLength, BarcodeBLL.bloodGroupIdChar);

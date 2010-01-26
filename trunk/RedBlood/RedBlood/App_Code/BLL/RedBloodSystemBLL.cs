@@ -46,6 +46,8 @@ public class RedBloodSystemBLL
         ScanExp(true);
         CloseOrder(true);
         LockTestResult(true);
+
+        FacilityBLL.ResetCounting();
     }
 
     //isSOD: isStartOfDate

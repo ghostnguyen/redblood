@@ -172,7 +172,25 @@ public static class dotNetExt
         return s.Substring(0, index) + c.ToString() + s.Substring(index + 1);
     }
 
+    public static bool IsValidProductCode(this string s)
+    {
+        return BarcodeBLL.IsValidProductCode(s); 
+    }
 
+    public static bool IsValidDINCode(this string s)
+    {
+        return BarcodeBLL.IsValidDINCode(s);
+    }
+
+    public static bool IsValidProductCodeList(this List<string> s)
+    {
+        return s.Where(r => BarcodeBLL.IsValidProductCode(r) == false).Count() == 0;
+    }
+
+    public static bool IsValidDINList(this List<string> s)
+    {
+        return s.Where(r => BarcodeBLL.IsValidDINCode(r) == false).Count() == 0;
+    }
 
     #endregion
 
