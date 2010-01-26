@@ -7,67 +7,64 @@ using System.Web.UI.WebControls;
 
 public partial class Production_Extract : System.Web.UI.Page
 {
-    public List<string> ProductCodeList
+    public List<string> ProductCodeInList
     {
         get
         {
-            if (ViewState["ProductCodeList"] == null)
+            if (ViewState["ProductCodeInList"] == null)
             {
-                ViewState["ProductCodeList"] = new List<string>();
+                ViewState["ProductCodeInList"] = new List<string>();
             }
-            return (List<string>)ViewState["ProductCodeList"];
+            return (List<string>)ViewState["ProductCodeInList"];
         }
         set
         {
-            ViewState["ProductCodeList"] = value;
+            ViewState["ProductCodeInList"] = value;
         }
     }
 
-    public List<Guid> PackInList
+    public List<string> ProductCodeOutList
     {
         get
         {
-            if (ViewState["PackInList"] == null)
+            if (ViewState["ProductCodeOutList"] == null)
             {
-                ViewState["PackInList"] = new List<Guid>();
+                ViewState["ProductCodeOutList"] = new List<string>();
             }
-            return (List<Guid>)ViewState["PackInList"];
+            return (List<string>)ViewState["ProductCodeOutList"];
         }
         set
         {
-            ViewState["PackInList"] = value;
+            ViewState["ProductCodeOutList"] = value;
         }
     }
 
-    public string DIN
+    public List<string> DINInList
     {
         get
         {
-            if (ViewState["DIN"] == null)
+            if (ViewState["DINInList"] == null)
             {
-                ViewState["DIN"] = "";
+                ViewState["DINInList"] = new List<string>();
             }
-            return (string)ViewState["DIN"];
+            return (List<string>)ViewState["DINInList"];
         }
         set
         {
-            ViewState["DIN"] = value;
+            ViewState["DINInList"] = value;
         }
     }
 
-    public string Code
+    public ProductionBLL productionBLL
     {
         get
         {
-            if (ViewState["Code"] == null)
+            return new ProductionBLL()
             {
-                ViewState["Code"] = "";
-            }
-            return (string)ViewState["Code"];
-        }
-        set
-        {
-            ViewState["Code"] = value;
+                ProductCodeInList = ProductCodeInList,
+                ProductCodeOutList = ProductCodeOutList,
+                DINInList = DINInList
+            };
         }
     }
 
@@ -78,55 +75,28 @@ public partial class Production_Extract : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
-        if (BarcodeBLL.IsValidDINCode(code))
+        if (rdbProductCodeIn.Checked)
         {
-            if (RadioButtonList1.SelectedValue.ToInt() == 1)
+            if (BarcodeBLL.IsValidProductCode(code))
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "",
-                    "alert ('Chuyển sang: Nhập mã chính.');", true);
-            }
-            if (RadioButtonList1.SelectedValue.ToInt() == 2)
-            {
-                Donation d = DonationBLL.Get(BarcodeBLL.ParseDIN(code));
-                if (d == null) return;
-
-                if (d.TestResultStatus == Donation.TestResultStatusX.Positive
-                    || d.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                    "alert ('Túi máu KQXN: Positive');", true);
-                    return;
-                }
-
-                RedBloodDataContext db = new RedBloodDataContext();
-
-                if (db.Packs.Where(r => r.DIN == d.DIN && ProductCodeList.Contains(r.ProductCode)).Count() > 0)
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo",
-                    "alert ('Đã có sản phẩm này');", true);
-                    return;
-                }
-
-                if (db.Packs.Where(r => r.DIN == d.DIN && PackInList.Contains(r.ID)).Count() > 0)
-                {
-                    //TODO: Thông báo
-                    return;
-                }
-
-                DIN = d.DIN;
-
-                ImageCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(DIN, "00");
+                ProductCodeInList = productionBLL.AddProductCodeIn(BarcodeBLL.ParseProductCode(code));
+                DataListProductIn.DataBind();
             }
         }
-        else if (BarcodeBLL.IsValidProductCode(code))
+        else if (rdbProductCodeOut.Checked)
         {
-            if (RadioButtonList1.SelectedValue.ToInt() == 1)
+            if (BarcodeBLL.IsValidProductCode(code))
             {
-                EnterProductCode(BarcodeBLL.ParseProductCode(code));
+                ProductCodeOutList = productionBLL.AddProductCodeOut(BarcodeBLL.ParseProductCode(code));
+                DataListProductOut.DataBind();
             }
-            if (RadioButtonList1.SelectedValue.ToInt() == 2)
+        }
+        else if (rdbDINIn.Checked)
+        {
+            if (BarcodeBLL.IsValidDINCode(code))
             {
-                EnterProductCode2(BarcodeBLL.ParseProductCode(code));
+                DINInList = productionBLL.AddDIN(BarcodeBLL.ParseDIN(code));
+                DataListDINIn.DataBind();
             }
         }
     }
@@ -136,81 +106,49 @@ public partial class Production_Extract : System.Web.UI.Page
 
     }
 
-    void EnterProductCode(string productCode)
-    {
-        if (!ProductCodeList.Contains(productCode))
-        {
-            Product e = ProductBLL.Get(productCode);
-            if (e == null) return;
-
-            ProductCodeList.Add(productCode);
-            DataListProduct.DataBind();
-        }
-    }
-
-    void EnterProductCode2(string code)
-    {
-        if (string.IsNullOrEmpty(DIN)) return;
-
-        if (ProductCodeList.Contains(code)) return;
-
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        Pack p = db.Packs.Where(r => r.DIN == DIN && r.ProductCode == code).FirstOrDefault();
-
-        if (p == null) return;
-
-        if (PackInList.Contains(p.ID)) return;
-
-        PackInList.Add(p.ID);
-
-        DIN = "";
-        ImageCurrentDIN.ImageUrl = "none";
-
-        DataListPack.DataBind();
-    }
-
-
-    protected void LinqDataSourceProduct_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    protected void LinqDataSourceProductIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        e.Result = db.Products.Where(r => ProductCodeList.Contains(r.Code));
+        e.Result = db.Products.Where(r => ProductCodeInList.Contains(r.Code));
     }
 
-    protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    protected void LinqDataSourceProductOut_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        e.Result = db.Packs.Where(r => PackInList.Contains(r.ID));
+        e.Result = db.Products.Where(r => ProductCodeOutList.Contains(r.Code));
+    }
+
+    protected void LinqDataSourceDINIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        e.Result = db.Donations.Where(r => DINInList.Contains(r.DIN));
     }
 
     protected void btnReset_Click(object sender, EventArgs e)
     {
-        DIN = "";
-        ImageCurrentDIN.ImageUrl = "none";
+        ProductCodeInList.Clear();
+        DataListProductIn.DataBind();
 
-        RadioButtonList1.SelectedValue = "1";
+        ProductCodeOutList.Clear();
+        DataListProductOut.DataBind();
 
-        ProductCodeList.Clear();
-        DataListProduct.DataBind();
-
-        PackInList.Clear();
-        DataListPack.DataBind();
+        DINInList.Clear();
+        DataListDINIn.DataBind();
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        PackErr err = PackBLL.Extract(PackInList, ProductCodeList);
+        //PackErr err = PackBLL.Extract(PackInList, ProductCodeList);
 
-        if (err != PackErrEnum.Non)
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                    "alert ('" + err.Message + "');", true);
-        }
-        else
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "",
-                    "alert ('Lưu thành công.');", true);
-        }
-
+        //if (err != PackErrEnum.Non)
+        //{
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
+        //            "alert ('" + err.Message + "');", true);
+        //}
+        //else
+        //{
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "",
+        //            "alert ('Lưu thành công.');", true);
+        //}
     }
 }

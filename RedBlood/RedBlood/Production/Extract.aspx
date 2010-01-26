@@ -8,19 +8,13 @@
     <h3>
         Sản xuất đồng loạt
     </h3>
-    <asp:RadioButtonList ID="RadioButtonList1" runat="server" RepeatDirection="Horizontal"
-        RepeatLayout="Flow">
-        <asp:ListItem Text="Nhập sản phẩm đầu ra" Value="1" Selected="True">
-        </asp:ListItem>
-        <asp:ListItem Text="Nhập mã chính" Value="2">
-        </asp:ListItem>
-    </asp:RadioButtonList>
     <asp:Button ID="btnReset" runat="server" Text="Đợt mới" OnClick="btnReset_Click" />
     <hr />
     <h4>
-        Danh sách sản phẩm đầu ra
+        <asp:RadioButton ID="rdbProductCodeIn" runat="server" GroupName="InputBarcode" Text="Quét barcode các sản phẩm đầu vào" />
     </h4>
-    <asp:DataList ID="DataListProduct" runat="server" RepeatDirection="Horizontal" DataSourceID="LinqDataSourceProduct">
+    <asp:DataList ID="DataListProductIn" runat="server" RepeatDirection="Horizontal"
+        DataSourceID="LinqDataSourceProductIn">
         <ItemTemplate>
             <div style="margin: 0px 10px 0px 10px;">
                 <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("Code") as string) %>' />
@@ -29,42 +23,42 @@
             </div>
         </ItemTemplate>
     </asp:DataList>
-    <asp:LinqDataSource ID="LinqDataSourceProduct" runat="server" ContextTypeName="RedBloodDataContext"
-        OnSelecting="LinqDataSourceProduct_Selecting" TableName="Products">
+    <asp:LinqDataSource ID="LinqDataSourceProductIn" runat="server" ContextTypeName="RedBloodDataContext"
+        OnSelecting="LinqDataSourceProductIn_Selecting" TableName="Products">
     </asp:LinqDataSource>
     <hr />
     <h4>
-        Danh sách mã chính và sản phẩm đầu vào
+        <asp:RadioButton ID="rdbProductCodeOut" runat="server" GroupName="InputBarcode" Text="Quét barcode các sản phẩm đầu ra" />
     </h4>
-    <asp:Image ID="ImageCurrentDIN" runat="server" ImageUrl="none" />
-    <br />
-    <br />
-    <asp:GridView ID="DataListPack" runat="server" DataSourceID="LinqDataSourcePack"
-        AutoGenerateColumns="false">
-        <Columns>
-            <asp:TemplateField HeaderText="Mã gốc">
-                <ItemTemplate>
-                    <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("DIN") as string) %>' />
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Mã sản phẩm gốc">
-                <ItemTemplate>
-                    <asp:Image ID="Image2" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("ProductCode") as string) %>' />
-                    <br />
-                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Product.Description") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Ghi chú">
-                <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Note") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
-    <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
-        OnSelecting="LinqDataSourcePack_Selecting" TableName="Packs">
+    <asp:DataList ID="DataListProductOut" runat="server" RepeatDirection="Horizontal"
+        DataSourceID="LinqDataSourceProductOut">
+        <ItemTemplate>
+            <div style="margin: 0px 10px 0px 10px;">
+                <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("Code") as string) %>' />
+                <br />
+                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
+            </div>
+        </ItemTemplate>
+    </asp:DataList>
+    <asp:LinqDataSource ID="LinqDataSourceProductOut" runat="server" ContextTypeName="RedBloodDataContext"
+        OnSelecting="LinqDataSourceProductOut_Selecting" TableName="Products">
+    </asp:LinqDataSource>
+    <hr />
+    <h4>
+        <asp:RadioButton ID="rdbDINIn" runat="server" GroupName="InputBarcode" Text="Quét barcode túi máu cần sản xuất" />
+    </h4>
+    <hr />
+    <asp:DataList ID="DataListDINIn" runat="server" RepeatDirection="Horizontal" DataSourceID="LinqDataSourceDINIn">
+        <ItemTemplate>
+            <div style="margin: 0px 10px 0px 10px;">
+                <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>' />
+            </div>
+        </ItemTemplate>
+    </asp:DataList>
+    <asp:LinqDataSource ID="LinqDataSourceDINIn" runat="server" ContextTypeName="RedBloodDataContext"
+        OnSelecting="LinqDataSourceDINIn_Selecting" TableName="Donations">
     </asp:LinqDataSource>
     <br />
-    <br />
+    <hr />
     <asp:Button ID="btnSave" runat="server" Text='<%$ Resources:Resource,Update %>' OnClick="btnSave_Click" />
 </asp:Content>
