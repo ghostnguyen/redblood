@@ -74,7 +74,7 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
         if (p == null) return;
         if (p.Status != Pack.StatusX.Delivered)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Túi máu chưa cấp phát.');", true);
+            Page.Alert("Túi máu chưa cấp phát.");
             return;
         }
 
@@ -99,7 +99,7 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
 
         if (p.Status != Pack.StatusX.Delivered)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Túi máu chưa cấp phát.');", true);
+            Page.Alert("Túi máu chưa cấp phát.");
             return;
         }
 
@@ -120,7 +120,7 @@ public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
 
         GridViewSideEffect.DataBind();
 
-        ScriptManager.RegisterStartupScript(btnOk, this.GetType(), "SaveDone", "alert ('Lưu thành công.');", true);
+        Page.Alert("Lưu thành công.");
     }
 
     protected void LinqDataSourceSideEffect_Selecting(object sender, LinqDataSourceSelectEventArgs e)

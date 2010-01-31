@@ -76,7 +76,7 @@ public partial class UserControl_CampaignDetail4Rpt : System.Web.UI.UserControl
                 lblHostOrg.Text = "Địa điểm tổ chức: " + e.HostOrg.Name;
             }
 
-            lblNote.Text = e.Note;            
+            lblNote.Text = "Ghi chú: " + e.Note;            
         }
     }
 

@@ -14,44 +14,40 @@
         });
     </script>
 
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-            <table width="100%">
-                <tr valign="top">
-                    <td style="width: 210px;">
-                        <div class="part">
-                            <div class="partHeader">
-                                Tạo mới
-                            </div>
-                            <div class="partLinkLast">
-                                <asp:Button ID="btnNew" runat="server" Text="Thêm người cho máu" OnClick="btnNew_Click"
-                                    ToolTip="Ctrl+M" />
-                            </div>
-                        </div>
-                        <div class="part">
-                            <div class="partHeader">
-                                Đợt thu máu
-                            </div>
-                            <div class="partLinkLast">
-                                <uc:CamDetail runat="server" ID="CamDetailLeft" />
-                            </div>
-                        </div>
-                    </td>
-                    <td align="center">
-                        <uc:People runat="server" ID="ucPeople" />
-                    </td>
-                    <td style="width: 300px;">
-                        <div class="part">
-                            <div class="partHeader">
-                                Mã số thu máu
-                            </div>
-                            <div class="partLinkLast">
-                                <uc:PeopleDonationLog runat="server" ID="ucPDL" />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+    <table width="100%">
+        <tr valign="top">
+            <td style="width: 210px;">
+                <div class="part">
+                    <div class="partHeader">
+                        Tạo mới
+                    </div>
+                    <div class="partLinkLast">
+                        <asp:Button ID="btnNew" runat="server" Text="Thêm người cho máu" OnClick="btnNew_Click"
+                            ToolTip="Ctrl+M" />
+                    </div>
+                </div>
+                <div class="part">
+                    <div class="partHeader">
+                        Đợt thu máu
+                    </div>
+                    <div class="partLinkLast">
+                        <uc:CamDetail runat="server" ID="CamDetailLeft" />
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <uc:People runat="server" ID="ucPeople" />
+            </td>
+            <td style="width: 300px;">
+                <div class="part">
+                    <div class="partHeader">
+                        Mã số thu máu
+                    </div>
+                    <div class="partLinkLast">
+                        <uc:PeopleDonationLog runat="server" ID="ucPDL" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </asp:Content>

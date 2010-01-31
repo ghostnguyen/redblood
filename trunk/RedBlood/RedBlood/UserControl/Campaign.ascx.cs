@@ -67,8 +67,7 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
             }
             else return;
         }
-
-        ScriptManager.RegisterStartupScript(btnUpdate, btnUpdate.GetType(), "SaveDone", "alert ('Lưu thành công.');", true);
+        Page.Alert("Lưu thành công.");
     }
 
 
@@ -80,17 +79,9 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
         }
         else
         {
-            try
-            {
-                string m = bll.Delete(CampaignID);
-                Clear();
-
-                ScriptManager.RegisterStartupScript(btnDelete, btnDelete.GetType(), "", "alert ('" + m + "');", true);
-            }
-            catch (Exception ex)
-            {
-                ScriptManager.RegisterStartupScript(btnDelete, btnDelete.GetType(), "", "alert ('" + ex.Message + "');", true);
-            }
+            string m = bll.Delete(CampaignID);
+            Clear();
+            Page.Alert(m);
         }
     }
 

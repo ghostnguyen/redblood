@@ -131,7 +131,7 @@ public partial class Production_Pool : System.Web.UI.Page
         if (AutonumListIn.Count == 0
             || AutonumListOut.Count == 0)
         {
-            ScriptManager.RegisterStartupScript(btnOk, btnOk.GetType(), "Thông tin", "alert ('Không thể tạo tiểu cầu. Thiếu thông tin túi máu.');", true);
+            this.Alert("Không thể tạo tiểu cầu. Thiếu thông tin túi máu.");
             return;
         }
 
@@ -141,10 +141,10 @@ public partial class Production_Pool : System.Web.UI.Page
         {
             IsEditMode = false;
             LoadPack();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('Sản xuất thành công.');", true);
+            this.Alert("Sản xuất thành công.");
         }
         else
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông tin", "alert ('" + err.Message + "');", true);
+            this.Alert(err.Message);
     }
 
     private void CheckAutonum(int autonum)
@@ -154,7 +154,7 @@ public partial class Production_Pool : System.Web.UI.Page
 
         if (p == null)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum');", true);
+            this.Alert("CheckAutonum");
         }
 
         if (p.Err == PackErrEnum.IsPlatelet
@@ -228,7 +228,7 @@ public partial class Production_Pool : System.Web.UI.Page
             return;
         }
 
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "Thông báo", "alert ('" + p.Err.Message + "');", true);
+        this.Alert(p.Err.Message);
     }
 
     protected void btnLoad_Click(object sender, EventArgs e)
@@ -238,7 +238,7 @@ public partial class Production_Pool : System.Web.UI.Page
 
         if (p == null)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Exception", "alert ('CheckAutonum');", true);
+            this.Alert("CheckAutonum");
         }
 
         if (p.Err == PackErrEnum.IsPlatelet

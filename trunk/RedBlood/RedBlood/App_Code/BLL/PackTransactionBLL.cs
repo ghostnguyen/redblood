@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Diagnostics;
 
 /// <summary>
 /// Summary description for PackTransactionBLL
@@ -36,6 +37,16 @@ public class PackTransactionBLL
         db.SubmitChanges();
 
         return e;
+    }
+
+    public static PackTransaction Add(Guid packID, PackTransaction.TypeX type)
+    {
+        StackTrace stackTrace = new StackTrace();
+
+        // get calling method name
+        string name = stackTrace.GetFrame(1).GetMethod().Name;
+
+        return Add(packID, type, name);
     }
 
 }

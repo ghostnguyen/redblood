@@ -119,7 +119,7 @@ public partial class Category_Org : System.Web.UI.Page
         }
 
         GridView1.DataBind();
-        ScriptManager.RegisterStartupScript(btnSave, btnSave.GetType(), "SaveDone", "alert ('Lưu thành công.');", true);
+        this.Alert("Lưu thành công.");
 
     }
 
@@ -187,19 +187,12 @@ public partial class Category_Org : System.Web.UI.Page
         }
         else
         {
-            try
-            {
-                string m = bll.Delete(OrgID);
-                Clear();
+            string m = bll.Delete(OrgID);
+            Clear();
 
-                GridView1.DataBind();
+            GridView1.DataBind();
 
-                ScriptManager.RegisterStartupScript(btnDelete, btnDelete.GetType(), "", "alert ('" + m + "');", true);
-            }
-            catch (Exception ex)
-            {
-                ScriptManager.RegisterStartupScript(btnDelete, btnDelete.GetType(), "", "alert ('" + ex.Message + "');", true);
-            }
+            this.Alert(m);
         }
     }
 }

@@ -23,8 +23,15 @@ public class OrderBLL
 
     public static Order Get(int ID, RedBloodDataContext db)
     {
-        if (db == null) return null;
-        return db.Orders.Where(r => r.ID == ID).FirstOrDefault();
+        if (db == null)
+            throw new Exception("RedBloodDataContext Null.");
+
+        Order e = db.Orders.Where(r => r.ID == ID).FirstOrDefault();
+
+        if (e == null)
+            throw new Exception("Không tìm thấy đợt cấp phát.");
+
+        return e;
     }
 
     //public static PackErr Add(int ID, int autonum)
@@ -92,51 +99,32 @@ public class OrderBLL
     //    return null;
     //}
 
-    public static PackErr Add(int ID, string DIN, string productCode)
+    public static void Add(int ID, string DIN, string productCode)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        //Check order
         Order r = OrderBLL.Get(ID);
-        if (r == null) return PackErrEnum.NonExistOrder;
 
         if (r.Status == Order.StatusX.Done)
-            return PackErrEnum.OrderClose;
+            throw new Exception("Đợt cấp phát này đã kết thúc.");
 
-        //Check Donation
-        Donation d = DonationBLL.Get(DIN);
-        if (d == null) return PackErrEnum.DataErr;
-
-        if (d.TestResultStatus == Donation.TestResultStatusX.Non
-            || d.TestResultStatus == Donation.TestResultStatusX.Positive
-            || d.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
-        {
-            return PackErrEnum.Positive;
-        }
-
-        //Check Pack
-        Pack p = db.Packs.Where(r1 => r1.DIN == DIN && r1.ProductCode == productCode).FirstOrDefault();
-
-        if (p == null) return PackErrEnum.NonExist;
-        if (p.Status != Pack.StatusX.Product) return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
+        Pack p = GetPack4Order(DIN, productCode);
 
         PackOrder po = new PackOrder();
         po.OrderID = r.ID;
         po.PackID = p.ID;
         po.Status = PackOrder.StatusX.Order;
 
+        RedBloodDataContext db = new RedBloodDataContext();
+
         db.PackOrders.InsertOnSubmit(po);
-        
+
         p.Status = Pack.StatusX.Delivered;
 
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out_Order, System.Reflection.MethodBase.GetCurrentMethod().Name);
-
-        return PackErrEnum.Non;
+        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out_Order);
     }
 
-    public static void Return(int packOrderID, string note)
+    public static void Remove(int packOrderID, string note)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -155,7 +143,7 @@ public class OrderBLL
 
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In_Return, System.Reflection.MethodBase.GetCurrentMethod().Name);
+        PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In_Return);
 
     }
 
@@ -183,5 +171,37 @@ public class OrderBLL
             && (from == null || r.Date.Value.Date >= from.Value.Date)
             && (to == null || r.Date.Value.Date <= to.Value.Date)
             ).ToList();
+    }
+
+    public static Donation GetDIN4Order(string DIN)
+    {
+        Donation e = DonationBLL.Get(DIN);
+        if (e == null)
+            throw new Exception("Không tìm thấy mã túi máu.");
+
+        if (e.TestResultStatus == Donation.TestResultStatusX.Negative
+            || e.TestResultStatus == Donation.TestResultStatusX.NegativeLocked)
+        { }
+        else
+        {
+            throw new Exception("Túi máu " + e.TestResultStatus);
+        }
+
+        return e;
+    }
+
+    public static Pack GetPack4Order(string DIN, string productCode)
+    {
+        Donation d = GetDIN4Order(DIN);
+
+        Pack p = d.Packs.Where(r => r.ProductCode == productCode).FirstOrDefault();
+
+        if (p == null)
+            throw new Exception("Không tìm thấy túi máu.");
+
+        if (p.Status != Pack.StatusX.Product)
+            throw new Exception("Không thể cấp phát. Túi máu: " + p.Status);
+
+        return p;
     }
 }

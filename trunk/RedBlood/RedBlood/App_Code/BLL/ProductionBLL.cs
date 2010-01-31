@@ -21,14 +21,29 @@ public class ProductionBLL
 
     public string ValidateAllList()
     {
-        if (!ProductCodeInList.IsValidProductCodeList())
-            return "Danh sách sản phẩm đầu vào có lỗi.";
+        if (ProductCodeInList.Count == 0)
+        {
+            return "Không có sản phẩm đầu vào.";
+        }
 
-        if (!ProductCodeOutList.IsValidProductCodeList())
-            return "Danh sách sản phẩm đầu ra có lỗi.";
+        if (ProductCodeOutList.Count == 0)
+        {
+            return "Không có sản phẩm đầu ra.";
+        }
 
-        if (!ProductCodeOutList.IsValidDINList())
-            return "Danh sách sản phẩm đầu ra có lỗi.";
+        if (DINInList.Count == 0)
+        {
+            return "Không có túi máu đầu vào.";
+        }
+
+        //if (!ProductCodeInList.IsValidProductCodeList())
+        //    return "Danh sách sản phẩm đầu vào có lỗi.";
+
+        //if (!ProductCodeOutList.IsValidProductCodeList())
+        //    return "Danh sách sản phẩm đầu ra có lỗi.";
+
+        //if (!ProductCodeOutList.IsValidDINList())
+        //    return "Danh sách sản phẩm đầu ra có lỗi.";
 
         if (ProductCodeInList.Where(r => ProductCodeOutList.Contains(r)).Count() != 0)
         {
@@ -51,6 +66,9 @@ public class ProductionBLL
         if (ProductCodeOutList.Contains(productCode))
             throw new Exception("Sản phẩm đầu vào đã có trong danh sách đầu ra.");
 
+        if (ProductCodeInList.Count == 1)
+            throw new Exception("Sản phẩm đầu vào chỉ được 1 loại.");
+
         //TODO: Only some product is allow as IN
 
         RedBloodDataContext db = new RedBloodDataContext();
@@ -63,7 +81,7 @@ public class ProductionBLL
             throw new Exception("Sản phẩm đầu vào có túi máu bị trùng dữ liệu.");
 
 
-        ProductCodeInList.Add(productCode);
+        ProductCodeInList.Add(BarcodeBLL.ParseProductCode(productCode));
 
         return ProductCodeInList;
     }
@@ -86,21 +104,24 @@ public class ProductionBLL
         if (count > 0)
             throw new Exception("Sản phẩm đầu ra đã sản xuất.");
 
-        ProductCodeOutList.Add(productCode);
+        ProductCodeOutList.Add(BarcodeBLL.ParseProductCode(productCode));
 
-        return ProductCodeInList;
+        return ProductCodeOutList;
     }
 
-    public List<string> AddDIN(string DIN)
+    public List<string> AddDIN(string DINCode)
     {
-        if (!DIN.IsValidDINCode())
+
+        if (!DINCode.IsValidDINCode())
             throw new Exception("Không phải mã túi máu.");
+
+        string DIN = BarcodeBLL.ParseDIN(DINCode);
 
         if (DINInList.Contains(DIN))
             throw new Exception("Mã túi máu này đã có.");
 
         Donation d = DonationBLL.Get(DIN);
-        
+
         if (d == null)
             throw new Exception("Không có mã túi máu này.");
 
@@ -119,12 +140,80 @@ public class ProductionBLL
         if (count > 0)
             throw new Exception("Mã túi máu này đã có sản phẩm đầu ra.");
 
-        
-
         DINInList.Add(DIN);
 
         return DINInList;
     }
 
-    
+    public string Extract()
+    {
+        string err = ValidateAllList();
+
+        if (!string.IsNullOrEmpty(err))
+            throw new Exception(err);
+
+
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        List<Pack> packList = db.Packs.Where(r => DINInList.Contains(r.DIN) && ProductCodeInList.Contains(r.ProductCode)).ToList();
+
+        foreach (Pack item in packList)
+        {
+            foreach (string code in ProductCodeOutList)
+            {
+                Extract(item.ID, code);
+            }
+        }
+
+        return "";
+    }
+
+    public PackErr Extract(Guid srcPackID, string productCode)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Pack pack = db.Packs.Where(r => r.ID == srcPackID).FirstOrDefault();
+        Product p = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
+
+        //Validate
+        if (pack == null || p == null) return PackErrEnum.DataErr;
+
+        if (pack.Donation.TestResultStatus == Donation.TestResultStatusX.Positive
+            || pack.Donation.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
+        {
+            return PackErrEnum.Positive;
+        }
+
+        if (db.Packs.Where(r => r.DIN == pack.DIN && r.ProductCode == productCode).FirstOrDefault() != null)
+            return PackErrEnum.Existed;
+
+        //TODO: Check to see if the pack is collector too late
+        //Code check will be here.
+
+        //Create new
+        Pack toPack = new Pack();
+
+        toPack.DIN = pack.DIN;
+        toPack.ProductCode = productCode;
+        toPack.Status = Pack.StatusX.Product;
+        toPack.Date = DateTime.Now;
+        toPack.Actor = RedBloodSystem.CurrentActor;
+        //toPack.Volume = p.OriginalVolume;
+        toPack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
+
+        db.Packs.InsertOnSubmit(toPack);
+        db.SubmitChanges();
+
+        PackTransactionBLL.Add(toPack.ID, PackTransaction.TypeX.In_Product);
+
+        //Update fromPack
+        PackStatusHistory h = PackBLL.Update(db, pack, Pack.StatusX.Produced, "");
+        if (h != null)
+        {
+            db.SubmitChanges();
+            PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.Out_Product);
+        }
+
+        return PackErrEnum.Non;
+    }
 }

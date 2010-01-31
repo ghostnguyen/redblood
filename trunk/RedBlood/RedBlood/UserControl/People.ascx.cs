@@ -220,8 +220,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             }
             else return;
         }
-
-        ScriptManager.RegisterStartupScript(btnUpdate, btnUpdate.GetType(), "SaveDone", "alert ('Lưu thành công.');", true);
+        Page.Alert("Lưu thành công.");
     }
 
     private bool LoadFromGUI(People p)

@@ -376,6 +376,8 @@ public class RedBloodSystemBLL
 
     public static void Find(HttpResponse Response, TextBox txtCode)
     {
+        if (txtCode == null) return;
+
         string key = txtCode.Text.Trim();
 
         if (key.Length == 0) return;
