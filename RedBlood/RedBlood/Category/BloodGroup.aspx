@@ -2,15 +2,15 @@
     CodeFile="BloodGroup.aspx.cs" Inherits="Category_BloodGroup" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
+  
             <div class="mainContent">
                 <h4>
                     Nhóm máu
                 </h4>
                 <div id="Div1" runat="server">
                     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Code"
-                        OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" DataSource='<%# BloodGroup.BloodGroupList %>'>
+                        OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand"
+                        DataSource='<%# BloodGroup.BloodGroupList %>'>
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
@@ -32,6 +32,5 @@
                     </asp:GridView>
                 </div>
             </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+     
 </asp:Content>

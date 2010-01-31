@@ -75,11 +75,12 @@ public partial class Production_Extract : System.Web.UI.Page
 
         if (code.Length == 0) return;
 
+
         if (rdbProductCodeIn.Checked)
         {
             if (BarcodeBLL.IsValidProductCode(code))
             {
-                ProductCodeInList = productionBLL.AddProductCodeIn(BarcodeBLL.ParseProductCode(code));
+                ProductCodeInList = productionBLL.AddProductCodeIn(code);
                 DataListProductIn.DataBind();
             }
         }
@@ -87,7 +88,7 @@ public partial class Production_Extract : System.Web.UI.Page
         {
             if (BarcodeBLL.IsValidProductCode(code))
             {
-                ProductCodeOutList = productionBLL.AddProductCodeOut(BarcodeBLL.ParseProductCode(code));
+                ProductCodeOutList = productionBLL.AddProductCodeOut(code);
                 DataListProductOut.DataBind();
             }
         }
@@ -95,15 +96,10 @@ public partial class Production_Extract : System.Web.UI.Page
         {
             if (BarcodeBLL.IsValidDINCode(code))
             {
-                DINInList = productionBLL.AddDIN(BarcodeBLL.ParseDIN(code));
+                DINInList = productionBLL.AddDIN(code);
                 DataListDINIn.DataBind();
             }
         }
-    }
-
-    private void Clear()
-    {
-
     }
 
     protected void LinqDataSourceProductIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -134,21 +130,13 @@ public partial class Production_Extract : System.Web.UI.Page
 
         DINInList.Clear();
         DataListDINIn.DataBind();
+
+        rdbProductCodeIn.Checked = true;
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        //PackErr err = PackBLL.Extract(PackInList, ProductCodeList);
-
-        //if (err != PackErrEnum.Non)
-        //{
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-        //            "alert ('" + err.Message + "');", true);
-        //}
-        //else
-        //{
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "",
-        //            "alert ('Lưu thành công.');", true);
-        //}
+        productionBLL.Extract();
+        this.Alert("Sản xuất thành công.");
     }
 }

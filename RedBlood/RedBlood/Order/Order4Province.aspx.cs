@@ -5,14 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Order_Order : System.Web.UI.Page
+public partial class Order_Order4Province : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         string code = Master.TextBoxCode.Text.Trim();
         Master.TextBoxCode.Text = "";
 
-        Order1.Code = code;
+        //Order1.Code = code;
 
         //if (!IsPostBack)
         //{
@@ -22,11 +22,11 @@ public partial class Order_Order : System.Web.UI.Page
 
     protected void btnNew4People_Click(object sender, EventArgs e)
     {
-        Order1.New(Order.TypeX.ForPeople);
+        //Order1.New(Order.TypeX.ForPeople);
     }
 
     protected void btnNew4Org_Click(object sender, EventArgs e)
     {
-        Order1.New(Order.TypeX.ForOrg);
+        //Order1.New(Order.TypeX.ForOrg);
     }
 }

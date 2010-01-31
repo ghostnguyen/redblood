@@ -335,4 +335,10 @@ public static class dotNetExt
             style.Add("visibility", "hidden");
     }
 
+    public static void Alert(this Page p, string msg)
+    {
+        ScriptManager.RegisterStartupScript(p, p.GetType(), "",
+                     "alert ('" + msg + "');", true); 
+    }
+
 }

@@ -36,4 +36,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
             txtCode.Focus();
         }
     }
+    protected void ScriptManager1_AsyncPostBackError(object sender, AsyncPostBackErrorEventArgs e)
+    {
+        //this.Page.Alert(e.Exception.Message);
+        ScriptManager1.AsyncPostBackErrorMessage = e.Exception.Message;
+    }
 }

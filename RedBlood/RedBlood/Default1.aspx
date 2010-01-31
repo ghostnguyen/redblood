@@ -188,8 +188,5 @@
             </td>
         </tr>
     </table>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+   
 </asp:Content>

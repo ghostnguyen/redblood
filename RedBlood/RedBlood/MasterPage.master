@@ -12,7 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" OnAsyncPostBackError="ScriptManager1_AsyncPostBackError">
         <Scripts>
             <asp:ScriptReference Path="~/jquery-1.3.2.js" />
             <asp:ScriptReference Path="~/jquery.hotkeys-0.7.8.js" />
@@ -28,7 +28,7 @@
             window.location = ("/RedBlood/Default.aspx"); return false;
         });
         var selectedInput = false;
-        
+
         //trim11
         function trim(str) {
             str = str.replace(/^\s+/, '');
@@ -40,6 +40,21 @@
             }
             return str;
         }
+
+
+
+        function pageLoad() {
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(onEndRequest);
+        }
+
+        function onEndRequest(sender, args) {
+            var msg = args.get_error().message.replace("Sys.WebForms.PageRequestManagerServerErrorException: ", "");
+            alert(msg);
+            args.set_errorHandled(true);
+        }
+
+   
+
     </script>
 
     <table style="width: 100%;">
@@ -78,8 +93,12 @@
                     </tr>
                     <tr>
                         <td class="main_window">
-                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                            </asp:ContentPlaceHolder>
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                <ContentTemplate>
+                                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </td>
                     </tr>
                 </table>

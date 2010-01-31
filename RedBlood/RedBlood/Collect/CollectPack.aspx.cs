@@ -110,8 +110,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         PackErr err = PackBLL.CreateOriginal(DIN, productCode, txtDefaultVolume.Text.ToInt());
         if (err != PackErrEnum.Non)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                    "alert ('" + err.Message + "');", true);
+            this.Alert(err.Message);
         }
         else
         {
@@ -125,8 +124,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
         if (err != DonationErrEnum.Non)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                    "alert ('" + err.Message + "');", true);
+            this.Alert(err.Message);
         }
         else
         {
@@ -163,8 +161,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
             db.SubmitChanges();
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                    "alert ('Lưu thành công.');", true);
+            this.Alert("Lưu thành công.");
         }
     }
 }

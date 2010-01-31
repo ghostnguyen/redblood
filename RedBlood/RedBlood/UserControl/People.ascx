@@ -19,7 +19,7 @@
                 </tr>
                 <tr>
                     <td class="people_cellheader">
-                        <asp:Literal style="color: Red;">*</asp:Literal>Tên
+                        <span style="color: Red;">*</span>Tên
                     </td>
                     <td class="people_cellvalue">
                         <asp:TextBox ID="txtName" runat="server" CssClass="people_cellvalue" Font-Size="Medium"
@@ -40,7 +40,7 @@
                 </tr>
                 <tr>
                     <td class="people_cellheader">
-                        <asp:Literal style="color: Red;">*</asp:Literal>Ngày sinh
+                        <span style="color: Red;">*</span>Ngày sinh
                     </td>
                     <td>
                         <asp:TextBox ID="txtDOB" runat="server" />

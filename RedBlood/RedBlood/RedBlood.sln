@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", ".", "{1B7B99C7-8C74-4CBD-9701-9B98BA8F231D}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RedBlood", ".", "{1B7B99C7-8C74-4CBD-9701-9B98BA8F231D}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = ""
 		SccAuxPath = ""
@@ -10,20 +10,20 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", ".", "{1B7B99C7-8C74-
 		TargetFramework = "3.5"
 		ProjectReferences = "{F8646414-0C9C-49BB-9DA3-3923BF78A398}|BarcodeLib.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/RedBlood"
-		Debug.AspNetCompiler.PhysicalPath = "..\Web\"
+		Debug.AspNetCompiler.PhysicalPath = "..\RedBlood\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\RedBlood\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/RedBlood"
-		Release.AspNetCompiler.PhysicalPath = "..\Web\"
+		Release.AspNetCompiler.PhysicalPath = "..\RedBlood\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\RedBlood\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "1184"
+		VWDPort = "3227"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeLib", "..\BarcodeLib\BarcodeLib.csproj", "{F8646414-0C9C-49BB-9DA3-3923BF78A398}"

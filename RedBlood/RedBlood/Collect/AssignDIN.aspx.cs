@@ -76,7 +76,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
 
         if (d == null)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('" + DonationErrEnum.NonExist.Message + "');", true);
+            this.Alert(DonationErrEnum.NonExist.Message);
             return;
         }
 
@@ -89,12 +89,12 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
 
         if (ucPeople.PeopleID == Guid.Empty)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin người cho máu.');", true);
+            this.Alert("Chưa nhập thông tin người cho máu.");
             return;
         }
         if (CamDetailLeft.CampaignID == 0)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi", "alert ('Chưa nhập thông tin đợt thu máu.');", true);
+            this.Alert("Chưa nhập thông tin đợt thu máu.");
             return;
         }
 
@@ -104,8 +104,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
 
         if (err != DonationErrEnum.Non)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Lỗi",
-                        "alert ('Túi máu: " + err.Message + "');", true);
+            this.Alert("Túi máu: " + err.Message);
         }
         else
         {
@@ -122,7 +121,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
 
     private void ProductCodeEnter(string code)
     {
-        
+
     }
 
 }

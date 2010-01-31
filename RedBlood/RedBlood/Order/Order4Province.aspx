@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"
-    AutoEventWireup="true" CodeFile="Order.aspx.cs" Inherits="Order_Order" %>
+    AutoEventWireup="true" CodeFile="Order4Province.aspx.cs" Inherits="Order_Order4Province" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
-<%@ Register Src="~/UserControl/Order4Org.ascx" TagPrefix="uc" TagName="Order4Org" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <script type="text/javascript">
@@ -28,7 +28,7 @@
                 </div>
             </td>
             <td align="left">
-                <uc:Order4Org runat="server" ID="Order1" />
+               
             </td>
         </tr>
     </table>

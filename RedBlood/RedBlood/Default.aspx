@@ -26,7 +26,7 @@
 
         $(document).bind('keydown', '5', function() {
             if (selectedInput) return;
-            window.location = ("Order/Order.aspx");
+            window.location = ("Default5.aspx");
         });
 
         $(document).bind('keydown', '6', function() {
@@ -97,10 +97,10 @@
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="Order/Order.aspx">5. Cấp phát</a></h3>
+                                <a href="Default5.aspx">5. Cấp phát</a></h3>
                             <p>
                             </p>
-                            <a href="Order/Order.aspx" />
+                            <a href="Default5.aspx" />
                             <img src="Image/Icon/Shopcart-Add_128.png" alt="" />
                         </td>
                         <td class="column next">
@@ -147,8 +147,5 @@
             </td>
         </tr>
     </table>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+    
 </asp:Content>

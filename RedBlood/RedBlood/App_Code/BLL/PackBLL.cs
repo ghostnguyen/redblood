@@ -59,22 +59,7 @@ public class PackBLL
         return Update(db, p, to, RedBloodSystem.CurrentActor, note);
     }
 
-    public static PackErr Extract(List<Guid> packIDList, List<string> productCodeList)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Pack> packList = db.Packs.Where(r => packIDList.Contains(r.ID)).ToList();
-
-        foreach (Pack item in packList)
-        {
-            foreach (string code in productCodeList)
-            {
-                PackBLL.Extract(item.ID, code);
-            }
-        }
-
-        return PackErrEnum.Non;
-    }
 
     public static void LockEnterTestResult()
     {
@@ -154,59 +139,12 @@ public class PackBLL
         d.OrgPackID = pack.ID;
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.In_Collect, System.Reflection.MethodBase.GetCurrentMethod().Name);
+        PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.In_Collect);
 
         return PackErrEnum.Non;
 
     }
 
-    public static PackErr Extract(Guid srcPackID, string productCode)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
 
-        Pack pack = db.Packs.Where(r => r.ID == srcPackID).FirstOrDefault();
-        Product p = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
-
-        //Validate
-        if (pack == null || p == null) return PackErrEnum.DataErr;
-
-        if (pack.Donation.TestResultStatus == Donation.TestResultStatusX.Positive
-            || pack.Donation.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
-        {
-            return PackErrEnum.Positive;
-        }
-
-        if (db.Packs.Where(r => r.DIN == pack.DIN && r.ProductCode == productCode).FirstOrDefault() != null)
-            return PackErrEnum.Existed;
-
-        //TODO: Check to see if the pack is collector too late
-        //Code check will be here.
-
-        //Create new
-        Pack toPack = new Pack();
-
-        toPack.DIN = pack.DIN;
-        toPack.ProductCode = productCode;
-        toPack.Status = Pack.StatusX.Product;
-        toPack.Date = DateTime.Now;
-        toPack.Actor = RedBloodSystem.CurrentActor;
-        //toPack.Volume = p.OriginalVolume;
-        toPack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
-
-        db.Packs.InsertOnSubmit(toPack);
-        db.SubmitChanges();
-
-        PackTransactionBLL.Add(toPack.ID, PackTransaction.TypeX.In_Product, System.Reflection.MethodBase.GetCurrentMethod().Name);
-
-        //Update fromPack
-        PackStatusHistory h = Update(db, pack, Pack.StatusX.Produced, "");
-        if (h != null)
-        {
-            db.SubmitChanges();
-            PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.Out_Product, System.Reflection.MethodBase.GetCurrentMethod().Name);
-        }
-
-        return PackErrEnum.Non;
-    }
 }
 
