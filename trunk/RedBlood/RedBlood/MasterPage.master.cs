@@ -17,7 +17,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         get
         {
-            return txtCode;
+            return txtMasterCode;
         }
         set
         { }
@@ -25,20 +25,15 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!Request.IsAuthenticated)
-        //    Response.Redirect("~/Login.aspx");
-
-        
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", BarcodeBLL.JScript4Postback(), true);
 
         if (!Request.Url.ToString().ToLower().Contains("default"))
         {
-            txtCode.Focus();
+            txtMasterCode.Focus();
         }
     }
     protected void ScriptManager1_AsyncPostBackError(object sender, AsyncPostBackErrorEventArgs e)
     {
-        //this.Page.Alert(e.Exception.Message);
         ScriptManager1.AsyncPostBackErrorMessage = e.Exception.Message;
     }
 }

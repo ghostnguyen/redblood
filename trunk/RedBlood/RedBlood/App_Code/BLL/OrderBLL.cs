@@ -117,9 +117,9 @@ public class OrderBLL
 
         db.PackOrders.InsertOnSubmit(po);
 
-        p.Status = Pack.StatusX.Delivered;
-
         db.SubmitChanges();
+
+        PackBLL.Update(db, po.Pack, Pack.StatusX.Delivered, "Add to Order: " + po.OrderID.Value.ToString() + "." );
 
         PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out_Order);
     }
@@ -173,7 +173,7 @@ public class OrderBLL
             ).ToList();
     }
 
-    public static Donation GetDIN4Order(string DIN)
+    public static Donation GetDIN4Order(string DIN) 
     {
         Donation e = DonationBLL.Get(DIN);
         if (e == null)

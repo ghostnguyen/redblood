@@ -239,7 +239,7 @@ public class BarcodeBLL
         JScript4Postback4EachElement(script, BarcodeBLL.bloodGroupLength, BarcodeBLL.bloodGroupIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.campaignLength, BarcodeBLL.campaignIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.InfectiousMarkersLength, BarcodeBLL.InfectiousMarkersIdChar);
-        JScript4Postback4EachElement(script, BarcodeBLL.orderLength, BarcodeBLL.orgIdChar);
+        JScript4Postback4EachElement(script, BarcodeBLL.orderLength, BarcodeBLL.orderIdChar);
         JScript4Postback4EachElement(script, BarcodeBLL.productLength, BarcodeBLL.productIdChar);
         //JScript4Postback4EachElement(script, BarcodeBLL.CMNDLength, "");
 
@@ -258,7 +258,10 @@ public class BarcodeBLL
             + ") \n");
         script.Append("{ \n");
         //script.Append("alert('sdf'); \n");
-        script.Append("document.forms[0].submit(); \n");
+
+        script.Append(@"$(""input[name*='btnMasterOk']"").click();" + "\n");
+
+        //script.Append("document.forms[0].submit(); \n");
         script.Append("} \n");
     }
 
