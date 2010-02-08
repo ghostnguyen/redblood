@@ -19,6 +19,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
         set
         {
             ViewState["OrderID"] = value;
+            LoadOrder();
         }
     }
 
@@ -182,6 +183,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
             else return;
         }
         this.Alert("Lưu thành công.");
+        
     }
 
 

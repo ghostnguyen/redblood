@@ -414,7 +414,7 @@ public class RedBloodSystemBLL
             }
         }
         //TODO: Search by name
-        else if (key.Substring(0, 3) == "/n:" && key.Length > 3)
+        else if (key.Length > 3 && key.Substring(0, 3) == "/n:")
         {
             Response.Redirect(RedBloodSystem.Url4FindPeople + "key=" + key.Substring(3).Trim());
         }

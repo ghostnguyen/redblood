@@ -9,6 +9,19 @@ public class PackBLL
     {
     }
 
+    public static Pack Get(RedBloodDataContext db, Guid ID)
+    {
+        if (db == null)
+            throw new Exception("RedBloodDataContext null");
+
+        Pack p = db.Packs.Where(r => r.ID == ID).FirstOrDefault();
+
+        if (p == null)
+            throw new Exception("Không tìm thấy túi máu.");
+
+        return p;
+    }
+
     //Only pack has status 0 can be remove, to re-assign to another people.
     public static Pack RemovePeople(int autonum)
     {

@@ -41,70 +41,83 @@
             return str;
         }
 
-
-
         function pageLoad() {
-            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(onEndRequest);
+            //Put this line here cause onEndRequest run twice. It should be outside like below.
+            //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(onEndRequest);
         }
+
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(onEndRequest);
 
         function onEndRequest(sender, args) {
-            var msg = args.get_error().message.replace("Sys.WebForms.PageRequestManagerServerErrorException: ", "");
-            alert(msg);
-            args.set_errorHandled(true);
+            if (args.get_error() != undefined) {
+                var errorMessage;
+                if (args.get_response().get_statusCode() == '200') {
+                    errorMessage = args.get_error().message.replace("Sys.WebForms.PageRequestManagerServerErrorException: ", "");
+                }
+                else {
+                    // Error occurred somewhere other than the server page.
+                    errorMessage = 'An unspecified error occurred. ';
+                }
+                $("input[name*='txtMasterCode']").val("");
+
+                args.set_errorHandled(true);
+                alert(errorMessage);
+
+            }
+            else {
+
+            }
         }
-
-   
-
     </script>
 
-    <table style="width: 100%;">
-        <tr align="center">
-            <td>
-                <table cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td class="main_window">
-                            <table class="Banner">
-                                <tr valign="middle">
-                                    <td align="left" style="width: 250px;" valign="middle">
-                                        <%--<asp:Image ID="Image1" runat="server" ImageUrl="~/Image/RedBlood.png" />--%>
-                                        <%--<asp:Label ID="lblTitle" runat="server" Text="Labelfasdf" class="Title" Visible="false">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <table style="width: 100%;">
+                <tr align="center">
+                    <td>
+                        <table cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="main_window">
+                                    <table class="Banner">
+                                        <tr valign="middle">
+                                            <td align="left" style="width: 250px;" valign="middle">
+                                                <%--<asp:Image ID="Image1" runat="server" ImageUrl="~/Image/RedBlood.png" />--%>
+                                                <%--<asp:Label ID="lblTitle" runat="server" Text="Labelfasdf" class="Title" Visible="false">
                                         </asp:Label>--%>
-                                        <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Logo.png" />
-                                    </td>
-                                    <td align="center">
-                                        <span class="Title">Trung tâm truyền máu Chợ Rẫy</span>
-                                        <br />
-                                        <asp:TextBox ID="txtCode" runat="server" Width="299" onkeyup="checkLength(this.value);"
-                                            onfocus="selectedInput = true;" onblur="selectedInput = false;"></asp:TextBox>
-                                        <asp:Button ID="btnOk" runat="server" Text="Ok" />
-                                    </td>
-                                    <td align="right" style="width: 250px;" valign="top">
-                                        <asp:LoginName ID="LoginName1" runat="server" />
-                                        |
-                                        <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutText="Thoát" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="height: 10px;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="main_window">
-                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                <ContentTemplate>
+                                                <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Logo.png" />
+                                            </td>
+                                            <td align="center">
+                                                <span class="Title">Trung tâm truyền máu Chợ Rẫy</span>
+                                                <br />
+                                                <asp:TextBox ID="txtMasterCode" runat="server" Width="299" onkeyup="checkLength(this.value);"
+                                                    onfocus="selectedInput = true;" onblur="selectedInput = false;"></asp:TextBox>
+                                                <asp:Button ID="btnMasterOk" runat="server" Text="Ok" />
+                                            </td>
+                                            <td align="right" style="width: 250px;" valign="top">
+                                                <asp:LoginName ID="LoginName1" runat="server" />
+                                                |
+                                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutText="Thoát" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height: 10px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="main_window">
                                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                                     </asp:ContentPlaceHolder>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     </form>
 </body>
 </html>

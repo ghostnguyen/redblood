@@ -52,7 +52,16 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
         var v = from c in db.Donations
                 where c.PeopleID == peopleID
                 orderby c.Status descending, c.CollectedDate descending
-                select new { c.DIN, c.Status, c.CollectedDate, c.Note, c.BloodGroupDesc, PackStatus = c.Pack.Status, ProductDesc = c.Pack.Product.Description,c.Pack.Volume };
+                select new
+                {
+                    c.DIN,
+                    c.Status,
+                    c.CollectedDate,
+                    c.Note,
+                    c.BloodGroupDesc,
+                    ProductDesc = c.Pack.Product.Description,
+                    c.Pack.Volume
+                };
 
         //foreach (var e in v)
         //{

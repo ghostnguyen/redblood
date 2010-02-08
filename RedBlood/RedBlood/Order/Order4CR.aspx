@@ -44,7 +44,7 @@
                 <table>
                     <tr valign="top">
                         <td>
-                            <div class="img_codabar" style="width: 120px;">
+                            <div class="img_codabar" style="width: 140px;">
                                 <asp:Image ID="imgCodabar" runat="server" ImageUrl="none" />
                             </div>
                         </td>
@@ -63,7 +63,7 @@
                                         Ghi chú
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="txtNote" runat="server" Width="250" />
+                                        <asp:TextBox ID="txtNote" runat="server" Width="180" />
                                     </td>
                                 </tr>
                             </table>
@@ -171,9 +171,13 @@
                 </table>
             </td>
             <td>
-                Danh sách túi máu cấp phát
+                Mã túi máu đang quét
                 <br />
-                <asp:Image ID="ImageCurrentDIN" runat="server" ImageUrl="none" />
+                <div style="height: 30px;">
+                    <asp:Image ID="ImageCurrentDIN" runat="server" ImageUrl="none" />
+                </div>
+                <br />
+                Danh sách cấp phát
                 <br />
                 <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
                     DataSourceID="LinqDataSourcePack" OnRowUpdating="GridViewPack_RowUpdating">
