@@ -27,10 +27,12 @@
                             <asp:Button runat="server" CommandName="Select" Text="In mã" />
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:BoundField DataField="LabelDesc" />
+                    <asp:CommandField ShowEditButton="true" />
                 </Columns>
             </asp:GridView>
             <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
-                EnableDelete="True" EnableInsert="True" EnableUpdate="True" TableName="Products"
+                EnableUpdate="True" TableName="Products"
                 OrderBy="Description">
             </asp:LinqDataSource>
         </div>

@@ -11,9 +11,9 @@
     <asp:TextBox ID="txtNumOfDIN" runat="server"></asp:TextBox>
     bộ.
     <br />
-    Mỗi bộ cần bao nhiêu nhãn con?
+    <%--Mỗi bộ cần bao nhiêu nhãn con?
     <asp:TextBox ID="txtNumOfCopy" runat="server"></asp:TextBox>
     nhãn.
-    <br />
+    <br />--%>
     <asp:Button ID="btnGen" runat="server" Text="Tạo nhãn" onclick="btnGen_Click" />
 </asp:Content>

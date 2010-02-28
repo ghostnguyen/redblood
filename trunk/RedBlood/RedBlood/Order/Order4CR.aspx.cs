@@ -71,7 +71,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
         GridViewPack.DataBind();
 
         CurrentDIN = "";
-        ImageCurrentDIN.ImageUrl = "none";
+        imgCurrentDIN.ImageUrl = "none";
     }
 
     void LoadCurrentDIN(string DIN)
@@ -79,49 +79,59 @@ public partial class Order_Order4CR : System.Web.UI.Page
         Donation e = OrderBLL.GetDIN4Order(DIN);
 
         CurrentDIN = e.DIN;
-        ImageCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN);
+        imgCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN);
     }
 
     protected void btnNew4CR_Click(object sender, EventArgs e)
     {
-        Clear();
-        btnUpdate.Enabled = true;
-    }
-
-    public void Clear()
-    {
         OrderID = 0;
 
-        imgCodabar.ImageUrl = "none";
-
-        txtDate.Text = "";
-        txtNote.Text = "";
-        txtDept.Text = "";
-        txtRoom.Text = "";
-        txtBed.Text = "";
-        txtDiagnosis.Text = "";
-        txtPatientCode.Text = "";
-        txtTransfusionNote.Text = "";
-        People1.PeopleID = Guid.Empty;
-
-        GridViewPack.DataBind();
+        //Clear();
+        //btnUpdate.Enabled = true;
     }
+
+    //public void Clear()
+    //{
+    //    OrderID = 0;
+
+    //    imgOrder.ImageUrl = "none";
+
+    //    txtDate.Text = "";
+    //    txtNote.Text = "";
+    //    txtDept.Text = "";
+    //    txtRoom.Text = "";
+    //    txtBed.Text = "";
+    //    txtDiagnosis.Text = "";
+    //    txtPatientCode.Text = "";
+    //    txtTransfusionNote.Text = "";
+    //    People1.PeopleID = Guid.Empty;
+
+    //    GridViewPack.DataBind();
+
+    //    CurrentDIN = "";
+    //    imgCurrentDIN.ImageUrl = "none";
+    //}
 
     public void LoadOrder()
     {
-        Order e = OrderBLL.Get(OrderID);
+        Order e = new Order();
+        if (OrderID == 0)
+        {
+            imgOrder.ImageUrl = "none";
+            People1.PeopleID = Guid.Empty;
+        }
+        else
+        {
+            e = OrderBLL.Get(OrderID);
+            imgOrder.ImageUrl = BarcodeBLL.Url4Order(e.ID);
 
-        imgCodabar.ImageUrl = BarcodeBLL.Url4Order(e.ID);
+            People1.PeopleID = e.People != null ? e.PeopleID.GetValueOrDefault() : Guid.Empty;
+        }
 
         txtNote.Text = e.Note;
 
         if (e.Date != null)
             txtDate.Text = e.Date.ToStringVN_Hour();
-
-        if (e.People != null)
-        {
-            People1.PeopleID = e.PeopleID.GetValueOrDefault();
-        }
 
         txtDept.Text = e.FullDepartment;
         txtRoom.Text = e.Room;
@@ -133,6 +143,9 @@ public partial class Order_Order4CR : System.Web.UI.Page
         GridViewPack.DataBind();
 
         btnUpdate.Enabled = e.Status == Order.StatusX.Init;
+
+        CurrentDIN = "";
+        imgCurrentDIN.ImageUrl = "none";
     }
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -183,7 +196,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
             else return;
         }
         this.Alert("Lưu thành công.");
-        
+
     }
 
 

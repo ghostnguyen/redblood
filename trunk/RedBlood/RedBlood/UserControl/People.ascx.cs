@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Globalization;
+using System.Threading;
 
 public partial class UserControl_People : System.Web.UI.UserControl
 {
@@ -189,6 +190,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
     }
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
+        //Thread.Sleep(5000);
         if (PeopleID == Guid.Empty)
         {
             RedBloodDataContext db = new RedBloodDataContext();

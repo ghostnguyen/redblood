@@ -34,71 +34,6 @@ public class OrderBLL
         return e;
     }
 
-    //public static PackErr Add(int ID, int autonum)
-    //{
-    //    RedBloodDataContext db = new RedBloodDataContext();
-
-    //    //Check order
-    //    Order r = OrderBLL.Get(ID);
-    //    if (r == null) return PackErrEnum.NonExistOrder;
-
-    //    if (r.Status == Order.StatusX.Done)
-    //        return PackErrEnum.OrderClose;
-
-    //    //Check Pack
-    //    Pack p = PackBLL.Get(db, autonum);
-
-    //    //if (p == null
-    //    //    || p.DeliverStatus != Pack.DeliverStatusX.Non)
-    //    //    return PackErrEnum.NonExist;
-
-    //    //PackErr err = PackBLL.ValidateAndUpdateStatus(db, p);
-
-    //    //if (!PackBLL.StatusList4Order().Contains(p.Status))
-    //    //    return new PackErr("Không thể cấp phát. Túi máu: " + p.Status);
-
-
-    //    //if (p.TestResultStatus == Pack.TestResultStatusX.Positive
-    //    //    || p.TestResultStatus == Pack.TestResultStatusX.PositiveLocked
-    //    //    || p.TestResultStatus == Pack.TestResultStatusX.Non)
-    //    //{
-    //    //    return new PackErr("Không thể cấp phát. KQXN: " + p.TestResultStatus);
-    //    //}
-    //    //else
-    //    //{
-    //    //    p.DeliverStatus = Pack.DeliverStatusX.Yes;
-
-    //    //    if (p.TestResultStatus == Pack.TestResultStatusX.Negative)
-    //    //    {
-    //    //        List<Pack> l = p.SourcePacks_All
-    //    //            .Where(rp => rp.ComponentID == TestDef.Component.Full).ToList();
-
-    //    //        foreach (Pack item in l)
-    //    //        {
-    //    //            if (item.TestResultStatus == Pack.TestResultStatusX.Negative)
-    //    //            {
-    //    //                item.TestResultStatus = Pack.TestResultStatusX.NegativeLocked;
-    //    //                PackBLL.UpdateTestResultStatus4Extracts(db, item);
-    //    //            }
-    //    //        }
-
-    //    //    }
-
-    //    //    PackOrder po = new PackOrder();
-    //    //    po.OrderID = r.ID;
-    //    //    po.PackID = p.ID;
-    //    //    po.Status = PackOrder.StatusX.Order;
-
-    //    //    db.PackOrders.InsertOnSubmit(po);
-
-    //    //}
-
-    //    db.SubmitChanges();
-
-    //    //return err;
-    //    return null;
-    //}
-
     public static void Add(int ID, string DIN, string productCode)
     {
         Order r = OrderBLL.Get(ID);
@@ -184,7 +119,7 @@ public class OrderBLL
         { }
         else
         {
-            throw new Exception("Túi máu " + e.TestResultStatus);
+            throw new Exception("Không thể cấp phát túi máu này. KQ xét nghiệm sàng lọc: " + e.TestResultStatus);
         }
 
         return e;

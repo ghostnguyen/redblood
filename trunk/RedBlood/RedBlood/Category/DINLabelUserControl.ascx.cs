@@ -16,18 +16,13 @@ public partial class DINLabelUserControl : System.Web.UI.UserControl
     {
         Image1.ImageUrl = BarcodeBLL.Url4DIN(DIN);
         Image1.Style.Apply(PrintSettingBLL.DINLabel.ImageDIN);
-        
+
         txtCheckChar.Text = BarcodeBLL.CalculateISO7064Mod37_2(DIN);
         txtCheckChar.Style.Apply(PrintSettingBLL.DINLabel.CheckChar);
     }
 
-    public void ResizeLabel1()
+    public void ResizeLabel(PrintSetting ps)
     {
-        divLabel.Style.Apply(PrintSettingBLL.DINLabel.Label1);
-    }
-
-    public void ResizeLabel2()
-    {
-        divLabel.Style.Apply(PrintSettingBLL.DINLabel.Label2);
+        divLabel.Style.Apply(ps);
     }
 }

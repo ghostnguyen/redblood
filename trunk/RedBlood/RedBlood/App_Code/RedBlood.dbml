@@ -336,8 +336,6 @@
       <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
       <Association Name="Pack_PackTransaction" Member="PackTransactions" ThisKey="ID" OtherKey="PackID" Type="PackTransaction" />
       <Association Name="Pack_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="PackID" Type="PackOrder" />
-      <Association Name="Pack_PackLink" Member="PackLinksByFrom" ThisKey="ID" OtherKey="FromPackID" Type="PackLink" />
-      <Association Name="Pack_PackLink1" Member="PackLinksByTo" ThisKey="ID" OtherKey="ToPackID" Type="PackLink" />
       <Association Name="Pack_PackRemainDaily" Member="PackRemainDailies" ThisKey="ID" OtherKey="PackID" Type="PackRemainDaily" />
       <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
       <Association Name="Product_Pack" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
@@ -375,19 +373,6 @@
       <Association Name="People_Donation" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
       <Association Name="ST_General_Donation" Member="ST_General" ThisKey="ST010Code" OtherKey="Code" Type="ST_General" IsForeignKey="true" />
       <Association Name="Campaign_Donation" Member="Campaign" ThisKey="CampaignID" OtherKey="ID" Type="Campaign" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Product" Member="Products">
-    <Type Name="Product">
-      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="RetiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Duration" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="OriginalVolume" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoredTemperature" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="AdditiveSolution" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Product_Pack" Member="Packs" ThisKey="Code" OtherKey="ProductCode" Type="Pack" />
     </Type>
   </Table>
   <Table Name="dbo.DonationTestLog" Member="DonationTestLogs">
@@ -475,16 +460,6 @@
       <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PackLink" Member="PackLinks">
-    <Type Name="PackLink">
-      <Column Name="FromPackID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="ToPackID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Association Name="Pack_PackLink" Member="FromPack" ThisKey="FromPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
-      <Association Name="Pack_PackLink1" Member="ToPack" ThisKey="ToPackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.StoreFinalize" Member="StoreFinalizes">
     <Type Name="StoreFinalize">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -516,6 +491,20 @@
       <Column Name="Type" Type="PrintSetting.TypeX" DbType="Int" CanBeNull="true" />
       <Column Name="Width" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Height" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RetiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Duration" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OriginalVolume" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoredTemperature" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AdditiveSolution" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LabelDesc" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Product_Pack" Member="Packs" ThisKey="Code" OtherKey="ProductCode" Type="Pack" />
     </Type>
   </Table>
 </Database>
