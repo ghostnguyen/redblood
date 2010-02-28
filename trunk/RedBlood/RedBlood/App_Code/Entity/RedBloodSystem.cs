@@ -12,7 +12,8 @@ public class RedBloodSystem
     public static string Url4CampaignDetail = "~/Collect/Rpt2OrgMenu.aspx?";
     public static string Url4PackDetail = "~/FindAndReport/PackDetail.aspx?";
     public static string Url4PeopleDetail = "~/FindAndReport/PeopleDetail.aspx?";
-    public static string Url4OrderDetail = "~/Order/Order.aspx?";
+    public static string Url4Order4CR = "~/Order/Order4CR.aspx?";
+    public static string Url4Order4Org = "~/Order/Order4Org.aspx?";
     public static string Url4FindPeople = "~/FindAndReport/FindPeople.aspx?";
 
     public static string Url4CollectDetailRpt = "~/Collect/CollectDetailRpt.aspx?";
