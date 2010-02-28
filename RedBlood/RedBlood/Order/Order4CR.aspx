@@ -45,7 +45,7 @@
                     <tr valign="top">
                         <td>
                             <div class="img_codabar" style="width: 140px;">
-                                <asp:Image ID="imgCodabar" runat="server" ImageUrl="none" />
+                                <asp:Image ID="imgOrder" runat="server" ImageUrl="none" />
                             </div>
                         </td>
                         <td>
@@ -174,7 +174,7 @@
                 Mã túi máu đang quét
                 <br />
                 <div style="height: 30px;">
-                    <asp:Image ID="ImageCurrentDIN" runat="server" ImageUrl="none" />
+                    <asp:Image ID="imgCurrentDIN" runat="server" ImageUrl="none" />
                 </div>
                 <br />
                 Danh sách cấp phát

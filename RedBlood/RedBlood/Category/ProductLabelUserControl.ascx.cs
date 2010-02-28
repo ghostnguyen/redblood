@@ -12,7 +12,7 @@ public partial class Category_ProductLabelUserControl : System.Web.UI.UserContro
 
     }
 
-    public void Fill_Letter(string code,string note)
+    public void Fill_Letter(string code, string note)
     {
         Image1.ImageUrl = BarcodeBLL.Url4Product(code);
         Image1.Style.Apply(PrintSettingBLL.ProductLabel.Barcode);

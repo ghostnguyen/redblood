@@ -95,9 +95,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertDonation(Donation instance);
   partial void UpdateDonation(Donation instance);
   partial void DeleteDonation(Donation instance);
-  partial void InsertProduct(Product instance);
-  partial void UpdateProduct(Product instance);
-  partial void DeleteProduct(Product instance);
   partial void InsertDonationTestLog(DonationTestLog instance);
   partial void UpdateDonationTestLog(DonationTestLog instance);
   partial void DeleteDonationTestLog(DonationTestLog instance);
@@ -113,9 +110,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPackOrder(PackOrder instance);
   partial void UpdatePackOrder(PackOrder instance);
   partial void DeletePackOrder(PackOrder instance);
-  partial void InsertPackLink(PackLink instance);
-  partial void UpdatePackLink(PackLink instance);
-  partial void DeletePackLink(PackLink instance);
   partial void InsertStoreFinalize(StoreFinalize instance);
   partial void UpdateStoreFinalize(StoreFinalize instance);
   partial void DeleteStoreFinalize(StoreFinalize instance);
@@ -125,6 +119,9 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPrintSetting(PrintSetting instance);
   partial void UpdatePrintSetting(PrintSetting instance);
   partial void DeletePrintSetting(PrintSetting instance);
+  partial void InsertProduct(Product instance);
+  partial void UpdateProduct(Product instance);
+  partial void DeleteProduct(Product instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -333,14 +330,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<Product> Products
-	{
-		get
-		{
-			return this.GetTable<Product>();
-		}
-	}
-	
 	public System.Data.Linq.Table<DonationTestLog> DonationTestLogs
 	{
 		get
@@ -389,14 +378,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<PackLink> PackLinks
-	{
-		get
-		{
-			return this.GetTable<PackLink>();
-		}
-	}
-	
 	public System.Data.Linq.Table<StoreFinalize> StoreFinalizes
 	{
 		get
@@ -418,6 +399,14 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<PrintSetting>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Product> Products
+	{
+		get
+		{
+			return this.GetTable<Product>();
 		}
 	}
 }
@@ -7530,10 +7519,6 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<PackOrder> _PackOrders;
 	
-	private EntitySet<PackLink> _PackLinksByFrom;
-	
-	private EntitySet<PackLink> _PackLinksByTo;
-	
 	private EntitySet<PackRemainDaily> _PackRemainDailies;
 	
 	private EntityRef<Donation> _Donation;
@@ -7571,8 +7556,6 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		this._PackStatusHistories = new EntitySet<PackStatusHistory>(new Action<PackStatusHistory>(this.attach_PackStatusHistories), new Action<PackStatusHistory>(this.detach_PackStatusHistories));
 		this._PackTransactions = new EntitySet<PackTransaction>(new Action<PackTransaction>(this.attach_PackTransactions), new Action<PackTransaction>(this.detach_PackTransactions));
 		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
-		this._PackLinksByFrom = new EntitySet<PackLink>(new Action<PackLink>(this.attach_PackLinksByFrom), new Action<PackLink>(this.detach_PackLinksByFrom));
-		this._PackLinksByTo = new EntitySet<PackLink>(new Action<PackLink>(this.attach_PackLinksByTo), new Action<PackLink>(this.detach_PackLinksByTo));
 		this._PackRemainDailies = new EntitySet<PackRemainDaily>(new Action<PackRemainDaily>(this.attach_PackRemainDailies), new Action<PackRemainDaily>(this.detach_PackRemainDailies));
 		this._Donation = default(EntityRef<Donation>);
 		this._Product = default(EntityRef<Product>);
@@ -7832,32 +7815,6 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="Pack_PackLink", Storage="_PackLinksByFrom", ThisKey="ID", OtherKey="FromPackID")]
-	public EntitySet<PackLink> PackLinksByFrom
-	{
-		get
-		{
-			return this._PackLinksByFrom;
-		}
-		set
-		{
-			this._PackLinksByFrom.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackLink1", Storage="_PackLinksByTo", ThisKey="ID", OtherKey="ToPackID")]
-	public EntitySet<PackLink> PackLinksByTo
-	{
-		get
-		{
-			return this._PackLinksByTo;
-		}
-		set
-		{
-			this._PackLinksByTo.Assign(value);
-		}
-	}
-	
 	[Association(Name="Pack_PackRemainDaily", Storage="_PackRemainDailies", ThisKey="ID", OtherKey="PackID")]
 	public EntitySet<PackRemainDaily> PackRemainDailies
 	{
@@ -8017,30 +7974,6 @@ public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Pack = null;
-	}
-	
-	private void attach_PackLinksByFrom(PackLink entity)
-	{
-		this.SendPropertyChanging();
-		entity.FromPack = this;
-	}
-	
-	private void detach_PackLinksByFrom(PackLink entity)
-	{
-		this.SendPropertyChanging();
-		entity.FromPack = null;
-	}
-	
-	private void attach_PackLinksByTo(PackLink entity)
-	{
-		this.SendPropertyChanging();
-		entity.ToPack = this;
-	}
-	
-	private void detach_PackLinksByTo(PackLink entity)
-	{
-		this.SendPropertyChanging();
-		entity.ToPack = null;
 	}
 	
 	private void attach_PackRemainDailies(PackRemainDaily entity)
@@ -8891,264 +8824,6 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Donation = null;
-	}
-}
-
-[Table(Name="dbo.Product")]
-public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private string _Code;
-	
-	private string _Description;
-	
-	private System.Nullable<System.DateTime> _Date;
-	
-	private System.Nullable<System.DateTime> _RetiredDate;
-	
-	private System.Nullable<System.DateTime> _Duration;
-	
-	private System.Nullable<int> _OriginalVolume;
-	
-	private string _StoredTemperature;
-	
-	private string _AdditiveSolution;
-	
-	private EntitySet<Pack> _Packs;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCodeChanging(string value);
-    partial void OnCodeChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateChanged();
-    partial void OnRetiredDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnRetiredDateChanged();
-    partial void OnDurationChanging(System.Nullable<System.DateTime> value);
-    partial void OnDurationChanged();
-    partial void OnOriginalVolumeChanging(System.Nullable<int> value);
-    partial void OnOriginalVolumeChanged();
-    partial void OnStoredTemperatureChanging(string value);
-    partial void OnStoredTemperatureChanged();
-    partial void OnAdditiveSolutionChanging(string value);
-    partial void OnAdditiveSolutionChanged();
-    #endregion
-	
-	public Product()
-	{
-		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Code", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-	public string Code
-	{
-		get
-		{
-			return this._Code;
-		}
-		set
-		{
-			if ((this._Code != value))
-			{
-				this.OnCodeChanging(value);
-				this.SendPropertyChanging();
-				this._Code = value;
-				this.SendPropertyChanged("Code");
-				this.OnCodeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Description", DbType="NVarChar(MAX)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this.OnDescriptionChanging(value);
-				this.SendPropertyChanging();
-				this._Description = value;
-				this.SendPropertyChanged("Description");
-				this.OnDescriptionChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Date", DbType="DateTime")]
-	public System.Nullable<System.DateTime> Date
-	{
-		get
-		{
-			return this._Date;
-		}
-		set
-		{
-			if ((this._Date != value))
-			{
-				this.OnDateChanging(value);
-				this.SendPropertyChanging();
-				this._Date = value;
-				this.SendPropertyChanged("Date");
-				this.OnDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RetiredDate", DbType="DateTime")]
-	public System.Nullable<System.DateTime> RetiredDate
-	{
-		get
-		{
-			return this._RetiredDate;
-		}
-		set
-		{
-			if ((this._RetiredDate != value))
-			{
-				this.OnRetiredDateChanging(value);
-				this.SendPropertyChanging();
-				this._RetiredDate = value;
-				this.SendPropertyChanged("RetiredDate");
-				this.OnRetiredDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Duration", DbType="DateTime")]
-	public System.Nullable<System.DateTime> Duration
-	{
-		get
-		{
-			return this._Duration;
-		}
-		set
-		{
-			if ((this._Duration != value))
-			{
-				this.OnDurationChanging(value);
-				this.SendPropertyChanging();
-				this._Duration = value;
-				this.SendPropertyChanged("Duration");
-				this.OnDurationChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_OriginalVolume", DbType="Int")]
-	public System.Nullable<int> OriginalVolume
-	{
-		get
-		{
-			return this._OriginalVolume;
-		}
-		set
-		{
-			if ((this._OriginalVolume != value))
-			{
-				this.OnOriginalVolumeChanging(value);
-				this.SendPropertyChanging();
-				this._OriginalVolume = value;
-				this.SendPropertyChanged("OriginalVolume");
-				this.OnOriginalVolumeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_StoredTemperature", DbType="NVarChar(MAX)")]
-	public string StoredTemperature
-	{
-		get
-		{
-			return this._StoredTemperature;
-		}
-		set
-		{
-			if ((this._StoredTemperature != value))
-			{
-				this.OnStoredTemperatureChanging(value);
-				this.SendPropertyChanging();
-				this._StoredTemperature = value;
-				this.SendPropertyChanged("StoredTemperature");
-				this.OnStoredTemperatureChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_AdditiveSolution", DbType="NVarChar(MAX)")]
-	public string AdditiveSolution
-	{
-		get
-		{
-			return this._AdditiveSolution;
-		}
-		set
-		{
-			if ((this._AdditiveSolution != value))
-			{
-				this.OnAdditiveSolutionChanging(value);
-				this.SendPropertyChanging();
-				this._AdditiveSolution = value;
-				this.SendPropertyChanged("AdditiveSolution");
-				this.OnAdditiveSolutionChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Product_Pack", Storage="_Packs", ThisKey="Code", OtherKey="ProductCode")]
-	public EntitySet<Pack> Packs
-	{
-		get
-		{
-			return this._Packs;
-		}
-		set
-		{
-			this._Packs.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.Product = this;
-	}
-	
-	private void detach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.Product = null;
 	}
 }
 
@@ -10947,222 +10622,6 @@ public partial class vw_ProductCount
 	}
 }
 
-[Table(Name="dbo.PackLink")]
-public partial class PackLink : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private System.Guid _FromPackID;
-	
-	private System.Guid _ToPackID;
-	
-	private string _Note;
-	
-	private int _ID;
-	
-	private EntityRef<Pack> _FromPack;
-	
-	private EntityRef<Pack> _ToPack;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFromPackIDChanging(System.Guid value);
-    partial void OnFromPackIDChanged();
-    partial void OnToPackIDChanging(System.Guid value);
-    partial void OnToPackIDChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-	
-	public PackLink()
-	{
-		this._FromPack = default(EntityRef<Pack>);
-		this._ToPack = default(EntityRef<Pack>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_FromPackID", DbType="UniqueIdentifier NOT NULL")]
-	public System.Guid FromPackID
-	{
-		get
-		{
-			return this._FromPackID;
-		}
-		set
-		{
-			if ((this._FromPackID != value))
-			{
-				if (this._FromPack.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnFromPackIDChanging(value);
-				this.SendPropertyChanging();
-				this._FromPackID = value;
-				this.SendPropertyChanged("FromPackID");
-				this.OnFromPackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ToPackID", DbType="UniqueIdentifier NOT NULL")]
-	public System.Guid ToPackID
-	{
-		get
-		{
-			return this._ToPackID;
-		}
-		set
-		{
-			if ((this._ToPackID != value))
-			{
-				if (this._ToPack.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnToPackIDChanging(value);
-				this.SendPropertyChanging();
-				this._ToPackID = value;
-				this.SendPropertyChanged("ToPackID");
-				this.OnToPackIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this.OnNoteChanging(value);
-				this.SendPropertyChanging();
-				this._Note = value;
-				this.SendPropertyChanged("Note");
-				this.OnNoteChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Pack_PackLink", Storage="_FromPack", ThisKey="FromPackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack FromPack
-	{
-		get
-		{
-			return this._FromPack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._FromPack.Entity;
-			if (((previousValue != value) 
-						|| (this._FromPack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._FromPack.Entity = null;
-					previousValue.PackLinksByFrom.Remove(this);
-				}
-				this._FromPack.Entity = value;
-				if ((value != null))
-				{
-					value.PackLinksByFrom.Add(this);
-					this._FromPackID = value.ID;
-				}
-				else
-				{
-					this._FromPackID = default(System.Guid);
-				}
-				this.SendPropertyChanged("FromPack");
-			}
-		}
-	}
-	
-	[Association(Name="Pack_PackLink1", Storage="_ToPack", ThisKey="ToPackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack ToPack
-	{
-		get
-		{
-			return this._ToPack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._ToPack.Entity;
-			if (((previousValue != value) 
-						|| (this._ToPack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._ToPack.Entity = null;
-					previousValue.PackLinksByTo.Remove(this);
-				}
-				this._ToPack.Entity = value;
-				if ((value != null))
-				{
-					value.PackLinksByTo.Add(this);
-					this._ToPackID = value.ID;
-				}
-				else
-				{
-					this._ToPackID = default(System.Guid);
-				}
-				this.SendPropertyChanged("ToPack");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
 [Table(Name="dbo.StoreFinalize")]
 public partial class StoreFinalize : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -11795,6 +11254,288 @@ public partial class PrintSetting : INotifyPropertyChanging, INotifyPropertyChan
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
+	}
+}
+
+[Table(Name="dbo.Product")]
+public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private string _Code;
+	
+	private string _Description;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private System.Nullable<System.DateTime> _RetiredDate;
+	
+	private System.Nullable<System.DateTime> _Duration;
+	
+	private System.Nullable<int> _OriginalVolume;
+	
+	private string _StoredTemperature;
+	
+	private string _AdditiveSolution;
+	
+	private string _LabelDesc;
+	
+	private EntitySet<Pack> _Packs;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnRetiredDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnRetiredDateChanged();
+    partial void OnDurationChanging(System.Nullable<System.DateTime> value);
+    partial void OnDurationChanged();
+    partial void OnOriginalVolumeChanging(System.Nullable<int> value);
+    partial void OnOriginalVolumeChanged();
+    partial void OnStoredTemperatureChanging(string value);
+    partial void OnStoredTemperatureChanged();
+    partial void OnAdditiveSolutionChanging(string value);
+    partial void OnAdditiveSolutionChanged();
+    partial void OnLabelDescChanging(string value);
+    partial void OnLabelDescChanged();
+    #endregion
+	
+	public Product()
+	{
+		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
+		OnCreated();
+	}
+	
+	[Column(Storage="_Code", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+	public string Code
+	{
+		get
+		{
+			return this._Code;
+		}
+		set
+		{
+			if ((this._Code != value))
+			{
+				this.OnCodeChanging(value);
+				this.SendPropertyChanging();
+				this._Code = value;
+				this.SendPropertyChanged("Code");
+				this.OnCodeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Description", DbType="NVarChar(MAX)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this.OnDescriptionChanging(value);
+				this.SendPropertyChanging();
+				this._Description = value;
+				this.SendPropertyChanged("Description");
+				this.OnDescriptionChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_RetiredDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> RetiredDate
+	{
+		get
+		{
+			return this._RetiredDate;
+		}
+		set
+		{
+			if ((this._RetiredDate != value))
+			{
+				this.OnRetiredDateChanging(value);
+				this.SendPropertyChanging();
+				this._RetiredDate = value;
+				this.SendPropertyChanged("RetiredDate");
+				this.OnRetiredDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Duration", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Duration
+	{
+		get
+		{
+			return this._Duration;
+		}
+		set
+		{
+			if ((this._Duration != value))
+			{
+				this.OnDurationChanging(value);
+				this.SendPropertyChanging();
+				this._Duration = value;
+				this.SendPropertyChanged("Duration");
+				this.OnDurationChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_OriginalVolume", DbType="Int")]
+	public System.Nullable<int> OriginalVolume
+	{
+		get
+		{
+			return this._OriginalVolume;
+		}
+		set
+		{
+			if ((this._OriginalVolume != value))
+			{
+				this.OnOriginalVolumeChanging(value);
+				this.SendPropertyChanging();
+				this._OriginalVolume = value;
+				this.SendPropertyChanged("OriginalVolume");
+				this.OnOriginalVolumeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_StoredTemperature", DbType="NVarChar(MAX)")]
+	public string StoredTemperature
+	{
+		get
+		{
+			return this._StoredTemperature;
+		}
+		set
+		{
+			if ((this._StoredTemperature != value))
+			{
+				this.OnStoredTemperatureChanging(value);
+				this.SendPropertyChanging();
+				this._StoredTemperature = value;
+				this.SendPropertyChanged("StoredTemperature");
+				this.OnStoredTemperatureChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_AdditiveSolution", DbType="NVarChar(MAX)")]
+	public string AdditiveSolution
+	{
+		get
+		{
+			return this._AdditiveSolution;
+		}
+		set
+		{
+			if ((this._AdditiveSolution != value))
+			{
+				this.OnAdditiveSolutionChanging(value);
+				this.SendPropertyChanging();
+				this._AdditiveSolution = value;
+				this.SendPropertyChanged("AdditiveSolution");
+				this.OnAdditiveSolutionChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_LabelDesc", DbType="NVarChar(MAX)")]
+	public string LabelDesc
+	{
+		get
+		{
+			return this._LabelDesc;
+		}
+		set
+		{
+			if ((this._LabelDesc != value))
+			{
+				this.OnLabelDescChanging(value);
+				this.SendPropertyChanging();
+				this._LabelDesc = value;
+				this.SendPropertyChanged("LabelDesc");
+				this.OnLabelDescChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Product_Pack", Storage="_Packs", ThisKey="Code", OtherKey="ProductCode")]
+	public EntitySet<Pack> Packs
+	{
+		get
+		{
+			return this._Packs;
+		}
+		set
+		{
+			this._Packs.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_Packs(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Product = this;
+	}
+	
+	private void detach_Packs(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Product = null;
 	}
 }
 #pragma warning restore 1591

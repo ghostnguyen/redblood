@@ -44,14 +44,14 @@ public partial class Category_ProductPrint : System.Web.UI.Page
 
             Category_ProductLabelUserControl uc = new Category_ProductLabelUserControl();
             uc = (Category_ProductLabelUserControl)LoadControl("~/Category/ProductLabelUserControl.ascx");
-            uc.Fill_Letter(p.Code, p.Description);
+            uc.Fill_Letter(p.Code, p.LabelDesc);
             uc.ResizeLabel1();
 
             divCon.Controls.Add(uc);
 
             Category_ProductLabelUserControl uc2 = new Category_ProductLabelUserControl();
             uc2 = (Category_ProductLabelUserControl)LoadControl("~/Category/ProductLabelUserControl.ascx");
-            uc2.Fill_Letter(p.Code, p.Description);
+            uc2.Fill_Letter(p.Code, p.LabelDesc);
             uc2.ResizeLabel2();
 
             divCon.Controls.Add(uc2);

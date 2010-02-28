@@ -29,8 +29,18 @@ public class PrintSettingBLL
     {
         public static PrintSetting ImageDIN { get; set; }
         public static PrintSetting CheckChar { get; set; }
+
         public static PrintSetting Label1 { get; set; }
         public static PrintSetting Label2 { get; set; }
+        public static PrintSetting Label3 { get; set; }
+        public static PrintSetting Label4 { get; set; }
+        public static PrintSetting Label5 { get; set; }
+        public static PrintSetting Label6 { get; set; }
+        public static PrintSetting Label7 { get; set; }
+        public static PrintSetting Label8 { get; set; }
+        public static PrintSetting Label9 { get; set; }
+        public static PrintSetting Label10 { get; set; }
+
 
     }
 
@@ -115,8 +125,18 @@ public class PrintSettingBLL
         List<PrintSetting> DINLableList = list.Where(r => r.Type == PrintSetting.TypeX.DINLabel).ToList();
         DINLabel.ImageDIN = DINLableList.Where(r => r.Name == "ImageDIN").FirstOrDefault();
         DINLabel.CheckChar = DINLableList.Where(r => r.Name == "CheckChar").FirstOrDefault();
+
         DINLabel.Label1 = DINLableList.Where(r => r.Name == "Label1").FirstOrDefault();
         DINLabel.Label2 = DINLableList.Where(r => r.Name == "Label2").FirstOrDefault();
+        DINLabel.Label3 = DINLableList.Where(r => r.Name == "Label3").FirstOrDefault();
+        DINLabel.Label4 = DINLableList.Where(r => r.Name == "Label4").FirstOrDefault();
+        DINLabel.Label5 = DINLableList.Where(r => r.Name == "Label5").FirstOrDefault();
+        DINLabel.Label6 = DINLableList.Where(r => r.Name == "Label6").FirstOrDefault();
+        DINLabel.Label7 = DINLableList.Where(r => r.Name == "Label7").FirstOrDefault();
+        DINLabel.Label8 = DINLableList.Where(r => r.Name == "Label8").FirstOrDefault();
+        DINLabel.Label9 = DINLableList.Where(r => r.Name == "Label9").FirstOrDefault();
+        DINLabel.Label10 = DINLableList.Where(r => r.Name == "Label10").FirstOrDefault();
+
 
 
         //Product

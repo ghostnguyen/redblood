@@ -1,37 +1,50 @@
-update Facility set CountingYY = '09', CountingNumber = 0
+update Facility set CountingYY = substring(convert(nvarchar,getdate(),126),3,2), CountingNumber = 0
+
+truncate table Log 
 
 truncate table PackStatusHistory
 truncate table PackSideEffect
-
 truncate table PackOrder
-truncate table PackLink
-
 truncate table PackTransaction
 truncate table PackRemainDaily
+
 truncate table StoreFinalize
 
-delete Pack
+delete Pack 
 
-truncate table DonationStatusLog
-truncate table DonationTestLog
+truncate table DonationStatusLog 
+truncate table DonationTestLog 
+delete Donation 
 
-delete Donation
-
-delete [Order]
+delete [Order] 
 DBCC CHECKIDENT ([Order], RESEED, 0)
 
--- truncate table CampaignStatusHistory
---delete [Campaign]
---DBCC CHECKIDENT ([Campaign], RESEED, 0)
+delete [People] 
 
-delete [People]
+truncate table CampaignStatusHistory 
+
+delete [Campaign]
+DBCC CHECKIDENT ([Campaign], RESEED, 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --delete Org
 --DBCC CHECKIDENT ([Org], RESEED, 0)
-
-
-
-
 
 
 --declare @i int
@@ -47,9 +60,6 @@ delete [People]
 --end
 
 --update Excel set Imported = null 
-
-
-
 
 
 
