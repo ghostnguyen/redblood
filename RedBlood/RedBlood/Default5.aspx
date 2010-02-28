@@ -13,7 +13,7 @@
         });
 
         $(document).bind('keydown', '8', function() {
-            window.location = ("Order/Order4Province.aspx");
+            window.location = ("Order/Order4Org.aspx");
         });
 
         $(document).bind('keydown', '9', function() {
@@ -70,13 +70,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="Order/Order4Province.aspx">
+                                        <a href="Order/Order4Org.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Order/Order4Province.aspx">Cấp phát cho tỉnh</a>
+                                            <a href="Order/Order4Org.aspx">Cấp phát cho tỉnh</a>
                                         </h4>
                                     </td>
                                 </tr>

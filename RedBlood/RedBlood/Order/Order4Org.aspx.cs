@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 
-public partial class Order_Order4CR : System.Web.UI.Page
+public partial class Order_Order4Org : System.Web.UI.Page
 {
     public int OrderID
     {
@@ -67,11 +67,11 @@ public partial class Order_Order4CR : System.Web.UI.Page
             }
             else if (BarcodeBLL.IsValidPeopleCode(code))
             {
-                People1.Code = code;
+                //People1.Code = code;
             }
             else if (code.Length >= 9)
             {
-                People1.Code = code;
+                //People1.Code = code;
             }
         }
     }
@@ -130,25 +130,22 @@ public partial class Order_Order4CR : System.Web.UI.Page
         if (OrderID == 0)
         {
             imgOrder.ImageUrl = "none";
-            People1.PeopleID = Guid.Empty;
+            txtOrg.Text = "";
+            //People1.PeopleID = Guid.Empty;
         }
         else
         {
             e = OrderBLL.Get(OrderID);
 
-
-
             if (e.Type == Order.TypeX.ForOrg)
             {
-                Response.Redirect(RedBloodSystem.Url4Order4Org + "key=" + e.ID.ToString());
+                imgOrder.ImageUrl = BarcodeBLL.Url4Order(e.ID);
+                txtOrg.Text = e.Org != null ? e.Org.Name : "";
             }
             else if (e.Type == Order.TypeX.ForPeople)
             {
-                imgOrder.ImageUrl = BarcodeBLL.Url4Order(e.ID);
-                People1.PeopleID = e.People != null ? e.PeopleID.GetValueOrDefault() : Guid.Empty;
+                Response.Redirect(RedBloodSystem.Url4Order4CR + "key=" + e.ID.ToString());
             }
-
-
         }
 
         txtNote.Text = e.Note;
@@ -156,11 +153,6 @@ public partial class Order_Order4CR : System.Web.UI.Page
         if (e.Date != null)
             txtDate.Text = e.Date.ToStringVN_Hour();
 
-        txtDept.Text = e.FullDepartment;
-        txtRoom.Text = e.Room;
-        txtBed.Text = e.Bed;
-        txtDiagnosis.Text = e.Diagnosis;
-        txtPatientCode.Text = e.PatientCode;
         txtTransfusionNote.Text = e.TransfusionNote;
 
         GridViewPack.DataBind();
@@ -229,17 +221,11 @@ public partial class Order_Order4CR : System.Web.UI.Page
 
         if (p.Date == null) p.Date = DateTime.Now;
 
-        p.Type = Order.TypeX.ForPeople;
+        p.Type = Order.TypeX.ForOrg;
         p.Note = txtNote.Text.Trim();
 
-        p.PeopleID = People1.PeopleID;
+        p.SetOrgID(txtOrg.Text.Trim());
 
-        p.SetDepartment(txtDept.Text.Trim());
-
-        p.Room = txtRoom.Text.Trim();
-        p.Bed = txtBed.Text.Trim();
-        p.Diagnosis = txtDiagnosis.Text.Trim();
-        p.PatientCode = txtPatientCode.Text.Trim();
         p.TransfusionNote = txtTransfusionNote.Text.Trim();
 
         return isDone;

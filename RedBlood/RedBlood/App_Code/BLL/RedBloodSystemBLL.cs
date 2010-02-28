@@ -410,7 +410,7 @@ public class RedBloodSystemBLL
             Order r = OrderBLL.Get(BarcodeBLL.ParseOrderID(key));
             if (r != null)
             {
-                Response.Redirect(RedBloodSystem.Url4OrderDetail + "key=" + r.ID.ToString());
+                Response.Redirect(RedBloodSystem.Url4Order4CR + "key=" + r.ID.ToString());
             }
         }
         //TODO: Search by name
