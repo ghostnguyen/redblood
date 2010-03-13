@@ -24,8 +24,31 @@ public class GeoBLL
         // TODO: Add constructor logic here
         //
     }
+    public static void Insert(string geo1Name, string geo2Name, string geo3Name)
+    {
+        //Geo1
+        if (string.IsNullOrEmpty(geo1Name)
+            || string.IsNullOrEmpty(geo1Name.Trim())) return;
 
-    public string Insert(string name, int level, Guid? parentID)
+        Geo geo1 = Get(geo1Name, 1, null);
+        Guid? geo1ID = geo1 != null ? geo1.ID : Insert(geo1Name, 1, null);
+
+        //Geo2
+        if (string.IsNullOrEmpty(geo2Name)
+            || string.IsNullOrEmpty(geo2Name.Trim())) return;
+
+        Geo geo2 = Get(geo2Name, 2, geo1ID);
+        Guid? geo2ID = geo2 != null ? geo2.ID : Insert(geo2Name, 2, geo1ID);
+
+        //Geo3
+        if (string.IsNullOrEmpty(geo3Name)
+            || string.IsNullOrEmpty(geo3Name.Trim())) return;
+
+        Geo geo3 = Get(geo3Name, 3, geo2ID);
+        Guid? geo3ID = geo3 != null ? geo3.ID : Insert(geo3Name, 3, geo2ID);
+    }
+
+    public static Guid Insert(string name, int level, Guid? parentID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -42,26 +65,12 @@ public class GeoBLL
         }
         catch (Exception ex)
         {
-            return ex.Message;
+            throw ex;
         }
 
-        return geo.ID.ToString();
+        return geo.ID;
     }
 
-    public void UpdateFullname()
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        var r = from e in db.Geos
-                select e;
-
-        foreach (Geo e in r)
-        {
-            SetFullname(e);
-        }
-
-        db.SubmitChanges();
-    }
 
     public void SetFullname(Geo e)
     {
@@ -83,17 +92,28 @@ public class GeoBLL
         e.FullnameNoDiacritics = e.Fullname.RemoveDiacritics();
     }
 
-    static public Geo GetByFullnameAndLevel(string fullname, int lvl)
+    static public Geo Get(string name, int level, Guid? parentID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        var r = from e in db.Geos
-                where e.Level.Value == lvl && e.Fullname == fullname.Trim()
-                select e;
-        if (r.Count() == 0)
-            return null;
-        else
-            return r.First();
+        if (
+            (level == 1 && !parentID.HasValue)
+            ||
+            ((level == 2 || level == 3) && parentID.HasValue)
+            )
+        {
+            Geo e = db.Geos.Where(r => r.Level == level
+                && r.Name.Trim().ToLower() == name.Trim().ToLower()
+                && (
+                    (r.ParentID == null && parentID == null)
+                    || (parentID != null && r.ParentID == parentID)
+                )
+                ).FirstOrDefault();
+
+            return e != null ? e : null;
+        }
+
+        throw new Exception("Invalid params.");
     }
 
     static public Geo GetByFullname(string fullname)
@@ -105,14 +125,6 @@ public class GeoBLL
                 select e).FirstOrDefault();
     }
 
-    static public Geo GetByName(string name, int level)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        return (from e in db.Geos
-                where e.Name.ToLower() == name.Trim().ToLower() && e.Level == level
-                select e).FirstOrDefault();
-    }
 
     public static List<Geo> Get(List<Guid> IDList, int level)
     {

@@ -8,8 +8,6 @@ using System.Web.UI.WebControls;
 
 public partial class UserControl_EnterPack : System.Web.UI.UserControl
 {
-    public event EventHandler PlateletApheresisConfirmed;
-
     public Guid PeopleID
     {
         get

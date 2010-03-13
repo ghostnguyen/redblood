@@ -178,7 +178,6 @@ public partial class People
         }
         else
         {
-            //Geo g = geoBLL.GetByFullnameAndLevel(value, 3);
             Geo g = GeoBLL.GetByFullname(value);
 
             if (g == null)

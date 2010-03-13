@@ -20,6 +20,7 @@ delete [Order]
 DBCC CHECKIDENT ([Order], RESEED, 0)
 
 delete [People] 
+DBCC CHECKIDENT ([People], RESEED, 0)
 
 truncate table CampaignStatusHistory 
 

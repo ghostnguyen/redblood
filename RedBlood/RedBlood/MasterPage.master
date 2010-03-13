@@ -76,7 +76,7 @@
             <div id="progressBackgroundFilter">
             </div>
             <div id="processMessage">
-                <img alt="update" src=".././Image/update_Progress.gif" />
+                <asp:Image ID="Image2" runat="server" ImageUrl="~/Image/update_Progress.gif" />
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>

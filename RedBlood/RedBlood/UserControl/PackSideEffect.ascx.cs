@@ -7,8 +7,6 @@ using System.Web.UI.WebControls;
 
 public partial class UserControl_PackSideEffect : System.Web.UI.UserControl
 {
-    public event EventHandler PackDeleted;
-
     public string Code
     {
         set

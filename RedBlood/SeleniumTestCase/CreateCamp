@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>CreateCamp</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CreateCamp</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/RedBlood/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=7. Thu máu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Tạo đợt thu máu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtName</td>
+	<td>Thu mau dot 101</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtEst</td>
+	<td>150</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtDate</td>
+	<td>15/4/2010 08:30</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_ddlSource</td>
+	<td>label=Tình nguyện</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtCoopOrgName</td>
+	<td>Hội Chữ Thập Đỏ tỉnh Đồng Nai</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtCoopOrgName</td>
+	<td>Hội Chữ Thập Đỏ tỉnh Đồng Nai</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtHostOrgName</td>
+	<td>Trường THPT Trương Vĩnh Ký - Đồng Nai</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtHostOrgName</td>
+	<td>Trường THPT Trương Vĩnh Ký - Đồng Nai</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtContactName</td>
+	<td>Co Ly Nha Ky</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtContactPhone</td>
+	<td>0987654321</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtContactTitle</td>
+	<td>Giao vien</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_txtNote</td>
+	<td>Lien he gap</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_ContentPlaceHolder1_ucCampaign1_btnUpdate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Lưu thành công.</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

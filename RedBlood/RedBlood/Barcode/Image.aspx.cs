@@ -113,7 +113,7 @@ public partial class GenCodabar : System.Web.UI.Page
             m.Dispose();
 
         }//try
-        catch (Exception ex)
+        catch (Exception)
         {
         }//catch
     }
