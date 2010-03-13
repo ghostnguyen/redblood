@@ -20,7 +20,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         set
         {
             ViewState["DIN"] = value;
-            LoadDIN();
+            
         }
     }
 
@@ -33,7 +33,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
         if (BarcodeBLL.IsValidDINCode(code))
         {
-            DIN = BarcodeBLL.ParseDIN(code);
+            EnterDIN(BarcodeBLL.ParseDIN(code));
         }
         else if (BarcodeBLL.IsValidProductCode(code))
         {
@@ -46,7 +46,25 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
     }
 
+    void EnterDIN(string DINCode)
+    {
+        DIN = DINCode;
+        
+        DonationBLL.UpdateCollector(DIN, txtDefaultCollector.Text.Trim());
+        LoadDIN();
+    }
 
+    void EnterProductCode(string productCode)
+    {
+        PackBLL.CreateOriginal(DIN, productCode, txtDefaultVolume.Text.ToInt());
+        LoadDIN();
+    }
+
+    void EnterBloodGroup(string bloodGroupCode)
+    {
+        DonationBLL.Update(DIN, bloodGroupCode, "");
+        LoadDIN();
+    }
 
     public void LoadDIN()
     {
@@ -55,9 +73,6 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         Clear();
         if (e != null)
         {
-            Donation temp = DonationBLL.UpdateDefault(DIN, txtDefaultCollector.Text.Trim());
-            if (temp != null) e = temp;
-
             lblName.Text = e.People.Name;
 
             imgDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN, "00");
@@ -79,9 +94,9 @@ public partial class Collect_CollectPack : System.Web.UI.Page
                     ImageBloodGroup.ImageUrl = BarcodeBLL.Url4BloodGroup(e.BloodGroup);
                     lblBloodGroup.Text = BloodGroupBLL.GetDescription(e.BloodGroup);
                 }
-
-                txtCollector.Text = e.Collector;
             }
+
+            txtCollector.Text = e.Collector;
 
             txtNote.Text = e.Note;
 
@@ -105,33 +120,6 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         btnSave.Enabled = false;
     }
 
-    void EnterProductCode(string productCode)
-    {
-        PackErr err = PackBLL.CreateOriginal(DIN, productCode, txtDefaultVolume.Text.ToInt());
-        if (err != PackErrEnum.Non)
-        {
-            this.Alert(err.Message);
-        }
-        else
-        {
-            LoadDIN();
-        }
-    }
-
-    void EnterBloodGroup(string bloodGroupCode)
-    {
-        DonationErr err = DonationBLL.Update(DIN, bloodGroupCode, "");
-
-        if (err != DonationErrEnum.Non)
-        {
-            this.Alert(err.Message);
-        }
-        else
-        {
-            LoadDIN();
-        }
-    }
-
     protected void btnSave_Click(object sender, EventArgs e)
     {
         RedBloodDataContext db = new RedBloodDataContext();
@@ -144,7 +132,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         }
         else
         {
-            // Check to see too late to update
+            //TODO: Check to see too late to update
             // Code check will be here
 
             d.Collector = txtCollector.Text.Trim();

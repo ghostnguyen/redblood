@@ -5,9 +5,7 @@
     <h2>
         Danh mục địa lý hành chính
     </h2>
-    <p>
-        <asp:Label ID="ActionStatus" runat="server" CssClass="Important"> </asp:Label>
-    </p>
+    
     <div style="float: left; margin-left: 10px; width: 30%;">
         <h3>
             Tỉnh/thành phố
@@ -20,7 +18,7 @@
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
             DataSourceID="LinqDataSource1" CellPadding="4" ForeColor="#333333" GridLines="None"
             OnRowUpdated="GridView_RowUpdated" ShowHeader="False" OnRowDeleted="GridView_RowDeleted"
-            OnRowDeleting="GridView1_RowDeleting">
+            >
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
             <RowStyle BackColor="#EFF3FB" />
             <Columns>

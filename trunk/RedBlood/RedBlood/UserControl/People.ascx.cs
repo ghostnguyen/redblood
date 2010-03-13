@@ -222,6 +222,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             }
             else return;
         }
+        
         Page.Alert("Lưu thành công.");
     }
 
@@ -293,6 +294,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
         }
 
         p.EnableMailingAddress = chkEnableMaillingAddress.Checked;
+        p.MailingAddress = txtMailingAddress.Text.Trim();
 
         try
         {

@@ -94,24 +94,26 @@ public class PackBLL
         db.SubmitChanges();
     }
 
-    public static PackErr CreateOriginal(string DIN, string productCode, int defaultVolume)
+    public static void CreateOriginal(string DIN, string productCode, int defaultVolume)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         Donation d = db.Donations.Where(r => r.DIN == DIN && r.PeopleID != null).FirstOrDefault();
-        Product p = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
+        Product product = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
 
-        if (d == null || p == null) return PackErrEnum.DataErr;
+        if (d == null || product == null)
+            throw new Exception(PackErrEnum.DataErr.Message);
 
         int countPack = db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).Count();
 
-        if (countPack > 0) return PackErrEnum.Existed;
+        if (countPack > 0)
+            throw new Exception(PackErrEnum.Existed.Message);
 
-
-        //Check to see valid product code in collection
+        //TODO: Check to see valid product code in collection
         //Code will be here
 
-        if (d.OrgPackID != null) return PackErrEnum.DonationGotPack;
+        if (d.OrgPackID != null)
+            throw new Exception(PackErrEnum.DonationGotPack.Message);
 
         Pack pack = new Pack();
 
@@ -121,14 +123,13 @@ public class PackBLL
         pack.Date = DateTime.Now;
         pack.Actor = RedBloodSystem.CurrentActor;
 
-        if (d.Volume != null && d.Volume.Value > 0) return PackErrEnum.DataErr;
-
-        if (d.Volume == null || d.Volume.Value < 0)
+        if (d.Volume != null && d.Volume.Value > 0) throw new Exception(PackErrEnum.DataErr.Message);
+        else
         {
-            if (p.OriginalVolume != null && p.OriginalVolume.Value > 0)
+            if (product.OriginalVolume != null && product.OriginalVolume.Value > 0)
             {
-                d.Volume = p.OriginalVolume;
-                pack.Volume = p.OriginalVolume;
+                d.Volume = product.OriginalVolume;
+                pack.Volume = product.OriginalVolume;
             }
             else
             {
@@ -140,10 +141,10 @@ public class PackBLL
             }
         }
 
-        //Check to see if the pack is collector too late
+        //TODO: Check to see if the pack is collector too late
         //Code check will be here.
 
-        pack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
+        pack.ExpirationDate = DateTime.Now.Add(product.Duration.Value - RedBloodSystem.RootTime);
 
         db.Packs.InsertOnSubmit(pack);
 
@@ -153,11 +154,6 @@ public class PackBLL
         db.SubmitChanges();
 
         PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.In_Collect);
-
-        return PackErrEnum.Non;
-
     }
-
-
 }
 

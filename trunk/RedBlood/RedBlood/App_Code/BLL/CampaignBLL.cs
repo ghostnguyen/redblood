@@ -114,6 +114,7 @@ public class CampaignBLL
             e.Status = Campaign.StatusX.Init;
 
         db.Campaigns.InsertOnSubmit(e);
+        
         db.SubmitChanges();
     }
 

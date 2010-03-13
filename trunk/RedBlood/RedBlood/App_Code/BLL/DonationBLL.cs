@@ -77,7 +77,7 @@ public class DonationBLL
         return Get(db, DIN);
     }
 
-    public static DonationErr Assign(string DIN, Guid peopleID, int campaignID)
+    public static DonationErr Assign(string DIN, Guid peopleID, int campaignID, DateTime? collectedDate, string actor)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -93,9 +93,9 @@ public class DonationBLL
         try
         {
             d.PeopleID = peopleID;
-            d.CollectedDate = DateTime.Now;
+            d.CollectedDate = collectedDate;
             d.CampaignID = campaignID;
-            d.Actor = RedBloodSystem.CurrentActor;
+            d.Actor = actor;
 
             UpdateStatus(db, d, Donation.StatusX.Assigned, "Assign peopleID=" + peopleID.ToString() + "&CampaignID=" + campaignID.ToString());
 
@@ -109,6 +109,11 @@ public class DonationBLL
         }
 
         return DonationErrEnum.Non;
+    }
+
+    public static DonationErr Assign(string DIN, Guid peopleID, int campaignID)
+    {
+        return Assign(DIN, peopleID, campaignID, DateTime.Now, RedBloodSystem.CurrentActor);
     }
 
     public static DonationStatusLog UpdateStatus(RedBloodDataContext db, Donation e, Donation.StatusX to, string note)
@@ -131,24 +136,19 @@ public class DonationBLL
         return l;
     }
 
-    public static Donation UpdateDefault(string DIN, string collector)
+    public static void UpdateCollector(string DIN, string collector)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         Donation e = Get(db, DIN);
 
-        if (e == null) return null;
-
-        if (e.Collector == null || string.IsNullOrEmpty(e.Collector.Trim()))
+        if (e != null 
+            && string.IsNullOrEmpty(e.Collector)
+            && !string.IsNullOrEmpty(collector)
+            && !string.IsNullOrEmpty(collector.Trim()))
         {
-            if (!string.IsNullOrEmpty(collector.Trim()))
-            {
-                e.Collector = collector;
-                db.SubmitChanges();
-                return e;
-            }
+            e.Collector = collector.Trim();
+            db.SubmitChanges();
         }
-
-        return null;
     }
 
     public static DonationErr Update(string DIN,
@@ -183,13 +183,14 @@ public class DonationBLL
         return DonationErrEnum.Non;
     }
 
-    public static DonationErr Update(string DIN, string bloodGroup, string note)
+    public static void Update(string DIN, string bloodGroup, string note)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         Donation e = DonationBLL.Get(db, DIN);
 
-        if (e == null || !CanUpdateTestResult(e)) return DonationErrEnum.Unknown;
+        if (e == null || !CanUpdateTestResult(e))
+            throw new Exception(DonationErrEnum.Unknown.Message);
 
         if (bloodGroup.Trim() != e.BloodGroup)
         {
@@ -202,8 +203,6 @@ public class DonationBLL
 
         UpdateTestResultStatus(e);
         db.SubmitChanges();
-
-        return DonationErrEnum.Non;
     }
 
     public static DonationErr UpdateTestResultStatus(Donation e)

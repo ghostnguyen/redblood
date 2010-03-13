@@ -18,15 +18,11 @@ public partial class Category_Geo : System.Web.UI.Page
 
     }
 
-    GeoBLL bll = new GeoBLL();
-
     protected void btnLevel1New_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(txtLevel1.Text.Trim())) return;
 
-        string r = bll.Insert(txtLevel1.Text.Trim(), 1, null);
-
-        ActionStatus.Text = r;
+        GeoBLL.Insert(txtLevel1.Text.Trim(), 1, null);
 
         txtLevel1.Text = "";
 
@@ -39,9 +35,7 @@ public partial class Category_Geo : System.Web.UI.Page
 
         if (GridView1.SelectedValue == null) return;
 
-        string r = bll.Insert(txtLevel2.Text.Trim(), 2, (Guid)GridView1.SelectedValue);
-
-        ActionStatus.Text = r;
+        GeoBLL.Insert(txtLevel2.Text.Trim(), 2, (Guid)GridView1.SelectedValue);
 
         txtLevel2.Text = "";
 
@@ -54,9 +48,7 @@ public partial class Category_Geo : System.Web.UI.Page
 
         if (GridView2.SelectedValue == null) return;
 
-        string r = bll.Insert(txtLevel3.Text.Trim(), 3, (Guid)GridView2.SelectedValue);
-
-        ActionStatus.Text = r;
+        GeoBLL.Insert(txtLevel3.Text.Trim(), 3, (Guid)GridView2.SelectedValue);
 
         txtLevel3.Text = "";
 
@@ -67,13 +59,9 @@ public partial class Category_Geo : System.Web.UI.Page
     {
         if (e.Exception != null)
         {
-            ActionStatus.Text = e.Exception.Message;
             e.ExceptionHandled = true;
             e.KeepInEditMode = true;
-        }
-        else
-        {
-            ActionStatus.Text = "";
+            this.Alert(e.Exception.Message);
         }
     }
 
@@ -82,36 +70,8 @@ public partial class Category_Geo : System.Web.UI.Page
     {
         if (e.Exception != null)
         {
-            ActionStatus.Text = "Không thể xóa khi tồn tại cấp nhỏ hơn.";
             e.ExceptionHandled = true;
+            this.Alert("Không thể xóa khi tồn tại cấp nhỏ hơn.");
         }
-        else
-        {
-            ActionStatus.Text = "";
-        }
-    }
-    protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-
-    }
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        //if (GridView2.SelectedValue == null) return;
-        //string[] list = TextBox1.Text.Replace("\r", "").Replace("#", "").Replace(";", "").Replace(".", "").Replace(",", "").Replace(":", "").Split('\n');
-
-        //foreach (string p in list)
-        //{
-        //    if (!string.IsNullOrEmpty(p))
-        //    {
-        //        string r = bll.Insert(p.Replace("*","").Trim(), 3, (Guid)GridView2.SelectedValue);
-
-        //        ActionStatus.Text = r;
-
-        //        txtLevel3.Text = "";
-
-        //        GridView3.DataBind();
-        //    }
-        //}
-        
     }
 }
