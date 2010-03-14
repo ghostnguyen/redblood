@@ -43,59 +43,14 @@ public partial class Org
 
     public void SetResidentGeo3(string value)
     {
-        value = value.Trim();
-        if (String.IsNullOrEmpty(value))
-        {
-            GeoID1 = null;
-            GeoID2 = null;
-            GeoID3 = null;
-        }
-        else
-        {
-            Geo g = GeoBLL.GetByFullname(value);
-            if (g == null)
-            {
-                throw new Exception("Nhập sai đơn vị hành chính.");
-            }
-            else
-            {
-                GeoID1 = null;
-                GeoID2 = null;
-                GeoID3 = null;
-
-                if (g.Level == 1)
-                {
-                    GeoID1 = g.ID;
-                }
-
-                if (g.Level == 2)
-                {
-                    GeoID2 = g.ID;
-                    GeoID1 = g.ParentGeo.ID;
-                }
-
-                if (g.Level == 3)
-                {
-                    GeoID3 = g.ID;
-                    GeoID2 = g.ParentGeo.ID;
-                    GeoID1 = g.ParentGeo.ParentGeo.ID;
-                }
-            }
-        }
+        GeoBLL.Set3LevelByFullname(value, GeoID1, GeoID2, GeoID3);
     }
+
     public string FullGeo
     {
         get
         {
-            string r = "";
-            if (Geo3 != null)
-                r += Geo3.Fullname;
-            else if (Geo2 != null)
-                r += Geo2.Fullname;
-            else if (Geo1 != null)
-                r += Geo1.Fullname;
-
-            return r;
+            return GeoBLL.GetFullname(Geo1, Geo2, Geo3);
         }
     }
 
@@ -103,7 +58,7 @@ public partial class Org
     {
         get
         {
-            return Address + ", " + FullGeo;
+            return GeoBLL.GetFullAddress(Address, FullGeo);
         }
     }
 }

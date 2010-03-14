@@ -124,106 +124,19 @@ public partial class People
 
     public void SetResidentGeo3(string value)
     {
-        value = value.Trim();
-        if (String.IsNullOrEmpty(value))
-        {
-            //ResidentGeoID1 = null;
-            //ResidentGeoID2 = null;
-            //ResidentGeoID3 = null;
-            throw new Exception("Nhập đơn vị hành chính.");
-        }
-        else
-        {
-            //Geo g = geoBLL.GetByFullnameAndLevel(value, 3);
-            Geo g = GeoBLL.GetByFullname(value);
-            if (g == null)
-            {
-                throw new Exception("Nhập sai đơn vị hành chính.");
-            }
-            else
-            {
-                ResidentGeoID1 = null;
-                ResidentGeoID2 = null;
-                ResidentGeoID3 = null;
-
-                if (g.Level == 1)
-                {
-                    ResidentGeoID1 = g.ID;
-                }
-
-                if (g.Level == 2)
-                {
-                    ResidentGeoID2 = g.ID;
-                    ResidentGeoID1 = g.ParentGeo.ID;
-                }
-
-                if (g.Level == 3)
-                {
-                    ResidentGeoID3 = g.ID;
-                    ResidentGeoID2 = g.ParentGeo.ID;
-                    ResidentGeoID1 = g.ParentGeo.ParentGeo.ID;
-                }
-            }
-        }
+        GeoBLL.Set3LevelByFullname(value, ResidentGeoID1, ResidentGeoID2, ResidentGeoID3);
     }
 
     public void SetMailingGeo3(string value)
     {
-        value = value.Trim();
-        if (String.IsNullOrEmpty(value))
-        {
-            MailingGeoID1 = null;
-            MailingGeoID2 = null;
-            MailingGeoID3 = null;
-        }
-        else
-        {
-            Geo g = GeoBLL.GetByFullname(value);
-
-            if (g == null)
-            {
-                throw new Exception("Nhập sai đơn vị hành chính.");
-            }
-            else
-            {
-                MailingGeoID1 = null;
-                MailingGeoID2 = null;
-                MailingGeoID3 = null;
-
-                if (g.Level == 1)
-                {
-                    MailingGeoID1 = g.ID;
-                }
-
-                if (g.Level == 2)
-                {
-                    MailingGeoID2 = g.ID;
-                    MailingGeoID1 = g.ParentGeo.ID;
-                }
-
-                if (g.Level == 3)
-                {
-                    MailingGeoID3 = g.ID;
-                    MailingGeoID2 = g.ParentGeo.ID;
-                    MailingGeoID1 = g.ParentGeo.ParentGeo.ID;
-                }
-            }
-        }
+        GeoBLL.Set3LevelByFullname(value, MailingGeoID1, MailingGeoID2, MailingGeoID3);
     }
 
     public string FullResidentalGeo
     {
         get
         {
-            string r = "";
-            if (ResidentGeo3 != null)
-                r += ResidentGeo3.Fullname;
-            else if (ResidentGeo2 != null)
-                r += ResidentGeo2.Fullname;
-            else if (ResidentGeo1 != null)
-                r += ResidentGeo1.Fullname;
-
-            return r;
+            return GeoBLL.GetFullname(ResidentGeo1, ResidentGeo2, ResidentGeo3);
         }
     }
 
@@ -231,25 +144,15 @@ public partial class People
     {
         get
         {
-            string r = ResidentAddress + ", " + FullResidentalGeo;
-            return r.Trim(',', ' ');
+            return GeoBLL.GetFullAddress(ResidentAddress, FullResidentalGeo);
         }
     }
-
 
     public string FullMaillingGeo
     {
         get
         {
-            string r = "";
-            if (MailingGeo3 != null)
-                r += MailingGeo3.Fullname;
-            else if (MailingGeo2 != null)
-                r += MailingGeo2.Fullname;
-            else if (MailingGeo1 != null)
-                r += MailingGeo1.Fullname;
-
-            return r;
+            return GeoBLL.GetFullname(MailingGeo1, MailingGeo2, MailingGeo3);
         }
     }
 
@@ -257,8 +160,7 @@ public partial class People
     {
         get
         {
-            string r = MailingAddress + ", " + FullMaillingGeo;
-            return r.Trim(',', ' ');
+            return GeoBLL.GetFullAddress(MailingAddress, FullMaillingGeo);
         }
     }
 

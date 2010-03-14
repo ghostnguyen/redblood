@@ -72,7 +72,7 @@ public class GeoBLL
     }
 
 
-    public void SetFullname(Geo e)
+    public static void SetFullname(Geo e)
     {
         if (e.Level == 1)
         {
@@ -104,10 +104,7 @@ public class GeoBLL
         {
             Geo e = db.Geos.Where(r => r.Level == level
                 && r.Name.Trim().ToLower() == name.Trim().ToLower()
-                && (
-                    (r.ParentID == null && parentID == null)
-                    || (parentID != null && r.ParentID == parentID)
-                )
+                && object.Equals(r.ParentID, parentID)
                 ).FirstOrDefault();
 
             return e != null ? e : null;
@@ -125,10 +122,60 @@ public class GeoBLL
                 select e).FirstOrDefault();
     }
 
-
     public static List<Geo> Get(List<Guid> IDList, int level)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         return db.Geos.Where(r => IDList.Contains(r.ID) && r.Level == level).ToList();
+    }
+
+    public static string GetFullname(Geo geo1, Geo geo2, Geo geo3)
+    {
+        return geo3 != null ? geo3.Fullname : geo2 != null ? geo2.Fullname : geo1 != null ? geo1.Fullname : "";
+    }
+
+    public static string GetFullAddress(string address, string fullGeo)
+    {
+        return (address + ", " + fullGeo).Trim(',', ' ');
+    }
+
+    public static void Set3LevelByFullname(string fullname, Guid? geo1ID, Guid? geo2ID, Guid? geo3ID)
+    {
+        if (string.IsNullOrEmpty(fullname)
+            || string.IsNullOrEmpty(fullname.Trim()))
+        {
+            throw new Exception("Nhập đơn vị hành chính.");
+        }
+        else
+        {
+            Geo g = GeoBLL.GetByFullname(fullname);
+            if (g == null)
+            {
+                throw new Exception("Nhập sai đơn vị hành chính.");
+            }
+            else
+            {
+                geo1ID = null;
+                geo2ID = null;
+                geo3ID = null;
+
+                if (g.Level == 1)
+                {
+                    geo1ID = g.ID;
+                }
+
+                if (g.Level == 2)
+                {
+                    geo2ID = g.ID;
+                    geo1ID = g.ParentGeo.ID;
+                }
+
+                if (g.Level == 3)
+                {
+                    geo3ID = g.ID;
+                    geo2ID = g.ParentGeo.ID;
+                    geo1ID = g.ParentGeo.ParentGeo.ID;
+                }
+            }
+        }
     }
 }

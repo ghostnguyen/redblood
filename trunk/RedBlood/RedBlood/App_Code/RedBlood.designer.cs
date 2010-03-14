@@ -122,6 +122,12 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertProduct(Product instance);
   partial void UpdateProduct(Product instance);
   partial void DeleteProduct(Product instance);
+  partial void InsertReceipt(Receipt instance);
+  partial void UpdateReceipt(Receipt instance);
+  partial void DeleteReceipt(Receipt instance);
+  partial void InsertReceiptProduct(ReceiptProduct instance);
+  partial void UpdateReceiptProduct(ReceiptProduct instance);
+  partial void DeleteReceiptProduct(ReceiptProduct instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -407,6 +413,22 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Product>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Receipt> Receipts
+	{
+		get
+		{
+			return this.GetTable<Receipt>();
+		}
+	}
+	
+	public System.Data.Linq.Table<ReceiptProduct> ReceiptProducts
+	{
+		get
+		{
+			return this.GetTable<ReceiptProduct>();
 		}
 	}
 }
@@ -3143,7 +3165,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -11283,6 +11305,8 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<Pack> _Packs;
 	
+	private EntitySet<ReceiptProduct> _ReceiptProducts;
+	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -11310,6 +11334,7 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	public Product()
 	{
 		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
+		this._ReceiptProducts = new EntitySet<ReceiptProduct>(new Action<ReceiptProduct>(this.attach_ReceiptProducts), new Action<ReceiptProduct>(this.detach_ReceiptProducts));
 		OnCreated();
 	}
 	
@@ -11506,6 +11531,19 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="Product_ReceiptProduct", Storage="_ReceiptProducts", ThisKey="Code", OtherKey="ProductCode")]
+	public EntitySet<ReceiptProduct> ReceiptProducts
+	{
+		get
+		{
+			return this._ReceiptProducts;
+		}
+		set
+		{
+			this._ReceiptProducts.Assign(value);
+		}
+	}
+	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -11536,6 +11574,372 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Product = null;
+	}
+	
+	private void attach_ReceiptProducts(ReceiptProduct entity)
+	{
+		this.SendPropertyChanging();
+		entity.Product = this;
+	}
+	
+	private void detach_ReceiptProducts(ReceiptProduct entity)
+	{
+		this.SendPropertyChanging();
+		entity.Product = null;
+	}
+}
+
+[Table(Name="dbo.Receipt")]
+public partial class Receipt : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private System.Guid _ID;
+	
+	private string _Name;
+	
+	private string _Note;
+	
+	private EntitySet<ReceiptProduct> _ReceiptProducts;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(System.Guid value);
+    partial void OnIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    #endregion
+	
+	public Receipt()
+	{
+		this._ReceiptProducts = new EntitySet<ReceiptProduct>(new Action<ReceiptProduct>(this.attach_ReceiptProducts), new Action<ReceiptProduct>(this.detach_ReceiptProducts));
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+	public System.Guid ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Name", DbType="NVarChar(MAX)")]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this.OnNameChanging(value);
+				this.SendPropertyChanging();
+				this._Name = value;
+				this.SendPropertyChanged("Name");
+				this.OnNameChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Receipt_ReceiptProduct", Storage="_ReceiptProducts", ThisKey="ID", OtherKey="ReceiptID")]
+	public EntitySet<ReceiptProduct> ReceiptProducts
+	{
+		get
+		{
+			return this._ReceiptProducts;
+		}
+		set
+		{
+			this._ReceiptProducts.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_ReceiptProducts(ReceiptProduct entity)
+	{
+		this.SendPropertyChanging();
+		entity.Receipt = this;
+	}
+	
+	private void detach_ReceiptProducts(ReceiptProduct entity)
+	{
+		this.SendPropertyChanging();
+		entity.Receipt = null;
+	}
+}
+
+[Table(Name="dbo.ReceiptProduct")]
+public partial class ReceiptProduct : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private System.Guid _ID;
+	
+	private System.Nullable<System.Guid> _ReceiptID;
+	
+	private string _ProductCode;
+	
+	private ReceiptProduct.TypeX _Type;
+	
+	private EntityRef<Product> _Product;
+	
+	private EntityRef<Receipt> _Receipt;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(System.Guid value);
+    partial void OnIDChanged();
+    partial void OnReceiptIDChanging(System.Nullable<System.Guid> value);
+    partial void OnReceiptIDChanged();
+    partial void OnProductCodeChanging(string value);
+    partial void OnProductCodeChanged();
+    partial void OnTypeChanging(ReceiptProduct.TypeX value);
+    partial void OnTypeChanged();
+    #endregion
+	
+	public ReceiptProduct()
+	{
+		this._Product = default(EntityRef<Product>);
+		this._Receipt = default(EntityRef<Receipt>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+	public System.Guid ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ReceiptID", DbType="UniqueIdentifier")]
+	public System.Nullable<System.Guid> ReceiptID
+	{
+		get
+		{
+			return this._ReceiptID;
+		}
+		set
+		{
+			if ((this._ReceiptID != value))
+			{
+				if (this._Receipt.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnReceiptIDChanging(value);
+				this.SendPropertyChanging();
+				this._ReceiptID = value;
+				this.SendPropertyChanged("ReceiptID");
+				this.OnReceiptIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ProductCode", DbType="NVarChar(50)")]
+	public string ProductCode
+	{
+		get
+		{
+			return this._ProductCode;
+		}
+		set
+		{
+			if ((this._ProductCode != value))
+			{
+				if (this._Product.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnProductCodeChanging(value);
+				this.SendPropertyChanging();
+				this._ProductCode = value;
+				this.SendPropertyChanged("ProductCode");
+				this.OnProductCodeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Type", DbType="Int", CanBeNull=true)]
+	public ReceiptProduct.TypeX Type
+	{
+		get
+		{
+			return this._Type;
+		}
+		set
+		{
+			if ((this._Type != value))
+			{
+				this.OnTypeChanging(value);
+				this.SendPropertyChanging();
+				this._Type = value;
+				this.SendPropertyChanged("Type");
+				this.OnTypeChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Product_ReceiptProduct", Storage="_Product", ThisKey="ProductCode", OtherKey="Code", IsForeignKey=true)]
+	public Product Product
+	{
+		get
+		{
+			return this._Product.Entity;
+		}
+		set
+		{
+			Product previousValue = this._Product.Entity;
+			if (((previousValue != value) 
+						|| (this._Product.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Product.Entity = null;
+					previousValue.ReceiptProducts.Remove(this);
+				}
+				this._Product.Entity = value;
+				if ((value != null))
+				{
+					value.ReceiptProducts.Add(this);
+					this._ProductCode = value.Code;
+				}
+				else
+				{
+					this._ProductCode = default(string);
+				}
+				this.SendPropertyChanged("Product");
+			}
+		}
+	}
+	
+	[Association(Name="Receipt_ReceiptProduct", Storage="_Receipt", ThisKey="ReceiptID", OtherKey="ID", IsForeignKey=true)]
+	public Receipt Receipt
+	{
+		get
+		{
+			return this._Receipt.Entity;
+		}
+		set
+		{
+			Receipt previousValue = this._Receipt.Entity;
+			if (((previousValue != value) 
+						|| (this._Receipt.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Receipt.Entity = null;
+					previousValue.ReceiptProducts.Remove(this);
+				}
+				this._Receipt.Entity = value;
+				if ((value != null))
+				{
+					value.ReceiptProducts.Add(this);
+					this._ReceiptID = value.ID;
+				}
+				else
+				{
+					this._ReceiptID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Receipt");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
 #pragma warning restore 1591

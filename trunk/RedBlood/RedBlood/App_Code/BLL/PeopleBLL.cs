@@ -21,14 +21,6 @@ public class PeopleBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         return db.Peoples.Where(r => r.CMND == CMND.Trim()).FirstOrDefault();
-        
-        //var e = from c in db.Peoples
-        //        where c.CMND == CMND.Trim()
-        //        select c;
-
-
-        //if (e.Count() != 1) return null;
-        //else return e.First();
     }
 
     public static People GetByID(int autonum)
@@ -38,7 +30,6 @@ public class PeopleBLL
         var e = from c in db.Peoples
                 where c.Autonum == autonum
                 select c;
-
 
         if (e.Count() != 1) return null;
         else return e.First();
