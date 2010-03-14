@@ -23,8 +23,6 @@ public partial class Geo
     public static Guid HCMC = new Guid("25e0e30d-c463-4699-945a-39a06e937423");
     public static Guid BinhDuong = new Guid("6e0c4f0d-95ce-42e9-a3e7-99efb59366d5");
     
-
-    GeoBLL bll = new GeoBLL();
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
         if(action == System.Data.Linq.ChangeAction.Insert
@@ -34,7 +32,6 @@ public partial class Geo
              string.IsNullOrEmpty(this.Name.Trim()))
                 throw new Exception("Nhập danh mục");
 
-            
             RedBloodDataContext db = new RedBloodDataContext();
 
             int count = (from cats in db.Geos
@@ -47,9 +44,7 @@ public partial class Geo
                 throw new Exception("Trùng tên");
             }
 
-            bll.SetFullname(this);
+            GeoBLL.SetFullname(this);
         }
     }
-
-   
 }
