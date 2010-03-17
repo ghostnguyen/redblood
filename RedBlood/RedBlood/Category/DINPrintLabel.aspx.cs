@@ -36,34 +36,37 @@ public partial class Category_DINPrintLabel : System.Web.UI.Page
 
         foreach (Donation item in l)
         {
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label1);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label2);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label3);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label4);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label5);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label6);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label7);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label8);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label9);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label10);
+            Panel p = new Panel();
+            p.Style.Add("position", "relative");
+            p.Style.Add("page-break-after", "always");
 
+            p.Height = 300;
+            p.Width = 200;
+            p.Style.Add("border", "1px solid white");
+            divCon.Controls.Add(p);
 
-
-            HtmlGenericControl gen = new HtmlGenericControl();
-            gen.TagName = "div";
-            gen.Attributes.Add("style", "page-break-after:always;");
-            divCon.Controls.Add(gen);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label1, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label2, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label3, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label4, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label5, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label6, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label7, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label8, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label9, p);
+            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label10, p);
         }
     }
 
-    void AddDINLabelControl(Donation item, PrintSetting ps)
+
+    void AddDINLabelControl(Donation item, PrintSetting ps, Panel panel)
     {
         DINLabelUserControl uc = new DINLabelUserControl();
         uc = (DINLabelUserControl)LoadControl("~/Category/DINLabelUserControl.ascx");
         uc.Fill_Letter(item.DIN);
         uc.ResizeLabel(ps);
 
-        divCon.Controls.Add(uc);
+        panel.Controls.Add(uc);
+        //divCon.Controls.Add(uc);
     }
-
 }

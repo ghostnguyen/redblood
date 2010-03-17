@@ -10,14 +10,21 @@
     <asp:GridView ID="GridView1" runat="server" DataSourceID="LinqDataSource1" AutoGenerateColumns="False"
         DataKeyNames="ID">
         <Columns>
+            <asp:BoundField DataField="Note" HeaderText="Note" SortExpression="Note" ReadOnly="true"
+                ControlStyle-Width="150" ItemStyle-Width="150" />
+            <asp:BoundField DataField="Top" HeaderText="Top" SortExpression="Top" ControlStyle-Width="50"
+                ItemStyle-Width="50" />
+            <asp:BoundField DataField="Left" HeaderText="Left" SortExpression="Left" ControlStyle-Width="50"
+                ItemStyle-Width="50" />
+            <asp:BoundField DataField="Font" HeaderText="Font" SortExpression="Font" ControlStyle-Width="80"
+                ItemStyle-Width="80" />
+            <asp:BoundField DataField="Size" HeaderText="Size" SortExpression="Size" ControlStyle-Width="80"
+                ItemStyle-Width="80" />
+            <asp:BoundField DataField="Height" HeaderText="Height" SortExpression="Height" ControlStyle-Width="50"
+                ItemStyle-Width="50" />
+            <asp:BoundField DataField="Width" HeaderText="Width" SortExpression="Width" ControlStyle-Width="50"
+                ItemStyle-Width="50" />
             <asp:CommandField ShowEditButton="True" />
-            <asp:BoundField DataField="Note" HeaderText="Note" SortExpression="Note" ReadOnly="true" />
-            <asp:BoundField DataField="Top" HeaderText="Top" SortExpression="Top" />
-            <asp:BoundField DataField="Left" HeaderText="Left" SortExpression="Left" />
-            <asp:BoundField DataField="Font" HeaderText="Font" SortExpression="Font" />
-            <asp:BoundField DataField="Size" HeaderText="Size" SortExpression="Size" />
-            <asp:BoundField DataField="Height" HeaderText="Height" SortExpression="Height" />
-            <asp:BoundField DataField="Width" HeaderText="Width" SortExpression="Width" />
         </Columns>
     </asp:GridView>
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
