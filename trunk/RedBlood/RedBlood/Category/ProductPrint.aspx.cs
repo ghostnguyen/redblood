@@ -33,38 +33,36 @@ public partial class Category_ProductPrint : System.Web.UI.Page
         }
 
         RedBloodDataContext db = new RedBloodDataContext();
-        Product p = db.Products.Where(r => r.Code == code).FirstOrDefault();
+        Product item = db.Products.Where(r => r.Code == code).FirstOrDefault();
 
-        if (p == null) return;
+        if (item == null) return;
 
         PrintSettingBLL.Reload();
 
         for (int i = 0; i < count / 2 + 1; i++)
         {
+            Panel p = new Panel();
+            p.Style.Add("position", "relative");
+            p.Style.Add("page-break-after", "always");
 
-            Category_ProductLabelUserControl uc = new Category_ProductLabelUserControl();
-            uc = (Category_ProductLabelUserControl)LoadControl("~/Category/ProductLabelUserControl.ascx");
-            uc.Fill_Letter(p.Code, p.LabelDesc);
-            uc.ResizeLabel1();
+            p.Height = 300;
+            p.Width = 200;
+            p.Style.Add("border", "1px solid white");
+            divCon.Controls.Add(p);
 
-            divCon.Controls.Add(uc);
-
-            Category_ProductLabelUserControl uc2 = new Category_ProductLabelUserControl();
-            uc2 = (Category_ProductLabelUserControl)LoadControl("~/Category/ProductLabelUserControl.ascx");
-            uc2.Fill_Letter(p.Code, p.LabelDesc);
-            uc2.ResizeLabel2();
-
-            divCon.Controls.Add(uc2);
-
-            HtmlGenericControl gen = new HtmlGenericControl();
-            gen.TagName = "div";
-            gen.Attributes.Add("style", "page-break-after:always;");
-            divCon.Controls.Add(gen);
-
+            AddControl(item, PrintSettingBLL.DINLabel.Label1, p);
+            AddControl(item, PrintSettingBLL.DINLabel.Label2, p);
         }
+    }
 
+    void AddControl(Product item, PrintSetting ps, Panel panel)
+    {
+        Category_ProductLabelUserControl uc = new Category_ProductLabelUserControl();
+        uc = (Category_ProductLabelUserControl)LoadControl("~/Category/ProductLabelUserControl.ascx");
+        uc.Fill_Letter(item.Code, item.LabelDesc);
+        uc.ResizeLabel(ps);
 
-
+        panel.Controls.Add(uc);
     }
 
 

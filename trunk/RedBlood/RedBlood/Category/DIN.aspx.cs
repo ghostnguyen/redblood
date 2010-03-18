@@ -9,7 +9,7 @@ public partial class Category_DIN : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        txtNumOfDIN.Focus();
     }
     protected void btnGen_Click(object sender, EventArgs e)
     {
