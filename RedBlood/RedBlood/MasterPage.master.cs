@@ -27,7 +27,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "txtCode_PostBack", BarcodeBLL.JScript4Postback(), true);
 
-        if (!Request.Url.ToString().ToLower().Contains("default"))
+        if (Request.Url.ToString().ToLower().Contains("default")
+            || Request.Url.ToString().ToLower().Contains("din.aspx"))
+        {
+            
+        }
+        else
         {
             txtMasterCode.Focus();
         }

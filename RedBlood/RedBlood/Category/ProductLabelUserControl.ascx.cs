@@ -21,13 +21,8 @@ public partial class Category_ProductLabelUserControl : System.Web.UI.UserContro
         txtNote.Style.Apply(PrintSettingBLL.ProductLabel.Note);
     }
 
-    public void ResizeLabel1()
+    public void ResizeLabel(PrintSetting ps)
     {
-        divLabel.Style.Apply(PrintSettingBLL.ProductLabel.Label1);
-    }
-
-    public void ResizeLabel2()
-    {
-        divLabel.Style.Apply(PrintSettingBLL.ProductLabel.Label2);
+        divLabel.Style.Apply(ps);
     }
 }
