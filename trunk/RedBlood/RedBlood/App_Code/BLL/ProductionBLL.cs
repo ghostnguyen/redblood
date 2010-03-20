@@ -81,7 +81,7 @@ public class ProductionBLL
             throw new Exception("Sản phẩm đầu vào có túi máu bị trùng dữ liệu.");
 
 
-        ProductCodeInList.Add(BarcodeBLL.ParseProductCode(productCode));
+        ProductCodeInList.Add(productCode);
 
         return ProductCodeInList;
     }
@@ -104,19 +104,13 @@ public class ProductionBLL
         if (count > 0)
             throw new Exception("Sản phẩm đầu ra đã sản xuất.");
 
-        ProductCodeOutList.Add(BarcodeBLL.ParseProductCode(productCode));
+        ProductCodeOutList.Add(productCode);
 
         return ProductCodeOutList;
     }
 
-    public List<string> AddDIN(string DINCode)
+    public List<string> AddDIN(string DIN)
     {
-
-        if (!DINCode.IsValidDINCode())
-            throw new Exception("Không phải mã túi máu.");
-
-        string DIN = BarcodeBLL.ParseDIN(DINCode);
-
         if (DINInList.Contains(DIN))
             throw new Exception("Mã túi máu này đã có.");
 

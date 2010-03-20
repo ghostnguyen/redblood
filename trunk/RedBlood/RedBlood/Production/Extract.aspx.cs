@@ -80,7 +80,7 @@ public partial class Production_Extract : System.Web.UI.Page
         {
             if (BarcodeBLL.IsValidProductCode(code))
             {
-                ProductCodeInList = productionBLL.AddProductCodeIn(code);
+                ProductCodeInList = productionBLL.AddProductCodeIn(BarcodeBLL.ParseProductCode(code));
                 DataListProductIn.DataBind();
             }
         }
@@ -88,7 +88,7 @@ public partial class Production_Extract : System.Web.UI.Page
         {
             if (BarcodeBLL.IsValidProductCode(code))
             {
-                ProductCodeOutList = productionBLL.AddProductCodeOut(code);
+                ProductCodeOutList = productionBLL.AddProductCodeOut(BarcodeBLL.ParseProductCode(code));
                 DataListProductOut.DataBind();
             }
         }
@@ -96,7 +96,7 @@ public partial class Production_Extract : System.Web.UI.Page
         {
             if (BarcodeBLL.IsValidDINCode(code))
             {
-                DINInList = productionBLL.AddDIN(code);
+                DINInList = productionBLL.AddDIN(BarcodeBLL.ParseDIN(code));
                 DataListDINIn.DataBind();
             }
         }

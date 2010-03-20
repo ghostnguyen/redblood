@@ -19,24 +19,81 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
         set
         {
             ViewState[strID] = value;
-            if (value == Guid.Empty)
-            {
-                ClearGUI();
-            }
-            else
-            {
-                DisplayToGUI();
-            }
+            DisplayToGUI();
         }
     }
 
-    string styleHidden = "visibility: hidden; height: 0px; width: 0px;";
+    public List<string> ProductCodeInList
+    {
+        get
+        {
+            if (ViewState["ProductCodeInList"] == null)
+            {
+                ViewState["ProductCodeInList"] = new List<string>();
+            }
+            return (List<string>)ViewState["ProductCodeInList"];
+        }
+        set
+        {
+            ViewState["ProductCodeInList"] = value;
+        }
+    }
+
+    public List<string> ProductCodeOutList
+    {
+        get
+        {
+            if (ViewState["ProductCodeOutList"] == null)
+            {
+                ViewState["ProductCodeOutList"] = new List<string>();
+            }
+            return (List<string>)ViewState["ProductCodeOutList"];
+        }
+        set
+        {
+            ViewState["ProductCodeOutList"] = value;
+        }
+    }
+
+    public ReceiptBLL receiptBLL
+    {
+        get
+        {
+            return new ReceiptBLL()
+            {
+                ProductCodeInList = ProductCodeInList,
+                ProductCodeOutList = ProductCodeOutList,
+            };
+        }
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        string code = Master.TextBoxCode.Text.Trim();
+        Master.TextBoxCode.Text = "";
+
+        if (code.Length == 0) return;
+
+
+        if (rdbProductCodeIn.Checked)
+        {
+            if (BarcodeBLL.IsValidProductCode(code))
+            {
+                ProductCodeInList = receiptBLL.AddProductCodeIn(BarcodeBLL.ParseProductCode(code));
+                DataListProductIn.DataBind();
+            }
+        }
+        else if (rdbProductCodeOut.Checked)
+        {
+            if (BarcodeBLL.IsValidProductCode(code))
+            {
+                ProductCodeOutList = receiptBLL.AddProductCodeOut(BarcodeBLL.ParseProductCode(code));
+                DataListProductOut.DataBind();
+            }
+        }
 
     }
- 
+
     protected void LinqDataSourceFind_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
         e.Result = ReceiptBLL.Find(txtNameFind.Text.Trim());
@@ -59,84 +116,47 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
     {
         Receipt e = ReceiptBLL.Get(ID);
 
-        if (e != null)
+        if (e == null)
         {
-            txtName.Text = e.Name;
-            txtNote.Text = e.Note;
+            e = new Receipt();
+            ProductCodeInList.Clear();
+            ProductCodeOutList.Clear();
         }
+        else
+        {
+            ProductCodeInList = e.ReceiptProducts.Where(r => r.Type == ReceiptProduct.TypeX.In).Select(r => r.ProductCode).ToList();
+            ProductCodeOutList = e.ReceiptProducts.Where(r => r.Type == ReceiptProduct.TypeX.Out).Select(r => r.ProductCode).ToList();
+        }
+
+        txtName.Text = e.Name;
+        txtNote.Text = e.Note;
+
+        DataListProductIn.DataBind();
+        DataListProductOut.DataBind();
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        if (ID == Guid.Empty)
-        {
-            RedBloodDataContext db = new RedBloodDataContext();
-            Receipt r = new Receipt();
-
-            if (LoadFromGUI(r))
-            {
-                db.Receipts.InsertOnSubmit(r);
-                db.SubmitChanges();
-
-                ID = r.ID;
-            }
-        }
-        else
-        {
-            RedBloodDataContext db = new RedBloodDataContext();
-
-            Receipt r = ReceiptBLL.Get(ID, db);
-
-            if (r == null) return;
-
-            if (LoadFromGUI(r))
-            {
-                db.SubmitChanges();
-            }
-        }
+        ID = receiptBLL.InsertOrUpdate(ID, LoadFromGUI);
 
         GridView1.DataBind();
         this.Alert("Lưu thành công.");
     }
 
-    private bool LoadFromGUI(Receipt p)
+    private Receipt LoadFromGUI(Receipt p)
     {
-        bool isDone = true;
-        try
-        {
-            p.Name = txtName.Text.Trim();
-            divErrName.Attributes["style"] = styleHidden;
-        }
-        catch (Exception ex)
-        {
-            divErrName.InnerText = ex.Message;
-            divErrName.Attributes["style"] = "color:red;";
-            isDone = false;
-        }
-
+        p.Name = txtName.Text.Trim();
         p.Note = txtNote.Text;
 
-        return isDone;
+        return p;
     }
 
-    public void ClearGUI()
-    {
-        txtName.Text = "";
-        txtNote.Text = "";
-
-        divErrName.Attributes["style"] = styleHidden;
-    }
-
-    public void New()
-    {
-        ID = Guid.Empty;
-        ClearGUI();
-        txtName.Focus();
-    }
     protected void btnNew_Click(object sender, EventArgs e)
     {
-        New();
+        ID = Guid.Empty;
+        txtName.Focus();
     }
+
     protected void btnDelete_Click(object sender, EventArgs e)
     {
         if (ID != Guid.Empty)
@@ -144,10 +164,39 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
             ReceiptBLL.Delete(ID);
 
             ID = Guid.Empty;
-            ClearGUI();
-
             GridView1.DataBind();
         }
     }
-    
+
+    protected void LinqDataSourceProductIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        e.Result = db.Products.Where(r => ProductCodeInList.Contains(r.Code));
+    }
+
+    protected void LinqDataSourceProductOut_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        e.Result = db.Products.Where(r => ProductCodeOutList.Contains(r.Code));
+    }
+
+    protected void btnProductCodeIn_Click(object sender, ImageClickEventArgs e)
+    {
+        ImageButton btn = sender as ImageButton;
+        
+        if (btn != null)
+        {
+            ProductCodeInList.Remove(btn.CommandArgument);
+        }
+    }
+
+    protected void btnProductCodeOut_Click(object sender, ImageClickEventArgs e)
+    {
+        ImageButton btn = sender as ImageButton;
+        
+        if (btn != null)
+        {
+            ProductCodeOutList.Remove(btn.CommandArgument);
+        }
+    }
 }

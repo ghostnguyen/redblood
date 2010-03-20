@@ -8,6 +8,9 @@ using System.Web;
 /// </summary>
 public class ReceiptBLL
 {
+    public List<string> ProductCodeInList { get; set; }
+    public List<string> ProductCodeOutList { get; set; }
+
     public ReceiptBLL()
     {
         //
@@ -28,6 +31,53 @@ public class ReceiptBLL
         {
             return db.Receipts.Where(r => r.Name.Contains(findStr.Trim())).ToList();
         }
+    }
+
+    public Guid InsertOrUpdate(Guid ID, Func<Receipt, Receipt> loadFromGUI)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        Receipt r;
+
+        if (ID == Guid.Empty)
+        {
+            r = new Receipt();
+            db.Receipts.InsertOnSubmit(r);
+        }
+        else
+        {
+            r = ReceiptBLL.Get(ID, db);
+        }
+
+        loadFromGUI(r);
+
+        //Product In
+        IEnumerable<ReceiptProduct> existingProductCodeInList = r.ReceiptProducts.Where(r1 => r1.Type == ReceiptProduct.TypeX.In);
+
+        db.ReceiptProducts.DeleteAllOnSubmit(
+            existingProductCodeInList.Where(r1 => !ProductCodeInList.Contains(r1.ProductCode))
+            );
+
+        r.ReceiptProducts.AddRange(
+            ProductCodeInList
+                .Except(existingProductCodeInList.Select(r1 => r1.ProductCode))
+                .Select(r1 => new ReceiptProduct() { ProductCode = r1, Type = ReceiptProduct.TypeX.In })
+            );
+
+        //Product Out
+        IEnumerable<ReceiptProduct> existingProductCodeOutList = r.ReceiptProducts.Where(r1 => r1.Type == ReceiptProduct.TypeX.Out);
+
+        db.ReceiptProducts.DeleteAllOnSubmit(
+            existingProductCodeOutList.Where(r1 => !ProductCodeOutList.Contains(r1.ProductCode))
+            );
+
+        r.ReceiptProducts.AddRange(
+            ProductCodeOutList
+                .Except(existingProductCodeOutList.Select(r1 => r1.ProductCode))
+                .Select(r1 => new ReceiptProduct() { ProductCode = r1, Type = ReceiptProduct.TypeX.Out })
+            );
+
+        db.SubmitChanges();
+        return r.ID;
     }
 
     public static Receipt Get(Guid ID, RedBloodDataContext db)
@@ -56,10 +106,45 @@ public class ReceiptBLL
     public static void Delete(Guid ID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        
+
         Receipt e = Get(ID, db);
 
         db.Receipts.DeleteOnSubmit(e);
         db.SubmitChanges();
+    }
+
+    public List<string> AddProductCodeIn(string productCode)
+    {
+        if (!productCode.IsValidProductCode())
+            throw new Exception("Sai mã sản phẩm.");
+
+        if (ProductCodeInList.Contains(productCode))
+            throw new Exception("Sản phẩm đầu vào đã có trong danh sách đầu vào.");
+
+        if (ProductCodeOutList.Contains(productCode))
+            throw new Exception("Sản phẩm đầu vào đã có trong danh sách đầu ra.");
+
+        if (ProductCodeInList.Count == 1)
+            throw new Exception("Sản phẩm đầu vào chỉ được 1 loại.");
+
+        ProductCodeInList.Add(productCode);
+
+        return ProductCodeInList;
+    }
+
+    public List<string> AddProductCodeOut(string productCode)
+    {
+        if (!productCode.IsValidProductCode())
+            throw new Exception("Sai mã sản phẩm.");
+
+        if (ProductCodeInList.Contains(productCode))
+            throw new Exception("Sản phẩm đầu ra đã có trong danh sách đầu vào.");
+
+        if (ProductCodeOutList.Contains(productCode))
+            throw new Exception("Sản phẩm đầu ra đã có trong danh sách đầu ra.");
+
+        ProductCodeOutList.Add(productCode);
+
+        return ProductCodeOutList;
     }
 }
