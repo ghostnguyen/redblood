@@ -121,6 +121,7 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
             e = new Receipt();
             ProductCodeInList.Clear();
             ProductCodeOutList.Clear();
+            rdbProductCodeIn.Checked = true;
         }
         else
         {
@@ -187,6 +188,7 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
         if (btn != null)
         {
             ProductCodeInList.Remove(btn.CommandArgument);
+            DataListProductIn.DataBind();
         }
     }
 
@@ -197,6 +199,7 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
         if (btn != null)
         {
             ProductCodeOutList.Remove(btn.CommandArgument);
+            DataListProductOut.DataBind();
         }
     }
 }

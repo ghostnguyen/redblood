@@ -22,6 +22,37 @@ public class PackBLL
         return p;
     }
 
+    public static Pack Get(string DIN, string productCode)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        List<Pack> l = db.Packs.Where(r => r.DIN == DIN && r.ProductCode == productCode).ToList();
+
+        if (l.Count > 1)
+        {
+            throw new Exception("Dữ liệu túi máu bị trùng.");
+        }
+
+        if (l.Count == 0)
+        {
+            throw new Exception("Không có túi máu.");
+        }
+
+        return l.FirstOrDefault();
+    }
+
+    public static Pack Get4ReportSideEffects(string DIN, string productCode)
+    {
+        Pack p = Get(DIN,productCode);
+
+        if (p.Status != Pack.StatusX.Delivered)
+        {
+            throw new Exception("Túi máu chưa cấp phát.");
+        }
+
+        return p;
+    }
+
     //Only pack has status 0 can be remove, to re-assign to another people.
     public static Pack RemovePeople(int autonum)
     {

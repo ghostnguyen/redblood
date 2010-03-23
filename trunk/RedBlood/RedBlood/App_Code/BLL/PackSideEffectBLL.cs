@@ -25,9 +25,31 @@ public class PackSideEffectBLL
         //
     }
 
-    public static List<PackSideEffect> Get(Guid packID)
+    public static List<PackSideEffect> Get(string DIN, string productCode)
     {
+        return PackBLL.Get4ReportSideEffects(DIN, productCode).PackSideEffects.ToList();
+    }
+
+    public static void Add(string DIN, string productCode, string fullSideEffects, string note)
+    {
+        Pack p = PackBLL.Get4ReportSideEffects(DIN, productCode);
+
+        if (string.IsNullOrEmpty(fullSideEffects))
+            throw new Exception("Phản ứng phụ trống.");
+
+        PackSideEffect se = new PackSideEffect();
+
+        se.PackID = p.ID;
+        se.SetSideEffect(fullSideEffects);
+
+        se.Actor = RedBloodSystem.CurrentActor;
+        se.Date = DateTime.Now;
+        se.Note = note;
+
         RedBloodDataContext db = new RedBloodDataContext();
-        return db.PackSideEffects.Where(r => r.PackID == packID).ToList();
+        
+        db.PackSideEffects.InsertOnSubmit(se);
+
+        db.SubmitChanges();
     }
 }
