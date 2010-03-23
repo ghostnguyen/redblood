@@ -18,6 +18,11 @@ public class ProductBLL
     public static Product Get(string code)
     {
         RedBloodDataContext db = new RedBloodDataContext();
+        return Get(db, code);
+    }
+
+    public static Product Get(RedBloodDataContext db, string code)
+    {
         return db.Products.Where(r => r.Code == code).FirstOrDefault();
     }
 }

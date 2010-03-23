@@ -16,6 +16,10 @@
             window.location = ("Production/Rpt_ExtractByDay.aspx");
         });
 
+        $(document).bind('keydown', '1', function() {
+            window.location = ("Production/TherapyReceipt.aspx");
+        });
+
        
     </script>
 
@@ -116,25 +120,25 @@
                         </td>
                     </tr>
                     <tr>
-                        <%-- <td colspan="3" class="rowline">
-                        </td>--%>
+                         <td colspan="3" class="rowline">
+                        </td>
                     </tr>
                     <tr>
                         <td class="column">
-                            <%-- <table>
+                             <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
-                                            <img src="Image/Icon/number3.gif" alt="" />
+                                        <a href="Production/TherapyReceipt.aspx">
+                                            <img src="Image/Icon/number1.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Production/TherapyReceipt.aspx">Công thức sản xuất</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>

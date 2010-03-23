@@ -36,30 +36,20 @@ public class ProductionBLL
             return "Không có túi máu đầu vào.";
         }
 
-        //if (!ProductCodeInList.IsValidProductCodeList())
-        //    return "Danh sách sản phẩm đầu vào có lỗi.";
-
-        //if (!ProductCodeOutList.IsValidProductCodeList())
-        //    return "Danh sách sản phẩm đầu ra có lỗi.";
-
-        //if (!ProductCodeOutList.IsValidDINList())
-        //    return "Danh sách sản phẩm đầu ra có lỗi.";
+        ReceiptBLL.ValidateOnTherapyReceipt(ProductCodeInList, ProductCodeOutList);
 
         if (ProductCodeInList.Where(r => ProductCodeOutList.Contains(r)).Count() != 0)
         {
             return "Danh sách sản phẩm đầu ra và đầu vào có sản phẩm trùng.";
         }
 
-        //TODO: Validate data in database
-
         return "";
     }
 
+    
+
     public List<string> AddProductCodeIn(string productCode)
     {
-        if (!productCode.IsValidProductCode())
-            throw new Exception("Sai mã sản phẩm.");
-
         if (ProductCodeInList.Contains(productCode))
             throw new Exception("Sản phẩm đầu vào đã có trong danh sách đầu vào.");
 
@@ -69,7 +59,9 @@ public class ProductionBLL
         if (ProductCodeInList.Count == 1)
             throw new Exception("Sản phẩm đầu vào chỉ được 1 loại.");
 
-        //TODO: Only some product is allow as IN
+        List<string> tempList = ProductCodeInList.ToList();
+        tempList.Add(productCode);
+        ReceiptBLL.ValidateOnTherapyReceipt(tempList, ProductCodeOutList);
 
         RedBloodDataContext db = new RedBloodDataContext();
         int count = db.Packs.Where(r => r.ProductCode == productCode && DINInList.Contains(r.DIN)).Count();
@@ -88,16 +80,15 @@ public class ProductionBLL
 
     public List<string> AddProductCodeOut(string productCode)
     {
-        if (!productCode.IsValidProductCode())
-            throw new Exception("Sai mã sản phẩm.");
-
         if (ProductCodeInList.Contains(productCode))
             throw new Exception("Sản phẩm đầu ra đã có trong danh sách đầu vào.");
 
         if (ProductCodeOutList.Contains(productCode))
             throw new Exception("Sản phẩm đầu ra đã có trong danh sách đầu ra.");
 
-        //TODO: Only some product is allow as OUT
+        List<string> tempList = ProductCodeOutList.ToList();
+        tempList.Add(productCode);
+        ReceiptBLL.ValidateOnTherapyReceipt(ProductCodeInList, tempList);
 
         RedBloodDataContext db = new RedBloodDataContext();
         int count = db.Packs.Where(r => r.ProductCode == productCode && DINInList.Contains(r.DIN)).Count();
@@ -211,3 +202,4 @@ public class ProductionBLL
         return PackErrEnum.Non;
     }
 }
+

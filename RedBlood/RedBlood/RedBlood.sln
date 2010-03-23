@@ -23,7 +23,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RedBlood", ".", "{1B7B99C7-
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "true"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "3227"
+		VWDPort = "2086"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeLib", "..\BarcodeLib\BarcodeLib.csproj", "{F8646414-0C9C-49BB-9DA3-3923BF78A398}"
