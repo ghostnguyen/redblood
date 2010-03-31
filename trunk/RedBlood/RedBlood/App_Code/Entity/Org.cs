@@ -41,9 +41,18 @@ public partial class Org
             NameNoDiacritics = Name.RemoveDiacritics();
     }
 
-    public void SetResidentGeo3(string value)
+    public int SetGeo3(Guid? geo1ID, Guid? geo2ID, Guid? geo3ID)
     {
-        GeoBLL.Set3LevelByFullname(value, GeoID1, GeoID2, GeoID3);
+        GeoID1 = geo1ID;
+        GeoID2 = geo2ID;
+        GeoID3 = geo3ID;
+
+        return 0;
+    }
+
+    public void SetGeo3(string value)
+    {
+        GeoBLL.Set3LevelByFullname(value, SetGeo3);
     }
 
     public string FullGeo

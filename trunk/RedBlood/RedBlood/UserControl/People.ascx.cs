@@ -296,16 +296,19 @@ public partial class UserControl_People : System.Web.UI.UserControl
         p.EnableMailingAddress = chkEnableMaillingAddress.Checked;
         p.MailingAddress = txtMailingAddress.Text.Trim();
 
-        try
+        if (p.EnableMailingAddress.Value)
         {
-            p.SetMailingGeo3(txtMailingGeo.Text.Trim());
-            divErrMailingGeo.Attributes["class"] = "hidden";
-        }
-        catch (Exception ex)
-        {
-            divErrMailingGeo.Attributes["class"] = "err";
-            divErrMailingGeo.InnerText = ex.Message;
-            isDone = false;
+            try
+            {
+                p.SetMailingGeo3(txtMailingGeo.Text.Trim());
+                divErrMailingGeo.Attributes["class"] = "hidden";
+            }
+            catch (Exception ex)
+            {
+                divErrMailingGeo.Attributes["class"] = "err";
+                divErrMailingGeo.InnerText = ex.Message;
+                isDone = false;
+            }
         }
 
         p.Job = txtJob.Text;

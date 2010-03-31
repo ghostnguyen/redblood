@@ -138,10 +138,11 @@ public class GeoBLL
         return (address + ", " + fullGeo).Trim(',', ' ');
     }
 
-    public static void Set3LevelByFullname(string fullname, Guid? geo1ID, Guid? geo2ID, Guid? geo3ID)
+    public static void Set3LevelByFullname(string fullname, Func<Guid?, Guid?, Guid?, int> setGeoFunc)
     {
+
         if (string.IsNullOrEmpty(fullname)
-            || string.IsNullOrEmpty(fullname.Trim()))
+                   || string.IsNullOrEmpty(fullname.Trim()))
         {
             throw new Exception("Nhập đơn vị hành chính.");
         }
@@ -154,9 +155,9 @@ public class GeoBLL
             }
             else
             {
-                geo1ID = null;
-                geo2ID = null;
-                geo3ID = null;
+                Guid? geo1ID = null;
+                Guid? geo2ID = null;
+                Guid? geo3ID = null;
 
                 if (g.Level == 1)
                 {
@@ -175,7 +176,50 @@ public class GeoBLL
                     geo2ID = g.ParentGeo.ID;
                     geo1ID = g.ParentGeo.ParentGeo.ID;
                 }
+
+                setGeoFunc(geo1ID, geo2ID, geo3ID);
             }
         }
     }
+
+    //public static void Set3LevelByFullname(string fullname, out Guid? geo1ID, out Guid? geo2ID, out Guid? geo3ID)
+    //{
+    //    if (string.IsNullOrEmpty(fullname)
+    //        || string.IsNullOrEmpty(fullname.Trim()))
+    //    {
+    //        throw new Exception("Nhập đơn vị hành chính.");
+    //    }
+    //    else
+    //    {
+    //        Geo g = GeoBLL.GetByFullname(fullname);
+    //        if (g == null)
+    //        {
+    //            throw new Exception("Nhập sai đơn vị hành chính.");
+    //        }
+    //        else
+    //        {
+    //            geo1ID = null;
+    //            geo2ID = null;
+    //            geo3ID = null;
+
+    //            if (g.Level == 1)
+    //            {
+    //                geo1ID = g.ID;
+    //            }
+
+    //            if (g.Level == 2)
+    //            {
+    //                geo2ID = g.ID;
+    //                geo1ID = g.ParentGeo.ID;
+    //            }
+
+    //            if (g.Level == 3)
+    //            {
+    //                geo3ID = g.ID;
+    //                geo2ID = g.ParentGeo.ID;
+    //                geo1ID = g.ParentGeo.ParentGeo.ID;
+    //            }
+    //        }
+    //    }
+    //}
 }

@@ -122,14 +122,32 @@ public partial class People
         }
     }
 
+    public int SetResidentGeo3(Guid? geo1ID, Guid? geo2ID, Guid? geo3ID)
+    {
+        ResidentGeoID1 = geo1ID;
+        ResidentGeoID2 = geo2ID;
+        ResidentGeoID3 = geo3ID;
+
+        return 0;
+    }
+
     public void SetResidentGeo3(string value)
     {
-        GeoBLL.Set3LevelByFullname(value, ResidentGeoID1, ResidentGeoID2, ResidentGeoID3);
+        GeoBLL.Set3LevelByFullname(value, SetResidentGeo3);
+    }
+
+    public int SetMailingGeo3(Guid? geo1ID, Guid? geo2ID, Guid? geo3ID)
+    {
+        MailingGeoID1 = geo1ID;
+        MailingGeoID2 = geo2ID;
+        MailingGeoID3 = geo3ID;
+
+        return 0;
     }
 
     public void SetMailingGeo3(string value)
     {
-        GeoBLL.Set3LevelByFullname(value, MailingGeoID1, MailingGeoID2, MailingGeoID3);
+        GeoBLL.Set3LevelByFullname(value, SetMailingGeo3);
     }
 
     public string FullResidentalGeo

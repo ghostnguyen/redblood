@@ -72,21 +72,6 @@
 	<td>Tp Biên Hòa, Đồng Nai</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_chkEnableMaillingAddress</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtMailingAddress</td>
-	<td>65 truyen tranhasd 2</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtMailingGeo</td>
-	<td>Tp Biên Hòa, Đồng Nai</td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>ctl00_ContentPlaceHolder1_ucPeople_txtJob</td>
 	<td>hoc sinh</td>

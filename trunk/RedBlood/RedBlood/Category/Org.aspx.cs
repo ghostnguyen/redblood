@@ -142,7 +142,7 @@ public partial class Category_Org : System.Web.UI.Page
 
         try
         {
-            p.SetResidentGeo3(txtGeo.Text.Trim());
+            p.SetGeo3(txtGeo.Text.Trim());
             divErrGeo.Attributes["style"] = styleHidden;
         }
         catch (Exception ex)
