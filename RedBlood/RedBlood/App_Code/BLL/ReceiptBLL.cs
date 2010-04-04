@@ -158,7 +158,7 @@ public class ReceiptBLL
                 .Count() == 0
             ).Count() == 0)
             throw new Exception("Không có công thức cho sản xuất chế phẩm thích hợp.");
-        
+
         return true;
     }
 }

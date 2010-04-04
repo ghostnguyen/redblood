@@ -131,6 +131,8 @@ public partial class Production_Extract : System.Web.UI.Page
         DINInList.Clear();
         DataListDINIn.DataBind();
 
+        rdbProductCodeOut.Checked = false;
+        rdbDINIn.Checked = false;
         rdbProductCodeIn.Checked = true;
     }
 
@@ -138,5 +140,15 @@ public partial class Production_Extract : System.Web.UI.Page
     {
         productionBLL.Extract();
         this.Alert("Sản xuất thành công.");
+    }
+    protected void btnDINRemove_Click(object sender, ImageClickEventArgs e)
+    {
+        ImageButton btn = sender as ImageButton;
+
+        if (btn != null)
+        {
+            DINInList.Remove(btn.CommandArgument);
+            DataListDINIn.DataBind();
+        }
     }
 }

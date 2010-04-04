@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Diagnostics;
+using System.Reflection;
 
 /// <summary>
 /// Summary description for PackTransactionBLL
@@ -44,7 +45,8 @@ public class PackTransactionBLL
         StackTrace stackTrace = new StackTrace();
 
         // get calling method name
-        string name = stackTrace.GetFrame(1).GetMethod().Name;
+        MethodBase m = stackTrace.GetFrame(1).GetMethod();
+        string name = m.DeclaringType.Name + "." + m.Name;
 
         return Add(packID, type, name);
     }

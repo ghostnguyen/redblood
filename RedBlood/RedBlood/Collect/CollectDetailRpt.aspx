@@ -41,7 +41,7 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Ngày sinh">
                                         <ItemTemplate>
-                                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("People.DOB","{0:dd/MM/yyyy}") %>' />
+                                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("People.DOBToString") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Nhóm máu">

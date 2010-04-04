@@ -192,7 +192,7 @@
                                 <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("Pack.ProductCode") as string) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ShowEditButton="True" EditText="Thu hồi" UpdateText="Ok" CancelText='<%$ Resources:Resource,Cancel %>' />
+                        <asp:CommandField ButtonType="Button" ShowEditButton="True" EditText="Thu hồi" UpdateText='<%$ Resources:Resource,Update %>' CancelText='<%$ Resources:Resource,Cancel %>' />
                         <asp:TemplateField HeaderText="">
                             <EditItemTemplate>
                                 Lý do:

@@ -23,7 +23,7 @@ public class DonationTestLogBLL
         e.DIN = p.DIN;
         e.Type = propertyName;
 
-        PropertyInfo prop = e.GetType().GetProperty(propertyName);
+        PropertyInfo prop = p.GetType().GetProperty(propertyName);
 
         if (prop != null)
         {

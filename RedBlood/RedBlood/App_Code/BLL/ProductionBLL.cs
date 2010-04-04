@@ -130,13 +130,12 @@ public class ProductionBLL
         return DINInList;
     }
 
-    public string Extract()
+    public void Extract()
     {
         string err = ValidateAllList();
 
         if (!string.IsNullOrEmpty(err))
             throw new Exception(err);
-
 
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -146,11 +145,10 @@ public class ProductionBLL
         {
             foreach (string code in ProductCodeOutList)
             {
+                //TODO: display all err pack.
                 Extract(item.ID, code);
             }
         }
-
-        return "";
     }
 
     public PackErr Extract(Guid srcPackID, string productCode)
