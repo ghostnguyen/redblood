@@ -4,22 +4,32 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>BloodGroup</title>
+<title>Order</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">BloodGroup</td></tr>
+<tr><td rowspan="1" colspan="3">Order</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/RedBlood/Collect/CollectPack.aspx</td>
+	<td>/RedBlood/Default.aspx</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//table[@id='menu1']/tbody/tr[3]/td[2]/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Cấp phát cho bệnh viện</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>ctl00_txtMasterCode</td>
-	<td>=V00011000000100</td>
+	<td>777888999</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -33,18 +43,93 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
-	<td>=%9500</td>
+	<td>ctl00_ContentPlaceHolder1_People1_txtName</td>
+	<td>Ly Tieu Long</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtNote</td>
+	<td>Cap cuu</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_People1_txtDOB</td>
+	<td>1952</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ctl00_ContentPlaceHolder1_People1_ddlSex</td>
+	<td>label=Nam</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_People1_txtResidentAddress</td>
+	<td>434 Tran Van thoi</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_People1_txtResidentGeo</td>
+	<td>xã Tân Hưng, Bến Cát, Bình Dương</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_People1_txtResidentGeo</td>
+	<td>xã Tân Hưng, Bến Cát, Bình Dương</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtDept</td>
+	<td>Nội Thận</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtDept</td>
+	<td>Nội Thận</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtRoom</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtBed</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtDiagnosis</td>
+	<td>suy than</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtPatientCode</td>
+	<td>BN123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtTransfusionNote</td>
+	<td>truyen trong 2 tieng</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>ctl00_ContentPlaceHolder1_People1_btnUpdate</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
+	<td>waitForAlert</td>
+	<td>Lưu thành công.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_ContentPlaceHolder1_btnUpdate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Lưu thành công.</td>
+	<td></td>
 </tr>
 <tr>
 	<td>type</td>
@@ -64,11 +149,41 @@
 <tr>
 	<td>type</td>
 	<td>ctl00_txtMasterCode</td>
-	<td>=%5100</td>
+	<td>=&lt;E0097V00</td>
 </tr>
 <tr>
 	<td>click</td>
 	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Thu hồi']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>ctl00_ContentPlaceHolder1_GridViewPack_ctl02_txtRemoveNote</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_GridViewPack_ctl02_txtRemoveNote</td>
+	<td>danh lon</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00$ContentPlaceHolder1$GridViewPack$ctl02$ctl00</td>
 	<td></td>
 </tr>
 <tr>
@@ -94,37 +209,7 @@
 <tr>
 	<td>type</td>
 	<td>ctl00_txtMasterCode</td>
-	<td>=%0600</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
-	<td>=V00011000000400</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
-	<td>=%2800</td>
+	<td>=&lt;E0150V00</td>
 </tr>
 <tr>
 	<td>click</td>

@@ -100,7 +100,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
             txtNote.Text = e.Note;
 
-            btnSave.Enabled = !DonationBLL.IsTRLocked(e);
+            btnSave.Enabled = DonationBLL.CanUpdateTestResult(e);
         }
     }
 

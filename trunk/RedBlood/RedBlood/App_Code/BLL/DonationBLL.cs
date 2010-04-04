@@ -17,18 +17,13 @@ public class DonationBLL
         //
     }
 
-    public static bool IsTRLocked(Donation e)
-    {
-        return !(new Donation.TestResultStatusX[] { Donation.TestResultStatusX.Non, 
-            Donation.TestResultStatusX.Negative, 
-            Donation.TestResultStatusX.Positive}).Contains(e.TestResultStatus);
-    }
-
     public static bool CanUpdateTestResult(Donation e)
     {
-        return e.Pack != null
-            //Need TR product: && ComponentID == TestDef.Component.Full
-            && !IsTRLocked(e);
+        if (e == null) throw new Exception(DonationErrEnum.NonExist.Message);
+
+        return (new Donation.TestResultStatusX[] { Donation.TestResultStatusX.Non, 
+            Donation.TestResultStatusX.Negative, 
+            Donation.TestResultStatusX.Positive}).Contains(e.TestResultStatus);
     }
 
     public static List<Donation> New(int count)
@@ -189,8 +184,11 @@ public class DonationBLL
 
         Donation e = DonationBLL.Get(db, DIN);
 
-        if (e == null || !CanUpdateTestResult(e))
-            throw new Exception(DonationErrEnum.Unknown.Message);
+        if (e == null )
+            throw new Exception(DonationErrEnum.NonExist.Message);
+
+        if (!CanUpdateTestResult(e))
+            throw new Exception(DonationErrEnum.TRLocked.Message);
 
         if (bloodGroup.Trim() != e.BloodGroup)
         {

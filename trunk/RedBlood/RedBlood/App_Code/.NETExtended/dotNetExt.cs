@@ -228,6 +228,11 @@ public static class dotNetExt
         return dt.ToString("dd/MM/yyyy");
     }
 
+    public static string ToStringVNLong(this DateTime dt)
+    {
+        return dt.ToString("dd/MM/yyyy hh:mm:ss");
+    }
+
     public static string ToStringVN(this DateTime? dt)
     {
         if (dt.HasValue)

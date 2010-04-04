@@ -54,9 +54,11 @@ public class OrderBLL
 
         db.SubmitChanges();
 
-        PackBLL.Update(db, po.Pack, Pack.StatusX.Delivered, "Add to Order: " + po.OrderID.Value.ToString() + "." );
+        string fullNote = "Add to Order: " + po.OrderID.Value.ToString() + ".";
 
-        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out_Order);
+        PackBLL.Update(db, po.Pack, Pack.StatusX.Delivered, fullNote);
+
+        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out_Order, fullNote);
     }
 
     public static void Remove(int packOrderID, string note)
@@ -69,16 +71,16 @@ public class OrderBLL
             || po.Pack == null
             || po.Order == null) return;
 
-        PackBLL.Update(db, po.Pack, Pack.StatusX.Product, "Remove from Order: " + po.OrderID.Value.ToString() + ". " + note);
+        string fullNote = DateTime.Now.ToStringVNLong() + ". " + RedBloodSystem.CurrentActor + ". Remove from Order: " + po.OrderID.Value.ToString() + ". " + note;
+
+        PackBLL.Update(db, po.Pack, Pack.StatusX.Product, fullNote);
 
         po.Status = PackOrder.StatusX.Return;
-        po.Actor = RedBloodSystem.CurrentActor;
-        po.ReturnDate = DateTime.Now;
-        po.Note = note;
+        po.Note = fullNote;
 
         db.SubmitChanges();
 
-        PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In_Return);
+        PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In_Return, fullNote);
 
     }
 
@@ -108,7 +110,7 @@ public class OrderBLL
             ).ToList();
     }
 
-    public static Donation GetDIN4Order(string DIN) 
+    public static Donation GetDIN4Order(string DIN)
     {
         Donation e = DonationBLL.Get(DIN);
         if (e == null)

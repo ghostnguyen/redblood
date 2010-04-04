@@ -95,6 +95,9 @@ public class PackBLL
         p.Status = to;
 
         db.PackStatusHistories.InsertOnSubmit(e);
+
+        db.SubmitChanges();
+
         return e;
     }
 

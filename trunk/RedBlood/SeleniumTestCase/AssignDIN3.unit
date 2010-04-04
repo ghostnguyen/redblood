@@ -27,7 +27,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>typeKeys</td>
+	<td>type</td>
 	<td>ctl00_txtMasterCode</td>
 	<td>&amp;c0001</td>
 </tr>
@@ -35,6 +35,11 @@
 	<td>click</td>
 	<td>ctl00_btnMasterOk</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -45,6 +50,11 @@
 	<td>click</td>
 	<td>ctl00_btnMasterOk</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -97,7 +107,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertAlert</td>
+	<td>waitForAlert</td>
 	<td>Lưu thành công.</td>
 	<td></td>
 </tr>
@@ -110,6 +120,11 @@
 	<td>click</td>
 	<td>ctl00_btnMasterOk</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
 </tr>
 
 </tbody></table>

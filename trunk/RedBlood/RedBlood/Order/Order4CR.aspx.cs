@@ -136,8 +136,6 @@ public partial class Order_Order4CR : System.Web.UI.Page
         {
             e = OrderBLL.Get(OrderID);
 
-
-
             if (e.Type == Order.TypeX.ForOrg)
             {
                 Response.Redirect(RedBloodSystem.Url4Order4Org + "key=" + e.ID.ToString());
@@ -147,14 +145,13 @@ public partial class Order_Order4CR : System.Web.UI.Page
                 imgOrder.ImageUrl = BarcodeBLL.Url4Order(e.ID);
                 People1.PeopleID = e.People != null ? e.PeopleID.GetValueOrDefault() : Guid.Empty;
             }
-
-
         }
 
         txtNote.Text = e.Note;
 
         if (e.Date != null)
             txtDate.Text = e.Date.ToStringVN_Hour();
+        else txtDate.Text = "";
 
         txtDept.Text = e.FullDepartment;
         txtRoom.Text = e.Room;

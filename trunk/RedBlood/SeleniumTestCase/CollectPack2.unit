@@ -22,6 +22,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>ctl00_txtMasterCode</td>
 	<td>=&lt;E0097V00</td>
@@ -30,6 +35,11 @@
 	<td>click</td>
 	<td>ctl00_btnMasterOk</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -47,7 +57,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertAlert</td>
+	<td>waitForAlert</td>
 	<td>Lưu thành công.</td>
 	<td></td>
 </tr>
@@ -62,7 +72,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertAlert</td>
+	<td>waitForAlert</td>
 	<td>Túi máu đã nhập.</td>
 	<td></td>
 </tr>

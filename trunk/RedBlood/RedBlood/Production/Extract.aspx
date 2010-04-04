@@ -31,7 +31,7 @@
                     OnSelecting="LinqDataSourceProductIn_Selecting" TableName="Products">
                 </asp:LinqDataSource>
             </td>
-            <td style="border-left:solid 1px;">
+            <td style="border-left: solid 1px;">
                 <h4>
                     <asp:RadioButton ID="rdbProductCodeOut" runat="server" GroupName="InputBarcode" Text="Quét barcode các sản phẩm đầu ra" />
                 </h4>
@@ -59,7 +59,9 @@
     <asp:DataList ID="DataListDINIn" runat="server" RepeatDirection="Horizontal" DataSourceID="LinqDataSourceDINIn">
         <ItemTemplate>
             <div style="margin: 0px 10px 0px 10px;">
-                <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>' />
+                <asp:Image ID="Image1" runat="server"  />
+                <asp:ImageButton BorderStyle="None" ID="ImageButton1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>'
+                    OnClick="btnDINRemove_Click" CommandArgument='<%# Eval("DIN") %>' OnClientClick="return confirm('Xóa túi máu?');" />
             </div>
         </ItemTemplate>
     </asp:DataList>

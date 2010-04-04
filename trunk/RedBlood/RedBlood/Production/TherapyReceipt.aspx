@@ -14,7 +14,7 @@
                             Tạo mới
                         </div>
                         <div class="partLinkLast">
-                            <asp:LinkButton ID="btnNew" runat="server" Text="Thêm công thức" OnClick="btnNew_Click" />
+                            <asp:Button ID="btnNew" runat="server" Text="Thêm công thức" OnClick="btnNew_Click" />
                         </div>
                     </div>
                     <div class="part">
@@ -74,7 +74,7 @@
                                     <ItemTemplate>
                                         <div style="margin: 0px 10px 0px 10px;">
                                             <asp:ImageButton BorderStyle="None" ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("Code") as string) %>'
-                                                OnClick="btnProductCodeIn_Click" CommandArgument='<%# Eval("Code") %>' />
+                                                OnClick="btnProductCodeIn_Click" CommandArgument='<%# Eval("Code") %>' OnClientClick="return confirm('Xóa sản phẩm?');" />
                                             <br />
                                             <asp:Label ID="Label1" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
                                         </div>
@@ -95,7 +95,7 @@
                                     <ItemTemplate>
                                         <div style="margin: 0px 10px 0px 10px;">
                                             <asp:ImageButton BorderStyle="None" ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("Code") as string) %>'
-                                                OnClick="btnProductCodeOut_Click" CommandArgument='<%# Eval("Code") %>' />
+                                                OnClick="btnProductCodeOut_Click" CommandArgument='<%# Eval("Code") %>' OnClientClick="return confirm('Xóa sản phẩm?');" />
                                             <br />
                                             <asp:Label ID="Label1" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
                                         </div>

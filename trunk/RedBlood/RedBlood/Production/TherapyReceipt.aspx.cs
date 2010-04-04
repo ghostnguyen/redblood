@@ -156,6 +156,9 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
     {
         ID = Guid.Empty;
         txtName.Focus();
+        rdbProductCodeIn.Checked = true;
+        rdbProductCodeOut.Checked = false;
+
     }
 
     protected void btnDelete_Click(object sender, EventArgs e)
