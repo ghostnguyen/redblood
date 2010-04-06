@@ -65,9 +65,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertCampaignStatusHistory(CampaignStatusHistory instance);
   partial void UpdateCampaignStatusHistory(CampaignStatusHistory instance);
   partial void DeleteCampaignStatusHistory(CampaignStatusHistory instance);
-  partial void InsertLog(Log instance);
-  partial void UpdateLog(Log instance);
-  partial void DeleteLog(Log instance);
   partial void InsertExcel(Excel instance);
   partial void UpdateExcel(Excel instance);
   partial void DeleteExcel(Excel instance);
@@ -128,6 +125,9 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertReceiptProduct(ReceiptProduct instance);
   partial void UpdateReceiptProduct(ReceiptProduct instance);
   partial void DeleteReceiptProduct(ReceiptProduct instance);
+  partial void InsertLog(Log instance);
+  partial void UpdateLog(Log instance);
+  partial void DeleteLog(Log instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -253,14 +253,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<CampaignStatusHistory>();
-		}
-	}
-	
-	public System.Data.Linq.Table<Log> Logs
-	{
-		get
-		{
-			return this.GetTable<Log>();
 		}
 	}
 	
@@ -429,6 +421,14 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<ReceiptProduct>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Log> Logs
+	{
+		get
+		{
+			return this.GetTable<Log>();
 		}
 	}
 }
@@ -5014,164 +5014,6 @@ public partial class CampaignStatusHistory : INotifyPropertyChanging, INotifyPro
 					this._CampaignID = default(Nullable<int>);
 				}
 				this.SendPropertyChanged("Campaign");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[Table(Name="dbo.[Log]")]
-public partial class Log : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _ID;
-	
-	private Task.TaskX _TaskID;
-	
-	private string _Actor;
-	
-	private System.Nullable<System.DateTime> _Date;
-	
-	private string _Note;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnTaskIDChanging(Task.TaskX value);
-    partial void OnTaskIDChanged();
-    partial void OnActorChanging(string value);
-    partial void OnActorChanged();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    #endregion
-	
-	public Log()
-	{
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TaskID", DbType="Int", CanBeNull=true)]
-	public Task.TaskX TaskID
-	{
-		get
-		{
-			return this._TaskID;
-		}
-		set
-		{
-			if ((this._TaskID != value))
-			{
-				this.OnTaskIDChanging(value);
-				this.SendPropertyChanging();
-				this._TaskID = value;
-				this.SendPropertyChanged("TaskID");
-				this.OnTaskIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
-	public string Actor
-	{
-		get
-		{
-			return this._Actor;
-		}
-		set
-		{
-			if ((this._Actor != value))
-			{
-				this.OnActorChanging(value);
-				this.SendPropertyChanging();
-				this._Actor = value;
-				this.SendPropertyChanged("Actor");
-				this.OnActorChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Date", DbType="DateTime")]
-	public System.Nullable<System.DateTime> Date
-	{
-		get
-		{
-			return this._Date;
-		}
-		set
-		{
-			if ((this._Date != value))
-			{
-				this.OnDateChanging(value);
-				this.SendPropertyChanging();
-				this._Date = value;
-				this.SendPropertyChanged("Date");
-				this.OnDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this.OnNoteChanging(value);
-				this.SendPropertyChanging();
-				this._Note = value;
-				this.SendPropertyChanged("Note");
-				this.OnNoteChanged();
 			}
 		}
 	}
@@ -11918,6 +11760,188 @@ public partial class ReceiptProduct : INotifyPropertyChanging, INotifyPropertyCh
 					this._ReceiptID = default(Nullable<System.Guid>);
 				}
 				this.SendPropertyChanged("Receipt");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.[Log]")]
+public partial class Log : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private string _Method;
+	
+	private string _Actor;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private string _Note;
+	
+	private Log.StatusX _Status;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnMethodChanging(string value);
+    partial void OnMethodChanged();
+    partial void OnActorChanging(string value);
+    partial void OnActorChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    partial void OnStatusChanging(Log.StatusX value);
+    partial void OnStatusChanged();
+    #endregion
+	
+	public Log()
+	{
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Method", DbType="NVarChar(MAX)")]
+	public string Method
+	{
+		get
+		{
+			return this._Method;
+		}
+		set
+		{
+			if ((this._Method != value))
+			{
+				this.OnMethodChanging(value);
+				this.SendPropertyChanging();
+				this._Method = value;
+				this.SendPropertyChanged("Method");
+				this.OnMethodChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
+	public string Actor
+	{
+		get
+		{
+			return this._Actor;
+		}
+		set
+		{
+			if ((this._Actor != value))
+			{
+				this.OnActorChanging(value);
+				this.SendPropertyChanging();
+				this._Actor = value;
+				this.SendPropertyChanged("Actor");
+				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public Log.StatusX Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
 			}
 		}
 	}

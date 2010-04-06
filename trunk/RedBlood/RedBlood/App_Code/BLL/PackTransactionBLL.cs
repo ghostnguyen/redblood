@@ -42,13 +42,7 @@ public class PackTransactionBLL
 
     public static PackTransaction Add(Guid packID, PackTransaction.TypeX type)
     {
-        StackTrace stackTrace = new StackTrace();
-
-        // get calling method name
-        MethodBase m = stackTrace.GetFrame(1).GetMethod();
-        string name = m.DeclaringType.Name + "." + m.Name;
-
-        return Add(packID, type, name);
+        return Add(packID, type, Helper.GetCallerMethodName());
     }
 
 }

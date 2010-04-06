@@ -15,48 +15,45 @@ public class LogBLL
         //
     }
 
-    public static bool IsLog(Task.TaskX task)
+    public static bool IsLoggedInToday(string method)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
         var e = (from r in db.Logs
-                 where r.TaskID == task
+                 where r.Method == method
                  && r.Date.Value.Date == DateTime.Now.Date
-                 && r.Actor == RedBloodSystem.SODActor
                  select r);
 
         return e.Count() != 0;
     }
 
-    public static void Add(Task.TaskX task, string actor, string note)
+    public static void Logs()
     {
+        Logs(Log.StatusX.Success, MyMethodBase.Current.Caller.Name, "");
+    }
+
+    public static void Logs(string note)
+    {
+        Logs(Log.StatusX.Success, MyMethodBase.Current.Caller.Name, note);
+    }
+
+    public static void LogsFailAndThrow(string note)
+    {
+        Logs(Log.StatusX.Fail, MyMethodBase.Current.Caller.Name, note);
+
+        throw new Exception(note);
+    }
+
+    static void Logs(Log.StatusX status, string method, string note)
+    {
+        Log e = new Log();
+        e.Status = status;
+        e.Method = method;
+        e.Actor = RedBloodSystem.SODActor;
+        e.Note = note;
+
         RedBloodDataContext db = new RedBloodDataContext();
-        Add(db, task, actor, note);
+        db.Logs.InsertOnSubmit(e);
         db.SubmitChanges();
-    }
-
-    public static void Add(Task.TaskX task)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-        Add(db, task);
-        db.SubmitChanges();
-    }
-
-    public static void Add(RedBloodDataContext db, Task.TaskX task)
-    {
-        Add(db, task, RedBloodSystem.SODActor, "");
-    }
-
-    public static void Add(RedBloodDataContext db, Task.TaskX task, string actor, string note)
-    {
-        if (!IsLog(task))
-        {
-            Log e = new Log();
-            e.TaskID = task;
-            e.Date = DateTime.Now;
-            e.Actor = RedBloodSystem.SODActor;
-            e.Note = note;
-            db.Logs.InsertOnSubmit(e);
-        }
     }
 }

@@ -11,7 +11,9 @@ using System.Web.UI.WebControls;
 /// </summary>
 public class RedBloodSystemBLL
 {
-
+    public RedBloodSystemBLL()
+    {
+    }
 
     static DateTime? lastFinalizeDate;
     static DateTime? lastPackTransactionDate;
@@ -26,13 +28,9 @@ public class RedBloodSystemBLL
         lastBackupPackRemainDate = db.PackRemainDailies.OrderByDescending(r => r.Date).Select(r => r.Date).FirstOrDefault();
     }
 
-    static RedBloodSystemBLL()
+    public static bool CanFinalizeStore(DateTime date)
     {
-        GetLastTransactionDate();
-    }
-
-    public RedBloodSystemBLL()
-    {
+ 
     }
 
     public static void EOD()
@@ -42,12 +40,65 @@ public class RedBloodSystemBLL
 
     public static void SOD()
     {
-        DoFinalizeStore(DateTime.Now.Date, false, RedBloodSystem.SODActor);
+        FinalizeStore(DateTime.Now.Date, false);
         ScanExp(true);
         CloseOrder(true);
         LockTestResult(true);
 
         FacilityBLL.ResetCounting();
+    }
+
+    public static void FinalizeStore(DateTime date, bool overwrite)
+    {
+        string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
+
+        if (date.Date > DateTime.Now.Date)
+        {
+            LogBLL.LogsFailAndThrow(err + "Can not finalize day is in future.");
+        }
+
+        GetLastTransactionDate();
+
+        //Finalized data in DB is newer. Data error or system datetime error
+        if (
+            (lastFinalizeDate.HasValue && lastFinalizeDate.Value.Date > DateTime.Now.Date)
+            || (lastPackTransactionDate.HasValue && lastPackTransactionDate.Value.Date > DateTime.Now.Date)
+            || (lastPackTransactionDate.HasValue && lastBackupPackRemainDate.Value.Date > date.Date)
+            || (lastBackupPackRemainDate.HasValue && lastBackupPackRemainDate.Value.Date > DateTime.Now.Date)
+            || (lastBackupPackRemainDate.HasValue && lastBackupPackRemainDate.Value.Date > date.Date)
+           )
+        {
+            LogBLL.LogsFailAndThrow(err + "Newer data in DB.");
+        }
+
+        if (lastFinalizeDate.HasValue)
+        {
+            int daysBefore = (date.Date - lastFinalizeDate.Value.Date).Days;
+            if (daysBefore != 0
+                && daysBefore != 1)
+            {
+                LogBLL.LogsFailAndThrow(err + "Data should be finalized 1 day before.");
+            }
+
+            if (daysBefore == 0 && overwrite)
+            {
+                //Clear StoreFinalizes
+                StoreFinalizeBLL.Clear(date);
+
+                //Clear PackRemainDailies
+                PackRemainDailyBLL.Clear(date);
+            }
+            else
+            {
+                LogBLL.LogsFailAndThrow(err + "Aldready finilized. Set overwrite=true to re-finilized.");
+            }
+        }
+
+        CountPackTransaction(date);
+        CountPackRemain(date);
+        BackupPackRemain(date);
+
+        LogBLL.Logs();
     }
 
     //isSOD: isStartOfDate
@@ -68,9 +119,9 @@ public class RedBloodSystemBLL
                 if (h != null) db.PackStatusHistories.InsertOnSubmit(h);
             }
 
-            LogBLL.Add(db, Task.TaskX.ScanExp);
-
             db.SubmitChanges();
+
+            LogBLL.Add(Task.TaskX.ScanExp);
         }
     }
 
@@ -83,9 +134,9 @@ public class RedBloodSystemBLL
 
             OrderBLL.CloseOrder(db);
 
-            LogBLL.Add(db, Task.TaskX.CloseOrder);
-
             db.SubmitChanges();
+
+            LogBLL.Add(Task.TaskX.CloseOrder);
         }
     }
 
@@ -98,9 +149,9 @@ public class RedBloodSystemBLL
 
             PackBLL.LockEnterTestResult();
 
-            LogBLL.Add(db, Task.TaskX.LockEnterTestResult);
-
             db.SubmitChanges();
+
+            LogBLL.Add(Task.TaskX.LockEnterTestResult);
         }
     }
 
@@ -149,7 +200,7 @@ public class RedBloodSystemBLL
                 db.StoreFinalizes.DeleteAllOnSubmit(v);
                 db.SubmitChanges();
 
-                LogBLL.Add(Task.TaskX.DeleteCountPackTransaction, username, date.ToString());
+                LogBLL.Add(Task.TaskX.DeleteCountPackTransaction);
             }
             else
                 return;
@@ -177,7 +228,8 @@ public class RedBloodSystemBLL
         }
 
         db.SubmitChanges();
-        LogBLL.Add(Task.TaskX.CountPackTransaction, username, date.ToString());
+
+        LogBLL.Add(Task.TaskX.CountPackTransaction);
     }
 
     static void CountPackRemain(DateTime date, bool overwrite, string username)
@@ -200,7 +252,7 @@ public class RedBloodSystemBLL
                     db.StoreFinalizes.DeleteAllOnSubmit(v);
                     db.SubmitChanges();
 
-                    LogBLL.Add(Task.TaskX.DeleteCountPackRemain, username, date.ToString());
+                    LogBLL.Add(Task.TaskX.DeleteCountPackRemain);
                 }
                 else
                     return;
@@ -220,7 +272,7 @@ public class RedBloodSystemBLL
 
             db.SubmitChanges();
 
-            LogBLL.Add(Task.TaskX.CountPackRemain, username, date.ToString());
+            LogBLL.Add(Task.TaskX.CountPackRemain);
         }
         else
         {
@@ -243,7 +295,7 @@ public class RedBloodSystemBLL
                     db.StoreFinalizes.DeleteAllOnSubmit(v);
                     db.SubmitChanges();
 
-                    LogBLL.Add(Task.TaskX.DeleteCountPackRemain, username, date.ToString());
+                    LogBLL.Add(Task.TaskX.DeleteCountPackRemain);
                 }
                 else
                     return;
@@ -275,11 +327,11 @@ public class RedBloodSystemBLL
 
             db.SubmitChanges();
 
-            LogBLL.Add(Task.TaskX.CountPackRemain, username, date.ToString());
+            LogBLL.Add(Task.TaskX.CountPackRemain);
         }
     }
 
-    static void BackupPackRemain(DateTime date, bool overwrite, string username)
+    static void BackupPackRemain(DateTime date, bool overwrite)
     {
         if (date.Date > DateTime.Now.Date) return;
 
@@ -300,7 +352,7 @@ public class RedBloodSystemBLL
                 db.PackRemainDailies.DeleteAllOnSubmit(v);
                 db.SubmitChanges();
 
-                LogBLL.Add(Task.TaskX.DeleteBackupPackRemain, username, "");
+                LogBLL.Add(Task.TaskX.DeleteBackupPackRemain);
             }
             else
             {
@@ -327,52 +379,10 @@ public class RedBloodSystemBLL
 
         db.SubmitChanges();
 
-        LogBLL.Add(Task.TaskX.BackupPackRemain, username, "");
+        LogBLL.Add(Task.TaskX.BackupPackRemain);
     }
 
-    public static string DoFinalizeStore(DateTime date, bool overwrite, string username)
-    {
-        if (date.Date > DateTime.Now.Date) return "Can not finalize day is in future.";
-
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        GetLastTransactionDate();
-
-        //Validation
-        //Newer data in DB. Data error or system datetime error
-        if (
-            (lastFinalizeDate != null && lastFinalizeDate.Value.Date > DateTime.Now.Date)
-            || (lastPackTransactionDate != null && lastPackTransactionDate.Value.Date > DateTime.Now.Date)
-            || (lastBackupPackRemainDate != null && lastBackupPackRemainDate.Value.Date > DateTime.Now.Date)
-           )
-        {
-            string err = "DataErr. Newer data in DB.";
-            LogBLL.Add(Task.TaskX.DoFinalizeStore, username, err);
-            return err;
-        }
-
-        if (lastFinalizeDate != null)
-        {
-            //Finalize all previous days if not yet
-            for (DateTime i = lastFinalizeDate.Value.Date.AddDays(1);
-                i < date.Date;
-                i = i.AddDays(1))
-            {
-                CountPackTransaction(i, false, username);
-                CountPackRemain(i, false, username);
-                BackupPackRemain(i, false, username);
-            }
-        }
-
-        //Finalize the date.
-        CountPackTransaction(date, overwrite, username);
-        CountPackRemain(date, overwrite, username);
-        BackupPackRemain(date, overwrite, username);
-
-        LogBLL.Add(Task.TaskX.DoFinalizeStore, username, date.ToString());
-
-        return "";
-    }
+    
 
     public static void Find(HttpResponse Response, TextBox txtCode)
     {
