@@ -205,15 +205,6 @@
       <Association Name="Campaign_CampaignStatusHistory" Member="Campaign" ThisKey="CampaignID" OtherKey="ID" Type="Campaign" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[Log]" Member="Logs">
-    <Type Name="Log">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TaskID" Type="Task.TaskX" DbType="Int" CanBeNull="true" />
-      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Excel" Member="Excels">
     <Type Name="Excel">
       <Column Name="STT" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
@@ -524,6 +515,16 @@
       <Column Name="Type" Type="ReceiptProduct.TypeX" DbType="Int" CanBeNull="true" />
       <Association Name="Product_ReceiptProduct" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
       <Association Name="Receipt_ReceiptProduct" Member="Receipt" ThisKey="ReceiptID" OtherKey="ID" Type="Receipt" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Log]" Member="Logs">
+    <Type Name="Log">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Method" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="Log.StatusX" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -15,6 +15,9 @@ using System.Xml.Linq;
 /// </summary>
 public partial class Log
 {
-  
-    
+    public enum StatusX : int
+    {
+        Success = 1,
+        Fail = 4
+    }
 }

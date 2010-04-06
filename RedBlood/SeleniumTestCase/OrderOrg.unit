@@ -58,7 +58,7 @@
 </tr>
 <tr>
 	<td>waitForAlert</td>
-	<td>Không thể cấp phát túi máu này. KQ xét nghiệm sàng lọc: Dương_tính_K</td>
+	<td>Không thể cấp phát túi máu này. KQ xét nghiệm sàng lọc: Dương_tính</td>
 	<td></td>
 </tr>
 <tr>
@@ -72,6 +72,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>ctl00_txtMasterCode</td>
 	<td>=&lt;E0195V00</td>
@@ -80,6 +85,11 @@
 	<td>click</td>
 	<td>ctl00_btnMasterOk</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -92,6 +102,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>ctl00_txtMasterCode</td>
 	<td>=&lt;E0097V00</td>
@@ -100,6 +115,11 @@
 	<td>click</td>
 	<td>ctl00_btnMasterOk</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
 </tr>
 
 </tbody></table>
