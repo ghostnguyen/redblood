@@ -15,14 +15,30 @@ public class StoreFinalizeBLL
         //
     }
 
-    public static void Clear(DateTime date)
+    private static bool Validate(DateTime date)
     {
+        string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
+
+        if (date.Date > DateTime.Now.Date)
+        {
+            LogBLL.LogsFailAndThrow(MyMethodBase.Current.Caller, err + "Date is in future.");
+        }
+
         RedBloodDataContext db = new RedBloodDataContext();
 
         if (db.StoreFinalizes.Where(r => r.Date.Value.Date > date.Date).Count() > 0)
         {
-            LogBLL.LogsFailAndThrow("Has data before " + date.Date.ToShortDateString());
+            LogBLL.LogsFailAndThrow(MyMethodBase.Current.Caller, err + "Existing newer data.");
         }
+
+        return true;
+    }
+
+    public static void Clear(DateTime date)
+    {
+        Validate(date);
+
+        RedBloodDataContext db = new RedBloodDataContext();
 
         var v = db.StoreFinalizes.Where(r => r.Date == date.Date);
         db.StoreFinalizes.DeleteAllOnSubmit(v);
@@ -31,24 +47,17 @@ public class StoreFinalizeBLL
         LogBLL.Logs();
     }
 
-    static void CountPackTransaction(DateTime date)
+    public static void FinalizePackTransaction(DateTime date)
     {
-        if (date.Date > DateTime.Now.Date) return;
+        Validate(date);
+
+        string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
 
         RedBloodDataContext db = new RedBloodDataContext();
-        var v = db.StoreFinalizes.Where(r => r.Date == date.Date);
 
-        if (v.Count() > 0)
+        if (db.StoreFinalizes.Where(r => r.Date.Value.Date == date.Date && r.Type != PackTransaction.TypeX.Remain).Count() > 0)
         {
-            if (overwrite)
-            {
-                db.StoreFinalizes.DeleteAllOnSubmit(v);
-                db.SubmitChanges();
-
-                LogBLL.Add(Task.TaskX.DeleteCountPackTransaction);
-            }
-            else
-                return;
+            LogBLL.LogsFailAndThrow(err + "Existing data.");
         }
 
         var trans = from r in db.PackTransactions
@@ -64,6 +73,7 @@ public class StoreFinalizeBLL
                 StoreFinalize r = new StoreFinalize();
                 r.Date = date;
                 r.Type = item;
+                r.Note = DateTime.Now.ToString();
 
                 int? count = trans.Where(rs => rs.Key == item).Select(rs => rs.Count).FirstOrDefault();
                 r.Count = count != null ? count.Value : 0;
@@ -74,6 +84,37 @@ public class StoreFinalizeBLL
 
         db.SubmitChanges();
 
-        LogBLL.Add(Task.TaskX.CountPackTransaction);
+        LogBLL.Logs();
+    }
+    
+    public static void FinalizePackRemain(DateTime date)
+    {
+        Validate(date);
+
+        string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
+
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        if (db.StoreFinalizes.Where(r => r.Date.Value.Date == date.Date && r.Type == PackTransaction.TypeX.Remain).Count() > 0)
+        {
+            LogBLL.LogsFailAndThrow(err + "Existing data.");
+        }
+
+        IQueryable<Pack> rows = db.Packs.Where(r => r.Status == Pack.StatusX.Product);
+
+        //Insert 
+        StoreFinalize s = new StoreFinalize();
+        s.Date = date;
+        s.Type = PackTransaction.TypeX.Remain;
+        s.Note = DateTime.Now.ToString();
+        s.Count = rows.Count();
+
+        db.StoreFinalizes.InsertOnSubmit(s);
+
+        db.SubmitChanges();
+
+        LogBLL.Logs();
+
+        
     }
 }

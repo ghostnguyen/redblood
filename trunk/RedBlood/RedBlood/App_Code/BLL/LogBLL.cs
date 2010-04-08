@@ -37,6 +37,13 @@ public class LogBLL
         Logs(Log.StatusX.Success, MyMethodBase.Current.Caller.Name, note);
     }
 
+    public static void LogsFailAndThrow(MyMethodBase method, string note)
+    {
+        Logs(Log.StatusX.Fail, method.Name, note);
+
+        throw new Exception(note);
+    }
+
     public static void LogsFailAndThrow(string note)
     {
         Logs(Log.StatusX.Fail, MyMethodBase.Current.Caller.Name, note);

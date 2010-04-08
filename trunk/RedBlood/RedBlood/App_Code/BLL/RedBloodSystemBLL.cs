@@ -54,7 +54,7 @@ public class RedBloodSystemBLL
 
         if (date.Date > DateTime.Now.Date)
         {
-            LogBLL.LogsFailAndThrow(err + "Can not finalize day is in future.");
+            LogBLL.LogsFailAndThrow(err + "Date is in future.");
         }
 
         GetLastTransactionDate();
@@ -94,8 +94,9 @@ public class RedBloodSystemBLL
             }
         }
 
-        CountPackTransaction(date);
-        CountPackRemain(date);
+        StoreFinalizeBLL.FinalizePackTransaction(date);
+        StoreFinalizeBLL.FinalizePackRemain(date);
+
         BackupPackRemain(date);
 
         LogBLL.Logs();
@@ -186,150 +187,150 @@ public class RedBloodSystemBLL
     }
 
 
-    static void CountPackTransaction(DateTime date, bool overwrite, string username)
-    {
-        if (date.Date > DateTime.Now.Date) return;
+    //static void CountPackTransaction(DateTime date, bool overwrite, string username)
+    //{
+    //    if (date.Date > DateTime.Now.Date) return;
 
-        RedBloodDataContext db = new RedBloodDataContext();
-        var v = db.StoreFinalizes.Where(r => r.Date == date.Date);
+    //    RedBloodDataContext db = new RedBloodDataContext();
+    //    var v = db.StoreFinalizes.Where(r => r.Date == date.Date);
 
-        if (v.Count() > 0)
-        {
-            if (overwrite)
-            {
-                db.StoreFinalizes.DeleteAllOnSubmit(v);
-                db.SubmitChanges();
+    //    if (v.Count() > 0)
+    //    {
+    //        if (overwrite)
+    //        {
+    //            db.StoreFinalizes.DeleteAllOnSubmit(v);
+    //            db.SubmitChanges();
 
-                LogBLL.Add(Task.TaskX.DeleteCountPackTransaction);
-            }
-            else
-                return;
-        }
+    //            LogBLL.Add(Task.TaskX.DeleteCountPackTransaction);
+    //        }
+    //        else
+    //            return;
+    //    }
 
-        var trans = from r in db.PackTransactions
-                    where r.Date.Value.Date == date.Date
-                    group r by r.Type into rs
-                    select new { rs.Key, Count = rs.Count() };
+    //    var trans = from r in db.PackTransactions
+    //                where r.Date.Value.Date == date.Date
+    //                group r by r.Type into rs
+    //                select new { rs.Key, Count = rs.Count() };
 
-        foreach (PackTransaction.TypeX item in Enum.GetValues(typeof(PackTransaction.TypeX)))
-        {
-            if (item != PackTransaction.TypeX.Remain)
-            {
-                //Insert 
-                StoreFinalize r = new StoreFinalize();
-                r.Date = date;
-                r.Type = item;
+    //    foreach (PackTransaction.TypeX item in Enum.GetValues(typeof(PackTransaction.TypeX)))
+    //    {
+    //        if (item != PackTransaction.TypeX.Remain)
+    //        {
+    //            //Insert 
+    //            StoreFinalize r = new StoreFinalize();
+    //            r.Date = date;
+    //            r.Type = item;
 
-                int? count = trans.Where(rs => rs.Key == item).Select(rs => rs.Count).FirstOrDefault();
-                r.Count = count != null ? count.Value : 0;
+    //            int? count = trans.Where(rs => rs.Key == item).Select(rs => rs.Count).FirstOrDefault();
+    //            r.Count = count != null ? count.Value : 0;
 
-                db.StoreFinalizes.InsertOnSubmit(r);
-            }
-        }
+    //            db.StoreFinalizes.InsertOnSubmit(r);
+    //        }
+    //    }
 
-        db.SubmitChanges();
+    //    db.SubmitChanges();
 
-        LogBLL.Add(Task.TaskX.CountPackTransaction);
-    }
+    //    LogBLL.Add(Task.TaskX.CountPackTransaction);
+    //}
 
-    static void CountPackRemain(DateTime date, bool overwrite, string username)
-    {
-        if (date.Date > DateTime.Now.Date) return;
+    //static void CountPackRemain(DateTime date, bool overwrite, string username)
+    //{
+    //    if (date.Date > DateTime.Now.Date) return;
 
-        RedBloodDataContext db = new RedBloodDataContext();
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        if (IsCountDirectly(date))
-        {
-            if (date.Date > DateTime.Now.Date) return;
+    //    if (IsCountDirectly(date))
+    //    {
+    //        if (date.Date > DateTime.Now.Date) return;
 
-            var v = db.StoreFinalizes.Where(r => r.Date == date.Date
-                && r.Type == PackTransaction.TypeX.Remain);
+    //        var v = db.StoreFinalizes.Where(r => r.Date == date.Date
+    //            && r.Type == PackTransaction.TypeX.Remain);
 
-            if (v.Count() > 0)
-            {
-                if (overwrite)
-                {
-                    db.StoreFinalizes.DeleteAllOnSubmit(v);
-                    db.SubmitChanges();
+    //        if (v.Count() > 0)
+    //        {
+    //            if (overwrite)
+    //            {
+    //                db.StoreFinalizes.DeleteAllOnSubmit(v);
+    //                db.SubmitChanges();
 
-                    LogBLL.Add(Task.TaskX.DeleteCountPackRemain);
-                }
-                else
-                    return;
-            }
+    //                LogBLL.Add(Task.TaskX.DeleteCountPackRemain);
+    //            }
+    //            else
+    //                return;
+    //        }
 
-            IQueryable<Pack> rows = db.Packs.Where(r =>
-                (r.Status == Pack.StatusX.Product || r.Status == Pack.StatusX.Expired)
-                );
+    //        IQueryable<Pack> rows = db.Packs.Where(r =>
+    //            (r.Status == Pack.StatusX.Product || r.Status == Pack.StatusX.Expired)
+    //            );
 
-            //Insert 
-            StoreFinalize s = new StoreFinalize();
-            s.Date = date;
-            s.Type = PackTransaction.TypeX.Remain;
-            s.Count = rows.Count();
+    //        //Insert 
+    //        StoreFinalize s = new StoreFinalize();
+    //        s.Date = date;
+    //        s.Type = PackTransaction.TypeX.Remain;
+    //        s.Count = rows.Count();
 
-            db.StoreFinalizes.InsertOnSubmit(s);
+    //        db.StoreFinalizes.InsertOnSubmit(s);
 
-            db.SubmitChanges();
+    //        db.SubmitChanges();
 
-            LogBLL.Add(Task.TaskX.CountPackRemain);
-        }
-        else
-        {
-            DateTime previousDate = date.Date.AddDays(-1);
+    //        LogBLL.Add(Task.TaskX.CountPackRemain);
+    //    }
+    //    else
+    //    {
+    //        DateTime previousDate = date.Date.AddDays(-1);
 
-            var pv = db.StoreFinalizes.Where(r => r.Date == previousDate.Date
-                && r.Type == PackTransaction.TypeX.Remain);
+    //        var pv = db.StoreFinalizes.Where(r => r.Date == previousDate.Date
+    //            && r.Type == PackTransaction.TypeX.Remain);
 
-            //if the previous day have NO data. Exit code.
-            if (pv.Count() != 1 || pv.FirstOrDefault().Count == null) return;
+    //        //if the previous day have NO data. Exit code.
+    //        if (pv.Count() != 1 || pv.FirstOrDefault().Count == null) return;
 
-            //check the date has data
-            var v = db.StoreFinalizes.Where(r => r.Date == date.Date
-                && r.Type == PackTransaction.TypeX.Remain);
+    //        //check the date has data
+    //        var v = db.StoreFinalizes.Where(r => r.Date == date.Date
+    //            && r.Type == PackTransaction.TypeX.Remain);
 
-            if (v.Count() > 0)
-            {
-                if (overwrite)
-                {
-                    db.StoreFinalizes.DeleteAllOnSubmit(v);
-                    db.SubmitChanges();
+    //        if (v.Count() > 0)
+    //        {
+    //            if (overwrite)
+    //            {
+    //                db.StoreFinalizes.DeleteAllOnSubmit(v);
+    //                db.SubmitChanges();
 
-                    LogBLL.Add(Task.TaskX.DeleteCountPackRemain);
-                }
-                else
-                    return;
-            }
+    //                LogBLL.Add(Task.TaskX.DeleteCountPackRemain);
+    //            }
+    //            else
+    //                return;
+    //        }
 
-            //Count remaining based on IN and OUT in the date and the remaining of the previous date.
-            int remaingOfPreDate = pv.FirstOrDefault().Count.Value;
-            var v1 = db.StoreFinalizes.Where(r => r.Date == date.Date);
+    //        //Count remaining based on IN and OUT in the date and the remaining of the previous date.
+    //        int remaingOfPreDate = pv.FirstOrDefault().Count.Value;
+    //        var v1 = db.StoreFinalizes.Where(r => r.Date == date.Date);
 
-            foreach (StoreFinalize item in v1)
-            {
-                if (item.Type > 0)
-                {
-                    remaingOfPreDate += item.Count == null ? 0 : item.Count.Value;
-                }
-                else if (item.Type < 0)
-                {
-                    remaingOfPreDate -= item.Count == null ? 0 : item.Count.Value;
-                }
-            }
+    //        foreach (StoreFinalize item in v1)
+    //        {
+    //            if (item.Type > 0)
+    //            {
+    //                remaingOfPreDate += item.Count == null ? 0 : item.Count.Value;
+    //            }
+    //            else if (item.Type < 0)
+    //            {
+    //                remaingOfPreDate -= item.Count == null ? 0 : item.Count.Value;
+    //            }
+    //        }
 
-            //Insert 
-            StoreFinalize s = new StoreFinalize();
-            s.Date = date;
-            s.Type = PackTransaction.TypeX.Remain;
-            s.Count = remaingOfPreDate;
+    //        //Insert 
+    //        StoreFinalize s = new StoreFinalize();
+    //        s.Date = date;
+    //        s.Type = PackTransaction.TypeX.Remain;
+    //        s.Count = remaingOfPreDate;
 
-            db.StoreFinalizes.InsertOnSubmit(s);
+    //        db.StoreFinalizes.InsertOnSubmit(s);
 
-            db.SubmitChanges();
+    //        db.SubmitChanges();
 
-            LogBLL.Add(Task.TaskX.CountPackRemain);
-        }
-    }
+    //        LogBLL.Add(Task.TaskX.CountPackRemain);
+    //    }
+    //}
 
     static void BackupPackRemain(DateTime date, bool overwrite)
     {
