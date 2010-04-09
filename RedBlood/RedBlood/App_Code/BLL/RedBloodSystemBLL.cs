@@ -52,14 +52,18 @@ public class RedBloodSystemBLL
     {
         string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
 
-        if (date.Date > DateTime.Now.Date)
-        {
-            LogBLL.LogsFailAndThrow(err + "Date is in future.");
-        }
-
         GetLastTransactionDate();
 
-        //Finalized data in DB is newer. Data error or system datetime error
+        if (date.Date > DateTime.Now.Date
+            || lastFinalizeDate.HasValue && lastFinalizeDate.Value.Date > DateTime.Now.Date
+            || (lastPackTransactionDate.HasValue && lastPackTransactionDate.Value.Date > DateTime.Now.Date)
+            || (lastBackupPackRemainDate.HasValue && lastBackupPackRemainDate.Value.Date > DateTime.Now.Date)
+            )
+        {
+            LogBLL.LogsFailAndThrow(err + "Error. Data or Date in future.");
+        }
+
+        //Data in DB is newer. Data error or system datetime error
         if (
             (lastFinalizeDate.HasValue && lastFinalizeDate.Value.Date > DateTime.Now.Date)
             || (lastPackTransactionDate.HasValue && lastPackTransactionDate.Value.Date > DateTime.Now.Date)
