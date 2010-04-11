@@ -47,7 +47,7 @@ public class PackRemainDailyBLL
         LogBLL.Logs();
     }
 
-    static void Backup(DateTime date)
+    public static void Backup(DateTime date)
     {
         Validate(date);
 
@@ -64,33 +64,30 @@ public class PackRemainDailyBLL
         //TODO: Destroy expired and positive pack
         //TODO: remove PackStatus Expire
 
-        if (IsCountDirectly(date)
-            //Have pack transaction. Remain transaction is NOT real transaction
-            && db.PackTransactions.Where(r => r.Date.Value.Date == date.Date
-                && r.Type != PackTransaction.TypeX.Remain).Count() != 0) { }
-        else return;
+        //if (IsCountDirectly(date)
+        //    //Have pack transaction. Remain transaction is NOT real transaction
+        //    && db.PackTransactions.Where(r => r.Date.Value.Date == date.Date
+        //        && r.Type != PackTransaction.TypeX.Remain).Count() != 0) { }
+        //else return;
 
-        var v = db.PackRemainDailies.Where(r => r.Date == date);
+        //var v = db.PackRemainDailies.Where(r => r.Date == date);
 
-        if (v.Count() > 0)
-        {
-            if (overwrite)
-            {
-                db.PackRemainDailies.DeleteAllOnSubmit(v);
-                db.SubmitChanges();
+        //if (v.Count() > 0)
+        //{
+        //    if (overwrite)
+        //    {
+        //        db.PackRemainDailies.DeleteAllOnSubmit(v);
+        //        db.SubmitChanges();
 
-                LogBLL.Add(Task.TaskX.DeleteBackupPackRemain);
-            }
-            else
-            {
-                return;
-            }
-        }
+        //        LogBLL.Add(Task.TaskX.DeleteBackupPackRemain);
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //}
 
-        IQueryable<Pack> rows = db.Packs.Where(r =>
-            (r.Status == Pack.StatusX.Product || r.Status == Pack.StatusX.Expired)
-            //&& r.Date == DateTime.Now.Date
-            );
+        IQueryable<Pack> rows = db.Packs.Where(r => r.Status == Pack.StatusX.Product);
 
         //Insert
         foreach (Pack item in rows)
@@ -99,13 +96,13 @@ public class PackRemainDailyBLL
             r.PackID = item.ID;
             r.Status = item.Status;
             r.Date = date;
-            r.Note = date.Date == DateTime.Now.Date ? "" : DateTime.Now.Date.ToString();
+            r.Note = "Process on: " + DateTime.Now.Date.ToString();
 
             db.PackRemainDailies.InsertOnSubmit(r);
         }
 
         db.SubmitChanges();
 
-        LogBLL.Add(Task.TaskX.BackupPackRemain);
+        LogBLL.Logs();
     }
 }

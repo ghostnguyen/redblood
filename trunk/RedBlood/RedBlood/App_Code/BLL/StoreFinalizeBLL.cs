@@ -15,21 +15,20 @@ public class StoreFinalizeBLL
         //
     }
 
-
     public static void Clear(DateTime date)
     {
         string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
 
         if (date.Date > DateTime.Now.Date)
         {
-            LogBLL.LogsFailAndThrow(MyMethodBase.Current.Caller, err + "Date is in future.");
+            LogBLL.LogsFailAndThrow(err + "Date is in future.");
         }
 
         RedBloodDataContext db = new RedBloodDataContext();
 
         if (db.StoreFinalizes.Where(r => r.Date.Value.Date > date.Date).Count() > 0)
         {
-            LogBLL.LogsFailAndThrow(MyMethodBase.Current.Caller, err + "Existing newer data.");
+            LogBLL.LogsFailAndThrow(err + "Existing newer data.");
         }
 
         var v = db.StoreFinalizes.Where(r => r.Date == date.Date);
@@ -41,44 +40,16 @@ public class StoreFinalizeBLL
 
 
 
-    public static IQueryable<StoreFinalize> CountPackTransaction(DateTime date)
+    public static List<StoreFinalize> CountPackTransaction(DateTime date)
     {
-        // string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
-
-        //if (date.Date > DateTime.Now.Date)
-        //{
-        //    LogBLL.LogsFailAndThrow(MyMethodBase.Current.Caller, err + "Date is in future.");
-        //}
-
         RedBloodDataContext db = new RedBloodDataContext();
 
         var trans = from r in db.PackTransactions
                     where r.Date.Value.Date == date.Date
                     group r by r.Type into rs
-                    select new StoreFinalize() { Type = rs.Key, Count = rs.Count() };
+                    select rs;
 
-        return trans;
-
-        //foreach (PackTransaction.TypeX item in Enum.GetValues(typeof(PackTransaction.TypeX)))
-        //{
-        //    if (item != PackTransaction.TypeX.Remain)
-        //    {
-        //        //Insert 
-        //        StoreFinalize r = new StoreFinalize();
-        //        r.Date = date;
-        //        r.Type = item;
-        //        r.Note = DateTime.Now.ToString();
-
-        //        int? count = trans.Where(rs => rs.Key == item).Select(rs => rs.Count).FirstOrDefault();
-        //        r.Count = count != null ? count.Value : 0;
-
-        //        db.StoreFinalizes.InsertOnSubmit(r);
-        //    }
-        //}
-
-        //db.SubmitChanges();
-
-        //LogBLL.Logs();
+        return trans.ToList().Select(r => new StoreFinalize() { Date = date.Date, Type = r.Key, Count = r.Count() }).ToList();
     }
 
     public static int CountPackRemainByStoreFinalize(DateTime date)
@@ -116,19 +87,6 @@ public class StoreFinalizeBLL
 
         int count = db.Packs.Where(r => r.Status == Pack.StatusX.Product).Count();
 
-        ////Insert 
-        //StoreFinalize s = new StoreFinalize();
-        //s.Date = date;
-        //s.Type = PackTransaction.TypeX.Remain;
-        //s.Note = DateTime.Now.ToString();
-        //s.Count = rows.Count();
-
-        //db.StoreFinalizes.InsertOnSubmit(s);
-
-        //db.SubmitChanges();
-
-        //LogBLL.Logs(count.ToString());
-
         return count;
     }
 
@@ -138,7 +96,7 @@ public class StoreFinalizeBLL
 
         if (date.Date > DateTime.Now.Date)
         {
-            LogBLL.LogsFailAndThrow(MyMethodBase.Current.Caller, err + "Date is in future.");
+            LogBLL.LogsFailAndThrow(err + "Date is in future.");
         }
 
         RedBloodDataContext db = new RedBloodDataContext();
@@ -154,32 +112,96 @@ public class StoreFinalizeBLL
             );
 
         return i.HasValue ? i.Value : 0;
+    }
 
+    public static int Add(DateTime date, PackTransaction.TypeX type, int count)
+    {
+        if (Get(date, type) != null)
+        {
+            LogBLL.LogsFailAndThrow("Existing datat.");
+        }
 
-        //foreach (StoreFinalize item in v1)
-        //{
-        //    if (item.Type > 0)
-        //    {
-        //        remaingOfPreDate += item.Count == null ? 0 : item.Count.Value;
-        //    }
-        //    else if (item.Type < 0)
-        //    {
-        //        remaingOfPreDate -= item.Count == null ? 0 : item.Count.Value;
-        //    }
-        //}
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        //Insert 
-        //StoreFinalize s = new StoreFinalize();
-        //s.Date = date;
-        //s.Type = PackTransaction.TypeX.Remain;
-        //s.Count = remaingOfPreDate;
+        StoreFinalize s = new StoreFinalize();
+        s.Date = date;
+        s.Type = type;
+        s.Count = count;
+        s.Note = "Process on: " + DateTime.Now.ToString();
 
-        //db.StoreFinalizes.InsertOnSubmit(s);
+        db.StoreFinalizes.InsertOnSubmit(s);
+        db.SubmitChanges();
 
-        //db.SubmitChanges();
+        return 1;
+    }
 
-        //LogBLL.Add(Task.TaskX.CountPackRemain);
+    public static StoreFinalize Get(DateTime date, PackTransaction.TypeX type)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        return db.StoreFinalizes.Where(r => r.Date.Value.Date == date.Date && r.Type == type).FirstOrDefault();
+    }
 
-        //LogBLL.Logs();
+    public static void FinalizeStore(DateTime date, bool overwrite)
+    {
+        string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
+
+        DateTime? lastFinalizeDate;
+        DateTime? lastPackTransactionDate;
+        DateTime? firstPackTransactionDate;
+        DateTime? lastBackupPackRemainDate;
+
+        RedBloodSystemBLL.GetLastFinalizeDate(out lastFinalizeDate, out lastPackTransactionDate, out firstPackTransactionDate, out lastBackupPackRemainDate);
+
+        if (date.Date > DateTime.Now.Date
+            || lastFinalizeDate.HasValue && lastFinalizeDate.Value.Date > DateTime.Now.Date
+            || (lastPackTransactionDate.HasValue && lastPackTransactionDate.Value.Date > DateTime.Now.Date)
+            || (lastBackupPackRemainDate.HasValue && lastBackupPackRemainDate.Value.Date > DateTime.Now.Date)
+            )
+        {
+            LogBLL.LogsFailAndThrow(err + "Error. Data or Date in future.");
+        }
+
+        //Data in DB is newer. Data error or system datetime error
+        if (
+            (lastFinalizeDate.HasValue && lastFinalizeDate.Value.Date > date.Date)
+            || (lastPackTransactionDate.HasValue && lastPackTransactionDate.Value.Date > date.Date)
+            || (lastBackupPackRemainDate.HasValue && lastBackupPackRemainDate.Value.Date > date.Date)
+           )
+        {
+            LogBLL.LogsFailAndThrow(err + "Newer data in DB.");
+        }
+
+        if (lastFinalizeDate.HasValue)
+        {
+            int daysBefore = (date.Date - lastFinalizeDate.Value.Date).Days;
+
+            if (daysBefore != 0
+                && daysBefore != 1)
+            {
+                LogBLL.LogsFailAndThrow(err + "Data should be finalized with in or 1 day before.");
+            }
+
+            if (daysBefore == 0)
+            {
+                if (overwrite)
+                {
+                    //Clear StoreFinalizes
+                    StoreFinalizeBLL.Clear(date);
+
+                    //Clear PackRemainDailies
+                    PackRemainDailyBLL.Clear(date);
+                }
+                else
+                {
+                    LogBLL.LogsFailAndThrow(err + "Aldready finilized. Set overwrite=true to re-finilized.");
+                }
+            }
+        }
+
+        StoreFinalizeBLL.CountPackTransaction(date).Select(r => StoreFinalizeBLL.Add(r.Date.Value, r.Type, r.Count.Value)).ToList();
+        StoreFinalizeBLL.Add(date, PackTransaction.TypeX.Remain, StoreFinalizeBLL.CountPackRemainByPackStatus());
+        PackRemainDailyBLL.Backup(date);
+
+        LogBLL.Logs(err);
     }
 }

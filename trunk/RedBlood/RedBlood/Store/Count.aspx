@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="StoreCount.aspx.cs" Inherits="FindAndReport_StoreCount" %>
+    CodeFile="Count.aspx.cs" Inherits="Store_Count" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false">
@@ -49,5 +49,39 @@
             <asp:BoundField DataField="Expire" HeaderText="Hết hạn" />
         </Columns>
     </asp:GridView>
-    
+    <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false" DataSourceID="LinqDataSource1">
+        <Columns>
+            <asp:BoundField DataField="ProductCode" HeaderText="Mã" />
+            <asp:BoundField DataField="ProductDesc" HeaderText="Sản phẩm" />
+            <asp:BoundField DataField="Total" HeaderText="TC" />
+            <asp:BoundField DataField="TotalExpired" HeaderText="Hết hạn" />
+            <asp:BoundField DataField="TotalExpiredInDays" HeaderText="Hết hạn trong 3 ngày" />
+            <asp:BoundField DataField="TotalTRNA" HeaderText="Chưa có KQXN" />
+            <asp:BoundField DataField="TotalTRNeg" HeaderText="Âm tính" />
+            <asp:BoundField DataField="TotalTRPos" HeaderText="Dương tính" />
+            <asp:TemplateField HeaderText="Nhóm máu">
+                <ItemTemplate>
+                    <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("BloodGroupSumary") %>' ShowHeader="false">
+                        <Columns>
+                            <asp:BoundField DataField="BloodGroupDesc" HeaderText="Nhóm máu" />
+                            <asp:BoundField DataField="Total" HeaderText="TC" />
+                        </Columns>
+                    </asp:GridView>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="(ml)">
+                <ItemTemplate>
+                    <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("VolumeSumary") %>' ShowHeader="false">
+                        <Columns>
+                            <asp:BoundField DataField="Volume" HeaderText="(ml)" />
+                            <asp:BoundField DataField="Total" HeaderText="TC" />
+                        </Columns>
+                    </asp:GridView>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
+    <asp:LinqDataSource ID="LinqDataSource1" runat="server" TableName="vw_ProductCount"
+        ContextTypeName="RedBloodDataContext" OnSelecting="LinqDataSource1_Selecting">
+    </asp:LinqDataSource>
 </asp:Content>

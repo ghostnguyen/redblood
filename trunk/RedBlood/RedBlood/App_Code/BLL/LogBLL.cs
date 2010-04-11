@@ -15,16 +15,16 @@ public class LogBLL
         //
     }
 
-    public static bool IsLoggedInToday(string method)
+    public static bool IsLogged(string method, DateTime date)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        var e = (from r in db.Logs
-                 where r.Method == method
-                 && r.Date.Value.Date == DateTime.Now.Date
-                 select r);
+        return db.Logs.Count(r => r.Method == method && r.Date.Value.Date == date) > 0;
+    }
 
-        return e.Count() != 0;
+    public static bool IsLogged()
+    {
+        return IsLogged(MyMethodBase.Current.Caller.Name, DateTime.Now.Date);
     }
 
     public static void Logs()
@@ -56,7 +56,7 @@ public class LogBLL
         Log e = new Log();
         e.Status = status;
         e.Method = method;
-        e.Actor = RedBloodSystem.SODActor;
+        e.Actor = RedBloodSystem.CurrentActor;
         e.Note = note;
 
         RedBloodDataContext db = new RedBloodDataContext();

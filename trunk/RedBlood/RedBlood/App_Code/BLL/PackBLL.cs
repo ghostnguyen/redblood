@@ -108,25 +108,25 @@ public class PackBLL
 
 
 
-    public static void LockEnterTestResult()
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
+    //public static void LockEnterTestResult()
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        IQueryable<Donation> l = db.Donations.Where(r =>
-            (r.TestResultStatus == Donation.TestResultStatusX.Negative
-            || r.TestResultStatus == Donation.TestResultStatusX.Positive));
+    //    IQueryable<Donation> l = db.Donations.Where(r =>
+    //        (r.TestResultStatus == Donation.TestResultStatusX.Negative
+    //        || r.TestResultStatus == Donation.TestResultStatusX.Positive));
 
-        foreach (Donation item in l)
-        {
-            if (item.TestResultStatus == Donation.TestResultStatusX.Negative)
-                item.TestResultStatus = Donation.TestResultStatusX.NegativeLocked;
+    //    foreach (Donation item in l)
+    //    {
+    //        if (item.TestResultStatus == Donation.TestResultStatusX.Negative)
+    //            item.TestResultStatus = Donation.TestResultStatusX.NegativeLocked;
 
-            if (item.TestResultStatus == Donation.TestResultStatusX.Positive)
-                item.TestResultStatus = Donation.TestResultStatusX.PositiveLocked;
-        }
+    //        if (item.TestResultStatus == Donation.TestResultStatusX.Positive)
+    //            item.TestResultStatus = Donation.TestResultStatusX.PositiveLocked;
+    //    }
 
-        db.SubmitChanges();
-    }
+    //    db.SubmitChanges();
+    //}
 
     public static void CreateOriginal(string DIN, string productCode, int defaultVolume)
     {

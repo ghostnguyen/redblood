@@ -32,7 +32,7 @@ public class PackErrEnum
     public static PackErr DataErr = new PackErr("Lỗi dữ liệu.", Pack.StatusX.DataErr);
     //public static PackErr EnterPackMulti = new PackErr("Lỗi dữ liệu. Túi máu đã nhập nhiều hơn 1.", Pack.StatusX.DataErr);
     //public static PackErr EnterPackExp = new PackErr("Có túi máu đã nhập nhưng chưa xử lý.", Pack.StatusX.ExpireEnter);
-    public static PackErr Expired = new PackErr("Túi máu quá hạn sử dụng.", Pack.StatusX.Expired);
+    //public static PackErr Expired = new PackErr("Túi máu quá hạn sử dụng.");
     public static PackErr Deleted = new PackErr("Túi máu đã hủy.");
     public static PackErr Existed = new PackErr("Túi máu đã nhập.");
 

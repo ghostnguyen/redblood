@@ -40,7 +40,15 @@ public class RedBloodSystem
     {
         get
         {
-            return System.Web.HttpContext.Current.User.Identity.Name;
+            try
+            {
+                return System.Web.HttpContext.Current.User.Identity.Name;
+            }
+            catch (Exception)
+            {
+                return "Unknow Actor";
+            }
+            
         }
     }
 

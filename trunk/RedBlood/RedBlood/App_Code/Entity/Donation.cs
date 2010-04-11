@@ -40,20 +40,20 @@ public partial class Donation
         Negative = 1,
 
         Dương_tính = 2,
-        Positive = 2,
+        Positive = 2
 
-        Âm_tính_K = 3,
-        NegativeLocked = 3,
+        //Âm_tính_K = 3,
+        //NegativeLocked = 3,
 
-        Dương_tính_K = 4,
-        PositiveLocked = 4
+        //Dương_tính_K = 4,
+        //PositiveLocked = 4
     }
 
     public bool IsTRLocked
     {
         get
         {
-            return DonationBLL.CanUpdateTestResult(this);
+            return !DonationBLL.CanUpdateTestResult(this);
         }
     }
         

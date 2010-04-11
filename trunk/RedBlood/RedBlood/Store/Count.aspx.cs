@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class FindAndReport_StoreCount : System.Web.UI.Page
+public partial class Store_Count : System.Web.UI.Page
 {
     class BGCount
     {
@@ -44,7 +44,7 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
 
                 if (!string.IsNullOrEmpty(B_RhD_Neg)) B_RhD_Neg += " (neg)";
-                
+
                 AB_RhD_Pos = availableList.Where(r => r.BloodGroup == BloodGroup.AB_RhD_positive.Code
                     && (r.Volume == Volume || Volume == 0)).Count().ToStringRemoveZero();
 
@@ -94,10 +94,10 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
 
                 TRNon = availableList.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Non).Count().ToStringRemoveZero();
                 TRPos = availableList.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Positive
-                        || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked).Count().ToStringRemoveZero();
+                        ).Count().ToStringRemoveZero();
 
                 negList = availableList.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative
-                        || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked).ToList();
+                        ).ToList();
             }
         }
 
@@ -164,16 +164,23 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Calc();
-        GridView1.DataSource = countList;
-        GridView1.DataBind();
+
+
+
+
+
+
+        //Calc();
+        //GridView1.DataSource = countList;
+        //GridView1.DataBind();
     }
 
     void Calc()
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        List<Pack.StatusX> statusList = new List<Pack.StatusX>() { Pack.StatusX.Expired, Pack.StatusX.Product };
+        //List<Pack.StatusX> statusList = new List<Pack.StatusX>() { Pack.StatusX.Expired, Pack.StatusX.Product };
+        List<Pack.StatusX> statusList = new List<Pack.StatusX>() { Pack.StatusX.Product };
         list = db.vw_ProductCounts.Where(r => statusList.Contains(r.Status)).ToList();
 
         List<Product> bloodProductList = new List<Product>();
@@ -233,10 +240,49 @@ public partial class FindAndReport_StoreCount : System.Web.UI.Page
         productCount.Name = name;
         productCount.volumeList = volList;
 
-        productCount.availableList = list.Where(r => productList.Select(r1 => r1.Code).Contains(r.Code) && r.Status == Pack.StatusX.Product).ToList();
-        productCount.expireList = list.Where(r => productList.Select(r1 => r1.Code).Contains(r.Code) && r.Status == Pack.StatusX.Expired).ToList();
+        //productCount.availableList = list.Where(r => productList.Select(r1 => r1.Code).Contains(r.Code) && r.Status == Pack.StatusX.Product).ToList();
+        //productCount.expireList = list.Where(r => productList.Select(r1 => r1.Code).Contains(r.Code) && r.Status == Pack.StatusX.Expired).ToList();
 
         return productCount;
+    }
+    protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        int expiredInDays = 3;
+
+        e.Result = db.vw_ProductCounts.Where(r => r.Status == Pack.StatusX.Product)
+            .ToList()
+            .GroupBy(r => new { r.ProductCode, r.ProductDesc, r.Status }, (r, sub) => new
+            {
+                r.ProductCode,
+                r.ProductDesc,
+                r.Status,
+                Total = sub.Sum(r1 => r1.Count),
+                TotalExpired = sub.Where(r1 => r1.ExpirationDate.Value.Date >= DateTime.Now.Date)
+                                    .Sum(r1 => r1.Count),
+                TotalExpiredInDays = sub.Where(r1 => r1.ExpirationDate.Value.Date.AddDays(expiredInDays) >= DateTime.Now.Date)
+                                    .Sum(r1 => r1.Count),
+                TotalTRNA = sub.Where(r1 => r1.TestResultStatus == Donation.TestResultStatusX.Non)
+                                .Sum(r1 => r1.Count),
+                TotalTRNeg = sub.Where(r1 => r1.TestResultStatus == Donation.TestResultStatusX.Negative)
+                                .Sum(r1 => r1.Count),
+                TotalTRPos = sub.Where(r1 => r1.TestResultStatus == Donation.TestResultStatusX.Positive)
+                                .Sum(r1 => r1.Count),
+                BloodGroupSumary = sub.GroupBy(r1 => r1.BloodGroup, (r1, BGSub) => new
+                {
+                    BloodGroupDesc = BloodGroupBLL.GetDescription(r1),
+                    Total = BGSub.Sum(r3 => r3.Count)
+                }),
+                VolumeSumary = sub.GroupBy(r1 => r1.Volume, (r1, VolSub) => new
+                {
+                    Volume = r1,
+                    Total = VolSub.Sum(r3 => r3.Count)
+                })
+            })
+            .OrderBy(r => r.ProductDesc);
+
+
     }
 }
 

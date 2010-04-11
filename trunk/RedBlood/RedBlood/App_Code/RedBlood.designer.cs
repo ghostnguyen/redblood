@@ -368,14 +368,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<vw_ProductCount> vw_ProductCounts
-	{
-		get
-		{
-			return this.GetTable<vw_ProductCount>();
-		}
-	}
-	
 	public System.Data.Linq.Table<StoreFinalize> StoreFinalizes
 	{
 		get
@@ -429,6 +421,30 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Log>();
+		}
+	}
+	
+	public System.Data.Linq.Table<vw_ProductCount> vw_ProductCounts
+	{
+		get
+		{
+			return this.GetTable<vw_ProductCount>();
+		}
+	}
+	
+	public System.Data.Linq.Table<vw_PackRemainDaily> vw_PackRemainDailies
+	{
+		get
+		{
+			return this.GetTable<vw_PackRemainDaily>();
+		}
+	}
+	
+	public System.Data.Linq.Table<vw_PackTran> vw_PackTrans
+	{
+		get
+		{
+			return this.GetTable<vw_PackTran>();
 		}
 	}
 }
@@ -9968,7 +9984,7 @@ public partial class PackTransaction : INotifyPropertyChanging, INotifyPropertyC
 		}
 	}
 	
-	[Column(Storage="_Date", DbType="DateTime")]
+	[Column(Storage="_Date", AutoSync=AutoSync.OnInsert, DbType="DateTime", IsDbGenerated=true)]
 	public System.Nullable<System.DateTime> Date
 	{
 		get
@@ -10347,141 +10363,6 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 		if ((this.PropertyChanged != null))
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[Table(Name="dbo.vw_ProductCount")]
-public partial class vw_ProductCount
-{
-	
-	private string _Code;
-	
-	private string _Description;
-	
-	private Pack.StatusX _Status;
-	
-	private string _BloodGroup;
-	
-	private Donation.TestResultStatusX _TestResultStatus;
-	
-	private System.Nullable<int> _Count;
-	
-	private System.Nullable<int> _Volume;
-	
-	public vw_ProductCount()
-	{
-	}
-	
-	[Column(Storage="_Code", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-	public string Code
-	{
-		get
-		{
-			return this._Code;
-		}
-		set
-		{
-			if ((this._Code != value))
-			{
-				this._Code = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_Description", DbType="NVarChar(MAX)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this._Description = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
-	public Pack.StatusX Status
-	{
-		get
-		{
-			return this._Status;
-		}
-		set
-		{
-			if ((this._Status != value))
-			{
-				this._Status = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_BloodGroup", DbType="NVarChar(MAX)")]
-	public string BloodGroup
-	{
-		get
-		{
-			return this._BloodGroup;
-		}
-		set
-		{
-			if ((this._BloodGroup != value))
-			{
-				this._BloodGroup = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_TestResultStatus", DbType="Int", CanBeNull=true)]
-	public Donation.TestResultStatusX TestResultStatus
-	{
-		get
-		{
-			return this._TestResultStatus;
-		}
-		set
-		{
-			if ((this._TestResultStatus != value))
-			{
-				this._TestResultStatus = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_Count", DbType="Int")]
-	public System.Nullable<int> Count
-	{
-		get
-		{
-			return this._Count;
-		}
-		set
-		{
-			if ((this._Count != value))
-			{
-				this._Count = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_Volume", DbType="Int")]
-	public System.Nullable<int> Volume
-	{
-		get
-		{
-			return this._Volume;
-		}
-		set
-		{
-			if ((this._Volume != value))
-			{
-				this._Volume = value;
-			}
 		}
 	}
 }
@@ -11886,7 +11767,7 @@ public partial class Log : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Date", DbType="DateTime")]
+	[Column(Storage="_Date", AutoSync=AutoSync.OnInsert, DbType="DateTime", IsDbGenerated=true)]
 	public System.Nullable<System.DateTime> Date
 	{
 		get
@@ -11963,6 +11844,411 @@ public partial class Log : INotifyPropertyChanging, INotifyPropertyChanged
 		if ((this.PropertyChanged != null))
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[Table(Name="dbo.vw_ProductCount")]
+public partial class vw_ProductCount
+{
+	
+	private string _ProductCode;
+	
+	private string _ProductDesc;
+	
+	private Pack.StatusX _Status;
+	
+	private string _BloodGroup;
+	
+	private Donation.TestResultStatusX _TestResultStatus;
+	
+	private System.Nullable<int> _Count;
+	
+	private System.Nullable<int> _Volume;
+	
+	private System.Nullable<System.DateTime> _ExpirationDate;
+	
+	public vw_ProductCount()
+	{
+	}
+	
+	[Column(Storage="_ProductCode", DbType="NVarChar(50)")]
+	public string ProductCode
+	{
+		get
+		{
+			return this._ProductCode;
+		}
+		set
+		{
+			if ((this._ProductCode != value))
+			{
+				this._ProductCode = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_ProductDesc", DbType="NVarChar(MAX)")]
+	public string ProductDesc
+	{
+		get
+		{
+			return this._ProductDesc;
+		}
+		set
+		{
+			if ((this._ProductDesc != value))
+			{
+				this._ProductDesc = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public Pack.StatusX Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this._Status = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_BloodGroup", DbType="NVarChar(MAX)")]
+	public string BloodGroup
+	{
+		get
+		{
+			return this._BloodGroup;
+		}
+		set
+		{
+			if ((this._BloodGroup != value))
+			{
+				this._BloodGroup = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_TestResultStatus", DbType="Int", CanBeNull=true)]
+	public Donation.TestResultStatusX TestResultStatus
+	{
+		get
+		{
+			return this._TestResultStatus;
+		}
+		set
+		{
+			if ((this._TestResultStatus != value))
+			{
+				this._TestResultStatus = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Count", DbType="Int")]
+	public System.Nullable<int> Count
+	{
+		get
+		{
+			return this._Count;
+		}
+		set
+		{
+			if ((this._Count != value))
+			{
+				this._Count = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Volume", DbType="Int")]
+	public System.Nullable<int> Volume
+	{
+		get
+		{
+			return this._Volume;
+		}
+		set
+		{
+			if ((this._Volume != value))
+			{
+				this._Volume = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_ExpirationDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> ExpirationDate
+	{
+		get
+		{
+			return this._ExpirationDate;
+		}
+		set
+		{
+			if ((this._ExpirationDate != value))
+			{
+				this._ExpirationDate = value;
+			}
+		}
+	}
+}
+
+[Table(Name="dbo.vw_PackRemainDaily")]
+public partial class vw_PackRemainDaily
+{
+	
+	private string _ProductCode;
+	
+	private string _ProductDesc;
+	
+	private string _BloodGroup;
+	
+	private System.Nullable<int> _Count;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private System.Nullable<int> _Volume;
+	
+	public vw_PackRemainDaily()
+	{
+	}
+	
+	[Column(Storage="_ProductCode", DbType="NVarChar(50)")]
+	public string ProductCode
+	{
+		get
+		{
+			return this._ProductCode;
+		}
+		set
+		{
+			if ((this._ProductCode != value))
+			{
+				this._ProductCode = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_ProductDesc", DbType="NVarChar(MAX)")]
+	public string ProductDesc
+	{
+		get
+		{
+			return this._ProductDesc;
+		}
+		set
+		{
+			if ((this._ProductDesc != value))
+			{
+				this._ProductDesc = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_BloodGroup", DbType="NVarChar(MAX)")]
+	public string BloodGroup
+	{
+		get
+		{
+			return this._BloodGroup;
+		}
+		set
+		{
+			if ((this._BloodGroup != value))
+			{
+				this._BloodGroup = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Count", DbType="Int")]
+	public System.Nullable<int> Count
+	{
+		get
+		{
+			return this._Count;
+		}
+		set
+		{
+			if ((this._Count != value))
+			{
+				this._Count = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this._Date = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Volume", DbType="Int")]
+	public System.Nullable<int> Volume
+	{
+		get
+		{
+			return this._Volume;
+		}
+		set
+		{
+			if ((this._Volume != value))
+			{
+				this._Volume = value;
+			}
+		}
+	}
+}
+
+[Table(Name="dbo.vw_PackTrans")]
+public partial class vw_PackTran
+{
+	
+	private string _ProductCode;
+	
+	private string _ProductDesc;
+	
+	private string _BloodGroup;
+	
+	private PackTransaction.TypeX _Type;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private System.Nullable<int> _Volume;
+	
+	private System.Nullable<int> _Count;
+	
+	public vw_PackTran()
+	{
+	}
+	
+	[Column(Storage="_ProductCode", DbType="NVarChar(50)")]
+	public string ProductCode
+	{
+		get
+		{
+			return this._ProductCode;
+		}
+		set
+		{
+			if ((this._ProductCode != value))
+			{
+				this._ProductCode = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_ProductDesc", DbType="NVarChar(MAX)")]
+	public string ProductDesc
+	{
+		get
+		{
+			return this._ProductDesc;
+		}
+		set
+		{
+			if ((this._ProductDesc != value))
+			{
+				this._ProductDesc = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_BloodGroup", DbType="NVarChar(MAX)")]
+	public string BloodGroup
+	{
+		get
+		{
+			return this._BloodGroup;
+		}
+		set
+		{
+			if ((this._BloodGroup != value))
+			{
+				this._BloodGroup = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Type", DbType="Int", CanBeNull=true)]
+	public PackTransaction.TypeX Type
+	{
+		get
+		{
+			return this._Type;
+		}
+		set
+		{
+			if ((this._Type != value))
+			{
+				this._Type = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this._Date = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Volume", DbType="Int")]
+	public System.Nullable<int> Volume
+	{
+		get
+		{
+			return this._Volume;
+		}
+		set
+		{
+			if ((this._Volume != value))
+			{
+				this._Volume = value;
+			}
+		}
+	}
+	
+	[Column(Storage="_Count", DbType="Int")]
+	public System.Nullable<int> Count
+	{
+		get
+		{
+			return this._Count;
+		}
+		set
+		{
+			if ((this._Count != value))
+			{
+				this._Count = value;
+			}
 		}
 	}
 }
