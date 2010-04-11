@@ -9,12 +9,12 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("FindAndReport/StoreCount.aspx");
+            window.location = ("Store/Count.aspx");
         });
 
-//        $(document).bind('keydown', '8', function() {
-//            window.location = ("FindAndReport/CampaignDetail.aspx");
-//        });
+        $(document).bind('keydown', '8', function() {
+            window.location = ("Store/TransCount.aspx");
+        });
 
 
 
@@ -41,33 +41,33 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="FindAndReport/StoreCount.aspx">
+                                        <a href="Store/Count.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="FindAndReport/StoreCount.aspx">Thống kê kho</a>
+                                            <a href="Store/Count.aspx">Kiểm kho</a>
                                         </h4>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                         <td class="column next">
-                             <%--<table>
+                             <table>
                                 <tr>
                                     <td>
-                                        <a href="FindAndReport/CampaignDetail.aspx">
+                                        <a href="Store/TransCount.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="FindAndReport/CampaignDetail.aspx">In danh sách</a>
+                                            <a href="Store/TransCount.aspx">Xuất - Nhập - Tồn</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>

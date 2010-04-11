@@ -84,15 +84,21 @@ public class OrderBLL
 
     }
 
-    public static void CloseOrder(RedBloodDataContext db)
+    public static void CloseOrder()
     {
-        List<Order> r = db.Orders.Where(e => e.Status == Order.StatusX.Init).ToList();
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        foreach (Order item in r)
+        var v = db.Orders.Where(r => r.Status == Order.StatusX.Init 
+            && r.Date.Value.Date < DateTime.Now.Date).ToList();
+
+        foreach (var item in v)
         {
-            if (DateTime.Now.Date > item.Date.Value.Date)
-                item.Status = Order.StatusX.Done;
+            item.Status = Order.StatusX.Done;    
         }
+
+        db.SubmitChanges();
+
+        LogBLL.Logs();
     }
 
     public static List<Order> Get(DateTime? from, DateTime? to, Order.TypeX type)
@@ -116,8 +122,7 @@ public class OrderBLL
         if (e == null)
             throw new Exception("Không tìm thấy mã túi máu.");
 
-        if (e.TestResultStatus == Donation.TestResultStatusX.Negative
-            || e.TestResultStatus == Donation.TestResultStatusX.NegativeLocked)
+        if (e.TestResultStatus == Donation.TestResultStatusX.Negative)
         { }
         else
         {

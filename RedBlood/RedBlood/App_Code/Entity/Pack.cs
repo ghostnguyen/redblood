@@ -46,8 +46,8 @@ public partial class Pack
         Đã_sản_xuất = 11,
 
 
-        Expired = 40,
-        Quá_hạn = 40,
+        //Expired = 40,
+        //Quá_hạn = 40,
         //ExpireEnter = 41,
         //ExpireCommitReceived = 42,
         DataErr = 49

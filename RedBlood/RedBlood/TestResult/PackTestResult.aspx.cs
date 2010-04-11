@@ -67,10 +67,9 @@ public partial class PackTestResult : System.Web.UI.Page
         }
         else
         {
-            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID != null
-                && (r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked
-                || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
-                );
+            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID)
+                .ToList()
+                .Where(r => r.OrgPackID != null && r.IsTRLocked);
         }
     }
 

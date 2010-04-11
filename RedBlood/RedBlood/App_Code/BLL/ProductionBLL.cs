@@ -46,7 +46,7 @@ public class ProductionBLL
         return "";
     }
 
-    
+
 
     public List<string> AddProductCodeIn(string productCode)
     {
@@ -110,8 +110,7 @@ public class ProductionBLL
         if (d == null)
             throw new Exception("Không có mã túi máu này.");
 
-        if (d.TestResultStatus == Donation.TestResultStatusX.Positive
-            || d.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
+        if (d.TestResultStatus == Donation.TestResultStatusX.Positive)
         {
             throw new Exception("Xét nghiệm sàng lọc: Dương tính.");
         }
@@ -161,8 +160,7 @@ public class ProductionBLL
         //Validate
         if (pack == null || p == null) return PackErrEnum.DataErr;
 
-        if (pack.Donation.TestResultStatus == Donation.TestResultStatusX.Positive
-            || pack.Donation.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
+        if (pack.Donation.TestResultStatus == Donation.TestResultStatusX.Positive)
         {
             return PackErrEnum.Positive;
         }

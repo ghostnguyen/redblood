@@ -21,9 +21,8 @@ public class DonationBLL
     {
         if (e == null) throw new Exception(DonationErrEnum.NonExist.Message);
 
-        return (new Donation.TestResultStatusX[] { Donation.TestResultStatusX.Non, 
-            Donation.TestResultStatusX.Negative, 
-            Donation.TestResultStatusX.Positive}).Contains(e.TestResultStatus);
+        return !(e.Packs.Count(r => r.Status == Pack.StatusX.Delivered) > 0
+            || e.Packs.Count(r => r.Status == Pack.StatusX.Product) == 0);
     }
 
     public static List<Donation> New(int count)
@@ -136,7 +135,7 @@ public class DonationBLL
         RedBloodDataContext db = new RedBloodDataContext();
         Donation e = Get(db, DIN);
 
-        if (e != null 
+        if (e != null
             && string.IsNullOrEmpty(e.Collector)
             && !string.IsNullOrEmpty(collector)
             && !string.IsNullOrEmpty(collector.Trim()))
@@ -184,7 +183,7 @@ public class DonationBLL
 
         Donation e = DonationBLL.Get(db, DIN);
 
-        if (e == null )
+        if (e == null)
             throw new Exception(DonationErrEnum.NonExist.Message);
 
         if (!CanUpdateTestResult(e))
@@ -248,17 +247,14 @@ public class DonationBLL
 
         if (rptType == ReportType.NegInCam)
         {
-            return l.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative
-                || r.TestResultStatus == Donation.TestResultStatusX.NegativeLocked).ToList();
+            return l.Where(r => r.TestResultStatus == Donation.TestResultStatusX.Negative).ToList();
         }
 
         if (rptType == ReportType.FourPosInCam)
         {
             return l.Where(r =>
-                (r.TestResultStatus == Donation.TestResultStatusX.Positive
-                || r.TestResultStatus == Donation.TestResultStatusX.PositiveLocked)
-                &&
-                r.Markers.HIV == TR.neg.Name).ToList();
+                r.TestResultStatus == Donation.TestResultStatusX.Positive
+                && r.Markers.HIV == TR.neg.Name).ToList();
         }
 
         if (rptType == ReportType.HIVInCam)

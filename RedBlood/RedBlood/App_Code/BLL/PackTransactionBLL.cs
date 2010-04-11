@@ -17,23 +17,21 @@ public class PackTransactionBLL
         //
     }
 
-    public static PackTransaction Add(RedBloodDataContext db, Guid packID, PackTransaction.TypeX type, string note)
-    {
-        PackTransaction e = new PackTransaction();
-        e.PackID = packID;
-        e.Type = type;
-        e.Date = DateTime.Now;
-        e.Note = note.Trim();
-
-        db.PackTransactions.InsertOnSubmit(e);
-
-        return e;
-    }
+    public static List<PackTransaction.TypeX> InTypeList = new List<PackTransaction.TypeX>() { PackTransaction.TypeX.In_Collect, PackTransaction.TypeX.In_Product, PackTransaction.TypeX.In_Return };
+    public static List<PackTransaction.TypeX> OutTypeList = new List<PackTransaction.TypeX>() { PackTransaction.TypeX.Out_Delete, PackTransaction.TypeX.Out_Product, PackTransaction.TypeX.Out_Order };
 
     public static PackTransaction Add(Guid packID, PackTransaction.TypeX type, string note)
     {
+        RedBloodSystemBLL.SOD();
+
         RedBloodDataContext db = new RedBloodDataContext();
-        PackTransaction e = Add(db, packID, type, note);
+
+        PackTransaction e = new PackTransaction();
+        e.PackID = packID;
+        e.Type = type;
+        e.Note = note.Trim();
+
+        db.PackTransactions.InsertOnSubmit(e);
 
         db.SubmitChanges();
 
@@ -42,7 +40,6 @@ public class PackTransactionBLL
 
     public static PackTransaction Add(Guid packID, PackTransaction.TypeX type)
     {
-        return Add(packID, type, Helper.GetCallerMethodName());
+        return Add(packID, type, MyMethodBase.Current.Caller.Name);
     }
-
 }

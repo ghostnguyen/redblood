@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="StoreCountOpt.aspx.cs" Inherits="FindAndReport_StoreCountOpt" %>
+    CodeFile="CountOpt.aspx.cs" Inherits="Store_CountOpt" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
