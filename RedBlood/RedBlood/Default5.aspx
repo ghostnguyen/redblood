@@ -19,9 +19,9 @@
         $(document).bind('keydown', '9', function() {
             window.location = ("Order/SideEffects.aspx");
         });
-//        $(document).bind('keydown', '4', function() {
-//            window.location = ("Category/Org.aspx");
-//        });
+        $(document).bind('keydown', '4', function() {
+            window.location = ("Order/Return.aspx");
+        });
 
 //        $(document).bind('keydown', '5', function() {
 //            window.location = ("Category/DIN.aspx");
@@ -105,20 +105,20 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="Category/Org.aspx">
+                                        <a href="Order/Return.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Category/Org.aspx">Đơn vị</a>
+                                            <a href="Order/Return.aspx">Thu hồi</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                       <%--      <table>

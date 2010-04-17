@@ -136,9 +136,7 @@ public class ProductionBLL
         if (!string.IsNullOrEmpty(err))
             throw new Exception(err);
 
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        List<Pack> packList = db.Packs.Where(r => DINInList.Contains(r.DIN) && ProductCodeInList.Contains(r.ProductCode)).ToList();
+        List<Pack> packList = DINInList.Select(r => PackBLL.Get4Extract(r, ProductCodeInList.FirstOrDefault())).ToList();
 
         foreach (Pack item in packList)
         {
@@ -150,52 +148,14 @@ public class ProductionBLL
         }
     }
 
-    public PackErr Extract(Guid srcPackID, string productCode)
+    public void Extract(Guid srcPackID, string productCode)
     {
-        RedBloodDataContext db = new RedBloodDataContext();
+        Pack pack = PackBLL.Get4Extract(srcPackID);
 
-        Pack pack = db.Packs.Where(r => r.ID == srcPackID).FirstOrDefault();
-        Product p = db.Products.Where(r => r.Code == productCode).FirstOrDefault();
+        PackBLL.Add(pack.DIN, productCode, false);
 
-        //Validate
-        if (pack == null || p == null) return PackErrEnum.DataErr;
-
-        if (pack.Donation.TestResultStatus == Donation.TestResultStatusX.Positive)
-        {
-            return PackErrEnum.Positive;
-        }
-
-        if (db.Packs.Where(r => r.DIN == pack.DIN && r.ProductCode == productCode).FirstOrDefault() != null)
-            return PackErrEnum.Existed;
-
-        //TODO: Check to see if the pack is collector too late
-        //Code check will be here.
-
-        //Create new
-        Pack toPack = new Pack();
-
-        toPack.DIN = pack.DIN;
-        toPack.ProductCode = productCode;
-        toPack.Status = Pack.StatusX.Product;
-        toPack.Date = DateTime.Now;
-        toPack.Actor = RedBloodSystem.CurrentActor;
-        //toPack.Volume = p.OriginalVolume;
-        toPack.ExpirationDate = DateTime.Now.Add(p.Duration.Value - RedBloodSystem.RootTime);
-
-        db.Packs.InsertOnSubmit(toPack);
-        db.SubmitChanges();
-
-        PackTransactionBLL.Add(toPack.ID, PackTransaction.TypeX.In_Product);
-
-        //Update fromPack
-        PackStatusHistory h = PackBLL.Update(db, pack, Pack.StatusX.Produced, "");
-        if (h != null)
-        {
-            db.SubmitChanges();
-            PackTransactionBLL.Add(pack.ID, PackTransaction.TypeX.Out_Product);
-        }
-
-        return PackErrEnum.Non;
+        if (pack.Status != Pack.StatusX.Produced)
+            PackBLL.ChangeStatus(pack.ID, Pack.StatusX.Produced, PackTransaction.TypeX.Out_Product);
     }
 }
 

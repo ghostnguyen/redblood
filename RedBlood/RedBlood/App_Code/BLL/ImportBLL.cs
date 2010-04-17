@@ -83,7 +83,7 @@ public class ImportBLL
             //Import DIN
             DonationBLL.Assign(innerDIN.DIN, peopleID.Value, innerCam.ID, item.CollectedDate, item.Actor);
             
-            PackBLL.CreateOriginal(innerDIN.DIN, item.Pack.ProductCode, item.Volume.Value);
+            //PackBLL.CreateOriginal(innerDIN.DIN, item.Pack.ProductCode, item.Volume.Value);
 
             DonationBLL.Update(innerDIN.DIN, item.BloodGroup, "ImportingFromMDF");
             DonationBLL.UpdateCollector(innerDIN.DIN, item.Collector);

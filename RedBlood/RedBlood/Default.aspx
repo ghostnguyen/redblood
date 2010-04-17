@@ -20,7 +20,7 @@
 
         $(document).bind('keydown', '9', function() {
             if (selectedInput) return;
-            window.location = ("TestResult/PackTestResult.aspx");
+            window.location = ("Default9.aspx");
         });
 
 
@@ -75,10 +75,10 @@
                         </td>
                         <td class="column next">
                             <h3>
-                                <a href="TestResult/PackTestResult.aspx">9. Sàng lọc</a></h3>
+                                <a href="Default9.aspx">9. Sàng lọc</a></h3>
                             <p>
                             </p>
-                            <a href="TestResult/PackTestResult.aspx" />
+                            <a href="Default9.aspx" />
                             <img src="Image/Icon/Colba.png" alt="" />
                         </td>
                     </tr>

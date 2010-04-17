@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>TestResult</title>
+<title>Return</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">TestResult</td></tr>
+<tr><td rowspan="1" colspan="3">Return</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -18,18 +18,68 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=9. Sàng lọc</td>
+	<td>link=5. Cấp phát</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Nhập kết quả sàng lọc</td>
+	<td>link=Thu hồi</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtNote</td>
+	<td>Thu hồi nhanha</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=V00011000000400</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=&lt;E0097V00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Không có túi máu.</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>ctl00_txtMasterCode</td>
-	<td>&amp;c0001</td>
+	<td>=V00011000000100</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=&lt;E0195V00</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -43,7 +93,67 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl02_LinkButton1</td>
+	<td>ctl00_ContentPlaceHolder1_GridViewPack_ctl02_btnRemove</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=V00011000000300</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=&lt;E2528V00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Chưa có cấp phát túi máu này.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=V00011000000200</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=&lt;E0097V00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -53,93 +163,13 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table[@id='ctl00_ContentPlaceHolder1_GridView1']/tbody/tr[3]/td[10]/a</td>
+	<td>ctl00_ContentPlaceHolder1_btnOk</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListHIV</td>
-	<td>label=Âm tính</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListHCV</td>
-	<td>label=Âm tính</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListHBs_Ag</td>
-	<td>label=Âm tính</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListSyphilis</td>
-	<td>label=Âm tính</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListMalaria</td>
-	<td>label=Âm tính</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//table[@id='ctl00_ContentPlaceHolder1_GridView1']/tbody/tr[3]/td[10]/a[1]</td>
+	<td>waitForAlert</td>
+	<td>Lưu thành công.</td>
 	<td></td>
-</tr>
-<tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl04_LinkButton1</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl05_LinkButton1</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//table[@id='ctl00_ContentPlaceHolder1_GridView1']/tbody/tr[5]/td[10]/a</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl05_DropDownListHIV</td>
-	<td>label=Dương tính</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//table[@id='ctl00_ContentPlaceHolder1_GridView1']/tbody/tr[5]/td[10]/a[1]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
-	<td>10000</td>
 </tr>
 
 </tbody></table>

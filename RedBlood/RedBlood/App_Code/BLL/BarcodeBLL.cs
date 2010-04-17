@@ -26,6 +26,9 @@ public class BarcodeBLL
     public const string orderIdChar = "&o";
     public const int orderLength = 11;
 
+    public const string returnIdChar = "&r";
+    public const int returnLength = 11;
+
     public const string orgIdChar = "&e";
     public const int orgLength = 6;
 
@@ -83,6 +86,15 @@ public class BarcodeBLL
         if (code.Length != orderLength) return false;
 
         string pattern = orderIdChar + "[0-9]";
+        Regex regx = new Regex(pattern);
+        return regx.IsMatch(code);
+    }
+
+    public static bool IsValidReturnCode(string code)
+    {
+        if (code.Length != returnLength) return false;
+
+        string pattern = returnIdChar + "[0-9]";
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
     }
@@ -149,6 +161,15 @@ public class BarcodeBLL
         if (IsValidOrderCode(code))
             //&o123456789
             return code.Substring(2, orderLength - 2).ToInt();
+        else
+            return 0;
+    }
+
+    public static int ParseReturnID(string code)
+    {
+        if (IsValidReturnCode(code))
+            //&r123456789
+            return code.Substring(2, returnLength - 2).ToInt();
         else
             return 0;
     }
@@ -220,6 +241,11 @@ public class BarcodeBLL
     public static string Url4Order(int ID)
     {
         return BarcodeImgPage + "?hasText=true&code=" + orderIdChar.ToURLCompatible() + ID.ToString("D" + (orderLength - 2).ToString());
+    }
+
+    public static string Url4Return(int ID)
+    {
+        return BarcodeImgPage + "?hasText=true&code=" + returnIdChar.ToURLCompatible() + ID.ToString("D" + (returnLength - 2).ToString());
     }
 
     #endregion

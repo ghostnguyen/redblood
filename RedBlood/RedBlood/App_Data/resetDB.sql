@@ -2,11 +2,15 @@ update Facility set CountingYY = substring(convert(nvarchar,getdate(),126),3,2),
 
 truncate table Log 
 
-truncate table PackStatusHistory
+
 truncate table PackSideEffect
-truncate table PackOrder
+truncate table ReturnPackOrder
+
 truncate table PackTransaction
 truncate table PackRemainDaily
+
+delete PackOrder 
+DBCC CHECKIDENT (PackOrder, RESEED, 0)
 
 truncate table StoreFinalize
 
@@ -18,6 +22,9 @@ delete Donation
 
 delete [Order] 
 DBCC CHECKIDENT ([Order], RESEED, 0)
+
+delete [Return] 
+DBCC CHECKIDENT ([Return], RESEED, 0)
 
 delete [People] 
 DBCC CHECKIDENT ([People], RESEED, 0)

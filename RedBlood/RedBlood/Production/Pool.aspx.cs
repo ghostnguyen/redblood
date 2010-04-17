@@ -149,104 +149,104 @@ public partial class Production_Pool : System.Web.UI.Page
 
     private void CheckAutonum(int autonum)
     {
-        //Pack p = PackBLL.Get4Combined2Platelet(autonum);
-        Pack p = null;
+        ////Pack p = PackBLL.Get4Combined2Platelet(autonum);
+        //Pack p = null;
 
-        if (p == null)
-        {
-            this.Alert("CheckAutonum");
-        }
+        //if (p == null)
+        //{
+        //    this.Alert("CheckAutonum");
+        //}
 
-        if (p.Err == PackErrEnum.IsPlatelet
-        || p.Err == PackErrEnum.Combined2Platelet)
-        {
-            TempAutonum = autonum;
+        //if (p.Err == PackErrEnum.IsPlatelet
+        //|| p.Err == PackErrEnum.Combined2Platelet)
+        //{
+        //    TempAutonum = autonum;
 
-            if (IsEditMode)
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
-            }
-            else
-            {
-                AutonumListIn.Clear();
-                AutonumListOut.Clear();
+        //    if (IsEditMode)
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadConfirm", "doLoadPackCombined();", true);
+        //    }
+        //    else
+        //    {
+        //        AutonumListIn.Clear();
+        //        AutonumListOut.Clear();
 
-                //if (p.ComponentID == TestDef.Component.Full)
-                //{
-                //    PackExtract pe = p.PackExtractsBySource.Where(r => r.ExtractPack.ComponentID == TestDef.Component.Platelet).FirstOrDefault();
+        //        //if (p.ComponentID == TestDef.Component.Full)
+        //        //{
+        //        //    PackExtract pe = p.PackExtractsBySource.Where(r => r.ExtractPack.ComponentID == TestDef.Component.Platelet).FirstOrDefault();
 
-                //    AutonumListIn = pe.ExtractPack.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
-                //    AutonumListOut.Add(pe.ExtractPack.Autonum);
-                //}
-                //else if (p.ComponentID == TestDef.Component.Platelet)
-                //{
-                //    AutonumListIn = p.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
-                //    AutonumListOut.Add(p.Autonum);
-                //}
+        //        //    AutonumListIn = pe.ExtractPack.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
+        //        //    AutonumListOut.Add(pe.ExtractPack.Autonum);
+        //        //}
+        //        //else if (p.ComponentID == TestDef.Component.Platelet)
+        //        //{
+        //        //    AutonumListIn = p.PackExtractsByExtract.Select(r => r.SourcePack.Autonum).ToList<int>();
+        //        //    AutonumListOut.Add(p.Autonum);
+        //        //}
 
-                LoadPack();
-            }
-            return;
-        }
+        //        LoadPack();
+        //    }
+        //    return;
+        //}
 
-        if (p.Err == PackErrEnum.Valid4Platelet)
-        {
-            if (IsEditMode)
-            {
-                if (!AutonumListIn.Contains(autonum))
-                    AutonumListIn.Add(autonum);
-            }
-            else
-            {
-                AutonumListIn.Clear();
-                AutonumListOut.Clear();
-                IsEditMode = true;
+        //if (p.Err == PackErrEnum.Valid4Platelet)
+        //{
+        //    if (IsEditMode)
+        //    {
+        //        if (!AutonumListIn.Contains(autonum))
+        //            AutonumListIn.Add(autonum);
+        //    }
+        //    else
+        //    {
+        //        AutonumListIn.Clear();
+        //        AutonumListOut.Clear();
+        //        IsEditMode = true;
 
-                AutonumListIn.Add(autonum);
-            }
-            LoadPack();
-            return;
-        }
+        //        AutonumListIn.Add(autonum);
+        //    }
+        //    LoadPack();
+        //    return;
+        //}
 
-        if (p.Err == PackErrEnum.Init4Platelet)
-        {
-            if (IsEditMode)
-            {
-                AutonumListOut.Clear();
-                AutonumListOut.Add(autonum);
-            }
-            else
-            {
-                AutonumListIn.Clear();
-                AutonumListOut.Clear();
-                IsEditMode = true;
+        //if (p.Err == PackErrEnum.Init4Platelet)
+        //{
+        //    if (IsEditMode)
+        //    {
+        //        AutonumListOut.Clear();
+        //        AutonumListOut.Add(autonum);
+        //    }
+        //    else
+        //    {
+        //        AutonumListIn.Clear();
+        //        AutonumListOut.Clear();
+        //        IsEditMode = true;
 
-                AutonumListOut.Add(autonum);
-            }
+        //        AutonumListOut.Add(autonum);
+        //    }
 
-            LoadPack();
-            return;
-        }
+        //    LoadPack();
+        //    return;
+        //}
 
-        this.Alert(p.Err.Message);
+        //this.Alert(p.Err.Message);
     }
 
     protected void btnLoad_Click(object sender, EventArgs e)
     {
-        //Pack p = PackBLL.Get4Combined2Platelet(TempAutonum);
-        Pack p = null;
+        ////Pack p = PackBLL.Get4Combined2Platelet(TempAutonum);
+        //Pack p = null;
 
-        if (p == null)
-        {
-            this.Alert("CheckAutonum");
-        }
+        //if (p == null)
+        //{
+        //    this.Alert("CheckAutonum");
+        //}
 
-        if (p.Err == PackErrEnum.IsPlatelet
-            || p.Err == PackErrEnum.Combined2Platelet)
-        {
-            IsEditMode = false;
-            CheckAutonum(TempAutonum);
-        }
+        //if (p.Err == PackErrEnum.IsPlatelet
+        //    || p.Err == PackErrEnum.Combined2Platelet)
+        //{
+        //    IsEditMode = false;
+        //    CheckAutonum(TempAutonum);
+        //}
     }
 
     //bool IsInEditMode()

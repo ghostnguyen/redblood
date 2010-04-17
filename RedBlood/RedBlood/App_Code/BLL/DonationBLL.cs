@@ -21,8 +21,13 @@ public class DonationBLL
     {
         if (e == null) throw new Exception(DonationErrEnum.NonExist.Message);
 
-        return !(e.Packs.Count(r => r.Status == Pack.StatusX.Delivered) > 0
-            || e.Packs.Count(r => r.Status == Pack.StatusX.Product) == 0);
+        if (e.Packs.Count == 0)
+            return false;
+
+        if (e.Packs.Count(r => r.Status == Pack.StatusX.Delivered) > 0)
+            return false;
+
+        return true;
     }
 
     public static List<Donation> New(int count)
@@ -50,7 +55,6 @@ public class DonationBLL
             l[i].DIN = f.FIN + f.CountingYY + autonum.ToString("D6");
             l[i].Status = Donation.StatusX.Init;
             l[i].InfectiousMarkers = 0.ToString("D" + BarcodeBLL.InfectiousMarkersLength.ToString());
-
         }
 
         f.CountingNumber = autonum;
@@ -62,13 +66,62 @@ public class DonationBLL
 
     public static Donation Get(RedBloodDataContext db, string DIN)
     {
-        return db.Donations.Where(r => r.DIN == DIN).FirstOrDefault();
+        Donation d = db.Donations.Where(r => r.DIN == DIN).FirstOrDefault();
+        if (d == null)
+            throw new Exception("Chưa tạo mã túi máu.");
+
+        return d;
     }
 
     public static Donation Get(string DIN)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         return Get(db, DIN);
+    }
+
+    public static Donation GetAssigned(RedBloodDataContext db, string DIN)
+    {
+        Donation d = Get(db, DIN);
+
+        if (d.PeopleID == null)
+        {
+            throw new Exception("Mã túi máu chưa cấp phát.");
+        }
+
+        return d;
+    }
+
+    public static Donation Get4CreateOriginal(RedBloodDataContext db, string DIN)
+    {
+        Donation d = GetAssigned(db, DIN);
+
+        if (d.OrgPackID != null)
+            throw new Exception(PackErrEnum.DonationGotPack.Message);
+
+        return d;
+    }
+
+    public static Donation SetOriginalPack(string DIN, Guid packID)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Donation d = Get4CreateOriginal(db, DIN);
+
+        d.OrgPackID = packID;
+
+        db.SubmitChanges();
+
+        return d;
+    }
+
+    public static Donation Get4Order(string DIN)
+    {
+        Donation d = Get(DIN);
+        if (d.TestResultStatus != Donation.TestResultStatusX.Negative)
+        {
+            throw new Exception("Không thể cấp phát túi máu này. KQ xét nghiệm sàng lọc: " + d.TestResultStatus);
+        }
+        return d;
     }
 
     public static DonationErr Assign(string DIN, Guid peopleID, int campaignID, DateTime? collectedDate, string actor)
@@ -108,6 +161,32 @@ public class DonationBLL
     public static DonationErr Assign(string DIN, Guid peopleID, int campaignID)
     {
         return Assign(DIN, peopleID, campaignID, DateTime.Now, RedBloodSystem.CurrentActor);
+    }
+
+    //Only pack has status 0 can be remove, to re-assign to another people.
+    public static Pack RemovePeople(int autonum)
+    {
+        if (autonum == 0) return null;
+
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        //Pack p = Get(db, autonum, Pack.StatusX.Collected);
+        Pack p = new Pack();
+
+        //if (p == null && p.PeopleID != null) return p;
+        //if (p.TestResultStatus != Pack.TestResultStatusX.Non) return p;
+
+        ////remove people
+        //p.PeopleID = null;
+        //p.CollectedDate = null;
+        //p.CampaignID = null;
+
+        //PackStatusHistory h = ChangeStatus(db, p, Pack.StatusX.Init, "Remove peopleID=" + p.PeopleID.ToString() + "&CampaignID=" + p.CampaignID.ToString());
+        //db.PackStatusHistories.InsertOnSubmit(h);
+
+        db.SubmitChanges();
+
+        return p;
     }
 
     public static DonationStatusLog UpdateStatus(RedBloodDataContext db, Donation e, Donation.StatusX to, string note)

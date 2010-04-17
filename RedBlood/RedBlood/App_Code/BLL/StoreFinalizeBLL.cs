@@ -145,12 +145,13 @@ public class StoreFinalizeBLL
     {
         string err = "Process for day: " + date.Date.ToShortDateString() + ". ";
 
+        DateTime? firstFinalizeDate;
         DateTime? lastFinalizeDate;
         DateTime? lastPackTransactionDate;
         DateTime? firstPackTransactionDate;
         DateTime? lastBackupPackRemainDate;
 
-        RedBloodSystemBLL.GetLastFinalizeDate(out lastFinalizeDate, out lastPackTransactionDate, out firstPackTransactionDate, out lastBackupPackRemainDate);
+        RedBloodSystemBLL.GetLastFinalizeDate(out firstFinalizeDate, out lastFinalizeDate, out lastPackTransactionDate, out firstPackTransactionDate, out lastBackupPackRemainDate);
 
         if (date.Date > DateTime.Now.Date
             || lastFinalizeDate.HasValue && lastFinalizeDate.Value.Date > DateTime.Now.Date

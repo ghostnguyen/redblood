@@ -19,10 +19,11 @@ public partial class PackTransaction
         In_Product = 11,
         In_Return = 12,
         
-        Out_Order = -20,
-        Out_Product = -21,
-        //22
-        //23
+        Out_OrderGen = -20,
+        Out_Order4Org = -21,
+        Out_Order4CR = -22,
+        
+        Out_Product = -23,
         Out_Delete = -24,
         
         

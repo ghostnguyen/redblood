@@ -17,4 +17,9 @@ public partial class Import : System.Web.UI.Page
     {
         ImportBLL.Importing();
     }
+    protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+        e.Result = db.PrintSettings;
+    }
 }

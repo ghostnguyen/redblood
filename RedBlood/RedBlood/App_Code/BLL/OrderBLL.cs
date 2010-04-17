@@ -23,9 +23,6 @@ public class OrderBLL
 
     public static Order Get(int ID, RedBloodDataContext db)
     {
-        if (db == null)
-            throw new Exception("RedBloodDataContext Null.");
-
         Order e = db.Orders.Where(r => r.ID == ID).FirstOrDefault();
 
         if (e == null)
@@ -34,66 +31,83 @@ public class OrderBLL
         return e;
     }
 
-    public static void Add(int ID, string DIN, string productCode)
+    public static Order Get4Add(int ID)
     {
-        Order r = OrderBLL.Get(ID);
+        RedBloodDataContext db = new RedBloodDataContext();
+        Order r = Get(ID, db);
 
         if (r.Status == Order.StatusX.Done)
             throw new Exception("Đợt cấp phát này đã kết thúc.");
 
-        Pack p = GetPack4Order(DIN, productCode);
-
-        PackOrder po = new PackOrder();
-        po.OrderID = r.ID;
-        po.PackID = p.ID;
-        po.Status = PackOrder.StatusX.Order;
-
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        db.PackOrders.InsertOnSubmit(po);
-
-        db.SubmitChanges();
-
-        string fullNote = "Add to Order: " + po.OrderID.Value.ToString() + ".";
-
-        PackBLL.Update(db, po.Pack, Pack.StatusX.Delivered, fullNote);
-
-        PackTransactionBLL.Add(p.ID, PackTransaction.TypeX.Out_Order, fullNote);
+        return r;
     }
 
-    public static void Remove(int packOrderID, string note)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
+    //public static void Add(int ID, string DIN, string productCode)
+    //{
+    //    Order r = OrderBLL.Get(ID);
 
-        PackOrder po = db.PackOrders.Where(r => r.ID == packOrderID).FirstOrDefault();
+    //    if (r.Status == Order.StatusX.Done)
+    //        throw new Exception("Đợt cấp phát này đã kết thúc.");
 
-        if (po == null
-            || po.Pack == null
-            || po.Order == null) return;
+    //    Pack p = PackBLL.Get4Order(DIN, productCode);
 
-        string fullNote = DateTime.Now.ToStringVNLong() + ". " + RedBloodSystem.CurrentActor + ". Remove from Order: " + po.OrderID.Value.ToString() + ". " + note;
+    //    PackOrder po = new PackOrder();
+    //    po.OrderID = r.ID;
+    //    po.PackID = p.ID;
+    //    po.Status = PackOrder.StatusX.Order;
 
-        PackBLL.Update(db, po.Pack, Pack.StatusX.Product, fullNote);
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        po.Status = PackOrder.StatusX.Return;
-        po.Note = fullNote;
+    //    db.PackOrders.InsertOnSubmit(po);
 
-        db.SubmitChanges();
+    //    db.SubmitChanges();
 
-        PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In_Return, fullNote);
+    //    string fullNote = "Add to Order: " + po.OrderID.Value.ToString() + ".";
 
-    }
+    //    PackBLL.Update(db, po.Pack, Pack.StatusX.Delivered, fullNote);
+
+    //    PackTransaction.TypeX transType = r.Type == Order.TypeX.ForCR ? PackTransaction.TypeX.Out_Order4CR
+    //        : r.Type == Order.TypeX.ForOrg ? PackTransaction.TypeX.Out_Order4Org
+    //        : PackTransaction.TypeX.Out_OrderGen;
+
+    //    PackTransactionBLL.Add(p.ID,
+    //        transType,
+    //        fullNote);
+    //}
+
+    //public static void Remove(int packOrderID, string note)
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
+
+    //    PackOrder po = db.PackOrders.Where(r => r.ID == packOrderID).FirstOrDefault();
+
+    //    if (po == null
+    //        || po.Pack == null
+    //        || po.Order == null) return;
+
+    //    string fullNote = DateTime.Now.ToStringVNLong() + ". " + RedBloodSystem.CurrentActor + ". Remove from Order: " + po.OrderID.Value.ToString() + ". " + note;
+
+    //    PackBLL.Update(db, po.Pack, Pack.StatusX.Product, fullNote);
+
+    //    po.Status = PackOrder.StatusX.Return;
+    //    po.Note = fullNote;
+
+    //    db.SubmitChanges();
+
+    //    PackTransactionBLL.Add(po.Pack.ID, PackTransaction.TypeX.In_Return, fullNote);
+
+    //}
 
     public static void CloseOrder()
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        var v = db.Orders.Where(r => r.Status == Order.StatusX.Init 
+        var v = db.Orders.Where(r => r.Status == Order.StatusX.Init
             && r.Date.Value.Date < DateTime.Now.Date).ToList();
 
         foreach (var item in v)
         {
-            item.Status = Order.StatusX.Done;    
+            item.Status = Order.StatusX.Done;
         }
 
         db.SubmitChanges();
@@ -105,9 +119,6 @@ public class OrderBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        //List<Guid> geoIDL = GeoBLL.Get(IDList, 1).Select(r => r.ID).ToList();
-        //if (geoIDL.Count == 0) return new List<Campaign>();
-
         return db.Orders.Where(r =>
             r.Type == type
             && r.Date != null
@@ -116,34 +127,19 @@ public class OrderBLL
             ).ToList();
     }
 
-    public static Donation GetDIN4Order(string DIN)
-    {
-        Donation e = DonationBLL.Get(DIN);
-        if (e == null)
-            throw new Exception("Không tìm thấy mã túi máu.");
+    //public static Donation GetDIN4Order(string DIN)
+    //{
+    //    Donation d = DonationBLL.Get(DIN);
 
-        if (e.TestResultStatus == Donation.TestResultStatusX.Negative)
-        { }
-        else
-        {
-            throw new Exception("Không thể cấp phát túi máu này. KQ xét nghiệm sàng lọc: " + e.TestResultStatus);
-        }
+    //    if (d.TestResultStatus != Donation.TestResultStatusX.Negative)
+    //    {
+    //        throw new Exception("Không thể cấp phát túi máu này. KQ xét nghiệm sàng lọc: " + d.TestResultStatus);
+    //    }
 
-        return e;
-    }
+    //    return d;
+    //}
 
-    public static Pack GetPack4Order(string DIN, string productCode)
-    {
-        Donation d = GetDIN4Order(DIN);
+    
 
-        Pack p = d.Packs.Where(r => r.ProductCode == productCode).FirstOrDefault();
-
-        if (p == null)
-            throw new Exception("Không tìm thấy túi máu.");
-
-        if (p.Status != Pack.StatusX.Product)
-            throw new Exception("Không thể cấp phát. Túi máu: " + p.Status);
-
-        return p;
-    }
+   
 }

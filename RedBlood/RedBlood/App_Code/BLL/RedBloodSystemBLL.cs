@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 /// </summary>
 public class RedBloodSystemBLL
 {
+    static DateTime? firstFinalizeDate;
     static DateTime? lastFinalizeDate;
     static DateTime? lastBackupPackRemainDate;
     static DateTime? lastPackTransactionDate;
@@ -46,9 +47,15 @@ public class RedBloodSystemBLL
         }
 
         if (lastFinalizeDate.HasValue
-            && !lastPackTransactionDate.HasValue)
+            && !lastPackTransactionDate.HasValue
+            )
         {
-            LogBLL.LogsFailAndThrow("Error. lastFinalizeDate.HasValue && !lastPackTransactionDate.HasValue");
+            if (lastFinalizeDate == firstFinalizeDate)
+            { }
+            else
+            {
+                LogBLL.LogsFailAndThrow("Error. lastFinalizeDate.HasValue && !lastPackTransactionDate.HasValue");
+            }
         }
 
         if (lastPackTransactionDate.HasValue)
@@ -110,13 +117,14 @@ public class RedBloodSystemBLL
 
     public static void GetLastFinalizeDate()
     {
-        GetLastFinalizeDate(out lastFinalizeDate, out lastPackTransactionDate, out firstPackTransactionDate, out lastBackupPackRemainDate);
+        GetLastFinalizeDate(out firstFinalizeDate, out lastFinalizeDate, out lastPackTransactionDate, out firstPackTransactionDate, out lastBackupPackRemainDate);
     }
 
-    public static void GetLastFinalizeDate(out DateTime? lastFinalizeDate, out DateTime? lastPackTransactionDate, out DateTime? firstPackTransactionDate, out DateTime? lastBackupPackRemainDate)
+    public static void GetLastFinalizeDate(out DateTime? firstFinalizeDate, out DateTime? lastFinalizeDate, out DateTime? lastPackTransactionDate, out DateTime? firstPackTransactionDate, out DateTime? lastBackupPackRemainDate)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
+        firstFinalizeDate = db.StoreFinalizes.Min(r => r.Date);
         lastFinalizeDate = db.StoreFinalizes.Max(r => r.Date);
         lastPackTransactionDate = db.PackTransactions.Max(r => r.Date);
         firstPackTransactionDate = db.PackTransactions.Min(r => r.Date);
@@ -165,16 +173,16 @@ public class RedBloodSystemBLL
     //isSOD: isStartOfDate
     //public static void LockTestResult()
     //{
-        //if (!isSOD || !LogBLL.IsLog(Task.TaskX.LockEnterTestResult))
-        //{
-        //    RedBloodDataContext db = new RedBloodDataContext();
+    //if (!isSOD || !LogBLL.IsLog(Task.TaskX.LockEnterTestResult))
+    //{
+    //    RedBloodDataContext db = new RedBloodDataContext();
 
-        //    PackBLL.LockEnterTestResult();
+    //    PackBLL.LockEnterTestResult();
 
-        //    db.SubmitChanges();
+    //    db.SubmitChanges();
 
-        //    LogBLL.Add(Task.TaskX.LockEnterTestResult);
-        //}
+    //    LogBLL.Add(Task.TaskX.LockEnterTestResult);
+    //}
     //}
 
     /// <summary>

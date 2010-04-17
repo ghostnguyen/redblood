@@ -92,7 +92,7 @@ public partial class Store_TransCount : System.Web.UI.Page
                 r.ProductCode,
                 r.ProductDesc,
                 Total = sub.Sum(r1 => r1.Count),
-                TotalOutOrder = sub.Where(r1 => r1.Type == PackTransaction.TypeX.Out_Order)
+                TotalOutOrder = sub.Where(r1 => PackTransactionBLL.OutOrderTypeList.Contains(r1.Type))
                                     .Sum(r1 => r1.Count),
                 TotalOutProduct = sub.Where(r1 => r1.Type == PackTransaction.TypeX.Out_Product)
                                     .Sum(r1 => r1.Count),

@@ -20,7 +20,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         set
         {
             ViewState["DIN"] = value;
-            
+
         }
     }
 
@@ -49,14 +49,14 @@ public partial class Collect_CollectPack : System.Web.UI.Page
     void EnterDIN(string DINCode)
     {
         DIN = DINCode;
-        
+
         DonationBLL.UpdateCollector(DIN, txtDefaultCollector.Text.Trim());
         LoadDIN();
     }
 
     void EnterProductCode(string productCode)
     {
-        PackBLL.CreateOriginal(DIN, productCode, txtDefaultVolume.Text.ToInt());
+        PackBLL.Add(DIN, productCode, txtDefaultVolume.Text.ToInt(), true);
         LoadDIN();
     }
 
@@ -70,7 +70,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
     {
         Donation e = DonationBLL.Get(DIN);
 
-        Clear();
+        Clear(); 
         if (e != null)
         {
             lblName.Text = e.People.Name;
@@ -87,7 +87,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
                 lblDate.Text = e.Pack.Date.ToStringVN_Hour();
 
-                txtVolume.Text = e.Volume.ToString();
+                txtVolume.Text = e.Pack.Volume.ToString();
 
                 if (!string.IsNullOrEmpty(e.BloodGroup))
                 {
@@ -100,7 +100,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
             txtNote.Text = e.Note;
 
-            btnSave.Enabled = DonationBLL.CanUpdateTestResult(e);
+            //btnSave.Enabled = DonationBLL.CanUpdateTestResult(e);
         }
     }
 
@@ -117,7 +117,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
         lblBloodGroup.Text = "";
         txtCollector.Text = "";
         txtNote.Text = "";
-        btnSave.Enabled = false;
+        //btnSave.Enabled = false;
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
@@ -139,9 +139,7 @@ public partial class Collect_CollectPack : System.Web.UI.Page
 
             if (d.Pack != null)
             {
-                d.Volume = txtVolume.Text.ToInt();
                 d.Pack.Volume = txtVolume.Text.ToInt();
-
                 d.Pack.Note = txtNote.Text.Trim();
             }
 
