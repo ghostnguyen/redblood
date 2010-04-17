@@ -11,7 +11,9 @@ public partial class Order
     public enum TypeX : int    
     { 
         ForOrg = 1,
-        ForPeople = 2
+        Tỉnh = 1,
+        ForCR = 2,
+        BVCR = 2
     }
 
     public enum StatusX : int

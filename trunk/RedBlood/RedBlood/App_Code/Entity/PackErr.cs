@@ -52,7 +52,7 @@ public class PackErrEnum
     public static PackErr OrderClose = new PackErr("Khóa sổ đợt cấp phát này.");
 
 
-    public static PackErr DonationGotPack = new PackErr("Đã thu máu");
+    public static PackErr DonationGotPack = new PackErr("Mã số đã thu máu");
 
     //Extract 2 RBC, Plasma
     public static PackErr Extracted = new PackErr("Túi máu đã sản xuất.");

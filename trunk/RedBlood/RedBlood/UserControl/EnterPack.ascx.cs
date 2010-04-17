@@ -261,7 +261,8 @@ public partial class UserControl_EnterPack : System.Web.UI.UserControl
     }
     protected void btnRemove_Click(object sender, EventArgs e)
     {
-        PackBLL.RemovePeople(Autonum);
+        //TODO: Romove people
+        //PackBLL.RemovePeople(Autonum);
         Load_EnterPack();
     }
 

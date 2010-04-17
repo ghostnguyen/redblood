@@ -259,9 +259,9 @@ public partial class Store_Count : System.Web.UI.Page
                 r.ProductDesc,
                 r.Status,
                 Total = sub.Sum(r1 => r1.Count),
-                TotalExpired = sub.Where(r1 => r1.ExpirationDate.Value.Date >= DateTime.Now.Date)
+                TotalExpired = sub.Where(r1 => r1.ExpirationDate.Value.Expired())
                                     .Sum(r1 => r1.Count),
-                TotalExpiredInDays = sub.Where(r1 => r1.ExpirationDate.Value.Date.AddDays(expiredInDays) >= DateTime.Now.Date)
+                TotalExpiredInDays = sub.Where(r1 => r1.ExpirationDate.Value.ExpiredInDays(expiredInDays))
                                     .Sum(r1 => r1.Count),
                 TotalTRNA = sub.Where(r1 => r1.TestResultStatus == Donation.TestResultStatusX.Non)
                                 .Sum(r1 => r1.Count),

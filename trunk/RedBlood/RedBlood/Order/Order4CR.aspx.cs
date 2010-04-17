@@ -78,7 +78,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
 
     void AddPack(string productCode)
     {
-        OrderBLL.Add(OrderID, CurrentDIN, productCode);
+        PackOrderBLL.Add(OrderID, CurrentDIN, productCode);
 
         GridViewPack.DataBind();
 
@@ -88,7 +88,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
 
     void LoadCurrentDIN(string DIN)
     {
-        Donation e = OrderBLL.GetDIN4Order(DIN);
+        Donation e = DonationBLL.Get4Order(DIN);
 
         CurrentDIN = e.DIN;
         imgCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN);
@@ -140,7 +140,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
             {
                 Response.Redirect(RedBloodSystem.Url4Order4Org + "key=" + e.ID.ToString());
             }
-            else if (e.Type == Order.TypeX.ForPeople)
+            else if (e.Type == Order.TypeX.ForCR)
             {
                 imgOrder.ImageUrl = BarcodeBLL.Url4Order(e.ID);
                 People1.PeopleID = e.People != null ? e.PeopleID.GetValueOrDefault() : Guid.Empty;
@@ -179,7 +179,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
 
     protected void GridViewPack_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        OrderBLL.Remove(e.Keys[0].ToInt(), txtRemoveNoteGlobal.Text.Trim());
+        ReturnBLL.Add(new List<int>() { e.Keys[0].ToInt() }, txtRemoveNoteGlobal.Text.Trim());
     }
 
     protected void btnUpdate_Click(object sender, EventArgs e)
@@ -226,7 +226,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
 
         if (p.Date == null) p.Date = DateTime.Now;
 
-        p.Type = Order.TypeX.ForPeople;
+        p.Type = Order.TypeX.ForCR;
         p.Note = txtNote.Text.Trim();
 
         p.PeopleID = People1.PeopleID;

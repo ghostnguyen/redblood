@@ -316,7 +316,7 @@
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="DIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Date" AutoSync="OnInsert" Type="System.DateTime" DbType="DateTime" IsDbGenerated="true" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -324,10 +324,9 @@
       <Column Name="Status" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
       <Association Name="Pack_PackSideEffect" Member="PackSideEffects" ThisKey="ID" OtherKey="PackID" Type="PackSideEffect" />
       <Association Name="Pack_Donation" Member="Donations" ThisKey="ID" OtherKey="OrgPackID" Type="Donation" />
-      <Association Name="Pack_PackStatusHistory" Member="PackStatusHistories" ThisKey="ID" OtherKey="PackID" Type="PackStatusHistory" />
-      <Association Name="Pack_PackTransaction" Member="PackTransactions" ThisKey="ID" OtherKey="PackID" Type="PackTransaction" />
       <Association Name="Pack_PackOrder" Member="PackOrders" ThisKey="ID" OtherKey="PackID" Type="PackOrder" />
       <Association Name="Pack_PackRemainDaily" Member="PackRemainDailies" ThisKey="ID" OtherKey="PackID" Type="PackRemainDaily" />
+      <Association Name="Pack_PackTransaction" Member="PackTransactions" ThisKey="ID" OtherKey="PackID" Type="PackTransaction" />
       <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
       <Association Name="Product_Pack" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
     </Type>
@@ -353,7 +352,6 @@
       <Column Name="ST015" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ST016" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="InfectiousMarkers" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="OrgPackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="TestResultStatus" Type="Donation.TestResultStatusX" DbType="Int" CanBeNull="true" />
       <Column Name="Collector" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
@@ -376,18 +374,6 @@
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Donation_DonationTestLog" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PackStatusHistory" Member="PackStatusHistories">
-    <Type Name="PackStatusHistory">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="FromStatus" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="ToStatus" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
-      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Pack_PackStatusHistory" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.[Order]" Member="Orders">
@@ -417,16 +403,6 @@
       <Association Name="People_Order" Member="People" ThisKey="PeopleID" OtherKey="ID" Type="People" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PackTransaction" Member="PackTransactions">
-    <Type Name="PackTransaction">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Type" Type="PackTransaction.TypeX" DbType="Int" CanBeNull="true" />
-      <Column Name="Date" AutoSync="OnInsert" Type="System.DateTime" DbType="DateTime" IsDbGenerated="true" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Pack_PackTransaction" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.PackOrder" Member="PackOrders">
     <Type Name="PackOrder">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -436,6 +412,7 @@
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="PackOrder_ReturnPackOrder" Member="ReturnPackOrders" ThisKey="ID" OtherKey="PackOrderID" Type="ReturnPackOrder" />
       <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
       <Association Name="Pack_PackOrder" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
@@ -547,6 +524,37 @@
       <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Return]" Member="Returns">
+    <Type Name="Return">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" AutoSync="OnInsert" Type="System.DateTime" DbType="DateTime" IsDbGenerated="true" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Return_ReturnPackOrder" Member="ReturnPackOrders" ThisKey="ID" OtherKey="ReturnID" Type="ReturnPackOrder" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReturnPackOrder" Member="ReturnPackOrders">
+    <Type Name="ReturnPackOrder">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReturnID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PackOrderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PackOrder_ReturnPackOrder" Member="PackOrder" ThisKey="PackOrderID" OtherKey="ID" Type="PackOrder" IsForeignKey="true" />
+      <Association Name="Return_ReturnPackOrder" Member="Return" ThisKey="ReturnID" OtherKey="ID" Type="Return" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PackTransaction" Member="PackTransactions">
+    <Type Name="PackTransaction">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PackID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Type" Type="PackTransaction.TypeX" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" AutoSync="OnInsert" Type="System.DateTime" DbType="DateTime" IsDbGenerated="true" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FromStatus" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="ToStatus" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
+      <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Pack_PackTransaction" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

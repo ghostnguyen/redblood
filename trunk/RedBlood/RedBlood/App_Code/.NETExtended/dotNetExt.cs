@@ -174,7 +174,7 @@ public static class dotNetExt
 
     public static bool IsValidProductCode(this string s)
     {
-        return BarcodeBLL.IsValidProductCode(s); 
+        return BarcodeBLL.IsValidProductCode(s);
     }
 
     public static bool IsValidDINCode(this string s)
@@ -279,6 +279,16 @@ public static class dotNetExt
         return (dt - RedBloodSystem.RootTime).Days;
     }
 
+    public static bool Expired(this DateTime dt)
+    {
+        return dt <= DateTime.Now.Date;
+    }
+
+    public static bool ExpiredInDays(this DateTime dt, int days)
+    {
+        return dt <= DateTime.Now.Date.AddDays(days);
+    }
+
     #endregion
 
     public static void SelectByText(this DropDownList ddl, string text)
@@ -333,7 +343,7 @@ public static class dotNetExt
     public static void Visibility(this CssStyleCollection style, bool visibility)
     {
         style.Remove("visibility");
-        
+
         if (visibility)
             style.Add("visibility", "visible");
         else
@@ -343,7 +353,7 @@ public static class dotNetExt
     public static void Alert(this Page p, string msg)
     {
         ScriptManager.RegisterStartupScript(p, p.GetType(), "",
-                     "alert ('" + msg + "');", true); 
+                     "alert ('" + msg + "');", true);
     }
 
 }

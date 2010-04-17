@@ -14,9 +14,12 @@ Default skin template. The following skins are provided as examples only.
 <asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
 --%>
 
+<asp:GridView runat="server" SkinID="None">
+                  
+</asp:GridView>
 
 <asp:GridView runat="server" CellPadding="4" ForeColor="#333333"  
-                    GridLines="None" >
+                    GridLines="None" SkinID="Blue">
                     <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                     <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                     <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
@@ -24,6 +27,18 @@ Default skin template. The following skins are provided as examples only.
                     <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                     <EditRowStyle BackColor="#999999" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+</asp:GridView>
+
+<asp:GridView runat="server" 
+        BorderStyle="None" BorderWidth="2" BorderColor="#EF575A" CellPadding="3" 
+        GridLines="Horizontal">
+        <RowStyle BackColor="#F7F7F7" ForeColor="#444444" />
+        <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
+        <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
+        <SelectedRowStyle BackColor="#EFFFD6" ForeColor="#444444" />
+        <EditRowStyle BackColor="#EFFFD6" ForeColor="#444444" />
+        <HeaderStyle BackColor="#FFE3E3" ForeColor="#942E06"  />
+        <AlternatingRowStyle BackColor="#F7F7F7" />
 </asp:GridView>
                 
 

@@ -5,15 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class PackTestResult : System.Web.UI.Page
+public partial class TestResult_BloodGroup : System.Web.UI.Page
 {
     CampaignBLL campaignBLL = new CampaignBLL();
     PackBLL packBLL = new PackBLL();
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //DeletePack1.PackDeleted += new EventHandler(DeletePack1_PackDeleted);
-
         Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
 
         if (Master.TextBoxCode.Text.Length == 0) return;
@@ -37,8 +35,6 @@ public partial class PackTestResult : System.Web.UI.Page
         GridView1.DataBind();
         GridViewLock.DataBind();
         GridViewUnCollect.DataBind();
-
-        //DeletePack1.CampaignID = BarcodeBLL.ParseCampaignID(code);
     }
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -50,10 +46,10 @@ public partial class PackTestResult : System.Web.UI.Page
         }
         else
         {
-            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID != null
-                && (r.TestResultStatus == Donation.TestResultStatusX.Negative
-                || r.TestResultStatus == Donation.TestResultStatusX.Positive
-                || r.TestResultStatus == Donation.TestResultStatusX.Non)
+            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID)
+                .ToList()
+                .Where(r => r.OrgPackID != null
+                && !r.IsTRLocked
                 );
         }
     }
@@ -90,13 +86,6 @@ public partial class PackTestResult : System.Web.UI.Page
     {
         string DIN = (string)e.Keys[0];
 
-        DonationBLL.Update(DIN, e.NewValues["Markers.HIV"].ToString(),
-           e.NewValues["Markers.HCV_Ab"].ToString(),
-           e.NewValues["Markers.HBs_Ag"].ToString(),
-            e.NewValues["Markers.Syphilis"].ToString(),
-           e.NewValues["Markers.Malaria"].ToString(),
-            "");
-
         // It will be null if the groupbloodis NOT enter when collect blood.
         if (e.NewValues["BloodGroup"] != null)
         {
@@ -105,19 +94,5 @@ public partial class PackTestResult : System.Web.UI.Page
 
         e.Cancel = true;
         GridView1.EditIndex = -1;
-    }
-    protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
-    {
-
-    }
-
-
-    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        if (e.CommandName == "SetNegative")
-        {
-            DonationBLL.UpdateNegative(e.CommandArgument.ToString());
-            GridView1.DataBind();
-        }
     }
 }

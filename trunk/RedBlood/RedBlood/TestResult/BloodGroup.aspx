@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="PackTestResult.aspx.cs" Inherits="PackTestResult" MaintainScrollPositionOnPostback="true" %>
+    CodeFile="BloodGroup.aspx.cs" Inherits="TestResult_BloodGroup" MaintainScrollPositionOnPostback="true" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
@@ -14,8 +14,7 @@
         <tr>
             <td>
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
-                    DataKeyNames="DIN" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating"
-                    OnRowUpdated="GridView1_RowUpdated" OnRowCommand="GridView1_RowCommand">
+                    DataKeyNames="DIN" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating">
                     <Columns>
                         <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu"
                             HeaderStyle-Width="80" />
@@ -27,7 +26,7 @@
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <%--<asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("DIN") %>' />--%>
-                                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("DIN") %>' Visible='<%# Eval("IsTRLocked") %>' />
+                                <asp:Label ID="lblAutonum" runat="server" Text='<%# Eval("DIN") %>' />
                                 <br />
                                 <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' />
                             </ItemTemplate>
@@ -62,64 +61,8 @@
                                 </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HIV">
-                            <ItemTemplate>
-                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("Markers.HIV") %>' />
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListHIV" runat="server" DataSource='<%# TR.TRList %>'
-                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HIV") %>'>
-                                </asp:DropDownList>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HCV">
-                            <ItemTemplate>
-                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>' />
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListHCV" runat="server" DataSource='<%# TR.TRList %>'
-                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HCV_Ab") %>'>
-                                </asp:DropDownList>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HBs_Ag">
-                            <ItemTemplate>
-                                <asp:Label ID="lblHBs_Ag" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>' />
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListHBs_Ag" runat="server" DataSource='<%# TR.TRList %>'
-                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HBs_Ag") %>'>
-                                </asp:DropDownList>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Syphilis">
-                            <ItemTemplate>
-                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Markers.Syphilis") %>' />
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListSyphilis" runat="server" DataSource='<%# TR.TRList %>'
-                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.Syphilis") %>'>
-                                </asp:DropDownList>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Malaria">
-                            <ItemTemplate>
-                                <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Markers.Malaria") %>' />
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListMalaria" runat="server" DataSource='<%# TR.TRList %>'
-                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.Malaria") %>'>
-                                </asp:DropDownList>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
                         <asp:CommandField ShowEditButton="true" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu"
                             HeaderStyle-Width="80" />
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" Text="Tất cả neg" CommandName="SetNegative" CommandArgument='<%# Eval("DIN") %>'
-                                    runat="server"></asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
@@ -169,31 +112,6 @@
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblABO" runat="server" Text='<%# BloodGroupBLL.GetDescription(Eval("BloodGroup") as string) %>' />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HIV">
-                            <ItemTemplate>
-                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("Markers.HIV") %>' />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HCV">
-                            <ItemTemplate>
-                                <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>' />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HBs_Ag">
-                            <ItemTemplate>
-                                <asp:Label ID="lblHBs_Ag" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>' />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Syphilis">
-                            <ItemTemplate>
-                                <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Markers.Syphilis") %>' />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Malaria">
-                            <ItemTemplate>
-                                <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Markers.Malaria") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
