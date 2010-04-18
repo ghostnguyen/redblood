@@ -167,6 +167,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>assertConfirmation</td>
+	<td>Thu hồi?</td>
+	<td></td>
+</tr>
+<tr>
 	<td>waitForAlert</td>
 	<td>Lưu thành công.</td>
 	<td></td>

@@ -145,7 +145,7 @@ public partial class Order_Return : System.Web.UI.Page
 
         txtDate.Text = e.Date.ToStringVN_Hour();
 
-        PackOrderList = e.ReturnPackOrders.Select(r => r.PackOrderID.Value).ToList();
+        PackOrderList = e.PackOrders.Select(r => r.ID).ToList();
 
         GridViewPack.DataBind();
 

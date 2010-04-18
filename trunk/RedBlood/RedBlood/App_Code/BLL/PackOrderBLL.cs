@@ -25,7 +25,6 @@ public class PackOrderBLL
         PackOrder po = new PackOrder();
         po.OrderID = r.ID;
         po.PackID = p.ID;
-        po.Status = PackOrder.StatusX.Order;
 
         db.PackOrders.InsertOnSubmit(po);
         db.SubmitChanges();
@@ -41,16 +40,8 @@ public class PackOrderBLL
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        Return r = ReturnBLL.Get(returnID);
         PackOrder po = Get4Return(db, packOrderID);
-
-        po.Status = PackOrder.StatusX.Return;
-        po.Note = note;
-
-        ReturnPackOrder rpo = new ReturnPackOrder();
-        rpo.PackOrderID = po.ID;
-        rpo.ReturnID = r.ID;
-        db.ReturnPackOrders.InsertOnSubmit(rpo);
+        po.ReturnID = returnID;
 
         db.SubmitChanges();
 
@@ -78,8 +69,8 @@ public class PackOrderBLL
     {
         PackOrder r = Get(db, ID);
 
-        if (r.Status != PackOrder.StatusX.Order)
-            throw new Exception("Chưa có cấp phát túi máu này.");
+        if (r.ReturnID > 0)
+            throw new Exception("Đã thu hồi túi máu này.");
 
         return r;
     }
@@ -88,7 +79,7 @@ public class PackOrderBLL
     {
         Pack p = PackBLL.Get(DIN, productCode);
 
-        var v = p.PackOrders.Where(r => r.Status == PackOrder.StatusX.Order);
+        var v = p.PackOrders.Where(r => !r.ReturnID.HasValue);
 
         if (v.Count() > 1)
             throw new Exception("Sai dữ liệu. Túi máu cấp phát 2 lần.");

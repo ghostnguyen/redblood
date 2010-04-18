@@ -74,7 +74,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnOk" runat="server" Text="<%$ Resources:Resource,Update %>" OnClick="btnOk_Click" />
+                            <asp:Button ID="btnOk" runat="server" Text="<%$ Resources:Resource,Update %>" OnClick="btnOk_Click" OnClientClick="return confirm('Thu hồi?');" />
                         </td>
                     </tr>
                     <%--        <tr>
