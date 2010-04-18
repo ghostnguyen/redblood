@@ -4,7 +4,7 @@ truncate table Log
 
 
 truncate table PackSideEffect
-truncate table ReturnPackOrder
+
 
 truncate table PackTransaction
 truncate table PackRemainDaily

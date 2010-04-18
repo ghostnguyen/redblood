@@ -18,9 +18,5 @@ using System.Xml.Linq;
 
 public partial class PackOrder
 {
-    public enum StatusX : int
-    {
-        Order = 1
-        , Return = 4
-    }
+   
 }

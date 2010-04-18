@@ -168,13 +168,13 @@ public partial class Order_Order4Org : System.Web.UI.Page
         RedBloodDataContext db = new RedBloodDataContext();
 
         e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID
-            && r.Status != PackOrder.StatusX.Return);
+            && !r.ReturnID.HasValue);
     }
 
 
     protected void GridViewPack_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-        ReturnBLL.Add(new List<int>(){e.Keys[0].ToInt()},txtRemoveNoteGlobal.Text.Trim());
+        ReturnBLL.Add(new List<int>() { e.Keys[0].ToInt() }, txtRemoveNoteGlobal.Text.Trim());
     }
 
     protected void btnUpdate_Click(object sender, EventArgs e)

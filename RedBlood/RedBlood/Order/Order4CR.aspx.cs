@@ -173,7 +173,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
         RedBloodDataContext db = new RedBloodDataContext();
 
         e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID
-            && r.Status != PackOrder.StatusX.Return);
+            && !r.ReturnID.HasValue);
     }
 
 

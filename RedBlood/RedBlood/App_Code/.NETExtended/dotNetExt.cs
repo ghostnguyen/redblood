@@ -230,7 +230,7 @@ public static class dotNetExt
 
     public static string ToStringVNLong(this DateTime dt)
     {
-        return dt.ToString("dd/MM/yyyy hh:mm:ss");
+        return dt.ToString("dd/MM/yyyy HH:mm:ss");
     }
 
     public static string ToStringVN(this DateTime? dt)
@@ -313,6 +313,11 @@ public static class dotNetExt
     public static string ToStringRemoveZero(this int i)
     {
         return i == 0 ? "" : i.ToString();
+    }
+
+    public static string ToStringRemoveZero(this int? i)
+    {
+        return i.HasValue ? i.Value.ToStringRemoveZero() : "";
     }
 
     public static int ToInt(this object o)
