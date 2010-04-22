@@ -21,18 +21,9 @@ public partial class BloodGroupLabelUserControl : System.Web.UI.UserControl
         txtNote.Style.Apply(PrintSettingBLL.BloodGroupLabel.Note);
     }
 
-    public void ResizeLabel1()
+    public void ResizeLabel(PrintSetting ps)
     {
-        divLabel.Style.Apply(PrintSettingBLL.BloodGroupLabel.Label1);
+        divLabel.Style.Apply(ps);
     }
-
-    public void ResizeLabel2()
-    {
-        divLabel.Style.Apply(PrintSettingBLL.BloodGroupLabel.Label2);
-    }
-
-    public void ResizeLabel3()
-    {
-        divLabel.Style.Apply(PrintSettingBLL.BloodGroupLabel.Label3);
-    }
+   
 }

@@ -45,8 +45,8 @@ public partial class Category_ProductPrint : System.Web.UI.Page
             p.Style.Add("position", "relative");
             p.Style.Add("page-break-after", "always");
 
-            p.Height = 300;
-            p.Width = 200;
+            p.Height = PrintSettingBLL.ProductLabel.LabelSize.Height.ToInt();
+            p.Width = PrintSettingBLL.ProductLabel.LabelSize.Width.ToInt();
             p.Style.Add("border", "1px solid white");
             divCon.Controls.Add(p);
 

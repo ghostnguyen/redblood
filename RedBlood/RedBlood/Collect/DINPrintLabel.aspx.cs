@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Collections;
 using System.Web.UI.HtmlControls;
 
-public partial class Category_DINPrintLabel : System.Web.UI.Page
+public partial class Collect_DINPrintLabel : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -40,8 +40,8 @@ public partial class Category_DINPrintLabel : System.Web.UI.Page
             p.Style.Add("position", "relative");
             p.Style.Add("page-break-after", "always");
 
-            p.Height = 300;
-            p.Width = 200;
+            p.Height = PrintSettingBLL.DINLabel.LabelSize.Height.ToInt();
+            p.Width = PrintSettingBLL.DINLabel.LabelSize.Width.ToInt();
             p.Style.Add("border", "1px solid white");
             divCon.Controls.Add(p);
 
@@ -62,7 +62,7 @@ public partial class Category_DINPrintLabel : System.Web.UI.Page
     void AddDINLabelControl(Donation item, PrintSetting ps, Panel panel)
     {
         DINLabelUserControl uc = new DINLabelUserControl();
-        uc = (DINLabelUserControl)LoadControl("~/Category/DINLabelUserControl.ascx");
+        uc = (DINLabelUserControl)LoadControl("~/Collect/DINLabelUserControl.ascx");
         uc.Fill_Letter(item.DIN);
         uc.ResizeLabel(ps);
 

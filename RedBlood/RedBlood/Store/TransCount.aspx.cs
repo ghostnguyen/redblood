@@ -150,18 +150,18 @@ public partial class Store_TransCount : System.Web.UI.Page
     }
     protected void chkStart_CheckedChanged(object sender, EventArgs e)
     {
-        GridViewStart.Visible = chkStart.Checked;
+        PanelStart.Visible = chkStart.Checked;
     }
     protected void chkIn_CheckedChanged(object sender, EventArgs e)
     {
-        GridViewIn.Visible = chkIn.Checked;
+        PanelIn.Visible = chkIn.Checked;
     }
     protected void chkOut_CheckedChanged(object sender, EventArgs e)
     {
-        GridViewOut.Visible = chkOut.Checked;
+        PanelOut.Visible = chkOut.Checked;
     }
     protected void chkEnd_CheckedChanged(object sender, EventArgs e)
     {
-        GridViewEnd.Visible = chkEnd.Checked;
+        PanelEnd.Visible = chkEnd.Checked;
     }
 }

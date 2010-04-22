@@ -3,19 +3,24 @@
 
 <%@ Register Src="~/UserControl/DatePicker.ascx" TagPrefix="uc" TagName="Date" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div style="text-align:center;">
-        Xem hết hạn trong vòng
+    <div style="text-align: right;">
+        <%= DateTime.Now.ToStringVNLong() %>
+    </div>
+    <div style="text-align: center;">
+        <h3>
+            KIỂM KÊ KHO
+        </h3>
+        Có thống kê số lượng túi máu hết hạn trong vòng
         <asp:TextBox ID="txtDays" runat="server" Width="30px" MaxLength="4"></asp:TextBox>
         ngày tới
-        <asp:Button ID="btnOk1" runat="server" Text="Ok" OnClick="btnOk1_Click" />. Hoặc
+        <asp:Button ID="btnOk1" runat="server" Text="Ok" OnClick="btnOk1_Click" />, hay
         ngày
         <uc:Date ID="ucInDays" runat="server" />
         <asp:Button ID="btnOk2" runat="server" Text="Ok" OnClick="btnOk2_Click" />
-        <br />
-        <%= DateTime.Now.ToStringVNLong() %>
     </div>
     <br />
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" DataSourceID="LinqDataSource1">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" DataSourceID="LinqDataSource1"
+        Width="100%">
         <Columns>
             <asp:TemplateField HeaderText="Mã">
                 <ItemTemplate>
@@ -40,7 +45,7 @@
             <asp:TemplateField HeaderText="Nhóm máu">
                 <ItemTemplate>
                     <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("BloodGroupSumary") %>'
-                        ShowHeader="false">
+                        ShowHeader="false" SkinID="Inner">
                         <Columns>
                             <asp:BoundField DataField="BloodGroupDesc" HeaderText="Nhóm máu" />
                             <asp:BoundField DataField="Total" HeaderText="TC" />
@@ -51,7 +56,7 @@
             <asp:TemplateField HeaderText="(ml)">
                 <ItemTemplate>
                     <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("VolumeSumary") %>'
-                        ShowHeader="false">
+                        ShowHeader="false" SkinID="Inner">
                         <Columns>
                             <asp:BoundField DataField="Volume" HeaderText="(ml)" />
                             <asp:BoundField DataField="Total" HeaderText="TC" />

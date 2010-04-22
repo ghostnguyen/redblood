@@ -72,14 +72,14 @@ public partial class Order_SideEffects : System.Web.UI.Page
         ProductCode = productCode;
         ImageProduct.ImageUrl = BarcodeBLL.Url4Product(p.ProductCode);
     }
-   
+
 
     protected void btnOk_Click(object sender, EventArgs e)
     {
-        PackSideEffectBLL.Add(DIN,ProductCode,txtSideEffect.Text.Trim(),txtNote.Text.Trim());
+        PackSideEffectBLL.Add(DIN, ProductCode, txtSideEffect.Text.Trim(), txtNote.Text.Trim());
 
         GridViewSideEffect.DataBind();
-        
+
         txtSideEffect.Text = txtNote.Text = "";
 
         Page.Alert("Lưu thành công.");
@@ -87,6 +87,7 @@ public partial class Order_SideEffects : System.Web.UI.Page
 
     protected void LinqDataSourceSideEffect_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        e.Result = PackSideEffectBLL.Get(DIN,ProductCode);
+        if (!string.IsNullOrEmpty(DIN) && !string.IsNullOrEmpty(ProductCode))
+            e.Result = PackSideEffectBLL.Get(DIN, ProductCode);
     }
 }

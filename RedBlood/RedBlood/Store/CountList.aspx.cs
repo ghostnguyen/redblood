@@ -51,7 +51,8 @@ public partial class Store_CountList : System.Web.UI.Page
 
                 ProductCode = r.Code;
 
-                lblProduct.Text = r.Code + " - " + r.Description;
+                imgProduct.ImageUrl = BarcodeBLL.Url4Product(productCode);
+                lblProduct.Text = r.Description;
             }
 
             ExpiredInDays = Request["ExpiredInDays"].ToInt();
