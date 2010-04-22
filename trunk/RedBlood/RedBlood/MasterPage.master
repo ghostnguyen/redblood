@@ -24,8 +24,45 @@
 
     <script type="text/javascript">
         // Your code goes here
+        var url = window.location + "";
+
         jQuery(document).bind('keydown', 'esc', function(evt) {
-            window.location = ("/RedBlood/Default.aspx"); return false;
+            if (url.indexOf("Default") > 0)
+            {
+                window.location = ("/RedBlood/Default.aspx");
+                return false;
+            }
+
+            if (url.indexOf("/RedBlood/Collect") > 0)
+            {
+                window.location = ("/RedBlood/Default7.aspx");
+                return false;
+            }
+
+            if (url.indexOf("/RedBlood/Production") > 0) {
+                window.location = ("/RedBlood/Default8.aspx");
+                return false;
+            }
+
+            if (url.indexOf("/RedBlood/TestResult") > 0) {
+                window.location = ("/RedBlood/Default9.aspx");
+                return false;
+            }
+
+            if (url.indexOf("/RedBlood/Order") > 0) {
+                window.location = ("/RedBlood/Default5.aspx");
+                return false;
+            }
+
+            if (url.indexOf("/RedBlood/Store") > 0) {
+                window.location = ("/RedBlood/Default6.aspx");
+                return false;
+            }
+
+            if (url.indexOf("/RedBlood/Category") > 0) {
+                window.location = ("/RedBlood/Default3.aspx");
+                return false;
+            }
         });
         var selectedInput = false;
 

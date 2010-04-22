@@ -31,7 +31,7 @@ Default skin template. The following skins are provided as examples only.
 
 <asp:GridView runat="server" 
         BorderStyle="None" BorderWidth="2" BorderColor="#EF575A" CellPadding="3" 
-        GridLines="Horizontal" CssClass="grv">
+        GridLines="Horizontal" CssClass="grv" SkinID="Inner">
         <RowStyle BackColor="#F7F7F7" ForeColor="#444444" />
         <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
         <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
@@ -42,6 +42,15 @@ Default skin template. The following skins are provided as examples only.
 </asp:GridView>
                 
 
+<asp:GridView runat="server" BackColor="White" 
+        BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" CssClass="grv">
+        <RowStyle BackColor="White" ForeColor="#330099" />
+        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+    </asp:GridView>
+    
 <asp:GridView runat="server" GridLines="Both" SkinID="GridViewRpt" runat="server" CellPadding="4">
 
 </asp:GridView>      

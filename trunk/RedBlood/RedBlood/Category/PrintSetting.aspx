@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="PrintSetting.aspx.cs" Inherits="Collect_PrintSetting" %>
+    CodeFile="PrintSetting.aspx.cs" Inherits="Category_PrintSetting" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

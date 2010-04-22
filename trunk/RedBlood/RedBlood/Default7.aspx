@@ -10,7 +10,7 @@
         // Your code goes here
 
         $(document).bind('keydown', '7', function() {
-            window.location = ("Category/DIN.aspx");
+            window.location = ("Collect/DIN.aspx");
         });
 
         $(document).bind('keydown', '8', function() {
@@ -39,8 +39,12 @@
 
 
 
-        $(document).bind('keydown', '1', function() {
-            window.location = ("Collect/PrintSetting.aspx");
+//        $(document).bind('keydown', '1', function() {
+//            window.location = ("Collect/PrintSetting.aspx");
+//        });
+
+        $(document).bind('keydown', '2', function() {
+            window.location = ("Collect/Rpt1.aspx");
         });
     </script>
 
@@ -54,13 +58,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/Category/DIN.aspx">
+                                        <a href="/Collect/DIN.aspx">
                                             <img src="Image/Icon/number7.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Category/DIN.aspx">Tạo mã thu máu</a>
+                                            <a href="Collect/DIN.aspx">Tạo mã thu máu</a>
                                         </h4>
                                     </td>
                                 </tr>
@@ -165,7 +169,7 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="Collect/PrintSetting.aspx">
@@ -178,23 +182,23 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
+                                        <a href="Collect/Rpt1.aspx">
                                             <img src="Image/Icon/number2.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Collect/Rpt1.aspx">Báo cáo theo tỉnh</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                         </td>
@@ -204,5 +208,4 @@
             </td>
         </tr>
     </table>
-  
 </asp:Content>

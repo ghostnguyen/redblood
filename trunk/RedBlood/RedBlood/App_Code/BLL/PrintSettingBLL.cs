@@ -27,6 +27,7 @@ public class PrintSettingBLL
 
     public class DINLabel
     {
+        public static PrintSetting LabelSize { get; set; }
         public static PrintSetting ImageDIN { get; set; }
         public static PrintSetting CheckChar { get; set; }
 
@@ -46,6 +47,7 @@ public class PrintSettingBLL
 
     public class ProductLabel
     {
+        public static PrintSetting LabelSize { get; set; }
         public static PrintSetting Barcode { get; set; }
         public static PrintSetting Note { get; set; }
         public static PrintSetting Label1 { get; set; }
@@ -54,6 +56,8 @@ public class PrintSettingBLL
 
     public class BloodGroupLabel
     {
+
+        public static PrintSetting LabelSize { get; set; }
         public static PrintSetting Barcode { get; set; }
         public static PrintSetting Note { get; set; }
         public static PrintSetting Label1 { get; set; }
@@ -123,6 +127,8 @@ public class PrintSettingBLL
 
         //DINLabel
         List<PrintSetting> DINLableList = list.Where(r => r.Type == PrintSetting.TypeX.DINLabel).ToList();
+
+        DINLabel.LabelSize = DINLableList.Where(r => r.Name == "LabelSize").FirstOrDefault();
         DINLabel.ImageDIN = DINLableList.Where(r => r.Name == "ImageDIN").FirstOrDefault();
         DINLabel.CheckChar = DINLableList.Where(r => r.Name == "CheckChar").FirstOrDefault();
 
@@ -137,10 +143,10 @@ public class PrintSettingBLL
         DINLabel.Label9 = DINLableList.Where(r => r.Name == "Label9").FirstOrDefault();
         DINLabel.Label10 = DINLableList.Where(r => r.Name == "Label10").FirstOrDefault();
 
-
-
         //Product
         List<PrintSetting> productLableList = list.Where(r => r.Type == PrintSetting.TypeX.ProductLabel).ToList();
+
+        ProductLabel.LabelSize = productLableList.Where(r => r.Name == "LabelSize").FirstOrDefault();
         ProductLabel.Barcode = productLableList.Where(r => r.Name == "ProductBarcode").FirstOrDefault();
         ProductLabel.Note = productLableList.Where(r => r.Name == "ProductDesc").FirstOrDefault();
         ProductLabel.Label1 = productLableList.Where(r => r.Name == "Label1").FirstOrDefault();
@@ -148,6 +154,8 @@ public class PrintSettingBLL
 
         //BloodGroup
         List<PrintSetting> bloodGroupLableList = list.Where(r => r.Type == PrintSetting.TypeX.BloodGroupLabel).ToList();
+
+        BloodGroupLabel.LabelSize = bloodGroupLableList.Where(r => r.Name == "LabelSize").FirstOrDefault();
         BloodGroupLabel.Barcode = bloodGroupLableList.Where(r => r.Name == "BloodGroupBardcode").FirstOrDefault();
         BloodGroupLabel.Note = bloodGroupLableList.Where(r => r.Name == "BloodGroupDesc").FirstOrDefault();
         BloodGroupLabel.Label1 = bloodGroupLableList.Where(r => r.Name == "Label1").FirstOrDefault();

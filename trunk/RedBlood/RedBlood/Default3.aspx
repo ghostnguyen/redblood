@@ -23,9 +23,9 @@
             window.location = ("Category/Org.aspx");
         });
 
-//        $(document).bind('keydown', '5', function() {
-//            window.location = ("Category/DIN.aspx");
-//        });
+        $(document).bind('keydown', '5', function() {
+            window.location = ("Category/PrintSetting.aspx");
+        });
 
         $(document).bind('keydown', '6', function() {
             window.location = ("Category/SideEffect.aspx");
@@ -121,20 +121,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                      <%--      <table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="/Category/DIN.aspx">
+                                        <a href="/Category/PrintSetting.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Category/DIN.aspx">Tạo mã thu máu</a>
+                                            <a href="Category/PrintSetting.aspx">Vị trí dòng in</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <table>

@@ -1,6 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DINPrintLabel.aspx.cs" Inherits="Category_DINPrintLabel" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DINPrintLabel.aspx.cs" Inherits="Collect_DINPrintLabel" %>
 
-<%@ Register Src="~/Category/DINLabelUserControl.ascx" TagPrefix="uc" TagName="DINLabelUserControl" %>
+<%@ Register Src="~/Collect/DINLabelUserControl.ascx" TagPrefix="uc" TagName="DINLabelUserControl" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%--<link href="../App_Themes/Default/PackLabel.css" rel="stylesheet" type="text/css" />--%>
 <html xmlns="http://www.w3.org/1999/xhtml">

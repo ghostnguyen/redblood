@@ -32,40 +32,37 @@ public partial class Category_BloodGroupPrint : System.Web.UI.Page
 
         }
 
+        PrintSettingBLL.Reload();
         RedBloodDataContext db = new RedBloodDataContext();
-
         string desc = BloodGroupBLL.GetDescription(code);
 
-        PrintSettingBLL.Reload();
-
-        for (int i = 0; i < count / 3 + 1; i++)
+        for (int i = 0; i < count; i++)
         {
-            BloodGroupLabelUserControl uc = new BloodGroupLabelUserControl();
-            uc = (BloodGroupLabelUserControl)LoadControl("~/Category/BloodGroupLabelUserControl.ascx");
-            uc.Fill_Letter(code, desc);
-            uc.ResizeLabel1();
 
-            divCon.Controls.Add(uc);
+            Panel p = new Panel();
+            p.Style.Add("position", "relative");
+            p.Style.Add("page-break-after", "always");
 
-            BloodGroupLabelUserControl uc2 = new BloodGroupLabelUserControl();
-            uc2 = (BloodGroupLabelUserControl)LoadControl("~/Category/BloodGroupLabelUserControl.ascx");
-            uc2.Fill_Letter(code, desc);
-            uc2.ResizeLabel2();
+            p.Height = PrintSettingBLL.BloodGroupLabel.LabelSize.Height.ToInt();
+            p.Width = PrintSettingBLL.BloodGroupLabel.LabelSize.Width.ToInt();
 
-            divCon.Controls.Add(uc2);
+            p.Style.Add("border", "1px solid white");
+            divCon.Controls.Add(p);
 
-            BloodGroupLabelUserControl uc3 = new BloodGroupLabelUserControl();
-            uc3 = (BloodGroupLabelUserControl)LoadControl("~/Category/BloodGroupLabelUserControl.ascx");
-            uc3.Fill_Letter(code, desc);
-            uc3.ResizeLabel3();
-
-            divCon.Controls.Add(uc3);
-
-            HtmlGenericControl gen = new HtmlGenericControl();
-            gen.TagName = "div";
-            gen.Attributes.Add("style", "page-break-after:always;");
-            divCon.Controls.Add(gen);
+            AddDINLabelControl(code, desc, PrintSettingBLL.BloodGroupLabel.Label1, p);
+            AddDINLabelControl(code, desc, PrintSettingBLL.BloodGroupLabel.Label2, p);
+            AddDINLabelControl(code, desc, PrintSettingBLL.BloodGroupLabel.Label3, p);
         }
+    }
+
+    void AddDINLabelControl(string code, string desc, PrintSetting ps, Panel panel)
+    {
+        BloodGroupLabelUserControl uc = new BloodGroupLabelUserControl();
+        uc = (BloodGroupLabelUserControl)LoadControl("~/Category/BloodGroupLabelUserControl.ascx");
+        uc.Fill_Letter(code, desc);
+        uc.ResizeLabel(ps);
+
+        panel.Controls.Add(uc);
     }
 
 
