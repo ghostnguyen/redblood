@@ -215,6 +215,9 @@ public class BarcodeBLL
 
     public static string Url4People(int autonum)
     {
+        
+
+
         return BarcodeImgPage + "?hasText=true&checkChar=true&IdChar=" + peopleIdChar.ToURLCompatible() + "&code=" + autonum.ToString("D" + (peopleLength - 2).ToString());
     }
 

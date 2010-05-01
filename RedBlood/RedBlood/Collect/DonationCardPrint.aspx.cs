@@ -20,20 +20,27 @@ public partial class Collect_DonationCardPrint : System.Web.UI.Page
 
         ReportType type = (ReportType)rptType.ToInt();
 
-        List<Donation> p = DonationBLL.Get(campID, type);
+        List<Donation> pL = DonationBLL.Get(campID, type);
 
-        foreach (Donation item in p)
+        foreach (Donation item in pL)
         {
-            DonationCardUserControl uc = new DonationCardUserControl();
-            uc = (DonationCardUserControl)LoadControl("~/Collect/DonationCardUserControl.ascx");
-            uc.Fill_Letter(item);
+            Panel p = new Panel();
+            p.Style.Add("position", "relative");
+            p.Style.Add("page-break-after", "always");
+            p.Style.Apply(PrintSettingBLL.Card.PaperSize);
+            p.Style.Add("border", "1px solid white");
+            divCon.Controls.Add(p);
 
-            divCon.Controls.Add(uc);
-
-            HtmlGenericControl gen = new HtmlGenericControl();
-            gen.TagName = "div";
-            gen.Attributes.Add("style", "page-break-after:always;");
-            divCon.Controls.Add(gen);
+            AddDINLabelControl(item, p);
         }
+    }
+
+    void AddDINLabelControl(Donation item, Panel panel)
+    {
+        DonationCardUserControl uc = new DonationCardUserControl();
+        uc = (DonationCardUserControl)LoadControl("~/Collect/DonationCardUserControl.ascx");
+        uc.Fill_Letter(item);
+
+        panel.Controls.Add(uc);
     }
 }

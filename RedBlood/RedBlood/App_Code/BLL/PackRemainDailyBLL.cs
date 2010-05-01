@@ -60,33 +60,6 @@ public class PackRemainDailyBLL
             LogBLL.LogsFailAndThrow(err + "Existing data.");
         }
 
-        //TODO: Compare count direct in store and out in
-        //TODO: Destroy expired and positive pack
-        //TODO: remove PackStatus Expire
-
-        //if (IsCountDirectly(date)
-        //    //Have pack transaction. Remain transaction is NOT real transaction
-        //    && db.PackTransactions.Where(r => r.Date.Value.Date == date.Date
-        //        && r.Type != PackTransaction.TypeX.Remain).Count() != 0) { }
-        //else return;
-
-        //var v = db.PackRemainDailies.Where(r => r.Date == date);
-
-        //if (v.Count() > 0)
-        //{
-        //    if (overwrite)
-        //    {
-        //        db.PackRemainDailies.DeleteAllOnSubmit(v);
-        //        db.SubmitChanges();
-
-        //        LogBLL.Add(Task.TaskX.DeleteBackupPackRemain);
-        //    }
-        //    else
-        //    {
-        //        return;
-        //    }
-        //}
-
         IQueryable<Pack> rows = db.Packs.Where(r => r.Status == Pack.StatusX.Product);
 
         //Insert
@@ -96,7 +69,7 @@ public class PackRemainDailyBLL
             r.PackID = item.ID;
             r.Status = item.Status;
             r.Date = date;
-            r.Note = "Process on: " + DateTime.Now.Date.ToString();
+            r.Note = "Process on: " + DateTime.Now.ToString();
 
             db.PackRemainDailies.InsertOnSubmit(r);
         }

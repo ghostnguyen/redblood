@@ -422,20 +422,6 @@
       <Association Name="Pack_PackRemainDaily" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PrintSetting" Member="PrintSettings">
-    <Type Name="PrintSetting">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="[Top]" Member="Top" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="[Left]" Member="Left" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Font" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Size" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Type" Type="PrintSetting.TypeX" DbType="Int" CanBeNull="true" />
-      <Column Name="Width" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Height" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Product" Member="Products">
     <Type Name="Product">
       <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -543,6 +529,20 @@
       <Association Name="Order_PackOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
       <Association Name="Pack_PackOrder" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
       <Association Name="Return_PackOrder" Member="Return" ThisKey="ReturnID" OtherKey="ID" Type="Return" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PrintSetting" Member="PrintSettings">
+    <Type Name="PrintSetting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="[Top]" Member="Top" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="[Left]" Member="Left" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Font" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Size" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Width" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Height" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

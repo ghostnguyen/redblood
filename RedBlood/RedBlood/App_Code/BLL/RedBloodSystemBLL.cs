@@ -68,7 +68,7 @@ public class RedBloodSystemBLL
                 { }
                 else
                 {
-                    LogBLL.LogsFailAndThrow("Error. days == 0 || days == 1 fail.");
+                    //LogBLL.LogsFailAndThrow("Error. days == 0 || days == 1 fail.");
                 }
             }
             else

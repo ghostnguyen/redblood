@@ -18,7 +18,7 @@ public partial class BloodGroupLabelUserControl : System.Web.UI.UserControl
         Image1.Style.Apply(PrintSettingBLL.BloodGroupLabel.Barcode);
 
         txtNote.Text = note;
-        txtNote.Style.Apply(PrintSettingBLL.BloodGroupLabel.Note);
+        txtNote.Style.Apply(PrintSettingBLL.BloodGroupLabel.BloodGroupDesc);
     }
 
     public void ResizeLabel(PrintSetting ps)

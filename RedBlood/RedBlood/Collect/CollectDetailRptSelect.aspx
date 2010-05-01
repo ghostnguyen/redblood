@@ -2,15 +2,12 @@
     CodeFile="CollectDetailRptSelect.aspx.cs" Inherits="Collect_CollectDetailRptSelect" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
+<%@ Register Src="~/UserControl/DateRange.ascx" TagPrefix="uc" TagName="DateR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    Ngày:
-    <asp:TextBox runat="server" ID="txtDate" Width="150px"></asp:TextBox>
-    <ajk:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDate"
-        Format="dd/MM/yyyy">
-    </ajk:CalendarExtender>
-    <asp:Button ID="btnView" runat="server" Text="Xem" onclick="btnView_Click" />
+    <uc:DateR ID="ucDateRange" runat="server" />
+    <asp:Button ID="btnOk" runat="server" Text="Xem" OnClick="btnOk_Click" />
     <br />
     <asp:ListView ID="ListView1" runat="server">
         <LayoutTemplate>

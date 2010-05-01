@@ -308,6 +308,12 @@ public class DonationBLL
         return db.Donations.Where(r => r.CampaignID == campaignID);
     }
 
+    public static List<Donation> GetUnLock(int campaignID)
+    {
+        return Get(campaignID).ToList().Where(r => r.OrgPackID != null && !r.IsTRLocked).ToList();
+
+    }
+
     public static List<Donation> Get(int campaignID, ReportType rptType)
     {
         RedBloodDataContext db = new RedBloodDataContext();

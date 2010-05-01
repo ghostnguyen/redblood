@@ -38,14 +38,10 @@ public partial class Category_BloodGroupPrint : System.Web.UI.Page
 
         for (int i = 0; i < count; i++)
         {
-
             Panel p = new Panel();
             p.Style.Add("position", "relative");
             p.Style.Add("page-break-after", "always");
-
-            p.Height = PrintSettingBLL.BloodGroupLabel.LabelSize.Height.ToInt();
-            p.Width = PrintSettingBLL.BloodGroupLabel.LabelSize.Width.ToInt();
-
+            p.Style.Apply(PrintSettingBLL.BloodGroupLabel.PaperSize);
             p.Style.Add("border", "1px solid white");
             divCon.Controls.Add(p);
 
