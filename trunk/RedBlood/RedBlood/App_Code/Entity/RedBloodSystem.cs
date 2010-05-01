@@ -21,6 +21,8 @@ public class RedBloodSystem
 
     public static string Url4CollectDetailRpt = "~/Collect/CollectDetailRpt.aspx?";
 
+    public static string Url4CollectRpt11 = "~/Collect/Rpt11.aspx?";
+
     public static TimeSpan ExpTime4ProduceFFPlasma = new TimeSpan(0, 18, 0, 0);
 
     public static string SODActor

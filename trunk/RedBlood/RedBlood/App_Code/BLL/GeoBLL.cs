@@ -128,6 +128,18 @@ public class GeoBLL
         return db.Geos.Where(r => IDList.Contains(r.ID) && r.Level == level).ToList();
     }
 
+    public static Geo Get(Guid ID, int level)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Geo e = db.Geos.Where(r => r.ID == ID && r.Level == level).FirstOrDefault();
+
+        if (e == null)
+            throw new Exception("Không tìm thấy đơn vị hành chính.");
+
+        return e;
+    }
+
     public static string GetFullname(Geo geo1, Geo geo2, Geo geo3)
     {
         return geo3 != null ? geo3.Fullname : geo2 != null ? geo2.Fullname : geo1 != null ? geo1.Fullname : "";

@@ -39,9 +39,7 @@ public partial class Collect_DINPrintLabel : System.Web.UI.Page
             Panel p = new Panel();
             p.Style.Add("position", "relative");
             p.Style.Add("page-break-after", "always");
-
-            p.Height = PrintSettingBLL.DINLabel.LabelSize.Height.ToInt();
-            p.Width = PrintSettingBLL.DINLabel.LabelSize.Width.ToInt();
+            p.Style.Apply(PrintSettingBLL.DINLabel.PaperSize);
             p.Style.Add("border", "1px solid white");
             divCon.Controls.Add(p);
 
@@ -67,6 +65,5 @@ public partial class Collect_DINPrintLabel : System.Web.UI.Page
         uc.ResizeLabel(ps);
 
         panel.Controls.Add(uc);
-        //divCon.Controls.Add(uc);
     }
 }

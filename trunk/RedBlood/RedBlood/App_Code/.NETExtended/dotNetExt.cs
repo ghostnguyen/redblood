@@ -87,6 +87,9 @@ public static class dotNetExt
 
     public static string ToURLCompatible(this string s)
     {
+        //return HttpUtility.UrlPathEncode(s);
+        return HttpUtility.UrlEncode(s);
+
         //'	%27	Foot Sign
         //"	%22	Quote
         //#	%23	Number sign
@@ -99,17 +102,15 @@ public static class dotNetExt
         //<	%3C	Less than
         //>	%3EGreater than
         //?	%3F
-        return s
-            .Replace("%", "%25")
-            .Replace("+", "%2B")
-            .Replace("&", "%26")
-            .Replace("=", "%3D")
-            .Replace("<", "%3C")
-            .Replace(";", "%3B")
-            ;
 
-
-        //return HttpServerUtility.UrlTokenEncode(System.Text.ASCIIEncoding.ASCII.GetBytes(s));
+        //return s
+        //    .Replace("%", "%25")
+        //    .Replace("+", "%2B")
+        //    .Replace("&", "%26")
+        //    .Replace("=", "%3D")
+        //    .Replace("<", "%3C")
+        //    .Replace(";", "%3B")
+        //    ;
     }
 
 
@@ -145,6 +146,20 @@ public static class dotNetExt
         else
         {
             return false;
+        }
+    }
+
+    public static DateTime? ToShortDate(this string s)
+    {
+        DateTime dt;
+
+        if (DateTime.TryParse(s.Trim(), out dt))
+        {
+            return (DateTime?)dt;
+        }
+        else
+        {
+            return null;
         }
     }
 
@@ -336,13 +351,35 @@ public static class dotNetExt
     {
         if (setting == null) return;
 
-        style.Add("top", setting.Top);
-        style.Add("left", setting.Left);
-        style.Add("font", setting.Font);
-        style.Add("font-size", setting.Size);
-        style.Add("width", setting.Width);
-        style.Add("height", setting.Height);
+        if (string.IsNullOrEmpty(setting.Top))
+        { style.Remove("top"); }
+        else
+        { style.Add("top", setting.Top); }
 
+        if (string.IsNullOrEmpty(setting.Left))
+        { style.Remove("left"); }
+        else
+        { style.Add("left", setting.Left); }
+
+        if (string.IsNullOrEmpty(setting.Font))
+        { style.Remove("font"); }
+        else
+        { style.Add("font", setting.Font); }
+
+        if (string.IsNullOrEmpty(setting.Size))
+        { style.Remove("font-size"); }
+        else
+        { style.Add("font-size", setting.Size); }
+
+        if (string.IsNullOrEmpty(setting.Width))
+        { style.Remove("width"); }
+        else
+        { style.Add("width", setting.Width); }
+
+        if (string.IsNullOrEmpty(setting.Height))
+        { style.Remove("height"); }
+        else
+        { style.Add("height", setting.Height); }
     }
 
     public static void Visibility(this CssStyleCollection style, bool visibility)

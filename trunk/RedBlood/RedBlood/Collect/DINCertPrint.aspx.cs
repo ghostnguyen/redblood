@@ -20,20 +20,27 @@ public partial class Collect_DINCertPrint : System.Web.UI.Page
 
         ReportType type = (ReportType)rptType.ToInt();
 
-        List<Donation> p = DonationBLL.Get(campID, type);
+        List<Donation> pl = DonationBLL.Get(campID, type);
 
-        foreach (Donation item in p)
+        foreach (Donation item in pl)
         {
-            DINCertUserControl uc = new DINCertUserControl();
-            uc = (DINCertUserControl)LoadControl("~/Collect/DINCertUserControl.ascx");
-            uc.Fill_Letter(item);
+            Panel p = new Panel();
+            p.Style.Add("position", "relative");
+            p.Style.Add("page-break-after", "always");
+            p.Style.Apply(PrintSettingBLL.DINCert.PaperSize);
+            p.Style.Add("border", "1px solid white");
+            divCon.Controls.Add(p);
 
-            divCon.Controls.Add(uc);
-
-            HtmlGenericControl gen = new HtmlGenericControl();
-            gen.TagName = "div";
-            gen.Attributes.Add("style", "page-break-after:always;");
-            divCon.Controls.Add(gen);
+            AddControl(item, p);
         }
+    }
+
+    void AddControl(Donation item, Panel panel)
+    {
+        DINCertUserControl uc = new DINCertUserControl();
+        uc = (DINCertUserControl)LoadControl("~/Collect/DINCertUserControl.ascx");
+        uc.Fill_Letter(item);
+
+        panel.Controls.Add(uc);
     }
 }

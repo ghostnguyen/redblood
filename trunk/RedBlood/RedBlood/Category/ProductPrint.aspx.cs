@@ -44,14 +44,12 @@ public partial class Category_ProductPrint : System.Web.UI.Page
             Panel p = new Panel();
             p.Style.Add("position", "relative");
             p.Style.Add("page-break-after", "always");
-
-            p.Height = PrintSettingBLL.ProductLabel.LabelSize.Height.ToInt();
-            p.Width = PrintSettingBLL.ProductLabel.LabelSize.Width.ToInt();
+            p.Style.Apply(PrintSettingBLL.ProductLabel.PaperSize);
             p.Style.Add("border", "1px solid white");
             divCon.Controls.Add(p);
 
-            AddControl(item, PrintSettingBLL.DINLabel.Label1, p);
-            AddControl(item, PrintSettingBLL.DINLabel.Label2, p);
+            AddControl(item, PrintSettingBLL.ProductLabel.Label1, p);
+            AddControl(item, PrintSettingBLL.ProductLabel.Label2, p);
         }
     }
 

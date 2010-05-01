@@ -19,7 +19,7 @@
     <h4>
         Thông tin mặc định
     </h4>
-    Tên KTV:
+    Tên điều dưỡng:
     <asp:TextBox ID="txtDefaultCollector" runat="server" Width="250"> </asp:TextBox>
     Thể tích:
     <asp:TextBox ID="txtDefaultVolume" runat="server" Width="50"> </asp:TextBox>
@@ -90,7 +90,7 @@
         </tr>
         <tr>
             <td>
-                KTV
+                Điều dưỡng
             </td>
             <td>
                 <asp:TextBox ID="txtCollector" runat="server" Width="200"></asp:TextBox>

@@ -15,8 +15,8 @@ public partial class DINCertUserControl : System.Web.UI.UserControl
 
     public void Fill_Letter(Donation e)
     {
-        if (e.People == null 
-            || e.Pack == null 
+        if (e.People == null
+            || e.Pack == null
             || e.Campaign == null) return;
 
         if (e.Campaign.HostOrg != null
@@ -82,5 +82,7 @@ public partial class DINCertUserControl : System.Web.UI.UserControl
 
         lblNowYear.Text = DateTime.Now.Year.ToString();
         lblNowYear.Style.Apply(PrintSettingBLL.DINCert.NowYear);
+
+        DivUC.Style.Apply(PrintSettingBLL.DINCert.CardSize);
     }
 }

@@ -23,5 +23,7 @@ public partial class EnvelopeUserControl : System.Web.UI.UserControl
 
         lblGeo.Text = e.FullResidentalGeo;
         lblGeo.Style.Apply(PrintSettingBLL.Envelope.Geo);
+
+        DivUC.Style.Apply(PrintSettingBLL.Envelope.UCSize);
     }
 }

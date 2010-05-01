@@ -43,19 +43,10 @@ public partial class TestResult_Enter : System.Web.UI.Page
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (CampaignDetail1.CampaignID == 0)
-        {
-            e.Result = null;
-            e.Cancel = true;
-        }
-        else
-        {
-            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID)
-                .ToList()
-                .Where(r => r.OrgPackID != null
-                && !r.IsTRLocked
-                );
-        }
+        var v = DonationBLL.GetUnLock(CampaignDetail1.CampaignID);
+        e.Result = v;
+        
+        PanelAllNeg.Visible = v.Count > 0;
     }
 
     protected void LinqDataSourcePackLock_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -119,5 +110,13 @@ public partial class TestResult_Enter : System.Web.UI.Page
             DonationBLL.UpdateNegative(e.CommandArgument.ToString());
             GridView1.DataBind();
         }
+    }
+    protected void btnAllNegative_Click(object sender, EventArgs e)
+    {
+        foreach (var item in DonationBLL.GetUnLock(CampaignDetail1.CampaignID))
+        {
+            DonationBLL.UpdateNegative(item.DIN);
+        }
+        GridView1.DataBind();
     }
 }

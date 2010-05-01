@@ -1,7 +1,13 @@
-﻿.main_window
+﻿body
+{
+}
+
+
+.main_window
 {
 	width: 980px;
 	border: solid 1px #999999;
+	-moz-border-radius: 6px;
 }
 
 .main_window_rpt
@@ -237,3 +243,5 @@ ul.noindent li
 {
 	text-align: center;
 }
+
+

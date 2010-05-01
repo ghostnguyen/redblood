@@ -27,14 +27,12 @@
         var url = window.location + "";
 
         jQuery(document).bind('keydown', 'esc', function(evt) {
-            if (url.indexOf("Default") > 0)
-            {
+            if (url.indexOf("Default") > 0) {
                 window.location = ("/RedBlood/Default.aspx");
                 return false;
             }
 
-            if (url.indexOf("/RedBlood/Collect") > 0)
-            {
+            if (url.indexOf("/RedBlood/Collect") > 0) {
                 window.location = ("/RedBlood/Default7.aspx");
                 return false;
             }
@@ -119,50 +117,35 @@
     </asp:UpdateProgress>
     <asp:UpdatePanel ID="UpdatePanelMaster" runat="server">
         <ContentTemplate>
-            <table style="width: 100%;">
-                <tr align="center">
-                    <td>
-                        <table cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td class="main_window">
-                                    <table class="Banner">
-                                        <tr valign="middle">
-                                            <td align="left" style="width: 250px;" valign="middle">
-                                                <%--<asp:Image ID="Image1" runat="server" ImageUrl="~/Image/RedBlood.png" />--%>
-                                                <%--<asp:Label ID="lblTitle" runat="server" Text="Labelfasdf" class="Title" Visible="false">
-                                        </asp:Label>--%>
-                                                <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Logo.png" />
-                                            </td>
-                                            <td align="center">
-                                                <span class="Title">Trung tâm truyền máu Chợ Rẫy</span>
-                                                <br />
-                                                <asp:TextBox ID="txtMasterCode" runat="server" Width="299" onkeyup="checkLength(this.value);"
-                                                    onfocus="selectedInput = true;" onblur="selectedInput = false;"></asp:TextBox>
-                                                <asp:Button ID="btnMasterOk" runat="server" Text="Ok" />
-                                            </td>
-                                            <td align="right" style="width: 250px;" valign="top">
-                                                <asp:LoginName ID="LoginName1" runat="server" />
-                                                |
-                                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutText="Thoát" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="height: 10px;">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="main_window">
-                                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                                    </asp:ContentPlaceHolder>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+            <div align="center">
+                <div class="main_window">
+                    <table class="Banner">
+                        <tr valign="middle">
+                            <td align="left" style="width: 250px;" valign="middle">
+                                <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Logo.png" />
+                            </td>
+                            <td align="center">
+                                <span class="Title">Trung tâm truyền máu Chợ Rẫy</span>
+                                <br />
+                                <asp:TextBox ID="txtMasterCode" runat="server" Width="299" onkeyup="checkLength(this.value);"
+                                    onfocus="selectedInput = true;" onblur="selectedInput = false;"></asp:TextBox>
+                                <asp:Button ID="btnMasterOk" runat="server" Text="Ok" />
+                            </td>
+                            <td align="right" style="width: 250px;" valign="top">
+                                <asp:LoginName ID="LoginName1" runat="server" />
+                                |
+                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutText="Thoát" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="height: 10px;">
+                </div>
+                <div class="main_window" align="left">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
     </form>

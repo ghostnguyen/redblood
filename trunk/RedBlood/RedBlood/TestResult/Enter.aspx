@@ -13,6 +13,12 @@
         </tr>
         <tr>
             <td>
+                <asp:Panel ID="PanelAllNeg" runat="server">
+                    <h3>
+                        <asp:Button ID="btnAllNegative" runat="server" Text="Tất cả Âm Tính" OnClientClick="return confirm('Thay đổi kết quả tất cả thành âm tính?');"
+                            OnClick="btnAllNegative_Click" />
+                    </h3>
+                </asp:Panel>
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
                     DataKeyNames="DIN" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating"
                     OnRowUpdated="GridView1_RowUpdated" OnRowCommand="GridView1_RowCommand">
@@ -133,7 +139,7 @@
             <td>
                 <hr />
                 <h4>
-                    Kết quả bị khóa
+                    Túi máu đã cấp phát hoặc hủy, không thay đổi kết quả sàng lọc.
                 </h4>
                 <asp:GridView ID="GridViewLock" runat="server" AllowPaging="True" AutoGenerateColumns="False"
                     DataKeyNames="DIN" DataSourceID="LinqDataSourcePackLock">
