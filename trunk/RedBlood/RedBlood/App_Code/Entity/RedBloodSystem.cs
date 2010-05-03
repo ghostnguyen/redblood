@@ -14,7 +14,7 @@ public class RedBloodSystem
     public static string Url4PeopleDetail = "~/FindAndReport/PeopleDetail.aspx?";
     public static string Url4Order4CR = "~/Order/Order4CR.aspx?";
     public static string Url4Order4Org = "~/Order/Order4Org.aspx?";
-    
+
     public static string Url4FindPeople = "~/FindAndReport/FindPeople.aspx?";
 
     public static string Url4StoreCountList = "~/Store/CountList.aspx?";
@@ -22,6 +22,7 @@ public class RedBloodSystem
     public static string Url4CollectDetailRpt = "~/Collect/CollectDetailRpt.aspx?";
 
     public static string Url4CollectRpt11 = "~/Collect/Rpt11.aspx?";
+    public static string Url4CollectRpt920 = "~/TestResult/Rpt920.aspx?";
 
     public static TimeSpan ExpTime4ProduceFFPlasma = new TimeSpan(0, 18, 0, 0);
 
@@ -53,7 +54,7 @@ public class RedBloodSystem
             {
                 return "Unknow Actor";
             }
-            
+
         }
     }
 
@@ -63,7 +64,9 @@ public class RedBloodSystem
 
     public static List<Infection> checkingInfection = new List<Infection>() { 
           Infection.HIV_Ab
-        , Infection.HIV_Ag
+            
+          //The result of HIV_Ag always = HIV_Ab as User requirement
+          //, Infection.HIV_Ag
         , Infection.HCV_Ab
         , Infection.HBs_Ag
         , Infection.Syphilis

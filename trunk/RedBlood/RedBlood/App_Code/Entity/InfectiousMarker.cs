@@ -2,59 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// Summary description for InfectiousMarker
 /// </summary>
 public class InfectiousMarker
 {
-    public Donation donation { get; set; }
-
-    public string Code
-    {
-        get
-        {
-            return donation.InfectiousMarkers;
-        }
-        private set
-        {
-            donation.InfectiousMarkers = value;
-        }
-    }
-
-    public void Decode()
-    {
-        _HIV = Infection.HIV_Ab.Decode(this);
-        _HCV_Ab = Infection.HCV_Ab.Decode(this);
-        _HBs_Ag = Infection.HBs_Ag.Decode(this);
-        _Syphilis = Infection.Syphilis.Decode(this);
-        _Malaria = Infection.Malaria.Decode(this);
-
-        CalcStatus();
-    }
-
-    private void CalcStatus()
-    {
-        foreach (Infection item in Infection.InfectionList)
-        {
-            if (item.Decode(Code) == TR.pos.Name)
-            {
-                _Status = Donation.TestResultStatusX.Positive;
-                return;
-            }
-        }
-
-        foreach (Infection item in RedBloodSystem.checkingInfection)
-        {
-            if (item.Decode(Code) == TR.na.Name)
-            {
-                _Status = Donation.TestResultStatusX.Non;
-                return;
-            }
-        }
-
-        _Status = Donation.TestResultStatusX.Negative;
-    }
+    public string Code { get; set; }
 
     public InfectiousMarker()
     {
@@ -63,86 +18,79 @@ public class InfectiousMarker
         //
     }
 
-    public override string ToString()
-    {
-        return Code;
-        //return base.ToString();
-    }
-
-
-    private Donation.TestResultStatusX _Status;
     public Donation.TestResultStatusX Status
     {
         get
         {
-            return _Status;
+            foreach (Infection item in Infection.InfectionList)
+            {
+                if (item.Decode(Code) == TR.pos.Name)
+                {
+                    return Donation.TestResultStatusX.Positive;
+                }
+            }
+
+            foreach (Infection item in RedBloodSystem.checkingInfection)
+            {
+                if (item.Decode(Code) == TR.na.Name)
+                {
+                    return Donation.TestResultStatusX.Non;
+                }
+            }
+
+            return Donation.TestResultStatusX.Negative;
         }
     }
-    
 
-    private string _HIV;
+    static public bool IsValidate(string markerStr)
+    {
+        string pattern = "[0-8]{18}";
+        Regex regx = new Regex(pattern);
+
+        if (string.IsNullOrEmpty(markerStr)
+            || !regx.IsMatch(markerStr))
+            return false;
+
+        return true;
+    }
+
     public string HIV
     {
         get
         {
-            return _HIV;
-        }
-        set
-        {
-            Code = Infection.HIV_Ab.Encode(this, value);
-            Code = Infection.HIV_Ag.Encode(this, value);
+            return Infection.HIV_Ab.Decode(Code);
         }
     }
 
-    private string _HCV_Ab;
     public string HCV_Ab
     {
         get
         {
-            return _HCV_Ab;
-        }
-        set
-        {
-            Code = Infection.HCV_Ab.Encode(this, value);
+            return Infection.HCV_Ab.Decode(Code);
         }
     }
 
-    private string _HBs_Ag;
     public string HBs_Ag
     {
         get
         {
-            return _HBs_Ag;
-        }
-        set
-        {
-            Code = Infection.HBs_Ag.Encode(this, value);
+            return Infection.HBs_Ag.Decode(Code);
         }
     }
 
-    private string _Syphilis;
     public string Syphilis
     {
         get
         {
-            return _Syphilis;
-        }
-        set
-        {
-            Code = Infection.Syphilis.Encode(this, value);
+            return Infection.Syphilis.Decode(Code);
         }
     }
 
-    private string _Malaria;
     public string Malaria
     {
         get
         {
-            return _Malaria;
-        }
-        set
-        {
-            Code = Infection.Malaria.Encode(this, value);
+            return Infection.Malaria.Decode(Code);
         }
     }
 }
@@ -196,56 +144,51 @@ public class Value2TR
 
 public class Infection
 {
+    //Infection should NOT be defined by outside.
+    private Infection()
+    { }
+
     public string Name { get; set; }
     public int Index { get; set; }
     public List<Value2TR> value2TR { get; set; }
 
+    /// <summary>
+    /// Get the infection share the same position
+    /// </summary>
     public Infection Coop
     {
         get
         {
-            return Infection.InfectionList.Where(r => r.Index == Index && r.Name != Name).FirstOrDefault();
+            return Infection.InfectionList.Where(r => r.Index == Index && r != this).FirstOrDefault();
         }
-    }
-
-    public string Decode(InfectiousMarker marker)
-    {
-        if (marker == null)
-            return "";
-        else return Decode(marker.Code);
     }
 
     public string Decode(string markerStr)
     {
-        if (string.IsNullOrEmpty(markerStr))
-            return markerStr;
+        if (!InfectiousMarker.IsValidate(markerStr))
+            throw new Exception("Invalid InfectiousMarker.");
 
         int value = markerStr.Substring(this.Index, 1).ToInt();
 
         return this.value2TR.Where(r => r.Value == value).Select(r => r.Result.Name).FirstOrDefault();
     }
 
-    public string Encode(InfectiousMarker marker, string resultName)
+    public string Encode(string markerStr, string resultName)
     {
-        if (marker == null)
-            return "";
+        if (!InfectiousMarker.IsValidate(markerStr))
+            throw new Exception("Invalid InfectiousMarker.");
 
         TR tr = TR.TRList.Where(r => r.Name == resultName).FirstOrDefault();
 
-        if (tr == null) return marker.Code;
-        else return Encode(marker.Code, tr);
-    }
+        if (tr == null)
+            throw new Exception("Invalid TestResultName.");
 
-    public string Encode(string markerStr, TR result)
-    {
-        if (string.IsNullOrEmpty(markerStr))
-            return markerStr;
-
-        if (Coop == null) return markerStr;
+        if (Coop == null)
+            throw new Exception("Invalid Coop TestResult.");
 
         string coopTRName = Coop.Decode(markerStr);
 
-        int value = value2TR.Where(r => r.Result.Name == result.Name)
+        int value = value2TR.Where(r => r.Result.Name == tr.Name)
             .Join(Coop.value2TR.Where(r => r.Result.Name == coopTRName),
                     r1 => r1.Value,
                     r2 => r2.Value,
@@ -375,7 +318,7 @@ public class Infection
 
     public static Infection Chagas = new Infection()
     {
-        Name = "Chagas",
+        //Name = "Chagas",
         Index = 9 - 1,
         value2TR = Value2TR.Value2TRTemplate2
     };

@@ -121,7 +121,7 @@ public class BarcodeBLL
     {
         if (code.Length != InfectiousMarkersLength) return false;
 
-        string pattern = InfectiousMarkersIdChar + "[0-9]";
+        string pattern = InfectiousMarkersIdChar + "[0-8]";
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
     }

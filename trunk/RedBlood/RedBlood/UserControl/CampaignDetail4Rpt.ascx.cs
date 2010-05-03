@@ -40,7 +40,7 @@ public partial class UserControl_CampaignDetail4Rpt : System.Web.UI.UserControl
 
     public void LoadCampaign()
     {
-        Campaign e = CampaignBLL.GetByID(CampaignID);
+        Campaign e = CampaignBLL.Get(CampaignID);
 
         if (e == null)
         {

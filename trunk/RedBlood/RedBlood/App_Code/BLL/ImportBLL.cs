@@ -67,7 +67,7 @@ public class ImportBLL
                 continue;
 
             //Campaign
-            Campaign innerCam = CampaignBLL.GetByID(item.CampaignID.Value);
+            Campaign innerCam = CampaignBLL.Get(item.CampaignID.Value);
             if (innerCam == null)
                 continue;
 

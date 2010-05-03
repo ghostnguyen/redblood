@@ -22,7 +22,7 @@ public partial class Collect_Rpt2OrgTemplate : System.Web.UI.Page
                 && !string.IsNullOrEmpty(rptType))
             {
                 RptType = (ReportType)rptType.ToInt();
-                Camp = CampaignBLL.GetByID(strCamID.ToInt());
+                Camp = CampaignBLL.Get(strCamID.ToInt());
 
                 try
                 {
@@ -81,18 +81,7 @@ public partial class Collect_Rpt2OrgTemplate : System.Web.UI.Page
 
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (CampaignDetail1.CampaignID == 0)
-        {
-            e.Result = null;
-            e.Cancel = true;
-        }
-        else
-        {
-            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID, RptType);
-            if (e.Result == null)
-                e.Cancel = true;
-        }
-
+        e.Result = DonationBLL.Get(CampaignDetail1.CampaignID, RptType);
     }
     protected void LinqDataSource1_Selected(object sender, LinqDataSourceStatusEventArgs e)
     {
