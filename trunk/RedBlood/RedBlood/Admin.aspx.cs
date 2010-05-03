@@ -15,10 +15,10 @@ public partial class Admin : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!User.IsInRole("SysAdmin"))
-        {
-            Response.Redirect("~/Login.aspx", true);
-        }
+        //if (!User.IsInRole("SysAdmin"))
+        //{
+        //    Response.Redirect("~/Login.aspx", true);
+        //}
         
     }
 }

@@ -17,10 +17,10 @@ public partial class Membership_CreatingUserAccount : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!User.IsInRole("SysAdmin"))
-        {
-            Response.Redirect("~/AccessDenied.aspx", true);
-        }
+        //if (!User.IsInRole("SysAdmin"))
+        //{
+        //    Response.Redirect("~/AccessDenied.aspx", true);
+        //}
 
         if (!Page.IsPostBack)
         {

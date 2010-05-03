@@ -61,6 +61,9 @@
                 window.location = ("/RedBlood/Default3.aspx");
                 return false;
             }
+
+            window.location = ("/RedBlood/Default.aspx");
+            return false;
         });
         var selectedInput = false;
 

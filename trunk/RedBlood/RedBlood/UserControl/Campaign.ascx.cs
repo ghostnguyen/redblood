@@ -215,7 +215,8 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
 
         try
         {
-            p.CoopOrg = OrgBLL.GetByName(txtCoopOrgName.Text.Trim());
+            //p.CoopOrg = OrgBLL.GetByName(txtCoopOrgName.Text.Trim());
+            p.CoopOrgID = OrgBLL.GetByName(txtCoopOrgName.Text.Trim()).ID;
             divErrCoopOrgName.Attributes["class"] = "hidden";
         }
         catch (Exception ex)
@@ -227,7 +228,8 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
 
         try
         {
-            p.HostOrg = OrgBLL.GetByName(txtHostOrgName.Text.Trim());
+            //p.HostOrg = OrgBLL.GetByName(txtHostOrgName.Text.Trim());
+            p.HostOrgID = OrgBLL.GetByName(txtHostOrgName.Text.Trim()).ID;
             divErrHostOrgName.Attributes["class"] = "hidden";
         }
         catch (Exception ex)

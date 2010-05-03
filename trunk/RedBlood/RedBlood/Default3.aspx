@@ -42,6 +42,10 @@
         $(document).bind('keydown', '3', function() {
             window.location = ("Category/BloodGroup.aspx");
         });
+
+        $(document).bind('keydown', '0', function() {
+            window.location = ("ResetPassword4CurrentUser.aspx");
+        });
     </script>
 
     <table width="100%">
