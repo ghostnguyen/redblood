@@ -15,10 +15,10 @@ public partial class Membership_ManageUser : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!User.IsInRole("SysAdmin"))
-        {
-            Response.Redirect("~/AccessDenied.aspx", true);
-        }
+        //if (!User.IsInRole("SysAdmin"))
+        //{
+        //    Response.Redirect("~/AccessDenied.aspx", true);
+        //}
 
         ActionStatus.Text = "";
     }

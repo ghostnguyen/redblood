@@ -33,15 +33,15 @@
             window.location = ("Collect/Rpt2OrgMenu.aspx");
         });
 
-        //        $(document).bind('keydown', '5', function() {
-        //            window.location = ("Codabar/Pack.aspx");
+        $(document).bind('keydown', '3', function() {
+            window.location = ("Collect/Import.aspx");
+        });
+
+
+
+        //        $(document).bind('keydown', '1', function() {
+        //            window.location = ("Collect/PrintSetting.aspx");
         //        });
-
-
-
-//        $(document).bind('keydown', '1', function() {
-//            window.location = ("Collect/PrintSetting.aspx");
-//        });
 
         $(document).bind('keydown', '2', function() {
             window.location = ("Collect/Rpt1.aspx");
@@ -201,6 +201,20 @@
                             </table>
                         </td>
                         <td class="column next">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="Collect/Import.aspx">
+                                            <img src="Image/Icon/number3.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="Collect/Import.aspx">Import</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

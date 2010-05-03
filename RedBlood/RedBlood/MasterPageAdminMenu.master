@@ -5,17 +5,17 @@
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     
-    <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" BackColor="#B5C7DE"
-        DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284E98"
+    <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" BackColor="#FFFBD6"
+        DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#990000"
         StaticSubMenuIndent="10px" Orientation="Horizontal" 
         >
-        <StaticSelectedStyle BackColor="#507CD1" />
+        <StaticSelectedStyle BackColor="#FFCC66" />
         <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
-        <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
-        <DynamicMenuStyle BackColor="#B5C7DE" />
-        <DynamicSelectedStyle BackColor="#507CD1" />
+        <DynamicHoverStyle BackColor="#990000" ForeColor="White" />
+        <DynamicMenuStyle BackColor="#FFFBD6" />
+        <DynamicSelectedStyle BackColor="#FFCC66" />
         <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
-        <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
+        <StaticHoverStyle BackColor="#990000" ForeColor="White" />
     </asp:Menu>
     
     <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" 

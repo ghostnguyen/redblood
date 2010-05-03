@@ -16,10 +16,10 @@ public partial class Membership_UserAndRole : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!User.IsInRole("SysAdmin"))
-        {
-            Response.Redirect("~/AccessDenied.aspx", true);
-        }
+        //if (!User.IsInRole("SysAdmin"))
+        //{
+        //    Response.Redirect("~/AccessDenied.aspx", true);
+        //}
 
 
         if (!Page.IsPostBack)
@@ -94,14 +94,14 @@ public partial class Membership_UserAndRole : System.Web.UI.Page
             // Add the user to the role           
             Roles.AddUserToRole(selectedUserName, roleName);
             // Display a status message           
-            ActionStatus.Text = string.Format("{0} đã được gán quyền {1}.", selectedUserName, roleName);
+            //ActionStatus.Text = string.Format("{0} đã được gán quyền {1}.", selectedUserName, roleName);
         }
         else
         {
             // Remove the user from the role           
             Roles.RemoveUserFromRole(selectedUserName, roleName);
             // Display a status message           
-            ActionStatus.Text = string.Format("{0} đã được gỡ khỏi quyền {1}.", selectedUserName, roleName);
+            //ActionStatus.Text = string.Format("{0} đã được gỡ khỏi quyền {1}.", selectedUserName, roleName);
         }
 
         // Refresh the "by role" interface 
