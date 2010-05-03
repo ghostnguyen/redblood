@@ -56,8 +56,8 @@ public partial class Donation
             return !DonationBLL.CanUpdateTestResult(this);
         }
     }
-        
-        
+
+
 
     public string BloodGroupDesc
     {
@@ -69,7 +69,7 @@ public partial class Donation
 
     public string OrgProductDesc
     {
-        get 
+        get
         {
             if (this.Pack == null) return "";
             else return this.Pack.Product.Description;
@@ -85,39 +85,11 @@ public partial class Donation
         }
     }
 
-    private InfectiousMarker _markers;
     public InfectiousMarker Markers
     {
         get
         {
-            if (_markers == null)
-                _markers = new InfectiousMarker() { donation = this };
-
-            return _markers;
+            return new InfectiousMarker() { Code = InfectiousMarkers };
         }
     }
-
-    partial void OnLoaded()
-    {
-        Markers.Decode();
-    }
-
-    partial void OnInfectiousMarkersChanged()
-    {
-        Markers.Decode();
-
-    }
-
-
-
-    partial void OnValidate(System.Data.Linq.ChangeAction action)
-    {
-
-
-    }
-
-
-
-
-
 }

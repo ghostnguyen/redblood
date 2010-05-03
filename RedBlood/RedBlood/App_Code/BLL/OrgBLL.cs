@@ -69,13 +69,15 @@ public class OrgBLL
     public static Org GetByName(string name)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-
-        name = name.Trim();
-        if (string.IsNullOrEmpty(name)) return null;
-
-        return (from c in db.Orgs
-                where c.Name == name
+        
+        Org e = (from c in db.Orgs
+                where c.Name == name.Trim()
                 select c).FirstOrDefault();
+
+        if (e == null)
+            throw new Exception("Sai tên đơn vị.");
+
+        return e;
     }
 
     public string Delete(int ID)

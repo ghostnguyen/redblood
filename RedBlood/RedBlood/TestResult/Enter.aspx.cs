@@ -12,18 +12,20 @@ public partial class TestResult_Enter : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //DeletePack1.PackDeleted += new EventHandler(DeletePack1_PackDeleted);
-
-        Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
-
-        if (Master.TextBoxCode.Text.Length == 0) return;
-
-        if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+        if (IsPostBack)
         {
-            CampaignEnter(Master.TextBoxCode.Text);
-        }
 
-        Master.TextBoxCode.Text = "";
+            Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
+
+            if (Master.TextBoxCode.Text.Length == 0) return;
+
+            if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+            {
+                CampaignEnter(Master.TextBoxCode.Text);
+            }
+
+            Master.TextBoxCode.Text = "";
+        }
     }
 
     void DeletePack1_PackDeleted(object sender, EventArgs e)
@@ -43,38 +45,34 @@ public partial class TestResult_Enter : System.Web.UI.Page
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        var v = DonationBLL.GetUnLock(CampaignDetail1.CampaignID);
-        e.Result = v;
-        
-        PanelAllNeg.Visible = v.Count > 0;
+        if (CampaignDetail1.CampaignID > 0)
+        {
+            var v = DonationBLL.GetUnLock(CampaignDetail1.CampaignID);
+            e.Result = v;
+
+            PanelAllNeg.Visible = v.Count > 0;
+        }
+        else { e.Cancel = true; }
     }
 
     protected void LinqDataSourcePackLock_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (CampaignDetail1.CampaignID == 0)
+        if (CampaignDetail1.CampaignID > 0)
         {
-            e.Result = null;
-            e.Cancel = true;
-        }
-        else
-        {
-            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID)
+            e.Result = CampaignBLL.Get(CampaignDetail1.CampaignID).CollectedDonations
                 .ToList()
-                .Where(r => r.OrgPackID != null && r.IsTRLocked);
+                .Where(r => r.IsTRLocked);
         }
+        else { e.Cancel = true; }
     }
 
     protected void LinqDataSourceUnCollect_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (CampaignDetail1.CampaignID == 0)
+        if (CampaignDetail1.CampaignID > 0)
         {
-            e.Result = null;
-            e.Cancel = true;
+            e.Result = CampaignBLL.Get(CampaignDetail1.CampaignID).Donations.Where(r => r.OrgPackID == null);
         }
-        else
-        {
-            e.Result = DonationBLL.Get(CampaignDetail1.CampaignID).Where(r => r.OrgPackID == null);
-        }
+        else { e.Cancel = true; }
     }
 
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -97,11 +95,6 @@ public partial class TestResult_Enter : System.Web.UI.Page
         e.Cancel = true;
         GridView1.EditIndex = -1;
     }
-    protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
-    {
-
-    }
-
 
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {

@@ -236,18 +236,21 @@ public class DonationBLL
 
         string old = e.InfectiousMarkers;
 
-        e.Markers.HIV = TR.GetDefault(HIV).Name;
-        e.Markers.HCV_Ab = TR.GetDefault(HCV_Ab).Name;
-        e.Markers.HBs_Ag = TR.GetDefault(HBs_Ag).Name;
-        e.Markers.Syphilis = TR.GetDefault(Syphilis).Name;
-        e.Markers.Malaria = TR.GetDefault(Malaria).Name;
+        // Warning: As CR user requirement, value for both test result are always the same.
+        e.InfectiousMarkers = Infection.HIV_Ab.Encode(e.InfectiousMarkers, HIV);
+        e.InfectiousMarkers = Infection.HIV_Ag.Encode(e.InfectiousMarkers, HIV);
+
+        e.InfectiousMarkers = Infection.HCV_Ab.Encode(e.InfectiousMarkers, HCV_Ab);
+        e.InfectiousMarkers = Infection.HBs_Ag.Encode(e.InfectiousMarkers, HBs_Ag);
+        e.InfectiousMarkers = Infection.Syphilis.Encode(e.InfectiousMarkers, Syphilis);
+        e.InfectiousMarkers = Infection.Malaria.Encode(e.InfectiousMarkers, Malaria);
 
         if (old != e.InfectiousMarkers)
         {
-            DonationTestLogBLL.Insert(db, e, Nameof<Donation>.Property(r => r.Markers), note);
+            DonationTestLogBLL.Insert(db, e, PropertyName.For<Donation>(r => r.Markers), note);
         }
 
-        //Have to save before updaye TestResult Status
+        //Have to save before update TestResult Status
         db.SubmitChanges();
 
         UpdateTestResultStatus(e);
@@ -271,7 +274,7 @@ public class DonationBLL
         if (bloodGroup.Trim() != e.BloodGroup)
         {
             e.BloodGroup = bloodGroup;
-            DonationTestLogBLL.Insert(db, e, Nameof<Donation>.Property(r => r.BloodGroup), note);
+            DonationTestLogBLL.Insert(db, e, PropertyName.For<Donation>(r => r.BloodGroup), note);
         }
 
         //Have to save before updaye TestResult Status
@@ -302,17 +305,19 @@ public class DonationBLL
         Update(DIN, TR.neg.Name, TR.neg.Name, TR.neg.Name, TR.neg.Name, TR.neg.Name, "UpdateNegative");
     }
 
-    public static IQueryable<Donation> Get(int campaignID)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-        return db.Donations.Where(r => r.CampaignID == campaignID);
-    }
-
     public static List<Donation> GetUnLock(int campaignID)
     {
-        return Get(campaignID).ToList().Where(r => r.OrgPackID != null && !r.IsTRLocked).ToList();
-
+        return CampaignBLL.Get(campaignID).CollectedDonations
+            .ToList()
+            .Where(r => !r.IsTRLocked).ToList();
     }
+
+    public static IEnumerable<Donation> Get(int campaignID)
+    {
+        return CampaignBLL.Get(campaignID).Donations;
+    }
+
+
 
     public static List<Donation> Get(int campaignID, ReportType rptType)
     {

@@ -21,7 +21,7 @@
                 </asp:Panel>
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
                     DataKeyNames="DIN" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating"
-                    OnRowUpdated="GridView1_RowUpdated" OnRowCommand="GridView1_RowCommand">
+                    OnRowCommand="GridView1_RowCommand">
                     <Columns>
                         <asp:CommandField ShowEditButton="True" EditText="Nhập" UpdateText="Lưu" CancelText="Ko lưu"
                             HeaderStyle-Width="80" />

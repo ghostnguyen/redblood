@@ -31,9 +31,6 @@ public partial class Campaign
         Delete = 4
     }
 
-    OrgBLL orgBLL = new OrgBLL();
-    CampaignBLL bll = new CampaignBLL();
-
     partial void OnValidate(System.Data.Linq.ChangeAction action)
     {
         if (action == System.Data.Linq.ChangeAction.Insert
@@ -49,7 +46,7 @@ public partial class Campaign
             throw new Exception("Nhập tên chiến dịch");
 
         if (Date != null)
-            if (bll.IsExistNameInSameDate(value.Trim(), ID, Date.Value))
+            if (CampaignBLL.IsExistNameInSameDate(value.Trim(), ID, Date.Value))
                 throw new Exception("Trùng tên");
     }
 
@@ -60,105 +57,15 @@ public partial class Campaign
             NameNoDiacritics = Name.RemoveDiacritics();
     }
 
-    public void SetDateFromVNFormat(string value)
-    {
-        value = value.Trim();
-
-        if (String.IsNullOrEmpty(value))
-        {
-            //throw new Exception("Nhập thời gian (dd/mm/yyyy hh:mm)");
-            Date = null;
-        }
-        else
-        {
-            DateTime? dt = value.ToDatetimeFromVNFormat();
-
-            if (dt != null)
-            {
-                Date = dt;
-            }
-            else
-            {
-                throw new Exception("Nhập sai thời gian (dd/mm/yyyy hh:mm)");
-            }
-        }
-    }
-
-    public void SetCoopOrgID(string value)
-    {
-        value = value.Trim();
-        if (String.IsNullOrEmpty(value))
-        {
-            CoopOrgID = null;
-        }
-        else
-        {
-            Org g = OrgBLL.GetByName(value);
-            if (g == null)
-            {
-                throw new Exception("Nhập sai tên đơn vị phối hợp.");
-            }
-            else
-            {
-                CoopOrgID = g.ID;
-            }
-        }
-    }
-
-    public void SetHostOrgID(string value)
-    {
-        value = value.Trim();
-        if (String.IsNullOrEmpty(value))
-        {
-            HostOrgID = null;
-        }
-        else
-        {
-            Org g = OrgBLL.GetByName(value);
-            if (g == null)
-            {
-                throw new Exception("Nhập sai tên địa điểm thu máu.");
-            }
-            else
-            {
-                HostOrgID = g.ID;
-            }
-        }
-    }
-
     partial void OnSourceIDChanging(int? value)
     {
         if (value == null || value == 0)
             throw new Exception("Nhập nguồn thu máu.");
     }
 
-    public List<Pack> Packs
+    public IEnumerable<Donation> CollectedDonations
     {
-        get
-        {
-            return Donations.Where(r => r.Pack != null).Select(r => r.Pack).ToList();
-        }
+        get { return Donations.Where(r => r.Pack != null); }
     }
 
-    public int CountPack450
-    {
-        get
-        {
-            return Packs.Where(r => r.Volume == 450).Count();
-        }
-    }
-    public int CountPack350
-    {
-        get
-        {
-            return Packs.Where(r => r.Volume == 350).Count();
-        }
-    }
-    public int CountPack250
-    {
-        get
-        {
-            return Packs.Where(r => r.Volume == 250).Count();
-        }
-    }
 }

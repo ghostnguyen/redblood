@@ -16,28 +16,29 @@ public class CampaignBLL
         //
     }
 
-    public static Campaign GetByID(int ID, out RedBloodDataContext db)
+    public static Campaign Get(int ID, RedBloodDataContext db)
     {
-        db = new RedBloodDataContext();
+        Campaign c = (from e in db.Campaigns
+                      where e.ID == ID
+                      select e).FirstOrDefault();
 
-        if (ID == 0) return null;
+        if (c == null)
+            throw new Exception("Không tìm thấy đợt thu.");
 
-        return (from c in db.Campaigns
-                where c.ID == ID
-                select c).FirstOrDefault();
+        return c;
     }
 
-    public static Campaign GetByID(int ID)
+    public static Campaign Get(int ID)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        return GetByID(ID, out db);
+        return Get(ID, db);
     }
 
     public static IQueryable<Campaign> Get(List<Guid> provinceIDList, DateTime? from, DateTime? to, Campaign.TypeX type)
     {
         RedBloodDataContext db = new RedBloodDataContext();
-        
+
         if (provinceIDList == null || provinceIDList.Count == 0) return null;
 
         return db.Campaigns.Where(r => provinceIDList.Contains(r.CoopOrg.GeoID1.Value)
@@ -48,7 +49,7 @@ public class CampaignBLL
             );
     }
 
-    public bool IsExistNameInSameDate(string name, int ID, DateTime dt)
+    static public bool IsExistNameInSameDate(string name, int ID, DateTime dt)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -60,25 +61,13 @@ public class CampaignBLL
         else return true;
     }
 
-    public string Delete(int ID)
+    static public void Delete(int ID)
     {
-        RedBloodDataContext db;
-        Campaign e = GetByID(ID, out db);
+        RedBloodDataContext db = new RedBloodDataContext();
+        Campaign e = Get(ID, db);
 
-        if (e != null)
-        {
-            try
-            {
-                db.Campaigns.DeleteOnSubmit(e);
-                db.SubmitChanges();
-                return "Xóa thành công.";
-            }
-            catch (Exception)
-            {
-                throw new Exception("Xóa bị lỗi.");
-            }
-        }
-        return "Không tìm thấy.";
+        db.Campaigns.DeleteOnSubmit(e);
+        db.SubmitChanges();
     }
 
     //public object GetTSIn(bool isLongRun)
@@ -103,7 +92,7 @@ public class CampaignBLL
     //    }
     //}
 
-    public void New(Campaign e)
+    static public void New(Campaign e)
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
@@ -114,15 +103,15 @@ public class CampaignBLL
             e.Status = Campaign.StatusX.Init;
 
         db.Campaigns.InsertOnSubmit(e);
-        
+
         db.SubmitChanges();
     }
 
     public static void SetStatus(int ID)
     {
-        RedBloodDataContext db;
+        RedBloodDataContext db = new RedBloodDataContext();
 
-        Campaign e = GetByID(ID, out db);
+        Campaign e = Get(ID, db);
 
         if (e == null) return;
 

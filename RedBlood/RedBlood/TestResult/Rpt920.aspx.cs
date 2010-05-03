@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Collect_CollectDetailRpt : System.Web.UI.Page
+public partial class TestResult_Rpt920 : System.Web.UI.Page
 {
     public Campaign Camp { get; set; }
     public Guid CoopOrgGeo1ID { get; set; }
@@ -30,7 +30,7 @@ public partial class Collect_CollectDetailRpt : System.Web.UI.Page
 
                 CampaignDetail1.CampaignID = Camp.ID;
 
-                LabelTitle1.Text = "Danh sách hiến máu";
+                LabelTitle1.Text = "KẾT QUẢ XÉT NGHIỆM SÀNG LỌC";
 
                 GridView1.DataBind();
             }
@@ -39,10 +39,15 @@ public partial class Collect_CollectDetailRpt : System.Web.UI.Page
 
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        List<Donation> list = DonationBLL.Get(CampaignDetail1.CampaignID).ToList();
-        e.Result = list;
+        List<Donation> list = CampaignBLL.Get(CampaignDetail1.CampaignID).CollectedDonations.ToList();
 
-        Summary(list.ToList());
+        e.Result = RedBloodSystem.checkingInfection.Select(r1 => new
+        {
+            r1.Name,
+            PosList = list.Where(r2 => r1.Decode(r2.InfectiousMarkers) == TR.pos.Name),
+            NAList = list.Where(r2 => r1.Decode(r2.InfectiousMarkers) == TR.na.Name),
+        })
+        .Where(r => r.PosList.Count() > 0 || r.NAList.Count() > 0);
     }
 
     private void Summary(List<Donation> list)
@@ -89,3 +94,4 @@ public partial class Collect_CollectDetailRpt : System.Web.UI.Page
         //    LableCount.Text = "" + ((List<Donation>)e.Result).Count.ToString();
     }
 }
+

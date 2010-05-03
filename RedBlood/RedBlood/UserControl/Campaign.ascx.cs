@@ -7,10 +7,6 @@ using System.Web.UI.WebControls;
 
 public partial class UserControl_Campaign : System.Web.UI.UserControl
 {
-    GeoBLL geoBLL = new GeoBLL();
-    BarcodeBLL codabarBLL = new BarcodeBLL();
-    CampaignBLL bll = new CampaignBLL();
-
     public int CampaignID
     {
         get
@@ -46,7 +42,7 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
 
             if (LoadFromGUI(p))
             {
-                bll.New(p);
+                CampaignBLL.New(p);
                 CampaignID = p.ID;
             }
             else
@@ -54,9 +50,9 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
         }
         else
         {
-            RedBloodDataContext db;
+            RedBloodDataContext db = new RedBloodDataContext();
 
-            Campaign p = CampaignBLL.GetByID(CampaignID, out db);
+            Campaign p = CampaignBLL.Get(CampaignID, db);
 
             if (p == null) return;
 
@@ -79,16 +75,16 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
         }
         else
         {
-            string m = bll.Delete(CampaignID);
+            CampaignBLL.Delete(CampaignID);
             Clear();
-            Page.Alert(m);
+            Page.Alert("Xóa thành công");
         }
     }
 
 
     public void LoadCampaign()
     {
-        Campaign e = CampaignBLL.GetByID(CampaignID);
+        Campaign e = CampaignBLL.Get(CampaignID);
 
         if (e == null)
         {
@@ -185,7 +181,7 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
 
         try
         {
-            p.SetDateFromVNFormat(txtDate.Text.Trim());
+            p.Date = txtDate.Text.ToDatetimeFromVNFormat();
             divErrDate.Attributes["class"] = "hidden";
         }
         catch (Exception ex)
@@ -219,7 +215,7 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
 
         try
         {
-            p.SetCoopOrgID(txtCoopOrgName.Text.Trim());
+            p.CoopOrg = OrgBLL.GetByName(txtCoopOrgName.Text.Trim());
             divErrCoopOrgName.Attributes["class"] = "hidden";
         }
         catch (Exception ex)
@@ -231,7 +227,7 @@ public partial class UserControl_Campaign : System.Web.UI.UserControl
 
         try
         {
-            p.SetHostOrgID(txtHostOrgName.Text.Trim());
+            p.HostOrg = OrgBLL.GetByName(txtHostOrgName.Text.Trim());
             divErrHostOrgName.Attributes["class"] = "hidden";
         }
         catch (Exception ex)

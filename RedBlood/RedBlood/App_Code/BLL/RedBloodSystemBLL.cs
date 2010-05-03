@@ -240,7 +240,7 @@ public class RedBloodSystemBLL
         }
         else if (BarcodeBLL.IsValidCampaignCode(key))
         {
-            Campaign r = CampaignBLL.GetByID(BarcodeBLL.ParseCampaignID(key));
+            Campaign r = CampaignBLL.Get(BarcodeBLL.ParseCampaignID(key));
             if (r != null)
             {
                 Response.Redirect(RedBloodSystem.Url4CampaignDetail + "key=" + r.ID.ToString());

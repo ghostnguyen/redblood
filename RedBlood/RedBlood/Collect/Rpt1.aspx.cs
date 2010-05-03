@@ -32,14 +32,14 @@ public partial class Collect_Rpt1 : System.Web.UI.Page
                     + "ProvinceID=" + r.Geo1.ID.ToString() 
                     + "&from=" + ucDateRange.FromDate.Value.Date.ToShortDateString()
                     + "&to=" + ucDateRange.ToDate.Value.Date.ToShortDateString(),
-                Total = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack != null).Count()),
-                Total450 = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack != null && r2.Pack.Volume == 450).Count()).ToStringRemoveZero(),
-                Total350 = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack != null && r2.Pack.Volume == 350).Count()).ToStringRemoveZero(),
-                Total250 = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack != null && r2.Pack.Volume == 250).Count()).ToStringRemoveZero(),
-                TotalXXX = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack != null && r2.Pack.Volume != 250 && r2.Pack.Volume != 350 && r2.Pack.Volume != 450).Count()).ToStringRemoveZero(),
-                TotalPos = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack != null && r2.TestResultStatus == Donation.TestResultStatusX.Positive).Count()).ToStringRemoveZero(),
-                TotalNeg = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack != null && r2.TestResultStatus == Donation.TestResultStatusX.Negative).Count()).ToStringRemoveZero(),
-                TotalNon = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack != null && r2.TestResultStatus == Donation.TestResultStatusX.Non).Count()).ToStringRemoveZero(),
+                Total = sub.Sum(r1 => r1.CollectedDonations.Count()),
+                Total450 = sub.Sum(r1 => r1.CollectedDonations.Where(r2 => r2.Pack.Volume == 450).Count()).ToStringRemoveZero(),
+                Total350 = sub.Sum(r1 => r1.CollectedDonations.Where(r2 => r2.Pack.Volume == 350).Count()).ToStringRemoveZero(),
+                Total250 = sub.Sum(r1 => r1.CollectedDonations.Where(r2 => r2.Pack.Volume == 250).Count()).ToStringRemoveZero(),
+                TotalXXX = sub.Sum(r1 => r1.CollectedDonations.Where(r2 => r2.Pack.Volume != 250 && r2.Pack.Volume != 350 && r2.Pack.Volume != 450).Count()).ToStringRemoveZero(),
+                TotalPos = sub.Sum(r1 => r1.CollectedDonations.Where(r2 => r2.TestResultStatus == Donation.TestResultStatusX.Positive).Count()).ToStringRemoveZero(),
+                TotalNeg = sub.Sum(r1 => r1.CollectedDonations.Where(r2 => r2.TestResultStatus == Donation.TestResultStatusX.Negative).Count()).ToStringRemoveZero(),
+                TotalNon = sub.Sum(r1 => r1.CollectedDonations.Where(r2 => r2.TestResultStatus == Donation.TestResultStatusX.Non).Count()).ToStringRemoveZero(),
                 TotalMiss = sub.Sum(r1 => r1.Donations.Where(r2 => r2.Pack == null).Count()).ToStringRemoveZero()
             })
             .OrderBy(r => r.Province);

@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 public partial class Production_TherapyReceipt : System.Web.UI.Page
 {
     string strID = "strID";
-    public Guid ID
+    public Guid ReceiptID
     {
         get
         {
@@ -108,13 +108,13 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
         LinkButton btn = sender as LinkButton;
         if (btn != null)
         {
-            ID = btn.CommandArgument.ToGuid();
+            ReceiptID = btn.CommandArgument.ToGuid();
         }
     }
 
     public void DisplayToGUI()
     {
-        Receipt e = ReceiptBLL.Get(ID);
+        Receipt e = ReceiptBLL.Get(ReceiptID);
 
         if (e == null)
         {
@@ -138,7 +138,7 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        ID = receiptBLL.InsertOrUpdate(ID, LoadFromGUI);
+        ReceiptID = receiptBLL.InsertOrUpdate(ReceiptID, LoadFromGUI);
 
         GridView1.DataBind();
         this.Alert("Lưu thành công.");
@@ -154,7 +154,7 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
 
     protected void btnNew_Click(object sender, EventArgs e)
     {
-        ID = Guid.Empty;
+        ReceiptID = Guid.Empty;
         txtName.Focus();
         rdbProductCodeIn.Checked = true;
         rdbProductCodeOut.Checked = false;
@@ -163,11 +163,11 @@ public partial class Production_TherapyReceipt : System.Web.UI.Page
 
     protected void btnDelete_Click(object sender, EventArgs e)
     {
-        if (ID != Guid.Empty)
+        if (ReceiptID != Guid.Empty)
         {
-            ReceiptBLL.Delete(ID);
+            ReceiptBLL.Delete(ReceiptID);
 
-            ID = Guid.Empty;
+            ReceiptID = Guid.Empty;
             GridView1.DataBind();
         }
     }
