@@ -16,6 +16,15 @@
             window.location = ("Store/TransCount.aspx");
         });
 
+        $(document).bind('keydown', '4', function() {
+            window.location = ("Store/Order4Org.aspx");
+        });
+        
+        $(document).bind('keydown', '5', function() {
+            window.location = ("Store/Return.aspx");
+        });
+
+
 
 
         //        $(document).bind('keydown', '9', function() {
@@ -92,36 +101,36 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="Category/Org.aspx">
+                                        <a href="Store/Order4Org.aspx">
                                             <img src="Image/Icon/number4.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Category/Org.aspx">Đơn vị</a>
+                                            <a href="Store/Order4Org.aspx">Cấp phát cho tỉnh</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="Codabar/Pack.aspx">
+                                        <a href="Store/Return.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Codabar/Pack.aspx">Tạo mã túi máu</a>
+                                            <a href="Store/Return.aspx">Thu hồi</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>

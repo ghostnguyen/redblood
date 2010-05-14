@@ -29,6 +29,9 @@ public class BarcodeBLL
     public const string returnIdChar = "&r";
     public const int returnLength = 11;
 
+    public const string deleteIdChar = "&d";
+    public const int deleteLength = 11;
+
     public const string orgIdChar = "&e";
     public const int orgLength = 6;
 
@@ -95,6 +98,15 @@ public class BarcodeBLL
         if (code.Length != returnLength) return false;
 
         string pattern = returnIdChar + "[0-9]";
+        Regex regx = new Regex(pattern);
+        return regx.IsMatch(code);
+    }
+
+    public static bool IsValidDeleteCode(string code)
+    {
+        if (code.Length != deleteLength) return false;
+
+        string pattern = deleteIdChar + "[0-9]";
         Regex regx = new Regex(pattern);
         return regx.IsMatch(code);
     }
@@ -174,6 +186,15 @@ public class BarcodeBLL
             return 0;
     }
 
+    public static int ParseDeleteID(string code)
+    {
+        if (IsValidDeleteCode(code))
+            //&d123456789
+            return code.Substring(2, returnLength - 2).ToInt();
+        else
+            return 0;
+    }
+
     public static string ParseProductCode(string code)
     {
         if (IsValidProductCode(code))
@@ -215,9 +236,6 @@ public class BarcodeBLL
 
     public static string Url4People(int autonum)
     {
-        
-
-
         return BarcodeImgPage + "?hasText=true&checkChar=true&IdChar=" + peopleIdChar.ToURLCompatible() + "&code=" + autonum.ToString("D" + (peopleLength - 2).ToString());
     }
 
@@ -249,6 +267,11 @@ public class BarcodeBLL
     public static string Url4Return(int ID)
     {
         return BarcodeImgPage + "?hasText=true&code=" + returnIdChar.ToURLCompatible() + ID.ToString("D" + (returnLength - 2).ToString());
+    }
+
+    public static string Url4Delete(int ID)
+    {
+        return BarcodeImgPage + "?hasText=true&code=" + deleteIdChar.ToURLCompatible() + ID.ToString("D" + (deleteLength - 2).ToString());
     }
 
     #endregion

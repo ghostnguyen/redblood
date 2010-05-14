@@ -23,8 +23,7 @@ public class PackBLL
         return r;
     }
 
-   
-
+  
 
     public static Pack Get4Extract(Guid ID)
     {
@@ -64,13 +63,49 @@ public class PackBLL
 
         return l.Count == 1;
     }
-     
+
 
     public static Pack Get(string DIN, string productCode)
     {
         RedBloodDataContext db = new RedBloodDataContext();
         return Get(db, DIN, productCode);
     }
+
+    public static Pack Get4Delete(string DIN, string productCode)
+    {
+        Pack p = Get(DIN, productCode);
+        if (p.Status != Pack.StatusX.Product)
+            throw new Exception("Túi máu không phải là sản phẩm.");
+        return p;
+    }
+
+    public static Pack Get4Delete(RedBloodDataContext db, Guid ID)
+    {
+        Pack p = Get(db, ID);
+        if (p.Status != Pack.StatusX.Product)
+            throw new Exception("Túi máu không phải là sản phẩm.");
+        return p;
+    }
+
+    public static List<Pack> Get4Delete(RedBloodDataContext db, List<Guid> IDList)
+    {
+        List<Pack> l = IDList.Select(r => Get4Delete(db, r)).ToList();
+
+        return l;
+    }
+
+    public static void Delete(int deleteID, Guid packID, string note)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        Pack p = Get4Delete(db, packID);
+        p.DeleteID = deleteID;
+
+        db.SubmitChanges();
+
+        PackBLL.ChangeStatus(p.ID, Pack.StatusX.Delete, PackTransaction.TypeX.Out_Delete, note);
+    }
+
 
     public static Pack Get(RedBloodDataContext db, string DIN, string productCode)
     {
@@ -111,7 +146,7 @@ public class PackBLL
         RedBloodDataContext db = new RedBloodDataContext();
 
         Donation d = null;
-        
+
         if (isOriginal)
         {
             d = DonationBLL.Get4CreateOriginal(db, DIN);
@@ -123,7 +158,7 @@ public class PackBLL
 
         Product product = ProductBLL.Get(productCode);
 
-        if(IsExist(DIN, productCode))
+        if (IsExist(DIN, productCode))
             throw new Exception(PackErrEnum.Existed.Message);
 
 

@@ -52,6 +52,12 @@ public partial class Category_Org : System.Web.UI.Page
     }
     protected void btnFind_Click(object sender, EventArgs e)
     {
+        GridView1.DataSource = bll.Search(txtNameFind.Text.Trim());
+        GridView1.DataBind();
+    }
+    protected void btnFindGeo_Click(object sender, EventArgs e)
+    {
+        GridView1.DataSource = bll.SearchByGeo(txtFindGeo.Text.Trim());
         GridView1.DataBind();
     }
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)

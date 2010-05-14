@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="Rpt10.aspx.cs" Inherits="TestResult_Rpt10" %>
+    CodeFile="Rpt910.aspx.cs" Inherits="TestResult_Rpt910" %>
 
 <%@ Register Src="~/UserControl/DateRange.ascx" TagPrefix="uc" TagName="DateR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">

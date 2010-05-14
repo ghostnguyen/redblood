@@ -86,9 +86,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertDonationStatusLog(DonationStatusLog instance);
   partial void UpdateDonationStatusLog(DonationStatusLog instance);
   partial void DeleteDonationStatusLog(DonationStatusLog instance);
-  partial void InsertPack(Pack instance);
-  partial void UpdatePack(Pack instance);
-  partial void DeletePack(Pack instance);
   partial void InsertDonation(Donation instance);
   partial void UpdateDonation(Donation instance);
   partial void DeleteDonation(Donation instance);
@@ -128,6 +125,12 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
   partial void InsertPrintSetting(PrintSetting instance);
   partial void UpdatePrintSetting(PrintSetting instance);
   partial void DeletePrintSetting(PrintSetting instance);
+  partial void InsertDelete(Delete instance);
+  partial void UpdateDelete(Delete instance);
+  partial void DeleteDelete(Delete instance);
+  partial void InsertPack(Pack instance);
+  partial void UpdatePack(Pack instance);
+  partial void DeletePack(Pack instance);
   #endregion
 	
 	public RedBloodDataContext() : 
@@ -312,14 +315,6 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<Pack> Packs
-	{
-		get
-		{
-			return this.GetTable<Pack>();
-		}
-	}
-	
 	public System.Data.Linq.Table<Donation> Donations
 	{
 		get
@@ -445,6 +440,22 @@ public partial class RedBloodDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<PrintSetting>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Delete> Deletes
+	{
+		get
+		{
+			return this.GetTable<Delete>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Pack> Packs
+	{
+		get
+		{
+			return this.GetTable<Pack>();
 		}
 	}
 }
@@ -3181,7 +3192,7 @@ public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Column(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[Column(Storage="_Photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Photo
 	{
 		get
@@ -7365,482 +7376,6 @@ public partial class DonationStatusLog : INotifyPropertyChanging, INotifyPropert
 	}
 }
 
-[Table(Name="dbo.Pack")]
-public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private System.Guid _ID;
-	
-	private string _DIN;
-	
-	private string _ProductCode;
-	
-	private System.Nullable<System.DateTime> _Date;
-	
-	private string _Note;
-	
-	private string _Actor;
-	
-	private System.Nullable<System.DateTime> _ExpirationDate;
-	
-	private System.Nullable<int> _Volume;
-	
-	private Pack.StatusX _Status;
-	
-	private EntitySet<PackSideEffect> _PackSideEffects;
-	
-	private EntitySet<Donation> _Donations;
-	
-	private EntitySet<PackRemainDaily> _PackRemainDailies;
-	
-	private EntitySet<PackTransaction> _PackTransactions;
-	
-	private EntitySet<PackOrder> _PackOrders;
-	
-	private EntityRef<Donation> _Donation;
-	
-	private EntityRef<Product> _Product;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(System.Guid value);
-    partial void OnIDChanged();
-    partial void OnDINChanging(string value);
-    partial void OnDINChanged();
-    partial void OnProductCodeChanging(string value);
-    partial void OnProductCodeChanged();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    partial void OnActorChanging(string value);
-    partial void OnActorChanged();
-    partial void OnExpirationDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnExpirationDateChanged();
-    partial void OnVolumeChanging(System.Nullable<int> value);
-    partial void OnVolumeChanged();
-    partial void OnStatusChanging(Pack.StatusX value);
-    partial void OnStatusChanged();
-    #endregion
-	
-	public Pack()
-	{
-		this._PackSideEffects = new EntitySet<PackSideEffect>(new Action<PackSideEffect>(this.attach_PackSideEffects), new Action<PackSideEffect>(this.detach_PackSideEffects));
-		this._Donations = new EntitySet<Donation>(new Action<Donation>(this.attach_Donations), new Action<Donation>(this.detach_Donations));
-		this._PackRemainDailies = new EntitySet<PackRemainDaily>(new Action<PackRemainDaily>(this.attach_PackRemainDailies), new Action<PackRemainDaily>(this.detach_PackRemainDailies));
-		this._PackTransactions = new EntitySet<PackTransaction>(new Action<PackTransaction>(this.attach_PackTransactions), new Action<PackTransaction>(this.detach_PackTransactions));
-		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
-		this._Donation = default(EntityRef<Donation>);
-		this._Product = default(EntityRef<Product>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
-	public System.Guid ID
-	{
-		get
-		{
-			return this._ID;
-		}
-		set
-		{
-			if ((this._ID != value))
-			{
-				this.OnIDChanging(value);
-				this.SendPropertyChanging();
-				this._ID = value;
-				this.SendPropertyChanged("ID");
-				this.OnIDChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_DIN", DbType="NVarChar(50)")]
-	public string DIN
-	{
-		get
-		{
-			return this._DIN;
-		}
-		set
-		{
-			if ((this._DIN != value))
-			{
-				if (this._Donation.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnDINChanging(value);
-				this.SendPropertyChanging();
-				this._DIN = value;
-				this.SendPropertyChanged("DIN");
-				this.OnDINChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ProductCode", DbType="NVarChar(50)")]
-	public string ProductCode
-	{
-		get
-		{
-			return this._ProductCode;
-		}
-		set
-		{
-			if ((this._ProductCode != value))
-			{
-				if (this._Product.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnProductCodeChanging(value);
-				this.SendPropertyChanging();
-				this._ProductCode = value;
-				this.SendPropertyChanged("ProductCode");
-				this.OnProductCodeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Date", AutoSync=AutoSync.OnInsert, DbType="DateTime", IsDbGenerated=true)]
-	public System.Nullable<System.DateTime> Date
-	{
-		get
-		{
-			return this._Date;
-		}
-		set
-		{
-			if ((this._Date != value))
-			{
-				this.OnDateChanging(value);
-				this.SendPropertyChanging();
-				this._Date = value;
-				this.SendPropertyChanged("Date");
-				this.OnDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this.OnNoteChanging(value);
-				this.SendPropertyChanging();
-				this._Note = value;
-				this.SendPropertyChanged("Note");
-				this.OnNoteChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
-	public string Actor
-	{
-		get
-		{
-			return this._Actor;
-		}
-		set
-		{
-			if ((this._Actor != value))
-			{
-				this.OnActorChanging(value);
-				this.SendPropertyChanging();
-				this._Actor = value;
-				this.SendPropertyChanged("Actor");
-				this.OnActorChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ExpirationDate", DbType="DateTime")]
-	public System.Nullable<System.DateTime> ExpirationDate
-	{
-		get
-		{
-			return this._ExpirationDate;
-		}
-		set
-		{
-			if ((this._ExpirationDate != value))
-			{
-				this.OnExpirationDateChanging(value);
-				this.SendPropertyChanging();
-				this._ExpirationDate = value;
-				this.SendPropertyChanged("ExpirationDate");
-				this.OnExpirationDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Volume", DbType="Int")]
-	public System.Nullable<int> Volume
-	{
-		get
-		{
-			return this._Volume;
-		}
-		set
-		{
-			if ((this._Volume != value))
-			{
-				this.OnVolumeChanging(value);
-				this.SendPropertyChanging();
-				this._Volume = value;
-				this.SendPropertyChanged("Volume");
-				this.OnVolumeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
-	public Pack.StatusX Status
-	{
-		get
-		{
-			return this._Status;
-		}
-		set
-		{
-			if ((this._Status != value))
-			{
-				this.OnStatusChanging(value);
-				this.SendPropertyChanging();
-				this._Status = value;
-				this.SendPropertyChanged("Status");
-				this.OnStatusChanged();
-			}
-		}
-	}
-	
-	[Association(Name="Pack_PackSideEffect", Storage="_PackSideEffects", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<PackSideEffect> PackSideEffects
-	{
-		get
-		{
-			return this._PackSideEffects;
-		}
-		set
-		{
-			this._PackSideEffects.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_Donation", Storage="_Donations", ThisKey="ID", OtherKey="OrgPackID")]
-	public EntitySet<Donation> Donations
-	{
-		get
-		{
-			return this._Donations;
-		}
-		set
-		{
-			this._Donations.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackRemainDaily", Storage="_PackRemainDailies", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<PackRemainDaily> PackRemainDailies
-	{
-		get
-		{
-			return this._PackRemainDailies;
-		}
-		set
-		{
-			this._PackRemainDailies.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackTransaction", Storage="_PackTransactions", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<PackTransaction> PackTransactions
-	{
-		get
-		{
-			return this._PackTransactions;
-		}
-		set
-		{
-			this._PackTransactions.Assign(value);
-		}
-	}
-	
-	[Association(Name="Pack_PackOrder", Storage="_PackOrders", ThisKey="ID", OtherKey="PackID")]
-	public EntitySet<PackOrder> PackOrders
-	{
-		get
-		{
-			return this._PackOrders;
-		}
-		set
-		{
-			this._PackOrders.Assign(value);
-		}
-	}
-	
-	[Association(Name="Donation_Pack", Storage="_Donation", ThisKey="DIN", OtherKey="DIN", IsForeignKey=true)]
-	public Donation Donation
-	{
-		get
-		{
-			return this._Donation.Entity;
-		}
-		set
-		{
-			Donation previousValue = this._Donation.Entity;
-			if (((previousValue != value) 
-						|| (this._Donation.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Donation.Entity = null;
-					previousValue.Packs.Remove(this);
-				}
-				this._Donation.Entity = value;
-				if ((value != null))
-				{
-					value.Packs.Add(this);
-					this._DIN = value.DIN;
-				}
-				else
-				{
-					this._DIN = default(string);
-				}
-				this.SendPropertyChanged("Donation");
-			}
-		}
-	}
-	
-	[Association(Name="Product_Pack", Storage="_Product", ThisKey="ProductCode", OtherKey="Code", IsForeignKey=true)]
-	public Product Product
-	{
-		get
-		{
-			return this._Product.Entity;
-		}
-		set
-		{
-			Product previousValue = this._Product.Entity;
-			if (((previousValue != value) 
-						|| (this._Product.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Product.Entity = null;
-					previousValue.Packs.Remove(this);
-				}
-				this._Product.Entity = value;
-				if ((value != null))
-				{
-					value.Packs.Add(this);
-					this._ProductCode = value.Code;
-				}
-				else
-				{
-					this._ProductCode = default(string);
-				}
-				this.SendPropertyChanged("Product");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_PackSideEffects(PackSideEffect entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_PackSideEffects(PackSideEffect entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_Donations(Donation entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_Donations(Donation entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_PackRemainDailies(PackRemainDaily entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_PackRemainDailies(PackRemainDaily entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_PackTransactions(PackTransaction entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_PackTransactions(PackTransaction entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-	
-	private void attach_PackOrders(PackOrder entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = this;
-	}
-	
-	private void detach_PackOrders(PackOrder entity)
-	{
-		this.SendPropertyChanging();
-		entity.Pack = null;
-	}
-}
-
 [Table(Name="dbo.Donation")]
 public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -7893,17 +7428,17 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<DonationStatusLog> _DonationStatusLogs;
 	
-	private EntitySet<Pack> _Packs;
-	
 	private EntitySet<DonationTestLog> _DonationTestLogs;
 	
-	private EntityRef<Pack> _Pack;
+	private EntitySet<Pack> _Packs;
 	
 	private EntityRef<People> _People;
 	
 	private EntityRef<ST_General> _ST_General;
 	
 	private EntityRef<Campaign> _Campaign;
+	
+	private EntityRef<Pack> _Pack;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -7958,12 +7493,12 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	public Donation()
 	{
 		this._DonationStatusLogs = new EntitySet<DonationStatusLog>(new Action<DonationStatusLog>(this.attach_DonationStatusLogs), new Action<DonationStatusLog>(this.detach_DonationStatusLogs));
-		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 		this._DonationTestLogs = new EntitySet<DonationTestLog>(new Action<DonationTestLog>(this.attach_DonationTestLogs), new Action<DonationTestLog>(this.detach_DonationTestLogs));
-		this._Pack = default(EntityRef<Pack>);
+		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 		this._People = default(EntityRef<People>);
 		this._ST_General = default(EntityRef<ST_General>);
 		this._Campaign = default(EntityRef<Campaign>);
+		this._Pack = default(EntityRef<Pack>);
 		OnCreated();
 	}
 	
@@ -8436,19 +7971,6 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="Donation_Pack", Storage="_Packs", ThisKey="DIN", OtherKey="DIN")]
-	public EntitySet<Pack> Packs
-	{
-		get
-		{
-			return this._Packs;
-		}
-		set
-		{
-			this._Packs.Assign(value);
-		}
-	}
-	
 	[Association(Name="Donation_DonationTestLog", Storage="_DonationTestLogs", ThisKey="DIN", OtherKey="DIN")]
 	public EntitySet<DonationTestLog> DonationTestLogs
 	{
@@ -8462,37 +7984,16 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="Pack_Donation", Storage="_Pack", ThisKey="OrgPackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack Pack
+	[Association(Name="Donation_Pack", Storage="_Packs", ThisKey="DIN", OtherKey="DIN")]
+	public EntitySet<Pack> Packs
 	{
 		get
 		{
-			return this._Pack.Entity;
+			return this._Packs;
 		}
 		set
 		{
-			Pack previousValue = this._Pack.Entity;
-			if (((previousValue != value) 
-						|| (this._Pack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Pack.Entity = null;
-					previousValue.Donations.Remove(this);
-				}
-				this._Pack.Entity = value;
-				if ((value != null))
-				{
-					value.Donations.Add(this);
-					this._OrgPackID = value.ID;
-				}
-				else
-				{
-					this._OrgPackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Pack");
-			}
+			this._Packs.Assign(value);
 		}
 	}
 	
@@ -8598,6 +8099,40 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="Pack_Donation", Storage="_Pack", ThisKey="OrgPackID", OtherKey="ID", IsForeignKey=true, DeleteRule="SET NULL")]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.Donations.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.Donations.Add(this);
+					this._OrgPackID = value.ID;
+				}
+				else
+				{
+					this._OrgPackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
+			}
+		}
+	}
+	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -8630,18 +8165,6 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.Donation = null;
 	}
 	
-	private void attach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.Donation = this;
-	}
-	
-	private void detach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.Donation = null;
-	}
-	
 	private void attach_DonationTestLogs(DonationTestLog entity)
 	{
 		this.SendPropertyChanging();
@@ -8649,6 +8172,18 @@ public partial class Donation : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_DonationTestLogs(DonationTestLog entity)
+	{
+		this.SendPropertyChanging();
+		entity.Donation = null;
+	}
+	
+	private void attach_Packs(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Donation = this;
+	}
+	
+	private void detach_Packs(Pack entity)
 	{
 		this.SendPropertyChanging();
 		entity.Donation = null;
@@ -9962,9 +9497,9 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _LabelDesc;
 	
-	private EntitySet<Pack> _Packs;
-	
 	private EntitySet<ReceiptProduct> _ReceiptProducts;
+	
+	private EntitySet<Pack> _Packs;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9992,8 +9527,8 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Product()
 	{
-		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 		this._ReceiptProducts = new EntitySet<ReceiptProduct>(new Action<ReceiptProduct>(this.attach_ReceiptProducts), new Action<ReceiptProduct>(this.detach_ReceiptProducts));
+		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 		OnCreated();
 	}
 	
@@ -10177,19 +9712,6 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="Product_Pack", Storage="_Packs", ThisKey="Code", OtherKey="ProductCode")]
-	public EntitySet<Pack> Packs
-	{
-		get
-		{
-			return this._Packs;
-		}
-		set
-		{
-			this._Packs.Assign(value);
-		}
-	}
-	
 	[Association(Name="Product_ReceiptProduct", Storage="_ReceiptProducts", ThisKey="Code", OtherKey="ProductCode")]
 	public EntitySet<ReceiptProduct> ReceiptProducts
 	{
@@ -10200,6 +9722,19 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._ReceiptProducts.Assign(value);
+		}
+	}
+	
+	[Association(Name="Product_Pack", Storage="_Packs", ThisKey="Code", OtherKey="ProductCode")]
+	public EntitySet<Pack> Packs
+	{
+		get
+		{
+			return this._Packs;
+		}
+		set
+		{
+			this._Packs.Assign(value);
 		}
 	}
 	
@@ -10223,18 +9758,6 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	private void attach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.Product = this;
-	}
-	
-	private void detach_Packs(Pack entity)
-	{
-		this.SendPropertyChanging();
-		entity.Product = null;
-	}
-	
 	private void attach_ReceiptProducts(ReceiptProduct entity)
 	{
 		this.SendPropertyChanging();
@@ -10242,6 +9765,18 @@ public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_ReceiptProducts(ReceiptProduct entity)
+	{
+		this.SendPropertyChanging();
+		entity.Product = null;
+	}
+	
+	private void attach_Packs(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Product = this;
+	}
+	
+	private void detach_Packs(Pack entity)
 	{
 		this.SendPropertyChanging();
 		entity.Product = null;
@@ -11638,9 +11173,9 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntityRef<Order> _Order;
 	
-	private EntityRef<Pack> _Pack;
-	
 	private EntityRef<Return> _Return;
+	
+	private EntityRef<Pack> _Pack;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -11659,8 +11194,8 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 	public PackOrder()
 	{
 		this._Order = default(EntityRef<Order>);
-		this._Pack = default(EntityRef<Pack>);
 		this._Return = default(EntityRef<Return>);
+		this._Pack = default(EntityRef<Pack>);
 		OnCreated();
 	}
 	
@@ -11790,40 +11325,6 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="Pack_PackOrder", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
-	public Pack Pack
-	{
-		get
-		{
-			return this._Pack.Entity;
-		}
-		set
-		{
-			Pack previousValue = this._Pack.Entity;
-			if (((previousValue != value) 
-						|| (this._Pack.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Pack.Entity = null;
-					previousValue.PackOrders.Remove(this);
-				}
-				this._Pack.Entity = value;
-				if ((value != null))
-				{
-					value.PackOrders.Add(this);
-					this._PackID = value.ID;
-				}
-				else
-				{
-					this._PackID = default(Nullable<System.Guid>);
-				}
-				this.SendPropertyChanged("Pack");
-			}
-		}
-	}
-	
 	[Association(Name="Return_PackOrder", Storage="_Return", ThisKey="ReturnID", OtherKey="ID", IsForeignKey=true)]
 	public Return Return
 	{
@@ -11854,6 +11355,40 @@ public partial class PackOrder : INotifyPropertyChanging, INotifyPropertyChanged
 					this._ReturnID = default(Nullable<int>);
 				}
 				this.SendPropertyChanged("Return");
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackOrder", Storage="_Pack", ThisKey="PackID", OtherKey="ID", IsForeignKey=true)]
+	public Pack Pack
+	{
+		get
+		{
+			return this._Pack.Entity;
+		}
+		set
+		{
+			Pack previousValue = this._Pack.Entity;
+			if (((previousValue != value) 
+						|| (this._Pack.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Pack.Entity = null;
+					previousValue.PackOrders.Remove(this);
+				}
+				this._Pack.Entity = value;
+				if ((value != null))
+				{
+					value.PackOrders.Add(this);
+					this._PackID = value.ID;
+				}
+				else
+				{
+					this._PackID = default(Nullable<System.Guid>);
+				}
+				this.SendPropertyChanged("Pack");
 			}
 		}
 	}
@@ -12154,6 +11689,709 @@ public partial class PrintSetting : INotifyPropertyChanging, INotifyPropertyChan
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
+	}
+}
+
+[Table(Name="dbo.[Delete]")]
+public partial class Delete : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private string _Actor;
+	
+	private string _Note;
+	
+	private EntitySet<Pack> _Packs;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnActorChanging(string value);
+    partial void OnActorChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    #endregion
+	
+	public Delete()
+	{
+		this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", AutoSync=AutoSync.OnInsert, DbType="DateTime", IsDbGenerated=true)]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
+	public string Actor
+	{
+		get
+		{
+			return this._Actor;
+		}
+		set
+		{
+			if ((this._Actor != value))
+			{
+				this.OnActorChanging(value);
+				this.SendPropertyChanging();
+				this._Actor = value;
+				this.SendPropertyChanged("Actor");
+				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Delete_Pack", Storage="_Packs", ThisKey="ID", OtherKey="DeleteID")]
+	public EntitySet<Pack> Packs
+	{
+		get
+		{
+			return this._Packs;
+		}
+		set
+		{
+			this._Packs.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_Packs(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Delete = this;
+	}
+	
+	private void detach_Packs(Pack entity)
+	{
+		this.SendPropertyChanging();
+		entity.Delete = null;
+	}
+}
+
+[Table(Name="dbo.Pack")]
+public partial class Pack : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private System.Guid _ID;
+	
+	private string _DIN;
+	
+	private string _ProductCode;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private string _Note;
+	
+	private string _Actor;
+	
+	private System.Nullable<System.DateTime> _ExpirationDate;
+	
+	private System.Nullable<int> _Volume;
+	
+	private Pack.StatusX _Status;
+	
+	private System.Nullable<int> _DeleteID;
+	
+	private EntitySet<PackSideEffect> _PackSideEffects;
+	
+	private EntitySet<Donation> _Donations;
+	
+	private EntitySet<PackRemainDaily> _PackRemainDailies;
+	
+	private EntitySet<PackTransaction> _PackTransactions;
+	
+	private EntitySet<PackOrder> _PackOrders;
+	
+	private EntityRef<Delete> _Delete;
+	
+	private EntityRef<Donation> _Donation;
+	
+	private EntityRef<Product> _Product;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(System.Guid value);
+    partial void OnIDChanged();
+    partial void OnDINChanging(string value);
+    partial void OnDINChanged();
+    partial void OnProductCodeChanging(string value);
+    partial void OnProductCodeChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    partial void OnActorChanging(string value);
+    partial void OnActorChanged();
+    partial void OnExpirationDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnExpirationDateChanged();
+    partial void OnVolumeChanging(System.Nullable<int> value);
+    partial void OnVolumeChanged();
+    partial void OnStatusChanging(Pack.StatusX value);
+    partial void OnStatusChanged();
+    partial void OnDeleteIDChanging(System.Nullable<int> value);
+    partial void OnDeleteIDChanged();
+    #endregion
+	
+	public Pack()
+	{
+		this._PackSideEffects = new EntitySet<PackSideEffect>(new Action<PackSideEffect>(this.attach_PackSideEffects), new Action<PackSideEffect>(this.detach_PackSideEffects));
+		this._Donations = new EntitySet<Donation>(new Action<Donation>(this.attach_Donations), new Action<Donation>(this.detach_Donations));
+		this._PackRemainDailies = new EntitySet<PackRemainDaily>(new Action<PackRemainDaily>(this.attach_PackRemainDailies), new Action<PackRemainDaily>(this.detach_PackRemainDailies));
+		this._PackTransactions = new EntitySet<PackTransaction>(new Action<PackTransaction>(this.attach_PackTransactions), new Action<PackTransaction>(this.detach_PackTransactions));
+		this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
+		this._Delete = default(EntityRef<Delete>);
+		this._Donation = default(EntityRef<Donation>);
+		this._Product = default(EntityRef<Product>);
+		OnCreated();
+	}
+	
+	[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+	public System.Guid ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_DIN", DbType="NVarChar(50)")]
+	public string DIN
+	{
+		get
+		{
+			return this._DIN;
+		}
+		set
+		{
+			if ((this._DIN != value))
+			{
+				if (this._Donation.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnDINChanging(value);
+				this.SendPropertyChanging();
+				this._DIN = value;
+				this.SendPropertyChanged("DIN");
+				this.OnDINChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ProductCode", DbType="NVarChar(50)")]
+	public string ProductCode
+	{
+		get
+		{
+			return this._ProductCode;
+		}
+		set
+		{
+			if ((this._ProductCode != value))
+			{
+				if (this._Product.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnProductCodeChanging(value);
+				this.SendPropertyChanging();
+				this._ProductCode = value;
+				this.SendPropertyChanged("ProductCode");
+				this.OnProductCodeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Date", AutoSync=AutoSync.OnInsert, DbType="DateTime", IsDbGenerated=true)]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Note", DbType="NVarChar(MAX)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Actor", DbType="NVarChar(MAX)")]
+	public string Actor
+	{
+		get
+		{
+			return this._Actor;
+		}
+		set
+		{
+			if ((this._Actor != value))
+			{
+				this.OnActorChanging(value);
+				this.SendPropertyChanging();
+				this._Actor = value;
+				this.SendPropertyChanged("Actor");
+				this.OnActorChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_ExpirationDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> ExpirationDate
+	{
+		get
+		{
+			return this._ExpirationDate;
+		}
+		set
+		{
+			if ((this._ExpirationDate != value))
+			{
+				this.OnExpirationDateChanging(value);
+				this.SendPropertyChanging();
+				this._ExpirationDate = value;
+				this.SendPropertyChanged("ExpirationDate");
+				this.OnExpirationDateChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Volume", DbType="Int")]
+	public System.Nullable<int> Volume
+	{
+		get
+		{
+			return this._Volume;
+		}
+		set
+		{
+			if ((this._Volume != value))
+			{
+				this.OnVolumeChanging(value);
+				this.SendPropertyChanging();
+				this._Volume = value;
+				this.SendPropertyChanged("Volume");
+				this.OnVolumeChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_Status", DbType="Int", CanBeNull=true)]
+	public Pack.StatusX Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[Column(Storage="_DeleteID", DbType="Int")]
+	public System.Nullable<int> DeleteID
+	{
+		get
+		{
+			return this._DeleteID;
+		}
+		set
+		{
+			if ((this._DeleteID != value))
+			{
+				if (this._Delete.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnDeleteIDChanging(value);
+				this.SendPropertyChanging();
+				this._DeleteID = value;
+				this.SendPropertyChanged("DeleteID");
+				this.OnDeleteIDChanged();
+			}
+		}
+	}
+	
+	[Association(Name="Pack_PackSideEffect", Storage="_PackSideEffects", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackSideEffect> PackSideEffects
+	{
+		get
+		{
+			return this._PackSideEffects;
+		}
+		set
+		{
+			this._PackSideEffects.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_Donation", Storage="_Donations", ThisKey="ID", OtherKey="OrgPackID")]
+	public EntitySet<Donation> Donations
+	{
+		get
+		{
+			return this._Donations;
+		}
+		set
+		{
+			this._Donations.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackRemainDaily", Storage="_PackRemainDailies", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackRemainDaily> PackRemainDailies
+	{
+		get
+		{
+			return this._PackRemainDailies;
+		}
+		set
+		{
+			this._PackRemainDailies.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackTransaction", Storage="_PackTransactions", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackTransaction> PackTransactions
+	{
+		get
+		{
+			return this._PackTransactions;
+		}
+		set
+		{
+			this._PackTransactions.Assign(value);
+		}
+	}
+	
+	[Association(Name="Pack_PackOrder", Storage="_PackOrders", ThisKey="ID", OtherKey="PackID")]
+	public EntitySet<PackOrder> PackOrders
+	{
+		get
+		{
+			return this._PackOrders;
+		}
+		set
+		{
+			this._PackOrders.Assign(value);
+		}
+	}
+	
+	[Association(Name="Delete_Pack", Storage="_Delete", ThisKey="DeleteID", OtherKey="ID", IsForeignKey=true)]
+	public Delete Delete
+	{
+		get
+		{
+			return this._Delete.Entity;
+		}
+		set
+		{
+			Delete previousValue = this._Delete.Entity;
+			if (((previousValue != value) 
+						|| (this._Delete.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Delete.Entity = null;
+					previousValue.Packs.Remove(this);
+				}
+				this._Delete.Entity = value;
+				if ((value != null))
+				{
+					value.Packs.Add(this);
+					this._DeleteID = value.ID;
+				}
+				else
+				{
+					this._DeleteID = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("Delete");
+			}
+		}
+	}
+	
+	[Association(Name="Donation_Pack", Storage="_Donation", ThisKey="DIN", OtherKey="DIN", IsForeignKey=true)]
+	public Donation Donation
+	{
+		get
+		{
+			return this._Donation.Entity;
+		}
+		set
+		{
+			Donation previousValue = this._Donation.Entity;
+			if (((previousValue != value) 
+						|| (this._Donation.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Donation.Entity = null;
+					previousValue.Packs.Remove(this);
+				}
+				this._Donation.Entity = value;
+				if ((value != null))
+				{
+					value.Packs.Add(this);
+					this._DIN = value.DIN;
+				}
+				else
+				{
+					this._DIN = default(string);
+				}
+				this.SendPropertyChanged("Donation");
+			}
+		}
+	}
+	
+	[Association(Name="Product_Pack", Storage="_Product", ThisKey="ProductCode", OtherKey="Code", IsForeignKey=true)]
+	public Product Product
+	{
+		get
+		{
+			return this._Product.Entity;
+		}
+		set
+		{
+			Product previousValue = this._Product.Entity;
+			if (((previousValue != value) 
+						|| (this._Product.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Product.Entity = null;
+					previousValue.Packs.Remove(this);
+				}
+				this._Product.Entity = value;
+				if ((value != null))
+				{
+					value.Packs.Add(this);
+					this._ProductCode = value.Code;
+				}
+				else
+				{
+					this._ProductCode = default(string);
+				}
+				this.SendPropertyChanged("Product");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_PackSideEffects(PackSideEffect entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackSideEffects(PackSideEffect entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_Donations(Donation entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_Donations(Donation entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackRemainDailies(PackRemainDaily entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackRemainDailies(PackRemainDaily entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackTransactions(PackTransaction entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackTransactions(PackTransaction entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
+	}
+	
+	private void attach_PackOrders(PackOrder entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = this;
+	}
+	
+	private void detach_PackOrders(PackOrder entity)
+	{
+		this.SendPropertyChanging();
+		entity.Pack = null;
 	}
 }
 #pragma warning restore 1591
