@@ -24,6 +24,10 @@
             window.location = ("Store/Return.aspx");
         });
 
+        $(document).bind('keydown', '1', function() {
+            window.location = ("Store/Delete.aspx");
+        });
+
 
 
 
@@ -155,20 +159,20 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <%-- <table>
+                             <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
-                                            <img src="Image/Icon/number3.gif" alt="" />
+                                        <a href="Store/Delete.aspx">
+                                            <img src="Image/Icon/number1.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Store/Delete.aspx">Hủy túi máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>

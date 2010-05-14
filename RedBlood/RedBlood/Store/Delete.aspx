@@ -29,7 +29,7 @@
     </script>
 
     <h4>
-        Thu hồi máu
+        Hủy túi máu
         <asp:Button ID="btnNewReturn" runat="server" Text="Tạo đợt mới" OnClick="btnNewReturn_Click"
             ToolTip="Ctrl+M" />
     </h4>
@@ -47,7 +47,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        Ngày thu hồi
+                                        Ngày hủy
                                     </td>
                                     <td>
                                         <asp:TextBox ID="txtDate" runat="server" ReadOnly="true" Width="100" />
@@ -74,7 +74,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnOk" runat="server" Text="<%$ Resources:Resource,Update %>" OnClick="btnOk_Click" OnClientClick="return confirm('Thu hồi?');" />
+                            <asp:Button ID="btnOk" runat="server" Text="<%$ Resources:Resource,Update %>" OnClick="btnOk_Click" OnClientClick="return confirm('Hủy?');" />
                         </td>
                     </tr>
                     <%--        <tr>
@@ -106,7 +106,7 @@
                     <asp:Image ID="imgCurrentDIN" runat="server" ImageUrl="none" />
                 </div>
                 <br />
-                Danh sách thu hồi
+                Danh sách hủy
                 <br />
                 <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
                     DataSourceID="LinqDataSourcePack">
