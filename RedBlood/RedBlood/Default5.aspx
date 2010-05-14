@@ -12,16 +12,16 @@
             window.location = ("Order/Order4CR.aspx");
         });
 
-        $(document).bind('keydown', '8', function() {
-            window.location = ("Order/Order4Org.aspx");
-        });
+//        $(document).bind('keydown', '8', function() {
+//            window.location = ("Order/Order4Org.aspx");
+//        });
 
         $(document).bind('keydown', '9', function() {
             window.location = ("Order/SideEffects.aspx");
         });
-        $(document).bind('keydown', '4', function() {
-            window.location = ("Order/Return.aspx");
-        });
+//        $(document).bind('keydown', '4', function() {
+//            window.location = ("Order/Return.aspx");
+//        });
 
 //        $(document).bind('keydown', '5', function() {
 //            window.location = ("Category/DIN.aspx");
@@ -67,7 +67,7 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="Order/Order4Org.aspx">
@@ -80,7 +80,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <table>
@@ -105,7 +105,7 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <table>
+                           <%-- <table>
                                 <tr>
                                     <td>
                                         <a href="Order/Return.aspx">
@@ -118,7 +118,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                       <%--      <table>

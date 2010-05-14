@@ -21,11 +21,20 @@
                         </div>
                         <div class="partLinkLast">
                             <asp:Panel runat="server" ID="Panel1">
+                                Tìm theo tên:<br />
                                 <asp:TextBox runat="server" ID="txtNameFind"></asp:TextBox>
                                 <asp:Button runat="server" ID="btnFind" Text="Tìm" OnClick="btnFind_Click" />
                                 <br />
+                                Tìm theo đơn vị hành chính:<br />
+                                <asp:TextBox runat="server" ID="txtFindGeo"></asp:TextBox>
+                                <ajk:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtFindGeo"
+                                    ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListGeo" MinimumPrefixLength="3"
+                                    CompletionSetCount="15" EnableCaching="true">
+                                </ajk:AutoCompleteExtender>
+                                <asp:Button runat="server" ID="btnFindGeo" Text="Tìm" OnClick="btnFindGeo_Click" />
+                                <br />
                                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                                    DataSourceID="LinqDataSourceFind" Width="100%" Style="margin-bottom: 0px" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                                    Width="100%" Style="margin-bottom: 0px" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
                                     <Columns>
                                         <asp:BoundField DataField="ID" HeaderText="Mã" InsertVisible="False" ReadOnly="True"
                                             SortExpression="ID" />

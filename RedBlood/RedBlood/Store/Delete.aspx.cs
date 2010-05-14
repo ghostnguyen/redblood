@@ -6,20 +6,20 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 
-public partial class Order_Return : System.Web.UI.Page
+public partial class Store_Delete : System.Web.UI.Page
 {
-    public int ReturnID
+    public int DeleteID
     {
         get
         {
-            if (ViewState["ReturnID"] == null)
+            if (ViewState["DeleteID"] == null)
                 return 0;
-            return (int)ViewState["ReturnID"];
+            return (int)ViewState["DeleteID"];
         }
         set
         {
-            ViewState["ReturnID"] = value;
-            LoadReturn();
+            ViewState["DeleteID"] = value;
+            LoadDelete();
         }
     }
 
@@ -37,19 +37,19 @@ public partial class Order_Return : System.Web.UI.Page
         }
     }
 
-    public List<int> PackOrderList
+    public List<Guid> PackList
     {
         get
         {
-            if (ViewState["PackOrderList"] == null)
+            if (ViewState["PackList"] == null)
             {
-                ViewState["PackOrderList"] = new List<int>();
+                ViewState["PackList"] = new List<Guid>();
             }
-            return (List<int>)ViewState["PackOrderList"];
+            return (List<Guid>)ViewState["PackList"];
         }
         set
         {
-            ViewState["PackOrderList"] = value;
+            ViewState["PackList"] = value;
         }
     }
 
@@ -61,7 +61,7 @@ public partial class Order_Return : System.Web.UI.Page
 
             if (returnID != 0)
             {
-                ReturnID = returnID;
+                DeleteID = returnID;
             }
         }
         else
@@ -73,27 +73,27 @@ public partial class Order_Return : System.Web.UI.Page
             {
                 LoadCurrentDIN(BarcodeBLL.ParseDIN(code));
             }
-            else if (BarcodeBLL.IsValidReturnCode(code))
+            else if (BarcodeBLL.IsValidDeleteCode(code))
             {
-                ReturnID = BarcodeBLL.ParseReturnID(code);
+                DeleteID = BarcodeBLL.ParseDeleteID(code);
             }
             else if (BarcodeBLL.IsValidProductCode(code))
             {
-                AddPackOrder(BarcodeBLL.ParseProductCode(code));
+                AddPack(BarcodeBLL.ParseProductCode(code));
             }
         }
     }
 
-    void AddPackOrder(string productCode)
+    void AddPack(string productCode)
     {
-        PackOrder po = PackOrderBLL.Get4Return(CurrentDIN, productCode);
+        Pack p = PackBLL.Get(CurrentDIN, productCode);
 
-        if (PackOrderList.Contains(po.ID))
+        if (PackList.Contains(p.ID))
         {
             throw new Exception("Đã nhập túi máu này.");
         }
 
-        PackOrderList.Add(po.ID);
+        PackList.Add(p.ID);
 
         GridViewPack.DataBind();
 
@@ -111,33 +111,33 @@ public partial class Order_Return : System.Web.UI.Page
 
     protected void btnNewReturn_Click(object sender, EventArgs e)
     {
-        ReturnID = 0;
+        DeleteID = 0;
     }
 
     protected void btnRemove_Click(object sender, EventArgs e)
     {
-        if (ReturnID != 0) return;
+        if (DeleteID != 0) return;
 
         LinkButton btn = sender as LinkButton;
         if (btn != null)
         {
-            if (PackOrderList.Remove(btn.CommandArgument.ToInt()))
+            if (PackList.Remove(btn.CommandArgument.ToGuid()))
                 GridViewPack.DataBind();
         }
     }
 
-    public void LoadReturn()
+    public void LoadDelete()
     {
-        Return e = new Return();
-        if (ReturnID == 0)
+        Delete e = new Delete();
+        if (DeleteID == 0)
         {
             imgOrder.ImageUrl = "none";
             btnOk.Enabled = true;
         }
         else
         {
-            e = ReturnBLL.Get(ReturnID);
-            imgOrder.ImageUrl = BarcodeBLL.Url4Return(e.ID);
+            e = DeleteBLL.Get(DeleteID);
+            imgOrder.ImageUrl = BarcodeBLL.Url4Delete(e.ID);
             btnOk.Enabled = false;
         }
 
@@ -145,7 +145,7 @@ public partial class Order_Return : System.Web.UI.Page
 
         txtDate.Text = e.Date.ToStringVN_Hour();
 
-        PackOrderList = e.PackOrders.Select(r => r.ID).ToList();
+        PackList = e.Packs.Select(r => r.ID).ToList();
 
         GridViewPack.DataBind();
 
@@ -157,21 +157,20 @@ public partial class Order_Return : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        e.Result = db.PackOrders.Where(r => PackOrderList.Contains(r.ID))
+        e.Result = db.Packs.Where(r => PackList.Contains(r.ID))
             .Select(r => new
             {
                 r.ID,
-                r.OrderID,
-                OrderType = r.Order.Type,
-                DIN = r.Pack.Donation.DIN,
-                r.Pack.ProductCode,
-                Expired = r.Pack.ExpirationDate.Value.Expired()
+                r.DeleteID,
+                DIN = r.Donation.DIN,
+                r.ProductCode,
+                Expired = r.ExpirationDate.Value.Expired()
             });
     }
 
     protected void btnOk_Click(object sender, EventArgs e)
     {
-        ReturnID = ReturnBLL.Add(PackOrderList, txtNote.Text.Trim());
+        DeleteID = DeleteBLL.Add(PackList, txtNote.Text.Trim());
 
         this.Alert("Lưu thành công.");
     }

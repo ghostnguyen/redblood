@@ -186,7 +186,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
 
         PeopleID = Guid.Empty;
         txtCMND.Text = CMND;
-        txtName.Focus();
+        //txtName.Focus();
     }
     protected void btnUpdate_Click(object sender, EventArgs e)
     {

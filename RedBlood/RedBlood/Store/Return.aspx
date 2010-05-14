@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="Order4Org.aspx.cs" Inherits="Order_Order4Org" %>
+    CodeFile="Return.aspx.cs" Inherits="Store_Return" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
@@ -13,10 +13,6 @@
             $("input[id*='btnNew']").click();
         });
 
-        // Your code goes here
-        function txtRemoveNoteKeyUp(text) {
-            $("input[name*='txtRemoveNoteGlobal']").val(text);
-        }
 
         //
         //        function PanelOnKeyPress(args) {
@@ -33,10 +29,9 @@
     </script>
 
     <h4>
-        Cấp phát cho bệnh viện
-        <asp:Button ID="btnNew4CR" runat="server" Text="Tạo đợt mới" OnClick="btnNew4CR_Click"
+        Thu hồi máu
+        <asp:Button ID="btnNewReturn" runat="server" Text="Tạo đợt mới" OnClick="btnNewReturn_Click"
             ToolTip="Ctrl+M" />
-        <asp:TextBox ID="txtRemoveNoteGlobal" runat="server" Style="visibility: collapse;"></asp:TextBox>
     </h4>
     <table>
         <tr valign="top" align="left">
@@ -52,7 +47,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        Ngày cấp
+                                        Ngày thu hồi
                                     </td>
                                     <td>
                                         <asp:TextBox ID="txtDate" runat="server" ReadOnly="true" Width="100" />
@@ -74,42 +69,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <table>
-                                <tr>
-                                    <td>
-                                        Đơn vị nhận
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="txtOrg" runat="server" CssClass="campaign_cellvalue" autocomplete="off" />
-                                        <ajk:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtOrg"
-                                            ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListOrg" MinimumPrefixLength="3"
-                                            CompletionSetCount="15" EnableCaching="true">
-                                        </ajk:AutoCompleteExtender>
-                                        <div id="divErrOrgName" runat="server" class="hidden" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Ghi chú truyền máu
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="txtTransfusionNote" Width="299" runat="server"></asp:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
                         <td class="dotLineBottom" colspan="2">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnUpdate" runat="server" Text="<%$ Resources:Resource,Update %>"
-                                OnClick="btnUpdate_Click" />
-                            <asp:Button ID="btnDelete" runat="server" Text="<%$ Resources:Resource,Delete %>"
-                                OnClick="btnDelete_Click" OnClientClick="return confirm('Xóa đợt hiến máu này.');" />
+                            <asp:Button ID="btnOk" runat="server" Text="<%$ Resources:Resource,Update %>" OnClick="btnOk_Click" OnClientClick="return confirm('Thu hồi?');" />
                         </td>
                     </tr>
                     <%--        <tr>
@@ -141,27 +106,33 @@
                     <asp:Image ID="imgCurrentDIN" runat="server" ImageUrl="none" />
                 </div>
                 <br />
-                Danh sách cấp phát
+                Danh sách thu hồi
                 <br />
                 <asp:GridView ID="GridViewPack" runat="server" AutoGenerateColumns="False" DataKeyNames="ID"
-                    DataSourceID="LinqDataSourcePack" OnRowUpdating="GridViewPack_RowUpdating">
+                    DataSourceID="LinqDataSourcePack">
                     <Columns>
+                        <asp:BoundField HeaderText="Đợt cấp phát" DataField="OrderID" />
+                        <asp:BoundField HeaderText="Cho" DataField="OrderType" />
                         <asp:TemplateField HeaderText="Túi máu">
                             <ItemTemplate>
-                                <asp:Image ID="ImageDIN" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN( Eval("Pack.DIN") as string) %>' />
+                                <asp:Image ID="ImageDIN" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN( Eval("DIN") as string) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Sản phẩm">
                             <ItemTemplate>
-                                <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("Pack.ProductCode") as string) %>' />
+                                <asp:Image Style="margin-left: 10px;" ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("ProductCode") as string) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ShowEditButton="True" EditText="Thu hồi" UpdateText="Ok" CancelText='<%$ Resources:Resource,Cancel %>' />
-                        <asp:TemplateField HeaderText="">
-                            <EditItemTemplate>
-                                Lý do:
-                                <asp:TextBox ID="txtRemoveNote" runat="server" onkeyup="txtRemoveNoteKeyUp(this.value);"></asp:TextBox>
-                            </EditItemTemplate>
+                        <asp:TemplateField HeaderText="Hết hạn">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="CheckBox1" runat="server" Enabled="false" Checked='<%# Eval("Expired") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnRemove" runat="server" Text='<%$ Resources:Resource,Delete %>'
+                                    OnClick="btnRemove_Click" CommandArgument='<%# Eval("ID")  %>' Visible='<%# this.ReturnID == 0 %>'  />
+                            </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>

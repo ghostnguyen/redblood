@@ -65,6 +65,7 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
     protected void btnNew_Click(object sender, EventArgs e)
     {
         ucPeople.New("");
+        Master.TextBoxCode.Focus();
     }
 
     private void DINEnter(string code)

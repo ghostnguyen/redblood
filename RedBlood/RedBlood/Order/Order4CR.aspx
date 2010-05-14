@@ -192,7 +192,15 @@
                                 <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("Pack.ProductCode") as string) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ButtonType="Button" ShowEditButton="True" EditText="Thu hồi" UpdateText='<%$ Resources:Resource,Update %>' CancelText='<%$ Resources:Resource,Cancel %>' />
+                        <asp:TemplateField HeaderText="Nhóm máu" ItemStyle-Font-Size="Larger" ItemStyle-Font-Bold="true">
+                            <ItemTemplate>
+                                <%--<asp:Image ID="ImageDIN" runat="server" ImageUrl='<%# BarcodeBLL.Url4BloodGroup( Eval("Pack.Donation.BloodGroup") as string) %>' />
+                                <br />--%>
+                                <%# Eval("Pack.Donation.BloodGroupDesc")%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:CommandField ButtonType="Button" ShowEditButton="True" EditText="Thu hồi" UpdateText='<%$ Resources:Resource,Update %>'
+                            CancelText='<%$ Resources:Resource,Cancel %>' />
                         <asp:TemplateField HeaderText="">
                             <EditItemTemplate>
                                 Lý do:

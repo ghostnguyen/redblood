@@ -89,7 +89,7 @@ public partial class Order_Order4CR : System.Web.UI.Page
     void LoadCurrentDIN(string DIN)
     {
         Donation e = DonationBLL.Get4Order(DIN);
-
+        
         CurrentDIN = e.DIN;
         imgCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN);
     }

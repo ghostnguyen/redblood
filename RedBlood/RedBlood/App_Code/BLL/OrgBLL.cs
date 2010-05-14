@@ -36,6 +36,38 @@ public class OrgBLL
         }
     }
 
+    public List<Org> SearchByGeo(string searchStr)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        searchStr = searchStr.Trim();
+
+        if (string.IsNullOrEmpty(searchStr))
+        {
+            return (from c in db.Orgs
+                    select c).ToList();
+        }
+        else
+        {
+            Geo g = GeoBLL.GetByFullname(searchStr);
+            if (g == null) return new List<Org>();
+
+            if (g.Level == 1)
+            {
+                return db.Orgs.Where(r => r.GeoID1 == g.ID).ToList();
+            }
+            if (g.Level == 2)
+            {
+                return db.Orgs.Where(r => r.GeoID2 == g.ID && r.GeoID1 == g.ParentGeo.ID).ToList();
+            }
+            if (g.Level == 3)
+            {
+                return db.Orgs.Where(r => r.GeoID3 == g.ID && r.GeoID2 == g.ParentGeo.ID && r.GeoID1 == g.ParentGeo.ParentGeo.ID).ToList();
+            }
+            return new List<Org>();
+        }
+    }
+
     public Org GetByID(int ID, out RedBloodDataContext db)
     {
         db = new RedBloodDataContext();

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 
-public partial class Order_Order4Org : System.Web.UI.Page
+public partial class Store_Order4Org : System.Web.UI.Page
 {
     public int OrderID
     {

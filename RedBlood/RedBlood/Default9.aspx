@@ -13,13 +13,16 @@
         });
 
         $(document).bind('keydown', '8', function() {
-        window.location = ("TestResult/BloodGroup.aspx");
+            window.location = ("TestResult/BloodGroup.aspx");
         });
 
-        //        $(document).bind('keydown', '1', function() {
-        //            window.location = ("Production/TherapyReceipt.aspx");
-        //        });
+        $(document).bind('keydown', '4', function() {
+            window.location = ("TestResult/Rpt910.aspx");
+        });
 
+        //        $(document).bind('keydown', '4', function() {
+        //            window.location = ("TestResult/Rpt910.aspx");
+        //        });
        
     </script>
 
@@ -84,6 +87,20 @@
                     </tr>
                     <tr>
                         <td class="column">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="TestResult/Rpt910.aspx">
+                                            <img src="Image/Icon/number4.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="TestResult/Rpt910.aspx">Báo cáo</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>
