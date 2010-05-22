@@ -34,6 +34,8 @@ truncate table CampaignStatusHistory
 delete [Campaign]
 DBCC CHECKIDENT ([Campaign], RESEED, 0)
 
+delete [Delete]
+DBCC CHECKIDENT ([Delete], RESEED, 0)
 
 
 
