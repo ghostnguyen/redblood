@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>OrderOrg</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">OrderOrg</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/RedBlood/Default.aspx</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=6. Kho lưu trữ</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Cấp phát cho tỉnh</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtOrg</td>
+	<td>Hội Chữ Thập Đỏ tỉnh Đồng Nai</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_txtTransfusionNote</td>
+	<td>nhanh nhanh keo het</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_ContentPlaceHolder1_btnUpdate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Lưu thành công.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=V00011000000400</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Không thể cấp phát túi máu này. KQ xét nghiệm sàng lọc: Dương_tính</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=V00011000000100</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=&lt;E0195V00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=V00011000000200</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=&lt;E0097V00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
