@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>AssignDIN</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AssignDIN</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/RedBlood/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//table[@id='menu1']/tbody/tr[1]/td[1]/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Nhập thông tin người cho máu và cấp mã số</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>&amp;c0001</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>123456789</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtName</td>
+	<td>Nobita</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtDOB</td>
+	<td>12/12/1980</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_ddlSex</td>
+	<td>label=Nam</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtResidentAddress</td>
+	<td>56 Nhut Ban</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtResidentGeo</td>
+	<td>Bửu Long, Tp Biên Hòa, Đồng Nai</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_chkEnableMaillingAddress</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtMailingAddress</td>
+	<td>65 truyen tranh</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtMailingGeo</td>
+	<td>Tân Hiệp, Tp Biên Hòa, Đồng Nai</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtJob</td>
+	<td>hoc sinh</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtEmail</td>
+	<td>koco@doremon.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtPhone</td>
+	<td>7894652135</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_txtNote</td>
+	<td>hoc sinh dot</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_ContentPlaceHolder1_ucPeople_btnUpdate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Lưu thành công.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ctl00_txtMasterCode</td>
+	<td>=V00011000000100</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ctl00_btnMasterOk</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack() == false</td>
+	<td>10000</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
