@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true"
+    Inherits="RedBlood.MasterPageRpt" Codebehind="MasterPageRpt.master.cs" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <table width="100%" style="size: landscape;">
+            <tr>
+                <td>
+                    <div style="width: 100%; clear: both;">
+                        <div style="float: left; text-align: center;">
+                            <%= Resources.Resource.HdrLine3 %>
+                            <br />
+                            <%= Resources.Resource.HdrLine4 %>
+                        </div>
+                        <div style="float: right; text-align: center;">
+                            <%= Resources.Resource.HdrLine1 %>
+                            <br />
+                            <%= Resources.Resource.HdrLine2 %>
+                            <br />
+                            ------o0o------
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
