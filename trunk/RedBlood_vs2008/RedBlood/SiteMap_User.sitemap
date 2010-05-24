@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+	<siteMapNode >
+
+		<siteMapNode url="" title="Danh mục"  description="">
+			<siteMapNode url="Category/Geo.aspx" title="Địa chính"  description="" />
+			<siteMapNode url="Category/Sex.aspx" title="Giới tính"  description="" />
+			<siteMapNode url="Category/TestDef.aspx" title="Kết quả xét nghiệm"  description="" />
+			<siteMapNode url="Category/Org.aspx" title="Đơn vị"  description="" />
+			<siteMapNode url="Codabar/Pack.aspx" title="Tạo mã túi máu"  description="" />
+		</siteMapNode>
+		<siteMapNode url="CampaignPage.aspx" title="Đợt thu máu"  description="" />
+		<siteMapNode url="ReceiveBlood.aspx" title="Thu máu"  description="" />
+		<siteMapNode url="PackTempStore.aspx" title="Kho tạm"  description="" />
+		<siteMapNode url="PackTestResult.aspx" title="KQXN"  description="" />
+		<siteMapNode url="PackManually.aspx" title="Nhập kết quả"  description="" />
+		<siteMapNode url="" title="Sản xuất"  description="">
+			<siteMapNode url="Production/Extract.aspx" title="HCL/Huyết tương"  description="" />
+			<siteMapNode url="Production/Combine.aspx" title="Tiểu cầu"  description="" />
+		</siteMapNode>
+		<siteMapNode url="" title="In danh sách"  description="">
+			<siteMapNode url="FindAndReport/CampaignDetail.aspx" title="Đợt thu"  description="" />
+		</siteMapNode>
+		<siteMapNode url="Order/Order.aspx" title="Cấp phát"  description="" />
+		<siteMapNode url="FindAndReport/FindPeople.aspx" title="Tìm kiếm"  description="">
+			<siteMapNode url="FindAndReport/FindCampaign.aspx" title="Tìm chiến dịch"  description="" />
+		</siteMapNode>
+		<siteMapNode url="" title="Thống kê"  description="">
+
+		</siteMapNode>
+
+		<siteMapNode url="Admin.aspx" title="Trang quản trị"  description="" />
+
+	</siteMapNode>
+</siteMap>
