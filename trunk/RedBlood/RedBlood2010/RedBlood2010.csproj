@@ -12,7 +12,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedBlood</RootNamespace>
     <AssemblyName>RedBlood</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,11 +54,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -65,15 +67,21 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccessDenied.aspx" />
     <Content Include="Admin.aspx" />
     <Content Include="Admin\ImportFromExcel.aspx" />
+    <Content Include="App_Data\Importing\RedBlood_DB.mdf" />
+    <Content Include="App_Data\Importing\RedBlood_DB_Log.LDF">
+      <DependentUpon>RedBlood_DB.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\RedBlood_DB.mdf" />
     <Content Include="App_Data\RedBlood_DB_Log.LDF">
       <DependentUpon>RedBlood_DB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\resetDB.sql" />
     <Content Include="App_Themes\Default\DefaultPage.css" />
     <Content Include="App_Themes\Default\ModalPopup.css" />
     <Content Include="App_Themes\Default\PackLabel.css" />
@@ -408,6 +416,11 @@
     </Compile>
     <Compile Include="Collect\ThanksLetterUserControl.ascx.designer.cs">
       <DependentUpon>ThanksLetterUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DataClasses1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
     <Compile Include="Default1.aspx.designer.cs">
       <DependentUpon>Default1.aspx</DependentUpon>
@@ -1043,6 +1056,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DataClasses1.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="RedBlood.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>RedBlood.designer.cs</LastGenOutput>
@@ -1091,6 +1109,11 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
@@ -1100,7 +1123,7 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51170</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <DevelopmentServerVPath>/RedBlood/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
