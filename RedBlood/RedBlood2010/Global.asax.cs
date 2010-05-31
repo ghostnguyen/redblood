@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using RedBlood.BLL;
 
 namespace RedBlood
 {
@@ -13,7 +14,7 @@ namespace RedBlood
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
-
+            RedBloodSystemBLL.SOD();
         }
 
         void Application_End(object sender, EventArgs e)
@@ -31,6 +32,18 @@ namespace RedBlood
         void Session_Start(object sender, EventArgs e)
         {
             // Code that runs when a new session is started
+            if (string.IsNullOrEmpty(BarcodeBLL.BarcodeImgPage))
+            {
+                ////System.Web.VirtualPathUtility.
+                //string[] split = Request.Url.AbsoluteUri.Split('/');
+
+                //RedBloodSystem.RootUrl = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3];
+                //RedBloodSystem.RootUrl = RedBloodSystem.RootUrl.Replace("0.0.0.0", "localhost");
+
+                //BarcodeBLL.BarcodeImgPage = RedBloodSystem.RootUrl + "/Barcode/Image.aspx";
+
+                BarcodeBLL.BarcodeImgPage = System.Web.VirtualPathUtility.ToAbsolute("~/Barcode/Image.aspx");
+            }
 
         }
 
