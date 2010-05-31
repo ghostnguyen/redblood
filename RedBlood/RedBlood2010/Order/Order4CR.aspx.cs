@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
+using RedBlood;
+using RedBlood.BLL;
 
 public partial class Order_Order4CR : System.Web.UI.Page
 {

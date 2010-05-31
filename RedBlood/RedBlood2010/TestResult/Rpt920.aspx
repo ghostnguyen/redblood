@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true" Inherits="TestResult_Rpt920" Codebehind="Rpt920.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true" Inherits="RedBlood.TestResult.TestResult_Rpt920" Codebehind="Rpt920.aspx.cs" %>
 
 <%@ Register Src="~/UserControl/CampaignDetail4Rpt.ascx" TagPrefix="uc" TagName="CampaignDetailUC" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">

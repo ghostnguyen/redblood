@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Globalization;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class UserControl_PeopleOrder : System.Web.UI.UserControl
 {
     GeoBLL geoBLL = new GeoBLL();

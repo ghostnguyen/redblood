@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class UserControl_EnterPack : System.Web.UI.UserControl
 {
     public Guid PeopleID

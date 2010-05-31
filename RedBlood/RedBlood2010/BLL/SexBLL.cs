@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-/// <summary>
-/// Summary description for SexBLL
-/// </summary>
-public class SexBLL
+namespace RedBlood.BLL
 {
-	public SexBLL()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
+    /// <summary>
+    /// Summary description for SexBLL
+    /// </summary>
+    public class SexBLL
+    {
+        public SexBLL()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
 
-    public Guid Insert(string name)
-    {                     
-        RedBloodDataContext db = new RedBloodDataContext();
+        public Guid Insert(string name)
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
 
-        Sex e = new Sex();
-        e.Name = name;
-        
-        db.Sexes.InsertOnSubmit(e);
-        db.SubmitChanges();
-        return e.ID;
+            Sex e = new Sex();
+            e.Name = name;
+
+            db.Sexes.InsertOnSubmit(e);
+            db.SubmitChanges();
+            return e.ID;
+        }
     }
 }

@@ -6,7 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Web.UI.HtmlControls;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class Category_ProductPrint : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)

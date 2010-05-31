@@ -15,7 +15,8 @@ using System.Globalization;
 using System.Text;
 using System.Reflection;
 using System.Linq.Expressions;
-
+using RedBlood;
+using RedBlood.BLL;
 /// <summary>
 /// Summary description for dotNetExt
 /// </summary>

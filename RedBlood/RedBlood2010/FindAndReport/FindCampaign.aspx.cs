@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Linq;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class FindAndReport_FindCampaign : System.Web.UI.Page
 {
     public DateTime From

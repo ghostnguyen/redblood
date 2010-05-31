@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace RedBlood2010.Account
+namespace RedBlood.Account
 {
     public partial class Login : System.Web.UI.Page
     {

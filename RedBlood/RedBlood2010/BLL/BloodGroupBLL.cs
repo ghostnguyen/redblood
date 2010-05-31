@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-/// <summary>
-/// Summary description for BloodGroupBLL
-/// </summary>
-public class BloodGroupBLL
+namespace RedBlood.BLL
 {
-    public BloodGroupBLL()
+    /// <summary>
+    /// Summary description for BloodGroupBLL
+    /// </summary>
+    public class BloodGroupBLL
     {
-        //
-        // TODO: Add constructor logic here
-        //
-    }
+        public BloodGroupBLL()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
 
-    public static string GetDescription(string code)
-    {
-        if (string.IsNullOrEmpty(code)) return "";
+        public static string GetDescription(string code)
+        {
+            if (string.IsNullOrEmpty(code)) return "";
 
-        BloodGroup e = BloodGroup.BloodGroupList.Where(r => r.Code == code.Trim()).FirstOrDefault();
+            BloodGroup e = BloodGroup.BloodGroupList.Where(r => r.Code == code.Trim()).FirstOrDefault();
 
-        if (e != null)
-            return e.Description;
-        else
-            return "";
+            if (e != null)
+                return e.Description;
+            else
+                return "";
+        }
     }
 }

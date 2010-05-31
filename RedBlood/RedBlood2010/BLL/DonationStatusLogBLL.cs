@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-/// <summary>
-/// Summary description for PackStatusHistoryBLL
-/// </summary>
-public class DonationStatusLogBLL
+namespace RedBlood.BLL
 {
-    public DonationStatusLogBLL()
+    /// <summary>
+    /// Summary description for PackStatusHistoryBLL
+    /// </summary>
+    public class DonationStatusLogBLL
     {
+        public DonationStatusLogBLL()
+        {
+        }
     }
-}
 
+}

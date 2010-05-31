@@ -2,52 +2,54 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-/// <summary>
-/// Summary description for OrderBLL
-/// </summary>
-public class DeleteBLL
+namespace RedBlood.BLL
 {
-    public DeleteBLL()
+    /// <summary>
+    /// Summary description for OrderBLL
+    /// </summary>
+    public class DeleteBLL
     {
-        //
-        // TODO: Add constructor logic here
-        //
-    }
-
-    public static Delete Get(int ID)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-        return Get(ID, db);
-    }
-
-    public static Delete Get(int ID, RedBloodDataContext db)
-    {
-        Delete e = db.Deletes.Where(r => r.ID == ID).FirstOrDefault();
-
-        if (e == null)
-            throw new Exception("Không tìm thấy đợt hủy.");
-
-        return e;
-    }
-
-    public static int Add(List<Guid> packIDList, string note)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-
-        List<Pack> poL = PackBLL.Get4Delete(db, packIDList);
-
-        Delete re = new Delete();
-        re.Note = note;
-        
-        db.Deletes.InsertOnSubmit(re);
-        db.SubmitChanges();
-
-        foreach (var item in packIDList)
+        public DeleteBLL()
         {
-            PackBLL.Delete(re.ID, item, note);
+            //
+            // TODO: Add constructor logic here
+            //
         }
 
-        return re.ID;
+        public static Delete Get(int ID)
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+            return Get(ID, db);
+        }
+
+        public static Delete Get(int ID, RedBloodDataContext db)
+        {
+            Delete e = db.Deletes.Where(r => r.ID == ID).FirstOrDefault();
+
+            if (e == null)
+                throw new Exception("Không tìm thấy đợt hủy.");
+
+            return e;
+        }
+
+        public static int Add(List<Guid> packIDList, string note)
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+
+            List<Pack> poL = PackBLL.Get4Delete(db, packIDList);
+
+            Delete re = new Delete();
+            re.Note = note;
+
+            db.Deletes.InsertOnSubmit(re);
+            db.SubmitChanges();
+
+            foreach (var item in packIDList)
+            {
+                PackBLL.Delete(re.ID, item, note);
+            }
+
+            return re.ID;
+        }
     }
 }
