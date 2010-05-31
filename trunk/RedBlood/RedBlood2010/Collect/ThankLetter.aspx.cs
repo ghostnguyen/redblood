@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class Collect_ThankLetter : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)

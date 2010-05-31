@@ -1,1 +1,5 @@
 D:\Doc.amnguyen\RedBlood\RedBlood2010\obj\Debug\ResolveAssemblyReference.cache
+D:\Doc.amnguyen\RedBlood\RedBlood2010\bin\RedBlood.dll
+D:\Doc.amnguyen\RedBlood\RedBlood2010\bin\RedBlood.pdb
+D:\Doc.amnguyen\RedBlood\RedBlood2010\obj\Debug\RedBlood.dll
+D:\Doc.amnguyen\RedBlood\RedBlood2010\obj\Debug\RedBlood.pdb

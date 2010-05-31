@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Services;
 using System.Data.Linq.SqlClient;
 
+using RedBlood;
+using RedBlood.BLL;
+
 /// <summary>
 /// Summary description for AutoComplete
 /// </summary>

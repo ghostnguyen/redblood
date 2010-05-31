@@ -6,7 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections;
 using System.Web.UI.HtmlControls;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class Collect_DINPrintLabel : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)

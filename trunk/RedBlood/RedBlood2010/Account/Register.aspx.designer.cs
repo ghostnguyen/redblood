@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RedBlood2010.Account
+namespace RedBlood.Account
 {
 
 

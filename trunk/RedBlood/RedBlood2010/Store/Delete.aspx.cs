@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class Store_Delete : System.Web.UI.Page
 {
     public int DeleteID

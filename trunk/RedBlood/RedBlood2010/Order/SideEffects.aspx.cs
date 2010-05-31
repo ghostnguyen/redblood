@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class Order_SideEffects : System.Web.UI.Page
 {
     public string DIN

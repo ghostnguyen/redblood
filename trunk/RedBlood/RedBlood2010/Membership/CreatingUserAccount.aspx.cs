@@ -10,7 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-
+using RedBlood.BLL;
 public partial class Membership_CreatingUserAccount : System.Web.UI.Page
 {
     public aspnet_UserProfilesBLL aspnet_UserProfilesBLL { get; set; }

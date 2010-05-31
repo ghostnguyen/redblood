@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class Production_Pool : System.Web.UI.Page
 {
     public List<int> AutonumListOut

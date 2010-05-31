@@ -79,6 +79,10 @@
     </Content>
     <Content Include="App_Data\resetDB.sql" />
     <Content Include="App_Data\SQLQuery_1.sql" />
+    <Content Include="App_Themes\Default\DefaultPage.css" />
+    <Content Include="App_Themes\Default\ModalPopup.css" />
+    <Content Include="App_Themes\Default\PackLabel.css" />
+    <Content Include="App_Themes\Default\StyleSheet.css" />
     <Content Include="AutoComplete.asmx" />
     <Content Include="Category\BloodGroup.aspx" />
     <Content Include="Category\BloodGroupLabelUserControl.ascx" />
@@ -571,6 +575,11 @@
     <Compile Include="Production\TherapyReceipt.aspx.designer.cs">
       <DependentUpon>TherapyReceipt.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RedBlood1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RedBlood.dbml</DependentUpon>
+    </Compile>
     <Compile Include="ResetPassword4CurrentUser.aspx.cs">
       <DependentUpon>ResetPassword4CurrentUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -825,12 +834,6 @@
     <Compile Include="Entity\ReportType.cs" />
     <Compile Include="Entity\SideEffect.cs" />
     <Compile Include="Entity\TestDef.cs" />
-    <Compile Include="RedBlood.designer.cs" />
-    <Compile Include="RedBlood1.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RedBlood.dbml</DependentUpon>
-    </Compile>
     <Compile Include="App_GlobalResources\Resource.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1079,6 +1082,7 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\Default\Default.skin" />
     <None Include="RedBlood.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>RedBlood1.designer.cs</LastGenOutput>

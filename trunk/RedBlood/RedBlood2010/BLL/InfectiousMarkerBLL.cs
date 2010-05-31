@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-/// <summary>
-/// Summary description for InfectiousMarkerBLL
-/// </summary>
-public class InfectiousMarkerBLL
+namespace RedBlood.BLL
 {
-    public InfectiousMarkerBLL()
+    /// <summary>
+    /// Summary description for InfectiousMarkerBLL
+    /// </summary>
+    public class InfectiousMarkerBLL
     {
-        //
-        // TODO: Add constructor logic here
-        //
+        public InfectiousMarkerBLL()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
     }
 }

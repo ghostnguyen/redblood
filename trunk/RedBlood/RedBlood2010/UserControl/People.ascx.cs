@@ -6,7 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Globalization;
 using System.Threading;
-
+using RedBlood;
+using RedBlood.BLL;
 public partial class UserControl_People : System.Web.UI.UserControl
 {
     GeoBLL geoBLL = new GeoBLL();
