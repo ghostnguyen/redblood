@@ -11,6 +11,8 @@ namespace RedBlood.BLL
     /// </summary>
     public class DonationBLL
     {
+        RedBloodDataContext db = new RedBloodDataContext();
+
         public DonationBLL()
         {
             //
@@ -78,6 +80,11 @@ namespace RedBlood.BLL
         {
             RedBloodDataContext db = new RedBloodDataContext();
             return Get(db, DIN);
+        }
+
+        public List<Donation> Get(string[] DINList)
+        {
+            return db.Donations.Where(r => r.People != null && DINList.Contains(r.DIN)).ToList();
         }
 
         public static Donation GetAssigned(RedBloodDataContext db, string DIN)
