@@ -52,7 +52,7 @@
                                     <asp:CommandField DeleteText='<%$ Resources:Resource,Delete %>' ShowDeleteButton="true" />
                                 </Columns>
                             </asp:GridView>
-                            <asp:LinqDataSource ID="LinqDataSourcePackIn" runat="server" ContextTypeName="RedBloodDataContext"
+                            <asp:LinqDataSource ID="LinqDataSourcePackIn" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                                 OnSelecting="LinqDataSourcePackIn_Selecting" TableName="Packs">
                             </asp:LinqDataSource>
                         </td>
@@ -79,7 +79,7 @@
                                     </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
-                            <asp:LinqDataSource ID="LinqDataSourcePackOut" runat="server" ContextTypeName="RedBloodDataContext"
+                            <asp:LinqDataSource ID="LinqDataSourcePackOut" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                                 OnSelecting="LinqDataSourcePackOut_Selecting" TableName="Packs">
                             </asp:LinqDataSource>
                             Ghi chú:

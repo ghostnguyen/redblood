@@ -13,12 +13,12 @@
 </thead><tbody>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=V00011000000200</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -28,12 +28,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=&lt;E0097V00</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -43,17 +43,17 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtNote</td>
+	<td>ContentPlaceHolder1_txtNote</td>
 	<td>Mau chay cham</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtCollector</td>
+	<td>ContentPlaceHolder1_txtCollector</td>
 	<td>Doremon phu</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_btnSave</td>
+	<td>ContentPlaceHolder1_btnSave</td>
 	<td></td>
 </tr>
 <tr>
@@ -63,12 +63,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=&lt;E0097V00</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>

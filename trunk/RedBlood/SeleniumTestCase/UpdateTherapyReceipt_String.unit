@@ -28,22 +28,22 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl02_btnEdit</td>
+	<td>ContentPlaceHolder1_GridView1_ctl02_btnEdit</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtName</td>
+	<td>ContentPlaceHolder1_txtName</td>
 	<td>Sản xuất máu toàn phần 350a</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtNote</td>
+	<td>ContentPlaceHolder1_txtNote</td>
 	<td>Ghi chú thứu 1 a</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_btnSave</td>
+	<td>ContentPlaceHolder1_btnSave</td>
 	<td></td>
 </tr>
 <tr>

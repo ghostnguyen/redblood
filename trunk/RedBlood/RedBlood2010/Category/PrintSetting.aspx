@@ -26,7 +26,7 @@
             <asp:CommandField ShowEditButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+    <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
         TableName="PrintSettings" EnableUpdate="True" OnSelecting="LinqDataSource1_Selecting">
     </asp:LinqDataSource>
     <br />

@@ -28,12 +28,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>&amp;c0001</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -43,7 +43,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl02_LinkButton1</td>
+	<td>ContentPlaceHolder1_GridView1_LinkButton1_0</td>
 	<td></td>
 </tr>
 <tr>
@@ -53,7 +53,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table[@id='ctl00_ContentPlaceHolder1_GridView1']/tbody/tr[3]/td[10]/a</td>
+	<td>//table[@id='ContentPlaceHolder1_GridView1']/tbody/tr[3]/td[10]/a</td>
 	<td></td>
 </tr>
 <tr>
@@ -63,32 +63,32 @@
 </tr>
 <tr>
 	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListHIV</td>
+	<td>ContentPlaceHolder1_GridView1_DropDownListHIV_1</td>
 	<td>label=Âm tính</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListHCV</td>
+	<td>ContentPlaceHolder1_GridView1_DropDownListHCV_1</td>
 	<td>label=Âm tính</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListHBs_Ag</td>
+	<td>ContentPlaceHolder1_GridView1_DropDownListHBs_Ag_1</td>
 	<td>label=Âm tính</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListSyphilis</td>
+	<td>ContentPlaceHolder1_GridView1_DropDownListSyphilis_1</td>
 	<td>label=Âm tính</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl03_DropDownListMalaria</td>
+	<td>ContentPlaceHolder1_GridView1_DropDownListMalaria_1</td>
 	<td>label=Âm tính</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table[@id='ctl00_ContentPlaceHolder1_GridView1']/tbody/tr[3]/td[10]/a[1]</td>
+	<td>//table[@id='ContentPlaceHolder1_GridView1']/tbody/tr[3]/td[10]/a[1]</td>
 	<td></td>
 </tr>
 <tr>
@@ -98,7 +98,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl04_LinkButton1</td>
+	<td>ContentPlaceHolder1_GridView1_LinkButton1_2</td>
 	<td></td>
 </tr>
 <tr>
@@ -108,7 +108,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl05_LinkButton1</td>
+	<td>ContentPlaceHolder1_GridView1_LinkButton1_3</td>
 	<td></td>
 </tr>
 <tr>
@@ -118,7 +118,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table[@id='ctl00_ContentPlaceHolder1_GridView1']/tbody/tr[5]/td[10]/a</td>
+	<td>//table[@id='ContentPlaceHolder1_GridView1']/tbody/tr[5]/td[10]/a</td>
 	<td></td>
 </tr>
 <tr>
@@ -128,12 +128,12 @@
 </tr>
 <tr>
 	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_GridView1_ctl05_DropDownListHIV</td>
+	<td>ContentPlaceHolder1_GridView1_DropDownListHIV_3</td>
 	<td>label=Dương tính</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table[@id='ctl00_ContentPlaceHolder1_GridView1']/tbody/tr[5]/td[10]/a[1]</td>
+	<td>//table[@id='ContentPlaceHolder1_GridView1']/tbody/tr[5]/td[10]/a[1]</td>
 	<td></td>
 </tr>
 <tr>

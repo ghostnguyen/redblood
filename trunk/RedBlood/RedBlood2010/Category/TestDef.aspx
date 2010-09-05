@@ -28,7 +28,7 @@
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
             </Columns>
         </asp:GridView>
-        <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+        <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
             EnableDelete="True" EnableUpdate="True" TableName="TestDefs" Where="Level == 1">
         </asp:LinqDataSource>
     </div>
@@ -53,7 +53,7 @@
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
             </Columns>
         </asp:GridView>
-        <asp:LinqDataSource ID="LinqDataSource2" runat="server" ContextTypeName="RedBloodDataContext"
+        <asp:LinqDataSource ID="LinqDataSource2" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
             TableName="TestDefs" EnableDelete="True" EnableUpdate="True" Where="ParentID == (@ParentID)">
             <WhereParameters>
                 <asp:ControlParameter ControlID="GridView1" Name="ParentID" PropertyName="SelectedValue"

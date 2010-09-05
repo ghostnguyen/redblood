@@ -42,7 +42,7 @@ namespace RedBlood
 
                 //BarcodeBLL.BarcodeImgPage = RedBloodSystem.RootUrl + "/Barcode/Image.aspx";
 
-                BarcodeBLL.BarcodeImgPage = System.Web.VirtualPathUtility.ToAbsolute("~/Barcode/Image.aspx");
+                //BarcodeBLL.BarcodeImgPage = System.Web.VirtualPathUtility.ToAbsolute("~/Barcode/Image.aspx");
             }
 
         }

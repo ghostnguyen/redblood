@@ -35,7 +35,7 @@
             <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
         </Columns>
     </asp:GridView>
-    <asp:LinqDataSource ID="LinqDataSourceSideEffect" runat="server" ContextTypeName="RedBloodDataContext"
+    <asp:LinqDataSource ID="LinqDataSourceSideEffect" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
         EnableUpdate="True" OnSelecting="LinqDataSourceSideEffect_Selecting" TableName="PackSideEffects"
         EnableDelete="True">
     </asp:LinqDataSource>

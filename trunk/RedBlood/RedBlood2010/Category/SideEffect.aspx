@@ -34,7 +34,7 @@
             <EditRowStyle BackColor="#2461BF" />
             <AlternatingRowStyle BackColor="White" />
         </asp:GridView>
-        <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+        <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
             EnableDelete="True" EnableUpdate="True" TableName="SideEffects" Where="Level == @Level" OrderBy="Name">
             <WhereParameters>
                 <asp:Parameter DefaultValue="1" Name="Level" Type="Int32" />
@@ -67,7 +67,7 @@
             <EditRowStyle BackColor="#2461BF" />
             <AlternatingRowStyle BackColor="White" />
         </asp:GridView>
-        <asp:LinqDataSource ID="LinqDataSource2" runat="server" ContextTypeName="RedBloodDataContext"
+        <asp:LinqDataSource ID="LinqDataSource2" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
             TableName="SideEffects" EnableDelete="True" EnableUpdate="True" Where="ParentID == Guid?(@ParentID) and Level == 2" OrderBy="Name">
             <WhereParameters>
                 <asp:ControlParameter ControlID="GridView1" Name="ParentID" PropertyName="SelectedValue"
@@ -99,7 +99,7 @@
             <EditRowStyle BackColor="#2461BF" />
             <AlternatingRowStyle BackColor="White" />
         </asp:GridView>
-        <asp:LinqDataSource ID="LinqDataSource3" runat="server" ContextTypeName="RedBloodDataContext"
+        <asp:LinqDataSource ID="LinqDataSource3" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
             EnableDelete="True" EnableUpdate="True" TableName="SideEffects" Where="ParentID == Guid?(@ParentID) and Level == 3" OrderBy="Name">
             <WhereParameters>
                 <asp:ControlParameter ControlID="GridView2" Name="ParentID" PropertyName="SelectedValue"

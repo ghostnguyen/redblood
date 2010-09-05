@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Store_Count" Codebehind="Count.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="RedBlood.Store.Count" CodeBehind="Count.aspx.cs" %>
 
 <%@ Register Src="~/UserControl/DatePicker.ascx" TagPrefix="uc" TagName="Date" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -17,6 +18,8 @@
         <uc:Date ID="ucInDays" runat="server" />
         <asp:Button ID="btnOk2" runat="server" Text="Ok" OnClick="btnOk2_Click" />
     </div>
+    <%--<%# RedBloodSystem.Url4StoreCountList %>--%>
+
     <br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" DataSourceID="LinqDataSource1"
         Width="100%">
@@ -24,7 +27,7 @@
             <asp:TemplateField HeaderText="Mã">
                 <ItemTemplate>
                     <asp:HyperLink ID="LinkButton1" runat="server" Text='<%# Eval("ProductCode") %>'
-                        NavigateUrl='<%# RedBloodSystem.Url4StoreCountList + "ProductCode=" + Eval("ProductCode") + "&ExpiredInDays=" + ExpiredInDays.ToString() %>'></asp:HyperLink>
+                        NavigateUrl='<%# RedBlood.RedBloodSystem.Url4StoreCountList + "ProductCode=" + Eval("ProductCode") + "&ExpiredInDays=" + ExpiredInDays.ToString() %>'></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField DataField="ProductDesc" HeaderText="Sản phẩm" />
@@ -66,6 +69,6 @@
         </Columns>
     </asp:GridView>
     <asp:LinqDataSource ID="LinqDataSource1" runat="server" TableName="vw_ProductCount"
-        ContextTypeName="RedBloodDataContext" OnSelecting="LinqDataSource1_Selecting">
+        ContextTypeName="RedBlood.RedBloodDataContext" OnSelecting="LinqDataSource1_Selecting">
     </asp:LinqDataSource>
 </asp:Content>

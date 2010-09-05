@@ -18,12 +18,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=V00011000000100</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -33,12 +33,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=%9500</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -48,12 +48,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=V00011000000200</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -63,12 +63,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=%5100</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -78,12 +78,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=V00011000000300</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -93,12 +93,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=%0600</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -108,12 +108,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=V00011000000400</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -123,12 +123,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=%2800</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>

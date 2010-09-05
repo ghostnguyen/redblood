@@ -56,7 +56,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+    <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
         EnableUpdate="True" TableName="aspnet_Users" OrderBy="UserName" 
         EnableDelete="True">
     </asp:LinqDataSource>

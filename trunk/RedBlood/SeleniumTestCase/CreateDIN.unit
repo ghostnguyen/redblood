@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="" />
+<link rel="selenium.base" href="http://localhost:8080/" />
 <title>CreateDIN</title>
 </head>
 <body>
@@ -15,6 +15,16 @@
 	<td>open</td>
 	<td>/RedBlood/Login.aspx</td>
 	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Login1_UserName</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Login1_Password</td>
+	<td>admin</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -38,12 +48,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtNumOfDIN</td>
+	<td>ContentPlaceHolder1_txtNumOfDIN</td>
 	<td>10</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>ctl00_ContentPlaceHolder1_btnGen</td>
+	<td>ContentPlaceHolder1_btnGen</td>
 	<td></td>
 </tr>
 

@@ -25,7 +25,7 @@
                     <asp:BoundField DataField="Name" HeaderText="Tên" SortExpression="Name" />
                 </Columns>
             </asp:GridView>
-            <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+            <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                 EnableDelete="True" EnableInsert="True" EnableUpdate="True" TableName="Sexes"
                 OrderBy="Name">
             </asp:LinqDataSource>

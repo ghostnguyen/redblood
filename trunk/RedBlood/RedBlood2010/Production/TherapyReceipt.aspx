@@ -37,7 +37,7 @@
                                         </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>
-                                <asp:LinqDataSource ID="LinqDataSourceFind" runat="server" ContextTypeName="RedBloodDataContext"
+                                <asp:LinqDataSource ID="LinqDataSourceFind" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                                     TableName="Orgs" OnSelecting="LinqDataSourceFind_Selecting">
                                 </asp:LinqDataSource>
                                 <br />
@@ -79,7 +79,7 @@
                                         </div>
                                     </ItemTemplate>
                                 </asp:DataList>
-                                <asp:LinqDataSource ID="LinqDataSourceProductIn" runat="server" ContextTypeName="RedBloodDataContext"
+                                <asp:LinqDataSource ID="LinqDataSourceProductIn" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                                     OnSelecting="LinqDataSourceProductIn_Selecting" TableName="Products">
                                 </asp:LinqDataSource>
                             </td>
@@ -100,7 +100,7 @@
                                         </div>
                                     </ItemTemplate>
                                 </asp:DataList>
-                                <asp:LinqDataSource ID="LinqDataSourceProductOut" runat="server" ContextTypeName="RedBloodDataContext"
+                                <asp:LinqDataSource ID="LinqDataSourceProductOut" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                                     OnSelecting="LinqDataSourceProductOut_Selecting" TableName="Products">
                                 </asp:LinqDataSource>
                             </td>

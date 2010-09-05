@@ -13,12 +13,12 @@
 </thead><tbody>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>12345678910</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -28,32 +28,32 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtName</td>
+	<td>ContentPlaceHolder1_ucPeople_txtName</td>
 	<td>Xuka</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtDOB</td>
+	<td>ContentPlaceHolder1_ucPeople_txtDOB</td>
 	<td>1981</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_ddlSex</td>
+	<td>ContentPlaceHolder1_ucPeople_ddlSex</td>
 	<td>label=Nữ</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtResidentAddress</td>
+	<td>ContentPlaceHolder1_ucPeople_txtResidentAddress</td>
 	<td>256 Tolyo</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtResidentGeo</td>
+	<td>ContentPlaceHolder1_ucPeople_txtResidentGeo</td>
 	<td>Phú Thạnh, Tân Phú, Đồng Nai</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_chkEnableMaillingAddress</td>
+	<td>ContentPlaceHolder1_ucPeople_chkEnableMaillingAddress</td>
 	<td></td>
 </tr>
 <tr>
@@ -63,37 +63,37 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtMailingAddress</td>
+	<td>ContentPlaceHolder1_ucPeople_txtMailingAddress</td>
 	<td>265 truyen anhd</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtMailingGeo</td>
+	<td>ContentPlaceHolder1_ucPeople_txtMailingGeo</td>
 	<td>Xuân Bắc, Xuân Lộc, Đồng Nai</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtJob</td>
+	<td>ContentPlaceHolder1_ucPeople_txtJob</td>
 	<td>hoc sinh</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtEmail</td>
+	<td>ContentPlaceHolder1_ucPeople_txtEmail</td>
 	<td>xuka@doremon.com</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtPhone</td>
+	<td>ContentPlaceHolder1_ucPeople_txtPhone</td>
 	<td>54687955</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_txtNote</td>
+	<td>ContentPlaceHolder1_ucPeople_txtNote</td>
 	<td>hoc sinh dep</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_ucPeople_btnUpdate</td>
+	<td>ContentPlaceHolder1_ucPeople_btnUpdate</td>
 	<td></td>
 </tr>
 <tr>
@@ -103,12 +103,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=V00011000000200</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>

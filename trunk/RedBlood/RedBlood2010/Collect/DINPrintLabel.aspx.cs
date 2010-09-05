@@ -8,63 +8,66 @@ using System.Collections;
 using System.Web.UI.HtmlControls;
 using RedBlood;
 using RedBlood.BLL;
-public partial class Collect_DINPrintLabel : System.Web.UI.Page
+namespace RedBlood.Collect
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class DINPrintLabel : System.Web.UI.Page
     {
-
-        int numOfDIN = 0, numOfCopy = 0;
-
-        try
+        protected void Page_Load(object sender, EventArgs e)
         {
-            numOfDIN = Request["numOfDIN"].ToString().ToInt();
+
+            int numOfDIN = 0, numOfCopy = 0;
+
+            try
+            {
+                numOfDIN = Request["numOfDIN"].ToString().ToInt();
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                numOfCopy = Request["numOfCopy"].ToString().ToInt();
+            }
+            catch (Exception)
+            {
+            }
+
+
+            PrintSettingBLL.Reload();
+            List<Donation> l = DonationBLL.New(numOfDIN);
+
+            foreach (Donation item in l)
+            {
+                Panel p = new Panel();
+                p.Style.Add("position", "relative");
+                p.Style.Add("page-break-after", "always");
+                p.Style.Apply(PrintSettingBLL.DINLabel.PaperSize);
+                p.Style.Add("border", "1px solid white");
+                divCon.Controls.Add(p);
+
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label1, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label2, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label3, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label4, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label5, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label6, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label7, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label8, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label9, p);
+                AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label10, p);
+            }
         }
-        catch (Exception)
+
+
+        void AddDINLabelControl(Donation item, PrintSetting ps, Panel panel)
         {
+            DINLabelUserControl uc = new DINLabelUserControl();
+            uc = (DINLabelUserControl)LoadControl("~/Collect/DINLabelUserControl.ascx");
+            uc.Fill_Letter(item.DIN);
+            uc.ResizeLabel(ps);
+
+            panel.Controls.Add(uc);
         }
-
-        try
-        {
-            numOfCopy = Request["numOfCopy"].ToString().ToInt();
-        }
-        catch (Exception)
-        {
-        }
-
-
-        PrintSettingBLL.Reload();
-        List<Donation> l = DonationBLL.New(numOfDIN);
-
-        foreach (Donation item in l)
-        {
-            Panel p = new Panel();
-            p.Style.Add("position", "relative");
-            p.Style.Add("page-break-after", "always");
-            p.Style.Apply(PrintSettingBLL.DINLabel.PaperSize);
-            p.Style.Add("border", "1px solid white");
-            divCon.Controls.Add(p);
-
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label1, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label2, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label3, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label4, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label5, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label6, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label7, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label8, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label9, p);
-            AddDINLabelControl(item, PrintSettingBLL.DINLabel.Label10, p);
-        }
-    }
-
-
-    void AddDINLabelControl(Donation item, PrintSetting ps, Panel panel)
-    {
-        DINLabelUserControl uc = new DINLabelUserControl();
-        uc = (DINLabelUserControl)LoadControl("~/Collect/DINLabelUserControl.ascx");
-        uc.Fill_Letter(item.DIN);
-        uc.ResizeLabel(ps);
-
-        panel.Controls.Add(uc);
     }
 }

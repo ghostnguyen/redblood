@@ -42,6 +42,6 @@
         <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
     </Columns>
 </asp:GridView>
-<asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+<asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
     EnableUpdate="True" TableName="Campaigns" OnSelecting="LinqDataSource1_Selecting">
 </asp:LinqDataSource>

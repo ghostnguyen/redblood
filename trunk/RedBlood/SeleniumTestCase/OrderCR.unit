@@ -28,12 +28,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>777888999</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -43,77 +43,77 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_People1_txtName</td>
+	<td>ContentPlaceHolder1_People1_txtName</td>
 	<td>Ly Tieu Long</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtNote</td>
+	<td>ContentPlaceHolder1_txtNote</td>
 	<td>Cap cuu</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_People1_txtDOB</td>
+	<td>ContentPlaceHolder1_People1_txtDOB</td>
 	<td>1952</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>ctl00_ContentPlaceHolder1_People1_ddlSex</td>
+	<td>ContentPlaceHolder1_People1_ddlSex</td>
 	<td>label=Nam</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_People1_txtResidentAddress</td>
+	<td>ContentPlaceHolder1_People1_txtResidentAddress</td>
 	<td>434 Tran Van thoi</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_People1_txtResidentGeo</td>
+	<td>ContentPlaceHolder1_People1_txtResidentGeo</td>
 	<td>xã Tân Hưng, Bến Cát, Bình Dương</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_People1_txtResidentGeo</td>
+	<td>ContentPlaceHolder1_People1_txtResidentGeo</td>
 	<td>xã Tân Hưng, Bến Cát, Bình Dương</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtDept</td>
+	<td>ContentPlaceHolder1_txtDept</td>
 	<td>Nội Thận</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtDept</td>
+	<td>ContentPlaceHolder1_txtDept</td>
 	<td>Nội Thận</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtRoom</td>
+	<td>ContentPlaceHolder1_txtRoom</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtBed</td>
+	<td>ContentPlaceHolder1_txtBed</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtDiagnosis</td>
+	<td>ContentPlaceHolder1_txtDiagnosis</td>
 	<td>suy than</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtPatientCode</td>
+	<td>ContentPlaceHolder1_txtPatientCode</td>
 	<td>BN123</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtTransfusionNote</td>
+	<td>ContentPlaceHolder1_txtTransfusionNote</td>
 	<td>truyen trong 2 tieng</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_People1_btnUpdate</td>
+	<td>ContentPlaceHolder1_People1_btnUpdate</td>
 	<td></td>
 </tr>
 <tr>
@@ -123,7 +123,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_btnUpdate</td>
+	<td>ContentPlaceHolder1_btnUpdate</td>
 	<td></td>
 </tr>
 <tr>
@@ -133,12 +133,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=V00011000000200</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -148,12 +148,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=&lt;E0097V00</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -173,12 +173,12 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>ctl00_ContentPlaceHolder1_GridViewPack_ctl02_txtRemoveNote</td>
+	<td>ContentPlaceHolder1_GridViewPack_txtRemoveNote_0</td>
 	<td></td>
 </tr>
 <tr>
 	<td>typeKeys</td>
-	<td>ctl00_ContentPlaceHolder1_GridViewPack_ctl02_txtRemoveNote</td>
+	<td>ContentPlaceHolder1_GridViewPack_txtRemoveNote_0</td>
 	<td>danh lon</td>
 </tr>
 <tr>
@@ -193,12 +193,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=V00011000000300</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
@@ -208,12 +208,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=&lt;E0150V00</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>

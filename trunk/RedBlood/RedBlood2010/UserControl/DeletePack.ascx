@@ -71,7 +71,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:LinqDataSource ID="LinqDataSourceDeletePack" runat="server" ContextTypeName="RedBloodDataContext"
+    <asp:LinqDataSource ID="LinqDataSourceDeletePack" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
         EnableUpdate="True" OnSelecting="LinqDataSourceDeletePack_Selecting" TableName="Packs"
         OrderBy="Autonum desc" EnableDelete="True">
     </asp:LinqDataSource>

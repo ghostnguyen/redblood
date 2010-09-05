@@ -52,7 +52,7 @@
                         <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
                     </Fields>
                 </asp:DetailsView>
-                <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     OnSelecting="LinqDataSource1_Selecting" TableName="Packs">
                 </asp:LinqDataSource>
             </td>
@@ -106,7 +106,7 @@
                         <asp:BoundField DataField="Note" HeaderText="Ghi chú" SortExpression="Note" />
                     </Columns>
                 </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSourcePackRelative" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourcePackRelative" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     OnSelecting="LinqDataSourcePackRelative_Selecting" TableName="Packs">
                 </asp:LinqDataSource>
                 <br />

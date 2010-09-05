@@ -24,7 +24,7 @@
                         AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="DropDownListComponent_SelectedIndexChanged">
                         <asp:ListItem Text="" Value="0" />
                     </asp:DropDownList>
-                    <asp:LinqDataSource ID="LinqDataSourceComponent" runat="server" ContextTypeName="RedBloodDataContext"
+                    <asp:LinqDataSource ID="LinqDataSourceComponent" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                         TableName="TestDefs" Where="ID == 25 || ID == 29">
                     </asp:LinqDataSource>
                     <br />
@@ -34,7 +34,7 @@
                         AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="DropDownListSubstance_SelectedIndexChanged">
                         <asp:ListItem Text="" Value="0" />
                     </asp:DropDownList>
-                    <asp:LinqDataSource ID="LinqDataSourceSubstance" runat="server" ContextTypeName="RedBloodDataContext"
+                    <asp:LinqDataSource ID="LinqDataSourceSubstance" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                         TableName="TestDefs" Where="ParentID == 48">
                     </asp:LinqDataSource>
                     <br />
@@ -49,7 +49,7 @@
                         AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="DropDownListVolume_SelectedIndexChanged">
                         <asp:ListItem Text="" Value="0" />
                     </asp:DropDownList>
-                    <asp:LinqDataSource ID="LinqDataSourceVolume" runat="server" ContextTypeName="RedBloodDataContext"
+                    <asp:LinqDataSource ID="LinqDataSourceVolume" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                         TableName="TestDefs" Where="ParentID == 31">
                     </asp:LinqDataSource>
                 </td>
@@ -71,7 +71,7 @@
                         AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="DropDownListABO_SelectedIndexChanged">
                         <asp:ListItem Text="" Value="0" />
                     </asp:DropDownList>
-                    <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+                    <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                         TableName="TestDefs" Where="ParentID == @ParentID">
                         <WhereParameters>
                             <asp:Parameter DefaultValue="1" Name="ParentID" Type="Int32" />
@@ -85,7 +85,7 @@
                         AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="DropDownListRH_SelectedIndexChanged">
                         <asp:ListItem Text="" Value="0" />
                     </asp:DropDownList>
-                    <asp:LinqDataSource ID="LinqDataSource2" runat="server" ContextTypeName="RedBloodDataContext"
+                    <asp:LinqDataSource ID="LinqDataSource2" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                         TableName="TestDefs" Where="ParentID == @ParentID">
                         <WhereParameters>
                             <asp:Parameter DefaultValue="6" Name="ParentID" Type="Int32" />

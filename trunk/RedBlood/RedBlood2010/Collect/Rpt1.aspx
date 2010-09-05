@@ -35,6 +35,6 @@
         </Columns>
     </asp:GridView>
     <asp:LinqDataSource ID="LinqDataSourceStart" runat="server" TableName="vw_ProductCount"
-        ContextTypeName="RedBloodDataContext" OnSelecting="LinqDataSourceStart_Selecting">
+        ContextTypeName="RedBlood.RedBloodDataContext" OnSelecting="LinqDataSourceStart_Selecting">
     </asp:LinqDataSource>
 </asp:Content>
