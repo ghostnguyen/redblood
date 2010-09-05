@@ -68,7 +68,7 @@
                         <asp:BoundField DataField="Autonum" HeaderText="STT" SortExpression="Autonum" />
                     </Columns>
                 </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     EnableUpdate="True" OnSelecting="LinqDataSource1_Selecting" TableName="Peoples">
                 </asp:LinqDataSource>
             </td>

@@ -62,7 +62,7 @@
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
-                                <asp:LinqDataSource ID="LinqDataSourceHIV" runat="server" ContextTypeName="RedBloodDataContext"
+                                <asp:LinqDataSource ID="LinqDataSourceHIV" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                                     TableName="TestDefs" Where="ParentID == 18">
                                 </asp:LinqDataSource>
                             </EditItemTemplate>
@@ -127,7 +127,7 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     EnableUpdate="True" OnSelecting="LinqDataSourcePack_Selecting" TableName="Donations"
                     OrderBy="DIN" EnableDelete="True">
                 </asp:LinqDataSource>
@@ -203,7 +203,7 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSourcePackLock" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourcePackLock" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     EnableUpdate="True" OnSelecting="LinqDataSourcePackLock_Selecting" TableName="Donations"
                     OrderBy="DIN" EnableDelete="True">
                 </asp:LinqDataSource>
@@ -229,7 +229,7 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSourceUnCollect" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourceUnCollect" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     EnableUpdate="True" OnSelecting="LinqDataSourceUnCollect_Selecting" TableName="Donations"
                     OrderBy="DIN" EnableDelete="True">
                 </asp:LinqDataSource>

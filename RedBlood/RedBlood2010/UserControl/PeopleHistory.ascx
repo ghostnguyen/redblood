@@ -15,6 +15,6 @@
     </Columns>
 </asp:GridView>
 <asp:LinqDataSource ID="LinqDataSource1" runat="server" OnSelecting="LinqDataSource1_Selecting"
-    EnableUpdate="true" ContextTypeName="RedBloodDataContext" TableName="Packs" OrderBy="CollectedDate desc"
+    EnableUpdate="true" ContextTypeName="RedBlood.RedBloodDataContext" TableName="Packs" OrderBy="CollectedDate desc"
     OnSelected="LinqDataSource1_Selected">
 </asp:LinqDataSource>

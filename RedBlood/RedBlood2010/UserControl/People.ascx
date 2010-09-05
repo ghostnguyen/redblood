@@ -57,7 +57,7 @@
                             DataValueField="ID" AppendDataBoundItems="true">
                             <asp:ListItem Text="--Chọn giới tính--" Value=""></asp:ListItem>
                         </asp:DropDownList>
-                        <asp:LinqDataSource ID="LinqDataSourceSex" runat="server" ContextTypeName="RedBloodDataContext"
+                        <asp:LinqDataSource ID="LinqDataSourceSex" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                             TableName="Sexes">
                         </asp:LinqDataSource>
                         <div id="divErrSex" runat="server" class="hidden">

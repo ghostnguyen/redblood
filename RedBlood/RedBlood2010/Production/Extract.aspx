@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Production_Extract" Codebehind="Extract.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="RedBlood.Production.Extract" Codebehind="Extract.aspx.cs" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -26,7 +26,7 @@
                         </div>
                     </ItemTemplate>
                 </asp:DataList>
-                <asp:LinqDataSource ID="LinqDataSourceProductIn" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourceProductIn" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     OnSelecting="LinqDataSourceProductIn_Selecting" TableName="Products">
                 </asp:LinqDataSource>
             </td>
@@ -44,7 +44,7 @@
                         </div>
                     </ItemTemplate>
                 </asp:DataList>
-                <asp:LinqDataSource ID="LinqDataSourceProductOut" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourceProductOut" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     OnSelecting="LinqDataSourceProductOut_Selecting" TableName="Products">
                 </asp:LinqDataSource>
             </td>
@@ -64,7 +64,7 @@
             </div>
         </ItemTemplate>
     </asp:DataList>
-    <asp:LinqDataSource ID="LinqDataSourceDINIn" runat="server" ContextTypeName="RedBloodDataContext"
+    <asp:LinqDataSource ID="LinqDataSourceDINIn" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
         OnSelecting="LinqDataSourceDINIn_Selecting" TableName="Donations">
     </asp:LinqDataSource>
     <br />

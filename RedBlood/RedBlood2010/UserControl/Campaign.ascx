@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="UserControl_Campaign" Codebehind="Campaign.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="RedBlood.UserControl.UCCampaign" Codebehind="Campaign.ascx.cs" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
 <asp:Panel runat="server" ID="Panel1">
     <table>
@@ -47,7 +47,7 @@
                 Dài hạn
                 <asp:CheckBox ID="chkInfiCam" runat="server" />
                 <div id="divErrSrc" runat="server" class="hidden" />
-                <asp:LinqDataSource ID="LinqDataSourceSrc" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourceSrc" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     TableName="TestDefs" Where="ParentID = 35">
                 </asp:LinqDataSource>
             </td>

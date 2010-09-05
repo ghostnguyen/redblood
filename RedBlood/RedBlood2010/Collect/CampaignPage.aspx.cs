@@ -6,46 +6,50 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using RedBlood;
 using RedBlood.BLL;
-public partial class Collect_CampaignPage : System.Web.UI.Page
+
+namespace RedBlood.Collect
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class CampaignPage : System.Web.UI.Page
     {
-
-        string code = Master.TextBoxCode.Text.Trim();
-        Master.TextBoxCode.Text = "";
-
-        if (code.Length == 0) return;
-
-        if (BarcodeBLL.IsValidCampaignCode(code))
-        {
-            ucCampaign1.CampaignID = BarcodeBLL.ParseCampaignID(code);
-        }
-        else
+        protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
+            string code = Master.TextBoxCode.Text.Trim();
+            Master.TextBoxCode.Text = "";
 
-    }
-    protected void lbSource_Click(object sender, BulletedListEventArgs e)
-    {
-        foreach (ListItem item in lbSource.Items)
+            if (code.Length == 0) return;
+
+            if (BarcodeBLL.IsValidCampaignCode(code))
+            {
+                ucCampaign1.CampaignID = BarcodeBLL.ParseCampaignID(code);
+            }
+            else
+            {
+
+            }
+
+        }
+        protected void lbSource_Click(object sender, BulletedListEventArgs e)
         {
-            item.Selected = false;
+            foreach (ListItem item in lbSource.Items)
+            {
+                item.Selected = false;
+            }
+
+            lbSource.Items[e.Index].Selected = true;
+
+            LinqDataSourceCampaign.DataBind();
+            ListView1.DataBind();
+            ucCampaign1.CampaignID = 0;
         }
 
-        lbSource.Items[e.Index].Selected = true;
-
-        LinqDataSourceCampaign.DataBind();
-        ListView1.DataBind();
-        ucCampaign1.CampaignID = 0;
-    }
-
-    protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        ucCampaign1.CampaignID = (int)ListView1.SelectedDataKey.Value;
-    }
-    protected void btnNew_Click(object sender, EventArgs e)
-    {
-        ucCampaign1.New();
+        protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ucCampaign1.CampaignID = (int)ListView1.SelectedDataKey.Value;
+        }
+        protected void btnNew_Click(object sender, EventArgs e)
+        {
+            ucCampaign1.New();
+        }
     }
 }

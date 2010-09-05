@@ -133,7 +133,7 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourcePack" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     TableName="PackOrders" OnSelecting="LinqDataSourcePack_Selecting" EnableDelete="True"
                     EnableUpdate="True">
                 </asp:LinqDataSource>

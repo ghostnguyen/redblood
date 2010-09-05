@@ -28,47 +28,47 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_btnNew</td>
+	<td>ContentPlaceHolder1_btnNew</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtName</td>
+	<td>ContentPlaceHolder1_txtName</td>
 	<td>Sản xuất máu toàn phần 350</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_ContentPlaceHolder1_txtNote</td>
+	<td>ContentPlaceHolder1_txtNote</td>
 	<td>Ghi chú thứu 1 </td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=&lt;E0009V00</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_rdbProductCodeOut</td>
+	<td>ContentPlaceHolder1_rdbProductCodeOut</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>ctl00_txtMasterCode</td>
+	<td>txtMasterCode</td>
 	<td>=&lt;E0150V00</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_btnMasterOk</td>
+	<td>btnMasterOk</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>ctl00_ContentPlaceHolder1_btnSave</td>
+	<td>ContentPlaceHolder1_btnSave</td>
 	<td></td>
 </tr>
 <tr>

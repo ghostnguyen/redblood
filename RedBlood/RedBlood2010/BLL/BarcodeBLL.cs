@@ -12,7 +12,7 @@ namespace RedBlood.BLL
     public class BarcodeBLL
     {
         //http://localhost:8449/RedBlood/Barcode/Image.aspx
-        public static string BarcodeImgPage { get; set; }
+        public static string BarcodeImgPage { get { return System.Web.VirtualPathUtility.ToAbsolute("~/Barcode/Image.aspx"); } }
 
         #region Constant
 
@@ -232,6 +232,7 @@ namespace RedBlood.BLL
         public static string Url4DIN(string DIN, string flag)
         {
             return BarcodeImgPage + "?hasText=true&checkChar=true&IdChar=" + DINIdChar + "&code=" + DIN + flag;
+            //return HttpUtility.UrlEncode("~/Barcode/Image.aspx?hasText=true&checkChar=true&IdChar=" + DINIdChar + "&code=" + DIN + flag); 
         }
 
 

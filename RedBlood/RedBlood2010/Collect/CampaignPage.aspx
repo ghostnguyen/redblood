@@ -1,17 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Collect_CampaignPage" Codebehind="CampaignPage.aspx.cs" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="RedBlood.Collect.CampaignPage" CodeBehind="CampaignPage.aspx.cs" %>
+<%@ Import Namespace="RedBlood" %>
 <%@ Register Src="~/UserControl/Campaign.ascx" TagPrefix="uc" TagName="Campaign" %>
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
     <script type="text/javascript">
         // Your code goes here
-        $(document).bind('keydown', 'Ctrl+m', function() {
+        $(document).bind('keydown', 'Ctrl+m', function () {
             $("input[id*='btnNew']").click();
         });
 
     </script>
-
     <table width="100%">
         <tr valign="top">
             <td style="width: 210px;">
@@ -26,7 +25,7 @@
                         <asp:BulletedList runat="server" ID="lbSource" DataSourceID="LinqDataSourceSrc" DataTextField="Name"
                             DataValueField="ID" DisplayMode="LinkButton" BulletStyle="NotSet" OnClick="lbSource_Click">
                         </asp:BulletedList>
-                        <asp:LinqDataSource ID="LinqDataSourceSrc" runat="server" ContextTypeName="RedBloodDataContext"
+                        <asp:LinqDataSource ID="LinqDataSourceSrc" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                             TableName="TestDefs" Where="ParentID = 35">
                         </asp:LinqDataSource>
                     </div>
@@ -74,7 +73,7 @@
                         </div>
                     </LayoutTemplate>
                 </asp:ListView>
-                <asp:LinqDataSource ID="LinqDataSourceCampaign" runat="server" ContextTypeName="RedBloodDataContext"
+                <asp:LinqDataSource ID="LinqDataSourceCampaign" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                     TableName="Campaigns" OrderBy="Date desc,ID desc" EnableUpdate="True" Where="SourceID == @SourceID">
                     <WhereParameters>
                         <asp:ControlParameter ControlID="lbSource" DefaultValue="0" Name="SourceID" PropertyName="SelectedValue"
@@ -83,7 +82,9 @@
                 </asp:LinqDataSource>
             </td>
             <td style="width: 380px;">
+                
                 <uc:Campaign runat="server" ID="ucCampaign1" />
+                
             </td>
         </tr>
     </table>

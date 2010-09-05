@@ -42,7 +42,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:LinqDataSource ID="LinqDataSource1" runat="server" TableName="Packs" ContextTypeName="RedBloodDataContext"
+    <asp:LinqDataSource ID="LinqDataSource1" runat="server" TableName="Packs" ContextTypeName="RedBlood.RedBloodDataContext"
         OnSelecting="LinqDataSource1_Selecting">
     </asp:LinqDataSource>
 </asp:Content>

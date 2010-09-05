@@ -65,7 +65,7 @@
         </Columns>
     </asp:GridView>
     <asp:LinqDataSource ID="LinqDataSourceRpt" runat="server" TableName="vw_ProductCount"
-        ContextTypeName="RedBloodDataContext" OnSelecting="LinqDataSourceRpt_Selecting">
+        ContextTypeName="RedBlood.RedBloodDataContext" OnSelecting="LinqDataSourceRpt_Selecting">
     </asp:LinqDataSource>
     <br />
 </asp:Content>

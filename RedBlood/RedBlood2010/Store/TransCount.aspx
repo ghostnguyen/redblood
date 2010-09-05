@@ -58,7 +58,7 @@
             </Columns>
         </asp:GridView>
         <asp:LinqDataSource ID="LinqDataSourceStart" runat="server" TableName="vw_ProductCount"
-            ContextTypeName="RedBloodDataContext" OnSelecting="LinqDataSourceStart_Selecting">
+            ContextTypeName="RedBlood.RedBloodDataContext" OnSelecting="LinqDataSourceStart_Selecting">
         </asp:LinqDataSource>
     </asp:Panel>
     <asp:Panel ID="PanelIn" runat="server">
@@ -99,7 +99,7 @@
             </Columns>
         </asp:GridView>
         <asp:LinqDataSource ID="LinqDataSourceIn" runat="server" TableName="vw_ProductCount"
-            ContextTypeName="RedBloodDataContext" OnSelecting="LinqDataSourceIn_Selecting">
+            ContextTypeName="RedBlood.RedBloodDataContext" OnSelecting="LinqDataSourceIn_Selecting">
         </asp:LinqDataSource>
     </asp:Panel>
     <asp:Panel ID="PanelOut" runat="server">
@@ -140,7 +140,7 @@
             </Columns>
         </asp:GridView>
         <asp:LinqDataSource ID="LinqDataSourceOut" runat="server" TableName="vw_ProductCount"
-            ContextTypeName="RedBloodDataContext" OnSelecting="LinqDataSourceOut_Selecting">
+            ContextTypeName="RedBlood.RedBloodDataContext" OnSelecting="LinqDataSourceOut_Selecting">
         </asp:LinqDataSource>
     </asp:Panel>
     <asp:Panel ID="PanelEnd" runat="server">
@@ -178,7 +178,7 @@
             </Columns>
         </asp:GridView>
         <asp:LinqDataSource ID="LinqDataSourceEnd" runat="server" TableName="vw_ProductCount"
-            ContextTypeName="RedBloodDataContext" OnSelecting="LinqDataSourceEnd_Selecting">
+            ContextTypeName="RedBlood.RedBloodDataContext" OnSelecting="LinqDataSourceEnd_Selecting">
         </asp:LinqDataSource>
     </asp:Panel>
 </asp:Content>

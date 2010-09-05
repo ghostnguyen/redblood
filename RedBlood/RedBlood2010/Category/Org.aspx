@@ -45,7 +45,7 @@
                                         </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>
-                                <asp:LinqDataSource ID="LinqDataSourceFind" runat="server" ContextTypeName="RedBloodDataContext"
+                                <asp:LinqDataSource ID="LinqDataSourceFind" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                                     TableName="Orgs" OnSelecting="LinqDataSourceFind_Selecting">
                                 </asp:LinqDataSource>
                                 <br />
