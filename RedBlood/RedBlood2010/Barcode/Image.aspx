@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Image.aspx.cs" Inherits="GenCodabar" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Image.aspx.cs" Inherits="RedBlood.Barcode.GenCodabar" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
