@@ -7,41 +7,52 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using RedBlood;
 using RedBlood.BLL;
-public partial class Collect_DINCertPrint : System.Web.UI.Page
+namespace RedBlood.Collect
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class DINCertPrint : System.Web.UI.Page
     {
-        PrintSettingBLL.Reload();
-
-        int campID = Request["CampaignID"].ToInt();
-        string rptType = Request["RptType"];
-
-        if (campID == 0
-            || string.IsNullOrEmpty(rptType)) return;
-
-        ReportType type = (ReportType)rptType.ToInt();
-
-        List<Donation> pl = DonationBLL.Get(campID, type);
-
-        foreach (Donation item in pl)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            Panel p = new Panel();
-            p.Style.Add("position", "relative");
-            p.Style.Add("page-break-after", "always");
-            p.Style.Apply(PrintSettingBLL.DINCert.PaperSize);
-            p.Style.Add("border", "1px solid white");
-            divCon.Controls.Add(p);
+            PrintSettingBLL.Reload();
+            DonationBLL bll = new DonationBLL();
 
-            AddControl(item, p);
+            int campID = Request["CampaignID"].ToInt();
+            string rptType = Request["RptType"];
+            string DINList = Request["DINList"];
+
+            List<Donation> pL = new List<Donation>();
+
+            if (campID != 0
+                && !string.IsNullOrEmpty(rptType))
+            {
+                ReportType type = (ReportType)rptType.ToInt();
+                pL = DonationBLL.Get(campID, type);
+            }
+            else if (!string.IsNullOrEmpty(DINList))
+            {
+                pL = bll.Get(DINList.Split(','));
+            }
+
+            foreach (Donation item in pL)
+            {
+                Panel p = new Panel();
+                p.Style.Add("position", "relative");
+                p.Style.Add("page-break-after", "always");
+                p.Style.Apply(PrintSettingBLL.DINCert.PaperSize);
+                p.Style.Add("border", "1px solid white");
+                divCon.Controls.Add(p);
+
+                AddControl(item, p);
+            }
         }
-    }
 
-    void AddControl(Donation item, Panel panel)
-    {
-        DINCertUserControl uc = new DINCertUserControl();
-        uc = (DINCertUserControl)LoadControl("~/Collect/DINCertUserControl.ascx");
-        uc.Fill_Letter(item);
+        void AddControl(Donation item, Panel panel)
+        {
+            DINCertUserControl uc = new DINCertUserControl();
+            uc = (DINCertUserControl)LoadControl("~/Collect/DINCertUserControl.ascx");
+            uc.Fill_Letter(item);
 
-        panel.Controls.Add(uc);
+            panel.Controls.Add(uc);
+        }
     }
 }

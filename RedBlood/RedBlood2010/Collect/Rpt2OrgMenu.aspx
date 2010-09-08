@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Collect_Rpt2OrgMenu" Codebehind="Rpt2OrgMenu.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="RedBlood.Collect.Rpt2OrgMenu" CodeBehind="Rpt2OrgMenu.aspx.cs" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
@@ -11,7 +12,7 @@
         </tr>
         <tr>
             <td>
-                <table border="0">
+                <table border="0" cellspacing="5">
                     <tr>
                         <td>
                             <asp:HyperLink runat="server" Text="DS Âm tính" ID="HyperLinkNeg">                
@@ -26,12 +27,12 @@
                             </asp:HyperLink>
                         </td>
                         <td rowspan="3">
-                            <asp:HyperLink runat="server" Text="In thẻ cho tất cả" ID="HyperLinkAllCard">                
-                            </asp:HyperLink>
+                            <%--<asp:HyperLink runat="server" Text="In thẻ cho tất cả" ID="HyperLinkAllCard">                
+                            </asp:HyperLink>--%>
                         </td>
                         <td rowspan="3">
-                            <asp:HyperLink runat="server" Text="In Giấy chứng nhận cho tất cả" ID="HyperLinkAllDINCert">                
-                            </asp:HyperLink>
+                            <%--<asp:HyperLink runat="server" Text="In Giấy chứng nhận cho tất cả" ID="HyperLinkAllDINCert">                
+                            </asp:HyperLink>--%>
                         </td>
                     </tr>
                     <tr>
@@ -48,7 +49,7 @@
                             </asp:HyperLink>
                         </td>
                         <td>
-                           <%-- <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkPosCard">                
+                            <%-- <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkPosCard">                
                             </asp:HyperLink>--%>
                         </td>
                         <td>
@@ -70,20 +71,35 @@
                             </asp:HyperLink>
                         </td>
                         <td>
-                           <%-- <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkHIVCard">                
+                            <%-- <asp:HyperLink runat="server" Text="In thẻ" ID="HyperLinkHIVCard">                
                             </asp:HyperLink>--%>
                         </td>
                         <td>
-                          <%--  <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkHIV_DINCert">                
+                            <%--  <asp:HyperLink runat="server" Text="In Giấy chứng nhận" ID="HyperLinkHIV_DINCert">                
                             </asp:HyperLink>--%>
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
+        <br />
+        <asp:HyperLink runat="server" Text="In thẻ cho tất cả" ID="HyperLinkAllCard">                
+        </asp:HyperLink>
+        <asp:HyperLink runat="server" Text="In Giấy chứng nhận cho tất cả" ID="HyperLinkAllDINCert">                
+        </asp:HyperLink>
+        <asp:Button ID="btnSelectedCard" runat="server" Text="In the chon loc" OnClick="btnSelectedCard_Click" />
+        <asp:Button ID="btnSelectedDINCert" runat="server" Text="In Giay chung nhan chon loc"
+            OnClick="btnSelectedDINCert_Click" />
+        <br />
+        <br />
         <asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="False" DataKeyNames="DIN"
             DataSourceID="LinqDataSource1">
             <Columns>
+                <asp:TemplateField HeaderText="Ten">
+                    <ItemTemplate>
+                        <asp:Label ID="Label8" runat="server" Text='<%# Eval("People.Name") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="DIN" HeaderText="Túi máu" />
                 <asp:BoundField DataField="CollectedDate" HeaderText="Ngày thu" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
                 <asp:TemplateField HeaderText="Thành phần">
@@ -93,32 +109,37 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="ABO">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("BloodGroupDesc") %>'></asp:Label>
+                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("BloodGroupDesc") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="HIV">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.HIV") %>'></asp:Label>
+                        <asp:Label ID="Label3" runat="server" Text='<%# Eval("Markers.HIV") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="HCV">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>'></asp:Label>
+                        <asp:Label ID="Label4" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="HBsAg">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>'></asp:Label>
+                        <asp:Label ID="Label5" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Syphilis">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.Syphilis") %>'></asp:Label>
+                        <asp:Label ID="Label6" runat="server" Text='<%# Eval("Markers.Syphilis") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Malaria">
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Markers.Malaria") %>'></asp:Label>
+                        <asp:Label ID="Label7" runat="server" Text='<%# Eval("Markers.Malaria") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkSelect" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

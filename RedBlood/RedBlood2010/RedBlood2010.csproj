@@ -77,8 +77,6 @@
     <Content Include="App_Data\RedBlood_DB_Log.LDF">
       <DependentUpon>RedBlood_DB.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\resetDB.sql" />
-    <Content Include="App_Data\SQLQuery_1.sql" />
     <Content Include="App_Themes\Default\DefaultPage.css" />
     <Content Include="App_Themes\Default\ModalPopup.css" />
     <Content Include="App_Themes\Default\PackLabel.css" />

@@ -19,7 +19,7 @@ namespace RedBlood.TestResult {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_CampaignDetail4Manually CampaignDetail1;
+        protected global::RedBlood.UserControl.CampaignDetail4Manually CampaignDetail1;
         
         /// <summary>
         /// GridView1 control.
