@@ -4,71 +4,96 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using RedBlood;
+
 using RedBlood.BLL;
-public partial class Collect_Rpt2OrgMenu : System.Web.UI.Page
+
+namespace RedBlood.Collect
 {
-
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class Rpt2OrgMenu : System.Web.UI.Page
     {
-        if (!IsPostBack)
-        {
-            int campaignID = Request.Params["key"].ToInt();
 
-            if (campaignID != 0)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
             {
-                CampaignEnter(campaignID);
+                int campaignID = Request.Params["key"].ToInt();
+
+                if (campaignID != 0)
+                {
+                    CampaignEnter(campaignID);
+                }
+            }
+            else
+            {
+
+                string code = Master.TextBoxCode.Text.Trim();
+                Master.TextBoxCode.Text = "";
+
+                if (code.Length == 0) return;
+
+                if (BarcodeBLL.IsValidCampaignCode(code))
+                {
+                    CampaignEnter(BarcodeBLL.ParseCampaignID(code));
+                }
             }
         }
-        else
+
+        private void CampaignEnter(int campaignID)
         {
+            CampaignDetail1.CampaignID = campaignID;
 
-            string code = Master.TextBoxCode.Text.Trim();
-            Master.TextBoxCode.Text = "";
+            GridView1.DataBind();
 
-            if (code.Length == 0) return;
-
-            if (BarcodeBLL.IsValidCampaignCode(code))
+            if (CampaignDetail1.CampaignID != 0)
             {
-                CampaignEnter(BarcodeBLL.ParseCampaignID(code));
+                HyperLinkNeg.NavigateUrl = "~/Collect/Rpt2OrgTemplate.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
+                HyperLinkPos.NavigateUrl = "~/Collect/Rpt2OrgTemplate.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+                HyperLinkHIV.NavigateUrl = "~/Collect/Rpt2OrgTemplate.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+
+                HyperLinkNegThankLetter.NavigateUrl = "~/Collect/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
+                HyperLinkPosThankLetter.NavigateUrl = "~/Collect/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+                HyperLinkHIVInvitationLetter.NavigateUrl = "~/Collect/InvitationLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+
+                HyperLinkNegEnvolope.NavigateUrl = "~/Collect/EnvelopePrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
+                HyperLinkPosEnvelope.NavigateUrl = "~/Collect/EnvelopePrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
+                HyperLinkHIVEnvelope.NavigateUrl = "~/Collect/EnvelopePrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
+
+                
+                HyperLinkAllCard.NavigateUrl = "~/Collect/DonationCardPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.All).ToString();
+                HyperLinkAllDINCert.NavigateUrl = "~/Collect/DINCertPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.All).ToString();
             }
+
+
         }
-    }
-
-    private void CampaignEnter(int campaignID)
-    {
-        CampaignDetail1.CampaignID = campaignID;
-
-        GridView1.DataBind();
-
-        if (CampaignDetail1.CampaignID != 0)
+        protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            HyperLinkNeg.NavigateUrl = "~/Collect/Rpt2OrgTemplate.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
-            HyperLinkPos.NavigateUrl = "~/Collect/Rpt2OrgTemplate.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            HyperLinkHIV.NavigateUrl = "~/Collect/Rpt2OrgTemplate.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
-
-            HyperLinkNegThankLetter.NavigateUrl = "~/Collect/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
-            HyperLinkPosThankLetter.NavigateUrl = "~/Collect/ThankLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            HyperLinkHIVInvitationLetter.NavigateUrl = "~/Collect/InvitationLetter.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
-
-            HyperLinkNegEnvolope.NavigateUrl = "~/Collect/EnvelopePrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.NegInCam).ToString();
-            HyperLinkPosEnvelope.NavigateUrl = "~/Collect/EnvelopePrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            HyperLinkHIVEnvelope.NavigateUrl = "~/Collect/EnvelopePrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
-
-            HyperLinkAllCard.NavigateUrl = "~/Collect/DonationCardPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.All).ToString();
-            //HyperLinkPosCard.NavigateUrl = "~/Collect/DonationCardPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            //HyperLinkHIVCard.NavigateUrl = "~/Collect/DonationCardPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
-
-            HyperLinkAllDINCert.NavigateUrl = "~/Collect/DINCertPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.All).ToString();
-            //HyperLinkPosDINCert.NavigateUrl = "~/Collect/DINCertPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
-            //HyperLinkHIV_DINCert.NavigateUrl = "~/Collect/DINCertPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
-
-
+            RedBloodDataContext db = new RedBloodDataContext();
+            e.Result = db.Donations.Where(r => r.CampaignID == CampaignDetail1.CampaignID).OrderBy(r => r.DIN).ToList();
         }
-    }
-    protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
-    {
-        RedBloodDataContext db = new RedBloodDataContext();
-        e.Result = db.Donations.Where(r => r.CampaignID == CampaignDetail1.CampaignID).OrderBy(r => r.DIN).ToList();
+
+        protected void btnSelectedCard_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Collect/DonationCardPrint.aspx?DINList=" + GetSelectedDIN());
+        }
+
+        protected void btnSelectedDINCert_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Collect/DINCertPrint.aspx?DINList=" + GetSelectedDIN());
+        }
+
+        string GetSelectedDIN()
+        {
+            string selectedDIN = "";
+            foreach (GridViewRow item in GridView1.Rows)
+            {
+                CheckBox chk = item.Cells[10].Controls[1] as CheckBox;
+
+                if (chk != null && chk.Checked)
+                {
+                    selectedDIN += item.Cells[1].Text + ",";
+                }
+            }
+            return selectedDIN;
+        }
     }
 }

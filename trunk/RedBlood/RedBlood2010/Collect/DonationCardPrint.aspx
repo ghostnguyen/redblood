@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" AutoEventWireup="true"
-    Inherits="Collect_DonationCardPrint" Codebehind="DonationCardPrint.aspx.cs" %>
+    Inherits="RedBlood.Collect.DonationCardPrint" Codebehind="DonationCardPrint.aspx.cs" %>
 
 <%@ Register Src="~/Collect/DonationCardUserControl.ascx" TagPrefix="uc" TagName="DonationCard" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

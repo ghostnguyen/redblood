@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" AutoEventWireup="true"
-    Inherits="Collect_DINCertPrint" Codebehind="DINCertPrint.aspx.cs" %>
+    Inherits="RedBlood.Collect.DINCertPrint" Codebehind="DINCertPrint.aspx.cs" %>
 
 <%@ Register Src="~/Collect/DINCertUserControl.ascx" TagPrefix="uc" TagName="DINCert" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

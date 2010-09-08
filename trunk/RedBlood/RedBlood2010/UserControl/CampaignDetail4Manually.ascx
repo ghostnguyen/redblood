@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
-    Inherits="UserControl_CampaignDetail4Manually" Codebehind="CampaignDetail4Manually.ascx.cs" %>
+    Inherits="RedBlood.UserControl.CampaignDetail4Manually" Codebehind="CampaignDetail4Manually.ascx.cs" %>
 <div>
     <table border="1" cellspacing="0">
         <tr valign="top">
