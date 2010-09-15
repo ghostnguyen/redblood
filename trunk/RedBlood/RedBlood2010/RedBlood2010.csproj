@@ -274,6 +274,8 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="ResetPassword4Admin.aspx" />
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -1082,6 +1084,20 @@
     </Compile>
     <Compile Include="UserControl\PeopleOrder.ascx.designer.cs">
       <DependentUpon>PeopleOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ResetPassword4Admin.aspx.cs">
+      <DependentUpon>ResetPassword4Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPassword4Admin.aspx.designer.cs">
+      <DependentUpon>ResetPassword4Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
