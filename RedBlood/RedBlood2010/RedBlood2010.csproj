@@ -338,6 +338,9 @@
       <DependentUpon>Image.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Barcode\Image.aspx.designer.cs">
+      <DependentUpon>Image.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Category\BloodGroup.aspx.designer.cs">
       <DependentUpon>BloodGroup.aspx</DependentUpon>
     </Compile>
