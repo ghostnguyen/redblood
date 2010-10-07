@@ -24,6 +24,7 @@ namespace RedBlood
         public static Guid DongNai = new Guid("e22eff09-5ee9-4d25-805a-d9c6f9b1b4ab");
         public static Guid HCMC = new Guid("25e0e30d-c463-4699-945a-39a06e937423");
         public static Guid BinhDuong = new Guid("6e0c4f0d-95ce-42e9-a3e7-99efb59366d5");
+        public static Guid BinhPhuoc = new Guid("8d06a7fc-d621-439e-af97-faa8e26a4ad2");
 
         partial void OnValidate(System.Data.Linq.ChangeAction action)
         {

@@ -86,6 +86,7 @@ public partial class FindAndReport_FindCampaign : System.Web.UI.Page
             geo1List.Add(Geo.DongNai);
             geo1List.Add(Geo.TayNinh);
             geo1List.Add(Geo.HCMC);
+            geo1List.Add(Geo.BinhPhuoc);
             CheckBoxListGeo1.DataSource = db.Geos.Where(r => geo1List.Contains(r.ID));
             CheckBoxListGeo1.DataBind();
             foreach (ListItem item in CheckBoxListGeo1.Items)

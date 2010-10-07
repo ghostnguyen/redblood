@@ -87,6 +87,7 @@ namespace RedBlood.Collect
                 {
                     imgProduct.ImageUrl = BarcodeBLL.Url4Product(e.Pack.Product.Code);
                     lblProductDesc.Text = e.Pack.Product.Description;
+                    btnRemovePack.Visible = e.CanRemoveOriginalPack;
 
                     lblDate.Text = e.Pack.Date.ToStringVN_Hour();
 
@@ -97,6 +98,10 @@ namespace RedBlood.Collect
                         ImageBloodGroup.ImageUrl = BarcodeBLL.Url4BloodGroup(e.BloodGroup);
                         lblBloodGroup.Text = BloodGroupBLL.GetDescription(e.BloodGroup);
                     }
+                }
+                else
+                {
+                    btnRemovePack.Visible = false;
                 }
 
                 txtCollector.Text = e.Collector;
@@ -151,6 +156,16 @@ namespace RedBlood.Collect
                 db.SubmitChanges();
 
                 this.Alert("Lưu thành công.");
+            }
+        }
+
+        protected void btnRemovePack_Click(object sender, EventArgs e)
+        {
+            Donation r = DonationBLL.Get(DIN);
+            if (r != null && r.CanRemoveOriginalPack)
+            {
+                DonationBLL.RemoveOriginalPack(r.DIN);
+                LoadDIN();
             }
         }
     }

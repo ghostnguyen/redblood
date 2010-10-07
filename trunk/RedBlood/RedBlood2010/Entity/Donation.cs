@@ -59,7 +59,15 @@ namespace RedBlood
             }
         }
 
-
+        public bool CanRemoveOriginalPack
+        {
+            get
+            {
+                return Pack != null 
+                    && Packs.Count == 1 
+                    && TestResultStatus == Donation.TestResultStatusX.Non;
+            }
+        }
 
         public string BloodGroupDesc
         {

@@ -197,6 +197,25 @@ namespace RedBlood.BLL
             return p;
         }
 
+        public static void RemoveOriginalPack(string DIN)
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+
+            Donation d = Get(db, DIN);
+
+            if (d.CanRemoveOriginalPack)
+            {
+                Pack p = d.Pack;
+                d.Pack = null;
+                
+                db.PackTransactions.DeleteAllOnSubmit(p.PackTransactions);
+                db.PackRemainDailies.DeleteAllOnSubmit(p.PackRemainDailies);
+                db.Packs.DeleteOnSubmit(p);
+
+                db.SubmitChanges();
+            }
+        }
+
         public static DonationStatusLog UpdateStatus(RedBloodDataContext db, Donation e, Donation.StatusX to, string note)
         {
             return UpdateStatus(db, e, to, RedBloodSystem.CurrentActor, note);
