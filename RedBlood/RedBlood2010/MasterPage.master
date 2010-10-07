@@ -21,7 +21,7 @@
             <asp:ServiceReference Path="~/AutoComplete.asmx" />
         </Services>
     </asp:ScriptManager>
-
+    
     <script type="text/javascript">
         // Your code goes here
         var url = window.location + "";

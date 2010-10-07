@@ -67,6 +67,8 @@
                 <asp:Image ID="imgProduct" runat="server" />
                 <br />
                 <asp:Label ID="lblProductDesc" runat="server"></asp:Label>
+                <br />
+                <asp:LinkButton ID="btnRemovePack" runat="server" onclick="btnRemovePack_Click" Text="Nhập lại sản phẩm" Visible="false"></asp:LinkButton>
             </td>
         </tr>
         <tr>

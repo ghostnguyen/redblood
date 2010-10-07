@@ -119,6 +119,7 @@
     <Content Include="Collect\Rpt2OrgTemplate.aspx" />
     <Content Include="Collect\ThankLetter.aspx" />
     <Content Include="Collect\ThanksLetterUserControl.ascx" />
+    <Content Include="Default4.aspx" />
     <Content Include="Default1.aspx" />
     <Content Include="Default2.aspx" />
     <Content Include="Default3.aspx" />
@@ -267,7 +268,9 @@
     <Content Include="UserControl\PeopleHistory.ascx" />
     <Content Include="UserControl\PeopleHistory2.ascx" />
     <Content Include="UserControl\PeopleOrder.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -448,6 +451,13 @@
     </Compile>
     <Compile Include="Collect\ThanksLetterUserControl.ascx.designer.cs">
       <DependentUpon>ThanksLetterUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default4.aspx.cs">
+      <DependentUpon>Default4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default4.aspx.designer.cs">
+      <DependentUpon>Default4.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default1.aspx.cs">
       <DependentUpon>Default1.aspx</DependentUpon>

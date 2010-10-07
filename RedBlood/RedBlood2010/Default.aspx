@@ -22,6 +22,10 @@
             window.location = ("Default9.aspx");
         });
 
+        $(document).bind('keydown', '4', function () {
+            if (selectedInput) return;
+            window.location = ("Default4.aspx");
+        });
 
         $(document).bind('keydown', '5', function () {
             if (selectedInput) return;
@@ -83,12 +87,12 @@
             </tr>
             <tr>
                 <td class="column">
-                    <%--  <h3>
-                                <a href="Default4.aspx">4. Kho lưu trữ</a></h3>
-                            <p>
-                            </p>
-                            <a href="Default4.aspx" />
-                            <img src="Image/Icon/Shopcart-Add_128.png" alt="" />--%>
+                    <h3>
+                        <a href="Default4.aspx">4. Tiếp nhận</a></h3>
+                    <p>
+                    </p>
+                    <a href="Default4.aspx" />
+                    <img src="Image/Icon/Shopcart-Add_128.png" alt="" />
                 </td>
                 <td class="column next">
                     <h3>

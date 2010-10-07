@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Default9" Title="Default" Codebehind="Default9.aspx.cs" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="RedBlood.Default4" Title="Default" Codebehind="Default4.aspx.cs" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -7,17 +7,17 @@
     <script type="text/javascript">
         // Your code goes here
 
-        $(document).bind('keydown', '7', function() {
-            window.location = ("TestResult/Enter.aspx");
-        });
-
-//        $(document).bind('keydown', '8', function() {
-//            window.location = ("TestResult/BloodGroup.aspx");
+//        $(document).bind('keydown', '7', function() {
+//            window.location = ("TestResult/Enter.aspx");
 //        });
 
-        $(document).bind('keydown', '4', function() {
-            window.location = ("TestResult/Rpt910.aspx");
+        $(document).bind('keydown', '8', function() {
+            window.location = ("TestResult/BloodGroup.aspx");
         });
+
+//        $(document).bind('keydown', '4', function() {
+//            window.location = ("TestResult/Rpt910.aspx");
+//        });
 
         //        $(document).bind('keydown', '4', function() {
         //            window.location = ("TestResult/Rpt910.aspx");
@@ -32,7 +32,7 @@
                 <table id="menu_lvl2">
                     <tr>
                         <td class="column">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="TestResult/Enter.aspx">
@@ -45,10 +45,10 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
                                         <a href="TestResult/BloodGroup.aspx">
@@ -61,7 +61,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>
@@ -86,7 +86,7 @@
                     </tr>
                     <tr>
                         <td class="column">
-                            <table>
+                            <%--<table>
                                 <tr>
                                     <td>
                                         <a href="TestResult/Rpt910.aspx">
@@ -99,7 +99,7 @@
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                         </td>
                         <td class="column next">
                             <%--<table>
