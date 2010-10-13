@@ -54,6 +54,10 @@ namespace RedBlood.Collect
             DIN = DINCode;
 
             DonationBLL.UpdateCollector(DIN, txtDefaultCollector.Text.Trim());
+            if (BarcodeBLL.IsValidProductCode(txtProductCode.Text.Trim()))
+            {
+                PackBLL.Add(DIN, BarcodeBLL.ParseProductCode(txtProductCode.Text.Trim()), txtDefaultVolume.Text.ToInt(), true);
+            }
             LoadDIN();
         }
 

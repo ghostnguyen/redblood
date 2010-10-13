@@ -23,6 +23,8 @@
     Thể tích:
     <asp:TextBox ID="txtDefaultVolume" runat="server" Width="50"> </asp:TextBox>
     (ml)
+    Mã sản phẩm:
+    <asp:TextBox ID="txtProductCode" runat="server" Width="150"> </asp:TextBox>
     <br />
     <hr />
     <br />
