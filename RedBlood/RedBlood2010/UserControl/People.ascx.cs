@@ -223,7 +223,7 @@ public partial class UserControl_People : System.Web.UI.UserControl
             }
             else return;
         }
-        
+        txtName.Focus();
         Page.Alert("Lưu thành công.");
     }
 
