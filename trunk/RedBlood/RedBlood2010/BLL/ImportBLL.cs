@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Configuration;
+using System.Transactions;
 namespace RedBlood.BLL
 {
     /// <summary>
@@ -19,6 +20,7 @@ namespace RedBlood.BLL
 
         public static void Importing()
         {
+
             //Validate database before insert
 
             List<string> importedGeo = new List<string>();
@@ -83,12 +85,17 @@ namespace RedBlood.BLL
 
                 //Import DIN
                 DonationBLL.Assign(innerDIN.DIN, peopleID.Value, innerCam.ID, item.CollectedDate, item.Actor);
-
-                //PackBLL.CreateOriginal(innerDIN.DIN, item.Pack.ProductCode, item.Volume.Value);
-
-                DonationBLL.Update(innerDIN.DIN, item.BloodGroup, "ImportingFromMDF");
                 DonationBLL.UpdateCollector(innerDIN.DIN, item.Collector);
+
+                if (item.Pack != null)
+                {
+                    PackBLL.Add(innerDIN.DIN, item.Pack.ProductCode, item.Pack.Volume, true);
+                    DonationBLL.Update(innerDIN.DIN, item.BloodGroup, "ImportingFromMDF");
+                }
+                
             }
+
+
         }
 
         private static Guid? ImportPeople(RedBloodDataContext db, People outerP)

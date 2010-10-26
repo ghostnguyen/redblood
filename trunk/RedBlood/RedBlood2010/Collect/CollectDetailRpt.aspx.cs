@@ -50,12 +50,12 @@ public partial class Collect_CollectDetailRpt : System.Web.UI.Page
     private void Summary(List<Donation> list)
     {
         var v = list.GroupBy(r => r.OrgVolume)
-            .Select(g => new { Vol = g.Key, Count = g.Count() })
+            .Select(g => new { Vol = g.Key, Count = g.Count(), DINList = g.Select(r1 => r1.DIN) })
             .OrderBy(r => r.Count);
 
         int sum1 = 0;
         int sum2 = 0;
-
+        string deniedDINStr = "";
         if (v.Count() > 0)
             Literal1.Text += "<br /> Tổng cộng";
 
@@ -69,6 +69,7 @@ public partial class Collect_CollectDetailRpt : System.Web.UI.Page
             else
             {
                 sum2 += item.Count;
+                deniedDINStr = string.Join(" - ", item.DINList.ToArray());
             }
         }
 
@@ -82,6 +83,18 @@ public partial class Collect_CollectDetailRpt : System.Web.UI.Page
         {
             Literal1.Text += "<br />-------------";
             Literal1.Text += "<br /> Không thu: " + sum2.ToString();
+            Literal1.Text += "<br /> " + deniedDINStr;
+        }
+
+        var BloodGroupList = list.GroupBy(r => r.BloodGroupDesc)
+           .Select(g => new { BloodGroupDesc = g.Key, Count = g.Count() })
+           .Where(r => !string.IsNullOrEmpty(r.BloodGroupDesc))
+           .OrderBy(r => r.BloodGroupDesc);
+
+        Literal1.Text += "<br />-------------";
+        foreach (var item in BloodGroupList)
+        {
+            Literal1.Text += "<br />" + item.BloodGroupDesc + " : " + item.Count.ToString();
         }
     }
 
