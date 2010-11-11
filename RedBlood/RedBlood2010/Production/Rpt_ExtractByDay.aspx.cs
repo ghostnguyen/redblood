@@ -13,7 +13,10 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
         if (!IsPostBack)
         {
             txtDateFrom.Text = DateTime.Now.Date.ToStringVN();
+            txtHourFrom.Text = "00:01";
+
             txtDateTo.Text = DateTime.Now.Date.ToStringVN();
+            txtHourTo.Text = "23:59";
             LoadData();
         }
 
@@ -29,11 +32,37 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
         DateTime? dtFrom = txtDateFrom.Text.ToDatetimeFromVNFormat();
         DateTime? dtTo = txtDateTo.Text.ToDatetimeFromVNFormat();
 
+        if (dtFrom.HasValue)
+        {
+            DateTime hourFrom;
+            if (DateTime.TryParse(txtHourFrom.Text,out hourFrom))
+            {
+                dtFrom = dtFrom.Value.AddHours(hourFrom.Hour).AddMinutes(hourFrom.Minute);
+            }
+        }
+
+        if (dtTo.HasValue)
+        {
+            DateTime hourTo;
+            if (DateTime.TryParse(txtHourTo.Text, out hourTo))
+            {
+                dtTo = dtTo.Value.AddHours(hourTo.Hour).AddMinutes(hourTo.Minute);
+            }
+        }
+
         RedBloodDataContext db = new RedBloodDataContext();
 
-        GridView1.DataSource = db.Packs.Where(r => r.Date.Value.Date >= dtFrom && r.Date.Value.Date <= dtTo
-            && r.Donation.OrgPackID != r.ID).OrderBy(r => r.Date);
+        //var packs = db.Packs.Where(r => r.Date.Value.Date >= dtFrom && r.Date.Value.Date <= dtTo
+        //   && r.Donation.OrgPackID != r.ID).OrderBy(r => r.Date);
+
+        var packs = db.Packs.Where(r => r.Date.Value >= dtFrom && r.Date.Value <= dtTo
+           && r.Donation.OrgPackID != r.ID).OrderBy(r => r.Date);
+
+        GridView1.DataSource = packs;
         GridView1.DataBind();
+
+        GridViewSummary.DataSource = packs.GroupBy(r => r.ProductCode).Select(r => new { ProductCode = r.Key, Count = r.Count() });
+        GridViewSummary.DataBind();
     }
 
 }

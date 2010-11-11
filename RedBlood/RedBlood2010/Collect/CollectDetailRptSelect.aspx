@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Collect_CollectDetailRptSelect" Codebehind="CollectDetailRptSelect.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="Collect_CollectDetailRptSelect" CodeBehind="CollectDetailRptSelect.aspx.cs" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
 <%@ Register Src="~/UserControl/DateRange.ascx" TagPrefix="uc" TagName="DateR" %>
@@ -14,6 +15,8 @@
         </LayoutTemplate>
         <ItemTemplate>
             <asp:HyperLink ID="LinkButton1" runat="server" Text='<%# Eval("Name") %>' NavigateUrl='<%# Eval("Link") %>'></asp:HyperLink>
+            <span> - </span>
+            <asp:HyperLink ID="HyperLink1" runat="server" Text='<%# Eval("Name2") %>' NavigateUrl='<%# Eval("Link2") %>'></asp:HyperLink>
             <br />
         </ItemTemplate>
     </asp:ListView>

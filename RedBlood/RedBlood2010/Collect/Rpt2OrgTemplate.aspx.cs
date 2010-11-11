@@ -130,7 +130,7 @@ public partial class Collect_Rpt2OrgTemplate : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.Markers.HCV_Ab == TR.pos.Name)
+                            if (p.Markers.HCV_Ab != TR.neg.Name)
                                 cell.Attributes.Add("style", style);
                         }
                     }
@@ -143,7 +143,7 @@ public partial class Collect_Rpt2OrgTemplate : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.Markers.HBs_Ag == TR.pos.Name)
+                            if (p.Markers.HBs_Ag != TR.neg.Name)
                                 cell.Attributes.Add("style", style);
                         }
                     }
@@ -156,7 +156,7 @@ public partial class Collect_Rpt2OrgTemplate : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.Markers.Syphilis == TR.pos.Name)
+                            if (p.Markers.Syphilis != TR.neg.Name)
                                 cell.Attributes.Add("style", style);
                         }
                     }
@@ -168,7 +168,7 @@ public partial class Collect_Rpt2OrgTemplate : System.Web.UI.Page
                     {
                         if (ctr is Label)
                         {
-                            if (p.Markers.Malaria == TR.pos.Name)
+                            if (p.Markers.Malaria != TR.neg.Name)
                                 cell.Attributes.Add("style", style);
                         }
                     }

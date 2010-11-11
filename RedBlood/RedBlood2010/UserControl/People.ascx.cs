@@ -223,8 +223,14 @@ public partial class UserControl_People : System.Web.UI.UserControl
             }
             else return;
         }
-        txtName.Focus();
+        //txtName.Focus();
+        
         Page.Alert("Lưu thành công.");
+
+        if (Page.Master is MasterPage)
+        {
+            ((MasterPage)Page.Master).TextBoxCode.Focus();
+        }
     }
 
     private bool LoadFromGUI(People p)

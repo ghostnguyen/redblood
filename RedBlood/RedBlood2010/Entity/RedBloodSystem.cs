@@ -21,6 +21,7 @@ namespace RedBlood
         public static string Url4StoreCountList = "~/Store/CountList.aspx?";
 
         public static string Url4CollectDetailRpt = "~/Collect/CollectDetailRpt.aspx?";
+        public static string Url4CollectDetailRpt2 = "~/Collect/CollectDetailRpt2.aspx?";
 
         public static string Url4CollectRpt11 = "~/Collect/Rpt11.aspx?";
         public static string Url4CollectRpt920 = "~/TestResult/Rpt920.aspx?";

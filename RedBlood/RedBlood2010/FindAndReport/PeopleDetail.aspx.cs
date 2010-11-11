@@ -24,11 +24,13 @@ public partial class FindAndReport_PeopleDetail : System.Web.UI.Page
     {
 
         PeopleID = Request.Params["key"].ToGuid();
-
-        if (PeopleID != Guid.Empty)
+        if (!IsPostBack)
         {
-            People1.PeopleID = PeopleID;
-            PeopleHistory1.PeopleID = PeopleID;
+            if (PeopleID != Guid.Empty)
+            {
+                People1.PeopleID = PeopleID;
+                PeopleHistory1.PeopleID = PeopleID;
+            }
         }
 
     }

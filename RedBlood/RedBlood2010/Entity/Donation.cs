@@ -86,6 +86,15 @@ namespace RedBlood
             }
         }
 
+        public string OrgProduct
+        {
+            get
+            {
+                if (this.Pack == null) return "";
+                else return this.Pack.Product.Code;
+            }
+        }
+
         public string OrgVolume
         {
             get
