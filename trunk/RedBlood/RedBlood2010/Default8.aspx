@@ -15,6 +15,11 @@
             window.location = ("Production/Rpt_ExtractByDay.aspx");
         });
 
+        $(document).bind('keydown', '5', function () {
+            window.location = ("Store/Delete.aspx");
+        });
+
+
         $(document).bind('keydown', '1', function() {
             window.location = ("Production/TherapyReceipt.aspx");
         });
@@ -86,20 +91,20 @@
                            
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="Production/Extract.aspx">
+                                        <a href="Store/Delete.aspx">
                                             <img src="Image/Icon/number5.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Production/Extract.aspx">Tra cứu</a>
+                                            <a href="Store/Delete.aspx">Hủy túi máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>

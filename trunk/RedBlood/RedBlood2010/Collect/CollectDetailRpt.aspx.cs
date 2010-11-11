@@ -87,14 +87,27 @@ public partial class Collect_CollectDetailRpt : System.Web.UI.Page
         }
 
         var BloodGroupList = list.GroupBy(r => r.BloodGroupDesc)
-           .Select(g => new { BloodGroupDesc = g.Key, Count = g.Count() })
+           .Select(g => new
+           {
+               BloodGroupDesc = g.Key,
+               Count = g.Count(),
+               VolumeList = g.GroupBy(r => r.OrgVolume).Select(r => new
+               {
+                   Volume = r.Key,
+                   Count = r.Count()
+               })
+           })
            .Where(r => !string.IsNullOrEmpty(r.BloodGroupDesc))
            .OrderBy(r => r.BloodGroupDesc);
 
         Literal1.Text += "<br />-------------";
         foreach (var item in BloodGroupList)
         {
-            Literal1.Text += "<br />" + item.BloodGroupDesc + " : " + item.Count.ToString();
+            Literal1.Text += "<br />" + item.BloodGroupDesc + " : " + item.Count.ToString() + " | ";
+            foreach (var item1 in item.VolumeList.OrderBy(r => r.Volume))
+            {
+                Literal1.Text += item1.Volume + "ml: " + item1.Count.ToString() + " | ";
+            }
         }
     }
 

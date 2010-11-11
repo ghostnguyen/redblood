@@ -22,11 +22,19 @@ public partial class Collect_CollectDetailRptSelect : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
         string url = RedBloodSystem.Url4CollectDetailRpt;
+        string url2 = RedBloodSystem.Url4CollectDetailRpt2;
 
         var v = from r in db.Donations
                 where ucDateRange.FromDate <= r.CollectedDate.Value.Date
                 && r.CollectedDate.Value.Date <= ucDateRange.ToDate
-                select new { Name = r.Campaign.Name, Link = url + "CampaignID=" + r.CampaignID.ToString() }
+                select new
+                {
+                    Name = r.Campaign.Name,
+                    Link = url + "CampaignID=" + r.CampaignID.ToString(),
+                    Name2 = "Báo cáo có tên KTV",
+                    Link2 = url2 + "CampaignID=" + r.CampaignID.ToString()
+
+                }
                 ;
 
         ListView1.DataSource = v.Distinct();

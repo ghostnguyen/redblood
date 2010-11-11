@@ -19,7 +19,6 @@
         <asp:Button ID="btnOk2" runat="server" Text="Ok" OnClick="btnOk2_Click" />
     </div>
     <%--<%# RedBloodSystem.Url4StoreCountList %>--%>
-
     <br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" DataSourceID="LinqDataSource1"
         Width="100%">
@@ -35,13 +34,14 @@
             <asp:BoundField DataField="TotalExpired" HeaderText="Hết hạn" />
             <asp:TemplateField>
                 <HeaderTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# "Hết hạn trong " + ExpiredInDays.ToString() + " ngày" %>'></asp:Label>
+                    <asp:Label ID="Label1" runat="server" Text='<%# "Hết hạn trong " + ExpiredInDays.ToString() + " ngày" %>'
+                        Width="30"></asp:Label>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <asp:Label ID="Label1" runat="server" Text='<%# Eval("TotalExpiredInDays") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="TotalTRNA" HeaderText="Chưa có KQXN" />
+            <asp:BoundField DataField="TotalTRNA" HeaderText="Chưa có KQXN" HeaderStyle-Width="30" />
             <asp:BoundField DataField="TotalTRNeg" HeaderText="Âm tính" />
             <asp:BoundField DataField="TotalTRPos" HeaderText="Dương tính" />
             <asp:TemplateField HeaderText="Nhóm máu">
@@ -51,6 +51,17 @@
                         <Columns>
                             <asp:BoundField DataField="BloodGroupDesc" HeaderText="Nhóm máu" />
                             <asp:BoundField DataField="Total" HeaderText="TC" />
+                            <asp:TemplateField HeaderText="(ml)">
+                                <ItemTemplate>
+                                    <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("VolumeSumary") %>'
+                                        ShowHeader="false" SkinID="Inner">
+                                        <Columns>
+                                            <asp:BoundField DataField="Volume" HeaderText="(ml)" />
+                                            <asp:BoundField DataField="Total" HeaderText="TC" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </ItemTemplate>

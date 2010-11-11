@@ -48,6 +48,11 @@
                                             <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Sản phẩm">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblABO" runat="server" Text='<%# Eval("OrgProduct") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Thể tích">
                                         <ItemTemplate>
                                             <asp:Label ID="lblOrgVolume" runat="server" Text='<%# Eval("OrgVolume") %>' />

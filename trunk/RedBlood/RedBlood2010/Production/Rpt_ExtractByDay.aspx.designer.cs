@@ -30,6 +30,15 @@ public partial class FindAndReport_Rpt_ExtractByDay {
     protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
     
     /// <summary>
+    /// txtHourFrom control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.TextBox txtHourFrom;
+    
+    /// <summary>
     /// txtDateTo control.
     /// </summary>
     /// <remarks>
@@ -48,6 +57,15 @@ public partial class FindAndReport_Rpt_ExtractByDay {
     protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
     
     /// <summary>
+    /// txtHourTo control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.TextBox txtHourTo;
+    
+    /// <summary>
     /// Button1 control.
     /// </summary>
     /// <remarks>
@@ -55,6 +73,15 @@ public partial class FindAndReport_Rpt_ExtractByDay {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Button Button1;
+    
+    /// <summary>
+    /// GridViewSummary control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.GridView GridViewSummary;
     
     /// <summary>
     /// GridView1 control.

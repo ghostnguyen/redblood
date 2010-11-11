@@ -102,6 +102,7 @@
     <Content Include="Collect\CollectDetailRpt.aspx" />
     <Content Include="Collect\CollectDetailRptSelect.aspx" />
     <Content Include="Collect\CollectPack.aspx" />
+    <Content Include="Collect\CollectDetailRpt2.aspx" />
     <Content Include="Collect\DIN.aspx" />
     <Content Include="Collect\DINCertPrint.aspx" />
     <Content Include="Collect\DINCertUserControl.ascx" />
@@ -398,6 +399,13 @@
     </Compile>
     <Compile Include="Collect\CollectPack.aspx.designer.cs">
       <DependentUpon>CollectPack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Collect\CollectDetailRpt2.aspx.cs">
+      <DependentUpon>CollectDetailRpt2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Collect\CollectDetailRpt2.aspx.designer.cs">
+      <DependentUpon>CollectDetailRpt2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Collect\DIN.aspx.designer.cs">
       <DependentUpon>DIN.aspx</DependentUpon>

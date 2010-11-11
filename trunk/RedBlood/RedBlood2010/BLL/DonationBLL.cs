@@ -360,7 +360,8 @@ namespace RedBlood.BLL
                 return v.ToList();
             }
 
-            List<Donation> l = v.Where(r => r.TestResultStatus != Donation.TestResultStatusX.Non).ToList();
+            //List<Donation> l = v.Where(r => r.TestResultStatus != Donation.TestResultStatusX.Non).ToList();
+            List<Donation> l = v.ToList();
 
             if (rptType == ReportType.NegInCam)
             {
@@ -370,7 +371,7 @@ namespace RedBlood.BLL
             if (rptType == ReportType.FourPosInCam)
             {
                 return l.Where(r =>
-                    r.TestResultStatus == Donation.TestResultStatusX.Positive
+                    r.TestResultStatus != Donation.TestResultStatusX.Negative
                     && r.Markers.HIV == TR.neg.Name).ToList();
             }
 

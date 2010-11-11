@@ -56,6 +56,8 @@ public partial class Collect_AssignDIN : System.Web.UI.Page
                 ucPeople.Code = code;
             }
         }
+
+        Master.TextBoxCode.Focus();
     }
 
     void ucPeople_PeopleChanged(object sender, EventArgs e)
