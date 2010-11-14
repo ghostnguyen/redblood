@@ -23,8 +23,20 @@
             window.location = ("Store/Return.aspx");
         });
 
+        $(document).bind('keydown', '6', function () {
+            window.location = ("Store/Rpt_ReturnByDay.aspx");
+        });
+
         $(document).bind('keydown', '1', function() {
             window.location = ("Store/Delete.aspx");
+        });
+
+        $(document).bind('keydown', '2', function () {
+            window.location = ("Store/Rpt_DeleteByDay.aspx");
+        });
+
+        $(document).bind('keydown', '3', function () {
+            window.location = ("Store/Rpt_OrderByDay.aspx");
         });
 
 
@@ -136,20 +148,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
+                                        <a href="Store/Rpt_ReturnByDay.aspx">
                                             <img src="Image/Icon/number6.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Store/Rpt_ReturnByDay.aspx">Báo cáo thu hồi</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>
@@ -174,28 +186,36 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
+                                        <a href="Store/Rpt_DeleteByDay.aspx">
                                             <img src="Image/Icon/number2.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Store/Rpt_DeleteByDay.aspx">Báo cáo hủy</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
-                            <%--<h3>
-                                <a href="PackManually.aspx">3. Thêm</a></h3>
-                            <p>
-                            </p>
-                            <a href="PackManually.aspx" />
-                            <img src="Image/Icon/books-256.png" alt="" />--%>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="Store/Rpt_OrderByDay.aspx">
+                                            <img src="Image/Icon/number1.gif" alt="" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="Store/Rpt_OrderByDay.aspx">Thống kê cấp phát</a>
+                                        </h4>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

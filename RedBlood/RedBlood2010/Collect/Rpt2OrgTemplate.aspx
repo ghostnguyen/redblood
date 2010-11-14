@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true" Inherits="Collect_Rpt2OrgTemplate" Codebehind="Rpt2OrgTemplate.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true"
+    Inherits="Collect_Rpt2OrgTemplate" CodeBehind="Rpt2OrgTemplate.aspx.cs" %>
 
 <%@ Register Src="~/UserControl/CampaignDetail4Rpt.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%" style="size: landscape;">
-        
         <tr valign="top">
             <td align="center">
                 <h3>
@@ -25,16 +25,15 @@
                 <table>
                     <tr>
                         <td>
-                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-                                DataKeyNames="DIN" DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller"
-                                OnRowDataBound="GridView1_RowDataBound">
+                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="DIN"
+                                DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller" OnRowDataBound="GridView1_RowDataBound">
                                 <Columns>
-                                    <asp:BoundField DataField="DIN" HeaderText="Túi máu" />                                    
+                                    <asp:BoundField DataField="DIN" HeaderText="Túi máu" />
                                     <asp:TemplateField HeaderText="CMND">
                                         <ItemTemplate>
                                             <asp:Label ID="Label1" runat="server" Text='<%# Eval("People.CMND") %>' />
                                         </ItemTemplate>
-                                    </asp:TemplateField>                                   
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Họ & Tên">
                                         <ItemTemplate>
                                             <asp:Label runat="server" Text='<%# Eval("People.Name") %>' />
@@ -42,10 +41,9 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Ngày sinh">
                                         <ItemTemplate>
-                                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("People.DOB","{0:dd/MM/yyyy}") %>'  />
+                                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("People.DOB","{0:dd/MM/yyyy}") %>' />
                                         </ItemTemplate>
-                                    </asp:TemplateField>                                    
-                                    
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="ABO">
                                         <ItemTemplate>
                                             <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc") %>' />
@@ -119,11 +117,14 @@
                                 <%= Resources.Resource.HdrLine4 %>
                                 <br />
                                 <%= Resources.Resource.FooterLine1 %>
+                                <br />
+                                <img src="../Image/chuky.png" />
                             </div>
                         </td>
                     </tr>
                 </table>
-                <div runat="server" id="divNote" style="float: left; width: 450px; font-size: small; text-align: left;">
+                <div runat="server" id="divNote" style="float: left; width: 450px; font-size: small;
+                    text-align: left;">
                     <span style="text-decoration: underline;">Ghi chú:</span> - Trên đây là kết quả
                     xét nghiệm lần 1 từ mẫu máu của người cho máu.
                     <br />
