@@ -137,6 +137,7 @@
     <Content Include="FindAndReport\PeopleDetail.aspx" />
     <Content Include="Image\arrows.gif" />
     <Content Include="Image\bloodbag.gif" />
+    <Content Include="Image\chuky.png" />
     <Content Include="Image\dottedLine.gif" />
     <Content Include="Image\Icon\Ambulance.png" />
     <Content Include="Image\Icon\Blood.png" />
@@ -231,6 +232,9 @@
     <Content Include="Membership\UserAndRole.aspx" />
     <Content Include="Order\Order4CR.aspx" />
     <Content Include="Order\SideEffects.aspx" />
+    <Content Include="Store\Rpt_OrderByDay.aspx" />
+    <Content Include="Store\Rpt_ReturnByDay.aspx" />
+    <Content Include="Store\Rpt_DeleteByDay.aspx" />
     <Content Include="Production\Divide.aspx" />
     <Content Include="Production\Extract.aspx" />
     <Content Include="Production\Pool.aspx" />
@@ -587,6 +591,27 @@
     </Compile>
     <Compile Include="Order\SideEffects.aspx.designer.cs">
       <DependentUpon>SideEffects.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\Rpt_OrderByDay.aspx.cs">
+      <DependentUpon>Rpt_OrderByDay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\Rpt_OrderByDay.aspx.designer.cs">
+      <DependentUpon>Rpt_OrderByDay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\Rpt_ReturnByDay.aspx.cs">
+      <DependentUpon>Rpt_ReturnByDay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\Rpt_ReturnByDay.aspx.designer.cs">
+      <DependentUpon>Rpt_ReturnByDay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\Rpt_DeleteByDay.aspx.cs">
+      <DependentUpon>Rpt_DeleteByDay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\Rpt_DeleteByDay.aspx.designer.cs">
+      <DependentUpon>Rpt_DeleteByDay.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\Divide.aspx.designer.cs">
       <DependentUpon>Divide.aspx</DependentUpon>

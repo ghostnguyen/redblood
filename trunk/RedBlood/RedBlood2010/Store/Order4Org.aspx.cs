@@ -99,31 +99,24 @@ public partial class Store_Order4Org : System.Web.UI.Page
     {
         OrderID = 0;
 
-        //Clear();
-        //btnUpdate.Enabled = true;
+        Clear();
+        btnUpdate.Enabled = true;
     }
 
-    //public void Clear()
-    //{
-    //    OrderID = 0;
+    public void Clear()
+    {
+        OrderID = 0;
 
-    //    imgOrder.ImageUrl = "none";
+        imgOrder.ImageUrl = "none";
 
-    //    txtDate.Text = "";
-    //    txtNote.Text = "";
-    //    txtDept.Text = "";
-    //    txtRoom.Text = "";
-    //    txtBed.Text = "";
-    //    txtDiagnosis.Text = "";
-    //    txtPatientCode.Text = "";
-    //    txtTransfusionNote.Text = "";
-    //    People1.PeopleID = Guid.Empty;
+        txtDate.Text = "";
+        txtNote.Text = "";
 
-    //    GridViewPack.DataBind();
+        GridViewPack.DataBind();
 
-    //    CurrentDIN = "";
-    //    imgCurrentDIN.ImageUrl = "none";
-    //}
+        CurrentDIN = "";
+        imgCurrentDIN.ImageUrl = "none";
+    }
 
     public void LoadOrder()
     {
@@ -168,8 +161,12 @@ public partial class Store_Order4Org : System.Web.UI.Page
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        e.Result = db.PackOrders.Where(r => r.OrderID.Value == OrderID
-            && !r.ReturnID.HasValue);
+        var v = db.PackOrders.Where(r => r.OrderID.Value == OrderID
+            && !r.ReturnID.HasValue).ToList();
+
+        v.Reverse();
+
+        e.Result = v;
     }
 
 

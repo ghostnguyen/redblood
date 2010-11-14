@@ -39,14 +39,14 @@ namespace RedBlood.TestResult
                     TestResultPos = RedBloodSystem.checkingInfection.Select(r1 => new
                     {
                         r1.Name,
-                        Total = r.Donations.Where(r2 => r1.Decode(r2.InfectiousMarkers) == TR.pos.Name).Count()
+                        Total = r.Donations.Where(r2 => r2.OrgPackID.HasValue && r1.Decode(r2.InfectiousMarkers) == TR.pos.Name).Count()
                     }).Where(r1 => r1.Total > 0),
                     TestResultNA = RedBloodSystem.checkingInfection.Select(r1 => new
                     {
                         r1.Name,
-                        Total = r.Donations.Where(r2 => r1.Decode(r2.InfectiousMarkers) == TR.na.Name).Count()
+                        Total = r.Donations.Where(r2 => r2.OrgPackID.HasValue && r1.Decode(r2.InfectiousMarkers) == TR.na.Name).Count()
                     }).Where(r1 => r1.Total > 0),
-                    BloodGroupSumary = r.Donations.GroupBy(r1 => r1.BloodGroup, (r2, BGSub) => new
+                    BloodGroupSumary = r.Donations.Where(r2 => r2.OrgPackID.HasValue).GroupBy(r1 => r1.BloodGroup, (r2, BGSub) => new
                     {
                         BloodGroupDesc = BloodGroupBLL.GetDescription(r2),
                         Total = BGSub.Count()

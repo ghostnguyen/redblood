@@ -40,6 +40,7 @@ namespace RedBlood.BLL
 
             Delete re = new Delete();
             re.Note = note;
+            re.Actor = RedBloodSystem.CurrentActor;
 
             db.Deletes.InsertOnSubmit(re);
             db.SubmitChanges();

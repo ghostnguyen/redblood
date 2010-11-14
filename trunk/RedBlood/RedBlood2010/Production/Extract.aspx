@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="RedBlood.Production.Extract" Codebehind="Extract.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="RedBlood.Production.Extract" CodeBehind="Extract.aspx.cs" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -55,12 +56,15 @@
         <asp:RadioButton ID="rdbDINIn" runat="server" GroupName="InputBarcode" Text="Quét barcode túi máu cần sản xuất" />
     </h4>
     <hr />
-    <asp:DataList ID="DataListDINIn" runat="server" RepeatDirection="Horizontal" DataSourceID="LinqDataSourceDINIn">
+    <asp:DataList ID="DataListDINIn" runat="server" RepeatDirection="Horizontal" DataSourceID="LinqDataSourceDINIn"
+        RepeatColumns="6">
         <ItemTemplate>
             <div style="margin: 0px 10px 0px 10px;">
-                <asp:Image ID="Image1" runat="server"  />
-                <asp:ImageButton BorderStyle="None" ID="ImageButton1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>'
-                    OnClick="btnDINRemove_Click" CommandArgument='<%# Eval("DIN") %>' OnClientClick="return confirm('Xóa túi máu?');" />
+                <%--<asp:ImageButton BorderStyle="None" ID="ImageButton1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>'
+                    OnClick="btnDINRemove_Click" CommandArgument='<%# Eval("DIN") %>' OnClientClick="return confirm('Xóa túi máu?');" />--%>
+                <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("DIN") %>'
+                    OnClick="LinkButton1_Click" OnClientClick="return confirm('Xóa túi máu?');"
+                    Text='<%# Eval("DIN") %>'></asp:LinkButton>
             </div>
         </ItemTemplate>
     </asp:DataList>

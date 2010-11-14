@@ -1,17 +1,17 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Default8" Title="Default" Codebehind="Default8.aspx.cs" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="Default8" Title="Default" CodeBehind="Default8.aspx.cs" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
     <script type="text/javascript">
         // Your code goes here
 
-        $(document).bind('keydown', '7', function() {
+        $(document).bind('keydown', '7', function () {
             window.location = ("Production/Extract.aspx");
         });
 
-        $(document).bind('keydown', '8', function() {
+        $(document).bind('keydown', '8', function () {
             window.location = ("Production/Rpt_ExtractByDay.aspx");
         });
 
@@ -19,14 +19,17 @@
             window.location = ("Store/Delete.aspx");
         });
 
+        $(document).bind('keydown', '6', function () {
+            window.location = ("Store/Rpt_DeleteByDay.aspx");
+        });
 
-        $(document).bind('keydown', '1', function() {
+
+        $(document).bind('keydown', '1', function () {
             window.location = ("Production/TherapyReceipt.aspx");
         });
 
        
     </script>
-
     <table width="100%">
         <tr>
             <td align="center">
@@ -50,7 +53,7 @@
                             </table>
                         </td>
                         <td class="column next">
-                             <table>
+                            <table>
                                 <tr>
                                     <td>
                                         <a href="Production/Rpt_ExtractByDay.aspx">
@@ -88,7 +91,6 @@
                     </tr>
                     <tr>
                         <td class="column">
-                           
                         </td>
                         <td class="column next">
                             <table>
@@ -107,29 +109,29 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
+                                        <a href="Store/Rpt_DeleteByDay.aspx">
                                             <img src="Image/Icon/number6.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Store/Rpt_DeleteByDay.aspx">Báo cáo hủy</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>
-                         <td colspan="3" class="rowline">
+                        <td colspan="3" class="rowline">
                         </td>
                     </tr>
                     <tr>
                         <td class="column">
-                             <table>
+                            <table>
                                 <tr>
                                     <td>
                                         <a href="Production/TherapyReceipt.aspx">
@@ -174,5 +176,4 @@
             </td>
         </tr>
     </table>
-   
 </asp:Content>

@@ -40,6 +40,7 @@ namespace RedBlood.BLL
 
             Return re = new Return();
             re.Note = note;
+            re.Actor = RedBloodSystem.CurrentActor;
 
             db.Returns.InsertOnSubmit(re);
             db.SubmitChanges();

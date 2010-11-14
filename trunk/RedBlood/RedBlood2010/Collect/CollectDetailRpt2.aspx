@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true" Inherits="RedBlood.TestResult.TestResult_Rpt920" Codebehind="Rpt920.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true"
+    Inherits="Collect_CollectDetailRpt2" CodeBehind="CollectDetailRpt2.aspx.cs" %>
 
-<%@ Register Src="~/UserControl/CampaignDetail4Rpt.ascx" TagPrefix="uc" TagName="CampaignDetailUC" %>
+<%@ Register Src="~/UserControl/CampaignDetail4Rpt.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -16,7 +17,7 @@
         </tr>
         <tr align="center">
             <td>
-                <uc:CampaignDetailUC runat="server" ID="CampaignDetail1" />
+                <uc:CampaignDetail runat="server" ID="CampaignDetail1" />
             </td>
         </tr>
         <tr align="center">
@@ -24,37 +25,27 @@
                 <table>
                     <tr>
                         <td>
-                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="LinqDataSource1"
-                                SkinID="GridViewRpt">
+                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="DIN"
+                                DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller">
                                 <Columns>
-                                    <asp:BoundField DataField="Name" HeaderText="Xét nghiệm" />
-                                    <asp:TemplateField HeaderText="Dương tính">
-                                        <ItemTemplate>
-                                            <asp:DataList ID="DataList1" runat="server" DataSource='<%# Eval("PosList") %>' RepeatDirection="Horizontal" RepeatColumns="2">
-                                                <ItemTemplate>
-                                                    <div style="margin: 0px 10px 0px 10px;">
-                                                        <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>' />
-                                                    </div>
-                                                </ItemTemplate>
-                                            </asp:DataList>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Không xác định">
-                                        <ItemTemplate>
-                                            <asp:DataList ID="DataList1" runat="server" DataSource='<%# Eval("NAList") %>' RepeatDirection="Horizontal" RepeatColumns="2">
-                                                <ItemTemplate>
-                                                    <div style="margin: 0px 10px 0px 10px;">
-                                                        <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>' />
-                                                    </div>
-                                                </ItemTemplate>
-                                            </asp:DataList>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="DIN" HeaderText="Túi máu" />
+                                    <asp:BoundField DataField="ProductCode" HeaderText="Sản phẩm" />
+                                    <asp:BoundField DataField="CMND" HeaderText="CMND" />
+                                    <asp:BoundField DataField="Name" HeaderText="Họ & Tên" />
+                                    <asp:BoundField DataField="DOB" HeaderText="Ngày sinh" />
+                                    <asp:BoundField DataField="BloodGroupDesc" HeaderText="Nhóm máu" />
+                                    <asp:BoundField DataField="OrgVolume" HeaderText="Thể tích" />
+                                    <asp:BoundField DataField="ResidentAddress" HeaderText="Địa chỉ" />
+                                    <asp:BoundField DataField="ResidentGeo3Name" HeaderText="Phường/xã" />
+                                    <asp:BoundField DataField="ResidentGeo2Name" HeaderText="Quận/huyện" />
+                                    <asp:BoundField DataField="ResidentGeo1Name" HeaderText="Tỉnh/thành" />
+                                    <asp:BoundField DataField="Collector" HeaderText="KTV" />
+                                    <asp:BoundField DataField="Note" HeaderText="Ghi chú" />
                                 </Columns>
                             </asp:GridView>
                             <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
                                 EnableUpdate="True" OnSelecting="LinqDataSource1_Selecting" TableName="Donations"
-                                OnSelected="LinqDataSource1_Selected">
+                                OrderBy="DIN" EnableDelete="True" OnSelected="LinqDataSource1_Selected">
                             </asp:LinqDataSource>
                         </td>
                     </tr>

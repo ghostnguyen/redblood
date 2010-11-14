@@ -121,7 +121,9 @@ namespace RedBlood.Production
         protected void LinqDataSourceDINIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             RedBloodDataContext db = new RedBloodDataContext();
-            e.Result = db.Donations.Where(r => DINInList.Contains(r.DIN));
+            var list = db.Donations.Where(r => DINInList.Contains(r.DIN)).ToList();
+            list.Reverse();
+            e.Result = list;
         }
 
         protected void btnReset_Click(object sender, EventArgs e)
@@ -148,6 +150,17 @@ namespace RedBlood.Production
         protected void btnDINRemove_Click(object sender, ImageClickEventArgs e)
         {
             ImageButton btn = sender as ImageButton;
+
+            if (btn != null)
+            {
+                DINInList.Remove(btn.CommandArgument);
+                DataListDINIn.DataBind();
+            }
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = sender as LinkButton;
 
             if (btn != null)
             {
