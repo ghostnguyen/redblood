@@ -85,6 +85,7 @@
         <br />
         <asp:HyperLink runat="server" Text="In thẻ cho tất cả" ID="HyperLinkAllCard">                
         </asp:HyperLink>
+        | 
         <asp:HyperLink runat="server" Text="In Giấy chứng nhận cho tất cả" ID="HyperLinkAllDINCert">                
         </asp:HyperLink>
         <asp:Button ID="btnSelectedCard" runat="server" Text="In the chon loc" OnClick="btnSelectedCard_Click" />

@@ -207,7 +207,7 @@ namespace RedBlood.BLL
             {
                 Pack p = d.Pack;
                 d.Pack = null;
-                
+
                 db.PackTransactions.DeleteAllOnSubmit(p.PackTransactions);
                 db.PackRemainDailies.DeleteAllOnSubmit(p.PackRemainDailies);
                 db.Packs.DeleteOnSubmit(p);
@@ -377,7 +377,7 @@ namespace RedBlood.BLL
 
             if (rptType == ReportType.HIVInCam)
             {
-                return l.Where(r => r.Markers.HIV == TR.pos.Name).ToList();
+                return l.Where(r => r.Markers.HIV != TR.neg.Name).ToList();
             }
 
             return new List<Donation>();

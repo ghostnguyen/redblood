@@ -29,6 +29,7 @@ public partial class Collect_CollectDetailRptSelect : System.Web.UI.Page
                 && r.CollectedDate.Value.Date <= ucDateRange.ToDate
                 select new
                 {
+                    ID = r.Campaign.ID,
                     Name = r.Campaign.Name,
                     Link = url + "CampaignID=" + r.CampaignID.ToString(),
                     Name2 = "Báo cáo có tên KTV",

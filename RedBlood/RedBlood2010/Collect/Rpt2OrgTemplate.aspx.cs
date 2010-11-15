@@ -120,6 +120,10 @@ public partial class Collect_Rpt2OrgTemplate : System.Web.UI.Page
                                 cell.Attributes.Add("style", style);
                                 if (IsSpecialProvince()) (ctr as Label).Text = "XN lần 2";
                             }
+                            else if (p.Markers.HIV == TR.na.Name)
+                            {
+                                cell.Attributes.Add("style", style);
+                            }
                         }
                     }
                 }
