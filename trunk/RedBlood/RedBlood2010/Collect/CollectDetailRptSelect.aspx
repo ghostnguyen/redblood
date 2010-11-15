@@ -14,10 +14,21 @@
             <asp:PlaceHolder ID="itemPlaceholder" runat="server"></asp:PlaceHolder>
         </LayoutTemplate>
         <ItemTemplate>
-            <asp:HyperLink ID="LinkButton1" runat="server" Text='<%# Eval("Name") %>' NavigateUrl='<%# Eval("Link") %>'></asp:HyperLink>
-            <span> - </span>
-            <asp:HyperLink ID="HyperLink1" runat="server" Text='<%# Eval("Name2") %>' NavigateUrl='<%# Eval("Link2") %>'></asp:HyperLink>
-            <br />
+            <div style="vertical-align: middle;">
+                <table>
+                    <tr valign="middle">
+                        <td>
+                            <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Campaign((Eval("ID") as int?).Value) %>' />
+                        </td>
+                        <td>
+                            <span>- </span>
+                            <asp:HyperLink ID="LinkButton1" runat="server" Text='<%# Eval("Name") %>' NavigateUrl='<%# Eval("Link") %>'></asp:HyperLink>
+                            <span>- </span>
+                            <asp:HyperLink ID="HyperLink1" runat="server" Text='<%# Eval("Name2") %>' NavigateUrl='<%# Eval("Link2") %>'></asp:HyperLink>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </ItemTemplate>
     </asp:ListView>
 </asp:Content>
