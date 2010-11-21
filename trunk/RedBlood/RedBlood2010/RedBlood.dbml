@@ -545,6 +545,7 @@
       <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Status" Type="Pack.StatusX" DbType="Int" CanBeNull="true" />
       <Column Name="DeleteID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPrinted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Pack_PackSideEffect" Member="PackSideEffects" ThisKey="ID" OtherKey="PackID" Type="PackSideEffect" />
       <Association Name="Pack_Donation" Member="Donations" ThisKey="ID" OtherKey="OrgPackID" Type="Donation" />
       <Association Name="Pack_PackRemainDaily" Member="PackRemainDailies" ThisKey="ID" OtherKey="PackID" Type="PackRemainDaily" />
