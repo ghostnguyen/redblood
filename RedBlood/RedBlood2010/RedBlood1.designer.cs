@@ -11881,6 +11881,8 @@ namespace RedBlood
 		
 		private System.Nullable<int> _DeleteID;
 		
+		private System.Nullable<bool> _IsPrinted;
+		
 		private EntitySet<PackSideEffect> _PackSideEffects;
 		
 		private EntitySet<Donation> _Donations;
@@ -11921,6 +11923,8 @@ namespace RedBlood
     partial void OnStatusChanged();
     partial void OnDeleteIDChanging(System.Nullable<int> value);
     partial void OnDeleteIDChanged();
+    partial void OnIsPrintedChanging(System.Nullable<bool> value);
+    partial void OnIsPrintedChanged();
     #endregion
 		
 		public Pack()
@@ -12144,6 +12148,26 @@ namespace RedBlood
 					this._DeleteID = value;
 					this.SendPropertyChanged("DeleteID");
 					this.OnDeleteIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPrinted", DbType="Bit")]
+		public System.Nullable<bool> IsPrinted
+		{
+			get
+			{
+				return this._IsPrinted;
+			}
+			set
+			{
+				if ((this._IsPrinted != value))
+				{
+					this.OnIsPrintedChanging(value);
+					this.SendPropertyChanging();
+					this._IsPrinted = value;
+					this.SendPropertyChanged("IsPrinted");
+					this.OnIsPrintedChanged();
 				}
 			}
 		}
