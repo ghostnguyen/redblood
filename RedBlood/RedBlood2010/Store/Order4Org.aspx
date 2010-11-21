@@ -1,14 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Store_Order4Org" Codebehind="Order4Org.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="Store_Order4Org" CodeBehind="Order4Org.aspx.cs" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
 <%@ Register Src="~/UserControl/People.ascx" TagPrefix="uc" TagName="People" %>
 <%@ Register Src="~/UserControl/PeopleOrder.ascx" TagPrefix="uc" TagName="PeopleOrder" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
     <script type="text/javascript">
         // Your code goes here
-        $(document).bind('keydown', 'Ctrl+m', function() {
+        $(document).bind('keydown', 'Ctrl+m', function () {
             $("input[id*='btnNew']").click();
         });
 
@@ -30,7 +30,6 @@
         //            $addHandler(document, "keydown", PanelOnKeyPress);
         //        }
     </script>
-
     <h4>
         Cấp phát cho bệnh viện
         <asp:Button ID="btnNew4CR" runat="server" Text="Tạo đợt mới" OnClick="btnNew4CR_Click"
@@ -104,6 +103,29 @@
                         </td>
                     </tr>
                     <tr>
+                        <td colspan="2">
+                            <asp:GridView ID="GridViewSum" runat="server" AutoGenerateColumns="False" 
+                                DataSourceID="LinqDataSourceSum">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Sản phẩm">
+                                        <ItemTemplate>
+                                            <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("ProductCode") as string) %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="TC" DataField="Sum" />
+                                </Columns>
+                            </asp:GridView>
+                            <asp:LinqDataSource ID="LinqDataSourceSum" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
+                                TableName="PackOrders" OnSelecting="LinqDataSourceSum_Selecting" EnableDelete="True"
+                                EnableUpdate="True">
+                            </asp:LinqDataSource>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dotLineBottom" colspan="2">
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <asp:Button ID="btnUpdate" runat="server" Text="<%$ Resources:Resource,Update %>"
                                 OnClick="btnUpdate_Click" />
@@ -130,7 +152,7 @@
                 <div id="divErrOrgName" runat="server" class="hidden" />
             </td>
         </tr>
-        --%>
+                    --%>
                 </table>
             </td>
             <td>

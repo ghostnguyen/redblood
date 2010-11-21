@@ -229,9 +229,16 @@ namespace RedBlood.BLL
             return Url4DIN(DIN, "00");
         }
 
-        public static string Url4DIN(string DIN, string flag)
+        public static string Url4DIN(string DIN, string flag, bool hasText = true)
         {
-            return BarcodeImgPage + "?hasText=true&checkChar=true&IdChar=" + DINIdChar + "&code=" + DIN + flag;
+            string str = BarcodeImgPage + "?checkChar=true&IdChar=" + DINIdChar + "&code=" + DIN + flag;
+
+            if (hasText)
+            {
+                str += "&hasText=true";
+            }
+
+            return str;
             //return HttpUtility.UrlEncode("~/Barcode/Image.aspx?hasText=true&checkChar=true&IdChar=" + DINIdChar + "&code=" + DIN + flag); 
         }
 
@@ -241,14 +248,25 @@ namespace RedBlood.BLL
             return BarcodeImgPage + "?hasText=true&checkChar=true&IdChar=" + peopleIdChar.ToURLCompatible() + "&code=" + autonum.ToString("D" + (peopleLength - 2).ToString());
         }
 
-        public static string Url4Product(string code)
+        public static string Url4Product(string code, bool hasText = true)
         {
-            return BarcodeImgPage + "?hasText=true&code=" + productIdChar.ToURLCompatible() + code;
+            string str = BarcodeImgPage + "?code=" + productIdChar.ToURLCompatible() + code;
+            if (hasText)
+            {
+                str += "&hasText=true";
+            }
+
+            return str;
         }
 
-        public static string Url4BloodGroup(string code)
+        public static string Url4BloodGroup(string code, bool hasText = true)
         {
-            return BarcodeImgPage + "?hasText=true&code=" + bloodGroupIdChar.ToURLCompatible() + code;
+            string str = BarcodeImgPage + "?code=" + bloodGroupIdChar.ToURLCompatible() + code;
+            if (hasText)
+            {
+                str += "&hasText=true";
+            }
+            return str;
         }
 
         public static string Url4Campaign(int ID)

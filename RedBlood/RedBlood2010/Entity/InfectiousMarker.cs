@@ -94,6 +94,11 @@ namespace RedBlood
                 return Infection.Malaria.Decode(Code);
             }
         }
+
+        public override string ToString()
+        {
+            return Code;
+        }
     }
 
     public class TR

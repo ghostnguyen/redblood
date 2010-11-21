@@ -89,8 +89,43 @@ namespace RedBlood.BLL
             public static PrintSetting NowYear { get; set; }
             public static PrintSetting PaperSize { get; set; }
             public static PrintSetting CardSize { get; set; }
-
         }
+
+        public class FinalLabel
+        {
+            public static PrintSetting DINBarcode { get; set; }
+            public static PrintSetting DIN { get; set; }
+            public static PrintSetting CheckChar { get; set; }
+
+            public static PrintSetting ABOBarcode { get; set; }
+            public static PrintSetting ABOCode { get; set; }
+            public static PrintSetting ABOLetter { get; set; }
+            public static PrintSetting ABORh { get; set; }
+
+            public static PrintSetting Geo { get; set; }
+
+            public static PrintSetting CollectedDateLabel { get; set; }
+            public static PrintSetting CollectedDate { get; set; }
+
+            public static PrintSetting ProductBarcode { get; set; }
+            public static PrintSetting ProductCode { get; set; }
+            public static PrintSetting ProductDesc { get; set; }
+            
+            public static PrintSetting VolumeLabel { get; set; }
+            public static PrintSetting Volume { get; set; }
+
+            public static PrintSetting ExpiryDateLabel { get; set; }
+            public static PrintSetting ExpiryDate { get; set; }
+
+            public static PrintSetting OrgLine1 { get; set; }
+            public static PrintSetting OrgLine2 { get; set; }
+            public static PrintSetting OrgLine3 { get; set; }
+            public static PrintSetting OrgLine4 { get; set; }
+
+            public static PrintSetting FinalLabelSize { get; set; }
+            public static PrintSetting PaperSize { get; set; }
+        }
+
 
         static PrintSettingBLL()
         {
@@ -113,6 +148,7 @@ namespace RedBlood.BLL
             LoadData(typeof(ProductLabel));
             LoadData(typeof(BloodGroupLabel));
             LoadData(typeof(DINCert));
+            LoadData(typeof(FinalLabel));
 
 
             //RedBloodDataContext db = new RedBloodDataContext();

@@ -81,7 +81,7 @@ public partial class Store_CountList : System.Web.UI.Page
                 Expired = r.ExpirationDate.Value.Expired() ? "X" : "",
                 ExpiredInDays = r.ExpirationDate.Value.ExpiredInDays(ExpiredInDays) ? "X" : ""
             })
-            .OrderBy(r => r.DIN);
+            .OrderBy(r => r.TestResultStatus).ThenBy(r => r.DIN);
     }
 
     protected void btnOk1_Click(object sender, EventArgs e)

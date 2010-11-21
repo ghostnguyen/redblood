@@ -40,15 +40,33 @@ public partial class UserControl_PeopleDonationLog : System.Web.UI.UserControl
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        e.Result = GetByPeopleID4PackHistory(PeopleID);
+        RedBloodDataContext db = new RedBloodDataContext();
+
+
+        var l = db.Donations.Where(r => r.PeopleID == PeopleID)
+        .OrderByDescending(r => r.CollectedDate)
+        .ToList()
+        .Select(r => new
+        {
+            r.DIN,
+            CollectedDate = r.CollectedDate.ToStringVN(),
+            Note = r.TestResultStatus != Donation.TestResultStatusX.Negative ? "D" : r.Note,
+        });
+        e.Result = l;
+
+        if (l != null && l.Count() != 0)
+            LabelTotal.Text = "Tổng cộng: " + l.Count().ToString();
+        else
+            LabelTotal.Text = "";
+
     }
     protected void LinqDataSource1_Selected(object sender, LinqDataSourceStatusEventArgs e)
     {
-        List<Donation> l = (List<Donation>)e.Result;
-        if (l != null && l.Count != 0)
-            LabelTotal.Text = "Tổng cộng: " + l.Count.ToString();
-        else
-            LabelTotal.Text = "";
+        //List<Donation> l = (List<Donation>)e.Result;
+        //if (l != null && l.Count != 0)
+        //    LabelTotal.Text = "Tổng cộng: " + l.Count.ToString();
+        //else
+        //    LabelTotal.Text = "";
     }
     public object GetByPeopleID4PackHistory(Guid peopleID)
     {

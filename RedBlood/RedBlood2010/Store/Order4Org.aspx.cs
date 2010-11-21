@@ -85,6 +85,7 @@ public partial class Store_Order4Org : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+        GridViewSum.DataBind();
     }
 
     void LoadCurrentDIN(string DIN)
@@ -116,6 +117,8 @@ public partial class Store_Order4Org : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+
+        GridViewSum.DataBind();
     }
 
     public void LoadOrder()
@@ -155,6 +158,8 @@ public partial class Store_Order4Org : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+
+        GridViewSum.DataBind();
     }
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -165,6 +170,22 @@ public partial class Store_Order4Org : System.Web.UI.Page
             && !r.ReturnID.HasValue).ToList();
 
         v.Reverse();
+
+        e.Result = v;
+    }
+
+    protected void LinqDataSourceSum_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        var v = db.PackOrders.Where(r => r.OrderID.Value == OrderID
+            && !r.ReturnID.HasValue).ToList()
+            .GroupBy(r => r.Pack.ProductCode)
+            .Select(r => new
+            {
+                ProductCode = r.Key,
+                Sum = r.Count()
+            });
 
         e.Result = v;
     }

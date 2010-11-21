@@ -57,6 +57,7 @@ namespace RedBlood.TestResult
                 e.Result = v;
 
                 PanelAllNeg.Visible = v.Count > 0;
+                lblTotal.Text = v.Count.ToString();
             }
             else { e.Cancel = true; }
         }

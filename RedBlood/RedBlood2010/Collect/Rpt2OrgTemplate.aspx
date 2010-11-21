@@ -29,21 +29,9 @@
                                 DataSourceID="LinqDataSource1" SkinID="GridViewRpt" Font-Size="Smaller" OnRowDataBound="GridView1_RowDataBound">
                                 <Columns>
                                     <asp:BoundField DataField="DIN" HeaderText="Túi máu" />
-                                    <asp:TemplateField HeaderText="CMND">
-                                        <ItemTemplate>
-                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("People.CMND") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Họ & Tên">
-                                        <ItemTemplate>
-                                            <asp:Label runat="server" Text='<%# Eval("People.Name") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Ngày sinh">
-                                        <ItemTemplate>
-                                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("People.DOB","{0:dd/MM/yyyy}") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="CMND" HeaderText="CMND" />
+                                    <asp:BoundField DataField="Name" HeaderText="Họ & Tên" />
+                                    <asp:BoundField DataField="DOB" HeaderText="Ngày sinh" />
                                     <asp:TemplateField HeaderText="ABO">
                                         <ItemTemplate>
                                             <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc") %>' />
@@ -51,44 +39,32 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HIV">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("Markers.HIV") %>' />
+                                            <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("HIV") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HCV">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("Markers.HCV_Ab") %>' />
+                                            <asp:Label ID="lblHCV" runat="server" Text='<%# Eval("HCV_Ab") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HBsAg">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>' />
+                                            <asp:Label ID="lblHBsAg" runat="server" Text='<%# Eval("HBs_Ag") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Syphilis">
+                                    <asp:TemplateField HeaderText="Giang Mai">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Markers.Syphilis") %>' />
+                                            <asp:Label ID="lblSyphilis" runat="server" Text='<%# Eval("Syphilis") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Malaria">
+                                    <asp:TemplateField HeaderText="KSTSR">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Markers.Malaria") %>' />
+                                            <asp:Label ID="lblMalaria" runat="server" Text='<%# Eval("Malaria") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Địa chỉ">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblAddress" runat="server" Text='<%# Eval("People.ResidentAddress") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Phường/xã">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblGeo3" runat="server" Text='<%# Eval("People.ResidentGeo3.Name") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Quận/huyện">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblGeo2" runat="server" Text='<%# Eval("People.ResidentGeo2.Name") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="ResidentAddress" HeaderText="Địa chỉ" />
+                                    <asp:BoundField DataField="Geo3Name" HeaderText="Phường/xã" />
+                                    <asp:BoundField DataField="Geo2Name" HeaderText="Quận/huyện" />
                                 </Columns>
                             </asp:GridView>
                             <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
@@ -139,4 +115,9 @@
             </td>
         </tr>
     </table>
+    <script type="text/javascript">
+        //XN lần 2
+        $("span:contains('Chưa xác định'),span:contains('Dương tính'),span:contains('XN lần 2')").css('font-weight', 'bolder').css('color', 'red');
+
+    </script>
 </asp:Content>
