@@ -47,7 +47,24 @@ namespace RedBlood.TestResult
         {
             if (CampaignDetail1.CampaignID > 0)
             {
-                e.Result = DonationBLL.GetUnLock(CampaignDetail1.CampaignID);
+                e.Result =
+                    DonationBLL.GetUnLock(CampaignDetail1.CampaignID)
+                    .Select(r => new
+                    {
+                        r.DIN,
+                        r.Status,
+                        r.People.Name,
+                        CollectedDate = r.CollectedDate.ToStringVN_Hour(),
+                        r.BloodGroup,
+                        r.BloodGroupDesc,
+                        ABOLog = r.DonationTestLogs.Where(r1 => r1.Type == DonationTestLog.TypeX.BloodGroup)
+                        .Select(r1 => new
+                        {
+                            BloodGroupDesc = BloodGroupBLL.GetDescription(r1.Result),
+                            Date = r1.Date.ToStringVN_Hour()
+                        })
+
+                    });
             }
             else
             {
@@ -81,7 +98,7 @@ namespace RedBlood.TestResult
         {
             string DIN = (string)e.Keys[0];
 
-            // It will be null if the groupbloodis NOT enter when collect blood.
+            // It will be null if the groupblood is NOT enter when collect blood.
             if (e.NewValues["BloodGroup"] != null)
             {
                 DonationBLL.Update(DIN, e.NewValues["BloodGroup"].ToString(), "");

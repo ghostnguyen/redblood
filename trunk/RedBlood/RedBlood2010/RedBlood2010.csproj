@@ -232,6 +232,7 @@
     <Content Include="Membership\UserAndRole.aspx" />
     <Content Include="Order\Order4CR.aspx" />
     <Content Include="Order\SideEffects.aspx" />
+    <Content Include="Production\FinalLabelPrint.aspx" />
     <Content Include="Store\Rpt_OrderByDay.aspx" />
     <Content Include="Store\Rpt_ReturnByDay.aspx" />
     <Content Include="Store\Rpt_DeleteByDay.aspx" />
@@ -266,6 +267,7 @@
     <Content Include="UserControl\DatePicker.ascx" />
     <Content Include="UserControl\DateRange.ascx" />
     <Content Include="UserControl\DeletePack.ascx" />
+    <Content Include="UserControl\FinalLabelUserControl.ascx" />
     <Content Include="UserControl\EnterPack.ascx" />
     <Content Include="UserControl\PackCountByProvince.ascx" />
     <Content Include="UserControl\PackOrderCountInternally.ascx" />
@@ -528,6 +530,7 @@
     <Compile Include="Default9.aspx.designer.cs">
       <DependentUpon>Default9.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Entity\DonationTestLog.cs" />
     <Compile Include="FindAndReport\FindCampaign.aspx.designer.cs">
       <DependentUpon>FindCampaign.aspx</DependentUpon>
     </Compile>
@@ -591,6 +594,13 @@
     </Compile>
     <Compile Include="Order\SideEffects.aspx.designer.cs">
       <DependentUpon>SideEffects.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\FinalLabelPrint.aspx.cs">
+      <DependentUpon>FinalLabelPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\FinalLabelPrint.aspx.designer.cs">
+      <DependentUpon>FinalLabelPrint.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\Rpt_OrderByDay.aspx.cs">
       <DependentUpon>Rpt_OrderByDay.aspx</DependentUpon>
@@ -772,6 +782,13 @@
     </Compile>
     <Compile Include="UserControl\DeletePack.ascx.designer.cs">
       <DependentUpon>DeletePack.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\FinalLabelUserControl.ascx.cs">
+      <DependentUpon>FinalLabelUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\FinalLabelUserControl.ascx.designer.cs">
+      <DependentUpon>FinalLabelUserControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\EnterPack.ascx.cs">
       <DependentUpon>EnterPack.ascx</DependentUpon>

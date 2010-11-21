@@ -35,7 +35,7 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
         if (dtFrom.HasValue)
         {
             DateTime hourFrom;
-            if (DateTime.TryParse(txtHourFrom.Text,out hourFrom))
+            if (DateTime.TryParse(txtHourFrom.Text, out hourFrom))
             {
                 dtFrom = dtFrom.Value.AddHours(hourFrom.Hour).AddMinutes(hourFrom.Minute);
             }
@@ -56,13 +56,50 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
         //   && r.Donation.OrgPackID != r.ID).OrderBy(r => r.Date);
 
         var packs = db.Packs.Where(r => r.Date.Value >= dtFrom && r.Date.Value <= dtTo
-           && r.Donation.OrgPackID != r.ID).OrderBy(r => r.Date);
+           && r.Donation.OrgPackID != r.ID).OrderBy(r => r.ProductCode).ThenBy(r => r.Date);
 
-        GridView1.DataSource = packs;
+        GridView1.DataSource = packs.ToList().Select(r => new
+        {
+            r.ID,
+            Date = r.Date.ToStringVN_Hour(),
+            r.DIN,
+            r.ProductCode,
+            Description = r.Product.Description,
+            r.Note,
+        });
         GridView1.DataBind();
 
-        GridViewSummary.DataSource = packs.GroupBy(r => r.ProductCode).Select(r => new { ProductCode = r.Key, Count = r.Count() });
+        GridViewSummary.DataSource = packs.ToList().GroupBy(r => r.ProductCode).Select(r => new
+        {
+            ProductCode = r.Key,
+            Count = r.Count(),
+            PrintUrl = "~/Production/FinalLabelPrint.aspx?PackList="
+                + string.Join(",", r.Where(r1 => r1.Donation.TestResultStatus == Donation.TestResultStatusX.Negative)
+                                    .Select(r1 => r1.ID.ToString())),
+            PrintCount = r.Where(r1 => r1.Donation.TestResultStatus == Donation.TestResultStatusX.Negative).Count(),
+        });
         GridViewSummary.DataBind();
+    }
+
+    protected void btnSelectedPack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Production/FinalLabelPrint.aspx?PackList=" + GetSelectedPack());
+    }
+
+    string GetSelectedPack()
+    {
+        string selected = "";
+        foreach (GridViewRow item in GridView1.Rows)
+        {
+            CheckBox chk = item.Cells[5].Controls[1] as CheckBox;
+
+            if (chk != null && chk.Checked)
+            {
+                //selected += item.Cells[1].Text + ",";
+                selected += GridView1.DataKeys[item.DataItemIndex].Value.ToString() + ",";
+            }
+        }
+        return selected;
     }
 
 }

@@ -1,4 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="RedBlood.TestResult.TestResult_BloodGroup" MaintainScrollPositionOnPostback="true" Codebehind="BloodGroup.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="RedBlood.TestResult.TestResult_BloodGroup" MaintainScrollPositionOnPostback="true"
+    CodeBehind="BloodGroup.aspx.cs" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
@@ -37,15 +39,24 @@
                                 <asp:Label ID="Label6" runat="server" Text="Ngày giờ thu" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblName" runat="server" Text='<%# Eval("People.Name") %>' />
+                                <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>' />
                                 <br />
-                                <asp:Label ID="lblDate" runat="server" Text='<%# Eval("CollectedDate","{0:dd/MM/yyyy HH:mm}") %>' />
+                                <asp:Label ID="lblDate" runat="server" Text='<%# Eval("CollectedDate") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Các lần nhập ABO" HeaderStyle-Width="190">
+                            <ItemTemplate>
+                                <%--<asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc")  %>' />--%>
+                                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("ABOLog") %>'
+                                    ShowHeader="false" SkinID="Inner">
+                                    <Columns>
+                                        <asp:BoundField DataField="Date" />
+                                        <asp:BoundField DataField="BloodGroupDesc" />
+                                    </Columns>
+                                </asp:GridView>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="ABO" HeaderStyle-Width="190">
-                            <HeaderTemplate>
-                                <asp:Label ID="Label1" runat="server" Text="ABO" />
-                            </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc")  %>' />
                             </ItemTemplate>

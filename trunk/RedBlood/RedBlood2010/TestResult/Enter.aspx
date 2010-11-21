@@ -1,4 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="RedBlood.TestResult.TestResult_Enter" MaintainScrollPositionOnPostback="true" Codebehind="Enter.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="RedBlood.TestResult.TestResult_Enter" MaintainScrollPositionOnPostback="true"
+    CodeBehind="Enter.aspx.cs" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
@@ -18,6 +20,10 @@
                             OnClick="btnAllNegative_Click" />
                     </h3>
                 </asp:Panel>
+                <div>
+                    Tổng cộng:
+                    <asp:Label runat="server" ID="lblTotal"></asp:Label>
+                </div>
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
                     DataKeyNames="DIN" DataSourceID="LinqDataSourcePack" OnRowUpdating="GridView1_RowUpdating"
                     OnRowCommand="GridView1_RowCommand">
@@ -67,13 +73,13 @@
                                 </asp:LinqDataSource>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HIV">
+                        <asp:TemplateField HeaderText="HBs_Ag">
                             <ItemTemplate>
-                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("Markers.HIV") %>' />
+                                <asp:Label ID="lblHBs_Ag" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListHIV" runat="server" DataSource='<%# TR.TRList %>'
-                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HIV") %>'>
+                                <asp:DropDownList ID="DropDownListHBs_Ag" runat="server" DataSource='<%# TR.TRList %>'
+                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HBs_Ag") %>'>
                                 </asp:DropDownList>
                             </EditItemTemplate>
                         </asp:TemplateField>
@@ -87,13 +93,13 @@
                                 </asp:DropDownList>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="HBs_Ag">
+                        <asp:TemplateField HeaderText="HIV">
                             <ItemTemplate>
-                                <asp:Label ID="lblHBs_Ag" runat="server" Text='<%# Eval("Markers.HBs_Ag") %>' />
+                                <asp:Label ID="lblHIV" runat="server" Text='<%# Eval("Markers.HIV") %>' />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownListHBs_Ag" runat="server" DataSource='<%# TR.TRList %>'
-                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HBs_Ag") %>'>
+                                <asp:DropDownList ID="DropDownListHIV" runat="server" DataSource='<%# TR.TRList %>'
+                                    DataTextField="Name" DataValueField="Name" SelectedValue='<%# Bind("Markers.HIV") %>'>
                                 </asp:DropDownList>
                             </EditItemTemplate>
                         </asp:TemplateField>
@@ -227,6 +233,7 @@
                                 <asp:Label ID="lblName" runat="server" Text='<%# Eval("People.Name") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:BoundField HeaderText="DIN" DataField="DIN" />
                     </Columns>
                 </asp:GridView>
                 <asp:LinqDataSource ID="LinqDataSourceUnCollect" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"

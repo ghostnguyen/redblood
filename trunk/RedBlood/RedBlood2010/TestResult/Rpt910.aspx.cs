@@ -50,7 +50,7 @@ namespace RedBlood.TestResult
                     {
                         BloodGroupDesc = BloodGroupBLL.GetDescription(r2),
                         Total = BGSub.Count()
-                    })
+                    }).OrderBy(r1 => r1.BloodGroupDesc)
                 });
         }
         protected void btnOk_Click(object sender, EventArgs e)

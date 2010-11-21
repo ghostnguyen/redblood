@@ -26,8 +26,31 @@ namespace RedBlood.Store
         {
             RedBloodDataContext db = new RedBloodDataContext();
 
-            e.Result = db.vw_ProductCounts.Where(r => r.Status == Pack.StatusX.Product)
+            e.Result = GetData(true);
+        }
+
+        protected void LinqDataSource2_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+
+            e.Result = GetData(false);
+        }
+
+        protected void LinqDataSource3_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+
+            e.Result = GetData(null);
+        }
+
+        public object GetData(bool? IsNeg)
+        {
+            RedBloodDataContext db = new RedBloodDataContext();
+
+            var v = db.vw_ProductCounts.Where(r => r.Status == Pack.StatusX.Product)
                 .ToList()
+                .Where(r => !IsNeg.HasValue || (IsNeg.Value ? r.TestResultStatus == Donation.TestResultStatusX.Negative 
+                    : r.TestResultStatus != Donation.TestResultStatusX.Negative))
                 .GroupBy(r => new { r.ProductCode, r.ProductDesc, r.Status }, (r, sub) => new
                 {
                     r.ProductCode,
@@ -44,9 +67,10 @@ namespace RedBlood.Store
                                     .Sum(r1 => r1.Count).ToStringRemoveZero(),
                     TotalTRPos = sub.Where(r1 => r1.TestResultStatus == Donation.TestResultStatusX.Positive)
                                     .Sum(r1 => r1.Count).ToStringRemoveZero(),
-                    BloodGroupSumary = sub.GroupBy(r1 => r1.BloodGroup, (r1, BGSub) => new
+                    BloodGroupSumary = sub.GroupBy(r1 => BloodGroupBLL.GetLetter(r1.BloodGroup), (r1, BGSub) => new
                     {
-                        BloodGroupDesc = BloodGroupBLL.GetDescription(r1),
+                        //BloodGroupDesc = BloodGroupBLL.GetDescription(r1),
+                        BloodGroupDesc = r1,
                         Total = BGSub.Sum(r3 => r3.Count),
                         VolumeSumary = BGSub.GroupBy(r2 => r2.Volume, (r2, VolSub) => new
                         {
@@ -61,8 +85,9 @@ namespace RedBlood.Store
                     }).OrderBy(r1 => r1.Volume)
                 })
                 .OrderBy(r => r.ProductDesc);
-        }
 
+            return v;
+        }
 
         protected void btnOk1_Click(object sender, EventArgs e)
         {

@@ -1,5 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true"
-    Inherits="MasterPageRpt" Codebehind="MasterPageRpt.master.cs" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPageRpt" CodeBehind="MasterPageRpt.master.cs" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,6 +9,15 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+        <Scripts>
+            <asp:ScriptReference Path="~/jquery-1.3.2.js" />
+            <asp:ScriptReference Path="~/jquery.hotkeys-0.7.8.js" />
+        </Scripts>
+        <Services>
+            <asp:ServiceReference Path="~/AutoComplete.asmx" />
+        </Services>
+    </asp:ScriptManager>
     <div>
         <table width="100%" style="size: landscape;">
             <tr>

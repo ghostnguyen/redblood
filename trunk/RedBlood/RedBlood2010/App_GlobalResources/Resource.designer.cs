@@ -142,7 +142,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Giám Đốc.
+        ///   Looks up a localized string similar to Phó Giám Đốc.
         /// </summary>
         internal static string FooterLine1 {
             get {
@@ -201,6 +201,42 @@ namespace Resources {
         internal static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thu máu và sản xuất bởi.
+        /// </summary>
+        internal static string OrgLine1 {
+            get {
+                return ResourceManager.GetString("OrgLine1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trung tâm Truyền máu BV Chợ Rẫy.
+        /// </summary>
+        internal static string OrgLine2 {
+            get {
+                return ResourceManager.GetString("OrgLine2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bệnh viện Chợ Rẫy.
+        /// </summary>
+        internal static string OrgLine3 {
+            get {
+                return ResourceManager.GetString("OrgLine3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tp Hồ Chí Minh, Việt Nam.
+        /// </summary>
+        internal static string OrgLine4 {
+            get {
+                return ResourceManager.GetString("OrgLine4", resourceCulture);
             }
         }
         

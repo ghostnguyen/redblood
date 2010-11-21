@@ -100,6 +100,8 @@ public partial class Store_Return : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+
+        GridViewSum.DataBind();
     }
 
     void LoadCurrentDIN(string DIN)
@@ -123,7 +125,10 @@ public partial class Store_Return : System.Web.UI.Page
         if (btn != null)
         {
             if (PackOrderList.Remove(btn.CommandArgument.ToInt()))
+            {
                 GridViewPack.DataBind();
+                GridViewSum.DataBind();
+            }
         }
     }
 
@@ -152,6 +157,8 @@ public partial class Store_Return : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+
+        GridViewSum.DataBind();
     }
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -175,5 +182,20 @@ public partial class Store_Return : System.Web.UI.Page
         ReturnID = ReturnBLL.Add(PackOrderList, txtNote.Text.Trim());
 
         this.Alert("Lưu thành công.");
+    }
+
+    protected void LinqDataSourceSum_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        var v = db.PackOrders.Where(r => r.ReturnID == ReturnID).ToList()
+            .GroupBy(r => r.Pack.ProductCode)
+            .Select(r => new
+            {
+                ProductCode = r.Key,
+                Sum = r.Count()
+            });
+
+        e.Result = v;
     }
 }

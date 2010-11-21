@@ -103,7 +103,14 @@ namespace RedBlood.Barcode
                     showString = IdChar + code.Substring(0, 4) + " " + code.Substring(4, 4) + " " + code.Substring(8, 4) + " " + code.Substring(12, 4);
                 }
 
-                img = b.Encode(type, IdChar + code, Color.Black, Color.White, width, 50, showString);
+                if (hasText)
+                {
+                    img = b.Encode(type, IdChar + code, Color.Black, Color.White, width, 50, showString);
+                }
+                else
+                {
+                    img = b.Encode(type, IdChar + code, Color.Black, Color.White, width, 40, showString);
+                }
                 //===================================
 
                 MemoryStream m = new MemoryStream();

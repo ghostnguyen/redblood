@@ -100,6 +100,8 @@ public partial class Store_Delete : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+
+        GridViewSum.DataBind();
     }
 
     void LoadCurrentDIN(string DIN)
@@ -123,7 +125,10 @@ public partial class Store_Delete : System.Web.UI.Page
         if (btn != null)
         {
             if (PackList.Remove(btn.CommandArgument.ToGuid()))
+            {
                 GridViewPack.DataBind();
+                GridViewSum.DataBind();
+            }
         }
     }
 
@@ -152,6 +157,8 @@ public partial class Store_Delete : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+
+        GridViewSum.DataBind();
     }
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -174,5 +181,22 @@ public partial class Store_Delete : System.Web.UI.Page
         DeleteID = DeleteBLL.Add(PackList, txtNote.Text.Trim());
 
         this.Alert("Lưu thành công.");
+    }
+
+    protected void LinqDataSourceSum_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        var v = db.Deletes.Where(r => r.ID == DeleteID)
+            .SelectMany(r => r.Packs)
+            .ToList()
+            .GroupBy(r => r.ProductCode)
+            .Select(r => new
+            {
+                ProductCode = r.Key,
+                Sum = r.Count()
+            });
+
+        e.Result = v;
     }
 }

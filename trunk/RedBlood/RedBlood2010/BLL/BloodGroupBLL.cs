@@ -27,5 +27,29 @@ namespace RedBlood.BLL
             else
                 return "";
         }
+
+        public static string GetLetter(string code)
+        {
+            if (string.IsNullOrEmpty(code)) return "";
+
+            BloodGroup e = BloodGroup.BloodGroupList.Where(r => r.Code == code.Trim()).FirstOrDefault();
+
+            if (e != null)
+                return e.ABO;
+            else
+                return "";
+        }
+
+        public static string GetRh(string code)
+        {
+            if (string.IsNullOrEmpty(code)) return "";
+
+            BloodGroup e = BloodGroup.BloodGroupList.Where(r => r.Code == code.Trim()).FirstOrDefault();
+
+            if (e != null)
+                return e.Rh;
+            else
+                return "";
+        }
     }
 }

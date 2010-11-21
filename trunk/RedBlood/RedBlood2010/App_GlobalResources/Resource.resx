@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPoint" xml:space="preserve">
     <value>+</value>
@@ -145,7 +145,7 @@
     <value>Tìm</value>
   </data>
   <data name="FooterLine1" xml:space="preserve">
-    <value>Giám Đốc</value>
+    <value>Phó Giám Đốc</value>
   </data>
   <data name="HdrLine1" xml:space="preserve">
     <value>Cộng Hòa Xã Hội Chủ Nghĩa Việt Nam</value>
@@ -164,6 +164,18 @@
   </data>
   <data name="New" xml:space="preserve">
     <value>Tạo mới</value>
+  </data>
+  <data name="OrgLine1" xml:space="preserve">
+    <value>Thu máu và sản xuất bởi</value>
+  </data>
+  <data name="OrgLine2" xml:space="preserve">
+    <value>Trung tâm Truyền máu BV Chợ Rẫy</value>
+  </data>
+  <data name="OrgLine3" xml:space="preserve">
+    <value>Bệnh viện Chợ Rẫy</value>
+  </data>
+  <data name="OrgLine4" xml:space="preserve">
+    <value>Tp Hồ Chí Minh, Việt Nam</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Cập nhật dữ liệu.</value>

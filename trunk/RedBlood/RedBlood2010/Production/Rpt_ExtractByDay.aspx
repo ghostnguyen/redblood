@@ -25,20 +25,34 @@
         <Columns>
             <asp:BoundField HeaderText="Sản phẩm" DataField="ProductCode" />
             <asp:BoundField HeaderText="Số lượng" DataField="Count" />
+            <asp:TemplateField HeaderText="In nhãn tổng">
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("PrintUrl") %>'><%# Eval("PrintCount") %></asp:HyperLink>
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
     <br />
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false">
+    <asp:Button ID="btnSelectedPack" runat="server" Text="In nhãn tổng chọn lọc" OnClick="btnSelectedPack_Click" />
+    <br />
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" DataKeyNames="ID">
         <Columns>
+            <%--<asp:TemplateField ItemStyle-Width="1">
+                <ItemTemplate>
+                    <label style="visibility: collapse; width:1px;">
+                        <%# Eval("ID") %></label>
+                </ItemTemplate>
+            </asp:TemplateField>--%>
+            <asp:BoundField DataField="ID" Visible="false" />
             <asp:TemplateField HeaderText="Ngày">
                 <ItemTemplate>
-                    <asp:Label ID="TextBox2" runat="server" Text='<%# Eval("Date","{0:dd/MM/yyyy}") %>'></asp:Label>
+                    <asp:Label ID="TextBox2" runat="server" Text='<%# Eval("Date") %>'></asp:Label>
                     <%--<asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("DIN") as string) %>' />--%>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Mã gốc">
                 <ItemTemplate>
-                    <asp:Label ID="TextBox2" runat="server" Text='<%# Eval("DIN") %>'></asp:Label>
+                    <asp:Label ID="TextBox3" runat="server" Text='<%# Eval("DIN") %>'></asp:Label>
                     <%--<asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("DIN") as string) %>' />--%>
                 </ItemTemplate>
             </asp:TemplateField>
@@ -46,12 +60,17 @@
                 <ItemTemplate>
                     <%--<asp:Image ID="Image2" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("ProductCode") as string) %>' />
                     <br />--%>
-                    <asp:Label ID="TextBox2" runat="server" Text='<%# Eval("Product.Description") %>'></asp:Label>
+                    <asp:Label ID="TextBox4" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Ghi chú">
                 <ItemTemplate>
                     <asp:Label ID="Label1" runat="server" Text='<%# Eval("Note") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:CheckBox ID="chkSelect" runat="server" />
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
