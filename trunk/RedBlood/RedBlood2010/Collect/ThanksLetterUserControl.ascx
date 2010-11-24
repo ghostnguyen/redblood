@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true"
-    Inherits="ThanksLetterUserControl" Codebehind="ThanksLetterUserControl.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ThanksLetterUserControl"
+    CodeBehind="ThanksLetterUserControl.ascx.cs" %>
 <div style="clear: both; width: 650px;">
     <table style="width: 100%;">
         <tr>
@@ -123,6 +123,8 @@
             <%= Resources.Resource.HdrLine4 %>
             <br />
             <%= Resources.Resource.FooterLine1 %>
+            <br />
+            <img src="../Image/chuky.png" />
         </div>
     </div>
 </div>
