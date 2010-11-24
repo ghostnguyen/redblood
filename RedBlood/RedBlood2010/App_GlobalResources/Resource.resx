@@ -166,16 +166,16 @@
     <value>Tạo mới</value>
   </data>
   <data name="OrgLine1" xml:space="preserve">
-    <value>Thu máu và sản xuất bởi</value>
+    <value />
   </data>
   <data name="OrgLine2" xml:space="preserve">
-    <value>Trung tâm Truyền máu BV Chợ Rẫy</value>
+    <value>Trung tâm Truyền máu Chợ Rẫy</value>
   </data>
   <data name="OrgLine3" xml:space="preserve">
-    <value>Bệnh viện Chợ Rẫy</value>
+    <value />
   </data>
   <data name="OrgLine4" xml:space="preserve">
-    <value>Tp Hồ Chí Minh, Việt Nam</value>
+    <value />
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Cập nhật dữ liệu.</value>

@@ -5,7 +5,6 @@
     <file relUrl="Image/Icon/number6.gif" publishTime="05/31/2010 19:32:18" />
     <file relUrl="jquery.hotkeys-0.7.8.js" publishTime="05/31/2010 19:32:23" />
     <file relUrl="Collect/DINPrintLabel.aspx" publishTime="09/05/2010 11:05:11" />
-    <file relUrl="Collect/DonationCardPrint.aspx" publishTime="09/05/2010 20:37:05" />
     <file relUrl="UserControl/PeopleOrder.ascx" publishTime="09/05/2010 15:13:18" />
     <file relUrl="UserControl/CampaignListByProvince.ascx" publishTime="09/05/2010 15:13:18" />
     <file relUrl="Admin/ImportFromExcel.aspx" publishTime="05/31/2010 19:31:03" />
@@ -31,25 +30,24 @@
     <file relUrl="Account/Register.aspx" publishTime="05/31/2010 19:30:00" />
     <file relUrl="Image/Icon/Medical-invoice-information.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Image/Icon/NurseM1aCertif-128.png" publishTime="05/31/2010 19:32:18" />
-    <file relUrl="App_Data/RedBlood_DB.mdf" publishTime="11/21/2010 17:28:43" />
+    <file relUrl="App_Data/RedBlood_DB.mdf" publishTime="11/24/2010 22:54:52" />
     <file relUrl="Category/Department.aspx" publishTime="09/05/2010 15:13:21" />
     <file relUrl="Production/Extract.aspx" publishTime="11/14/2010 12:28:22" />
     <file relUrl="Store/Rpt_OrderByDay.aspx" publishTime="11/14/2010 19:48:33" />
     <file relUrl="UserControl/PackOrderCountInternally.ascx" publishTime="05/31/2010 19:32:10" />
-    <file relUrl="bin/RedBlood.dll" publishTime="11/21/2010 17:18:21" />
+    <file relUrl="bin/RedBlood.dll" publishTime="11/24/2010 22:46:52" />
     <file relUrl="Image/Icon_Original/Add.png" publishTime="05/31/2010 19:32:21" />
     <file relUrl="Image/Icon/number8.gif" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Image/Icon/snake_cup-256.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="FindAndReport/PackDetail.aspx" publishTime="09/05/2010 15:13:20" />
     <file relUrl="bin/BarcodeLib.dll" publishTime="09/15/2010 22:05:39" />
-    <file relUrl="App_GlobalResources/Resource.resx" publishTime="11/21/2010 11:07:01" />
+    <file relUrl="App_GlobalResources/Resource.resx" publishTime="11/24/2010 22:41:03" />
     <file relUrl="Production/Divide.aspx" publishTime="09/05/2010 15:13:19" />
     <file relUrl="Category/BloodGroup.aspx" publishTime="05/31/2010 19:31:03" />
     <file relUrl="UserControl/DeletePack.ascx" publishTime="09/05/2010 15:13:18" />
     <file relUrl="Image/Icon_Original/Symbol-Add.png" publishTime="05/31/2010 19:32:21" />
     <file relUrl="Default7.aspx" publishTime="05/31/2010 19:32:23" />
     <file relUrl="Image/Icon/pill-256.png" publishTime="05/31/2010 19:32:18" />
-    <file relUrl="Production/FinalLabelPrint.aspx" publishTime="11/21/2010 11:21:04" />
     <file relUrl="Image/Icon/Pills 2.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Collect/DINLabelUserControl.ascx" publishTime="09/05/2010 11:47:52" />
     <file relUrl="UserControl/People.ascx" publishTime="09/05/2010 15:13:18" />
@@ -61,7 +59,7 @@
     <file relUrl="Production/Pool.aspx" publishTime="09/05/2010 15:13:19" />
     <file relUrl="Collect/DINCertUserControl.ascx" publishTime="05/31/2010 19:29:59" />
     <file relUrl="Image/chuky.png" publishTime="05/31/2010 19:32:21" />
-    <file relUrl="Collect/ThankLetter.aspx" publishTime="05/31/2010 19:29:59" />
+    <file relUrl="Collect/ThankLetter.aspx" publishTime="11/24/2010 22:35:18" />
     <file relUrl="Image/Icon/Medical pot pills.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Category/Org.aspx" publishTime="09/05/2010 15:13:21" />
     <file relUrl="UserControl/Campaign.ascx" publishTime="09/05/2010 15:12:11" />
@@ -74,11 +72,11 @@
     <file relUrl="Collect/Rpt11.aspx" publishTime="09/05/2010 15:13:20" />
     <file relUrl="Image/Icon/Cardiology.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Image/route-lines.gif" publishTime="05/31/2010 19:32:21" />
-    <file relUrl="UserControl/PackCountByProvince.ascx" publishTime="05/31/2010 19:32:10" />
+    <file relUrl="Collect/DonationCardPrint.aspx" publishTime="09/05/2010 20:37:05" />
     <file relUrl="Image/dottedLine.gif" publishTime="05/31/2010 19:32:21" />
     <file relUrl="Global.asax" publishTime="05/31/2010 19:32:23" />
     <file relUrl="FindAndReport/PeopleDetail.aspx" publishTime="05/31/2010 19:32:23" />
-    <file relUrl="App_Data/RedBlood_DB_Log.LDF" publishTime="11/21/2010 17:28:43" />
+    <file relUrl="App_Data/RedBlood_DB_Log.LDF" publishTime="11/24/2010 22:54:52" />
     <file relUrl="Account/Login.aspx" publishTime="05/31/2010 19:30:00" />
     <file relUrl="SiteMap_Admin.sitemap" publishTime="05/31/2010 19:32:23" />
     <file relUrl="Default6.aspx" publishTime="11/14/2010 19:47:33" />
@@ -87,6 +85,7 @@
     <file relUrl="Image/Icon/Pills 3.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Image/Icon/number1.gif" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Web.config" publishTime="11/21/2010 17:28:44" />
+    <file relUrl="Collect/CollectDetailRptSelect.aspx" publishTime="11/15/2010 23:35:04" />
     <file relUrl="Production/Rpt_ExtractByDay.aspx" publishTime="11/21/2010 14:03:45" />
     <file relUrl="Image/Icon/Thermometer.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Production/TherapyReceipt.aspx" publishTime="09/05/2010 15:13:19" />
@@ -101,7 +100,7 @@
     <file relUrl="Image/Icon/Hospital2Search.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Default3.aspx" publishTime="05/31/2010 19:32:23" />
     <file relUrl="Image/Icon_Original/error.png" publishTime="05/31/2010 19:32:21" />
-    <file relUrl="Membership/CreatingUserAccount.aspx" publishTime="05/31/2010 19:32:22" />
+    <file relUrl="Production/FinalLabelPrint.aspx" publishTime="11/21/2010 11:21:04" />
     <file relUrl="Image/Icon/number0.gif" publishTime="05/31/2010 19:32:18" />
     <file relUrl="ResetPassword4CurrentUser.aspx" publishTime="05/31/2010 19:32:23" />
     <file relUrl="Image/Icon/Ambulance.png" publishTime="05/31/2010 19:32:18" />
@@ -147,7 +146,7 @@
     <file relUrl="Image/Icon/number7.gif" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Image/Icon_Original/Save.png" publishTime="05/31/2010 19:32:21" />
     <file relUrl="Barcode/Image.aspx" publishTime="10/07/2010 21:59:24" />
-    <file relUrl="Collect/ThanksLetterUserControl.ascx" publishTime="05/31/2010 19:29:59" />
+    <file relUrl="Collect/ThanksLetterUserControl.ascx" publishTime="11/22/2010 19:06:00" />
     <file relUrl="App_Themes/Default/ModalPopup.css" publishTime="05/31/2010 19:29:57" />
     <file relUrl="Category/ProductPrint.aspx" publishTime="05/31/2010 19:31:03" />
     <file relUrl="Collect/CampaignPage.aspx" publishTime="09/05/2010 15:11:36" />
@@ -172,6 +171,8 @@
     <file relUrl="bin/AjaxControlToolkit.dll" publishTime="09/08/2010 22:09:16" />
     <file relUrl="Store/Count.aspx" publishTime="11/20/2010 15:11:46" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="05/31/2010 19:32:22" />
+    <file relUrl="Collect/EnvelopePrint.aspx" publishTime="05/31/2010 19:29:59" />
+    <file relUrl="Membership/CreatingUserAccount.aspx" publishTime="05/31/2010 19:32:22" />
     <file relUrl="TestResult/Rpt910.aspx" publishTime="09/05/2010 15:13:19" />
     <file relUrl="Image/Icon/Stethoscope.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Image/searchBarBG.gif" publishTime="05/31/2010 19:32:21" />
@@ -179,7 +180,6 @@
     <file relUrl="UserControl/DatePicker.ascx" publishTime="05/31/2010 19:32:10" />
     <file relUrl="Image/Icon/Broken.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="UserControl/PeopleHistory2.ascx" publishTime="09/05/2010 15:13:18" />
-    <file relUrl="Collect/CollectDetailRptSelect.aspx" publishTime="11/15/2010 23:35:04" />
     <file relUrl="MasterPageRpt.master" publishTime="11/20/2010 14:30:45" />
     <file relUrl="Store/CountList.aspx" publishTime="09/05/2010 15:13:19" />
     <file relUrl="Image/Icon/Pills 4.png" publishTime="05/31/2010 19:32:18" />
@@ -189,7 +189,7 @@
     <file relUrl="Image/Icon/CanExtract.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="UserControl/CampaignDetail4Manually.ascx" publishTime="09/05/2010 19:32:17" />
     <file relUrl="Image/Icon_Original/Likely_unavail.png" publishTime="05/31/2010 19:32:21" />
-    <file relUrl="Collect/InvitationLetterUserControl.ascx" publishTime="05/31/2010 19:29:59" />
+    <file relUrl="Collect/InvitationLetterUserControl.ascx" publishTime="11/24/2010 22:36:19" />
     <file relUrl="Collect/CollectDetailRpt2.aspx" publishTime="10/27/2010 18:53:56" />
     <file relUrl="Category/BloodGroupLabelUserControl.ascx" publishTime="05/31/2010 19:31:03" />
     <file relUrl="Image/Icon/number3.gif" publishTime="05/31/2010 19:32:18" />
@@ -200,7 +200,7 @@
     <file relUrl="Login.aspx" publishTime="05/31/2010 19:32:23" />
     <file relUrl="Image/Icon_Original/Cancel.png" publishTime="05/31/2010 19:32:21" />
     <file relUrl="Image/Icon/number5.gif" publishTime="05/31/2010 19:32:18" />
-    <file relUrl="Collect/EnvelopePrint.aspx" publishTime="05/31/2010 19:29:59" />
+    <file relUrl="UserControl/PackCountByProvince.ascx" publishTime="05/31/2010 19:32:10" />
     <file relUrl="Image/Icon_Original/Edit.png" publishTime="05/31/2010 19:32:21" />
     <file relUrl="UserControl/PeopleDonationLog.ascx" publishTime="11/20/2010 14:48:05" />
     <file relUrl="Image/Icon/Doctor Assistant.png" publishTime="05/31/2010 19:32:18" />
@@ -216,7 +216,7 @@
     <file relUrl="Image/Icon/Delete.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Default1.aspx" publishTime="05/31/2010 19:32:23" />
     <file relUrl="Image/PartHeaderBar.gif" publishTime="05/31/2010 19:32:21" />
-    <file relUrl="bin/RedBlood.pdb" publishTime="11/21/2010 17:18:21" />
+    <file relUrl="bin/RedBlood.pdb" publishTime="11/24/2010 22:46:52" />
     <file relUrl="Image/Icon/number9.gif" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Image/Icon/Medical Case.png" publishTime="05/31/2010 19:32:18" />
     <file relUrl="Image/LOGO.jpg" publishTime="05/31/2010 19:32:21" />

@@ -43,7 +43,7 @@ namespace RedBlood
             lblABORh.Style.Apply(PrintSettingBLL.FinalLabel.ABORh);
 
             lblGeo.Text = e.Donation.Campaign != null
-                ? e.Donation.Campaign.ID.ToString() + " - " + e.Donation.Campaign.Name : "";
+                ? e.Donation.Campaign.ID.ToString() + " - " + e.Donation.Campaign.CoopOrg.Geo1.Name : "";
             lblGeo.Style.Apply(PrintSettingBLL.FinalLabel.Geo);
 
             lblCollectedDateLabel.Text = "Ngày lấy máu: ";
@@ -58,7 +58,7 @@ namespace RedBlood
             lblProductCode.Text = e.ProductCode;
             lblProductCode.Style.Apply(PrintSettingBLL.FinalLabel.ProductCode);
 
-            lblProductDesc.Text = e.Product.Description;
+            lblProductDesc.Text = e.Product.LabelDesc;
             lblProductDesc.Style.Apply(PrintSettingBLL.FinalLabel.ProductDesc);
 
             lblVolumeLabel.Text = "Thể tích      ml";
@@ -67,10 +67,10 @@ namespace RedBlood
             lblVolume.Text = e.Volume.ToString();
             lblVolume.Style.Apply(PrintSettingBLL.FinalLabel.Volume);
 
-            lblExpiryDateLabel.Text = "Hết hạn lúc";
+            lblExpiryDateLabel.Text = "Hạn sử dụng";
             lblExpiryDateLabel.Style.Apply(PrintSettingBLL.FinalLabel.ExpiryDateLabel);
 
-            lblExpiryDate.Text = e.ExpirationDate.ToStringVN_Hour();
+            lblExpiryDate.Text = e.ExpirationDate.ToStringVN();
             lblExpiryDate.Style.Apply(PrintSettingBLL.FinalLabel.ExpiryDate);
 
             lblOrgLine1.Text = Resources.Resource.OrgLine1;

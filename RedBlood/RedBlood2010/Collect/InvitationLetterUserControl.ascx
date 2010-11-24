@@ -68,6 +68,8 @@
             <%= Resources.Resource.HdrLine4 %>
             <br />
             <%= Resources.Resource.FooterLine1 %>
+            <br />
+            <img src="../Image/chuky.png" />
         </div>
     </div>
 </div>
