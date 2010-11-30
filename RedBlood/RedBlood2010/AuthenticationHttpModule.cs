@@ -46,6 +46,10 @@ public class AuthenticationHttpModule : IHttpModule
             MembershipUser user = Membership.GetUser("admin");
             //string oldPass = user.GetPassword();
             //user.ChangePassword(oldPass, "admin");
+            if (user.IsLockedOut)
+            {
+                user.UnlockUser();
+            }
             app.Response.Write(user.ResetPassword());
         }
     }
