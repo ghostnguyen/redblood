@@ -13,6 +13,7 @@ public partial class Category_ProductPrint : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         string code = "";
+        string addText = "";
         int count = 0;
 
         try
@@ -27,6 +28,15 @@ public partial class Category_ProductPrint : System.Web.UI.Page
         try
         {
             count = Request["count"].ToInt();
+        }
+        catch (Exception)
+        {
+
+        }
+
+        try
+        {
+            addText = Request["addText"];
         }
         catch (Exception)
         {
@@ -49,16 +59,16 @@ public partial class Category_ProductPrint : System.Web.UI.Page
             p.Style.Add("border", "1px solid white");
             divCon.Controls.Add(p);
 
-            AddControl(item, PrintSettingBLL.ProductLabel.Label1, p);
-            AddControl(item, PrintSettingBLL.ProductLabel.Label2, p);
+            AddControl(item, PrintSettingBLL.ProductLabel.Label1, p, addText);
+            AddControl(item, PrintSettingBLL.ProductLabel.Label2, p, addText);
         }
     }
 
-    void AddControl(Product item, PrintSetting ps, Panel panel)
+    void AddControl(Product item, PrintSetting ps, Panel panel, string addText)
     {
         Category_ProductLabelUserControl uc = new Category_ProductLabelUserControl();
         uc = (Category_ProductLabelUserControl)LoadControl("~/Category/ProductLabelUserControl.ascx");
-        uc.Fill_Letter(item.Code, item.LabelDesc);
+        uc.Fill_Letter(item.Code, item.LabelDesc + addText);
         uc.ResizeLabel(ps);
 
         panel.Controls.Add(uc);

@@ -30,15 +30,24 @@ public partial class FindAndReport_PackDetail : System.Web.UI.Page
     }
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        Donation d = DonationBLL.Get(DIN);
-
-        if (d == null || d.Pack == null)
+        try
         {
-            e.Result = null;
-            e.Cancel = true;
+            Donation d = DonationBLL.Get(DIN);
+
+            if (d == null || d.Pack == null)
+            {
+                e.Result = null;
+                e.Cancel = true;
+            }
+            else
+                e.Result = d;
         }
-        else
-            e.Result = d;
+        catch (Exception)
+        {
+            
+            
+        }
+        
     }
 
     protected void LinqDataSourcePackRelative_Selecting(object sender, LinqDataSourceSelectEventArgs e)

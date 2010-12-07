@@ -104,9 +104,8 @@ namespace RedBlood
     public class TR
     {
         public string Name { get; set; }
-        public Donation.TestResultStatusX DonationTestResultStatus { get; set; }
 
-        public static TR na = new TR() { Name = "Chưa xác định" , DonationTestResultStatus = Donation.TestResultStatusX.Non };
+        public static TR na = new TR() { Name = "Chưa xác định" };
         public static TR neg = new TR() { Name = "Âm tính" };
         public static TR pos = new TR() { Name = "Dương tính" };
 

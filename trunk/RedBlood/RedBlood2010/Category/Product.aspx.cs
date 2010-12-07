@@ -35,10 +35,16 @@ public partial class Category_Product : System.Web.UI.Page
         {
             //int count = (GridView1.SelectedRow.Controls[2].Controls[1] as TextBox).Text.ToInt();
             int count = (GridView1.SelectedRow.FindControl("txtCount") as TextBox).Text.ToInt();
-            
-            
+
+
             ScriptManager.RegisterStartupScript(this, this.GetType(), "In",
-                        "window.open('" + System.Web.VirtualPathUtility.ToAbsolute("~/Category/ProductPrint.aspx") + "?count=" + count.ToString() + "&code=" + GridView1.SelectedValue.ToString() + "');", true);
+                string.Format("window.open('{0}?count={1}&code={2}&addText={3}');", 
+                    System.Web.VirtualPathUtility.ToAbsolute("~/Category/ProductPrint.aspx"), 
+                    count.ToString(), 
+                    GridView1.SelectedValue.ToString(),
+                    txtMoreText.Text
+                    )
+                , true);
         }
         catch (Exception)
         {
