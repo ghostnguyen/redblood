@@ -86,12 +86,14 @@ public partial class Order_Order4CR : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+
+        GridViewSum.DataBind();
     }
 
     void LoadCurrentDIN(string DIN)
     {
         Donation e = DonationBLL.Get4Order(DIN);
-        
+
         CurrentDIN = e.DIN;
         imgCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN);
     }
@@ -168,6 +170,8 @@ public partial class Order_Order4CR : System.Web.UI.Page
 
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
+
+        GridViewSum.DataBind();
     }
 
     protected void LinqDataSourcePack_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -264,5 +268,31 @@ public partial class Order_Order4CR : System.Web.UI.Page
         //        ScriptManager.RegisterStartupScript(btnDelete, btnDelete.GetType(), "", "alert ('" + ex.Message + "');", true);
         //    }
         //}
+    }
+
+    protected void LinqDataSourceSum_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+    {
+        RedBloodDataContext db = new RedBloodDataContext();
+
+        var v = db.PackOrders.Where(r => r.OrderID.Value == OrderID
+            && !r.ReturnID.HasValue).ToList()
+            .GroupBy(r => r.Pack.ProductCode)
+            .Select(r => new
+            {
+                ProductCode = r.Key,
+                Sum = r.Count(),
+                BloodGroupSumary = r.GroupBy(r1 => r1.Pack.Donation.BloodGroup).Select(r1 => new
+                {
+                    BloodGroupDesc = BloodGroupBLL.GetDescription(r1.Key),
+                    Total = r1.Count(),
+                    VolumeSumary = r1.GroupBy(r2 => r2.Pack.Volume).Select(r2 => new
+                    {
+                        Volume = r2.Key.HasValue ? r2.Key.Value.ToString() : "_",
+                        Total = r2.Count()
+                    }).OrderBy(r2 => r2.Volume)
+                }).OrderBy(r1 => r1.BloodGroupDesc),
+            });
+
+        e.Result = v;
     }
 }

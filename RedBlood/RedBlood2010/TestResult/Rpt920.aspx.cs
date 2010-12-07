@@ -43,7 +43,7 @@ namespace RedBlood.TestResult
         {
             List<Donation> list = CampaignBLL.Get(CampaignDetail1.CampaignID).CollectedDonations.ToList();
 
-            e.Result = RedBloodSystem.checkingInfection.Select(r1 => new
+            e.Result = RedBloodSystem.CheckingInfection.Select(r1 => new
             {
                 r1.Name,
                 PosList = list.Where(r2 => r1.Decode(r2.InfectiousMarkers) == TR.pos.Name),

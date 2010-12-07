@@ -38,6 +38,18 @@ namespace RedBlood.Store
 
         void LoadData()
         {
+            Org org = null;
+            try
+            {
+                org = OrgBLL.GetByName(txtOrg.Text.Trim());
+            }
+            catch (Exception)
+            {
+                org = null;                
+            }
+            
+
+
             DateTime? dtFrom = txtDateFrom.Text.ToDatetimeFromVNFormat();
             DateTime? dtTo = txtDateTo.Text.ToDatetimeFromVNFormat();
 
@@ -62,6 +74,10 @@ namespace RedBlood.Store
             RedBloodDataContext db = new RedBloodDataContext();
 
             var v = db.Orders.Where(r => r.Date.Value >= dtFrom && r.Date.Value <= dtTo)
+                .ToList()
+                .Where(r => 
+                    (org == null || (r.OrgID == org.ID))
+                )
                 //.OrderBy(r => r.Date)
                 //.ToList()
                 //.Select(r => new

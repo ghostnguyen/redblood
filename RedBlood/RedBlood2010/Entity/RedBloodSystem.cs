@@ -64,7 +64,7 @@ namespace RedBlood
 
         public static DateTime RootTime = new DateTime(1900, 1, 1);
 
-        public static List<Infection> checkingInfection = new List<Infection>() { 
+        public static List<Infection> CheckingInfection = new List<Infection>() { 
           Infection.HIV_Ab
             
           //The result of HIV_Ag always = HIV_Ab as User requirement

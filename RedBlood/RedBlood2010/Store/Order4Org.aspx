@@ -104,8 +104,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <asp:GridView ID="GridViewSum" runat="server" AutoGenerateColumns="False" 
-                                DataSourceID="LinqDataSourceSum">
+                            <asp:GridView ID="GridViewSum" runat="server" AutoGenerateColumns="False" DataSourceID="LinqDataSourceSum">
                                 <Columns>
                                     <asp:TemplateField HeaderText="Sản phẩm">
                                         <ItemTemplate>
@@ -113,6 +112,28 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="TC" DataField="Sum" />
+                                    <asp:TemplateField HeaderText="Nhóm máu">
+                                        <ItemTemplate>
+                                            <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("BloodGroupSumary") %>'
+                                                ShowHeader="false" SkinID="Inner">
+                                                <Columns>
+                                                    <asp:BoundField DataField="BloodGroupDesc" HeaderText="Nhóm máu" />
+                                                    <asp:BoundField DataField="Total" HeaderText="TC" />
+                                                    <asp:TemplateField HeaderText="(ml)">
+                                                        <ItemTemplate>
+                                                            <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("VolumeSumary") %>'
+                                                                ShowHeader="false" SkinID="Inner">
+                                                                <Columns>
+                                                                    <asp:BoundField DataField="Volume" HeaderText="(ml)" />
+                                                                    <asp:BoundField DataField="Total" HeaderText="TC" />
+                                                                </Columns>
+                                                            </asp:GridView>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
                             <asp:LinqDataSource ID="LinqDataSourceSum" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
