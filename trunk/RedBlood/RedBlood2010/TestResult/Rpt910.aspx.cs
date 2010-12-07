@@ -36,12 +36,12 @@ namespace RedBlood.TestResult
                     Total = r.CollectedDonations.Count(),
                     HostName = r.HostOrg.Name,
                     CoopName = r.CoopOrg.Name,
-                    TestResultPos = RedBloodSystem.checkingInfection.Select(r1 => new
+                    TestResultPos = RedBloodSystem.CheckingInfection.Select(r1 => new
                     {
                         r1.Name,
                         Total = r.Donations.Where(r2 => r2.OrgPackID.HasValue && r1.Decode(r2.InfectiousMarkers) == TR.pos.Name).Count()
                     }).Where(r1 => r1.Total > 0),
-                    TestResultNA = RedBloodSystem.checkingInfection.Select(r1 => new
+                    TestResultNA = RedBloodSystem.CheckingInfection.Select(r1 => new
                     {
                         r1.Name,
                         Total = r.Donations.Where(r2 => r2.OrgPackID.HasValue && r1.Decode(r2.InfectiousMarkers) == TR.na.Name).Count()

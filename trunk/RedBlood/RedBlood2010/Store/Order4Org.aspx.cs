@@ -184,7 +184,17 @@ public partial class Store_Order4Org : System.Web.UI.Page
             .Select(r => new
             {
                 ProductCode = r.Key,
-                Sum = r.Count()
+                Sum = r.Count(),
+                BloodGroupSumary = r.GroupBy(r1 => r1.Pack.Donation.BloodGroup).Select(r1 => new
+                {
+                    BloodGroupDesc = BloodGroupBLL.GetDescription(r1.Key),
+                    Total = r1.Count(),
+                    VolumeSumary = r1.GroupBy(r2 => r2.Pack.Volume).Select(r2 => new
+                    {
+                        Volume = r2.Key.HasValue ? r2.Key.Value.ToString() : "_",
+                        Total = r2.Count()
+                    }).OrderBy(r2 => r2.Volume)
+                }).OrderBy(r1 => r1.BloodGroupDesc),
             });
 
         e.Result = v;

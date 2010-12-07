@@ -26,6 +26,15 @@
         <asp:TextBox ID="txtHourTo" runat="server" Width="50"></asp:TextBox>
         <asp:Button ID="btnOk2" runat="server" Text="Ok" OnClick="btnOk2_Click" />
     </div>
+    <br />
+    <div style="text-align: center;">
+        Cho đơn vị: 
+        <asp:TextBox ID="txtOrg" runat="server" CssClass="campaign_cellvalue" autocomplete="off" Width="450" />
+        <ajk:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtOrg"
+            ServicePath="~/AutoComplete.asmx" ServiceMethod="GetListOrg" MinimumPrefixLength="3"
+            CompletionSetCount="15" EnableCaching="true">
+        </ajk:AutoCompleteExtender>
+    </div>
     <%--<%# RedBloodSystem.Url4StoreCountList %>--%>
     <br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" Width="100%">

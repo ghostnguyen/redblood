@@ -72,7 +72,10 @@ public partial class Store_Rpt_DeleteByDay : System.Web.UI.Page
         GridView1.DataSource = v;
         GridView1.DataBind();
 
-        GridViewSummary.DataSource = v.SelectMany(r => r.Packs).GroupBy(r => r.ProductCode).Select(r => new { ProductCode = r.Key, Count = r.Count() });
+        var s = v.SelectMany(r => r.Packs).ToList();
+        var sum = v.SelectMany(r => r.Packs).GroupBy(r => r.ProductCode).Select(r => new { ProductCode = r.Key, Count = r.Count() }).ToList();
+
+        GridViewSummary.DataSource = sum;
         GridViewSummary.DataBind();
     }
 

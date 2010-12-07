@@ -23,7 +23,7 @@ namespace RedBlood
         {
             get
             {
-                foreach (Infection item in Infection.InfectionList)
+                foreach (Infection item in RedBloodSystem.CheckingInfection)
                 {
                     if (item.Decode(Code) == TR.pos.Name)
                     {
@@ -31,7 +31,7 @@ namespace RedBlood
                     }
                 }
 
-                foreach (Infection item in RedBloodSystem.checkingInfection)
+                foreach (Infection item in RedBloodSystem.CheckingInfection)
                 {
                     if (item.Decode(Code) == TR.na.Name)
                     {
@@ -104,8 +104,9 @@ namespace RedBlood
     public class TR
     {
         public string Name { get; set; }
+        public Donation.TestResultStatusX DonationTestResultStatus { get; set; }
 
-        public static TR na = new TR() { Name = "Chưa xác định" };
+        public static TR na = new TR() { Name = "Chưa xác định" , DonationTestResultStatus = Donation.TestResultStatusX.Non };
         public static TR neg = new TR() { Name = "Âm tính" };
         public static TR pos = new TR() { Name = "Dương tính" };
 

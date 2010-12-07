@@ -63,8 +63,8 @@ namespace RedBlood
         {
             get
             {
-                return Pack != null 
-                    && Packs.Count == 1 
+                return Pack != null
+                    && Packs.Count == 1
                     && TestResultStatus == Donation.TestResultStatusX.Non;
             }
         }
@@ -109,6 +109,31 @@ namespace RedBlood
             get
             {
                 return new InfectiousMarker() { Code = InfectiousMarkers };
+            }
+        }
+
+        public string InfectiousDesc
+        {
+            get
+            {
+                string r = "";
+                foreach (Infection item in RedBloodSystem.CheckingInfection)
+                {
+                    if (item.Decode(Markers.Code) == TR.pos.Name)
+                    {
+                        r += " | " + item.Name + " " + TR.pos.Name;
+                    }
+                }
+
+                foreach (Infection item in RedBloodSystem.CheckingInfection)
+                {
+                    if (item.Decode(Markers.Code) == TR.na.Name)
+                    {
+                        r += " | " + item.Name + " " + TR.na.Name;
+                    }
+                }
+
+                return r;
             }
         }
     }
