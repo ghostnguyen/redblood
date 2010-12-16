@@ -132,7 +132,7 @@
     <Content Include="Default9.aspx" />
     <Content Include="FindAndReport\FindCampaign.aspx" />
     <Content Include="FindAndReport\FindPeople.aspx" />
-    <Content Include="FindAndReport\PackDetail.aspx" />
+    <Content Include="FindAndReport\DINDetail.aspx" />
     <Content Include="FindAndReport\PackOrderCount.aspx" />
     <Content Include="FindAndReport\PeopleDetail.aspx" />
     <Content Include="Image\arrows.gif" />
@@ -273,7 +273,6 @@
     <Content Include="UserControl\PackOrderCountInternally.ascx" />
     <Content Include="UserControl\People.ascx" />
     <Content Include="UserControl\PeopleDonationLog.ascx" />
-    <Content Include="UserControl\PeopleHistory.ascx" />
     <Content Include="UserControl\PeopleHistory2.ascx" />
     <Content Include="UserControl\PeopleOrder.ascx" />
     <Content Include="Web.config">
@@ -467,6 +466,13 @@
     <Compile Include="Collect\ThanksLetterUserControl.ascx.designer.cs">
       <DependentUpon>ThanksLetterUserControl.ascx</DependentUpon>
     </Compile>
+    <Compile Include="MasterPageRpt2.master.cs">
+      <DependentUpon>MasterPageRpt2.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPageRpt2.master.designer.cs">
+      <DependentUpon>MasterPageRpt2.master</DependentUpon>
+    </Compile>
     <Compile Include="Default4.aspx.cs">
       <DependentUpon>Default4.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -537,8 +543,8 @@
     <Compile Include="FindAndReport\FindPeople.aspx.designer.cs">
       <DependentUpon>FindPeople.aspx</DependentUpon>
     </Compile>
-    <Compile Include="FindAndReport\PackDetail.aspx.designer.cs">
-      <DependentUpon>PackDetail.aspx</DependentUpon>
+    <Compile Include="FindAndReport\DINDetail.aspx.designer.cs">
+      <DependentUpon>DINDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="FindAndReport\PackOrderCount.aspx.designer.cs">
       <DependentUpon>PackOrderCount.aspx</DependentUpon>
@@ -825,13 +831,6 @@
     <Compile Include="UserControl\PeopleDonationLog.ascx.designer.cs">
       <DependentUpon>PeopleDonationLog.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\PeopleHistory.ascx.cs">
-      <DependentUpon>PeopleHistory.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControl\PeopleHistory.ascx.designer.cs">
-      <DependentUpon>PeopleHistory.ascx</DependentUpon>
-    </Compile>
     <Compile Include="UserControl\PeopleHistory2.ascx.cs">
       <DependentUpon>PeopleHistory2.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1075,8 +1074,8 @@
       <DependentUpon>FindPeople.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="FindAndReport\PackDetail.aspx.cs">
-      <DependentUpon>PackDetail.aspx</DependentUpon>
+    <Compile Include="FindAndReport\DINDetail.aspx.cs">
+      <DependentUpon>DINDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FindAndReport\PackOrderCount.aspx.cs">
@@ -1173,6 +1172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Default\Default.skin" />
+    <Content Include="MasterPageRpt2.master" />
     <None Include="RedBlood.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>RedBlood1.designer.cs</LastGenOutput>

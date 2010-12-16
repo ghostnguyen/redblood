@@ -137,18 +137,18 @@ namespace RedBlood.BLL
             return p;
         }
 
-        public static void Add(string DIN, string productCode, bool isOriginal)
+        public static void Add(string DIN, string productCode, Pack orgPack = null)
         {
             Product product = ProductBLL.Get(productCode);
-            Add(DIN, productCode, product.OriginalVolume, isOriginal);
+            Add(DIN, productCode, product.OriginalVolume, orgPack);
         }
-        public static void Add(string DIN, string productCode, int? volume, bool isOriginal)
+        public static void Add(string DIN, string productCode, int? volume, Pack orgPack = null)
         {
             RedBloodDataContext db = new RedBloodDataContext();
 
             Donation d = null;
 
-            if (isOriginal)
+            if (orgPack == null)
             {
                 d = DonationBLL.Get4CreateOriginal(db, DIN);
             }
@@ -177,16 +177,26 @@ namespace RedBlood.BLL
             pack.Actor = RedBloodSystem.CurrentActor;
             //pack.Volume = product.OriginalVolume.HasValue ? product.OriginalVolume : defaultVolume;
             pack.Volume = volume;
-            pack.ExpirationDate = DateTime.Now.Add(product.Duration.Value - RedBloodSystem.RootTime);
+            if (orgPack != null
+                && product.CreatedDateFromOrgPack.HasValue
+                && product.CreatedDateFromOrgPack.Value)
+            {
+                pack.Date = orgPack.Date;
+            }
+            else
+            {
+                pack.Date = DateTime.Now;
+            }
+            pack.ExpirationDate = pack.Date.Value.Add(product.Duration.Value - RedBloodSystem.RootTime);
 
             db.Packs.InsertOnSubmit(pack);
             db.SubmitChanges();
 
 
             PackTransactionBLL.Add(pack.ID, Pack.StatusX.Non, Pack.StatusX.Product,
-                isOriginal ? PackTransaction.TypeX.In_Collect : PackTransaction.TypeX.In_Product);
+                orgPack == null ? PackTransaction.TypeX.In_Collect : PackTransaction.TypeX.In_Product);
 
-            if (isOriginal)
+            if (orgPack == null)
             {
                 DonationBLL.SetOriginalPack(DIN, pack.ID);
             }

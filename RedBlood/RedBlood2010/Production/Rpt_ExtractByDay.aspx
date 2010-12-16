@@ -37,12 +37,7 @@
     <br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" DataKeyNames="ID">
         <Columns>
-            <%--<asp:TemplateField ItemStyle-Width="1">
-                <ItemTemplate>
-                    <label style="visibility: collapse; width:1px;">
-                        <%# Eval("ID") %></label>
-                </ItemTemplate>
-            </asp:TemplateField>--%>
+            <%--Need to for DataKeyNames--%>
             <asp:BoundField DataField="ID" Visible="false" />
             <asp:TemplateField HeaderText="Ngày">
                 <ItemTemplate>

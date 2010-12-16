@@ -56,14 +56,14 @@ namespace RedBlood.Collect
             DonationBLL.UpdateCollector(DIN, txtDefaultCollector.Text.Trim());
             if (BarcodeBLL.IsValidProductCode(txtProductCode.Text.Trim()))
             {
-                PackBLL.Add(DIN, BarcodeBLL.ParseProductCode(txtProductCode.Text.Trim()), txtDefaultVolume.Text.ToInt(), true);
+                PackBLL.Add(DIN, BarcodeBLL.ParseProductCode(txtProductCode.Text.Trim()), txtDefaultVolume.Text.ToInt());
             }
             LoadDIN();
         }
 
         void EnterProductCode(string productCode)
         {
-            PackBLL.Add(DIN, productCode, txtDefaultVolume.Text.ToInt(), true);
+            PackBLL.Add(DIN, productCode, txtDefaultVolume.Text.ToInt());
             LoadDIN();
         }
 

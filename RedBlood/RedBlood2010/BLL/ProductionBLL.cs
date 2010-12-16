@@ -153,7 +153,7 @@ namespace RedBlood.BLL
         {
             Pack pack = PackBLL.Get4Extract(srcPackID);
 
-            PackBLL.Add(pack.DIN, productCode, false);
+            PackBLL.Add(pack.DIN, productCode, pack);
 
             if (pack.Status != Pack.StatusX.Produced)
                 PackBLL.ChangeStatus(pack.ID, Pack.StatusX.Produced, PackTransaction.TypeX.Out_Product);

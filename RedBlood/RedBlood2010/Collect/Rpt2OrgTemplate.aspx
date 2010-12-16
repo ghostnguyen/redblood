@@ -32,6 +32,7 @@
                                     <asp:BoundField DataField="CMND" HeaderText="CMND" />
                                     <asp:BoundField DataField="Name" HeaderText="Họ & Tên" />
                                     <asp:BoundField DataField="DOB" HeaderText="Ngày sinh" />
+                                    <asp:BoundField DataField="OrgVolume" HeaderText="Vol" />
                                     <asp:TemplateField HeaderText="ABO">
                                         <ItemTemplate>
                                             <asp:Label ID="lblABO" runat="server" Text='<%# Eval("BloodGroupDesc") %>' />

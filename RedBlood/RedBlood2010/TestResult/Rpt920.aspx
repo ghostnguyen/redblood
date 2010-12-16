@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true" Inherits="RedBlood.TestResult.TestResult_Rpt920" Codebehind="Rpt920.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt2.master" AutoEventWireup="true"
+    Inherits="RedBlood.TestResult.TestResult_Rpt920" CodeBehind="Rpt920.aspx.cs" %>
 
 <%@ Register Src="~/UserControl/CampaignDetail4Rpt.ascx" TagPrefix="uc" TagName="CampaignDetailUC" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
@@ -22,6 +23,16 @@
         <tr align="center">
             <td>
                 <table>
+                    <tr align="left">
+                        <td>
+                            <asp:GridView ID="GridViewPackSum" runat="server" AutoGenerateColumns="False" SkinID="GridViewRpt">
+                                <Columns>
+                                    <asp:BoundField DataField="Volume" HeaderText="(ml)" />
+                                    <asp:BoundField DataField="Count" HeaderText="TC" />
+                                </Columns>
+                            </asp:GridView>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="LinqDataSource1"
@@ -30,9 +41,10 @@
                                     <asp:BoundField DataField="Name" HeaderText="Xét nghiệm" />
                                     <asp:TemplateField HeaderText="Dương tính">
                                         <ItemTemplate>
-                                            <asp:DataList ID="DataList1" runat="server" DataSource='<%# Eval("PosList") %>' RepeatDirection="Horizontal" RepeatColumns="2">
+                                            <asp:DataList ID="DataList1" runat="server" DataSource='<%# Eval("PosList") %>' RepeatDirection="Horizontal"
+                                                RepeatColumns="2">
                                                 <ItemTemplate>
-                                                    <div style="margin: 0px 10px 0px 10px;">
+                                                    <div style="margin: 0px 10px 20px 10px;">
                                                         <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>' />
                                                     </div>
                                                 </ItemTemplate>
@@ -41,9 +53,10 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Không xác định">
                                         <ItemTemplate>
-                                            <asp:DataList ID="DataList1" runat="server" DataSource='<%# Eval("NAList") %>' RepeatDirection="Horizontal" RepeatColumns="2">
+                                            <asp:DataList ID="DataList1" runat="server" DataSource='<%# Eval("NAList") %>' RepeatDirection="Horizontal"
+                                                RepeatColumns="2">
                                                 <ItemTemplate>
-                                                    <div style="margin: 0px 10px 0px 10px;">
+                                                    <div style="margin: 0px 10px 20px 10px;">
                                                         <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>' />
                                                     </div>
                                                 </ItemTemplate>
@@ -58,12 +71,6 @@
                             </asp:LinqDataSource>
                         </td>
                     </tr>
-                    <tr align="right">
-                        <td>
-                            <asp:Label runat="server" ID="LableCount"></asp:Label>
-                            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
-                        </td>
-                    </tr>
                     <tr>
                         <td align="right">
                             <div style="width: 300px; text-align: center;">
@@ -75,8 +82,6 @@
                                 <%= DateTime.Now.Month %>
                                 năm
                                 <%= DateTime.Now.Year %>
-                                <br />
-                                <%= Resources.Resource.HdrLine4 %>
                                 <br />
                                 <%= Resources.Resource.FooterLine1 %>
                             </div>
