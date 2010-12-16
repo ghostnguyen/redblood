@@ -50,19 +50,18 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
-        var v = from c in db.Donations
-                where c.PeopleID == peopleID
-                orderby c.Status descending, c.CollectedDate descending
-                select new
-                {
-                    c.DIN,
-                    c.Status,
-                    c.CollectedDate,
-                    c.Note,
-                    c.BloodGroupDesc,
-                    ProductDesc = c.Pack.Product.Description,
-                    c.Pack.Volume
-                };
+        var v = db.Donations.Where(r => r.PeopleID == peopleID)
+                    .OrderByDescending(r => r.CollectedDate)
+                    .ToList().Select(c => new
+                    {
+                        c.DIN,
+                        c.Status,
+                        c.CollectedDate,
+                        Note = (c.TestResultStatus != Donation.TestResultStatusX.Negative ? c.InfectiousDesc : "") + " | " + c.Note,
+                        c.BloodGroupDesc,
+                        ProductDesc = c.Pack.Product.Description,
+                        c.Pack.Volume
+                    });
 
         //foreach (var e in v)
         //{

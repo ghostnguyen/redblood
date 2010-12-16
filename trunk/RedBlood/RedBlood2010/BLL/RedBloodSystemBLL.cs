@@ -237,7 +237,7 @@ namespace RedBlood.BLL
             }
             else if (BarcodeBLL.IsValidDINCode(key))
             {
-                Response.Redirect(RedBloodSystem.Url4PackDetail + "key=" + BarcodeBLL.ParseDIN(key));
+                Response.Redirect(RedBloodSystem.Url4DINDetail + "key=" + BarcodeBLL.ParseDIN(key));
             }
             else if (BarcodeBLL.IsValidCampaignCode(key))
             {
@@ -255,7 +255,6 @@ namespace RedBlood.BLL
                     Response.Redirect(RedBloodSystem.Url4Order4CR + "key=" + r.ID.ToString());
                 }
             }
-            //TODO: Search by name
             else if (key.Length > 3 && key.Substring(0, 3) == "/n:")
             {
                 Response.Redirect(RedBloodSystem.Url4FindPeople + "key=" + key.Substring(3).Trim());

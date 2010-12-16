@@ -214,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trung tâm Truyền máu Chợ Rẫy.
+        ///   Looks up a localized string similar to TRUNG TÂM TRUYỀN MÁU CHỢ RẪY.
         /// </summary>
         internal static string OrgLine2 {
             get {
@@ -223,7 +223,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to XÉT NGHIỆM ÂM TÍNH:.
         /// </summary>
         internal static string OrgLine3 {
             get {
@@ -232,7 +232,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to HBsAg, HCV, HIV, Giang Mai, Sốt Rét.
         /// </summary>
         internal static string OrgLine4 {
             get {

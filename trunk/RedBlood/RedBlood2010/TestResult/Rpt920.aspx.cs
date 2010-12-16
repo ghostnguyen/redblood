@@ -35,6 +35,15 @@ namespace RedBlood.TestResult
                     LabelTitle1.Text = "KẾT QUẢ XÉT NGHIỆM SÀNG LỌC";
 
                     GridView1.DataBind();
+
+                    GridViewPackSum.DataSource = Camp.CollectedDonations.GroupBy(r => r.OrgVolume)
+                        .Select(r => new
+                        {
+                            Volume = r.Key,
+                            Count = r.Count(),
+                        });
+                    GridViewPackSum.DataBind();
+
                 }
             }
         }
@@ -52,43 +61,43 @@ namespace RedBlood.TestResult
             .Where(r => r.PosList.Count() > 0 || r.NAList.Count() > 0);
         }
 
-        private void Summary(List<Donation> list)
-        {
-            var v = list.GroupBy(r => r.OrgVolume)
-                .Select(g => new { Vol = g.Key, Count = g.Count() })
-                .OrderBy(r => r.Count);
+        //private void Summary(List<Donation> list)
+        //{
+        //    var v = list.GroupBy(r => r.OrgVolume)
+        //        .Select(g => new { Vol = g.Key, Count = g.Count() })
+        //        .OrderBy(r => r.Count);
 
-            int sum1 = 0;
-            int sum2 = 0;
+        //    int sum1 = 0;
+        //    int sum2 = 0;
 
-            if (v.Count() > 0)
-                Literal1.Text += "<br /> Tổng cộng";
+        //    if (v.Count() > 0)
+        //        Literal1.Text += "<br /> Tổng cộng";
 
-            foreach (var item in v)
-            {
-                if (!string.IsNullOrEmpty(item.Vol))
-                {
-                    Literal1.Text += "<br />" + item.Vol + "ml : " + item.Count.ToString();
-                    sum1 += item.Count;
-                }
-                else
-                {
-                    sum2 += item.Count;
-                }
-            }
+        //    foreach (var item in v)
+        //    {
+        //        if (!string.IsNullOrEmpty(item.Vol))
+        //        {
+        //            Literal1.Text += "<br />" + item.Vol + "ml : " + item.Count.ToString();
+        //            sum1 += item.Count;
+        //        }
+        //        else
+        //        {
+        //            sum2 += item.Count;
+        //        }
+        //    }
 
-            if (sum1 != 0)
-            {
-                Literal1.Text += "<br />-------------";
-                Literal1.Text += "<br /> TC: " + sum1.ToString();
-            }
+        //    if (sum1 != 0)
+        //    {
+        //        Literal1.Text += "<br />-------------";
+        //        Literal1.Text += "<br /> TC: " + sum1.ToString();
+        //    }
 
-            if (sum2 != 0)
-            {
-                Literal1.Text += "<br />-------------";
-                Literal1.Text += "<br /> Không thu: " + sum2.ToString();
-            }
-        }
+        //    if (sum2 != 0)
+        //    {
+        //        Literal1.Text += "<br />-------------";
+        //        Literal1.Text += "<br /> Không thu: " + sum2.ToString();
+        //    }
+        //}
 
         protected void LinqDataSource1_Selected(object sender, LinqDataSourceStatusEventArgs e)
         {

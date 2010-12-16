@@ -7,7 +7,8 @@
             Danh mục sản phẩm
         </h4>
         <div id="Div1" runat="server">
-            Dữ liệu thêm vào cuối nhãn: <asp:TextBox ID="txtMoreText" runat="server"></asp:TextBox>
+            Dữ liệu thêm vào cuối nhãn:
+            <asp:TextBox ID="txtMoreText" runat="server"></asp:TextBox>
             <br />
             <br />
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Code"
@@ -30,7 +31,9 @@
                             <asp:Button runat="server" CommandName="Select" Text="In mã" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="LabelDesc" />
+                    <asp:BoundField DataField="LabelDesc" HeaderText="Nhãn" />
+                    <asp:BoundField DataField="FinalLabelDesc" HeaderText="Nhãn tổng" />
+                    <asp:BoundField DataField="CreatedDateFromOrgPack" HeaderText="NSX từ túi máu gốc" />
                     <asp:CommandField ShowEditButton="true" />
                 </Columns>
             </asp:GridView>

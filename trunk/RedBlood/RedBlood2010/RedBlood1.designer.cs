@@ -102,9 +102,6 @@ namespace RedBlood
     partial void InsertPackRemainDaily(PackRemainDaily instance);
     partial void UpdatePackRemainDaily(PackRemainDaily instance);
     partial void DeletePackRemainDaily(PackRemainDaily instance);
-    partial void InsertProduct(Product instance);
-    partial void UpdateProduct(Product instance);
-    partial void DeleteProduct(Product instance);
     partial void InsertReceipt(Receipt instance);
     partial void UpdateReceipt(Receipt instance);
     partial void DeleteReceipt(Receipt instance);
@@ -132,6 +129,9 @@ namespace RedBlood
     partial void InsertPack(Pack instance);
     partial void UpdatePack(Pack instance);
     partial void DeletePack(Pack instance);
+    partial void InsertProduct(Product instance);
+    partial void UpdateProduct(Product instance);
+    partial void DeleteProduct(Product instance);
     #endregion
 		
 		public RedBloodDataContext() : 
@@ -356,14 +356,6 @@ namespace RedBlood
 			}
 		}
 		
-		public System.Data.Linq.Table<Product> Products
-		{
-			get
-			{
-				return this.GetTable<Product>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Receipt> Receipts
 		{
 			get
@@ -457,6 +449,14 @@ namespace RedBlood
 			get
 			{
 				return this.GetTable<Pack>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Product> Products
+		{
+			get
+			{
+				return this.GetTable<Product>();
 			}
 		}
 	}
@@ -9474,316 +9474,6 @@ namespace RedBlood
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Product")]
-	public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Code;
-		
-		private string _Description;
-		
-		private System.Nullable<System.DateTime> _Date;
-		
-		private System.Nullable<System.DateTime> _RetiredDate;
-		
-		private System.Nullable<System.DateTime> _Duration;
-		
-		private System.Nullable<int> _OriginalVolume;
-		
-		private string _StoredTemperature;
-		
-		private string _AdditiveSolution;
-		
-		private string _LabelDesc;
-		
-		private EntitySet<ReceiptProduct> _ReceiptProducts;
-		
-		private EntitySet<Pack> _Packs;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCodeChanging(string value);
-    partial void OnCodeChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateChanged();
-    partial void OnRetiredDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnRetiredDateChanged();
-    partial void OnDurationChanging(System.Nullable<System.DateTime> value);
-    partial void OnDurationChanged();
-    partial void OnOriginalVolumeChanging(System.Nullable<int> value);
-    partial void OnOriginalVolumeChanged();
-    partial void OnStoredTemperatureChanging(string value);
-    partial void OnStoredTemperatureChanged();
-    partial void OnAdditiveSolutionChanging(string value);
-    partial void OnAdditiveSolutionChanged();
-    partial void OnLabelDescChanging(string value);
-    partial void OnLabelDescChanged();
-    #endregion
-		
-		public Product()
-		{
-			this._ReceiptProducts = new EntitySet<ReceiptProduct>(new Action<ReceiptProduct>(this.attach_ReceiptProducts), new Action<ReceiptProduct>(this.detach_ReceiptProducts));
-			this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Code
-		{
-			get
-			{
-				return this._Code;
-			}
-			set
-			{
-				if ((this._Code != value))
-				{
-					this.OnCodeChanging(value);
-					this.SendPropertyChanging();
-					this._Code = value;
-					this.SendPropertyChanged("Code");
-					this.OnCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Date
-		{
-			get
-			{
-				return this._Date;
-			}
-			set
-			{
-				if ((this._Date != value))
-				{
-					this.OnDateChanging(value);
-					this.SendPropertyChanging();
-					this._Date = value;
-					this.SendPropertyChanged("Date");
-					this.OnDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RetiredDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> RetiredDate
-		{
-			get
-			{
-				return this._RetiredDate;
-			}
-			set
-			{
-				if ((this._RetiredDate != value))
-				{
-					this.OnRetiredDateChanging(value);
-					this.SendPropertyChanging();
-					this._RetiredDate = value;
-					this.SendPropertyChanged("RetiredDate");
-					this.OnRetiredDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Duration", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Duration
-		{
-			get
-			{
-				return this._Duration;
-			}
-			set
-			{
-				if ((this._Duration != value))
-				{
-					this.OnDurationChanging(value);
-					this.SendPropertyChanging();
-					this._Duration = value;
-					this.SendPropertyChanged("Duration");
-					this.OnDurationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalVolume", DbType="Int")]
-		public System.Nullable<int> OriginalVolume
-		{
-			get
-			{
-				return this._OriginalVolume;
-			}
-			set
-			{
-				if ((this._OriginalVolume != value))
-				{
-					this.OnOriginalVolumeChanging(value);
-					this.SendPropertyChanging();
-					this._OriginalVolume = value;
-					this.SendPropertyChanged("OriginalVolume");
-					this.OnOriginalVolumeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoredTemperature", DbType="NVarChar(MAX)")]
-		public string StoredTemperature
-		{
-			get
-			{
-				return this._StoredTemperature;
-			}
-			set
-			{
-				if ((this._StoredTemperature != value))
-				{
-					this.OnStoredTemperatureChanging(value);
-					this.SendPropertyChanging();
-					this._StoredTemperature = value;
-					this.SendPropertyChanged("StoredTemperature");
-					this.OnStoredTemperatureChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdditiveSolution", DbType="NVarChar(MAX)")]
-		public string AdditiveSolution
-		{
-			get
-			{
-				return this._AdditiveSolution;
-			}
-			set
-			{
-				if ((this._AdditiveSolution != value))
-				{
-					this.OnAdditiveSolutionChanging(value);
-					this.SendPropertyChanging();
-					this._AdditiveSolution = value;
-					this.SendPropertyChanged("AdditiveSolution");
-					this.OnAdditiveSolutionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LabelDesc", DbType="NVarChar(MAX)")]
-		public string LabelDesc
-		{
-			get
-			{
-				return this._LabelDesc;
-			}
-			set
-			{
-				if ((this._LabelDesc != value))
-				{
-					this.OnLabelDescChanging(value);
-					this.SendPropertyChanging();
-					this._LabelDesc = value;
-					this.SendPropertyChanged("LabelDesc");
-					this.OnLabelDescChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_ReceiptProduct", Storage="_ReceiptProducts", ThisKey="Code", OtherKey="ProductCode")]
-		public EntitySet<ReceiptProduct> ReceiptProducts
-		{
-			get
-			{
-				return this._ReceiptProducts;
-			}
-			set
-			{
-				this._ReceiptProducts.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_Pack", Storage="_Packs", ThisKey="Code", OtherKey="ProductCode")]
-		public EntitySet<Pack> Packs
-		{
-			get
-			{
-				return this._Packs;
-			}
-			set
-			{
-				this._Packs.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ReceiptProducts(ReceiptProduct entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = this;
-		}
-		
-		private void detach_ReceiptProducts(ReceiptProduct entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = null;
-		}
-		
-		private void attach_Packs(Pack entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = this;
-		}
-		
-		private void detach_Packs(Pack entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Receipt")]
 	public partial class Receipt : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -9936,9 +9626,9 @@ namespace RedBlood
 		
 		private ReceiptProduct.TypeX _Type;
 		
-		private EntityRef<Product> _Product;
-		
 		private EntityRef<Receipt> _Receipt;
+		
+		private EntityRef<Product> _Product;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9956,8 +9646,8 @@ namespace RedBlood
 		
 		public ReceiptProduct()
 		{
-			this._Product = default(EntityRef<Product>);
 			this._Receipt = default(EntityRef<Receipt>);
+			this._Product = default(EntityRef<Product>);
 			OnCreated();
 		}
 		
@@ -10049,40 +9739,6 @@ namespace RedBlood
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_ReceiptProduct", Storage="_Product", ThisKey="ProductCode", OtherKey="Code", IsForeignKey=true)]
-		public Product Product
-		{
-			get
-			{
-				return this._Product.Entity;
-			}
-			set
-			{
-				Product previousValue = this._Product.Entity;
-				if (((previousValue != value) 
-							|| (this._Product.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Product.Entity = null;
-						previousValue.ReceiptProducts.Remove(this);
-					}
-					this._Product.Entity = value;
-					if ((value != null))
-					{
-						value.ReceiptProducts.Add(this);
-						this._ProductCode = value.Code;
-					}
-					else
-					{
-						this._ProductCode = default(string);
-					}
-					this.SendPropertyChanged("Product");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Receipt_ReceiptProduct", Storage="_Receipt", ThisKey="ReceiptID", OtherKey="ID", IsForeignKey=true)]
 		public Receipt Receipt
 		{
@@ -10113,6 +9769,40 @@ namespace RedBlood
 						this._ReceiptID = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Receipt");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_ReceiptProduct", Storage="_Product", ThisKey="ProductCode", OtherKey="Code", IsForeignKey=true)]
+		public Product Product
+		{
+			get
+			{
+				return this._Product.Entity;
+			}
+			set
+			{
+				Product previousValue = this._Product.Entity;
+				if (((previousValue != value) 
+							|| (this._Product.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Product.Entity = null;
+						previousValue.ReceiptProducts.Remove(this);
+					}
+					this._Product.Entity = value;
+					if ((value != null))
+					{
+						value.ReceiptProducts.Add(this);
+						this._ProductCode = value.Code;
+					}
+					else
+					{
+						this._ProductCode = default(string);
+					}
+					this.SendPropertyChanged("Product");
 				}
 			}
 		}
@@ -12008,7 +11698,7 @@ namespace RedBlood
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", AutoSync=AutoSync.OnInsert, DbType="DateTime", IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
 		public System.Nullable<System.DateTime> Date
 		{
 			get
@@ -12417,6 +12107,364 @@ namespace RedBlood
 		{
 			this.SendPropertyChanging();
 			entity.Pack = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Product")]
+	public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Code;
+		
+		private string _Description;
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private System.Nullable<System.DateTime> _RetiredDate;
+		
+		private System.Nullable<System.DateTime> _Duration;
+		
+		private System.Nullable<int> _OriginalVolume;
+		
+		private string _StoredTemperature;
+		
+		private string _AdditiveSolution;
+		
+		private string _LabelDesc;
+		
+		private string _FinalLabelDesc;
+		
+		private System.Nullable<bool> _CreatedDateFromOrgPack;
+		
+		private EntitySet<ReceiptProduct> _ReceiptProducts;
+		
+		private EntitySet<Pack> _Packs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnRetiredDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnRetiredDateChanged();
+    partial void OnDurationChanging(System.Nullable<System.DateTime> value);
+    partial void OnDurationChanged();
+    partial void OnOriginalVolumeChanging(System.Nullable<int> value);
+    partial void OnOriginalVolumeChanged();
+    partial void OnStoredTemperatureChanging(string value);
+    partial void OnStoredTemperatureChanged();
+    partial void OnAdditiveSolutionChanging(string value);
+    partial void OnAdditiveSolutionChanged();
+    partial void OnLabelDescChanging(string value);
+    partial void OnLabelDescChanged();
+    partial void OnFinalLabelDescChanging(string value);
+    partial void OnFinalLabelDescChanged();
+    partial void OnCreatedDateFromOrgPackChanging(System.Nullable<bool> value);
+    partial void OnCreatedDateFromOrgPackChanged();
+    #endregion
+		
+		public Product()
+		{
+			this._ReceiptProducts = new EntitySet<ReceiptProduct>(new Action<ReceiptProduct>(this.attach_ReceiptProducts), new Action<ReceiptProduct>(this.detach_ReceiptProducts));
+			this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RetiredDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> RetiredDate
+		{
+			get
+			{
+				return this._RetiredDate;
+			}
+			set
+			{
+				if ((this._RetiredDate != value))
+				{
+					this.OnRetiredDateChanging(value);
+					this.SendPropertyChanging();
+					this._RetiredDate = value;
+					this.SendPropertyChanged("RetiredDate");
+					this.OnRetiredDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Duration", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Duration
+		{
+			get
+			{
+				return this._Duration;
+			}
+			set
+			{
+				if ((this._Duration != value))
+				{
+					this.OnDurationChanging(value);
+					this.SendPropertyChanging();
+					this._Duration = value;
+					this.SendPropertyChanged("Duration");
+					this.OnDurationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalVolume", DbType="Int")]
+		public System.Nullable<int> OriginalVolume
+		{
+			get
+			{
+				return this._OriginalVolume;
+			}
+			set
+			{
+				if ((this._OriginalVolume != value))
+				{
+					this.OnOriginalVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalVolume = value;
+					this.SendPropertyChanged("OriginalVolume");
+					this.OnOriginalVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoredTemperature", DbType="NVarChar(MAX)")]
+		public string StoredTemperature
+		{
+			get
+			{
+				return this._StoredTemperature;
+			}
+			set
+			{
+				if ((this._StoredTemperature != value))
+				{
+					this.OnStoredTemperatureChanging(value);
+					this.SendPropertyChanging();
+					this._StoredTemperature = value;
+					this.SendPropertyChanged("StoredTemperature");
+					this.OnStoredTemperatureChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdditiveSolution", DbType="NVarChar(MAX)")]
+		public string AdditiveSolution
+		{
+			get
+			{
+				return this._AdditiveSolution;
+			}
+			set
+			{
+				if ((this._AdditiveSolution != value))
+				{
+					this.OnAdditiveSolutionChanging(value);
+					this.SendPropertyChanging();
+					this._AdditiveSolution = value;
+					this.SendPropertyChanged("AdditiveSolution");
+					this.OnAdditiveSolutionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LabelDesc", DbType="NVarChar(MAX)")]
+		public string LabelDesc
+		{
+			get
+			{
+				return this._LabelDesc;
+			}
+			set
+			{
+				if ((this._LabelDesc != value))
+				{
+					this.OnLabelDescChanging(value);
+					this.SendPropertyChanging();
+					this._LabelDesc = value;
+					this.SendPropertyChanged("LabelDesc");
+					this.OnLabelDescChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinalLabelDesc", DbType="NVarChar(MAX)")]
+		public string FinalLabelDesc
+		{
+			get
+			{
+				return this._FinalLabelDesc;
+			}
+			set
+			{
+				if ((this._FinalLabelDesc != value))
+				{
+					this.OnFinalLabelDescChanging(value);
+					this.SendPropertyChanging();
+					this._FinalLabelDesc = value;
+					this.SendPropertyChanged("FinalLabelDesc");
+					this.OnFinalLabelDescChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDateFromOrgPack", DbType="Bit")]
+		public System.Nullable<bool> CreatedDateFromOrgPack
+		{
+			get
+			{
+				return this._CreatedDateFromOrgPack;
+			}
+			set
+			{
+				if ((this._CreatedDateFromOrgPack != value))
+				{
+					this.OnCreatedDateFromOrgPackChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDateFromOrgPack = value;
+					this.SendPropertyChanged("CreatedDateFromOrgPack");
+					this.OnCreatedDateFromOrgPackChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_ReceiptProduct", Storage="_ReceiptProducts", ThisKey="Code", OtherKey="ProductCode")]
+		public EntitySet<ReceiptProduct> ReceiptProducts
+		{
+			get
+			{
+				return this._ReceiptProducts;
+			}
+			set
+			{
+				this._ReceiptProducts.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_Pack", Storage="_Packs", ThisKey="Code", OtherKey="ProductCode")]
+		public EntitySet<Pack> Packs
+		{
+			get
+			{
+				return this._Packs;
+			}
+			set
+			{
+				this._Packs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ReceiptProducts(ReceiptProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.Product = this;
+		}
+		
+		private void detach_ReceiptProducts(ReceiptProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.Product = null;
+		}
+		
+		private void attach_Packs(Pack entity)
+		{
+			this.SendPropertyChanging();
+			entity.Product = this;
+		}
+		
+		private void detach_Packs(Pack entity)
+		{
+			this.SendPropertyChanging();
+			entity.Product = null;
 		}
 	}
 }

@@ -89,10 +89,10 @@ namespace RedBlood.BLL
 
                 if (item.Pack != null)
                 {
-                    PackBLL.Add(innerDIN.DIN, item.Pack.ProductCode, item.Pack.Volume, true);
+                    PackBLL.Add(innerDIN.DIN, item.Pack.ProductCode, item.Pack.Volume);
                     DonationBLL.Update(innerDIN.DIN, item.BloodGroup, "ImportingFromMDF");
                 }
-                
+
             }
 
 

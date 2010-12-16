@@ -401,21 +401,6 @@
       <Association Name="Pack_PackRemainDaily" Member="Pack" ThisKey="PackID" OtherKey="ID" Type="Pack" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Product" Member="Products">
-    <Type Name="Product">
-      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="RetiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Duration" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="OriginalVolume" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoredTemperature" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="AdditiveSolution" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="LabelDesc" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Product_ReceiptProduct" Member="ReceiptProducts" ThisKey="Code" OtherKey="ProductCode" Type="ReceiptProduct" />
-      <Association Name="Product_Pack" Member="Packs" ThisKey="Code" OtherKey="ProductCode" Type="Pack" />
-    </Type>
-  </Table>
   <Table Name="dbo.Receipt" Member="Receipts">
     <Type Name="Receipt">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -430,8 +415,8 @@
       <Column Name="ReceiptID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Type" Type="ReceiptProduct.TypeX" DbType="Int" CanBeNull="true" />
-      <Association Name="Product_ReceiptProduct" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
       <Association Name="Receipt_ReceiptProduct" Member="Receipt" ThisKey="ReceiptID" OtherKey="ID" Type="Receipt" IsForeignKey="true" />
+      <Association Name="Product_ReceiptProduct" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.[Log]" Member="Logs">
@@ -538,7 +523,7 @@
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="DIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Date" AutoSync="OnInsert" Type="System.DateTime" DbType="DateTime" IsDbGenerated="true" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Actor" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -554,6 +539,23 @@
       <Association Name="Delete_Pack" Member="Delete" ThisKey="DeleteID" OtherKey="ID" Type="Delete" IsForeignKey="true" />
       <Association Name="Donation_Pack" Member="Donation" ThisKey="DIN" OtherKey="DIN" Type="Donation" IsForeignKey="true" />
       <Association Name="Product_Pack" Member="Product" ThisKey="ProductCode" OtherKey="Code" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RetiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Duration" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OriginalVolume" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoredTemperature" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AdditiveSolution" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LabelDesc" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FinalLabelDesc" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedDateFromOrgPack" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Product_ReceiptProduct" Member="ReceiptProducts" ThisKey="Code" OtherKey="ProductCode" Type="ReceiptProduct" />
+      <Association Name="Product_Pack" Member="Packs" ThisKey="Code" OtherKey="ProductCode" Type="Pack" />
     </Type>
   </Table>
 </Database>
