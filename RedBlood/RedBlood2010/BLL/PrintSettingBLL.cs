@@ -93,6 +93,7 @@ namespace RedBlood.BLL
 
         public class FinalLabel
         {
+            public static PrintSetting Line1 { get; set; }
             public static PrintSetting DINBarcode { get; set; }
             public static PrintSetting DIN { get; set; }
             public static PrintSetting CheckChar { get; set; }

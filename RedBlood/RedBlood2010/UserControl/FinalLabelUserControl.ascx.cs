@@ -21,6 +21,8 @@ namespace RedBlood
         {
             if (e == null) return;
 
+            lblLine1.Style.Apply(PrintSettingBLL.FinalLabel.Line1);
+
             imgDINBarcode.ImageUrl = BarcodeBLL.Url4DIN(e.DIN, "00", false);
             imgDINBarcode.Style.Apply(PrintSettingBLL.FinalLabel.DINBarcode);
 
@@ -62,7 +64,7 @@ namespace RedBlood
             lblProductCode.Text = e.ProductCode;
             lblProductCode.Style.Apply(PrintSettingBLL.FinalLabel.ProductCode);
 
-            lblProductDesc.Text = e.Product.LabelDesc;
+            lblProductDesc.Text = e.Product.FinalLabelDesc;
             lblProductDesc.Style.Apply(PrintSettingBLL.FinalLabel.ProductDesc);
 
             lblVolumeLabel.Text = "Thể tích      ml";
