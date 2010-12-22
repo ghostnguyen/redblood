@@ -23,7 +23,6 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
-
         LoadData();
     }
 
@@ -79,6 +78,8 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
             PrintCount = r.Where(r1 => r1.Donation.TestResultStatus == Donation.TestResultStatusX.Negative).Count(),
         });
         GridViewSummary.DataBind();
+
+        btnSelectedPack.Visible = packs.Count() > 0;
     }
 
     protected void btnSelectedPack_Click(object sender, EventArgs e)

@@ -233,6 +233,7 @@
     <Content Include="Order\Order4CR.aspx" />
     <Content Include="Order\SideEffects.aspx" />
     <Content Include="Production\FinalLabelPrint.aspx" />
+    <Content Include="Production\Scan4FinalLabelPrint.aspx" />
     <Content Include="Store\Rpt_OrderByDay.aspx" />
     <Content Include="Store\Rpt_ReturnByDay.aspx" />
     <Content Include="Store\Rpt_DeleteByDay.aspx" />
@@ -248,7 +249,6 @@
     <Content Include="Store\Order4Org.aspx" />
     <Content Include="Store\Return.aspx" />
     <Content Include="Store\TransCount.aspx" />
-    <Content Include="Store\WebForm1.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -256,6 +256,7 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="TestResult\BloodGroup.aspx" />
+    <Content Include="TestResult\Scan4Enter.aspx" />
     <Content Include="TestResult\Enter.aspx" />
     <Content Include="TestResult\Rpt910.aspx" />
     <Content Include="TestResult\Rpt920.aspx" />
@@ -608,6 +609,13 @@
     <Compile Include="Production\FinalLabelPrint.aspx.designer.cs">
       <DependentUpon>FinalLabelPrint.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Production\Scan4FinalLabelPrint.aspx.cs">
+      <DependentUpon>Scan4FinalLabelPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Scan4FinalLabelPrint.aspx.designer.cs">
+      <DependentUpon>Scan4FinalLabelPrint.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Store\Rpt_OrderByDay.aspx.cs">
       <DependentUpon>Rpt_OrderByDay.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -698,19 +706,19 @@
     <Compile Include="Store\TransCount.aspx.designer.cs">
       <DependentUpon>TransCount.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Store\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Store\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="TestResult\BloodGroup.aspx.cs">
       <DependentUpon>BloodGroup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="TestResult\BloodGroup.aspx.designer.cs">
       <DependentUpon>BloodGroup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestResult\Scan4Enter.aspx.cs">
+      <DependentUpon>Scan4Enter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestResult\Scan4Enter.aspx.designer.cs">
+      <DependentUpon>Scan4Enter.aspx</DependentUpon>
     </Compile>
     <Compile Include="TestResult\Enter.aspx.cs">
       <DependentUpon>Enter.aspx</DependentUpon>

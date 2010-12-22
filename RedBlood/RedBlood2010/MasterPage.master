@@ -27,6 +27,7 @@
         var url = window.location + "";
 
         jQuery(document).bind('keydown', 'esc', function(evt) {
+            
             if (url.indexOf("Default") > 0) {
                 window.location = ("/RedBlood/Default.aspx");
                 return false;

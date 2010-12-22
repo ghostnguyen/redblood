@@ -33,7 +33,8 @@
         </Columns>
     </asp:GridView>
     <br />
-    <asp:Button ID="btnSelectedPack" runat="server" Text="In nhãn tổng chọn lọc" OnClick="btnSelectedPack_Click" />
+    <asp:Button ID="btnSelectedPack" runat="server" Text="In nhãn tổng chọn lọc" OnClick="btnSelectedPack_Click"
+        Visible="false" />
     <br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" DataKeyNames="ID">
         <Columns>

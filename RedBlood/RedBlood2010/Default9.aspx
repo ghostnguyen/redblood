@@ -11,9 +11,9 @@
             window.location = ("TestResult/Enter.aspx");
         });
 
-//        $(document).bind('keydown', '8', function() {
-//            window.location = ("TestResult/BloodGroup.aspx");
-//        });
+        $(document).bind('keydown', '8', function() {
+            window.location = ("TestResult/Scan4Enter.aspx");
+        });
 
         $(document).bind('keydown', '4', function() {
             window.location = ("TestResult/Rpt910.aspx");
@@ -48,20 +48,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="TestResult/BloodGroup.aspx">
+                                        <a href="TestResult/Scan4Enter.aspx">
                                             <img src="Image/Icon/number8.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="TestResult/BloodGroup.aspx">Nhập nhóm máu lần 2</a>
+                                            <a href="TestResult/Scan4Enter.aspx">Quét và Nhập kết quả sàng lọc</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<table>
