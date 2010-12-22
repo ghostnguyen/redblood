@@ -45,7 +45,7 @@ namespace RedBlood
             lblABORh.Style.Apply(PrintSettingBLL.FinalLabel.ABORh);
 
             lblGeo.Text = e.Donation.Campaign != null
-                ? string.Format("Nguồn: {0} - {1} - {2}",
+                ? string.Format("Nguồn: {0} - {1}",
                 e.Donation.Campaign.Source == null ? "" : e.Donation.Campaign.Source.Name,
                 e.Donation.Campaign.ID.ToString(),
                 e.Donation.Campaign.CoopOrg == null ? "" :

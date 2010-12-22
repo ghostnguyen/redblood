@@ -5,6 +5,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script type="text/javascript">
+        jQuery(document).bind('keydown', 'esc', function (evt) {
+            if (confirm('Exit?')) {
+                window.location = ("/RedBlood/Default.aspx");
+                return false;
+            }
+        });
+    </script>
     <h3>
         Sản xuất đồng loạt
         <asp:Button ID="btnReset" runat="server" Text="Tạo đợt mới" OnClick="btnReset_Click" />
@@ -63,8 +71,7 @@
                 <%--<asp:ImageButton BorderStyle="None" ID="ImageButton1" runat="server" ImageUrl='<%# BarcodeBLL.Url4DIN(Eval("DIN") as string) %>'
                     OnClick="btnDINRemove_Click" CommandArgument='<%# Eval("DIN") %>' OnClientClick="return confirm('Xóa túi máu?');" />--%>
                 <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("DIN") %>'
-                    OnClick="LinkButton1_Click" OnClientClick="return confirm('Xóa túi máu?');"
-                    Text='<%# Eval("DIN") %>'></asp:LinkButton>
+                    OnClick="LinkButton1_Click" OnClientClick="return confirm('Xóa túi máu?');" Text='<%# Eval("DIN") %>'></asp:LinkButton>
             </div>
         </ItemTemplate>
     </asp:DataList>

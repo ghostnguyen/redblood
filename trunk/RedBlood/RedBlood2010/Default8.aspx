@@ -28,6 +28,10 @@
             window.location = ("Production/TherapyReceipt.aspx");
         });
 
+        $(document).bind('keydown', '1', function () {
+            window.location = ("Production/Scan4FinalLabelPrint.aspx");
+        });
+
        
     </script>
     <table width="100%">
@@ -147,20 +151,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="ReceiveBlood.aspx">
+                                        <a href="Production/Scan4FinalLabelPrint.aspx">
                                             <img src="Image/Icon/number2.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="ReceiveBlood.aspx"></a>
+                                            <a href="Production/Scan4FinalLabelPrint.aspx">In nhãn tổng hợp</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                         <td class="column next">
                             <%--<h3>
