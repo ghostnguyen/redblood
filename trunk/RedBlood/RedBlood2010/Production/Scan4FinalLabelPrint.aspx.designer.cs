@@ -39,6 +39,15 @@ public partial class Production_Scan4FinalLabelPrint {
     protected global::System.Web.UI.WebControls.Image imgCurrentDIN;
     
     /// <summary>
+    /// imgCurrentProductCode control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Image imgCurrentProductCode;
+    
+    /// <summary>
     /// DataListPack control.
     /// </summary>
     /// <remarks>

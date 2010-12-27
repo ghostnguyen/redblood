@@ -6,6 +6,13 @@
 <%@ Register Src="~/UserControl/CampaignDetail4Manually.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
 <%@ Register Src="~/UserControl/DeletePack.ascx" TagPrefix="uc" TagName="DeletePack" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script type="text/javascript">
+        //XN lần 2
+        function HightlightTR() {
+            $("span:contains('Dương tính'),span:contains('XN lần 2')").css('font-weight', 'bolder').css('color', 'red');
+            $("span:contains('Âm tính')").css('font-weight', 'bolder').css('color', 'gray');
+        }
+    </script>
     <table width="100%">
         <tr valign="top">
             <td>

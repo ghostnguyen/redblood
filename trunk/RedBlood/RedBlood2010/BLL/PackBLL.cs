@@ -142,7 +142,7 @@ namespace RedBlood.BLL
             Product product = ProductBLL.Get(productCode);
             Add(DIN, productCode, product.OriginalVolume, orgPack);
         }
-        public static void Add(string DIN, string productCode, int? volume, Pack orgPack = null)
+        public static void Add(string DIN, string productCode, int? volume, Pack orgPack = null, DateTime? packDate = null)
         {
             RedBloodDataContext db = new RedBloodDataContext();
 
@@ -185,7 +185,14 @@ namespace RedBlood.BLL
             }
             else
             {
-                pack.Date = DateTime.Now;
+                if (packDate != null)
+                {
+                    pack.Date = packDate;
+                }
+                else
+                {
+                    pack.Date = DateTime.Now;
+                }
             }
             pack.ExpirationDate = pack.Date.Value.Add(product.Duration.Value - RedBloodSystem.RootTime);
 

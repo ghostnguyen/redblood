@@ -45,8 +45,35 @@ public partial class FindAndReport_DINDetail : System.Web.UI.Page
                 }).OrderBy(r => r.Date);
                 GridViewPacks.DataBind();
 
+                GridViewDINLog.DataSource = v.DonationTestLogs.ToList()
+                    .Select(r => new
+                {
+                    r.ID,
+                    Date = r.Date.ToStringVN_Hour(),
+                    r.Actor,
+                    r.Type,
+                    Result = GetResult(r.Type, r.Result),
+                }).OrderByDescending(r => r.Date);
+                GridViewDINLog.DataBind();
             }
         }
+    }
+
+    public string GetResult(string type, string result)
+    {
+        string str = "";
+
+        if (type == "BloodGroup")
+            str = BloodGroupBLL.GetDescription(result);
+
+        if (type == "Markers")
+        {
+            InfectiousMarker maker = new InfectiousMarker();
+            maker.Code = result;
+            str = maker.Description;
+        }
+
+        return str;
     }
     protected void btnSelectedPack_Click(object sender, EventArgs e)
     {
