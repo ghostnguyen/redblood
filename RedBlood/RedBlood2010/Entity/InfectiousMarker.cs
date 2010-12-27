@@ -99,6 +99,35 @@ namespace RedBlood
         {
             return Code;
         }
+
+        public string Description
+        {
+            get
+            {
+                string r = "";
+                foreach (Infection item in RedBloodSystem.CheckingInfection)
+                {
+                    if (item.Decode(Code) == TR.pos.Name)
+                    {
+                        r += " | " + item.Name + " " + TR.pos.Name;
+                    }
+                }
+
+                foreach (Infection item in RedBloodSystem.CheckingInfection)
+                {
+                    if (item.Decode(Code) == TR.na.Name)
+                    {
+                        r += " | " + item.Name + " " + TR.na.Name;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(r.Trim()))
+                {
+                    r = "Âm tính 5 loại test.";
+                }
+                return r;
+            }
+        }
     }
 
     public class TR

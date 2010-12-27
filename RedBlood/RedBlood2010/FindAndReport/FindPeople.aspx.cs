@@ -70,12 +70,14 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
         {
             Keyword = Request.Params["key"];
             GridView1.DataBind();
+            ddlBloodGroup.DataBind();
         }
         else
         {
             Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
 
-            if (Master.TextBoxCode.Text.Length != 0)
+            if (Master.TextBoxCode.Text.Length != 0
+                || ddlBloodGroup.SelectedIndex > 0)
             {
                 Keyword = Master.TextBoxCode.Text;
                 GridView1.DataBind();
@@ -86,32 +88,35 @@ public partial class FindAndReport_FindPeople : System.Web.UI.Page
 
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        if (string.IsNullOrEmpty(Keyword) || Keyword.Length < 2)
+        if ((string.IsNullOrEmpty(Keyword)
+            || Keyword.Length < 2)
+            && ddlBloodGroup.SelectedIndex == 0
+            )
         {
             e.Cancel = true;
-            return;
         }
+        else
+        {
+            string search = "%" + Keyword + "%";
 
-        string search = "%" + Keyword + "%";
+            if (Keyword.ToLower().Trim() == "all") search = "%";
+            RedBloodDataContext db = new RedBloodDataContext();
 
-        if (Keyword.ToLower().Trim() == "all") search = "%";
-        RedBloodDataContext db = new RedBloodDataContext();
+            var v = db.Donations.Where(r =>
+                (ddlBloodGroup.SelectedIndex == 0 || r.BloodGroup == ddlBloodGroup.SelectedValue)
+                &&
+                (SqlMethods.Like(r.People.Name, search) || SqlMethods.Like(r.People.NameNoDiacritics, search))
+                ).Select(r => r.People).Distinct();
 
-        var r = (from rs in db.Peoples
-                 where SqlMethods.Like(rs.Name, search) || SqlMethods.Like(rs.NameNoDiacritics, search)
-                 select rs);
+            List<People> filter = v.ToList().Where(g =>
+                (string.IsNullOrEmpty(SexName) || (g.Sex != null && g.Sex.Name == SexName))
+                && (string.IsNullOrEmpty(Geo1Name) || g.ResidentGeo1.Name == Geo1Name)
+                && (string.IsNullOrEmpty(DOBYear) || g.DOBInDecade == DOBYear.ToInt())
+                    ).ToList();
+            e.Result = filter;
 
-        //LoadFilter(r.ToList());
-
-        List<People> filter = r.ToList().Where(g =>
-            (string.IsNullOrEmpty(SexName) || (g.Sex != null && g.Sex.Name == SexName))
-            && (string.IsNullOrEmpty(Geo1Name) || g.ResidentGeo1.Name == Geo1Name)
-                //&& (string.IsNullOrEmpty(DOBYear) || (g.DOB != null && g.DOB.Value.Decade() == DOBYear.ToInt()
-                //    || (g.DOBYear != null && g.DOBYear.ToString() == DOBYear)))
-            && (string.IsNullOrEmpty(DOBYear) || g.DOBInDecade == DOBYear.ToInt())
-                ).ToList();
-        e.Result = filter;
-        LoadFilter(filter);
+            LoadFilter(filter);
+        }
     }
 
 

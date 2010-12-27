@@ -9,6 +9,20 @@ using RedBlood;
 using RedBlood.BLL;
 public partial class Production_Scan4FinalLabelPrint : System.Web.UI.Page
 {
+    public string CurrentProductCode
+    {
+        get
+        {
+            if (ViewState["CurrentProductCode"] == null)
+                return "";
+            return (string)ViewState["CurrentProductCode"];
+        }
+        set
+        {
+            ViewState["CurrentProductCode"] = value;
+        }
+    }
+
     public string CurrentDIN
     {
         get
@@ -51,18 +65,18 @@ public partial class Production_Scan4FinalLabelPrint : System.Web.UI.Page
 
             if (BarcodeBLL.IsValidDINCode(code))
             {
-                LoadCurrentDIN(BarcodeBLL.ParseDIN(code));
+                AddPack(BarcodeBLL.ParseDIN(code));
             }
             else if (BarcodeBLL.IsValidProductCode(code))
             {
-                AddPack(BarcodeBLL.ParseProductCode(code));
+                LoadCurrentProduct(BarcodeBLL.ParseProductCode(code));
             }
         }
     }
 
-    void AddPack(string productCode)
+    void AddPack(string DIN)
     {
-        Pack p = PackBLL.Get(CurrentDIN, productCode);
+        Pack p = PackBLL.Get(DIN, CurrentProductCode);
 
         if (PackList.Contains(p.ID))
         {
@@ -116,14 +130,15 @@ public partial class Production_Scan4FinalLabelPrint : System.Web.UI.Page
         }
     }
 
-    void LoadCurrentDIN(string DIN)
+    void LoadCurrentProduct(string productCode)
     {
-        Donation e = DonationBLL.Get(DIN);
-
-        CurrentDIN = e.DIN;
-        imgCurrentDIN.ImageUrl = BarcodeBLL.Url4DIN(e.DIN);
+        var v = ProductBLL.Get(productCode);
+        if (v != null)
+        {
+            CurrentProductCode = productCode;
+            imgCurrentProductCode.ImageUrl = BarcodeBLL.Url4Product(productCode);
+        }
     }
-
 
     protected void btnOk_Click(object sender, EventArgs e)
     {

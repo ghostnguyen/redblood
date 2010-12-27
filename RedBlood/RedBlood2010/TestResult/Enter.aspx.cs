@@ -23,14 +23,19 @@ namespace RedBlood.TestResult
 
                 Master.TextBoxCode.Text = Master.TextBoxCode.Text.Trim();
 
-                if (Master.TextBoxCode.Text.Length == 0) return;
-
-                if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+                if (Master.TextBoxCode.Text.Length == 0)
+                { }
+                else
                 {
-                    CampaignEnter(Master.TextBoxCode.Text);
+                    if (BarcodeBLL.IsValidCampaignCode(Master.TextBoxCode.Text))
+                    {
+                        CampaignEnter(Master.TextBoxCode.Text);
+                    }
+
+                    Master.TextBoxCode.Text = "";
                 }
 
-                Master.TextBoxCode.Text = "";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "HightlightTR();", true);
             }
         }
 

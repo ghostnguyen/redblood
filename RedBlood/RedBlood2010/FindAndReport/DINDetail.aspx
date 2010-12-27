@@ -32,6 +32,18 @@
                 </asp:GridView>
                 <br />
                 <asp:Button ID="btnSelectedPack" runat="server" Text="In nhãn tổng chọn lọc" OnClick="btnSelectedPack_Click" />
+                <h4>
+                    Nhật ký nhập kết quả
+                </h4>
+                <asp:GridView ID="GridViewDINLog" runat="server" AutoGenerateRows="False" DataKeyNames="ID"
+                    AutoGenerateColumns="false">
+                    <Columns>
+                        <asp:BoundField DataField="Date" HeaderText="Thời gian" />
+                        <asp:BoundField DataField="Actor" HeaderText="Tên" />
+                        <asp:BoundField DataField="Type" HeaderText="Loại" />
+                        <asp:BoundField DataField="Result" HeaderText="Kết quả" />
+                    </Columns>
+                </asp:GridView>
             </td>
         </tr>
     </table>

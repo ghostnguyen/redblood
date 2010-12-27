@@ -25,6 +25,7 @@
     </h4>
     <div style="height: 30px;">
         <asp:Image ID="imgCurrentDIN" runat="server" ImageUrl="none" />
+        <asp:Image ID="imgCurrentProductCode" runat="server" ImageUrl="none" />
     </div>
     <br />
     Danh sách in

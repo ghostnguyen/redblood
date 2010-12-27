@@ -112,29 +112,6 @@ namespace RedBlood
             }
         }
 
-        public string InfectiousDesc
-        {
-            get
-            {
-                string r = "";
-                foreach (Infection item in RedBloodSystem.CheckingInfection)
-                {
-                    if (item.Decode(Markers.Code) == TR.pos.Name)
-                    {
-                        r += " | " + item.Name + " " + TR.pos.Name;
-                    }
-                }
-
-                foreach (Infection item in RedBloodSystem.CheckingInfection)
-                {
-                    if (item.Decode(Markers.Code) == TR.na.Name)
-                    {
-                        r += " | " + item.Name + " " + TR.na.Name;
-                    }
-                }
-
-                return r;
-            }
-        }
+        
     }
 }

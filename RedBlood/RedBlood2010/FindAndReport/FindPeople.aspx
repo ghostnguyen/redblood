@@ -1,9 +1,22 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="FindAndReport_FindPeople" Codebehind="FindPeople.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
+    Inherits="FindAndReport_FindPeople" CodeBehind="FindPeople.aspx.cs" %>
+
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table width="100%">
         <tr valign="top">
             <td style="width: 210px;">
+                <div class="part">
+                    <div class="partHeader">
+                        Nhóm máu
+                    </div>
+                    <div class="partLinkLast">
+                        <asp:DropDownList ID="ddlBloodGroup" runat="server" DataSource='<%# BloodGroup.BloodGroupList %>'
+                            DataTextField="Description" DataValueField="Code" AppendDataBoundItems="true">
+                            <asp:ListItem Text="" Value="" />
+                        </asp:DropDownList>
+                    </div>
+                </div>
                 <div class="part">
                     <div class="partHeader">
                         Điều kiện lọc
@@ -55,7 +68,8 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="CMND" HeaderText="CMND" SortExpression="CMND" />
-                        <asp:BoundField DataField="DOBToString" HeaderText="Năm sinh" SortExpression="DOB" DataFormatString="{0:dd/MM/yyyy}" />
+                        <asp:BoundField DataField="DOBToString" HeaderText="Năm sinh" SortExpression="DOB"
+                            DataFormatString="{0:dd/MM/yyyy}" />
                         <asp:TemplateField HeaderText="Giới tính" SortExpression="Sex.Name">
                             <ItemTemplate>
                                 <asp:Label ID="Label1" runat="server" Text='<%# Eval("Sex.Name")%>'></asp:Label>

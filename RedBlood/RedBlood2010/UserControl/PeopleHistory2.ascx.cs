@@ -57,7 +57,7 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
                         c.DIN,
                         c.Status,
                         c.CollectedDate,
-                        Note = (c.TestResultStatus != Donation.TestResultStatusX.Negative ? c.InfectiousDesc : "") + " | " + c.Note,
+                        Note = (c.TestResultStatus != Donation.TestResultStatusX.Negative ? c.Markers.Description : "") + " | " + c.Note,
                         c.BloodGroupDesc,
                         ProductDesc = c.Pack.Product.Description,
                         c.Pack.Volume
