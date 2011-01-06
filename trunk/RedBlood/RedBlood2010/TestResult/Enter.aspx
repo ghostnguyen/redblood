@@ -22,10 +22,13 @@
         <tr>
             <td>
                 <asp:Panel ID="PanelAllNeg" runat="server">
-                    <h3>
+                    <h4>
                         <asp:Button ID="btnAllNegative" runat="server" Text="Tất cả Âm Tính" OnClientClick="return confirm('Thay đổi kết quả tất cả thành âm tính?');"
                             OnClick="btnAllNegative_Click" />
-                    </h3>
+                        <br />
+                        <span style="color: Red;">*</span> Lưu ý: chỉ những mã có tất cả các KQXN là 'Chưa
+                        xác định' mới được thay đổi hết thành 'Âm tính'.
+                    </h4>
                 </asp:Panel>
                 <div>
                     Tổng cộng:

@@ -253,7 +253,7 @@ namespace RedBlood.BLL
 
         public static DonationErr Update(string DIN,
            string HIV, string HCV_Ab, string HBs_Ag, string Syphilis, string Malaria,
-            string note)
+            string note, bool updateIfAllNon = false)
         {
             RedBloodDataContext db = new RedBloodDataContext();
 
@@ -263,25 +263,30 @@ namespace RedBlood.BLL
 
             string old = e.InfectiousMarkers;
 
-            // Warning: As CR user requirement, value for both test result are always the same.
-            e.InfectiousMarkers = Infection.HIV_Ab.Encode(e.InfectiousMarkers, HIV);
-            e.InfectiousMarkers = Infection.HIV_Ag.Encode(e.InfectiousMarkers, HIV);
-
-            e.InfectiousMarkers = Infection.HCV_Ab.Encode(e.InfectiousMarkers, HCV_Ab);
-            e.InfectiousMarkers = Infection.HBs_Ag.Encode(e.InfectiousMarkers, HBs_Ag);
-            e.InfectiousMarkers = Infection.Syphilis.Encode(e.InfectiousMarkers, Syphilis);
-            e.InfectiousMarkers = Infection.Malaria.Encode(e.InfectiousMarkers, Malaria);
-
-            if (old != e.InfectiousMarkers)
+            if (!updateIfAllNon ||
+                (updateIfAllNon && e.Markers.IsAllNon)
+                )
             {
-                DonationTestLogBLL.Insert(db, e, PropertyName.For<Donation>(r => r.Markers), note);
+                // Warning: As CR user requirement, value for both test result are always the same.
+                e.InfectiousMarkers = Infection.HIV_Ab.Encode(e.InfectiousMarkers, HIV);
+                e.InfectiousMarkers = Infection.HIV_Ag.Encode(e.InfectiousMarkers, HIV);
+
+                e.InfectiousMarkers = Infection.HCV_Ab.Encode(e.InfectiousMarkers, HCV_Ab);
+                e.InfectiousMarkers = Infection.HBs_Ag.Encode(e.InfectiousMarkers, HBs_Ag);
+                e.InfectiousMarkers = Infection.Syphilis.Encode(e.InfectiousMarkers, Syphilis);
+                e.InfectiousMarkers = Infection.Malaria.Encode(e.InfectiousMarkers, Malaria);
+
+                if (old != e.InfectiousMarkers)
+                {
+                    DonationTestLogBLL.Insert(db, e, PropertyName.For<Donation>(r => r.Markers), note);
+                }
+
+                //Have to save before update TestResult Status
+                db.SubmitChanges();
+
+                UpdateTestResultStatus(e);
+                db.SubmitChanges();
             }
-
-            //Have to save before update TestResult Status
-            db.SubmitChanges();
-
-            UpdateTestResultStatus(e);
-            db.SubmitChanges();
 
             return DonationErrEnum.Non;
         }
@@ -329,7 +334,7 @@ namespace RedBlood.BLL
 
         public static void UpdateNegative(string DIN)
         {
-            Update(DIN, TR.neg.Name, TR.neg.Name, TR.neg.Name, TR.neg.Name, TR.neg.Name, "UpdateNegative");
+            Update(DIN, TR.neg.Name, TR.neg.Name, TR.neg.Name, TR.neg.Name, TR.neg.Name, "UpdateNegative", true);
         }
 
         public static List<Donation> GetUnLock(int campaignID)
