@@ -100,6 +100,22 @@ namespace RedBlood
             return Code;
         }
 
+        public bool IsAllNon
+        {
+            get
+            {
+                foreach (Infection item in RedBloodSystem.CheckingInfection)
+                {
+                    if (item.Decode(Code) != TR.na.Name)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+
         public string Description
         {
             get
