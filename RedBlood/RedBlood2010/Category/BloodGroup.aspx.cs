@@ -34,8 +34,17 @@ public partial class Category_BloodGroup : System.Web.UI.Page
         {
             int count = (GridView1.SelectedRow.FindControl("txtCount") as TextBox).Text.ToInt();
             
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "In",
+            //            "window.open('" + System.Web.VirtualPathUtility.ToAbsolute("~/Category/BloodGroupPrint.aspx") + "?count=" + count.ToString() + "&code=" + GridView1.SelectedValue.ToString() + "');", true);
+
             ScriptManager.RegisterStartupScript(this, this.GetType(), "In",
-                        "window.open('" + System.Web.VirtualPathUtility.ToAbsolute("~/Category/BloodGroupPrint.aspx") + "?count=" + count.ToString() + "&code=" + GridView1.SelectedValue.ToString() + "');", true);
+                string.Format("window.open('{0}?count={1}&code={2}&addText={3}');",
+                    System.Web.VirtualPathUtility.ToAbsolute("~/Category/BloodGroupPrint.aspx"),
+                    count.ToString(),
+                    GridView1.SelectedValue.ToString(),
+                    txtMoreText.Text
+                    )
+                , true);
         }
         catch (Exception)
         {
