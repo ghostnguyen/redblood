@@ -121,6 +121,7 @@ namespace RedBlood
             get
             {
                 string r = "";
+
                 foreach (Infection item in RedBloodSystem.CheckingInfection)
                 {
                     if (item.Decode(Code) == TR.pos.Name)
@@ -217,7 +218,11 @@ namespace RedBlood
         public string Decode(string markerStr)
         {
             if (!InfectiousMarker.IsValidate(markerStr))
-                throw new Exception("Invalid InfectiousMarker.");
+            {
+                return "Invalid InfectiousMarker.";
+                //throw new Exception("Invalid InfectiousMarker.");
+            }
+                
 
             int value = markerStr.Substring(this.Index, 1).ToInt();
 

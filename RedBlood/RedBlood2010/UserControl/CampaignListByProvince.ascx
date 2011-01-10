@@ -15,7 +15,7 @@
             <ItemTemplate>
                 <asp:Label ID="Label4" runat="server" Text='<%# Eval("Date","{0:dd/MM/yyyy}") %>'></asp:Label>
                 <br />
-                <asp:Label ID="Label3" runat="server" Text='<%# Eval("Source.Name") %>'></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text='<%# Eval("SourceName") %>'></asp:Label>
             </ItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField>
@@ -25,15 +25,16 @@
                 <asp:Label ID="Label3" runat="server" Text="ĐVTC"></asp:Label>
             </HeaderTemplate>
             <ItemTemplate>
-                <asp:Label ID="Label4" runat="server" Text='<%# Eval("CoopOrg.Name") %>'></asp:Label>
+                <asp:Label ID="Label4" runat="server" Text='<%# Eval("CoopOrg") %>'></asp:Label>
                 <br />
-                <asp:Label ID="Label3" runat="server" Text='<%# Eval("HostOrg.Name") %>'></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text='<%# Eval("HostOrg") %>'></asp:Label>
             </ItemTemplate>
         </asp:TemplateField>
         <asp:BoundField DataField="Est" HeaderText="Dự kiến" SortExpression="Est" />
         <asp:TemplateField HeaderText="TC">
             <ItemTemplate>
-                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Packs.Count") %>'></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text='<%# Eval("PacksCount") %>'></asp:Label>
+
             </ItemTemplate>
         </asp:TemplateField>
         <asp:BoundField DataField="CountPack450" HeaderText="450" />

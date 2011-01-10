@@ -50,7 +50,8 @@ public partial class UserControl_PeopleDonationLog : System.Web.UI.UserControl
         {
             r.DIN,
             CollectedDate = r.CollectedDate.ToStringVN(),
-            Note = (r.TestResultStatus != Donation.TestResultStatusX.Negative ? r.Markers.Description : "") + " | " + r.Note,
+            //Note = (r.TestResultStatus != Donation.TestResultStatusX.Negative ? r.Markers.Description : "") + " | " + r.Note,
+            Note = r.Markers.Description + " | " + r.Note,
         });
         e.Result = l;
 

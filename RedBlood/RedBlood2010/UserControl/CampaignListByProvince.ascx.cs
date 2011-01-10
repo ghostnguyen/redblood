@@ -70,6 +70,24 @@ public partial class UserControl_CampaignListByProvince : System.Web.UI.UserCont
 
     protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
     {
-        e.Result = CampaignBLL.Get(new List<Guid>() { ProvinceID }, From, To, Campaign.TypeX.Short_run);
+
+        var v = CampaignBLL.Get(new List<Guid>() { ProvinceID }, From, To, Campaign.TypeX.Short_run);
+        
+        e.Result = v.ToList().Select(r => new
+        {
+            r.ID,
+            r.Name,
+            Date = r.Date.HasValue ? r.Date.ToStringVN() : "",
+            SourceName = r.Source != null ? r.Source.Name : "",
+            CoopOrg = r.CoopOrg != null ? r.CoopOrg.Name : "",
+            HostOrg = r.HostOrg != null ? r.HostOrg.Name : "",
+            PacksCount = r.Donations.Count.ToString(),
+            r.Est,
+            CountPack350 = r.Donations.Where(r1 => r1.OrgVolume == "350").Count(),
+            CountPack450 = r.Donations.Where(r1 => r1.OrgVolume == "450").Count(),
+            CountPack250 = r.Donations.Where(r1 => r1.OrgVolume == "250").Count(),
+            r.Note,
+        });
+
     }
 }

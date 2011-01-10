@@ -68,9 +68,17 @@ public partial class FindAndReport_DINDetail : System.Web.UI.Page
 
         if (type == "Markers")
         {
-            InfectiousMarker maker = new InfectiousMarker();
-            maker.Code = result;
-            str = maker.Description;
+            if (InfectiousMarker.IsValidate(result))
+            {
+                InfectiousMarker maker = new InfectiousMarker();
+                maker.Code = result;
+                str = maker.Description;
+            }
+            else
+            {
+                str = "";
+            }
+
         }
 
         return str;
