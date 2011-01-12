@@ -232,13 +232,12 @@
     <Content Include="Membership\UserAndRole.aspx" />
     <Content Include="Order\Order4CR.aspx" />
     <Content Include="Order\SideEffects.aspx" />
-    <Content Include="Production\Devide.aspx" />
+    <Content Include="Production\Divide.aspx" />
     <Content Include="Production\FinalLabelPrint.aspx" />
     <Content Include="Production\Scan4FinalLabelPrint.aspx" />
     <Content Include="Store\Rpt_OrderByDay.aspx" />
     <Content Include="Store\Rpt_ReturnByDay.aspx" />
     <Content Include="Store\Rpt_DeleteByDay.aspx" />
-    <Content Include="Production\Divide1.aspx" />
     <Content Include="Production\Extract.aspx" />
     <Content Include="Production\Pool.aspx" />
     <Content Include="Production\Rpt_ExtractByDay.aspx" />
@@ -603,12 +602,12 @@
     <Compile Include="Order\SideEffects.aspx.designer.cs">
       <DependentUpon>SideEffects.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Production\Devide.aspx.cs">
-      <DependentUpon>Devide.aspx</DependentUpon>
+    <Compile Include="Production\Divide.aspx.cs">
+      <DependentUpon>Divide.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Production\Devide.aspx.designer.cs">
-      <DependentUpon>Devide.aspx</DependentUpon>
+    <Compile Include="Production\Divide.aspx.designer.cs">
+      <DependentUpon>Divide.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\FinalLabelPrint.aspx.cs">
       <DependentUpon>FinalLabelPrint.aspx</DependentUpon>
@@ -644,9 +643,6 @@
     </Compile>
     <Compile Include="Store\Rpt_DeleteByDay.aspx.designer.cs">
       <DependentUpon>Rpt_DeleteByDay.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Production\Divide1.aspx.designer.cs">
-      <DependentUpon>Divide1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\Extract.aspx.designer.cs">
       <DependentUpon>Extract.aspx</DependentUpon>
@@ -1131,10 +1127,6 @@
     </Compile>
     <Compile Include="Order\SideEffects.aspx.cs">
       <DependentUpon>SideEffects.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Production\Divide1.aspx.cs">
-      <DependentUpon>Divide1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Production\Extract.aspx.cs">

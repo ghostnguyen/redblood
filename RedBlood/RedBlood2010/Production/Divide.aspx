@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    Inherits="RedBlood.Production.Devide" CodeBehind="Devide.aspx.cs" %>
+    Inherits="RedBlood.Production.Divide" CodeBehind="Divide.aspx.cs" %>
 
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -14,7 +14,7 @@
         });
     </script>
     <h3>
-        Sản xuất đồng loạt
+        Chia tách túi máu
         <asp:Button ID="btnReset" runat="server" Text="Tạo đợt mới" OnClick="btnReset_Click" />
     </h3>
     <hr />
@@ -41,30 +41,16 @@
             </td>
             <td style="border-left: solid 1px;">
                 <h4>
-                    <asp:RadioButton ID="rdbProductCodeOut" runat="server" GroupName="InputBarcode" Text="Quét barcode các sản phẩm đầu ra" />
+                    Nhập thể tích
                 </h4>
-                <asp:DataList ID="DataListProductOut" runat="server" RepeatDirection="Horizontal"
-                    DataSourceID="LinqDataSourceProductOut">
-                    <ItemTemplate>
-                        <div style="margin: 0px 10px 0px 10px;">
-                            <asp:Image ID="Image1" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product(Eval("Code") as string) %>' />
-                            <br />
-                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
-                        </div>
-                    </ItemTemplate>
-                </asp:DataList>
-                <asp:LinqDataSource ID="LinqDataSourceProductOut" runat="server" ContextTypeName="RedBlood.RedBloodDataContext"
-                    OnSelecting="LinqDataSourceProductOut_Selecting" TableName="Products">
-                </asp:LinqDataSource>
-                as12
                 <asp:GridView ID="GridViewVolume" runat="server" AutoGenerateColumns="false">
                     <Columns>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <%# Eval("Division") %>
+                                <asp:Label ID="lblDivision" runat="server" Text='<%# Eval("Division") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField>
+                        <asp:TemplateField HeaderText="(ml)">
                             <ItemTemplate>
                                 <asp:TextBox ID="txtVolume" runat="server" Text='<%# Eval("Volume") %>'></asp:TextBox>
                             </ItemTemplate>

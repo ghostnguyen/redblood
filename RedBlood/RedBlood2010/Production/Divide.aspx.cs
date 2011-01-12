@@ -9,7 +9,7 @@ using RedBlood.BLL;
 
 namespace RedBlood.Production
 {
-    public partial class Devide : System.Web.UI.Page
+    public partial class Divide : System.Web.UI.Page
     {
         public List<string> ProductCodeInList
         {
@@ -27,19 +27,19 @@ namespace RedBlood.Production
             }
         }
 
-        public List<string> ProductCodeOutList
+        public List<RedBlood.BLL.ProductionBLL.Division> DivisionList
         {
             get
             {
-                if (ViewState["ProductCodeOutList"] == null)
+                if (ViewState["DivisionList"] == null)
                 {
-                    ViewState["ProductCodeOutList"] = new List<string>();
+                    ViewState["DivisionList"] = new List<RedBlood.BLL.ProductionBLL.Division>();
                 }
-                return (List<string>)ViewState["ProductCodeOutList"];
+                return (List<RedBlood.BLL.ProductionBLL.Division>)ViewState["DivisionList"];
             }
             set
             {
-                ViewState["ProductCodeOutList"] = value;
+                ViewState["DivisionList"] = value;
             }
         }
 
@@ -66,7 +66,7 @@ namespace RedBlood.Production
                 return new ProductionBLL()
                 {
                     ProductCodeInList = ProductCodeInList,
-                    ProductCodeOutList = ProductCodeOutList,
+                    DivisionList = DivisionList,
                     DINInList = DINInList
                 };
             }
@@ -74,18 +74,7 @@ namespace RedBlood.Production
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<string> divisionList = new List<string>();
 
-            divisionList.Add("A0");
-            divisionList.Add("B0");
-            divisionList.Add("C0");
-
-            GridViewVolume.DataSource = divisionList.Select(r => new
-            {
-                Division = r,
-                Volume = "",
-            });
-            GridViewVolume.DataBind();
 
             string code = Master.TextBoxCode.Text.Trim();
             Master.TextBoxCode.Text = "";
@@ -97,41 +86,46 @@ namespace RedBlood.Production
             {
                 if (BarcodeBLL.IsValidProductCode(code))
                 {
-                    ProductCodeInList = productionBLL.AddProductCodeIn(BarcodeBLL.ParseProductCode(code));
+                    ProductCodeInList = productionBLL.AddProductCodeIn4Divide(BarcodeBLL.ParseProductCode(code));
                     DataListProductIn.DataBind();
-                }
-            }
-            else if (rdbProductCodeOut.Checked)
-            {
-                if (BarcodeBLL.IsValidProductCode(code))
-                {
-                    ProductCodeOutList = productionBLL.AddProductCodeOut(BarcodeBLL.ParseProductCode(code));
-                    DataListProductOut.DataBind();
+
+                    GridViewVolume.DataSource = ProductionBLL.GetDivideList(code).Select(r => new
+                    {
+                        Division = r,
+                        Volume = "",
+                    });
+                    GridViewVolume.DataBind();
                 }
             }
             else if (rdbDINIn.Checked)
             {
                 if (BarcodeBLL.IsValidDINCode(code))
                 {
-                    DINInList = productionBLL.AddDIN(BarcodeBLL.ParseDIN(code));
+                    DINInList = productionBLL.AddDIN4Divide(BarcodeBLL.ParseDIN(code));
                     DataListDINIn.DataBind();
                 }
             }
-
-
-            
         }
 
         protected void LinqDataSourceProductIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             RedBloodDataContext db = new RedBloodDataContext();
-            e.Result = db.Products.Where(r => ProductCodeInList.Contains(r.Code));
-        }
 
-        protected void LinqDataSourceProductOut_Selecting(object sender, LinqDataSourceSelectEventArgs e)
-        {
-            RedBloodDataContext db = new RedBloodDataContext();
-            e.Result = db.Products.Where(r => ProductCodeOutList.Contains(r.Code));
+            string productCode = ProductCodeInList.FirstOrDefault();
+            if (string.IsNullOrEmpty(productCode))
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                string productCodeShort = productCode.Substring(0, productCode.Length - 2);
+                e.Result = db.Products.Where(r => r.Code.Contains(productCodeShort)).Select(r => new
+                {
+                    Code = productCode,
+                    r.Description
+                });
+            }
+
         }
 
         protected void LinqDataSourceDINIn_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -147,22 +141,41 @@ namespace RedBlood.Production
             ProductCodeInList.Clear();
             DataListProductIn.DataBind();
 
-            ProductCodeOutList.Clear();
-            DataListProductOut.DataBind();
+            GridViewVolume.DataBind();
 
             DINInList.Clear();
             DataListDINIn.DataBind();
 
-            rdbProductCodeOut.Checked = false;
             rdbDINIn.Checked = false;
             rdbProductCodeIn.Checked = true;
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            productionBLL.Extract();
-            this.Alert("Sản xuất thành công.");
+            var list = new List<ProductionBLL.Division>();
+
+            foreach (var item in GridViewVolume.Rows)
+            {
+                var row = item as GridViewRow;
+                var label = row.Cells[0].Controls[1] as Label;
+                var txtVolume = row.Cells[1].Controls[1] as TextBox;
+                
+                if (!string.IsNullOrEmpty(label.Text)
+                    && txtVolume.Text.ToInt() > 0)
+                {
+                    ProductionBLL.Division a = new ProductionBLL.Division() { Ext = label.Text, Volume = txtVolume.Text.ToInt() };
+                    list.Add(a);
+                }
+            }
+
+            if (list.Count > 0)
+            {
+                DivisionList = list;
+                productionBLL.Divide();
+                this.Alert("Tách thành công.");
+            }
         }
+
         protected void btnDINRemove_Click(object sender, ImageClickEventArgs e)
         {
             ImageButton btn = sender as ImageButton;
