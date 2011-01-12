@@ -10,7 +10,7 @@
 namespace RedBlood.Production {
     
     
-    public partial class Devide {
+    public partial class Divide {
         
         /// <summary>
         /// btnReset control.
@@ -47,33 +47,6 @@ namespace RedBlood.Production {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinqDataSource LinqDataSourceProductIn;
-        
-        /// <summary>
-        /// rdbProductCodeOut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdbProductCodeOut;
-        
-        /// <summary>
-        /// DataListProductOut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList DataListProductOut;
-        
-        /// <summary>
-        /// LinqDataSourceProductOut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinqDataSource LinqDataSourceProductOut;
         
         /// <summary>
         /// GridViewVolume control.

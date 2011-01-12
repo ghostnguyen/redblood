@@ -177,6 +177,7 @@ namespace RedBlood.BLL
             pack.Actor = RedBloodSystem.CurrentActor;
             //pack.Volume = product.OriginalVolume.HasValue ? product.OriginalVolume : defaultVolume;
             pack.Volume = volume;
+            
             if (orgPack != null
                 && product.CreatedDateFromOrgPack.HasValue
                 && product.CreatedDateFromOrgPack.Value)

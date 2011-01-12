@@ -24,7 +24,8 @@ namespace RedBlood.BLL
 
         public static Product Get(RedBloodDataContext db, string code)
         {
-            return db.Products.Where(r => r.Code == code).FirstOrDefault();
+            string codeOnly = code.Substring(0, code.Length - 2);
+            return db.Products.Where(r => r.Code.Contains(codeOnly)).FirstOrDefault();
         }
     }
 }
