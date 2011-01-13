@@ -32,10 +32,11 @@ namespace RedBlood.BLL
 
             Pack r = Get(db, ID);
 
-            if (r.Donation.TestResultStatus == Donation.TestResultStatusX.Positive)
-            {
-                throw new Exception(PackErrEnum.Positive.Message);
-            }
+            //Produce positive product for research
+            //if (r.Donation.TestResultStatus == Donation.TestResultStatusX.Positive)
+            //{
+            //    throw new Exception(PackErrEnum.Positive.Message);
+            //}
 
             return r;
         }

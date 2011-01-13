@@ -91,11 +91,11 @@ namespace RedBlood.Store
                 //})
                 .SelectMany(r => r.PackOrders.Select(r1 => r1.Pack))
                 .ToList()
-                .GroupBy(r => new { r.Product })
+                .GroupBy(r => new { r.ProductCode })
                 .Select(r => new
                 {
-                    ProductCode = r.Key.Product.Code,
-                    ProductDesc = r.Key.Product.Description,
+                    ProductCode = r.Key.ProductCode,
+                    ProductDesc = ProductBLL.GetDesc(r.Key.ProductCode),
                     Total = r.Count(),
                     BloodGroupSumary = r.GroupBy(r1 => r1.Donation.BloodGroup).Select(r1 => new
                     {

@@ -50,6 +50,8 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
     {
         RedBloodDataContext db = new RedBloodDataContext();
 
+
+
         var v = db.Donations.Where(r => r.PeopleID == peopleID)
                     .OrderByDescending(r => r.CollectedDate)
                     .ToList().Select(c => new
@@ -59,7 +61,7 @@ public partial class UserControl_PeopleHistory2 : System.Web.UI.UserControl
                         c.CollectedDate,
                         Note = (c.TestResultStatus != Donation.TestResultStatusX.Negative ? c.Markers.Description : "") + " | " + c.Note,
                         c.BloodGroupDesc,
-                        ProductDesc = c.Pack.Product.Description,
+                        ProductDesc = ProductBLL.GetDesc(c.Pack.ProductCode),
                         c.Pack.Volume
                     });
 

@@ -58,7 +58,7 @@ namespace RedBlood.Collect
                 HyperLinkPosEnvelope.NavigateUrl = "~/Collect/EnvelopePrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.FourPosInCam).ToString();
                 HyperLinkHIVEnvelope.NavigateUrl = "~/Collect/EnvelopePrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.HIVInCam).ToString();
 
-                
+
                 HyperLinkAllCard.NavigateUrl = "~/Collect/DonationCardPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.All).ToString();
                 HyperLinkAllDINCert.NavigateUrl = "~/Collect/DINCertPrint.aspx?CampaignID=" + CampaignDetail1.CampaignID.ToString() + "&rptType=" + ((int)ReportType.All).ToString();
             }
@@ -68,7 +68,21 @@ namespace RedBlood.Collect
         protected void LinqDataSource1_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             RedBloodDataContext db = new RedBloodDataContext();
-            e.Result = db.Donations.Where(r => r.CampaignID == CampaignDetail1.CampaignID).OrderBy(r => r.DIN).ToList();
+            e.Result = db.Donations.Where(r => r.CampaignID == CampaignDetail1.CampaignID).OrderBy(r => r.DIN).ToList()
+                .Select(r => new
+                {
+                    r.DIN,
+                    Name = r.People.Name,
+                    CollectedDate = r.CollectedDate.ToStringVN_Hour(),
+                    ProductDescription = r.Pack != null ? ProductBLL.GetDesc(r.Pack.ProductCode) : "",
+                    r.BloodGroupDesc,
+                    Markers_HIV = r.Markers.HIV,
+                    Markers_HCV_Ab = r.Markers.HCV_Ab,
+                    Markers_HBs_Ag = r.Markers.HBs_Ag,
+                    Markers_Malaria = r.Markers.Malaria,
+                    Markers_Syphilis = r.Markers.Syphilis,
+                })
+                ;
         }
 
         protected void btnSelectedCard_Click(object sender, EventArgs e)

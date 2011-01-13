@@ -27,5 +27,17 @@ namespace RedBlood.BLL
             string codeOnly = code.Substring(0, code.Length - 2);
             return db.Products.Where(r => r.Code.Contains(codeOnly)).FirstOrDefault();
         }
+
+        public static string GetDesc(string code)
+        {
+            var v = Get(code);
+            return v == null ? "" : v.Description;
+        }
+
+        public static string GetFinalLabelDesc(string code)
+        {
+            var v = Get(code);
+            return v == null ? "" : v.FinalLabelDesc;
+        }
     }
 }

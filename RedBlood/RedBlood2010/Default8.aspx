@@ -15,6 +15,10 @@
             window.location = ("Production/Rpt_ExtractByDay.aspx");
         });
 
+        $(document).bind('keydown', '9', function () {
+            window.location = ("Production/Divide.aspx");
+        });
+
         $(document).bind('keydown', '5', function () {
             window.location = ("Store/Delete.aspx");
         });
@@ -28,7 +32,7 @@
             window.location = ("Production/TherapyReceipt.aspx");
         });
 
-        $(document).bind('keydown', '1', function () {
+        $(document).bind('keydown', '2', function () {
             window.location = ("Production/Scan4FinalLabelPrint.aspx");
         });
 
@@ -73,20 +77,20 @@
                             </table>
                         </td>
                         <td class="column next">
-                            <%--<table>
+                            <table>
                                 <tr>
                                     <td>
-                                        <a href="Production/Extract.aspx">
+                                        <a href="Production/Divide.aspx">
                                             <img src="Image/Icon/number9.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="Production/Extract.aspx">Tra cứu</a>
+                                            <a href="Production/Divide.aspx">Chia/tách túi máu</a>
                                         </h4>
                                     </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </td>
                     </tr>
                     <tr>

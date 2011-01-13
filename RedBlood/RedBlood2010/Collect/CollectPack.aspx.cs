@@ -89,8 +89,8 @@ namespace RedBlood.Collect
 
                 if (e.Pack != null)
                 {
-                    imgProduct.ImageUrl = BarcodeBLL.Url4Product(e.Pack.Product.Code);
-                    lblProductDesc.Text = e.Pack.Product.Description;
+                    imgProduct.ImageUrl = BarcodeBLL.Url4Product(e.Pack.ProductCode);
+                    lblProductDesc.Text = ProductBLL.GetDesc(e.Pack.ProductCode);
                     btnRemovePack.Visible = e.CanRemoveOriginalPack;
 
                     lblDate.Text = e.Pack.Date.ToStringVN_Hour();
