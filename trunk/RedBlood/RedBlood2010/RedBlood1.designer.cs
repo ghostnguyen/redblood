@@ -11587,8 +11587,6 @@ namespace RedBlood
 		
 		private EntityRef<Donation> _Donation;
 		
-		private EntityRef<Product> _Product;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -11626,7 +11624,6 @@ namespace RedBlood
 			this._PackOrders = new EntitySet<PackOrder>(new Action<PackOrder>(this.attach_PackOrders), new Action<PackOrder>(this.detach_PackOrders));
 			this._Delete = default(EntityRef<Delete>);
 			this._Donation = default(EntityRef<Donation>);
-			this._Product = default(EntityRef<Product>);
 			OnCreated();
 		}
 		
@@ -11685,10 +11682,6 @@ namespace RedBlood
 			{
 				if ((this._ProductCode != value))
 				{
-					if (this._Product.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnProductCodeChanging(value);
 					this.SendPropertyChanging();
 					this._ProductCode = value;
@@ -11995,40 +11988,6 @@ namespace RedBlood
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_Pack", Storage="_Product", ThisKey="ProductCode", OtherKey="Code", IsForeignKey=true)]
-		public Product Product
-		{
-			get
-			{
-				return this._Product.Entity;
-			}
-			set
-			{
-				Product previousValue = this._Product.Entity;
-				if (((previousValue != value) 
-							|| (this._Product.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Product.Entity = null;
-						previousValue.Packs.Remove(this);
-					}
-					this._Product.Entity = value;
-					if ((value != null))
-					{
-						value.Packs.Add(this);
-						this._ProductCode = value.Code;
-					}
-					else
-					{
-						this._ProductCode = default(string);
-					}
-					this.SendPropertyChanged("Product");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -12140,8 +12099,6 @@ namespace RedBlood
 		
 		private EntitySet<ReceiptProduct> _ReceiptProducts;
 		
-		private EntitySet<Pack> _Packs;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -12173,7 +12130,6 @@ namespace RedBlood
 		public Product()
 		{
 			this._ReceiptProducts = new EntitySet<ReceiptProduct>(new Action<ReceiptProduct>(this.attach_ReceiptProducts), new Action<ReceiptProduct>(this.detach_ReceiptProducts));
-			this._Packs = new EntitySet<Pack>(new Action<Pack>(this.attach_Packs), new Action<Pack>(this.detach_Packs));
 			OnCreated();
 		}
 		
@@ -12410,19 +12366,6 @@ namespace RedBlood
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_Pack", Storage="_Packs", ThisKey="Code", OtherKey="ProductCode")]
-		public EntitySet<Pack> Packs
-		{
-			get
-			{
-				return this._Packs;
-			}
-			set
-			{
-				this._Packs.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -12450,18 +12393,6 @@ namespace RedBlood
 		}
 		
 		private void detach_ReceiptProducts(ReceiptProduct entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = null;
-		}
-		
-		private void attach_Packs(Pack entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = this;
-		}
-		
-		private void detach_Packs(Pack entity)
 		{
 			this.SendPropertyChanging();
 			entity.Product = null;

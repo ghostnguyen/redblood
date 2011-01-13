@@ -63,7 +63,7 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
             Date = r.Date.ToStringVN_Hour(),
             r.DIN,
             r.ProductCode,
-            Description = r.Product.Description,
+            Description = ProductBLL.GetDesc(r.ProductCode),
             r.Note,
         });
         GridView1.DataBind();

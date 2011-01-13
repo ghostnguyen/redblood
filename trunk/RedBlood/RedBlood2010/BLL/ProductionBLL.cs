@@ -160,10 +160,11 @@ namespace RedBlood.BLL
             if (d == null)
                 throw new Exception("Không có mã túi máu này.");
 
-            if (d.TestResultStatus == Donation.TestResultStatusX.Positive)
-            {
-                throw new Exception("Xét nghiệm sàng lọc: Dương tính.");
-            }
+            //Allow positive to be produced for lab.
+            //if (d.TestResultStatus == Donation.TestResultStatusX.Positive)
+            //{
+            //    throw new Exception("Xét nghiệm sàng lọc: Dương tính.");
+            //}
 
             RedBloodDataContext db = new RedBloodDataContext();
             int count = db.Packs.Where(r => ProductCodeInList.Contains(r.ProductCode) && r.DIN == DIN).Count();
@@ -189,10 +190,11 @@ namespace RedBlood.BLL
             if (d == null)
                 throw new Exception("Không có mã túi máu này.");
 
-            if (d.TestResultStatus == Donation.TestResultStatusX.Positive)
-            {
-                throw new Exception("Xét nghiệm sàng lọc: Dương tính.");
-            }
+            //Can be produce positive product for research
+            //if (d.TestResultStatus == Donation.TestResultStatusX.Positive)
+            //{
+            //    throw new Exception("Xét nghiệm sàng lọc: Dương tính.");
+            //}
 
             RedBloodDataContext db = new RedBloodDataContext();
             int count = db.Packs.Where(r => ProductCodeInList.Contains(r.ProductCode) && r.DIN == DIN).Count();

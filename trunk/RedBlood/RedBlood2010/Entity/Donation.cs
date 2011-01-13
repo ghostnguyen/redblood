@@ -82,7 +82,7 @@ namespace RedBlood
             get
             {
                 if (this.Pack == null) return "";
-                else return this.Pack.Product.Description;
+                else return ProductBLL.GetDesc(this.Pack.ProductCode);
             }
         }
 
@@ -91,7 +91,7 @@ namespace RedBlood
             get
             {
                 if (this.Pack == null) return "";
-                else return this.Pack.Product.Code;
+                else return this.Pack.ProductCode;
             }
         }
 

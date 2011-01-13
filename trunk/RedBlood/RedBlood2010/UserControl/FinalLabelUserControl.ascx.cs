@@ -64,7 +64,7 @@ namespace RedBlood
             lblProductCode.Text = e.ProductCode;
             lblProductCode.Style.Apply(PrintSettingBLL.FinalLabel.ProductCode);
 
-            lblProductDesc.Text = e.Product.FinalLabelDesc;
+            lblProductDesc.Text = ProductBLL.GetFinalLabelDesc(e.ProductCode);
             lblProductDesc.Style.Apply(PrintSettingBLL.FinalLabel.ProductDesc);
 
             lblVolumeLabel.Text = "Thể tích      ml";
