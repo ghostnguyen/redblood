@@ -1,13 +1,11 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="UserControl_People" Codebehind="People.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="UserControl_People" CodeBehind="People.ascx.cs" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajk" %>
-
 <script type="text/javascript">
     // Your code goes here
-    $(document).bind('keydown', 'Ctrl+l', function() {
+    $(document).bind('keydown', 'Ctrl+l', function () {
         $("input[name*='btnUpdate']").click();
     });
 </script>
-
 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <asp:Panel runat="server" ID="Panel1">
@@ -30,21 +28,21 @@
                 </tr>
                 <tr>
                     <td class="people_cellheader">
-                        CMND
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtCMND" runat="server" CssClass="people_cellvalue" />
-                        <div id="divErrCMND" runat="server" class="hidden">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="people_cellheader">
                         <span style="color: Red;">*</span>Ngày sinh
                     </td>
                     <td>
                         <asp:TextBox ID="txtDOB" runat="server" />
                         <div id="divErrDOB" runat="server" class="hidden">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="people_cellheader">
+                        CMND
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtCMND" runat="server" CssClass="people_cellvalue" />
+                        <div id="divErrCMND" runat="server" class="hidden">
                         </div>
                     </td>
                 </tr>
