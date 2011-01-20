@@ -32,40 +32,29 @@ public class AuthenticationHttpModule : IHttpModule
 
     void context_PostAuthenticateRequest(object sender, EventArgs e)
     {
-        //throw new NotImplementedException();
-        HttpApplication app = sender as HttpApplication;
+        //HttpApplication app = sender as HttpApplication;
 
-        //if (app.Request.RawUrl.Contains("Login.aspx")
-        //    || app.Request.RawUrl.Contains("ResetPassword4Admin.aspx")) return;
+        //if (app.Request.RawUrl.Contains("ResetPassword4Admin.aspx"))
+        //{
+        //    MembershipUser user = Membership.GetUser("admin");
+        
+        //    if (user.IsLockedOut)
+        //    {
+        //        user.UnlockUser();
+        //    }
 
-        //if (!app.Request.IsAuthenticated)
-        //    app.Response.Redirect("~/Login.aspx", true);
-
-        if (app.Request.RawUrl.Contains("ResetPassword4Admin.aspx"))
-        {
-            MembershipUser user = Membership.GetUser("admin");
-            //string oldPass = user.GetPassword();
-            //user.ChangePassword(oldPass, "admin");
-            if (user.IsLockedOut)
-            {
-                user.UnlockUser();
-            }
-            app.Response.Write(user.ResetPassword());
-        }
+        //    app.Response.Write(user.ResetPassword());
+        //}
     }
 
     void context_AuthenticateRequest(object sender, EventArgs e)
     {
         //throw new NotImplementedException();
-
     }
 
     void context_BeginRequest(object sender, EventArgs e)
     {
-
     }
-
-
 
     #endregion
 }

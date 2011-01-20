@@ -9,8 +9,8 @@ public partial class MasterPageRpt2 : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Request.IsAuthenticated)
-            Response.Redirect("~/Login.aspx");
+        //if (!Request.IsAuthenticated)
+        //    Response.Redirect("~/Login.aspx");
 
     }
 }
