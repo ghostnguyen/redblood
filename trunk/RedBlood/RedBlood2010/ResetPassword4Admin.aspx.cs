@@ -39,11 +39,26 @@ namespace RedBlood
 
                 try
                 {
-                    bool r = user.ChangePassword(txtOldPassword.Text, txtPassword1.Text);
+                    if (user.IsLockedOut)
+                    {
+                        user.UnlockUser();
+                    }
+
+                    if (!user.IsApproved)
+                    {
+                        user.IsApproved = true;
+                        Membership.UpdateUser(user);
+                    }
+
+                    string oldPass = user.ResetPassword();
+                    //bool r = user.ChangePassword(txtOldPassword.Text, txtPassword1.Text);
+                    bool r = user.ChangePassword(oldPass, txtPassword1.Text);
                     if (r)
                         ActionStatus.Text = "Mật khẩu đã được đổi";
                     else
                         ActionStatus.Text = "Mật khẩu KHÔNG đổi được.";
+
+                    
 
                 }
                 catch (Exception ex)
