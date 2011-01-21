@@ -153,6 +153,8 @@ public partial class Store_Return : System.Web.UI.Page
 
         PackOrderList = e.PackOrders.Select(r => r.ID).ToList();
 
+        urlPrint.NavigateUrl = ResolveClientUrl(string.Format("~/Store/PrintReturn.aspx?ReturnID={0}", e.ID));
+
         GridViewPack.DataBind();
 
         CurrentDIN = "";

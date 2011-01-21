@@ -75,6 +75,15 @@ public partial class Store_Delete {
     protected global::System.Web.UI.WebControls.Button btnOk;
     
     /// <summary>
+    /// urlPrint control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.HyperLink urlPrint;
+    
+    /// <summary>
     /// imgCurrentDIN control.
     /// </summary>
     /// <remarks>

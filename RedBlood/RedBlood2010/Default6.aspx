@@ -174,7 +174,7 @@
                                 <tr>
                                     <td>
                                         <a href="Store/Delete.aspx">
-                                            <img src="Image/Icon/number1.gif" alt="" />
+                                            <img src="Image/Icon/number3.gif" alt="" />
                                         </a>
                                     </td>
                                     <td>

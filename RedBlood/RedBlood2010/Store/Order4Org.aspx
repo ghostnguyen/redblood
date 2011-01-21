@@ -152,6 +152,7 @@
                                 OnClick="btnUpdate_Click" />
                             <asp:Button ID="btnDelete" runat="server" Text="<%$ Resources:Resource,Delete %>"
                                 OnClick="btnDelete_Click" OnClientClick="return confirm('Xóa đợt hiến máu này.');" />
+                            <asp:HyperLink ID="urlPrint" runat="server" Text="Xem trang In"> </asp:HyperLink>
                         </td>
                     </tr>
                     <%--        <tr>

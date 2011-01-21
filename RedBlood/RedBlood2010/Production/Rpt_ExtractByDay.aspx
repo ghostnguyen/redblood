@@ -21,10 +21,37 @@
     <asp:Button ID="Button1" runat="server" Text="Xem" OnClick="Button1_Click" />
     <br />
     <br />
-    <asp:GridView ID="GridViewSummary" runat="server" AutoGenerateColumns="false">
+    <asp:GridView ID="GridViewSum" runat="server" AutoGenerateColumns="False">
         <Columns>
-            <asp:BoundField HeaderText="Sản phẩm" DataField="ProductCode" />
-            <asp:BoundField HeaderText="Số lượng" DataField="Count" />
+            <asp:TemplateField HeaderText="Sản phẩm">
+                <ItemTemplate>
+                    <asp:Image ID="ImagePackCodabar" runat="server" ImageUrl='<%# BarcodeBLL.Url4Product( Eval("ProductCode") as string) %>' />
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:BoundField HeaderText="Sản Phẩm" DataField="ProductDesc" />
+            <asp:BoundField HeaderText="TC" DataField="Sum" />
+            <asp:TemplateField HeaderText="Nhóm máu">
+                <ItemTemplate>
+                    <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("BloodGroupSumary") %>'
+                        ShowHeader="false" SkinID="Inner">
+                        <Columns>
+                            <asp:BoundField DataField="BloodGroupDesc" HeaderText="Nhóm máu" />
+                            <asp:BoundField DataField="Total" HeaderText="TC" />
+                            <asp:TemplateField HeaderText="(ml)">
+                                <ItemTemplate>
+                                    <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" DataSource='<%# Eval("VolumeSumary") %>'
+                                        ShowHeader="false" SkinID="Inner">
+                                        <Columns>
+                                            <asp:BoundField DataField="Volume" HeaderText="(ml)" />
+                                            <asp:BoundField DataField="Total" HeaderText="TC" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:TemplateField HeaderText="In nhãn tổng">
                 <ItemTemplate>
                     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("PrintUrl") %>'><%# Eval("PrintCount") %></asp:HyperLink>

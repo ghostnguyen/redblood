@@ -156,6 +156,8 @@ public partial class Store_Order4Org : System.Web.UI.Page
 
         btnUpdate.Enabled = e.Status == Order.StatusX.Init;
 
+        urlPrint.NavigateUrl = ResolveClientUrl(string.Format("~/Store/PrintOrder.aspx?OrderID={0}", e.ID));
+
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
 
@@ -213,6 +215,7 @@ public partial class Store_Order4Org : System.Web.UI.Page
             RedBloodDataContext db = new RedBloodDataContext();
             Order p = new Order();
             p.Status = Order.StatusX.Init;
+            p.Actor = RedBloodSystem.CurrentActor;
 
             if (LoadFromGUI(p))
             {

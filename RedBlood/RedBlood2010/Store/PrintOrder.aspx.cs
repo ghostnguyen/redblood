@@ -22,15 +22,17 @@ public partial class Store_PrintOrder : System.Web.UI.Page
 
                 if (order.Type == Order.TypeX.ForOrg)
                 {
-                    LabelTitle1.Text = "Biên bản giao nhận";
+                    LabelTitle1.Text = "BIÊN BẢN BÀN GIAO";
 
                     LoadOrder();
 
                     RedBloodDataContext db = new RedBloodDataContext();
 
-                    var v = db.PackOrders.Where(r => r.OrderID.Value == order.ID
-                        && !r.ReturnID.HasValue).ToList()
-                        .GroupBy(r => r.Pack.ProductCode)
+
+                    var v1 = db.PackOrders.Where(r => r.OrderID.Value == order.ID
+                        && !r.ReturnID.HasValue).ToList();
+
+                    var v = v1.GroupBy(r => r.Pack.ProductCode)
                         .Select(r => new
                         {
                             ProductCode = r.Key,
@@ -43,7 +45,8 @@ public partial class Store_PrintOrder : System.Web.UI.Page
                                 {
                                     Volume = r2.Key.HasValue ? r2.Key.Value.ToString() : "_",
                                     Total = r2.Count(),
-                                    DINList = string.Join(",", r2.Select(r3 => r3.Pack.DIN).ToArray()),
+                                    //DINList = string.Join(",", r2.Select(r3 => r3.Pack.DIN).ToArray()),
+                                    DINList = r2.Select(r3 => new { DIN = r3.Pack.DIN }).OrderBy(r4 => r4.DIN),
                                 }).OrderBy(r2 => r2.Volume)
                             }).OrderBy(r1 => r1.BloodGroupDesc),
                         });
@@ -51,14 +54,12 @@ public partial class Store_PrintOrder : System.Web.UI.Page
                     GridViewSum.DataSource = v;
                     GridViewSum.DataBind();
 
+                    LableCount.Text = v1.Count().ToStringRemoveZero();
 
-
-                    var v2 = db.PackOrders.Where(r => r.OrderID.Value == order.ID
-                        && !r.ReturnID.HasValue).ToList().OrderBy(r => r.Pack.DIN);
-
-
-                    GridViewPack.DataSource = v2;
-                    GridViewPack.DataBind();
+                    //var v2 = db.PackOrders.Where(r => r.OrderID.Value == order.ID
+                    //    && !r.ReturnID.HasValue).ToList().OrderBy(r => r.Pack.DIN);
+                    //GridViewPack.DataSource = v2;
+                    //GridViewPack.DataBind();
                 }
             }
         }
@@ -70,7 +71,8 @@ public partial class Store_PrintOrder : System.Web.UI.Page
         {
             imgOrder.ImageUrl = BarcodeBLL.Url4Order(order.ID);
             txtOrg.Text = order.Org != null ? order.Org.Name : "";
-
+            lblOrgFooter.Text = txtOrg.Text;
+            lblActor.Text = order.Actor;
             txtNote.Text = order.Note;
 
             if (order.Date != null)

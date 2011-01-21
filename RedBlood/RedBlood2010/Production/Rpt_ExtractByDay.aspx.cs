@@ -51,11 +51,32 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
 
         RedBloodDataContext db = new RedBloodDataContext();
 
-        //var packs = db.Packs.Where(r => r.Date.Value.Date >= dtFrom && r.Date.Value.Date <= dtTo
-        //   && r.Donation.OrgPackID != r.ID).OrderBy(r => r.Date);
-
         var packs = db.Packs.Where(r => r.Date.Value >= dtFrom && r.Date.Value <= dtTo
            && r.Donation.OrgPackID != r.ID).OrderBy(r => r.ProductCode).ThenBy(r => r.Date);
+
+        var v = packs.ToList().GroupBy(r => r.ProductCode)
+            .Select(r => new
+            {
+                ProductCode = r.Key,
+                ProductDesc = ProductBLL.GetDesc(r.Key),
+                Sum = r.Count(),
+                PrintUrl = "~/Production/FinalLabelPrint.aspx?PackList=" + string.Join(",", r.Where(r1 => r1.Donation.TestResultStatus == Donation.TestResultStatusX.Negative).Select(r1 => r1.ID.ToString())),
+                PrintCount = r.Where(r1 => r1.Donation.TestResultStatus == Donation.TestResultStatusX.Negative).Count(),
+                BloodGroupSumary = r.GroupBy(r1 => r1.Donation.BloodGroup).Select(r1 => new
+                {
+                    BloodGroupDesc = BloodGroupBLL.GetDescription(r1.Key),
+                    Total = r1.Count(),
+                    VolumeSumary = r1.GroupBy(r2 => r2.Volume).Select(r2 => new
+                    {
+                        Volume = r2.Key.HasValue ? r2.Key.Value.ToString() : "_",
+                        Total = r2.Count(),
+                        DINList = r2.Select(r3 => new { DIN = r3.DIN }).OrderBy(r4 => r4.DIN),
+                    }).OrderBy(r2 => r2.Volume)
+                }).OrderBy(r1 => r1.BloodGroupDesc),
+            });
+
+        GridViewSum.DataSource = v;
+        GridViewSum.DataBind();
 
         GridView1.DataSource = packs.ToList().Select(r => new
         {
@@ -67,17 +88,6 @@ public partial class FindAndReport_Rpt_ExtractByDay : System.Web.UI.Page
             r.Note,
         });
         GridView1.DataBind();
-
-        GridViewSummary.DataSource = packs.ToList().GroupBy(r => r.ProductCode).Select(r => new
-        {
-            ProductCode = r.Key,
-            Count = r.Count(),
-            PrintUrl = "~/Production/FinalLabelPrint.aspx?PackList="
-                + string.Join(",", r.Where(r1 => r1.Donation.TestResultStatus == Donation.TestResultStatusX.Negative)
-                                    .Select(r1 => r1.ID.ToString())),
-            PrintCount = r.Where(r1 => r1.Donation.TestResultStatus == Donation.TestResultStatusX.Negative).Count(),
-        });
-        GridViewSummary.DataBind();
 
         btnSelectedPack.Visible = packs.Count() > 0;
     }

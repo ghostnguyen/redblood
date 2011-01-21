@@ -75,13 +75,13 @@ public partial class FindAndReport_Rpt_ExtractByDay {
     protected global::System.Web.UI.WebControls.Button Button1;
     
     /// <summary>
-    /// GridViewSummary control.
+    /// GridViewSum control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.GridView GridViewSummary;
+    protected global::System.Web.UI.WebControls.GridView GridViewSum;
     
     /// <summary>
     /// btnSelectedPack control.

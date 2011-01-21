@@ -312,6 +312,7 @@ namespace RedBlood.BLL
             JScript4Postback4EachElement(script, BarcodeBLL.campaignLength, BarcodeBLL.campaignIdChar);
             JScript4Postback4EachElement(script, BarcodeBLL.InfectiousMarkersLength, BarcodeBLL.InfectiousMarkersIdChar);
             JScript4Postback4EachElement(script, BarcodeBLL.orderLength, BarcodeBLL.orderIdChar);
+            JScript4Postback4EachElement(script, BarcodeBLL.deleteLength, BarcodeBLL.deleteIdChar);
             JScript4Postback4EachElement(script, BarcodeBLL.productLength, BarcodeBLL.productIdChar);
             JScript4Postback4EachElement(script, BarcodeBLL.returnLength, BarcodeBLL.returnIdChar);
             //JScript4Postback4EachElement(script, BarcodeBLL.CMNDLength, "");

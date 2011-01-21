@@ -92,6 +92,7 @@
                         <td>
                             <asp:Button ID="btnOk" runat="server" Text="<%$ Resources:Resource,Update %>" OnClick="btnOk_Click"
                                 OnClientClick="return confirm('Hủy?');" />
+                            <asp:HyperLink ID="urlPrint" runat="server" Text="Xem trang In"> </asp:HyperLink>
                         </td>
                     </tr>
                     <%--        <tr>
