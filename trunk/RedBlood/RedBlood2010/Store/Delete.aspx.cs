@@ -158,6 +158,8 @@ public partial class Store_Delete : System.Web.UI.Page
         CurrentDIN = "";
         imgCurrentDIN.ImageUrl = "none";
 
+        urlPrint.NavigateUrl = ResolveClientUrl(string.Format("~/Store/PrintDelete.aspx?DeleteID={0}", e.ID));
+
         GridViewSum.DataBind();
     }
 

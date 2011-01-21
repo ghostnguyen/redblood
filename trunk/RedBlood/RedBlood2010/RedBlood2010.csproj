@@ -235,6 +235,8 @@
     <Content Include="Production\Divide.aspx" />
     <Content Include="Production\FinalLabelPrint.aspx" />
     <Content Include="Production\Scan4FinalLabelPrint.aspx" />
+    <Content Include="Store\PrintReturn.aspx" />
+    <Content Include="Store\PrintDelete.aspx" />
     <Content Include="Store\PrintOrder.aspx" />
     <Content Include="Store\Rpt_OrderByDay.aspx" />
     <Content Include="Store\Rpt_ReturnByDay.aspx" />
@@ -623,6 +625,20 @@
     </Compile>
     <Compile Include="Production\Scan4FinalLabelPrint.aspx.designer.cs">
       <DependentUpon>Scan4FinalLabelPrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\PrintReturn.aspx.cs">
+      <DependentUpon>PrintReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\PrintReturn.aspx.designer.cs">
+      <DependentUpon>PrintReturn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\PrintDelete.aspx.cs">
+      <DependentUpon>PrintDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\PrintDelete.aspx.designer.cs">
+      <DependentUpon>PrintDelete.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\PrintOrder.aspx.cs">
       <DependentUpon>PrintOrder.aspx</DependentUpon>

@@ -45,7 +45,7 @@ public partial class Store_PrintOrder {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtDate;
+    protected global::System.Web.UI.WebControls.Label txtDate;
     
     /// <summary>
     /// txtNote control.
@@ -54,7 +54,7 @@ public partial class Store_PrintOrder {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtNote;
+    protected global::System.Web.UI.WebControls.Label txtNote;
     
     /// <summary>
     /// txtOrg control.
@@ -63,7 +63,7 @@ public partial class Store_PrintOrder {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtOrg;
+    protected global::System.Web.UI.WebControls.Label txtOrg;
     
     /// <summary>
     /// txtTransfusionNote control.
@@ -72,7 +72,25 @@ public partial class Store_PrintOrder {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtTransfusionNote;
+    protected global::System.Web.UI.WebControls.Label txtTransfusionNote;
+    
+    /// <summary>
+    /// lblActor control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Label lblActor;
+    
+    /// <summary>
+    /// LableCount control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Label LableCount;
     
     /// <summary>
     /// GridViewSum control.
@@ -84,20 +102,11 @@ public partial class Store_PrintOrder {
     protected global::System.Web.UI.WebControls.GridView GridViewSum;
     
     /// <summary>
-    /// GridViewPack control.
+    /// lblOrgFooter control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.GridView GridViewPack;
-    
-    /// <summary>
-    /// LableCount control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Label LableCount;
+    protected global::System.Web.UI.WebControls.Label lblOrgFooter;
 }

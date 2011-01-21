@@ -9,70 +9,70 @@
 
 
 
-public partial class Store_Rpt_DeleteByDay {
+public partial class Store_PrintDelete {
     
     /// <summary>
-    /// txtDateFrom control.
+    /// LabelTitle1 control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtDateFrom;
+    protected global::System.Web.UI.WebControls.Label LabelTitle1;
     
     /// <summary>
-    /// CalendarExtender1 control.
+    /// LabelTitle2 control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
+    protected global::System.Web.UI.WebControls.Label LabelTitle2;
     
     /// <summary>
-    /// txtHourFrom control.
+    /// imgBarcode control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtHourFrom;
+    protected global::System.Web.UI.WebControls.Image imgBarcode;
     
     /// <summary>
-    /// txtDateTo control.
+    /// txtDate control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtDateTo;
+    protected global::System.Web.UI.WebControls.Label txtDate;
     
     /// <summary>
-    /// CalendarExtender2 control.
+    /// lblActor control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
+    protected global::System.Web.UI.WebControls.Label lblActor;
     
     /// <summary>
-    /// txtHourTo control.
+    /// txtNote control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtHourTo;
+    protected global::System.Web.UI.WebControls.Label txtNote;
     
     /// <summary>
-    /// Button1 control.
+    /// LableCount control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button Button1;
+    protected global::System.Web.UI.WebControls.Label LableCount;
     
     /// <summary>
     /// GridViewSum control.
@@ -82,13 +82,4 @@ public partial class Store_Rpt_DeleteByDay {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.GridView GridViewSum;
-    
-    /// <summary>
-    /// GridView1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.GridView GridView1;
 }

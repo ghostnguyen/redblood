@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageRpt.master" AutoEventWireup="true"
-    Inherits="Store_PrintOrder" CodeBehind="PrintOrder.aspx.cs" %>
+    Inherits="Store_PrintReturn" CodeBehind="PrintReturn.aspx.cs" %>
 
 <%@ Register Src="~/UserControl/CampaignDetail4Rpt.ascx" TagPrefix="uc" TagName="CampaignDetail" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
@@ -20,18 +20,26 @@
                 <table>
                     <tr valign="top">
                         <td>
-                            <div style="width: 160px;">
-                                <asp:Image ID="imgOrder" runat="server" ImageUrl="none" />
+                            <div style="">
+                                <asp:Image ID="imgBarcode" runat="server" ImageUrl="none" />
                             </div>
                         </td>
                         <td>
-                            <table>
+                            <table cellspacing="5">
                                 <tr>
                                     <td>
-                                        Ngày cấp
+                                        Ngày hủy
                                     </td>
                                     <td>
                                         <asp:Label ID="txtDate" runat="server" ReadOnly="true"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nhân viên
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblActor" runat="server" ReadOnly="true"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
@@ -40,30 +48,6 @@
                                     </td>
                                     <td>
                                         <asp:Label ID="txtNote" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Đơn vị nhận
-                                    </td>
-                                    <td>
-                                        <asp:Label ID="txtOrg" runat="server" CssClass="campaign_cellvalue" autocomplete="off"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Ghi chú truyền máu
-                                    </td>
-                                    <td>
-                                        <asp:Label ID="txtTransfusionNote" Width="299" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Người cấp phát
-                                    </td>
-                                    <td>
-                                        <asp:Label ID="lblActor" runat="server" ReadOnly="true"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
@@ -77,10 +61,6 @@
                             </table>
                         </td>
                     </tr>
-                    <%--<tr>
-                        <td class="dotLineBottom" colspan="2">
-                        </td>
-                    </tr>--%>
                 </table>
             </td>
         </tr>
@@ -138,10 +118,10 @@
                     <tr>
                         <td>
                             <div style="width: 300px; text-align: center;">
-                                <br />
+                                <%--<br />
                                 <asp:Label ID="lblOrgFooter" runat="server" CssClass="campaign_cellvalue" autocomplete="off"></asp:Label>
                                 <br />
-                                Người nhận
+                                Người nhận--%>
                             </div>
                         </td>
                         <td>
@@ -153,9 +133,9 @@
                                 năm
                                 <%= DateTime.Now.Year %>
                                 <br />
-                                TTTM BV Chợ Rẫy - Đơn vị cấp phát
+                                TTTM BV Chợ Rẫy - Đơn vị sản xuất
                                 <br />
-                                Người giao
+                                Nhân viên
                                 <br />
                             </div>
                         </td>

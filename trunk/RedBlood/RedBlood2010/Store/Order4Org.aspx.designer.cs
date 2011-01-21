@@ -129,6 +129,15 @@ public partial class Store_Order4Org {
     protected global::System.Web.UI.WebControls.Button btnDelete;
     
     /// <summary>
+    /// urlPrint control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.HyperLink urlPrint;
+    
+    /// <summary>
     /// imgCurrentDIN control.
     /// </summary>
     /// <remarks>

@@ -73,10 +73,29 @@ public partial class Store_Rpt_DeleteByDay : System.Web.UI.Page
         GridView1.DataBind();
 
         var s = v.SelectMany(r => r.Packs).ToList();
-        var sum = v.SelectMany(r => r.Packs).GroupBy(r => r.ProductCode).Select(r => new { ProductCode = r.Key, Count = r.Count() }).ToList();
+        
+        var v1 = s.ToList().GroupBy(r => r.ProductCode)
+            .Select(r => new
+            {
+                ProductCode = r.Key,
+                ProductDesc = ProductBLL.GetDesc(r.Key),
+                Sum = r.Count(),
+                BloodGroupSumary = r.GroupBy(r1 => r1.Donation.BloodGroup).Select(r1 => new
+                {
+                    BloodGroupDesc = BloodGroupBLL.GetDescription(r1.Key),
+                    Total = r1.Count(),
+                    VolumeSumary = r1.GroupBy(r2 => r2.Volume).Select(r2 => new
+                    {
+                        Volume = r2.Key.HasValue ? r2.Key.Value.ToString() : "_",
+                        Total = r2.Count(),
+                        DINList = r2.Select(r3 => new { DIN = r3.DIN }).OrderBy(r4 => r4.DIN),
+                    }).OrderBy(r2 => r2.Volume)
+                }).OrderBy(r1 => r1.BloodGroupDesc),
+            });
 
-        GridViewSummary.DataSource = sum;
-        GridViewSummary.DataBind();
+        GridViewSum.DataSource = v1;
+        GridViewSum.DataBind();
+
     }
 
 }
